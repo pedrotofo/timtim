@@ -832,7 +832,7 @@ EPUB_FONTS = [('Serif', 'eb-garamond-latin-400-normal.ttf', 400, 'normal'), ('Se
               ('Serif', 'eb-garamond-latin-600-normal.ttf', 600, 'normal'), ('Disp', 'archivo-black-latin-400-normal.woff', 400, 'normal'),
               ('Sans', 'archivo-latin-400-normal.woff', 400, 'normal'), ('Sans', 'archivo-latin-700-normal.woff', 700, 'normal')]
 EPUB_CSS = """
-body{font-family:Serif,serif;line-height:1.5;margin:0 4%;color:#1E1913}
+body{font-family:Serif,serif;line-height:1.5;margin:0;color:#1E1913}
 h1{font-family:Disp,sans-serif;font-weight:400;font-size:1.65em;line-height:1.12;margin:1.4em 0 .9em;page-break-before:always}
 h1 .lvnum{display:block;font-family:Sans,sans-serif;font-weight:700;font-size:.45em;color:#8C5A2E;margin-bottom:.4em}
 h2{font-family:Disp,sans-serif;font-weight:400;font-size:1.15em;line-height:1.2;margin:1.6em 0 .5em}
@@ -840,12 +840,16 @@ h3{font-family:Sans,sans-serif;font-weight:700;font-size:1.05em;margin:.3em 0 .4
 h4{font-family:Sans,sans-serif;font-weight:700;font-size:.78em;margin:0 0 .4em}
 p{margin:0 0 .6em;text-indent:0}
 a{color:#1E1913}
-figure{margin:1.2em 0;text-align:center;page-break-inside:avoid}
+figure{display:block;margin:1.2em 0;text-align:center;page-break-inside:avoid}
 img{max-width:100%;height:auto}
 figcaption{font-family:Sans,sans-serif;font-size:.72em;line-height:1.45;color:#5F5446;text-align:left;margin-top:.4em}
 .vida{background:#EFE8DB;padding:.7em .9em .5em;margin:0 0 1.3em;font-size:.92em}
 .marks figure,.pair figure{margin:.8em 0}
-.steps4 figure{display:inline-block;width:47%;margin:.3em 1%;vertical-align:top}
+.kgrid{width:100%;border-collapse:collapse;margin:.4em 0 1.2em;page-break-inside:avoid}
+.kgrid td.kc{border:0;padding:.2em .4em .4em;vertical-align:top;text-align:center}
+.kgrid td.kc img{width:100%;max-width:9em}
+.kgrid p.kt{font-family:Sans,sans-serif;font-size:.68em;line-height:1.35;color:#5F5446;text-align:left;margin:.3em 0 0}
+.kgrid p.kt b{display:block;color:#1E1913}
 .practice{border-top:1px solid #1E1913;margin-top:1.6em;padding-top:.6em;font-size:.9em}
 .practice ul{list-style:none;padding:0}.practice a{font-family:Sans,sans-serif;font-weight:700;font-size:.85em;margin-right:.3em}
 .practice .lvl{font-family:Sans,sans-serif;color:#6E6253;font-size:.75em}
@@ -860,7 +864,7 @@ table{border-collapse:collapse;width:100%;font-size:.88em}th,td{border-bottom:1p
 th{font-family:Sans,sans-serif;font-size:.8em;border-bottom:1px solid #1E1913}
 dl.gloss dt{font-family:Sans,sans-serif;font-weight:700;font-size:.9em;margin-top:.7em}dl.gloss dd{margin-left:0}
 .sign{text-align:right;font-style:italic}
-.cat{margin:0 0 1.4em;page-break-inside:avoid;clear:both;overflow:hidden;border-top:1px solid #CFC4B0;padding-top:.6em}.cat img{max-width:38%;float:left;margin:0 .8em .4em 0}.cat div{overflow:hidden}
+.cat{margin:0 0 1.4em;page-break-inside:avoid;clear:both;overflow:hidden;border-top:1px solid #CFC4B0;padding-top:.6em}.cat img{display:block;width:34%;margin:0 0 .5em}.cat div{overflow:hidden}
 .cat p{margin:0 0 .2em}.cc,.cf{font-family:Sans,sans-serif;font-size:.75em;color:#5F5446}.cn{font-family:Disp,sans-serif;margin-right:.35em}
 .parttitle{margin-top:1.2em}.parttitle .pn{font-family:Disp,sans-serif;font-size:3.6em;line-height:1;color:#BF8A5A;margin:0}
 .parttitle h1{page-break-before:avoid;font-family:Sans,sans-serif;font-weight:700;font-size:.8em;margin:.6em 0 .2em}
@@ -893,6 +897,44 @@ def page(title, body):
     return ('<?xml version="1.0" encoding="utf-8"?>\n<!DOCTYPE html>\n<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" lang="pt-BR" xml:lang="pt-BR">'
             f'<head><meta charset="utf-8"/><title>{esc(title)}</title><link rel="stylesheet" type="text/css" href="style.css"/></head><body>{body}</body></html>')
 
+def epub_assets():
+    """Imagens extras para leitores (Kindle): balões em PNG com círculo transparente e o mapa em PNG."""
+    from PIL import Image, ImageDraw
+    import glob, subprocess, tempfile
+    for f in glob.glob('img/det-*.jpg'):
+        out = f[:-4] + '.png'
+        if os.path.exists(out) and os.path.getmtime(out) >= os.path.getmtime(f):
+            continue
+        im = Image.open(f).convert('RGB').resize((360, 360), Image.LANCZOS)
+        m = Image.new('L', (1440, 1440), 0); ImageDraw.Draw(m).ellipse((0, 0, 1439, 1439), fill=255)
+        im.putalpha(m.resize((360, 360), Image.LANCZOS)); im.save(out, optimize=True)
+    if not os.path.exists('img/mapa-caminho.png') or os.path.getmtime('img/mapa-caminho.png') < os.path.getmtime('img/mapa-caminho.svg'):
+        from weasyprint import HTML
+        with tempfile.TemporaryDirectory() as td:
+            HTML(string=f'<style>{font_faces()}@page{{size:6in 9in;margin:0}}body{{margin:0}}</style>' + open('img/mapa-caminho.svg').read(),
+                 base_url=ROOT).write_pdf(f'{td}/m.pdf')
+            subprocess.run(['pdftoppm', '-r', '200', '-jpeg', '-singlefile', f'{td}/m.pdf', f'{td}/m'], check=True)
+            Image.open(f'{td}/m.jpg').convert('RGB').save('img/mapa-caminho.png', optimize=True)
+
+def kindle_html(body):
+    """Simplifica o HTML para leitores: sem imagens lado a lado por porcentagem, sem SVG, sem páginas do PDF."""
+    body = re.sub(r'<img class="icon"[^>]*?/?>', '', body)
+    body = body.replace('img/mapa-caminho.svg', 'img/mapa-caminho.png')
+    body = re.sub(r' · p\. <a class="pg" href="[^"]*"></a>(–<a class="pg" href="[^"]*"></a>)?', '', body)
+    def bal(m):
+        cells = re.findall(r'<figure class="bal"><img src="img/(det-[^"]+)\.jpg" alt="([^"]*)"/><figcaption>(.*?)</figcaption></figure>', m.group(0), re.S)
+        tds = ''.join(f'<td class="kc"><img src="img/{k}.png" alt="{a}"/><p class="kt">{c}</p></td>' for k, a, c in cells)
+        return f'<table class="kgrid"><tr>{tds}</tr></table>'
+    body = re.sub(r'<div class="balrow[^"]*">.*?</div>', bal, body, flags=re.S)
+    def steps(m):
+        figs = re.findall(r'<figure><img src="([^"]+)" alt="([^"]*)"/?>\s*<figcaption>(.*?)</figcaption></figure>', m.group(0), re.S)
+        rows = ''
+        for i in range(0, len(figs), 2):
+            rows += '<tr>' + ''.join(f'<td class="kc"><img src="{s_}" alt="{a}"/><p class="kt">{c}</p></td>' for s_, a, c in figs[i:i + 2]) + '</tr>'
+        return f'<table class="kgrid">{rows}</table>'
+    body = re.sub(r'<div class="steps4[^"]*">.*?</div>', steps, body, flags=re.S)
+    return body
+
 def build_epub(S, out, small=None):
     files = []  # (name, title, body, kind)
     files.append(('titulo.xhtml', 'Folha de rosto', '<div class="titlepage"><p class="t">Van Gogh a Lápis</p><p class="s">Teoria e prática para desenhar como Vincent</p><p class="a">PEDRO TORRES</p></div>'
@@ -908,6 +950,7 @@ def build_epub(S, out, small=None):
                     f'<h1>{lab_}</h1><h2>{name_}</h2>{it}</div></section>')
         else:
             body = f'<section id="{s["id"]}">{s["html"].replace("<!--MAPA-->", map_html(False))}{s.get("epub_extra", "")}</section>'
+        body = kindle_html(body)
         files.append((name, s['title'], body, s['kind']))
         for m in re.finditer(r'id="([^"]+)"', body):
             idfile[m.group(1)] = name
@@ -937,7 +980,9 @@ def build_epub(S, out, small=None):
             z.writestr('OEBPS/' + name, page(title, x), compress_type=zipfile.ZIP_DEFLATED)
         imgs.add('img/cover.jpg')
         for im in sorted(imgs):
-            if im.endswith('.svg'):
+            if im.endswith('.png'):
+                z.write(im, 'OEBPS/' + im, compress_type=zipfile.ZIP_STORED)
+            elif im.endswith('.svg'):
                 z.write(im, 'OEBPS/' + im, compress_type=zipfile.ZIP_DEFLATED)
             elif small:
                 from PIL import Image
@@ -965,7 +1010,7 @@ def build_epub(S, out, small=None):
             man.append(f'<item id="f{k}" href="fonts/{f}" media-type="font/ttf"/>')
         for k, im in enumerate(sorted(imgs)):
             props = ' properties="cover-image"' if im == 'img/cover.jpg' else ''
-            mt = 'image/svg+xml' if im.endswith('.svg') else 'image/jpeg'
+            mt = 'image/svg+xml' if im.endswith('.svg') else 'image/png' if im.endswith('.png') else 'image/jpeg'
             man.append(f'<item id="i{k}" href="{im}" media-type="{mt}"{props}/>')
         now = datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')
         opf = ('<?xml version="1.0" encoding="utf-8"?><package xmlns="http://www.idpf.org/2007/opf" version="3.0" unique-identifier="bid" xml:lang="pt-BR">'
@@ -1020,6 +1065,7 @@ if __name__ == '__main__':
         print('páginas', len(doc.pages))
         doc.write_pdf('out/Van-Gogh-a-Lapis.pdf')
     if 'epub' in args:
+        epub_assets()
         build_epub(S, 'out/Van-Gogh-a-Lapis.epub')
         build_epub(S, 'out/Van-Gogh-a-Lapis-loja-Amazon.epub', small=800)
         print('epub ok')
