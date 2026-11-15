@@ -26,8 +26,6 @@ C.LEVEL_END = sx(C.LEVEL_END); C.ARENA_X = sx(C.ARENA_X);
 C.grounds = C.grounds.map(([x, w], i) => [i === 1 ? x : sx(x), w]);
 C.plats = C.plats.map(([x, y, w]) => [sx(x), y, w]).concat([[1560, 330, 140], [1820, 260, 120]]);
 C.checkpoints = C.checkpoints.map(sx); C.friends.forEach(f => { f.x = sx(f.x); });
-// dicas que aparecem uma vez, quando o jogador chega perto da novidade
-C.tips = [{ x: 1300, text: 'Pise nos pombos por cima!' }, { x: 2420, text: 'Chocolate faz mal! Pule por cima' }];
 const { W, H, GROUND, GRAV, JUMP_V, RUN, FAST, LEVEL_END, ARENA_X } = C; // (já com o trecho novo)
 
 // ---- eventos (o jogo avisa; som, tela e interface reagem) ----
@@ -98,7 +96,7 @@ function reset() {
     player: makePlayer(120), items: makeItems(), enemies: makeEnemies(), pugs: makePugs(),
     cam: { x: 0, y: 0, look: 0 }, time: 0, clock: 0, cookies: 0, arena: false, trauma: 0, hitstop: 0,
     gold: 0, timeScale: 1, slowT: 0, cine: null, checkpoint: -1, bossSeen: false, hpLost: 0, winT: 0, dustT: 0,
-    friends: C.friends.map(f => ({ x: f.x, home: f.x, vx: 0, follow: 0, kind: f.kind, given: false, hop: 0, face: -1, t: 0 })), gifts: [], tip: 0,
+    friends: C.friends.map(f => ({ x: f.x, home: f.x, vx: 0, follow: 0, kind: f.kind, given: false, hop: 0, face: -1, t: 0 })), gifts: [],
   });
   S.totalCookies = S.items.filter(i => i.type === 'cookie').length + C.friends.length * C.GIFT;
 }
@@ -174,7 +172,6 @@ TT.update = (rdt) => {
 
   p.x += p.vx * dt;
   p.x = Math.max(S.arena ? ARENA_X + 4 : 0, Math.min(LEVEL_END - p.w - 4, p.x));
-  while (S.tip < C.tips.length && p.x > C.tips[S.tip].x) emit('banner', { text: C.tips[S.tip++].text }); // dica de novidade, uma vez só
   for (const s of SOLIDS) if (!s.oneWay && overlap(p, s)) { if (p.vx > 0) p.x = s.x - p.w; else if (p.vx < 0) p.x = s.x + s.w; }
   const prevBottom = p.y + p.h;
   p.y += p.vy * dt;
@@ -253,7 +250,7 @@ TT.update = (rdt) => {
       e.alive = false; e.dy = -400; S.hitstop = 0.05; S.trauma = Math.min(1, S.trauma + 0.25);
       if (p.mega <= 0) p.vy = -560;
       emit('stomp', { x: e.x + e.w / 2, y: e.y, boss: false });
-    } else { const hp = S.player.hp; hurt(); if (S.player.hp < hp && S.mode === 'play') emit('banner', { text: 'Um pombo te bicou! Pise nele por cima.' }); }
+    } else hurt();
   }
 
   // arena
