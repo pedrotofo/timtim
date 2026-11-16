@@ -53,7 +53,7 @@ function irisOpenFromBlack() { iris.style.transition = 'none'; irisTo(true, { x:
 
 function begin(fn) { TT.audioInit(); TT.sfx('ui'); irisTo(true, { x: 0.5, y: 0.5 }); setTimeout(() => { fn(); }, 520); }
 // abertura: introdução cinematográfica (src/intro.js) — três quadros com zoom lento e uma frase em cada. Qualquer toque pula.
-const titleEl = $('title'), STORY = ['A Vizinha Bruxa tirou a paz da Vila de Reserva com seus Pugs barulhentos.', 'Agora cabe ao Timtim…', '…com a ajuda de seus amigos Zara e Elvis, restaurar a paz e a harmonia deste lugar.'];
+const titleEl = $('title'), STORY = ['O Brutão, o valentão da vila, tirou a paz da Vila de Reserva com seus latidos.', 'Agora cabe ao Timtim…', '…com a ajuda de seus amigos Zara e Elvis, restaurar a paz e a harmonia deste lugar.'];
 const DUR = (TT.intro && TT.intro.durations) || [3.1, 3.1, 3.1];
 let storyTimer = null, storyAt = 0;
 function storyLine(i) { if (i >= STORY.length) return endStory(); if (TT.intro) TT.intro.scene(i); const l = $('storyLine'); l.textContent = STORY[i]; l.dataset.pos = $('introScrim').dataset.pos = (TT.intro && TT.intro.textPos[i]) || ''; l.style.setProperty('--d', DUR[i] + 's'); l.classList.remove('show'); void l.offsetWidth; l.classList.add('show'); storyTimer = setTimeout(() => storyLine(i + 1), DUR[i] * 1000); }
@@ -90,7 +90,7 @@ TT.uiFrame = () => {
   setIf('mega', Math.ceil(p.mega), v => { $('chipMega').classList.toggle('on', v > 0); $('chipMega').lastElementChild.textContent = v; });
   setIf('boss', S.arena, v => $('hr').classList.toggle('boss', v));
   if (!S.arena) setIf('prog', Math.round(Math.min(1, p.x / C.ARENA_X) * 200) / 2, v => { $('progFill').style.width = v + '%'; $('progDog').style.left = v + '%'; });
-  else S.pugs.forEach((g, i) => setIf('pug' + i, g.hp, v => segs[i].forEach((s, k) => s.classList.toggle('off', k >= v))));
+  else setIf('bossHp', S.boss.hp, v => segs[0].forEach((s, k) => s.classList.toggle('off', k >= v)));
 };
 
 const banner = $('banner');

@@ -5,7 +5,7 @@ const TT = window.TT, S = TT.S, R = TT.R;
 
 const sfxOn = (ev, name) => TT.on(ev, () => TT.sfx(name));
 sfxOn('jump', 'jump'); sfxOn('jump2', 'jump2'); sfxOn('friend', 'friend'); sfxOn('gift', 'gift'); sfxOn('land', 'land'); sfxOn('cookie', 'cookie'); sfxOn('power', 'power'); sfxOn('stomp', 'stomp'); sfxOn('hurt', 'hurt');
-sfxOn('bark', 'bark'); sfxOn('choco', 'choco'); sfxOn('checkpoint', 'checkpoint'); sfxOn('bossIntro', 'boss'); sfxOn('finalBlow', 'final');
+sfxOn('bark', 'bark'); sfxOn('bigBark', 'bigBark'); sfxOn('bonk', 'bonk'); sfxOn('pound', 'pound'); sfxOn('throw', 'throwBall'); sfxOn('chew', 'squeak'); sfxOn('shrug', 'boing'); sfxOn('choco', 'choco'); sfxOn('checkpoint', 'checkpoint'); sfxOn('bossIntro', 'boss'); sfxOn('finalBlow', 'final');
 TT.on('start', () => { TT.music(S.arena ? 'boss' : 'level'); TT.audioDuck(false); });
 TT.on('bossIntro', () => TT.music(null));
 TT.on('cineEnd', () => TT.music('boss'));
@@ -33,5 +33,5 @@ function loop(now) {
   requestAnimationFrame(loop);
 }
 requestAnimationFrame(loop);
-window.__tintim = { get state() { return S.mode; }, get player() { return S.player; }, get pugs() { return S.pugs; }, S, R };
+window.__tintim = { get state() { return S.mode; }, get player() { return S.player; }, get boss() { return S.boss; }, S, R };
 })();

@@ -27,15 +27,15 @@ THREE.DefaultLoadingManager.onLoad = () => { R.ready = true; TT.emit('assetsRead
 const TL = new THREE.TextureLoader();
 const load = p => { const t = TL.load('assets/' + p); t.anisotropy = 4; return t; };
 const AR = { 'tintim-idle': 232 / 220, 'tintim-run': 1.2143, 'tintim-jump': 270 / 200, 'tintim-fall': 240 / 220, 'tintim-hurt': 218 / 220,
-  'tintim-win': 189 / 240, 'pug-walk': 1.2286, 'pug-charge': 309 / 200, 'pug-stun': 313 / 130, pigeon: 1.1381, monkey: 126 / 140,
+  'tintim-win': 189 / 240, 'brute-walk': 362 / 320, 'brute-charge': 454 / 253, 'brute-bark': 341 / 322, 'brute-ball': 413 / 265, 'brute-dizzy': 374 / 345, 'brute-down': 432 / 209, pigeon: 1.1381, monkey: 126 / 140,
   banana: 1, cookie: 129 / 90, 'chi-pb': 245 / 300, 'chi-br': 223 / 300 };
 const TEX = {};
 AR.choco = 1.25;
 for (const k in AR) if (k !== 'choco') TEX[k] = load('sprites/' + k + '.png');
-// tiras de quadros desenhados: corrida do Timtim (8), corrida dos chihuahuas, andar do pug e do pombo (4 cada)
-const FRAMES = { 'tintim-run': 8, 'chi-pb-run': 4, 'chi-br-run': 4, 'pug-walk': 4, pigeon: 4 };
+// tiras de quadros desenhados: corrida do Timtim (8), corrida dos chihuahuas e andar do pombo (4 cada)
+const FRAMES = { 'tintim-run': 8, 'chi-pb-run': 4, 'chi-br-run': 4, pigeon: 4 };
 for (const k in FRAMES) if (TEX[k]) TEX[k].repeat.set(1 / FRAMES[k], 1);
-// cada personagem tem a sua cópia da tira, para que dois pugs (ou nove pombos) possam estar em quadros diferentes
+// cada personagem tem a sua cópia da tira, para que nove pombos possam estar em quadros diferentes
 const ownTex = k => { const t = load('sprites/' + k + '.png'); t.repeat.set(1 / FRAMES[k], 1); return t; };
 // perfis dos chihuahuas (para quando correm); a proporção vem da própria imagem
 AR['chi-pb-run'] = 1.3143; AR['chi-br-run'] = 1.3095; ['chi-pb-run', 'chi-br-run'].forEach(k => { TEX[k] = load('sprites/' + k + '.png'); TEX[k].repeat.set(0.25, 1); });
@@ -390,9 +390,21 @@ const ghostM = [0, 1, 2, 3, 4, 5].map(() => { const m = add(new THREE.Mesh(plane
 tintim.geometry = legGeo();
 const tailX = { x: 0, v: 0 }, tailY = { x: 0, v: 0 }, earS = { x: 0, v: 0 }; let faceS = 1;
 const ghosts = []; let ghostT = 0;
-const pugM = [0, 1].map(i => { const m = sprite('pug-walk', 5, true, i ? 0x9aa6cc : NIGHT); m.geometry = legGeo(); m.userData.ph = i * 2; m.userData.own = { 'pug-walk': ownTex('pug-walk') }; m.material.map = m.customDepthMaterial.map = m.userData.own['pug-walk'];
-  m.userData.stars = [0, 1, 2].map(() => { const s = add(new THREE.Mesh(planeGeoC, new THREE.MeshBasicMaterial({ map: texStar, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, fog: false })), 7); s.scale.set(16, 16, 1); s.visible = false; return s; });
-  return m; });
+// Brutão: um sprite por pose (andar, investir, latir, morder a bolinha, tonto, derrotado), com patas que se mexem por deformação
+const bruteM = sprite('brute-walk', 5, true, 0xc4cfe6); bruteM.geometry = legGeo(); bruteM.userData.ph = 0;
+bruteM.userData.stars = [0, 1, 2].map(() => { const s = add(new THREE.Mesh(planeGeoC, new THREE.MeshBasicMaterial({ map: texStar, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, fog: false })), 7); s.scale.set(20, 20, 1); s.visible = false; return s; });
+const bruteGlow = add(new THREE.Mesh(planeGeoC, glowMat(0xffe14d, 0)), 4); // brilho amarelo na hora certa de pisar
+const bruteWarn = add(new THREE.Mesh(planeGeoC, glowMat(0xff2a55, 0)), 4); // vermelho no aviso de ataque
+const bruteShadow = add(new THREE.Mesh(planeGeoC, new THREE.MeshBasicMaterial({ map: texSoft, color: 0xff1f44, transparent: true, opacity: 0, depthWrite: false, fog: false })), 4); // marca vermelha no chão: onde o pisão do terremoto vai cair
+// bolinha vermelha de borracha, desenhada por código
+const texBall = canvasTex(64, 64, x => { const g = x.createRadialGradient(24, 22, 4, 32, 32, 30); g.addColorStop(0, '#ff8a8a'); g.addColorStop(0.5, '#e8283c'); g.addColorStop(1, '#8a0f1e');
+  x.fillStyle = g; x.beginPath(); x.arc(32, 32, 29, 0, 7); x.fill(); x.strokeStyle = 'rgba(255,240,220,.85)'; x.lineWidth = 3; x.beginPath(); x.arc(32, 32, 20, 0.4, 2.6); x.stroke(); });
+const ballM = add(new THREE.Mesh(planeGeoC, new THREE.MeshBasicMaterial({ map: texBall, transparent: true, depthWrite: false })), 6); ballM.visible = false;
+const ballGlow = add(new THREE.Mesh(planeGeoC, glowMat(0xffe14d, 0.7)), 5); ballGlow.visible = false;
+// onda de choque do latido: um arco de luz que corre pelo chão
+const texWave = canvasTex(64, 128, x => { const g = x.createLinearGradient(0, 0, 64, 0); g.addColorStop(0, 'rgba(255,230,150,0)'); g.addColorStop(0.55, 'rgba(255,230,150,.95)'); g.addColorStop(1, 'rgba(255,255,255,0)');
+  x.fillStyle = g; x.beginPath(); x.ellipse(32, 128, 30, 124, 0, Math.PI, 0); x.fill(); });
+const waveM = [0, 1, 2, 3].map(() => { const m = add(new THREE.Mesh(planeGeoC, new THREE.MeshBasicMaterial({ map: texWave, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, fog: false })), 6); m.visible = false; return m; });
 const pigeonM = S.enemies.map(() => { const m = sprite('pigeon', 5, true, 0xffffff); m.geometry = legGeo(); m.userData.warn = add(new THREE.Mesh(planeGeoC, glowMat(0xff2a55, 0.8)), 6); m.material.color.setRGB(1.75, 1.6, 1.85); m.userData.own = { pigeon: ownTex('pigeon') }; m.material.map = m.customDepthMaterial.map = m.userData.own.pigeon; return m; });
 // barra de chocolate meio desembrulhada, desenhada por código. Contorno creme grosso e embalagem vermelha viva
 // para não sumir no cenário escuro; o brilho vermelho (a cor de "perigo" do jogo, igual ao aviso dos pombos) faz o resto.
@@ -426,7 +438,14 @@ const MOTE = [0xbff4ff, 0x7fe0ff, 0xd9fff2];
 const dustPuff = (x, y, n, spread) => { for (let i = 0; i < n; i++) spawn({ x, y: y - 2, vx: (Math.random() - 0.5) * spread, vy: -20 - Math.random() * 70, g: -40, life: 0.6, r: 3 + Math.random() * 3, grow: 5, color: MOTE[i % 3] }); };
 TT.on('dust', e => spawn({ x: e.x, y: e.y - 4, vx: e.dir * (20 + Math.random() * 50), vy: -30 - Math.random() * 50, g: -60, life: 0.7, r: 2.5 + Math.random() * 2.5, grow: 3, color: MOTE[Math.floor(Math.random() * 3)] }));
 TT.on('land', e => { dustPuff(e.x, e.y, 10, 260); sqV -= 5; });
-TT.on('pugLand', e => dustPuff(e.x, e.y, 9, 320));
+TT.on('dig', e => spawn({ x: e.x, y: e.y - 4, vx: (Math.random() - 0.5) * 160, vy: -60 - Math.random() * 120, g: 500, life: 0.5, r: 3 + Math.random() * 3, color: 0xb89a6a }));
+TT.on('bonk', e => { burst(e.x, e.y, [0xfff2c8, 0xffd98a, 0xffffff], 14, 260); dustPuff(e.x, GROUND, 10, 320); });
+TT.on('pound', e => { dustPuff(e.x, e.y, 22, 700); burst(e.x, e.y - 10, [0x8a7a5a, 0xb89a6a, 0x5a4a3a], 18, 360, 900); });
+TT.on('bigBark', e => { for (let i = 0; i < 10; i++) { const a = -0.6 + i * 0.13; spawn({ x: e.x, y: e.y + 30, vx: Math.cos(a) * 300 * (Math.random() < 0.5 ? 1 : -1), vy: Math.sin(a) * 300, g: 0, life: 0.45, r: 4, grow: 14, color: 0xfff2c8 }); } });
+TT.on('ballBounce', e => dustPuff(e.x, e.y, 4, 120));
+TT.on('chew', e => burst(e.x, e.y - 20, [0xffe14d, 0xffffff], 8, 160, 200));
+TT.on('shrug', e => burst(e.x, e.y + 10, [0xffffff, 0xc4cfe6], 8, 200));
+TT.on('throw', e => burst(e.x, e.y, [0xff5a6e, 0xffffff], 6, 120, 200));
 TT.on('jump', e => { dustPuff(e.x, e.y, 5, 120); sqV += 3.4; });
 TT.on('jump2', e => { sqV += 3; for (let i = 0; i < 14; i++) { const a = i / 14 * 6.28; spawn({ x: e.x + Math.cos(a) * 20, y: e.y + Math.sin(a) * 14, vx: Math.cos(a) * 190, vy: Math.sin(a) * 120, g: 0, life: 0.4, r: 4, grow: -4, color: MOTE[i % 3], hard: true }); } });
 TT.on('cookie', e => burst(e.x, e.y, [0xffd98a, 0xffb65a, 0xfff2c8], 8, 170));
@@ -586,35 +605,53 @@ R.frame = (rdt) => {
     m.scale.set(30 * AR.cookie, 30, 1); m.position.set(g.x, Y(g.y), 5); m.rotation.z = g.t * 9; gl.position.set(g.x, Y(g.y), 4); gl.scale.set(86, 86, 1);
     if (Math.random() < 0.6) spawn({ x: g.x, y: g.y, vx: (Math.random() - 0.5) * 40, vy: (Math.random() - 0.5) * 40, g: 60, life: 0.45, r: 3, color: 0xffd98a }); });
 
-  // pugs
-  S.pugs.forEach((g, i) => {
-    const m = pugM[i], x = g.x + g.w / 2, flip = g.dir > 0;
-    let n = 'pug-walk', ph = 86, y = Y(g.y + g.h) - 3, walking = false;
-    if (g.hp <= 0) { n = 'pug-stun'; ph = 56; }
-    else if (g.stun > 0) { n = 'pug-stun'; ph = 56; }
-    else if (g.y + g.h < GROUND - 4 || Math.abs(g.vx) > 200) n = 'pug-charge';
-    else { walking = Math.abs(g.vx) > 12 && g.wind <= 0; if (walking) { m.userData.ph += Math.abs(g.vx) * live / 11; y += Math.abs(Math.sin(m.userData.ph)) * 3.5; } }
-    const turn = g.turnT > 0 ? g.turnT / 0.2 : 0; // ao virar, o corpo gira de lado em vez de espelhar de uma vez
-    setAnim(m, n, ph, turn > 0.5 ? !flip : flip, walking ? Math.floor(m.userData.ph * 2 / Math.PI) : 1, n === 'pug-walk' ? 4 : 1);
+  // Brutão
+  { const g = S.boss, m = bruteM, x = g.x + g.w / 2, flip = g.dir > 0, st = g.state, dead = g.hp <= 0;
+    let n = 'brute-walk', ph = 150, y = Y(g.y + g.h) - 4, walking = false;
+    if (dead) { n = 'brute-down'; ph = 96; }
+    else if (st === 'hurt') { n = 'brute-dizzy'; ph = 160; }
+    else if (st === 'chew') { n = 'brute-ball'; ph = 116; }
+    else if (st === 'bark' || (st === 'wind' && g.atk === 'bark')) { n = 'brute-bark'; ph = 156; }
+    else if (st === 'charge' || st === 'jump' || (st === 'fetch' && Math.abs(g.vx) > 200)) { n = 'brute-charge'; ph = 124; }
+    else { walking = Math.abs(g.vx) > 12; if (walking) { m.userData.ph += Math.abs(g.vx) * live / 16; y += Math.abs(Math.sin(m.userData.ph)) * 4; } }
+    const turn = g.turnT > 0 ? g.turnT / 0.25 : 0; // ao virar, o corpo gira de lado em vez de espelhar de uma vez
+    setAnim(m, n, ph, turn > 0.5 ? !flip : flip);
     let sy = 1, rot = 0, dx = 0;
-    if (g.hp > 0 && g.stun <= 0) {
-      const air = g.y + g.h < GROUND - 4;
-      if (g.wind > 0) { const k = Math.min(1, (0.34 - g.wind) / 0.2); sy = 1 - 0.2 * k; rot = g.dir * 0.1 * k; dx = Math.sin(time * 70) * 2.2 * k; } // agacha e treme antes da investida
-      else if (air) { sy = 1 + Math.min(0.14, Math.abs(g.vy) / 4500); rot = -g.dir * Math.max(-0.3, Math.min(0.3, g.vy / 2600)); }
-      else if (g.landT > 0) sy = 1 - g.landT * 1.3;
-      else if (Math.abs(g.vx) > 200) rot = -g.dir * 0.06;
-      else sy = 1 + Math.sin(clock * 11 + i * 2) * 0.03; // ofegante
+    if (!dead && st !== 'hurt') {
+      const air = g.y + g.h < GROUND - 4, k = st === 'wind' ? Math.min(1, g.t / 0.3) : 0;
+      if (st === 'wind' && g.atk === 'charge') { sy = 1 - 0.12 * k; rot = g.dir * 0.08 * k; dx = Math.sin(time * 60) * 2.5 * k; } // cava o chão e treme
+      else if (st === 'wind' && g.atk === 'pound') { sy = 1 - 0.22 * k; }                                                        // agacha para saltar
+      else if (st === 'wind' && g.atk === 'bark') { sy = 1 + 0.08 * k; rot = -g.dir * 0.08 * k; }                                // enche o peito
+      else if (st === 'bonk') { dx = Math.sin(time * 40) * 3 * Math.max(0, 1 - g.t / 0.7); rot = Math.sin(time * 18) * 0.05; }
+      else if (st === 'alert') { sy = 1 + 0.06 * Math.sin(Math.min(1, g.t / 0.35) * Math.PI); }                                 // orelhas em pé: bolinha!
+      else if (st === 'chew') { sy = 1 + Math.sin(time * 14) * 0.03; rot = Math.sin(time * 7) * 0.03; }                         // mastigando, feliz
+      else if (air) { sy = 1 + Math.min(0.14, Math.abs(g.vy) / 4500); rot = -g.dir * Math.max(-0.25, Math.min(0.25, g.vy / 3000)); }
+      else if (g.landT > 0) sy = 1 - g.landT * 1.2;
+      else if (!walking) sy = 1 + Math.sin(clock * 6) * 0.02; // respira pesado
     }
     m.scale.x *= (2 - sy) * (turn > 0 ? Math.abs(1 - 2 * (1 - turn)) * 0.9 + 0.1 : 1); m.scale.y *= sy;
-    if (g.stun > 0 && g.hp > 0) m.scale.y *= 0.85 + Math.min(0.15, (1.1 - g.stun) * 0.5);
-    m.position.set(x + dx, y, i * 1.5); m.rotation.z = g.hp <= 0 ? g.spin : rot + (walking ? Math.sin(m.userData.ph) * 0.045 : 0);
-    const calm = g.hp > 0 && g.stun <= 0; // passos alternados, cabeça que acena no passo, rabinho enrolado que treme
-    legs(m, m.userData.ph, 0, { f: -1, tailX: calm ? Math.sin(clock * 13 + i * 2) * 0.02 : 0, tailY: walking ? Math.cos(m.userData.ph) * 0.02 : 0,
-      headX: g.wind > 0 ? -0.03 : 0, headY: g.wind > 0 ? -0.05 : walking ? Math.sin(m.userData.ph * 2) * 0.022 : calm ? Math.sin(clock * 2.3 + i) * 0.012 : 0, breathe: calm && !walking ? Math.sin(clock * 5 + i) * 0.02 : 0, shear: 0 });
-    const stp = Math.floor(m.userData.ph / Math.PI); if (walking && stp !== m.userData.stp) { m.userData.stp = stp; spawn({ x: x + g.dir * 20, y: GROUND - 3, vx: -g.dir * 30, vy: -25, g: -30, life: 0.4, r: 3, grow: 5, color: 0xfff2c8 }); }
-    m.visible = !(g.hurt > 0 && Math.floor(time * 30) % 2) && (S.arena || S.cam.x > ARENA_X - W - 200) && g.y < H + 300;
-    m.userData.stars.forEach((s, k) => { s.visible = g.stun > 0 && g.hp > 0; if (s.visible) { const a = time * 6 + k * 2.1; s.position.set(x - g.dir * 26 + Math.cos(a) * 22, y + 62 + Math.sin(a) * 6, 4 + Math.sin(a)); s.rotation.z = a; } });
-  });
+    m.position.set(x + dx, y, 1); m.rotation.z = dead ? 0 : rot + (walking ? Math.sin(m.userData.ph) * 0.035 : 0);
+    const calm = !dead && st !== 'hurt';
+    legs(m, m.userData.ph, 0, { f: -1, tailX: st === 'chew' ? Math.sin(clock * 22) * 0.05 : calm ? Math.sin(clock * 9) * 0.015 : 0, tailY: walking ? Math.cos(m.userData.ph) * 0.02 : 0,
+      headX: 0, headY: walking ? Math.sin(m.userData.ph * 2) * 0.02 : calm ? Math.sin(clock * 2) * 0.01 : 0, breathe: calm && !walking ? Math.sin(clock * 4) * 0.02 : 0, shear: 0 });
+    const stp = Math.floor(m.userData.ph / Math.PI); if (walking && stp !== m.userData.stp) { m.userData.stp = stp; spawn({ x: x + g.dir * 40, y: GROUND - 3, vx: -g.dir * 30, vy: -25, g: -30, life: 0.5, r: 4, grow: 6, color: 0xfff2c8 }); }
+    if (st === 'charge' && Math.random() < 0.7) spawn({ x: x - g.dir * 60, y: GROUND - 4, vx: -g.dir * (40 + Math.random() * 60), vy: -30 - Math.random() * 60, g: -40, life: 0.6, r: 4 + Math.random() * 3, grow: 8, color: 0xfff2c8 });
+    m.visible = !(g.hurt > 0 && Math.floor(time * 30) % 2) && (S.arena || S.cam.x > ARENA_X - W - 200);
+    // pontos de leitura: amarelo = pode pisar; vermelho = ataque vindo; sombra = onde o pisão do terremoto vai cair
+    const yes = st === 'chew' && !dead; bruteGlow.material.opacity += ((yes ? 0.5 + 0.2 * Math.sin(time * 8) : 0) - bruteGlow.material.opacity) * Math.min(1, live * 10);
+    bruteGlow.position.set(x + g.dir * 40, y + 105, 0.5); bruteGlow.scale.set(180, 120, 1); bruteGlow.visible = m.visible;
+    const warn = st === 'wind' && !dead; bruteWarn.material.opacity += ((warn ? 0.7 + 0.3 * Math.sin(time * 20) : 0) - bruteWarn.material.opacity) * Math.min(1, live * 12);
+    bruteWarn.position.set(x, y + 70, 0.4); bruteWarn.scale.set(260, 200, 1); bruteWarn.visible = m.visible;
+    const sh = st === 'jump' && !dead; bruteShadow.material.opacity += ((sh ? 0.8 + 0.2 * Math.sin(time * 18) : 0) - bruteShadow.material.opacity) * Math.min(1, live * 10);
+    bruteShadow.position.set(g.tx, Y(GROUND) + 26, 6); bruteShadow.scale.set(230, 64, 1);
+    m.userData.stars.forEach((s, k) => { s.visible = st === 'hurt' && !dead; if (s.visible) { const a = time * 6 + k * 2.1; s.position.set(x - g.dir * 30 + Math.cos(a) * 34, y + 150 + Math.sin(a) * 8, 4 + Math.sin(a)); s.rotation.z = a; } });
+  }
+  // bolinha e ondas de choque
+  { const q = S.ball; ballM.visible = ballGlow.visible = !!q;
+    if (q) { const r = 26; ballM.position.set(q.x, Y(q.y), 6); ballM.scale.set(r, r, 1); ballM.rotation.z -= q.vx * live / 13;
+      ballGlow.position.set(q.x, Y(q.y), 5); const gs = 70 + Math.sin(time * 9) * 8; ballGlow.scale.set(gs, gs, 1); ballGlow.material.opacity = q.held ? 0.35 : 0.7; }
+    waveM.forEach((m, i) => { const w = S.waves[i]; m.visible = !!w; if (!w) return; const h = w.small ? 46 : 70;
+      m.position.set(w.x, Y(GROUND) + h / 2, 6); m.scale.set(46 * w.dir, h * (0.9 + 0.1 * Math.sin(time * 30)), 1); m.material.opacity = Math.min(1, 0.4 + w.t * 3); }); }
   // pombos
   S.enemies.forEach((e, i) => {
     const m = pigeonM[i]; setAnim(m, 'pigeon', 64, e.dir > 0, e.alive ? Math.floor(e.t * 7) : 1, 4);
@@ -654,7 +691,7 @@ R.frame = (rdt) => {
   const cx = S.cam.x + W / 2, up = -S.cam.y;
   let zt = 1, fx = cx, fy = LOOK_Y + up * 0.9;
   if (S.cine && S.cine.type === 'boss') { const t = S.cine.t, k = ease(Math.min(1, t / 0.7)) * (1 - ease(Math.max(0, Math.min(1, (t - 2.8) / 0.6))));
-    zt = 1 + 0.34 * k; fx = cx + (ARENA_X + 665 - cx) * k; fy = LOOK_Y - 95 * k; }
+    zt = 1 + 0.34 * k; fx = cx + (ARENA_X + 760 - cx) * k; fy = LOOK_Y - 95 * k; }
   else if (S.mode === 'winning' || S.mode === 'win') { zt = 1.2; fx = cx + (p.x + p.w / 2 - cx) * 0.6; fy = LOOK_Y - 60; }
   const kk = Math.min(1, rdt * 4);
   R.zoom += (zt - R.zoom) * kk; fxS += (fx - fxS) * (S.cine || S.mode !== 'play' ? kk : 1); fyS += (fy - fyS) * (S.cine || S.mode !== 'play' ? kk : 1);

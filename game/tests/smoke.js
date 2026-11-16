@@ -37,17 +37,23 @@ const { chromium } = require('playwright');
   check(await until(() => __tintim.state === 'play' && __tintim.player.x > 4100 && __tintim.player.hp === 3), 'tentar de novo volta ao checkpoint com 3 corações');
   await ev(() => { const p = __tintim.player; p.x = 9400; p.y = 300; });
   await pg.keyboard.down('ArrowRight');
-  check(await until(() => !!__tintim.S.cine), 'cena de introdução dos pugs');
+  check(await until(() => !!__tintim.S.cine), 'cena de apresentação do Brutão');
   await pg.keyboard.up('ArrowRight');
   check(await until(() => !__tintim.S.cine && __tintim.S.arena, 40000), 'luta começa depois da cena');
-  for (let i = 0; i < 12; i++) {
-    const hp = await ev(() => { const g = __tintim.pugs.find(g => g.hp > 0); if (!g || __tintim.state !== 'play') return -1;
-      const p = __tintim.player; p.inv = 5; p.x = g.x + 10; p.y = g.y - 70; p.vy = 300; return __tintim.pugs.reduce((a, g) => a + g.hp, 0); });
-    if (hp < 0) break;
-    await pg.waitForFunction(h => __tintim.pugs.reduce((a, g) => a + g.hp, 0) < h || __tintim.state !== 'play', hp, { timeout: 8000, polling: 50 }).catch(() => {});
-    await until(() => __tintim.state !== 'play' || __tintim.pugs.every(g => g.hp <= 0 || g.stun <= 0.5), 8000);
+  // pisar fora da hora não tira coração do Brutão: ele sacode o Timtim
+  const hp0 = await ev(() => { const b = __tintim.boss, p = __tintim.player; p.inv = 5; p.x = b.x + 50; p.y = b.y - 70; p.vy = 300; return b.hp; });
+  await pg.waitForTimeout(600);
+  check(await ev(() => __tintim.boss.hp) === hp0, 'pisar fora da hora não machuca o Brutão');
+  // a bolinha distrai o Brutão; pisar na cabeça enquanto ele morde acerta
+  await ev(() => { window.__safe = setInterval(() => { __tintim.player.inv = 2; __tintim.player.hp = 3; }, 100); }); // o teste não desvia dos ataques
+  for (let i = 0; i < 3; i++) {
+    const ok = await until(() => __tintim.boss.state === 'chew' || __tintim.state !== 'play', 30000);
+    if (!ok || await ev(() => __tintim.state) !== 'play') break;
+    const hp = await ev(() => { const b = __tintim.boss, p = __tintim.player; p.inv = 5; p.x = b.x + b.w / 2 - p.w / 2; p.y = b.y - 70; p.vy = 300; return b.hp; });
+    await pg.waitForFunction(h => __tintim.boss.hp < h || __tintim.state !== 'play', hp, { timeout: 4000, polling: 50 }).catch(() => {});
+    if (i === 0) check(await ev(() => __tintim.boss.hp) === hp - 1, 'bolinha distrai o Brutão e o pisão acerta');
   }
-  check(await until(() => __tintim.state === 'win', 40000), '6 pisões vencem os pugs');
+  check(await until(() => __tintim.state === 'win', 40000), '3 pisões na hora certa vencem o Brutão');
   check(await pg.waitForSelector('#win.on', { timeout: 30000 }).then(() => true, () => false), 'tela de vitória aparece');
   check(errs.length === 0, 'sem erros no console' + (errs.length ? ': ' + errs.join(' | ') : ''));
   await b.close();

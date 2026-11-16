@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
-<title>Timtim e os Pugs da Bruxa</title>
+<title>Timtim e o Brutão</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marcellus&family=Nunito:wght@500;600;700;800&display=swap">
 <style>
   /* Sistema visual: entardecer no parque. Vidro cor de vinho, contornos finos de luz, texto que brilha. */
@@ -199,8 +199,7 @@
     <div id="hr" class="pill">
       <div id="prog"><div id="progFill"></div><img id="progDog" src="assets/sprites/tintim-idle.png" alt=""></div><span id="progEnd">🛝</span>
       <div id="bossBars">
-        <div class="bossRow p1"><b>Pug nº 1</b><i class="seg"></i><i class="seg"></i><i class="seg"></i></div>
-        <div class="bossRow p2"><b>Pug nº 2</b><i class="seg"></i><i class="seg"></i><i class="seg"></i></div>
+        <div class="bossRow p1"><b>Brutão</b><i class="seg"></i><i class="seg"></i><i class="seg"></i></div>
       </div>
     </div>
     <button class="round" id="btnMute" aria-label="Som">♪</button>
@@ -214,16 +213,16 @@
     <button class="tbtn" id="tJ" data-k="jump" aria-label="Pular">▲</button>
   </div>
   <div class="bar" id="barT"></div><div class="bar" id="barB"></div>
-  <div id="bossCard"><small>CHEFÕES</small><h2>OS PUGS<br>DA BRUXA</h2><p>mandados pela vizinha. Pise 3 vezes em cada um!</p></div>
+  <div id="bossCard"><small>CHEFÃO</small><h2>O BRUTÃO</h2><p>o valentão que tirou a paz da vila</p></div>
   <div id="iris" class="layer"></div>
 
   <section id="title" class="screen on">
     <div class="tbg"></div><div class="emberglow"></div><i class="fly" style="left:18%;top:62%;animation-delay:-0s"></i><i class="fly" style="left:31%;top:48%;animation-delay:-3s"></i><i class="fly" style="left:44%;top:70%;animation-delay:-6s"></i><i class="fly" style="left:52%;top:40%;animation-delay:-1.5s"></i><i class="fly" style="left:70%;top:66%;animation-delay:-4.5s"></i><i class="fly" style="left:78%;top:44%;animation-delay:-7s"></i><i class="fly" style="left:88%;top:58%;animation-delay:-2.5s"></i><i class="fly" style="left:25%;top:30%;animation-delay:-5.5s"></i><div class="vig"></div>
     <div class="on-anim">
-      <h1 class="logo"><b>TIMTIM</b><i>E OS PUGS DA BRUXA</i></h1>
+      <h1 class="logo"><b>TIMTIM</b><i>E O BRUTÃO</i></h1>
       <div class="gap"></div>
       <button class="btn" id="btnStart">Jogar</button>
-      <p class="hint">← → andar · Espaço pula, de novo no ar dá a pirueta · os amigos chihuahuas dão poderes · desvie dos chocolates · derrote os 2 pugs da bruxa</p>
+      <p class="hint">← → andar · Espaço pula, de novo no ar dá a pirueta · os amigos chihuahuas dão poderes · desvie dos chocolates · derrote o Brutão</p>
       <p id="best"></p>
     </div>
     <canvas id="introC" width="1280" height="720"></canvas><div id="introScrim"></div><p id="storyLine"></p><span id="skip">toque para pular</span>
@@ -240,14 +239,14 @@
   </div></section>
 
   <section id="win" class="screen scrim"><div class="card">
-    <h2>A paz voltou à vila!</h2><p style="margin:.6cqw 0 0">Timtim mandou os pugs de volta pra bruxa. A Vila de Reserva está em harmonia.</p>
+    <h2>A paz voltou à vila!</h2><p style="margin:.6cqw 0 0">Timtim, Zara e Elvis acalmaram o Brutão. A Vila de Reserva está em harmonia.</p>
     <div class="stars">
       <svg class="star" viewBox="0 0 48 46"><path d="M24 2l6.6 13.6 15 2-11 10.4 2.8 14.8L24 35.6l-13.4 7.2 2.800-14.800-11-10.400 15-2z" fill="#ffd23f" stroke="#2b1a10" stroke-width="3" stroke-linejoin="round"/></svg>
       <svg class="star" viewBox="0 0 48 46"><path d="M24 2l6.6 13.6 15 2-11 10.4 2.8 14.8L24 35.6l-13.4 7.2 2.800-14.800-11-10.400 15-2z" fill="#ffd23f" stroke="#2b1a10" stroke-width="3" stroke-linejoin="round"/></svg>
       <svg class="star" viewBox="0 0 48 46"><path d="M24 2l6.6 13.6 15 2-11 10.4 2.8 14.8L24 35.6l-13.4 7.2 2.800-14.800-11-10.400 15-2z" fill="#ffd23f" stroke="#2b1a10" stroke-width="3" stroke-linejoin="round"/></svg>
     </div>
     <div class="stats">
-      <div class="stat ok"><b>✓</b>Pugs em casa</div>
+      <div class="stat ok"><b>✓</b>Brutão domado</div>
       <div class="stat" id="stCookies"><b>0/36</b>Biscoitos</div>
       <div class="stat" id="stHearts"><b>0/3</b>Biscoitos dourados</div>
       <div class="stat" id="stTime"><b>0s</b>Tempo</div>

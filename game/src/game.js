@@ -1,4 +1,4 @@
-// Timtim e os Pugs — regras do jogo (física, inimigos, chefão, fluxo). Sem nada de desenho aqui.
+// Timtim e o Brutão — regras do jogo (física, inimigos, chefão, fluxo). Sem nada de desenho aqui.
 (() => {
 'use strict';
 const TT = window.TT = window.TT || {};
@@ -73,11 +73,14 @@ function makeEnemies() {
   return [[1750, 1480, 1960], ...[[1700, 1570, 1980], [2700, 2560, 3300], [3700, 3520, 4500], [4300, 4150, 4300], [5100, 4930, 5600], [6100, 5860, 6560], [7100, 6840, 7500], [8100, 7700, 8700]].map(e => e.map(sx))]
     .map(([x, a, b]) => ({ x, y: GROUND - 30, w: 38, h: 30, a, b, dir: -1, alive: true, t: Math.random() * 6, dy: 0 }));
 }
-function makePugs() {
-  return [
-    { name: 'Pug nº 1', x: ARENA_X + 640, y: GROUND - 56, w: 74, h: 56, vx: 0, vy: 0, dir: -1, hp: 3, stun: 0, cd: 1.2, hurt: 0, spin: 0, wind: 0, landT: 0, turnT: 0 },
-    { name: 'Pug nº 2', x: ARENA_X + 790, y: GROUND - 56, w: 74, h: 56, vx: 0, vy: 0, dir: -1, hp: 3, stun: 0, cd: 2.4, hurt: 0, spin: 0, wind: 0, landT: 0, turnT: 0 },
-  ];
+// ---- Brutão, o chefão ----
+// Três corações = três fases, e cada fase traz um ataque novo: investida, latidão (onda no chão) e pisão do terremoto.
+// O ponto fraco é a bolinha: de tempos em tempos a Zara ou o Elvis jogam uma, o Brutão não resiste, vai buscar e fica
+// mordendo. Só nessa hora um pisão na cabeça acerta. Fora disso ele sacode o Timtim para o alto, sem dano para ninguém.
+const BOSS = { ballEvery: [5, 6, 7], chew: [3.0, 2.5, 2.1], charge: [520, 590, 660], wind: { charge: 0.75, bark: 0.6, pound: 0.5 } };
+function makeBoss() {
+  return { name: 'Brutão', x: ARENA_X + 700, y: GROUND - 100, w: 150, h: 100, vx: 0, vy: 0, dir: -1, hp: 3,
+    state: 'idle', atk: '', last: '', t: 0, cd: 1.8, hurt: 0, spin: 0, landT: 0, turnT: 0, tx: 0, ballT: 4, thrower: 0 };
 }
 function makePlayer(x) {
   return { x, y: GROUND - 60, w: 54, h: 50, vx: 0, vy: 0, onGround: false, face: 1, hp: 3, inv: 0, fast: 0, mega: 0, slow: 0,
@@ -93,7 +96,7 @@ const overlap = (a, b) => a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h 
 const S = TT.S = { mode: 'title' };
 function reset() {
   Object.assign(S, {
-    player: makePlayer(120), items: makeItems(), enemies: makeEnemies(), pugs: makePugs(),
+    player: makePlayer(120), items: makeItems(), enemies: makeEnemies(), boss: makeBoss(), ball: null, waves: [],
     cam: { x: 0, y: 0, look: 0 }, time: 0, clock: 0, cookies: 0, arena: false, trauma: 0, hitstop: 0,
     gold: 0, timeScale: 1, slowT: 0, cine: null, checkpoint: -1, bossSeen: false, hpLost: 0, winT: 0, dustT: 0,
     friends: C.friends.map(f => ({ x: f.x, home: f.x, vx: 0, follow: 0, kind: f.kind, given: false, hop: 0, face: -1, t: 0 })), gifts: [],
@@ -102,11 +105,11 @@ function reset() {
 }
 reset();
 
-TT.start = () => { reset(); S.mode = 'play'; emit('start'); emit('banner', { text: 'Derrote os dois pugs da bruxa!' }); };
+TT.start = () => { reset(); S.mode = 'play'; emit('start'); emit('banner', { text: 'Derrote o Brutão!' }); };
 TT.retry = () => {
   if (S.checkpoint < 0) return TT.start();
   const x = C.checkpoints[S.checkpoint];
-  S.player = makePlayer(x); S.player.inv = 1.6; S.pugs = makePugs(); S.arena = false; S.cine = null; S.timeScale = 1; S.slowT = 0; S.hitstop = 0; S.gifts = [];
+  S.player = makePlayer(x); S.player.inv = 1.6; S.boss = makeBoss(); S.ball = null; S.waves = []; S.arena = false; S.cine = null; S.timeScale = 1; S.slowT = 0; S.hitstop = 0; S.gifts = [];
   S.cam.x = Math.max(0, x - W * 0.4); S.cam.look = 0; S.mode = 'play';
   emit('start', { retry: true }); emit('banner', { text: 'De volta ao checkpoint!' });
 };
@@ -256,10 +259,12 @@ TT.update = (rdt) => {
   // arena
   if (playing && !S.arena && p.x > ARENA_X + 120) {
     S.arena = true;
+    // os chihuahuas entram na arena e ficam um em cada canto, prontos para jogar a bolinha
+    S.friends.forEach((f, i) => { f.home = i ? ARENA_X + W - 70 : ARENA_X + 50; f.x = i ? ARENA_X + W + 70 : ARENA_X - 70; f.given = true; f.follow = 0; f.vx = 0; });
     if (!S.bossSeen) { S.bossSeen = true; S.cine = { type: 'boss', t: 0, dur: 3.4, barks: 0 }; emit('bossIntro'); }
-    else emit('banner', { text: 'Revanche contra os Pugs!' });
+    else emit('banner', { text: 'Revanche contra o Brutão!' });
   }
-  if (S.arena) updatePugs(dt, prevBottom, playing);
+  if (S.arena) updateBoss(dt, prevBottom, playing);
 
   // câmera
   const cam = S.cam;
@@ -270,53 +275,107 @@ TT.update = (rdt) => {
   cam.y += (wantY - cam.y) * Math.min(1, dt * 3.4);
 };
 
-function updatePugs(dt, prevBottom, playing) {
-  const p = S.player, alive = S.pugs.filter(g => g.hp > 0);
+function throwBall() {
+  const b = S.boss, f = S.friends[b.thrower++ % 2], fromLeft = f.home < ARENA_X + W / 2;
+  // cai do lado oposto ao do Brutão, para ele precisar atravessar a arena (e o Timtim ter tempo de chegar)
+  const bx = b.x + b.w / 2, tx = bx > ARENA_X + W / 2 ? ARENA_X + 170 + Math.random() * 220 : ARENA_X + W - 390 + Math.random() * 220;
+  S.ball = { x: f.x, y: GROUND - 56, vx: (tx - f.x) / 1.15, vy: -620, rest: false, held: false };
+  f.hop = 0.7; f.face = fromLeft ? 1 : -1;
+  emit('throw', { x: f.x, y: GROUND - 60 });
+}
+function updateBall(dt) {
+  const q = S.ball; if (!q || q.held) return;
+  if (q.rest) return;
+  q.vy += GRAV * 0.75 * dt; q.x += q.vx * dt; q.y += q.vy * dt;
+  if (q.x < ARENA_X + 20) { q.x = ARENA_X + 20; q.vx = Math.abs(q.vx) * 0.6; }
+  if (q.x > ARENA_X + W - 20) { q.x = ARENA_X + W - 20; q.vx = -Math.abs(q.vx) * 0.6; }
+  if (q.y > GROUND - 14) { q.y = GROUND - 14; if (q.vy > 140) emit('ballBounce', { x: q.x, y: GROUND }); q.vy = -q.vy * 0.48; q.vx *= 0.72; if (Math.abs(q.vy) < 90) { q.vy = 0; q.vx = 0; q.rest = true; } }
+}
+function updateBoss(dt, prevBottom, playing) {
+  const p = S.player, b = S.boss, ph = Math.max(0, Math.min(2, 3 - b.hp));
   const cine = S.cine && S.cine.type === 'boss' ? S.cine : null;
-  if (cine) { // os dois latem para a câmera
+  if (cine) { // apresentação: o Brutão late duas vezes para a câmera
     const n = cine.t > 1.7 ? 2 : cine.t > 1.0 ? 1 : 0;
-    if (n > cine.barks) { cine.barks = n; S.pugs.forEach((g, i) => { if (i === (n + 1) % 2 || n === 2) g.vy = -380; }); emit('bark'); S.trauma = Math.min(1, S.trauma + 0.2); }
+    if (n > cine.barks) { cine.barks = n; b.state = 'bark'; b.t = 0; emit('bigBark', { x: b.x + b.w / 2, y: b.y }); S.trauma = Math.min(1, S.trauma + 0.3); }
   }
-  for (const g of S.pugs) {
-    if (g.hp <= 0) { g.vy += GRAV * dt; g.y += g.vy * dt; g.x += g.vx * dt; g.spin += dt * 9; continue; }
-    g.hurt = Math.max(0, g.hurt - dt); g.landT = Math.max(0, g.landT - dt); g.turnT = Math.max(0, g.turnT - dt);
-    const rage = alive.length === 1 ? 1.5 : 1;
-    const onGround = g.y + g.h >= GROUND - 0.5;
-    if (g.stun > 0) { g.stun -= dt; g.vx *= 0.9; g.wind = 0; }
-    else if (!cine && playing) {
-      const nd = Math.sign(p.x - g.x) || g.dir;
-      if (nd !== g.dir && g.wind <= 0 && onGround) { g.dir = nd; g.turnT = 0.2; }
-      if (g.wind > 0) { // agacha antes de investir: dá para ler o ataque
-        g.wind -= dt; g.vx *= 0.8;
-        if (g.wind <= 0) { g.vx = g.dir * (300 + 60 * (3 - g.hp)) * rage; g.vy = Math.random() < 0.45 ? -620 : -260; g.cd = (1.4 + Math.random()) / rage; emit('bark'); }
-      } else {
-        g.cd -= dt;
-        if (g.cd <= 0 && onGround) g.wind = 0.34 / rage;
-        else if (onGround) g.vx += (g.dir * 90 * rage - g.vx) * Math.min(1, dt * 3);
-      }
-    } else g.vx *= 0.9;
-    g.vy += GRAV * dt; g.x += g.vx * dt; g.y += g.vy * dt;
-    if (g.y + g.h > GROUND) { if (g.vy > 350) { g.landT = 0.24; emit('pugLand', { x: g.x + g.w / 2, y: GROUND }); } g.y = GROUND - g.h; g.vy = 0; }
-    if (g.x < ARENA_X + 10) { g.x = ARENA_X + 10; g.vx = Math.abs(g.vx); }
-    if (g.x + g.w > ARENA_X + W - 10) { g.x = ARENA_X + W - 10 - g.w; g.vx = -Math.abs(g.vx); }
+  b.hurt = Math.max(0, b.hurt - dt); b.landT = Math.max(0, b.landT - dt); b.turnT = Math.max(0, b.turnT - dt); b.t += dt;
+  const bx = b.x + b.w / 2, pcx = p.x + p.w / 2, onGround = b.y + b.h >= GROUND - 0.5;
+  if (b.hp <= 0) { b.vy += GRAV * dt; b.y = Math.min(GROUND - b.h, b.y + b.vy * dt); b.x += b.vx * dt; b.vx *= 0.97; return; }
+  const face = d => { if (d && d !== b.dir) { b.dir = d; b.turnT = 0.25; } };
+  const go = (st) => { b.state = st; b.t = 0; };
+  const idle = cd => { go('idle'); b.cd = cd; };
 
-    if (!playing || cine) continue;
-    const hb = { x: g.x + 6, y: g.y + 6, w: g.w - 12, h: g.h - 6 };
-    if (!overlap(p, hb)) continue;
-    if (g.stun <= 0.6 && p.vy > 0 && prevBottom <= g.y + 22) {
-      g.hp--; g.stun = 1.1; g.hurt = 0.4; g.vx = 0; p.vy = -700;
-      S.hitstop = 0.1; S.trauma = Math.min(1, S.trauma + 0.5);
-      emit('stomp', { x: g.x + g.w / 2, y: g.y, boss: true, pug: g });
-      if (g.hp <= 0) {
-        g.vy = -620; g.vx = -g.dir * 260;
-        if (S.pugs.every(q => q.hp <= 0)) { S.mode = 'winning'; S.winT = 0; S.slowT = 0.75;
-          S.friends.forEach((f, i) => { f.x = S.cam.x - 60 - i * 90; f.home = Math.max(ARENA_X + 60, p.x - 120 - i * 85) + (p.x < ARENA_X + 300 ? 330 : 0); f.vx = 0; }); emit('finalBlow', { x: g.x + g.w / 2, y: g.y }); }
-        else emit('banner', { text: g.name + ' foi pra casa!' });
+  updateBall(dt);
+  // a bolinha: chega de tempos em tempos, quando ele não está no meio de um ataque
+  // (o relógio corre sempre; se ele estiver no meio de uma investida ou salto, a bolinha espera ele terminar)
+  if (!cine && playing && !S.ball && !['alert', 'fetch', 'chew', 'hurt'].includes(b.state)) { b.ballT -= dt; if (b.ballT <= 0 && ['idle', 'bark', 'bonk', 'land'].includes(b.state)) { throwBall(); go('alert'); } }
+
+  if (cine || !playing) b.vx *= 0.9;
+  else switch (b.state) {
+    case 'idle': { // anda devagar na direção do Timtim e escolhe o próximo ataque
+      face(Math.sign(pcx - bx)); b.vx += (b.dir * (70 + ph * 25) - b.vx) * Math.min(1, dt * 3);
+      b.cd -= dt;
+      if (b.cd <= 0 && onGround) {
+        const pool = ['charge'].concat(ph >= 1 ? ['bark'] : [], ph >= 2 ? ['pound'] : []);
+        const pick = pool.length > 1 ? pool.filter(a => a !== b.last) : pool;
+        b.atk = b.last = pick[Math.floor(Math.random() * pick.length)]; go('wind');
       }
-    } else if (g.stun <= 0) {
-      if (p.mega > 0) { g.vx = -g.dir * 400; g.vy = -300; g.stun = 0.8; emit('stomp', { x: g.x + g.w / 2, y: g.y, boss: false }); }
-      else hurt();
-    }
+      break; }
+    case 'wind': { // aviso do ataque: cava o chão, enche o peito ou se agacha — dá para ler o que vem
+      b.vx *= 0.8; face(Math.sign(pcx - bx));
+      if (b.atk === 'charge' && Math.random() < dt * 14) emit('dig', { x: bx - b.dir * 50, y: GROUND });
+      if (b.t >= BOSS.wind[b.atk] * (ph === 2 ? 0.8 : 1)) {
+        if (b.atk === 'charge') { go('charge'); b.vx = b.dir * BOSS.charge[ph]; emit('bark'); }
+        else if (b.atk === 'bark') { go('bark'); S.waves.push({ x: bx + b.dir * 70, dir: b.dir, v: 430 + ph * 70, t: 0 }); if (ph >= 2) S.waves.push({ x: bx - b.dir * 70, dir: -b.dir, v: 380, t: 0 }); emit('bigBark', { x: bx, y: b.y }); S.trauma = Math.min(1, S.trauma + 0.3); }
+        else { go('jump'); b.tx = Math.max(ARENA_X + 90, Math.min(ARENA_X + W - 90, pcx)); b.vy = -1050; b.vx = (b.tx - bx) / (2 * 1050 / GRAV); emit('bossJump', { x: bx, y: GROUND }); }
+      }
+      break; }
+    case 'charge': // atravessa a arena até dar com a cara na parede
+      if ((b.dir < 0 && b.x <= ARENA_X + 12) || (b.dir > 0 && b.x + b.w >= ARENA_X + W - 12)) { b.vx = 0; go('bonk'); S.trauma = Math.min(1, S.trauma + 0.4); emit('bonk', { x: b.dir < 0 ? b.x : b.x + b.w, y: GROUND - 50 }); }
+      break;
+    case 'bonk': b.vx *= 0.8; if (b.t > 0.7) idle(1.1 - ph * 0.2); break;
+    case 'bark': b.vx *= 0.8; if (b.t > 0.75) idle(1.2 - ph * 0.25); break;
+    case 'jump': if (onGround && b.t > 0.2) { b.vx = 0; go('land'); S.trauma = Math.min(1, S.trauma + 0.65); emit('pound', { x: bx, y: GROUND });
+        S.waves.push({ x: bx + 80, dir: 1, v: 330, t: 0, small: true }, { x: bx - 80, dir: -1, v: 330, t: 0, small: true }); } break;
+    case 'land': if (b.t > 0.55) idle(1.0); break;
+    case 'alert': b.vx *= 0.7; face(Math.sign((S.ball ? S.ball.x : pcx) - bx)); if (b.t > 0.35) go('fetch'); break; // orelhas em pé: bolinha!
+    case 'fetch': { // corre atrás da bolinha
+      const q = S.ball; if (!q) { idle(0.5); break; }
+      face(Math.sign(q.x - bx)); const d = q.x - (bx + b.dir * 55);
+      b.vx += ((Math.abs(d) > 10 ? Math.sign(d) * 430 : 0) - b.vx) * Math.min(1, dt * 6);
+      if (q.rest && Math.abs(d) < 26) { b.vx = 0; q.held = true; go('chew'); emit('chew', { x: q.x, y: GROUND }); }
+      break; }
+    case 'chew': b.vx = 0; if (S.ball) { S.ball.x = bx + b.dir * 58; S.ball.y = GROUND - 16; }
+      if (b.t > BOSS.chew[ph]) { S.ball = null; b.ballT = BOSS.ballEvery[ph]; idle(0.5); emit('bark'); } break;
+    case 'hurt': b.vx *= 0.85; if (b.t > 1.1) { b.ballT = BOSS.ballEvery[ph]; idle(0.7); emit('bigBark', { x: bx, y: b.y }); } break;
   }
+  b.vy += GRAV * dt; b.x += b.vx * dt; b.y += b.vy * dt;
+  if (b.y + b.h > GROUND) { if (b.vy > 350) b.landT = 0.24; b.y = GROUND - b.h; b.vy = 0; }
+  b.x = Math.max(ARENA_X + 10, Math.min(ARENA_X + W - 10 - b.w, b.x));
+
+  // ondas de choque do latido: correm pelo chão; é preciso pular
+  for (let i = S.waves.length - 1; i >= 0; i--) {
+    const w = S.waves[i]; w.t += dt; w.x += w.dir * w.v * dt;
+    if (w.x < ARENA_X - 40 || w.x > ARENA_X + W + 40) { S.waves.splice(i, 1); continue; }
+    const hh = w.small ? 22 : 34;
+    if (playing && !cine && p.y + p.h > GROUND - hh && Math.abs(pcx - w.x) < 20 + p.w / 2 && p.mega <= 0) hurt();
+  }
+
+  if (!playing || cine) return;
+  const hb = { x: b.x + 12, y: b.y + 10, w: b.w - 24, h: b.h - 10 };
+  if (!overlap(p, hb)) return;
+  if (p.vy > 0 && prevBottom <= b.y + 28) {
+    if (b.state === 'chew') { // pisão na cabeça enquanto ele está distraído: acerta!
+      b.hp--; b.hurt = 0.4; go('hurt'); S.ball = null; p.vy = -760;
+      S.hitstop = 0.12; S.trauma = Math.min(1, S.trauma + 0.55);
+      emit('stomp', { x: bx, y: b.y, boss: true });
+      if (b.hp <= 0) {
+        b.vy = -500; b.vx = -b.dir * 180; S.waves.length = 0;
+        S.mode = 'winning'; S.winT = 0; S.slowT = 0.75;
+        S.friends.forEach((f, i) => { f.home = Math.max(ARENA_X + 60, p.x - 120 - i * 85) + (p.x < ARENA_X + 300 ? 330 : 0); f.vx = 0; });
+        emit('finalBlow', { x: bx, y: b.y });
+      }
+    } else { p.vy = -720; p.vx = (pcx < bx ? -1 : 1) * 280; p.dj = true; emit('shrug', { x: bx, y: b.y }); } // ele sacode o Timtim para o alto
+  } else if (!['chew', 'hurt', 'bonk'].includes(b.state) && p.mega <= 0) hurt();
 }
 })();

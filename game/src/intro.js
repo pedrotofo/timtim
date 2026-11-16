@@ -12,14 +12,13 @@ const load = src => { const i = new Image(); i.src = src; return i; };
 
 // zoom: escala inicial → final em torno de um ponto; wind: regiões de pelo (ring = rosto parado, só a borda mexe)
 const SCENES = [
-  { img: load('assets/intro/1-bruxa.jpg'), text: 'tl', dur: 4.6, zoom: [1.0, 1.1], at: [700, 380],
-    wind: [ { x: 935, y: 275, rx: 95, ry: 60, amp: 2.2, speed: 5, freq: 0.08 },               // capa da bruxa
-            { x: 416, y: 560, rx: 120, ry: 85, amp: 1.4, speed: 38, freq: 0.5, jitter: 1 },  // pugs latindo tremem
-            { x: 600, y: 536, rx: 115, ry: 85, amp: 1.4, speed: 41, freq: 0.5, jitter: 1 } ],
-    glow: [ { x: 888, y: 168, r: 260, c: '190,255,170', a: 0.16, pulse: 0.9 },
-            { x: 720, y: 500, r: 70, c: '255,220,120', a: 0.35, pulse: 7 },
-            { x: 1104, y: 432, r: 70, c: '255,190,110', a: 0.25, pulse: 3, flicker: 1 } ],
-    flies: 16, leaves: 0, fog: 1, windX: 30 },
+  { img: load('assets/intro/1-brutao.jpg'), text: 'tl', dur: 4.6, zoom: [1.0, 1.1], at: [820, 420],
+    wind: [ { x: 860, y: 440, rx: 120, ry: 90, amp: 1.5, speed: 40, freq: 0.5, jitter: 1 },  // Brutão latindo treme
+            { x: 660, y: 210, rx: 150, ry: 90, amp: 2.4, speed: 9, freq: 0.07 } ],           // passarinhos batendo asa
+    glow: [ { x: 890, y: 175, r: 260, c: '190,255,170', a: 0.16, pulse: 0.9 },
+            { x: 1010, y: 440, r: 80, c: '255,220,120', a: 0.35, pulse: 7 },
+            { x: 1110, y: 445, r: 70, c: '255,190,110', a: 0.25, pulse: 3, flicker: 1 } ],
+    flies: 16, leaves: 5, fog: 1, windX: 30 },
   { img: load('assets/intro/2-timtim.jpg'), text: 'right', dur: 4.4, zoom: [1.0, 1.12], at: [430, 330],
     wind: [ { x: 430, y: 320, rx: 270, ry: 270, amp: 3.2, speed: 2.6, freq: 0.035, ring: 1 }, // juba e orelhas
             { x: 90, y: 520, rx: 130, ry: 170, amp: 5, speed: 2.2, freq: 0.03 },              // rabo

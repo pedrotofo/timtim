@@ -60,6 +60,12 @@ const sfx = {
   stomp: t => { tone(180, t, 0.2, { type: 'sine', vol: 0.4, slide: 0.35 }); noise(t, 0.12, { vol: 0.2, freq: 900 }); tone(660, t + 0.02, 0.1, { type: 'square', vol: 0.06, slide: 1.6 }); },
   hurt: t => { tone(300, t, 0.28, { type: 'sawtooth', vol: 0.16, slide: 0.4 }); noise(t, 0.15, { vol: 0.12, freq: 500 }); },
   bark: t => { [0, 0.13].forEach(o => { tone(260, t + o, 0.09, { type: 'sawtooth', vol: 0.14, slide: 1.5 }); noise(t + o, 0.08, { vol: 0.1, freq: 1100, q: 2 }); }); },
+  bigBark: t => { [0, 0.16].forEach(o => { tone(120, t + o, 0.2, { type: 'sawtooth', vol: 0.24, slide: 1.6 }); noise(t + o, 0.16, { vol: 0.16, freq: 600, q: 1.5 }); }); },
+  bonk: t => { tone(140, t, 0.3, { type: 'square', vol: 0.18, slide: 0.4 }); noise(t, 0.2, { vol: 0.2, freq: 400 }); tone(1200, t + 0.05, 0.25, { type: 'sine', vol: 0.08, slide: 0.6 }); },
+  pound: t => { tone(55, t, 0.6, { type: 'sine', vol: 0.5, slide: 0.5 }); noise(t, 0.45, { vol: 0.3, freq: 250, type: 'lowpass' }); },
+  throwBall: t => { tone(600, t, 0.12, { type: 'triangle', vol: 0.12, slide: 1.6 }); [0, 0.1].forEach(o => tone(900, t + 0.05 + o, 0.06, { type: 'triangle', vol: 0.1, slide: 1.3 })); },
+  squeak: t => { tone(1400, t, 0.12, { type: 'sine', vol: 0.12, slide: 1.4 }); tone(1100, t + 0.14, 0.12, { type: 'sine', vol: 0.1, slide: 1.3 }); },
+  boing: t => { tone(220, t, 0.25, { type: 'sine', vol: 0.22, slide: 2.4 }); },
   checkpoint: t => [659, 880, 1318].forEach((f, i) => tone(f, t + i * 0.09, 0.2, { vol: 0.14 })),
   boss: t => { tone(70, t, 1.2, { type: 'sawtooth', vol: 0.2, slide: 0.6 }); noise(t, 0.9, { vol: 0.12, freq: 200, type: 'lowpass' }); },
   final: t => { tone(90, t, 0.9, { type: 'sine', vol: 0.5, slide: 0.3 }); noise(t, 0.5, { vol: 0.25, freq: 600 }); },
@@ -71,7 +77,7 @@ const sfx = {
 };
 TT.sfx = name => { if (!init() || !sfx[name]) return; sfx[name](ctx.currentTime); };
 
-// ---- trilha: caixinha de música etérea para a fase e um baião tenso para os pugs ----
+// ---- trilha: caixinha de música etérea para a fase e um baião tenso para a luta com o Brutão ----
 const N = n => 440 * Math.pow(2, (n - 69) / 12);
 const SONGS = {
   level: { bpm: 100, soft: true,
