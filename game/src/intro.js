@@ -26,11 +26,11 @@ const SCENES = [
             { x: 470, y: 600, rx: 160, ry: 100, amp: 2.4, speed: 3.4, freq: 0.06 } ],         // bandana
     glow: [ { x: 790, y: 360, r: 190, c: '255,170,80', a: 0.22, pulse: 1.4 } ],
     flies: 22, leaves: 7, fog: 0, windX: 70 },
-  { img: load('assets/intro/3-amigos.jpg'), text: 'top', dur: 5.4, zoom: [1.12, 1.0], at: [640, 430],
-    wind: [ { x: 432, y: 480, rx: 130, ry: 140, amp: 2.4, speed: 2.4, freq: 0.04, ring: 1 },
-            { x: 624, y: 490, rx: 140, ry: 160, amp: 2.4, speed: 2.7, freq: 0.04, ring: 1 },
-            { x: 832, y: 500, rx: 130, ry: 140, amp: 2.4, speed: 2.2, freq: 0.04, ring: 1 } ],
-    glow: [ { x: 800, y: 410, r: 230, c: '255,190,90', a: 0.24, pulse: 1.1 } ],
+  { img: load('assets/intro/3-amigos.jpg'), text: 'top', dur: 5.4, zoom: [1.12, 1.0], at: [630, 390],
+    wind: [ { x: 385, y: 295, rx: 125, ry: 155, amp: 2.4, speed: 2.4, freq: 0.04, ring: 1 },  // Zara
+            { x: 628, y: 285, rx: 155, ry: 175, amp: 2.6, speed: 2.7, freq: 0.04, ring: 1 },  // Timtim
+            { x: 848, y: 350, rx: 125, ry: 145, amp: 2.4, speed: 2.2, freq: 0.04, ring: 1 } ], // Elvis
+    glow: [ { x: 630, y: 420, r: 300, c: '255,200,110', a: 0.16, pulse: 1.1 } ],             // brilho dourado em volta dos três (sem buraco na árvore)
     flies: 30, leaves: 3, fog: 1, windX: 25, rise: 1 },
 ];
 

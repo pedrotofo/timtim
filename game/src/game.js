@@ -41,7 +41,7 @@ function makeItems() {
   [300, 360, 420].forEach(x => cookie(x, GROUND - 40));
   [560, 600, 640].forEach(x => cookie(x, 300));
   cookie(890, 230); cookie(1225, 290);
-  for (let x = 1290; x <= 1370; x += 40) cookie(x, 330);
+  cookie(1352, 288); cookie(1388, 300); // arco do salto sobre o buraco, logo depois da plataforma
   [1740, 1790, 1840].forEach(x => cookie(x, 290));
   cookie(2030, 210); cookie(2430, 290);
   for (let x = 2620; x <= 2820; x += 50) cookie(x, GROUND - 40);
@@ -51,7 +51,7 @@ function makeItems() {
   for (let x = 4850; x <= 5050; x += 50) cookie(x, GROUND - 40);
   [5520, 5570].forEach(x => cookie(x, 210));
   cookie(5755, 260); [5990, 6040, 6090].forEach(x => cookie(x, 280)); cookie(6300, 190); cookie(6535, 100); cookie(6715, 260);
-  for (let x = 6880; x <= 7080; x += 50) cookie(x, GROUND - 40);
+  [6860, 6905].forEach(x => cookie(x, GROUND - 40)); [6995, 7035, 7075].forEach(x => cookie(x, 280)); // em cima da plataforma, não embaixo das raízes
   cookie(7270, 195); cookie(7485, 110); [7950, 8000, 8050].forEach(x => cookie(x, 280)); cookie(8270, 210);
   for (let x = 8350; x <= 8550; x += 50) cookie(x, GROUND - 40);
   // biscoitos dourados: só o pulo duplo alcança
@@ -66,6 +66,9 @@ function makeItems() {
   it.forEach(o => { o.x = sx(o.x); });
   // trecho de aprendizado (já em coordenadas finais): poucos biscoitos e o pombo de treino
   [1600, 1640, 1680].forEach(x => cookie(x, 290)); cookie(1860, 220);
+  // nada encosta no tampo de musgo: o que está sobre uma plataforma fica no mínimo 50px acima dela
+  // (o tampo é desenhado em perspectiva e o item flutua, então a 40px ele parecia entrar no bloco)
+  for (const o of it) for (const [px, py, pw] of C.plats) if (o.x > px - 20 && o.x < px + pw + 20 && o.y < py && o.y > py - 50) o.y = py - 50;
   return it;
 }
 function makeEnemies() {
