@@ -1,4 +1,5 @@
-// Som: efeitos e trilha gerados no navegador (WebAudio), sem arquivos de áudio.
+// Som: efeitos gravados (Artlist, em assets/sfx) e trilha gravada (assets/music).
+// Os efeitos e a trilha sintetizados abaixo continuam como reserva enquanto os arquivos carregam ou se algum faltar.
 (() => {
 'use strict';
 const TT = window.TT;
@@ -21,6 +22,7 @@ function init() {
     sfxBus = ctx.createGain(); sfxBus.gain.value = 0.8; sfxBus.connect(master);
     noiseBuf = ctx.createBuffer(1, ctx.sampleRate * 0.5, ctx.sampleRate);
     const d = noiseBuf.getChannelData(0); for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+    loadSamples();
     return true;
   } catch (_) { ctx = null; return false; }
 }
@@ -99,7 +101,28 @@ const sfx = {
   ui: t => tone(880, t, 0.05, { vol: 0.1 }),
   choco: t => { [330, 277, 233, 185].forEach((f, i) => tone(f, t + i * 0.12, 0.22, { type: 'sawtooth', vol: 0.1, slide: 0.85 })); tone(90, t + 0.5, 0.5, { type: 'sine', vol: 0.25, slide: 0.6 }); },
 };
-TT.sfx = name => { if (!init() || !sfx[name]) return; sfx[name](ctx.currentTime); };
+// ---- efeitos gravados: um arquivo por evento; v = volume, vary = quanto a altura muda a cada vez (para repetições não soarem iguais) ----
+const SAMPLES = {
+  jump: { v: 0.28, vary: 0.06 }, jump2: { v: 0.4, vary: 0.05 }, land: { v: 0.32, vary: 0.1 },
+  cookie: { v: 0.42, vary: 0.1 }, power: { v: 0.42 }, gift: { v: 0.42 }, star: { v: 0.45 }, checkpoint: { v: 0.38 }, ui: { v: 0.3 },
+  yapZara: { v: 0.5, vary: 0.04 }, yapElvis: { v: 0.55, vary: 0.04 }, hurt: { v: 0.6, vary: 0.05 },
+  bossWoof: { v: 0.8, vary: 0.04 }, bigBark: { v: 0.85 }, stomp: { v: 0.65 }, final: { v: 0.8 }, boss: { v: 0.55 },
+  spring: { v: 0.42, vary: 0.05 }, boing: { v: 0.45 }, pound: { v: 0.9 }, bonk: { v: 0.7 },
+  throwBall: { v: 0.45 }, squeak: { v: 0.5, vary: 0.08 }, choco: { v: 0.6 }, win: { v: 0.6 }, lose: { v: 0.55 },
+};
+const sbufs = {};
+function loadSamples() {
+  Object.keys(SAMPLES).forEach(n => fetch('assets/sfx/' + n + '.mp3').then(r => { if (!r.ok) throw 0; return r.arrayBuffer(); })
+    .then(a => ctx.decodeAudioData(a)).then(b => { sbufs[n] = b; }).catch(() => {}));
+}
+function playSample(name, t) {
+  const b = sbufs[name]; if (!b) return false;
+  const o = SAMPLES[name], src = ctx.createBufferSource(), g = ctx.createGain();
+  src.buffer = b; src.playbackRate.value = 1 + (Math.random() * 2 - 1) * (o.vary || 0); g.gain.value = o.v;
+  src.connect(g).connect(sfxBus); src.start(t);
+  return true;
+}
+TT.sfx = name => { if (!init()) return; const t = ctx.currentTime; if (playSample(name, t)) return; if (sfx[name]) sfx[name](t); };
 
 // ---- trilha: caixinha de música etérea para a fase e um baião tenso para a luta com o Brutão ----
 const N = n => 440 * Math.pow(2, (n - 69) / 12);
