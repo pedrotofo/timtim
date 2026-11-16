@@ -22,7 +22,7 @@ addEventListener('blur', () => { I.left = I.right = I.jump = false; TT.pause(); 
 document.addEventListener('visibilitychange', () => { if (document.hidden) TT.pause(); });
 
 const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-if (isTouch) $('touch').classList.add('on');
+if (isTouch) { $('touch').classList.add('on'); $('hint').textContent = '◀ ▶ andar · ▲ pula · no ar, de novo: pirueta'; }
 document.querySelectorAll('.tbtn').forEach(b => {
   const k = b.dataset.k;
   const set = on => { press(k, on); b.classList.toggle('down', on); };

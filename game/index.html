@@ -105,13 +105,10 @@
   .btn.ghost:hover { color: #fff; border-color: var(--glow); }
   .row { display: flex; gap: 1.6cqw; align-items: center; justify-content: center; flex-wrap: wrap; }
 
-  /* título: a arte pintada respira (zoom lento), o coração da figueira pulsa, vaga-lumes sobem */
+  /* título: a arte pintada respira (zoom lento) e vaga-lumes sobem */
   #title { display: block; background: #060a18; overflow: hidden; }
   #title .tbg { position: absolute; inset: -2%; background: url(assets/title.jpg) center / cover; transform-origin: 62% 52%; animation: breathe 22s ease-in-out infinite alternate; transition: transform 9s cubic-bezier(.3, 0, .2, 1), filter 2s; }
   @keyframes breathe { from { scale: 1; translate: 0 0; } to { scale: 1.07; translate: -1.2% .6%; } }
-  #title .emberglow { position: absolute; left: 62%; top: 52%; width: 34cqw; height: 34cqw; translate: -50% -50%; border-radius: 50%; mix-blend-mode: screen; pointer-events: none;
-    background: radial-gradient(circle, rgba(255, 190, 90, .5), rgba(255, 130, 50, .16) 40%, transparent 68%); animation: ember 3.4s ease-in-out infinite; }
-  @keyframes ember { 0%, 100% { opacity: .55; scale: 1; } 40% { opacity: 1; scale: 1.08; } 62% { opacity: .7; scale: .98; } }
   .fly { position: absolute; width: .5cqw; height: .5cqw; border-radius: 50%; background: #ffe9a8; box-shadow: 0 0 1.2cqw .3cqw rgba(255, 210, 120, .8); animation: fly 9s ease-in-out infinite; opacity: 0; }
   @keyframes fly { 0% { opacity: 0; translate: 0 0; } 20% { opacity: 1; } 50% { translate: 2cqw -5cqw; opacity: .5; } 80% { opacity: 1; } 100% { translate: -1.5cqw -11cqw; opacity: 0; } }
   #title .vig { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(6, 10, 24, .5), transparent 34%, transparent 62%, rgba(6, 10, 24, .82)); transition: background 1.2s; }
@@ -217,12 +214,12 @@
   <div id="iris" class="layer"></div>
 
   <section id="title" class="screen on">
-    <div class="tbg"></div><div class="emberglow"></div><i class="fly" style="left:18%;top:62%;animation-delay:-0s"></i><i class="fly" style="left:31%;top:48%;animation-delay:-3s"></i><i class="fly" style="left:44%;top:70%;animation-delay:-6s"></i><i class="fly" style="left:52%;top:40%;animation-delay:-1.5s"></i><i class="fly" style="left:70%;top:66%;animation-delay:-4.5s"></i><i class="fly" style="left:78%;top:44%;animation-delay:-7s"></i><i class="fly" style="left:88%;top:58%;animation-delay:-2.5s"></i><i class="fly" style="left:25%;top:30%;animation-delay:-5.5s"></i><div class="vig"></div>
+    <div class="tbg"></div><i class="fly" style="left:18%;top:62%;animation-delay:-0s"></i><i class="fly" style="left:31%;top:48%;animation-delay:-3s"></i><i class="fly" style="left:44%;top:70%;animation-delay:-6s"></i><i class="fly" style="left:52%;top:40%;animation-delay:-1.5s"></i><i class="fly" style="left:70%;top:66%;animation-delay:-4.5s"></i><i class="fly" style="left:78%;top:44%;animation-delay:-7s"></i><i class="fly" style="left:88%;top:58%;animation-delay:-2.5s"></i><i class="fly" style="left:25%;top:30%;animation-delay:-5.5s"></i><div class="vig"></div>
     <div class="on-anim">
       <h1 class="logo"><b>TIMTIM</b><i>E O BRUTÃO</i></h1>
       <div class="gap"></div>
       <button class="btn" id="btnStart">Jogar</button>
-      <p class="hint">← → andar · Espaço pula, de novo no ar dá a pirueta · os amigos chihuahuas dão poderes · desvie dos chocolates · derrote o Brutão</p>
+      <p class="hint" id="hint">← → andar · Espaço pula · no ar, de novo: pirueta</p>
       <p id="best"></p>
     </div>
     <canvas id="introC" width="1280" height="720"></canvas><div id="introScrim"></div><p id="storyLine"></p><span id="skip">toque para pular</span>
