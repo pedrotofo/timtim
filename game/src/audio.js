@@ -22,7 +22,7 @@ function init() {
     sfxBus = ctx.createGain(); sfxBus.gain.value = 0.8; sfxBus.connect(master);
     noiseBuf = ctx.createBuffer(1, ctx.sampleRate * 0.5, ctx.sampleRate);
     const d = noiseBuf.getChannelData(0); for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
-    loadSamples();
+    loadSamples(); loadTrack('theme'); loadTrack('boss');
     return true;
   } catch (_) { ctx = null; return false; }
 }
@@ -87,11 +87,6 @@ const sfx = {
   yapZara: t => { woof(t, { f0: 780, dur: 0.09, f1: 1700, f2: 3200, vol: 0.2 }); woof(t + 0.12, { f0: 860, dur: 0.09, f1: 1800, f2: 3400, vol: 0.2 }); },
   // Elvis: "arf!" mais encorpado, com um "rrf" no fim
   yapElvis: t => { woof(t, { f0: 520, dur: 0.15, f1: 1150, f2: 2500, vol: 0.24 }); woof(t + 0.17, { f0: 430, dur: 0.11, f1: 1000, f2: 2200, vol: 0.16, growl: 0.4 }); },
-  // pisão: mola de desenho animado
-  spring: t => { const o = ctx.createOscillator(), g = ctx.createGain(), v = ctx.createOscillator(), vg = ctx.createGain(); o.type = 'sine';
-    o.frequency.setValueAtTime(180, t); o.frequency.exponentialRampToValueAtTime(620, t + 0.22); v.frequency.value = 26; vg.gain.value = 40; v.connect(vg).connect(o.frequency);
-    g.gain.setValueAtTime(0.0001, t); g.gain.linearRampToValueAtTime(0.3, t + 0.01); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.3); o.connect(g).connect(sfxBus); o.start(t); v.start(t); o.stop(t + 0.32); v.stop(t + 0.32);
-    tone(110, t, 0.12, { type: 'sine', vol: 0.3, slide: 0.5 }); },
   checkpoint: t => [659, 880, 1318].forEach((f, i) => tone(f, t + i * 0.09, 0.2, { vol: 0.14 })),
   boss: t => { tone(70, t, 1.2, { type: 'sawtooth', vol: 0.2, slide: 0.6 }); noise(t, 0.9, { vol: 0.12, freq: 200, type: 'lowpass' }); },
   final: t => { tone(90, t, 0.9, { type: 'sine', vol: 0.5, slide: 0.3 }); noise(t, 0.5, { vol: 0.25, freq: 600 }); },
@@ -101,16 +96,17 @@ const sfx = {
   ui: t => tone(880, t, 0.05, { vol: 0.1 }),
   choco: t => { [330, 277, 233, 185].forEach((f, i) => tone(f, t + i * 0.12, 0.22, { type: 'sawtooth', vol: 0.1, slide: 0.85 })); tone(90, t + 0.5, 0.5, { type: 'sine', vol: 0.25, slide: 0.6 }); },
 };
-// ---- efeitos gravados: um arquivo por evento; v = volume, vary = quanto a altura muda a cada vez (para repetições não soarem iguais) ----
+// ---- efeitos gravados: um arquivo por evento; v = volume, vary = quanto a altura muda a cada vez (para repetições não soarem iguais),
+// gap = intervalo mínimo entre duas vezes (biscoitos em fila tocam um som só e cada vez mais baixo) ----
 const SAMPLES = {
   jump: { v: 0.28, vary: 0.06 }, jump2: { v: 0.4, vary: 0.05 }, land: { v: 0.32, vary: 0.1 },
-  cookie: { v: 0.42, vary: 0.1 }, power: { v: 0.42 }, gift: { v: 0.42 }, star: { v: 0.45 }, checkpoint: { v: 0.38 }, ui: { v: 0.3 },
+  cookie: { v: 0.2, vary: 0.12, gap: 0.09 }, power: { v: 0.42 }, gift: { v: 0.42 }, star: { v: 0.45 }, checkpoint: { v: 0.38 }, ui: { v: 0.3 },
   yapZara: { v: 0.5, vary: 0.04 }, yapElvis: { v: 0.55, vary: 0.04 }, hurt: { v: 0.6, vary: 0.05 },
   bossWoof: { v: 0.8, vary: 0.04 }, bigBark: { v: 0.85 }, stomp: { v: 0.65 }, final: { v: 0.8 }, boss: { v: 0.55 },
-  spring: { v: 0.42, vary: 0.05 }, boing: { v: 0.45 }, pound: { v: 0.9 }, bonk: { v: 0.7 },
+  thud: { v: 0.5, vary: 0.08 }, pigeon: { v: 0.38, vary: 0.06 }, boing: { v: 0.45 }, pound: { v: 0.9 }, bonk: { v: 0.7 },
   throwBall: { v: 0.45 }, squeak: { v: 0.5, vary: 0.08 }, choco: { v: 0.6 }, win: { v: 0.6 }, lose: { v: 0.55 },
 };
-const sbufs = {};
+const sbufs = {}, lastAt = {};
 function loadSamples() {
   Object.keys(SAMPLES).forEach(n => fetch('assets/sfx/' + n + '.mp3').then(r => { if (!r.ok) throw 0; return r.arrayBuffer(); })
     .then(a => ctx.decodeAudioData(a)).then(b => { sbufs[n] = b; }).catch(() => {}));
@@ -118,7 +114,9 @@ function loadSamples() {
 function playSample(name, t) {
   const b = sbufs[name]; if (!b) return false;
   const o = SAMPLES[name], src = ctx.createBufferSource(), g = ctx.createGain();
-  src.buffer = b; src.playbackRate.value = 1 + (Math.random() * 2 - 1) * (o.vary || 0); g.gain.value = o.v;
+  let v = o.v;
+  if (o.gap) { const dt = t - (lastAt[name] || -9); if (dt < o.gap) return true; if (dt < 0.6) v *= 0.65; lastAt[name] = t; }
+  src.buffer = b; src.playbackRate.value = 1 + (Math.random() * 2 - 1) * (o.vary || 0); g.gain.value = v;
   src.connect(g).connect(sfxBus); src.start(t);
   return true;
 }
@@ -184,7 +182,7 @@ function loadTrack(file) {
   if (file in bufs) return; bufs[file] = null;
   fetch('assets/music/' + file + '.mp3').then(r => { if (!r.ok) throw 0; return r.arrayBuffer(); }).then(a => ctx.decodeAudioData(a))
     .then(b => { bufs[file] = b; if (song && TRACKS[song] === file && !track) { clearInterval(timer); timer = null; playTrack(file); } })
-    .catch(() => { bufs[file] = false; });
+    .catch(() => { bufs[file] = false; if (song && TRACKS[song] === file && !timer) { nextT = ctx.currentTime + 0.08; timer = setInterval(schedule, 40); } });
 }
 TT.music = name => {
   if (name === song) return;
@@ -195,7 +193,8 @@ TT.music = name => {
   if (!name || !init()) return;
   loadTrack(file);
   if (bufs[file]) { if (!track) playTrack(file); return; }
-  nextT = ctx.currentTime + 0.08; timer = setInterval(schedule, 40);
+  // arquivo ainda carregando: espera em silêncio (loadTrack começa a música assim que chegar); a trilha sintetizada só entra se o arquivo falhar
+  if (bufs[file] === false) { nextT = ctx.currentTime + 0.08; timer = setInterval(schedule, 40); }
 };
 TT.setMuted = m => {
   muted = m; try { localStorage.setItem('tintim-mute', m ? '1' : '0'); } catch (_) {}
