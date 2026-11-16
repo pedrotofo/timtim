@@ -64,6 +64,9 @@
   #banner.show { animation: banner 2.6s var(--out) both; }
   @keyframes banner { 0% { opacity: 0; transform: translate(-50%, 1cqw); } 16% { opacity: 1; transform: translate(-50%, 0); } 80% { opacity: 1; transform: translate(-50%, 0); } 100% { opacity: 0; transform: translate(-50%, -1cqw); } }
 
+  #say { position: absolute; transform: translate(-50%, -100%) scale(.6); opacity: 0; background: #fff6ea; color: #3a1c30; font-weight: 800; font-size: 1.7cqw; padding: .4cqw 1.3cqw; border-radius: 1.4cqw; white-space: nowrap; pointer-events: none; transition: opacity .25s, transform .35s var(--pop); box-shadow: 0 .3cqw 1.2cqw rgba(40, 10, 30, .4); }
+  #say::after { content: ""; position: absolute; left: 50%; bottom: -.7cqw; border: .8cqw solid transparent; border-top-color: #fff6ea; border-bottom: 0; transform: translateX(-50%); }
+  #say.on { opacity: 1; transform: translate(-50%, -100%) scale(1); }
   .hero { position: relative; display: grid; place-items: center; animation: float 6s ease-in-out infinite; }
   .hero::before { content: ""; position: absolute; width: 30cqw; height: 30cqw; border-radius: 50%; background: radial-gradient(circle, rgba(255, 226, 170, .75), rgba(255, 150, 100, .28) 45%, transparent 70%); }
   .hero img { position: relative; height: 30cqw; filter: drop-shadow(0 1cqw 1.6cqw rgba(40, 10, 30, .5)); }
@@ -193,7 +196,7 @@
     <button class="round" id="btnPause" aria-label="Pausar">❚❚</button>
   </div>
 
-  <div id="banner"></div>
+  <div id="banner"></div><div id="say"></div>
   <div id="touch" class="layer">
     <button class="tbtn" id="tL" data-k="left" aria-label="Esquerda">◀</button>
     <button class="tbtn" id="tR" data-k="right" aria-label="Direita">▶</button>
