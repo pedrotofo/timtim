@@ -574,7 +574,8 @@ R.frame = (rdt) => {
   const hs = 150 + Math.sin(time * 2.4) * 10 + (fast ? 30 : 0);
   halo.position.set(tx, ty + 34, 1); halo.scale.set(hs, hs * 0.9, 1); halo.material.opacity = (S.mode === 'lose' ? 0.12 : 0.4) + Math.sin(time * 3.1) * 0.04;
   heroLight.position.set(tx, ty + 46, 60); heroLight.intensity = S.mode === 'lose' ? 0.3 : 1.15 + Math.sin(time * 3.1) * 0.08;
-  aura.visible = fast;
+  const left = Math.max(p.fast, p.mega); // no último segundo e meio a aura pisca: o poder está acabando
+  aura.visible = fast && !(left < 1.5 && Math.floor(time * 8) % 2);
   if (aura.visible) { aura.position.set(tx, ty + 38, 1); const s = 130 + Math.sin(time * 9) * 12; aura.scale.set(s, s, 1);
     if (p.mega > 0) aura.material.color.setHSL((time * 0.9) % 1, 1, 0.5); else aura.material.color.set(0xffd23f); aura.material.opacity = p.mega > 0 ? 0.7 : 0.4; }
   // rastro de luz: silhuetas que ficam para trás na pirueta e no turbo

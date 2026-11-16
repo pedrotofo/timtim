@@ -4,17 +4,17 @@
 const TT = window.TT, S = TT.S, R = TT.R;
 
 const sfxOn = (ev, name) => TT.on(ev, () => TT.sfx(name));
-sfxOn('jump', 'jump'); sfxOn('jump2', 'jump2'); sfxOn('friend', 'friend'); sfxOn('gift', 'gift'); sfxOn('land', 'land'); sfxOn('cookie', 'cookie'); sfxOn('power', 'power'); sfxOn('stomp', 'stomp'); sfxOn('hurt', 'hurt');
-sfxOn('bark', 'bark'); sfxOn('bigBark', 'bigBark'); sfxOn('bonk', 'bonk'); sfxOn('pound', 'pound'); sfxOn('throw', 'throwBall'); sfxOn('chew', 'squeak'); sfxOn('shrug', 'boing'); sfxOn('choco', 'choco'); sfxOn('checkpoint', 'checkpoint'); sfxOn('bossIntro', 'boss'); sfxOn('finalBlow', 'final');
+sfxOn('jump', 'jump'); sfxOn('jump2', 'jump2'); TT.on('friend', e => TT.sfx(e.kind === 'chi-br' ? 'yapZara' : 'yapElvis')); sfxOn('gift', 'gift'); sfxOn('land', 'land'); sfxOn('cookie', 'cookie'); sfxOn('power', 'power'); TT.on('stomp', e => { TT.sfx('spring'); if (e.boss) TT.sfx('stomp'); }); sfxOn('hurt', 'hurt');
+sfxOn('bark', 'bossWoof'); sfxOn('bigBark', 'bigBark'); sfxOn('bonk', 'bonk'); sfxOn('pound', 'pound'); TT.on('throw', e => { TT.sfx('throwBall'); TT.sfx(e.kind === 'chi-br' ? 'yapZara' : 'yapElvis'); }); sfxOn('chew', 'squeak'); sfxOn('shrug', 'boing'); sfxOn('choco', 'choco'); sfxOn('checkpoint', 'checkpoint'); sfxOn('bossIntro', 'boss'); sfxOn('finalBlow', 'final');
 TT.on('start', () => { TT.music(S.arena ? 'boss' : 'level'); TT.audioDuck(false); });
 TT.on('bossIntro', () => TT.music(null));
 TT.on('cineEnd', () => TT.music('boss'));
-TT.on('banner', e => { if (/Revanche/.test(e.text)) TT.music('boss'); });
+TT.on('rematch', () => TT.music('boss'));
 TT.on('finalBlow', () => TT.music(null));
 TT.on('win', () => TT.sfx('win'));
 TT.on('lose', () => { TT.music(null); TT.sfx('lose'); });
 TT.on('pause', () => TT.audioDuck(true)); TT.on('resume', () => TT.audioDuck(false));
-TT.on('checkpoint', () => TT.emit('banner', { text: 'Checkpoint!' }));
+
 
 if (TT.noWebGL || !R || !R.frame) return;
 const qp = new URLSearchParams(location.search).get('q'); // ?q=0..2 fixa a qualidade (para testes)

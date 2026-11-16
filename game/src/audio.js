@@ -33,6 +33,18 @@ function tone(f, t, dur, { type = 'triangle', vol = 0.2, slide = 0, bus = sfxBus
   g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
   o.connect(g).connect(bus); o.start(t); o.stop(t + dur + 0.02);
 }
+// latido: serra com a altura caindo, passando por dois filtros de "boca" (formantes), com um sopro de ruído no começo.
+// f0 = altura da voz; f1/f2 = formantes (cachorro grande = graves, chihuahua = agudos); growl = rosnado (tremolo).
+function woof(t, { f0 = 300, dur = 0.16, f1 = 900, f2 = 2000, vol = 0.25, growl = 0 } = {}) {
+  const o = ctx.createOscillator(), b1 = ctx.createBiquadFilter(), b2 = ctx.createBiquadFilter(), g = ctx.createGain(), mix = ctx.createGain();
+  o.type = 'sawtooth'; o.frequency.setValueAtTime(f0 * 1.55, t); o.frequency.exponentialRampToValueAtTime(f0, t + dur * 0.35); o.frequency.exponentialRampToValueAtTime(f0 * 0.62, t + dur);
+  b1.type = b2.type = 'bandpass'; b1.frequency.value = f1; b2.frequency.value = f2; b1.Q.value = 3; b2.Q.value = 4;
+  g.gain.setValueAtTime(0.0001, t); g.gain.linearRampToValueAtTime(vol, t + 0.008); g.gain.exponentialRampToValueAtTime(vol * 0.5, t + dur * 0.45); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+  o.connect(b1).connect(mix); o.connect(b2).connect(mix); mix.connect(g).connect(sfxBus);
+  if (growl) { const l = ctx.createOscillator(), lg = ctx.createGain(); l.frequency.value = 34; lg.gain.value = growl; l.connect(lg).connect(mix.gain); l.start(t); l.stop(t + dur + 0.02); }
+  o.start(t); o.stop(t + dur + 0.02);
+  noise(t, 0.035, { vol: vol * 0.6, freq: f2, q: 1.2 });
+}
 function noise(t, dur, { vol = 0.2, freq = 2000, q = 1, type = 'bandpass', bus = sfxBus } = {}) {
   const s = ctx.createBufferSource(), f = ctx.createBiquadFilter(), g = ctx.createGain();
   s.buffer = noiseBuf; f.type = type; f.frequency.value = freq; f.Q.value = q;
@@ -60,12 +72,24 @@ const sfx = {
   stomp: t => { tone(180, t, 0.2, { type: 'sine', vol: 0.4, slide: 0.35 }); noise(t, 0.12, { vol: 0.2, freq: 900 }); tone(660, t + 0.02, 0.1, { type: 'square', vol: 0.06, slide: 1.6 }); },
   hurt: t => { tone(300, t, 0.28, { type: 'sawtooth', vol: 0.16, slide: 0.4 }); noise(t, 0.15, { vol: 0.12, freq: 500 }); },
   bark: t => { [0, 0.13].forEach(o => { tone(260, t + o, 0.09, { type: 'sawtooth', vol: 0.14, slide: 1.5 }); noise(t + o, 0.08, { vol: 0.1, freq: 1100, q: 2 }); }); },
-  bigBark: t => { [0, 0.16].forEach(o => { tone(120, t + o, 0.2, { type: 'sawtooth', vol: 0.24, slide: 1.6 }); noise(t + o, 0.16, { vol: 0.16, freq: 600, q: 1.5 }); }); },
   bonk: t => { tone(140, t, 0.3, { type: 'square', vol: 0.18, slide: 0.4 }); noise(t, 0.2, { vol: 0.2, freq: 400 }); tone(1200, t + 0.05, 0.25, { type: 'sine', vol: 0.08, slide: 0.6 }); },
   pound: t => { tone(55, t, 0.6, { type: 'sine', vol: 0.5, slide: 0.5 }); noise(t, 0.45, { vol: 0.3, freq: 250, type: 'lowpass' }); },
   throwBall: t => { tone(600, t, 0.12, { type: 'triangle', vol: 0.12, slide: 1.6 }); [0, 0.1].forEach(o => tone(900, t + 0.05 + o, 0.06, { type: 'triangle', vol: 0.1, slide: 1.3 })); },
   squeak: t => { tone(1400, t, 0.12, { type: 'sine', vol: 0.12, slide: 1.4 }); tone(1100, t + 0.14, 0.12, { type: 'sine', vol: 0.1, slide: 1.3 }); },
   boing: t => { tone(220, t, 0.25, { type: 'sine', vol: 0.22, slide: 2.4 }); },
+  // Brutão: dois latidos graves e roucos, com um soco no peito
+  bigBark: t => { woof(t, { f0: 150, dur: 0.32, f1: 520, f2: 1150, vol: 0.42, growl: 0.6 }); woof(t + 0.36, { f0: 135, dur: 0.38, f1: 480, f2: 1050, vol: 0.4, growl: 0.7 }); tone(70, t, 0.25, { type: 'sine', vol: 0.3, slide: 0.6 }); },
+  // investida do Brutão: um latido grave só
+  bossWoof: t => woof(t, { f0: 140, dur: 0.3, f1: 500, f2: 1100, vol: 0.38, growl: 0.5 }),
+  // Zara: "iip-iip" bem agudo e curtinho
+  yapZara: t => { woof(t, { f0: 780, dur: 0.09, f1: 1700, f2: 3200, vol: 0.2 }); woof(t + 0.12, { f0: 860, dur: 0.09, f1: 1800, f2: 3400, vol: 0.2 }); },
+  // Elvis: "arf!" mais encorpado, com um "rrf" no fim
+  yapElvis: t => { woof(t, { f0: 520, dur: 0.15, f1: 1150, f2: 2500, vol: 0.24 }); woof(t + 0.17, { f0: 430, dur: 0.11, f1: 1000, f2: 2200, vol: 0.16, growl: 0.4 }); },
+  // pisão: mola de desenho animado
+  spring: t => { const o = ctx.createOscillator(), g = ctx.createGain(), v = ctx.createOscillator(), vg = ctx.createGain(); o.type = 'sine';
+    o.frequency.setValueAtTime(180, t); o.frequency.exponentialRampToValueAtTime(620, t + 0.22); v.frequency.value = 26; vg.gain.value = 40; v.connect(vg).connect(o.frequency);
+    g.gain.setValueAtTime(0.0001, t); g.gain.linearRampToValueAtTime(0.3, t + 0.01); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.3); o.connect(g).connect(sfxBus); o.start(t); v.start(t); o.stop(t + 0.32); v.stop(t + 0.32);
+    tone(110, t, 0.12, { type: 'sine', vol: 0.3, slide: 0.5 }); },
   checkpoint: t => [659, 880, 1318].forEach((f, i) => tone(f, t + i * 0.09, 0.2, { vol: 0.14 })),
   boss: t => { tone(70, t, 1.2, { type: 'sawtooth', vol: 0.2, slide: 0.6 }); noise(t, 0.9, { vol: 0.12, freq: 200, type: 'lowpass' }); },
   final: t => { tone(90, t, 0.9, { type: 'sine', vol: 0.5, slide: 0.3 }); noise(t, 0.5, { vol: 0.25, freq: 600 }); },

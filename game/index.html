@@ -39,10 +39,6 @@
   #cookieN.bump { animation: bump .32s var(--pop); }
   @keyframes bump { 40% { transform: scale(1.5); color: #fff; } }
   #cookieT { font-size: 1.35cqw; font-weight: 600; color: var(--dim); margin-left: -.6cqw; }
-  .chip { display: none; align-items: center; gap: .5cqw; font-size: 1.8cqw; font-variant-numeric: tabular-nums; }
-  .chip.on { display: flex; animation: chipIn .35s var(--pop); }
-  .chip img { height: 2.5cqw; }
-  @keyframes chipIn { from { transform: scale(0); } }
   #prog { width: 19cqw; height: .5cqw; background: rgba(255, 220, 190, .16); border-radius: 9cqw; position: relative; margin: .9cqw 0 .9cqw .8cqw; }
   #progFill { position: absolute; inset: 0 auto 0 0; width: 0; background: linear-gradient(90deg, rgba(255, 214, 160, .2), var(--glow)); border-radius: 9cqw; box-shadow: 0 0 1cqw var(--glow); }
   #progDog { position: absolute; top: 50%; height: 3cqw; transform: translate(-50%, -58%); left: 0; }
@@ -68,9 +64,6 @@
   #banner.show { animation: banner 2.6s var(--out) both; }
   @keyframes banner { 0% { opacity: 0; transform: translate(-50%, 1cqw); } 16% { opacity: 1; transform: translate(-50%, 0); } 80% { opacity: 1; transform: translate(-50%, 0); } 100% { opacity: 0; transform: translate(-50%, -1cqw); } }
 
-  #say { position: absolute; transform: translate(-50%, -100%) scale(.6); opacity: 0; background: #fff6ea; color: #3a1c30; font-weight: 800; font-size: 1.7cqw; padding: .4cqw 1.3cqw; border-radius: 1.4cqw; white-space: nowrap; pointer-events: none; transition: opacity .25s, transform .35s var(--pop); box-shadow: 0 .3cqw 1.2cqw rgba(40, 10, 30, .4); }
-  #say::after { content: ""; position: absolute; left: 50%; bottom: -.7cqw; border: .8cqw solid transparent; border-top-color: #fff6ea; border-bottom: 0; transform: translateX(-50%); }
-  #say.on { opacity: 1; transform: translate(-50%, -100%) scale(1); }
   .hero { position: relative; display: grid; place-items: center; animation: float 6s ease-in-out infinite; }
   .hero::before { content: ""; position: absolute; width: 30cqw; height: 30cqw; border-radius: 50%; background: radial-gradient(circle, rgba(255, 226, 170, .75), rgba(255, 150, 100, .28) 45%, transparent 70%); }
   .hero img { position: relative; height: 30cqw; filter: drop-shadow(0 1cqw 1.6cqw rgba(40, 10, 30, .5)); }
@@ -189,9 +182,6 @@
       <svg class="heart" viewBox="0 0 24 22"><path d="M12 21C3 14 1 10.5 1 6.8 1 3.6 3.5 1.2 6.6 1.2c2 0 3.9 1 5.4 3 1.5-2 3.4-3 5.4-3 3.1 0 5.6 2.4 5.6 5.6 0 3.7-2 7.2-11 14.200z" fill="#e8323c" stroke="#2b1a10" stroke-width="2" stroke-linejoin="round"/></svg>
       <i class="sep"></i>
       <img id="cookieIc" src="assets/sprites/cookie.png" alt="Biscoitos"><span id="cookieN">0</span><span id="cookieT">/36</span>
-      <span class="chip" id="chipFast"><i class="sep"></i><img src="assets/sprites/banana.png" alt="Turbo"><span>7</span></span>
-      <span class="chip" id="chipSlow"><i class="sep"></i><b style="font-size:2.2cqw">🍫</b><span>5</span></span>
-      <span class="chip" id="chipMega"><i class="sep"></i><img src="assets/sprites/monkey.png" alt="Invencível"><span>8</span></span>
     </div>
     <div id="hr" class="pill">
       <div id="prog"><div id="progFill"></div><img id="progDog" src="assets/sprites/tintim-idle.png" alt=""></div><span id="progEnd">🛝</span>
@@ -203,7 +193,7 @@
     <button class="round" id="btnPause" aria-label="Pausar">❚❚</button>
   </div>
 
-  <div id="banner"></div><div id="say"></div>
+  <div id="banner"></div>
   <div id="touch" class="layer">
     <button class="tbtn" id="tL" data-k="left" aria-label="Esquerda">◀</button>
     <button class="tbtn" id="tR" data-k="right" aria-label="Direita">▶</button>

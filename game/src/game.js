@@ -108,13 +108,13 @@ function reset() {
 }
 reset();
 
-TT.start = () => { reset(); S.mode = 'play'; emit('start'); emit('banner', { text: 'Derrote o Brutão!' }); };
+TT.start = () => { reset(); S.mode = 'play'; emit('start'); };
 TT.retry = () => {
   if (S.checkpoint < 0) return TT.start();
   const x = C.checkpoints[S.checkpoint];
   S.player = makePlayer(x); S.player.inv = 1.6; S.boss = makeBoss(); S.ball = null; S.waves = []; S.arena = false; S.cine = null; S.timeScale = 1; S.slowT = 0; S.hitstop = 0; S.gifts = [];
   S.cam.x = Math.max(0, x - W * 0.4); S.cam.look = 0; S.mode = 'play';
-  emit('start', { retry: true }); emit('banner', { text: 'De volta ao checkpoint!' });
+  emit('start', { retry: true });
 };
 TT.pause = () => { if (S.mode === 'play') { S.mode = 'pause'; emit('pause'); } };
 TT.resume = () => { if (S.mode === 'pause') { S.mode = 'play'; emit('resume'); } };
@@ -214,10 +214,10 @@ TT.update = (rdt) => {
       if (!overlap(p, box)) continue;
       it.got = true;
       if (it.type === 'cookie') { S.cookies++; emit('cookie', it); }
-      if (it.type === 'gold') { S.gold++; emit('power', it); emit('banner', { text: 'Biscoito dourado! ' + S.gold + ' de 3' }); }
-      if (it.type === 'choco') { if (p.mega > 0) emit('banner', { text: 'Invencível: nem chocolate faz mal!' }); else { p.slow = 5; p.fast = 0; emit('choco', it); emit('banner', { text: 'Chocolate! Deu dor de barriga…' }); } }
-      if (it.type === 'banana') { p.slow = 0; p.fast = 7; emit('power', it); emit('banner', { text: 'Banana de pelúcia: turbo!' }); }
-      if (it.type === 'monkey') { p.mega = 8; p.hp = Math.min(3, p.hp + 1); emit('power', it); emit('banner', { text: 'Macaco de pelúcia: invencível!' }); }
+      if (it.type === 'gold') { S.gold++; emit('power', it); emit('gold', it); }
+      if (it.type === 'choco') { if (p.mega <= 0) { p.slow = 5; p.fast = 0; emit('choco', it); } }
+      if (it.type === 'banana') { p.slow = 0; p.fast = 7; emit('power', it); }
+      if (it.type === 'monkey') { p.mega = 8; p.hp = Math.min(3, p.hp + 1); emit('power', it); }
     }
   }
 
@@ -233,7 +233,7 @@ TT.update = (rdt) => {
     if (Math.abs(f.vx) > 30) f.face = Math.sign(f.vx); else if (seen || !playing) f.face = pcx < f.x ? -1 : 1;
     if (playing && !f.given && Math.abs(pcx - f.x) < 120) {
       f.given = true; f.hop = 0.9; f.follow = 3.2; S.gifts.push({ sx: f.x + f.face * 18, sy: GROUND - 58, x: f.x, y: GROUND - 58, t: 0, kind: S.friends.indexOf(f) });
-      emit('friend', { x: f.x, y: GROUND - 70 });
+      emit('friend', { x: f.x, y: GROUND - 70, kind: f.kind });
     }
   }
   for (let i = S.gifts.length - 1; i >= 0; i--) {
@@ -242,7 +242,7 @@ TT.update = (rdt) => {
     if (k >= 1) {
       S.gifts.splice(i, 1); S.cookies += C.GIFT; p.hp = Math.min(3, p.hp + 1);
       p.slow = 0; if (g.kind === 0) p.fast = 8; else p.mega = 9;
-      emit('gift', { x: g.x, y: g.y }); emit('power', g); emit('banner', { text: g.kind === 0 ? 'Poder do amigo: turbo!' : 'Poder do amigo: invencível!' });
+      emit('gift', { x: g.x, y: g.y }); emit('power', g);
     }
   }
 
@@ -265,7 +265,7 @@ TT.update = (rdt) => {
     // os chihuahuas entram na arena e ficam um em cada canto, prontos para jogar a bolinha
     S.friends.forEach((f, i) => { f.home = i ? ARENA_X + W - 70 : ARENA_X + 50; f.x = i ? ARENA_X + W + 70 : ARENA_X - 70; f.given = true; f.follow = 0; f.vx = 0; });
     if (!S.bossSeen) { S.bossSeen = true; S.cine = { type: 'boss', t: 0, dur: 3.4, barks: 0 }; emit('bossIntro'); }
-    else emit('banner', { text: 'Revanche contra o Brutão!' });
+    else emit('rematch');
   }
   if (S.arena) updateBoss(dt, prevBottom, playing);
 
@@ -284,7 +284,7 @@ function throwBall() {
   const bx = b.x + b.w / 2, tx = bx > ARENA_X + W / 2 ? ARENA_X + 170 + Math.random() * 220 : ARENA_X + W - 390 + Math.random() * 220;
   S.ball = { x: f.x, y: GROUND - 56, vx: (tx - f.x) / 1.15, vy: -620, rest: false, held: false };
   f.hop = 0.7; f.face = fromLeft ? 1 : -1;
-  emit('throw', { x: f.x, y: GROUND - 60 });
+  emit('throw', { x: f.x, y: GROUND - 60, kind: f.kind });
 }
 function updateBall(dt) {
   const q = S.ball; if (!q || q.held) return;
