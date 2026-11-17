@@ -122,7 +122,8 @@ function playSample(name, t) {
   src.connect(g).connect(sfxBus); src.start(t);
   return true;
 }
-// ---- narração da abertura (voz de vovô contador de histórias, gerada no Artlist já em fala rápida): uma fala por quadro.
+// ---- narração da abertura (voz de vovô contador de histórias, gerada no Artlist já em fala rápida): uma fala curta por quadro
+// (versão resumida da frase do pergaminho; as três somam menos de 10 s).
 // Enquanto ele fala, a música abaixa. Se a fala ainda não carregou quando o quadro começa, entra assim que chegar (até 1,2 s depois).
 const vbufs = []; let voiceSrc = null, voiceWant = null;
 function loadVoices() {
