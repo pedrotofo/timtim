@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8">
+<style>
+/* Livros a Lápis · 9:16 · 1080×1920 · 30 fps. Livro grande em 3D sobre os desenhos desfocados do próprio livro;
+   os três títulos embaixo, com ✓ verde-menta; o último livro abre e folheia. */
+@font-face{font-family:G;src:url("../../mestres/fonts/eb-garamond-latin-400-normal.ttf")}
+@font-face{font-family:G;font-style:italic;src:url("../../mestres/fonts/eb-garamond-latin-400-italic.ttf")}
+@font-face{font-family:G;src:url("../../mestres/fonts/eb-garamond-latin-ext-400-normal.ttf");unicode-range:U+0100-024F}
+@font-face{font-family:S;font-weight:500;src:url("../../mestres/fonts/archivo-latin-500-normal.woff")}
+:root{--bg:#0d0e11;--mint:#3cd48c;--text:#eeeae0;--dim:#7d8088}
+*{box-sizing:border-box}
+html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:var(--bg)}
+#bg{position:absolute;left:50%;top:50%;width:1500px;height:2600px;margin:-1300px 0 0 -750px;object-fit:cover;
+  filter:blur(26px) brightness(.5) saturate(1.1);transform:translate(var(--px,0px),var(--py,0px)) scale(1.1)}
+.shade{position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 42%,rgba(13,14,17,0),rgba(13,14,17,.75) 100%)}
+.dots{position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.06) 1.5px,transparent 1.7px);background-size:34px 34px}
+.wave{position:absolute;inset:0;background-image:radial-gradient(rgba(60,212,140,.95) 2px,transparent 2.3px);background-size:34px 34px;opacity:0;
+  -webkit-mask-image:radial-gradient(circle at 50% 42%,transparent calc(var(--r,0px) - 160px),#000 calc(var(--r,0px) - 40px),transparent var(--r,0px))}
+#scene{position:absolute;inset:0;perspective:2400px;perspective-origin:50% 40%}
+.x{}#leaves{position:absolute;inset:0;transform-style:preserve-3d}
+#shadow{position:absolute;left:50%;top:1250px;width:640px;height:80px;margin-left:-320px;border-radius:50%;
+  background:radial-gradient(rgba(0,0,0,.75),rgba(0,0,0,0) 70%);filter:blur(10px)}
+.book{position:absolute;left:50%;top:800px;width:500px;height:800px;margin:-400px 0 0 -250px;transform-style:preserve-3d}
+.f{position:absolute;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.front{inset:0;transform:translateZ(30px);background-size:100% 100%;border-radius:2px 6px 6px 2px;box-shadow:inset 8px 0 14px rgba(0,0,0,.35)}
+.backc{inset:0;transform:rotateY(180deg) translateZ(30px);background:#e8e2d5;border-radius:6px 2px 2px 6px}
+.spine{width:60px;height:800px;left:-30px;transform:rotateY(-90deg);display:flex;align-items:center;justify-content:center}
+.spine span{writing-mode:vertical-rl;transform:rotate(180deg);font:400 24px G;letter-spacing:.01em;white-space:nowrap}
+.edge{width:60px;height:792px;top:4px;left:470px;transform:rotateY(90deg);background:repeating-linear-gradient(90deg,#f4efe4 0 2px,#d6cebd 2px 3px)}
+.topedge{width:492px;height:60px;left:4px;top:-30px;transform:rotateX(90deg);background:repeating-linear-gradient(0deg,#f4efe4 0 2px,#d6cebd 2px 3px)}
+/* livro que abre: folhas presas na lombada (lado esquerdo do bloco) */
+.leaf{position:absolute;inset:0;transform-origin:0 50%;transform-style:preserve-3d}
+.leaf .pf,.leaf .pb{position:absolute;inset:0;background-size:100% 100%;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.leaf .pb{transform:rotateY(180deg)}
+.leaf .sh{position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.18),rgba(0,0,0,0) 12%);pointer-events:none}
+.base{position:absolute;inset:0;background-size:100% 100%;transform:translateZ(-2px)}
+.gutter{position:absolute;left:-30px;top:0;width:60px;height:800px;background:linear-gradient(90deg,rgba(0,0,0,0),rgba(0,0,0,.22) 50%,rgba(0,0,0,0));transform:translateZ(2px);opacity:var(--go,0)}
+#list{position:absolute;left:0;right:0;top:1390px;display:flex;flex-direction:column;align-items:center;gap:26px}
+.row{display:flex;align-items:center;gap:22px;font:400 46px/1 G;color:var(--dim);letter-spacing:-.005em}
+.row.now{color:var(--text)}
+.row.done{color:#c9c6bd}
+.ck{width:36px;height:36px;border-radius:9px;border:2.5px solid #4a4d54;display:grid;place-items:center;flex:none}
+.ck svg{width:24px;height:24px;opacity:0;transform:scale(.4)}
+.row.done .ck{background:var(--mint);border-color:var(--mint)}
+.row.done .ck svg{opacity:1;transform:scale(var(--pop,1))}
+.row.now .ck{border-color:var(--mint);box-shadow:0 0 0 5px rgba(60,212,140,.18)}
+</style></head>
+<body>
+<img id="bg" alt=""><div class="shade"></div><div class="dots"></div><div class="wave" id="wave"></div>
+<div id="scene"><div id="shadow"></div>
+  <div class="book" id="b0"><div class="f front"></div><div class="f backc"></div><div class="f spine"><span></span></div><div class="f edge"></div><div class="f topedge"></div></div>
+  <div class="book" id="b1"><div class="f front"></div><div class="f backc"></div><div class="f spine"><span></span></div><div class="f edge"></div><div class="f topedge"></div></div>
+  <div class="book" id="b2"><div class="base f" id="base"></div><div class="f spine" id="sp2"><span></span></div><div class="f edge" id="ed2"></div><div class="gutter" id="gut"></div><div id="leaves"></div></div>
+</div>
+<div id="list"></div>
+<script>
+const BOOKS=[
+ {t:'Van Gogh a Lápis', cover:'../../livro/img/cover.jpg', bg:'bg_vangogh.jpg', spine:'#2a2119', ink:'#efe8da', start:0, end:3.0, dir:1},
+ {t:'Rembrandt a Lápis', cover:'../../rembrandt/img/cover.jpg', bg:'bg_rembrandt.jpg', spine:'#2a2119', ink:'#efe8da', start:3.0, end:5.8, dir:-1},
+ {t:'Grandes Artistas a Lápis', cover:'../../mestres/img/cover.jpg', bg:'bg_mestres.jpg', spine:'#eeeae0', ink:'#1e1913', start:5.8, end:10, dir:1}];
+const FINAL=9.55, OPEN=[6.75,7.45], FLIPS=[[7.55,8.15],[8.25,8.85],[8.95,9.5]];
+// folhas: [frente, verso]; base = última página da direita
+const LEAVES=[[BOOKS[2].cover,'pags/p12.jpg'],['pags/p13.jpg','pags/p16.jpg'],['pags/p17.jpg','pags/p40.jpg'],['pags/p41.jpg','pags/p42.jpg']];
+const $=id=>document.getElementById(id);
+[0,1].forEach(i=>{const b=$('b'+i);b.querySelector('.front').style.backgroundImage=`url(${BOOKS[i].cover})`;
+  const sp=b.querySelector('.spine');sp.style.background=BOOKS[i].spine;sp.querySelector('span').style.color=BOOKS[i].ink;sp.querySelector('span').textContent=BOOKS[i].t;});
+$('sp2').style.background=BOOKS[2].spine;$('sp2').querySelector('span').textContent=BOOKS[2].t;$('sp2').querySelector('span').style.color=BOOKS[2].ink;
+$('base').style.backgroundImage='url(pags/p43.jpg)';
+$('leaves').innerHTML=LEAVES.map(([f,b])=>`<div class="leaf"><div class="pf" style="background-image:url(${f})"></div><div class="pb" style="background-image:url(${b})"></div><div class="sh"></div></div>`).join('');
+const leaves=[...document.querySelectorAll('.leaf')];
+const ck='<svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="#07150e" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+$('list').innerHTML=BOOKS.map(b=>`<div class="row"><span class="ck">${ck}</span><span>${b.t}</span></div>`).join('');
+const rows=[...document.querySelectorAll('.row')];
+const clamp=(x,a=0,b=1)=>Math.max(a,Math.min(b,x)), mix=(a,b,k)=>a+(b-a)*k;
+const ease=k=>{k=clamp(k);return k<.5?4*k*k*k:1-Math.pow(-2*k+2,3)/2;};
+const easeO=k=>{k=clamp(k);return 1-Math.pow(1-k,3);};
+const spring=k=>{k=clamp(k);return 1-Math.exp(-7*k)*Math.cos(11*k);};
+window.render=t=>{
+  const i=BOOKS.findIndex(b=>t<b.end), cur=i<0?2:i, B=BOOKS[cur], lt=t-B.start, D=B.end-B.start;
+  [0,1,2].forEach(j=>$('b'+j).style.display=j===cur?'block':'none');
+  $('bg').src=B.bg;
+  let rx, ry, rz=0, s, tx=0, ty=0;
+  if(cur<2){
+    const k=clamp(lt/D), e=easeO(clamp(lt/.9));
+    s=mix(cur===0?.55:.85,1,e); ry=B.dir*mix(-55,22,ease(k)); rx=mix(14,4,ease(k)); ty=Math.sin(t*1.7)*10+mix(cur===0?260:120,0,e); rz=mix(-6*B.dir,0,e);
+  } else {
+    const k0=easeO(clamp(lt/.9)), front=ease(clamp((t-B.start)/ (OPEN[0]-B.start)));
+    s=mix(.85,1,k0); ry=mix(-40,0,front); rx=mix(12,6,front); ty=mix(120,0,k0)+Math.sin(t*1.7)*6*(1-front*.7);
+    const ko=ease(clamp((t-OPEN[0])/(OPEN[1]-OPEN[0])));
+    tx=ko*250; s*=mix(1,.98,ko); rx=mix(rx,16,ko);
+    leaves.forEach((L,j)=>{let a=0;
+      if(j===0) a=-180*ko; else { const [f0,f1]=FLIPS[j-1]; a=-180*ease(clamp((t-f0)/(f1-f0))); }
+      const left=a<-90, z=left? j*.6+1 : (leaves.length-j)*.6+1;
+      const curl= a<0 && a>-180 ? Math.sin(-a*Math.PI/180)*8 : 0;
+      L.style.transform=`translateZ(${z}px) rotateY(${a}deg) rotateX(${curl*.0}deg)`;
+      L.querySelector('.sh').style.opacity=(Math.sin(-a*Math.PI/180)*1.2).toFixed(2);});
+    $('gut').style.setProperty('--go',ko.toFixed(2));
+    $('sp2').style.opacity=1-ko; $('ed2').style.opacity=1-ko;
+  }
+  const bk=$('b'+cur);
+  bk.style.transform=`translate3d(${tx}px,${ty}px,0) scale(${s}) rotateX(${rx}deg) rotateY(${ry}deg) rotateZ(${rz}deg)`;
+  $('shadow').style.transform=`translateX(${tx*.5}px) scaleX(${(cur===2? mix(.7,1.35,clamp((t-OPEN[0])/.7)) : 1-Math.abs(ry)/170)*s})`;
+  $('shadow').style.opacity=clamp(s);
+  $('bg').style.setProperty('--px',(-ry*4).toFixed(1)+'px'); $('bg').style.setProperty('--py',(-lt*14).toFixed(1)+'px');
+  // lista: ✓ quando o livro seguinte entra; o último no FINAL
+  rows.forEach((r,j)=>{const fin=j<cur||(j===2&&t>=FINAL), st=j<cur?BOOKS[j+1].start:FINAL;
+    r.classList.toggle('done',fin); r.classList.toggle('now',!fin&&j===cur); r.style.setProperty('--pop',fin?spring((t-st)/.5).toFixed(3):0);});
+  $('list').style.opacity=clamp((t-.4)/.5);
+  // onda verde a cada ✓
+  const hits=[BOOKS[1].start,BOOKS[2].start,FINAL].filter(h=>t>=h), h=hits.length?hits[hits.length-1]:-9, wk=(t-h)/1.6;
+  $('wave').style.opacity=wk>=0&&wk<1?(1-wk*wk).toFixed(3):0; $('wave').style.setProperty('--r',(ease(clamp(wk))*1600+420).toFixed(0)+'px');
+};
+render(+(new URLSearchParams(location.search).get('t')||0));
+</script></body></html>
