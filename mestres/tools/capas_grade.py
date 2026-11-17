@@ -13,7 +13,7 @@ BLUES = ['#5B87A6', '#4A7699', '#3B6386', '#304F78', '#243B5E']
 # detalhe: (obra, x do centro, y do centro, largura do recorte em fração da imagem)
 D = {'pag': ('n1_paganini', .53, .17, .3), 'durer': ('n2_durer13', .55, .31, .42), 'girl': ('n4_girl', .45, .42, .5),
      'mother': ('n4_mother', .27, .38, .42), 'more': ('n2_more', .58, .45, .5), 'yeats': ('n3_yeats', .48, .3, .45),
-     'pray': ('n3_hands', .4, .33, .5), 'pillow': ('n1_pillows', .74, .21, .45), 'cat': ('n1_cats', .75, .44, .28),
+     'pray': ('n3_hands', .45, .42, .85), 'pillow': ('n1_pillows', .74, .21, .45), 'cat': ('n1_cats', .75, .44, .28),
      'drap': ('n3_drapery', .4, .62, .5), 'sibyl': ('n4_sibyl', .5, .22, .45), 'boat': ('n1_boats', .3, .7, .35),
      'dancer': ('n2_dancer', .62, .42, .75), 'lhands': ('n2_hands', .55, .82, .55), 'ideal': ('n3_ideal', .3, .45, .45),
      'lady': ('n4_holbein_lady', .48, .36, .45), 'edith': ('n1_edith', .5, .2, .5), 'crau': ('n5_crau', .5, .45, .32),
@@ -69,7 +69,7 @@ def render(nome, bg, cells, extra_css=''):
     html = (f'<!doctype html><html><head><meta charset="utf-8"><style>{build.font_faces()}'
             f'@page{{size:{W}in {H}in;margin:0}}*{{margin:0;padding:0}}body{{background:{bg}}}'
             '.cell{position:absolute;overflow:hidden}.cell img{width:100%;height:100%;object-fit:cover;display:block}'
-            '.txt{color:#FBF8F1;font:400 30pt/1.02 Serif;padding:.1in .12in;box-sizing:border-box}'
+            '.txt{color:#FBF8F1;font:400 30pt/1.02 Serif;padding:.1in .12in;box-sizing:border-box}.txt .ph:last-child{padding-bottom:0}'
             '.t{font:400 33pt/1 Serif;letter-spacing:-.01em}.s{font:italic 400 13pt/1.3 Serif}.a{font:500 9pt/1.4 Sans;letter-spacing:.2em}'
             '.ph{font:700 8.6pt/1.5 Sans;letter-spacing:.16em;margin-top:.22in}.n{font:400 40pt/1 Disp}.l{font:500 7.5pt/1.3 Sans;letter-spacing:.06em}.b{font:400 21pt/1.05 Disp;letter-spacing:.01em}'
             f'{extra_css}</style></head><body>{"".join(divs)}</body></html>')
@@ -169,6 +169,23 @@ V['8-um-por-mestre'] = (PAPER, [
     (2, 2, 1, 1, 'txt', f'<div style="{BOT}height:100%"><p class="s" style="font-size:12.5pt">Cinco níveis<br/>com dez mestres</p></div>', '#3B6386'),
     (2, 3, 1, 1, 'img', 'dancer2', None), (2, 4, 1, 1, 'img', 'yeats', None), (2, 5, 1, 1, 'img', 'vg', None),
     (3, 2.5, 1, 1, 'img', 'edith', None), (3, 3.5, 1, 1, 'img', 'rem', None), (3, 4.5, 1, 1, 'img', 'lady', None)])
+# --- quarta rodada (canvas-design, "Arquivo de Gabinete"): nome no canto inferior direito, diagonal título-assinatura
+RIGHT = 'display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-end;text-align:right;'
+V['9-gabinete'] = (PAPER, [
+    (0, 0, 3, 2, 'txt', TIT3, None),
+    (3, 0, 1, 1, 'img', 'durer', None), (3, 1, 1, 1, 'img', 'girl', None),
+    (0, 2, 1, 1, 'img', 'pag', None), (0, 3, 1, 1, 'img', 'pray', None), (0, 4, 1, 1, 'img', 'cat', None), (0, 5, 1, 1, 'img', 'drap', None),
+    (1, 2.5, 1, 1, 'img', 'mother', None), (1, 3.5, 1, 1, 'img', 'ideal', None), (1, 4.5, 1, 1, 'img', 'sibyl', None),
+    (2, 2, 1, 1, 'txt', f'<div style="{BOT}height:100%"><p class="s" style="font-size:12.5pt">Cinco níveis<br/>com dez mestres</p></div>', '#3B6386'),
+    (2, 3, 1, 1, 'img', 'dancer2', None), (2, 4, 1, 1, 'img', 'yeats', None), (2, 5, 1, 1, 'img', 'vg', None),
+    (3, 2.5, 1, 1, 'img', 'edith', None), (3, 3.5, 1, 1, 'img', 'rem', None), (3, 4.5, 1, 1, 'img', 'lady', None),
+    (3, 5.5, 1, .5, 'txt', f'<div style="{RIGHT}height:100%;padding:0"><p class="a" style="color:{INK}">PEDRO<br/>TORRES</p></div>', None)])
+TIT4 = (f'<p class="t" style="color:{INK};font-size:39pt;white-space:nowrap">Grandes Artistas<br/>a Lápis</p>'
+        f'<p class="ph" style="color:{INK};font-weight:500;margin-top:.26in">DE LEONARDO DA VINCI A VAN GOGH</p>')
+TIT4b = (f'<div style="display:flex;flex-direction:column;justify-content:space-between;height:100%">'
+         f'<p class="t" style="color:{INK};font-size:39pt;white-space:nowrap">Grandes Artistas<br/>a Lápis</p>'
+         f'<p class="ph" style="color:{INK};font-weight:500;margin:0">DE LEONARDO DA VINCI A VAN GOGH</p></div>')
+V['10-gabinete-2linhas'] = (PAPER, [(0, 0, 3, 2, 'txt', TIT4b, None)] + V['9-gabinete'][1][1:])
 if len(sys.argv) > 1:
     V = {k: v for k, v in V.items() if k in sys.argv[1:]}
 for nome, (bg, cells) in V.items():
