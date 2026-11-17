@@ -178,9 +178,9 @@ def vidas_html():
                    f'<span class="vy" style="left:{X(a):.2f}%">{a}</span><span class="vy e" style="left:{X(b):.2f}%">{b}</span></div></div>'
                    for i, (n, a, b) in enumerate(XTR['vidas']))
     grid = ''.join(f'<span class="vg" style="left:{X(y):.2f}%"></span>' for y in range(1450, 1951, 50) if y <= 1925)
-    return ('<div class="vidas" id="toc-vidas"><h2>Dez vidas, quase cinco séculos</h2><p class="sub">Quem foi contemporâneo de quem. '
+    return ('<!--VIDAS--><div class="vidas" id="toc-vidas"><h2>Dez vidas, quase cinco séculos</h2><p class="sub">Quem foi contemporâneo de quem. '
             'Leonardo, Dürer e Michelangelo viveram ao mesmo tempo. Degas, Van Gogh, Sargent e Schiele também.</p>'
-            f'<div class="vgrid"><div class="vlines">{grid}</div>{rows}</div></div>')
+            f'<div class="vgrid"><div class="vlines">{grid}</div>{rows}</div></div><!--/VIDAS-->')
 
 def cmp_html(lv):
     d = XTR['cmp'].get(str(lv))
@@ -767,46 +767,46 @@ FIM_HTML = ('<section class="fim"><img src="img/g_ingres.jpg" alt="Autorretrato 
             '<p class="fs">J.-A.-D. Ingres, segundo o biógrafo Henri Delaborde (1870)</p></section>')
 
 # ---------------------------------------------------------------- EPUB
-EPUB_FONTS = [('Serif', 'eb-garamond-latin-400-normal.ttf', 400, 'normal'), ('Serif', 'eb-garamond-latin-400-italic.ttf', 400, 'italic'),
-              ('Serif', 'eb-garamond-latin-600-normal.ttf', 600, 'normal'), ('Disp', 'archivo-black-latin-400-normal.woff', 400, 'normal'),
-              ('Sans', 'archivo-latin-400-normal.woff', 400, 'normal'), ('Sans', 'archivo-latin-700-normal.woff', 700, 'normal')]
+EPUB_FONTS = [('LivroSerif', 'eb-garamond-latin-400-normal.ttf', 400, 'normal'), ('LivroSerif', 'eb-garamond-latin-400-italic.ttf', 400, 'italic'),
+              ('LivroSerif', 'eb-garamond-latin-600-normal.ttf', 600, 'normal'), ('LivroDisp', 'archivo-black-latin-400-normal.woff', 400, 'normal'),
+              ('LivroSans', 'archivo-latin-400-normal.woff', 400, 'normal'), ('LivroSans', 'archivo-latin-700-normal.woff', 700, 'normal')]
 EPUB_CSS = """
-body{font-family:Serif,serif;line-height:1.5;margin:0;color:#1E1913}
-h1{font-family:Disp,sans-serif;font-weight:400;font-size:1.65em;line-height:1.12;margin:1.4em 0 .9em;page-break-before:always}
-h1 .lvnum{display:block;font-family:Sans,sans-serif;font-weight:700;font-size:.45em;color:#3B6386;margin-bottom:.4em}
-h2{font-family:Disp,sans-serif;font-weight:400;font-size:1.15em;line-height:1.2;margin:1.6em 0 .5em}
-h3{font-family:Sans,sans-serif;font-weight:700;font-size:1.05em;margin:.3em 0 .4em}
-h4{font-family:Sans,sans-serif;font-weight:700;font-size:.78em;margin:0 0 .4em}
+body{font-family:LivroSerif,serif;line-height:1.5;margin:0}
+h1{font-family:LivroDisp,sans-serif;font-weight:400;font-size:1.65em;line-height:1.12;margin:1.4em 0 .9em;page-break-before:always}
+h1 .lvnum{display:block;font-family:LivroSans,sans-serif;font-weight:700;font-size:.45em;color:#3B6386;margin-bottom:.4em}
+h2{font-family:LivroDisp,sans-serif;font-weight:400;font-size:1.15em;line-height:1.2;margin:1.6em 0 .5em}
+h3{font-family:LivroSans,sans-serif;font-weight:700;font-size:1.05em;margin:.3em 0 .4em}
+h4{font-family:LivroSans,sans-serif;font-weight:700;font-size:.78em;margin:0 0 .4em}
 p{margin:0 0 .6em;text-indent:0}
-a{color:#1E1913}
+a{color:inherit}
 figure{display:block;margin:1.2em 0;text-align:center;page-break-inside:avoid}
 img{max-width:100%;height:auto}
-figcaption{font-family:Sans,sans-serif;font-size:.72em;line-height:1.45;color:#5F5446;text-align:left;margin-top:.4em}
-.vida{background:#EFE8DB;padding:.7em .9em .5em;margin:0 0 1.3em;font-size:.92em}
+figcaption{font-family:LivroSans,sans-serif;font-size:.72em;line-height:1.45;color:#5F5446;text-align:left;margin-top:.4em}
+.vida{border-left:3px solid #3B6386;padding:.1em 0 .1em .9em;margin:0 0 1.3em;font-size:.92em}
 .marks figure,.pair figure{margin:.8em 0}
 .kgrid{width:100%;border-collapse:collapse;margin:.4em 0 1.2em;page-break-inside:avoid}
 .kgrid td.kc{border:0;padding:.2em .4em .4em;vertical-align:top;text-align:center}
 .kgrid td.kc img{width:100%;max-width:9em}
-.kgrid p.kt{font-family:Sans,sans-serif;font-size:.68em;line-height:1.35;color:#5F5446;text-align:left;margin:.3em 0 0}
-.kgrid p.kt b{display:block;color:#1E1913}
+.kgrid p.kt{font-family:LivroSans,sans-serif;font-size:.68em;line-height:1.35;color:#5F5446;text-align:left;margin:.3em 0 0}
+.kgrid p.kt b{display:block}
 .practice{border-top:1px solid #1E1913;margin-top:1.6em;padding-top:.6em;font-size:.9em}
-.practice ul{list-style:none;padding:0}.practice a{font-family:Sans,sans-serif;font-weight:700;font-size:.85em;margin-right:.3em}
-.practice .lvl{font-family:Sans,sans-serif;color:#6E6253;font-size:.75em}
-.exnum{font-family:Disp,sans-serif;font-size:1.9em;line-height:1;margin:1.2em 0 .1em}
+.practice ul{list-style:none;padding:0}.practice a{font-family:LivroSans,sans-serif;font-weight:700;font-size:.85em;margin-right:.3em}
+.practice .lvl{font-family:LivroSans,sans-serif;color:#6E6253;font-size:.75em}
+.exnum{font-family:LivroDisp,sans-serif;font-size:1.9em;line-height:1;margin:1.2em 0 .1em}
 section.ex{page-break-before:always}
-.ex h3{font-family:Disp,sans-serif;font-weight:400;font-size:1.2em}
-.exmeta{font-family:Sans,sans-serif;font-size:.78em;color:#5F5446;border-top:1px solid #1E1913;border-bottom:1px solid #1E1913;padding:.35em 0}
-.exref{font-family:Sans,sans-serif;font-size:.78em;color:#5F5446}
-.crit{border-left:3px solid #3B6386;padding-left:.6em}.crit .sc{font-family:Sans,sans-serif;font-weight:700;font-size:.85em}
-.lead{font-style:italic}.count{font-family:Sans,sans-serif;font-size:.75em;color:#6E6253}
+.ex h3{font-family:LivroDisp,sans-serif;font-weight:400;font-size:1.2em}
+.exmeta{font-family:LivroSans,sans-serif;font-size:.78em;border-top:1px solid #9C9384;border-bottom:1px solid #9C9384;padding:.35em 0;text-align:center}
+.exref{font-family:LivroSans,sans-serif;font-size:.78em;color:#5F5446}
+.crit{border-left:3px solid #3B6386;padding-left:.6em}.crit .sc{font-family:LivroSans,sans-serif;font-weight:700;font-size:.85em}
+.lead{font-style:italic}.count{font-family:LivroSans,sans-serif;font-size:.75em;color:#6E6253}
 table{border-collapse:collapse;width:100%;font-size:.88em}th,td{border-bottom:1px solid #CFC4B0;padding:.3em .4em;text-align:left;vertical-align:top}
-th{font-family:Sans,sans-serif;font-size:.8em;border-bottom:1px solid #1E1913}
-dl.gloss dt{font-family:Sans,sans-serif;font-weight:700;font-size:.9em;margin-top:.7em}dl.gloss dd{margin-left:0}
+th{font-family:LivroSans,sans-serif;font-size:.8em;border-bottom:1px solid #1E1913}
+dl.gloss dt{font-family:LivroSans,sans-serif;font-weight:700;font-size:.9em;margin-top:.7em}dl.gloss dd{margin-left:0}
 .sign{text-align:right;font-style:italic}
 .cat{margin:0 0 1.4em;page-break-inside:avoid;clear:both;overflow:hidden;border-top:1px solid #CFC4B0;padding-top:.6em}.cat img{display:block;width:34%;margin:0 0 .5em}.cat div{overflow:hidden}
-.cat p{margin:0 0 .2em}.cc,.cf{font-family:Sans,sans-serif;font-size:.75em;color:#5F5446}.cn{font-family:Disp,sans-serif;margin-right:.35em}
-.parttitle{margin-top:1.2em}.parttitle .pn{font-family:Disp,sans-serif;font-size:3.6em;line-height:1;color:#3B6386;margin:0}
-.parttitle h1{page-break-before:avoid;font-family:Sans,sans-serif;font-weight:700;font-size:.8em;margin:.6em 0 .2em}
+.cat p{margin:0 0 .2em}.cc,.cf{font-family:LivroSans,sans-serif;font-size:.75em;color:#5F5446}.cn{font-family:LivroDisp,sans-serif;margin-right:.35em}
+.parttitle{margin-top:1.2em}.parttitle .pn{font-family:LivroDisp,sans-serif;font-size:3.6em;line-height:1;color:#3B6386;margin:0}
+.parttitle h1{page-break-before:avoid;font-family:LivroSans,sans-serif;font-weight:700;font-size:.8em;margin:.6em 0 .2em}
 .parttitle h2{font-size:1.7em;margin:0 0 .6em}
 h2.ic img.icon{width:1.6em;height:1.6em;vertical-align:middle;margin-right:.4em}
 .balrow{text-align:center;margin:-.4em 0 1.2em}
@@ -814,15 +814,38 @@ h2.ic img.icon{width:1.6em;height:1.6em;vertical-align:middle;margin-right:.4em}
 .bal img{width:100%;border-radius:50%}
 .bal figcaption b{display:block;font-weight:700}
 .mapa{margin:0 0 1.2em;text-align:center}
-.end{border-top:1px solid #CFC4B0;padding:.4em 0;overflow:hidden}.end .en{float:left;font-family:Sans,sans-serif;font-weight:700;width:1.6em}
-.end p{margin:0 0 0 1.6em}.end .ey{font-family:Sans,sans-serif;font-size:.8em;color:#5F5446}
+.end{border-top:1px solid #CFC4B0;padding:.4em 0;overflow:hidden}.end .en{float:left;font-family:LivroSans,sans-serif;font-weight:700;width:1.6em}
+.end p{margin:0 0 0 1.6em}.end .ey{font-family:LivroSans,sans-serif;font-size:.8em;color:#5F5446}
 .tr{border-top:1px solid #CFC4B0;padding:.6em 0;page-break-inside:avoid}.tr img{width:100%}
-.trt .ty{font-family:Disp,sans-serif;font-size:1.3em;margin:.3em 0 0}.trt .tp{font-family:Sans,sans-serif;font-size:.85em;font-weight:700;margin:0}
+.trt .ty{font-family:LivroDisp,sans-serif;font-size:1.3em;margin:.3em 0 0}.trt .tp{font-family:LivroSans,sans-serif;font-size:.85em;font-weight:700;margin:0}
 .tracos .sub,.enderecos .sub{font-style:italic}
-ol.laws{list-style:none;padding:0}ol.laws li{border-top:1px solid #CFC4B0;padding:.5em 0}ol.laws li b{display:block;font-family:Sans,sans-serif}
+ol.laws{list-style:none;padding:0}ol.laws li{border-top:1px solid #CFC4B0;padding:.5em 0}ol.laws li b{display:block;font-family:LivroSans,sans-serif}
 figure.diag img{width:100%}
 .titlepage{text-align:center;margin-top:25%}.titlepage .t{font-size:2.1em;line-height:1.1}.titlepage .s{font-style:italic;color:#5F5446}
-.titlepage .a{font-family:Sans,sans-serif;font-size:.8em;letter-spacing:.2em;margin-top:3em}
+.titlepage .a{font-family:LivroSans,sans-serif;font-size:.8em;letter-spacing:.2em;margin-top:3em}
+
+/* --- leitura em tela: cada imagem tem um papel e um tamanho (estudo de UX do EPUB) --- */
+html,body{height:100%}
+.capa{margin:0;padding:0;height:100%;text-align:center;page-break-after:always}
+.capa svg{width:100%;height:100%}
+img.ob-h{width:100%}img.ob-v{width:72%}
+img.md-h{width:82%}img.md-v{width:58%}
+img.cp-h{width:66%}img.cp-v{width:44%}
+img.ab{width:80%}
+figure.model{margin:.8em 0 1em}
+.exnum{font-size:2.2em;margin:0 0 .15em;text-align:center}
+.ex h3{text-align:center;margin:0 0 .6em}
+.ex .crit{margin-top:.8em}
+.ex{margin-bottom:1.5em}
+h2.pp{font-family:LivroSans,sans-serif;font-weight:700;font-size:.75em;letter-spacing:.14em;text-transform:uppercase;text-align:center;border-top:1px solid #9C9384;padding-top:.8em;margin:2em 0 1em}
+table.mtab,table.ctab,table.mk2{width:100%;border-collapse:collapse;margin:0 0 1.1em;page-break-inside:avoid}
+table.mtab td,table.ctab td,table.mk2 td{border:0;border-top:1px solid #CFC4B0;padding:.6em .5em .4em 0;vertical-align:top}
+td.mimg{width:34%}td.mimg img{width:100%}td.cimg{width:42%}td.cimg img{width:100%}td.kimg{width:30%}td.kimg img{width:100%}
+.mn{font-family:LivroDisp,sans-serif;font-size:1.05em;margin:0 0 .1em}.md{font-family:LivroSans,sans-serif;font-size:.72em;margin:0 0 .5em}
+.mestre p,.ctab p,.mk2 p{text-align:left}.mx{font-family:LivroSans,sans-serif;font-size:.75em}
+.cm{font-family:LivroDisp,sans-serif;font-size:1.05em;margin:0}.co{font-size:.85em;font-style:italic;margin:0 0 .4em}.ck{font-family:LivroSans,sans-serif;font-weight:700;font-size:.7em;letter-spacing:.12em;text-transform:uppercase}
+.mn2{font-family:LivroSans,sans-serif;font-weight:700;font-size:.8em;margin:0}.mm{margin:.1em 0}.ma{font-family:LivroSans,sans-serif;font-size:.72em}
+table.vtab td:first-child{font-family:LivroSans,sans-serif;font-weight:700;font-size:.85em;width:58%}
 """
 
 def xhtml(fragment):
@@ -846,7 +869,9 @@ def epub_assets():
             continue
         im = Image.open(f).convert('RGB').resize((360, 360), Image.LANCZOS)
         m = Image.new('L', (1440, 1440), 0); ImageDraw.Draw(m).ellipse((0, 0, 1439, 1439), fill=255)
-        im.putalpha(m.resize((360, 360), Image.LANCZOS)); im.save(out, optimize=True)
+        im.putalpha(m.resize((360, 360), Image.LANCZOS))
+        # 256 cores bastam para um recorte de desenho: o arquivo cai de ~180 KB para ~30 KB, sem diferença visível
+        im.quantize(256, method=Image.Quantize.FASTOCTREE, dither=Image.Dither.FLOYDSTEINBERG).save(out, optimize=True)
 
 def kindle_html(body):
     """Simplifica o HTML para leitores: sem imagens lado a lado por porcentagem, sem SVG, sem páginas do PDF."""
@@ -865,9 +890,47 @@ def kindle_html(body):
             rows += '<tr>' + ''.join(f'<td class="kc"><img src="{s_}" alt="{a}"/><p class="kt">{c}</p></td>' for s_, a, c in figs[i:i + 2]) + '</tr>'
         return f'<table class="kgrid">{rows}</table>'
     body = re.sub(r'<div class="steps4[^"]*">.*?</div>', steps, body, flags=re.S)
+    body = re.sub(r'<p class="pline">.*?</p>', '', body, flags=re.S)
+    body = body.replace('<h2>Para praticar</h2>', '<h2 class="pp">Para praticar</h2>')
+    # galeria dos mestres e comparações: imagem e texto lado a lado, em tabela (o Kindle não respeita flex)
+    body = re.sub(r'<div class="mestre"([^>]*)><figure>(<img [^>]*?/?>)</figure><div>(.*?)</div></div>',
+                  lambda m: f'<table class="mtab"{m.group(1)}><tr><td class="mimg">{m.group(2)}</td><td class="mestre">{m.group(3)}</td></tr></table>', body, flags=re.S)
+    body = re.sub(r'<div class="ci">(<img [^>]*?/?>)<div>(.*?)</div></div>', r'<table class="ctab"><tr><td class="cimg">\1</td><td>\2</td></tr></table>', body, flags=re.S)
+    body = re.sub(r'<div class="mk">(<img [^>]*?/?>)<div>(.*?)</div></div>', r'<table class="mk2"><tr><td class="kimg">\1</td><td>\2</td></tr></table>', body, flags=re.S)
+    body = re.sub(r'<!--VIDAS-->.*?<!--/VIDAS-->', vidas_epub, body, flags=re.S)
+    # cada imagem ganha a classe do seu papel e da sua orientação
+    def papel(m):
+        tag, src = m.group(0), m.group(1)
+        if 'class=' in tag: return tag
+        if src.startswith('img/ab_'): cl = 'ab'
+        elif src.startswith('img/cp-'): cl = 'cp-' + orient(src)
+        elif re.match(r'img/(st-)?[lfsrc]\d\d', src): cl = 'md-' + orient(src)
+        elif re.match(r'img/(n\d_|c_|g_)', src): cl = 'ob-' + orient(src)
+        else: return tag
+        return tag.replace('<img ', f'<img class="{cl}" ', 1)
+    body = re.sub(r'<img [^>]*?src="([^"]+)"[^>]*?/?>', papel, body)
     return body
 
-def build_epub(S, out, small=None):
+_OR = {}
+def orient(src):
+    if src not in _OR:
+        from PIL import Image
+        try: w, h = Image.open(src).size; _OR[src] = 'v' if h > w * 1.05 else 'h'
+        except Exception: _OR[src] = 'h'
+    return _OR[src]
+
+def vidas_epub(_m=None):
+    rows = ''.join(f'<tr><td>{esc(n)}</td><td>{a} a {b}</td></tr>' for n, a, b in XTR['vidas'])
+    return ('<h2 id="toc-vidas">Dez vidas, quase cinco séculos</h2><p class="lead">Quem foi contemporâneo de quem. '
+            'Leonardo, Dürer e Michelangelo viveram ao mesmo tempo. Degas, Van Gogh, Sargent e Schiele também.</p>'
+            f'<table class="vtab">{rows}</table>')
+
+def build_epub(S, out, small=None, kindle=False):
+    S = [s for s in S if s['id'] not in ('progresso',)]   # folha para marcar: só no impresso
+    global LASTCAP
+    LASTCAP = {}
+    for s in S:
+        if s['kind'] == 'chapter' and s.get('lv'): LASTCAP[s['lv']] = s['id']
     files = []  # (name, title, body, kind)
     files.append(('titulo.xhtml', 'Folha de rosto', '<div class="titlepage"><p class="t">Grandes Artistas a Lápis</p><p class="s">Cinco níveis com dez mestres</p><p class="a">PEDRO TORRES</p></div>'
                   f'<p style="margin-top:3em;font-size:.8em;color:#666">© {datetime.date.today().year} Pedro Torres. Todos os direitos reservados.</p>', 'front'))
@@ -878,7 +941,7 @@ def build_epub(S, out, small=None):
             img = f'img/{PART_ART[s["id"]]}.jpg'
             n_, lab_, name_, intro_ = PARTS[s['id']]
             it = '' if intro_ is None else (intro_ if intro_.startswith('<p>') else f'<p>{intro_}</p>')
-            body = (f'<section id="{s["id"]}"><figure><img src="{img}" alt=""/></figure><div class="parttitle"><p class="pn">{n_}</p>'
+            body = (f'<section id="{s["id"]}"><figure><img src="{img}" alt="{esc("Grade de detalhes das obras · " + lab_ + " · " + name_)}"/></figure><div class="parttitle"><p class="pn">{n_}</p>'
                     f'<h1>{lab_}</h1><h2>{name_}</h2>{it}</div></section>')
         else:
             body = f'<section id="{s["id"]}">{s["html"].replace("<!--MAPA-->", map_html(False))}{s.get("epub_extra", "")}</section>'
@@ -886,6 +949,13 @@ def build_epub(S, out, small=None):
         files.append((name, s['title'], body, s['kind']))
         for m in re.finditer(r'id="([^"]+)"', body):
             idfile[m.group(1)] = name
+        if s.get('lv') and s['kind'] == 'chapter' and s['id'] == LASTCAP.get(s['lv']) and str(s['lv']) in XTR['cmp']:
+            c = cmp_html(s['lv'])
+            c = re.sub(r'<section class="cmp[^"]*" id="([^"]+)"[^>]*>', r'<section id="\1">', c).replace('<span class="rh">Três mestres</span>', '')
+            c = c.replace('<h1>', '<h1 class="cmph">', 1)
+            nm = f'{i:02d}b-tres-mestres-{s["lv"]}.xhtml'; cb = kindle_html(c)
+            files.append((nm, 'Três mestres: ' + XTR['cmp'][str(s['lv'])]['t'], cb, 'cmp'))
+            for m in re.finditer(r'id="([^"]+)"', cb): idfile[m.group(1)] = nm
     def fixlinks(body):
         return re.sub(r'href="#([^"]+)"', lambda m: f'href="{idfile.get(m.group(1), "")}#{m.group(1)}"', body)
     imgs = set()
@@ -905,7 +975,11 @@ def build_epub(S, out, small=None):
             fonts_added.append(name)
             fcss += f'@font-face{{font-family:"{fam}";src:url("fonts/{name}");font-weight:{w};font-style:{st}}}\n'
         z.writestr('OEBPS/style.css', fcss + EPUB_CSS, compress_type=zipfile.ZIP_DEFLATED)
-        z.writestr('OEBPS/cover.xhtml', page('Capa', '<figure style="margin:0;text-align:center"><img src="img/cover.jpg" alt="Capa" style="max-height:100%"/></figure>'), compress_type=zipfile.ZIP_DEFLATED)
+        if not kindle:  # a capa como página: SVG que se ajusta a qualquer tela sem cortar nem esticar
+            capa_svg = ('<div class="capa"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" '
+                        'width="100%" height="100%" viewBox="0 0 1600 2560" preserveAspectRatio="xMidYMid meet">'
+                        '<image width="1600" height="2560" xlink:href="img/cover.jpg"/></svg></div>')
+            z.writestr('OEBPS/cover.xhtml', page('Capa', capa_svg), compress_type=zipfile.ZIP_DEFLATED)
         for name, title, body, kind in files:
             x = xhtml(fixlinks(body))
             imgs.update(re.findall(r'src="(img/[^"]+)"', x))
@@ -922,19 +996,21 @@ def build_epub(S, out, small=None):
                 pic = Image.open(im).convert('RGB')
                 if im != 'img/cover.jpg':
                     pic.thumbnail((small, small))
-                buf = io.BytesIO(); pic.save(buf, 'JPEG', quality=68, optimize=True, progressive=True)
+                buf = io.BytesIO(); pic.save(buf, 'JPEG', quality=76, optimize=True, progressive=True)
                 z.writestr('OEBPS/' + im, buf.getvalue(), compress_type=zipfile.ZIP_STORED)
             else:
                 z.write(im, 'OEBPS/' + im, compress_type=zipfile.ZIP_STORED)
         nav = ['<nav epub:type="toc" id="toc"><h1>Sumário</h1><ol>']
         for name, title, body, kind in files[1:]:
             nav.append(f'<li><a href="{name}">{esc(title)}</a></li>')
-        nav.append('</ol></nav><nav epub:type="landmarks" hidden=""><ol><li><a epub:type="cover" href="cover.xhtml">Capa</a></li>'
+        nav.append('</ol></nav><nav epub:type="landmarks" hidden=""><ol>' + ('' if kindle else '<li><a epub:type="cover" href="cover.xhtml">Capa</a></li>') +
                    f'<li><a epub:type="toc" href="nav.xhtml">Sumário</a></li><li><a epub:type="bodymatter" href="{files[1][0]}">Início</a></li></ol></nav>')
         z.writestr('OEBPS/nav.xhtml', page('Sumário', ''.join(nav)), compress_type=zipfile.ZIP_DEFLATED)
-        man = ['<item id="css" href="style.css" media-type="text/css"/>', '<item id="nav" href="nav.xhtml" media-type="application/xhtml+xml" properties="nav"/>',
-               '<item id="coverpage" href="cover.xhtml" media-type="application/xhtml+xml"/>']
-        spine = ['<itemref idref="coverpage" linear="yes"/>', '<itemref idref="nav"/>']
+        man = ['<item id="css" href="style.css" media-type="text/css"/>', '<item id="nav" href="nav.xhtml" media-type="application/xhtml+xml" properties="nav"/>']
+        spine = ['<itemref idref="nav"/>']
+        if not kindle:
+            man.append('<item id="coverpage" href="cover.xhtml" media-type="application/xhtml+xml" properties="svg"/>')
+            spine.insert(0, '<itemref idref="coverpage" linear="yes"/>')
         for i, (name, title, body, kind) in enumerate(files):
             man.append(f'<item id="p{i}" href="{name}" media-type="application/xhtml+xml"/>')
             spine.insert(-1 if i == 0 else len(spine), f'<itemref idref="p{i}"/>')
@@ -1003,5 +1079,5 @@ if __name__ == '__main__':
     if 'epub' in args:
         epub_assets()
         build_epub(S, 'out/Grandes-Artistas-a-Lapis.epub')
-        build_epub(S, 'out/Grandes-Artistas-a-Lapis-loja-Amazon.epub', small=800)
+        build_epub(S, 'out/Grandes-Artistas-a-Lapis-loja-Amazon.epub', small=1000, kindle=True)
         print('epub ok')

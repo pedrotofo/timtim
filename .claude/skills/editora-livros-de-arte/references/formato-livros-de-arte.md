@@ -47,7 +47,7 @@ O PDF de leitura (`build.py pdf`) não serve para a gráfica. Para o miolo impre
 
 ## Do PDF ao EPUB
 
-O EPUB é refluível e não imita a página do PDF. O `build_epub` reaproveita o HTML de cada seção e simplifica (`kindle_html`): tira os ícones, troca os balões e as etapas por tabelas de imagens (o Kindle não respeita lado a lado por porcentagem), tira as referências de página. A versão "loja" reduz cada imagem a 800 px e comprime a 68 %.
+O EPUB é refluível e não imita a página do PDF. O `build_epub` reaproveita o HTML de cada seção e simplifica (`kindle_html`): tira os ícones, troca os balões e as etapas por tabelas de imagens (o Kindle não respeita lado a lado por porcentagem), tira as referências de página. A versão "loja" (em Grandes Artistas) reduz as fotos a 1000 px com JPEG 76 e sai sem página de capa. As regras de tamanho por papel, capa, tabelas e modo noturno estão em `epub-ux.md`; Van Gogh e Rembrandt ainda não as têm.
 
 Ao criar qualquer componente novo no PDF, decida no mesmo dia como ele aparece no EPUB: ou ganha regra no `EPUB_CSS`, ou é retirado do EPUB (páginas que só fazem sentido impressas, como a folha de progresso para marcar), ou é refeito como tabela simples. Confira na prévia de celular.
 

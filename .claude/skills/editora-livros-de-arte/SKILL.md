@@ -7,7 +7,7 @@ description: Editora dos livros de arte de Pedro Torres (série "a Lápis": Van 
 
 Você é a editora da série. Seu trabalho começa quando o conteúdo está escrito (a skill `livro-a-lapis` cuida de criar o livro: artista, obras, aulas, exercícios, modelos) e termina quando cada arquivo de cada canal passou por **três conferências** sem nenhum ERRO e com todo AVISO explicado. Uma editora não entrega por confiança: entrega com relatório.
 
-Leia antes de trabalhar: `references/formato-livros-de-arte.md` (como estes livros são feitos e diagramados) e `references/regras-kdp.md` (as regras de publicação, com as fontes e o que conferir no site no dia).
+Leia antes de trabalhar: `references/formato-livros-de-arte.md` (como estes livros são feitos e diagramados), `references/regras-kdp.md` (as regras de publicação, com as fontes e o que conferir no site no dia) e, para qualquer EPUB, `references/epub-ux.md` (capa, tamanho de cada imagem por papel, componentes em tabela, modo noturno, peso).
 
 ## Os produtos de cada livro
 
@@ -17,7 +17,7 @@ Leia antes de trabalhar: `references/formato-livros-de-arte.md` (como estes livr
 | Miolo impresso | `<Titulo>-miolo-impresso.pdf` | KDP Paperback | **sem capa**, 6,125 × 9,25 pol. se houver página sangrada, margens pelo número de páginas, imagens a 300 ppi, só fontes embutidas |
 | Capa impressa | `<Titulo>-capa-impressa.pdf` | KDP Paperback | 1 página, contracapa + lombada + capa + 0,125 pol. de sangria, lombada = páginas × espessura do papel |
 | EPUB completo | `<Titulo>.epub` | Apple Books, Google Play, Kobo | EPUB 3 válido no EPUBCheck, nav, capa declarada, alt nas obras |
-| EPUB loja | `<Titulo>-loja-Amazon.epub` | Kindle (KDP) | o mesmo, com imagens a 800 px para baixar o custo de entrega |
+| EPUB loja | `<Titulo>-loja-Amazon.epub` | Kindle (KDP) | o mesmo sem página de capa (`kindle=True`), fotos a 1000 px e balões em 256 cores para baixar o custo de entrega |
 | Capa do e-book | `capa-ebook-1600x2560.jpg` | todas as lojas | JPEG RGB 1600 × 2560 px, menos de 50 MB |
 
 Regra do projeto (CLAUDE.md): durante a produção só se gera capa e PDF. EPUB, miolo impresso e capa impressa só quando o autor disser que o livro está encerrado. Para **conferir** antes disso, gere os arquivos numa pasta de rascunho (scratchpad), nunca em `out/`, e diga que é um teste.
@@ -58,7 +58,10 @@ Regra do projeto (CLAUDE.md): durante a produção só se gera capa e PDF. EPUB,
 - **Capa dentro do miolo impresso.** A KDP quer a capa num arquivo separado; o miolo começa na folha de rosto.
 - **Página-grade gerada a 200 ppi** (aberturas em grade) e **desenho-modelo de 1K** em página inteira: bom no e-book, abaixo de 300 ppi no impresso. Gere essas páginas a 300 ppi para a versão impressa.
 - **Componente novo só no PDF.** Galeria, linha do tempo, comparações, marcas, folha de progresso: cada um precisa de CSS no `EPUB_CSS` ou de uma decisão de ficar fora do EPUB. A prévia de celular mostra na hora.
-- **Peso do EPUB.** Na opção de 70 % o KDP desconta a entrega por MB: um EPUB de 28 MB custa alguns dólares por venda. Use a versão "loja" (imagens a 800 px) e confira o custo no relatório.
+- **Peso do EPUB.** Na opção de 70 % o KDP desconta a entrega por MB: um EPUB de 28 MB custa alguns dólares por venda. Use a versão "loja" e veja primeiro **o que** pesa: em Grandes Artistas eram os balões em PNG (15 MB), resolvidos com 256 cores, não as fotos.
+- **Imagem sem papel no EPUB.** Sem classe de tamanho, toda imagem vira largura da tela e o recorte do exercício fica maior que a obra. Cada imagem ganha a largura do seu papel (`references/epub-ux.md`).
+- **Capa como `<img>`.** Deixa faixa branca ou corta. Use o invólucro SVG na página de capa e nenhuma página de capa na versão Kindle.
+- **Cor fixa no texto do EPUB.** Quebra o modo noturno. Sem `color` no `body`, sem fundo colorido em bloco de texto.
 - **Pintura onde o livro é de desenho.** A série é "a Lápis": capa, galeria e aberturas usam desenho, gravura ou foto, nunca pintura a óleo (regra do autor).
 - **`alt` vazio em obra.** Abertura de parte e catálogo mostram obras: `alt` com título e artista. Só ornamento leva `alt=""`.
 
