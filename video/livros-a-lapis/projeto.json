@@ -1,0 +1,12 @@
+{
+  "title": "Pedro Torres",
+  "button": "Ler",
+  "toast": { "title": "Grandes Artistas a Lápis", "subtitle": "Van Gogh · Rembrandt · Grandes Artistas" },
+  "duration": 10, "final": 8.9,
+  "out": "livros-a-lapis-9x16",
+  "acts": [
+    { "name": "Van Gogh a Lápis",        "thumb": "thumb_vangogh.jpg",   "start": 0.0, "end": 3.4,  "video": "vangogh.mp4",   "from": 0 },
+    { "name": "Rembrandt a Lápis",       "thumb": "thumb_rembrandt.jpg", "start": 3.4, "end": 6.6,  "video": "rembrandt.mp4", "from": 0 },
+    { "name": "Grandes Artistas a Lápis", "thumb": "thumb_mestres.jpg",   "start": 6.6, "end": 10.0, "video": "mestres.mp4",   "from": 0 }
+  ]
+}

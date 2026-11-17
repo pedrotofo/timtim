@@ -1,0 +1,37 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500&display=swap">
+<style>
+html,body{margin:0;width:1280px;height:720px;overflow:hidden;background:#111}
+#bg{position:absolute;inset:-60px;display:flex;flex-wrap:wrap;gap:14px;align-content:flex-start;filter:brightness(.55) saturate(.9);transform:translateX(var(--bx,0px)) scale(1.05)}
+#bg img{height:290px;width:auto;flex:none}
+.vig{position:absolute;inset:0;background:radial-gradient(ellipse 60% 70% at 50% 50%,rgba(0,0,0,0),rgba(0,0,0,.55))}
+#scene{position:absolute;inset:0;perspective:1600px;perspective-origin:50% 45%}
+#book{position:absolute;left:50%;top:50%;width:372px;height:596px;margin:-298px 0 0 -186px;transform-style:preserve-3d}
+.f{position:absolute;backface-visibility:hidden}
+.front{width:372px;height:596px;transform:translateZ(26px);background-size:cover;border-radius:2px 5px 5px 2px;box-shadow:inset 6px 0 10px rgba(0,0,0,.35)}
+.back{width:372px;height:596px;transform:rotateY(180deg) translateZ(26px);background:#e9e3d6}
+.spine{width:52px;height:596px;left:-26px;transform:rotateY(-90deg) translateZ(0px);background:#d8d0bf;display:flex;align-items:center;justify-content:center}
+.spine span{writing-mode:vertical-rl;transform:rotate(180deg);font:500 19px 'EB Garamond',serif;color:#1e1913;letter-spacing:.02em;white-space:nowrap}
+.pages{width:52px;height:588px;top:4px;left:346px;transform:rotateY(90deg);background:repeating-linear-gradient(90deg,#f4efe4 0 2px,#d9d1c1 2px 3px)}
+.top{width:364px;height:52px;left:4px;top:-26px;transform:rotateX(90deg);background:repeating-linear-gradient(0deg,#f4efe4 0 2px,#d9d1c1 2px 3px)}
+#shadow{position:absolute;left:50%;top:50%;width:420px;height:60px;margin:285px 0 0 -210px;border-radius:50%;background:radial-gradient(rgba(0,0,0,.6),rgba(0,0,0,0) 70%);filter:blur(6px)}
+</style></head><body>
+<div id="bg"></div><div class="vig"></div>
+<div id="scene"><div id="shadow"></div><div id="book">
+  <div class="f front" id="front"></div><div class="f back"></div>
+  <div class="f spine"><span id="spt"></span></div><div class="f pages"></div><div class="f top"></div>
+</div></div>
+<script>
+const Q=new URLSearchParams(location.search);
+const CFG=JSON.parse(decodeURIComponent(Q.get('c')));
+document.getElementById('front').style.backgroundImage=`url(${CFG.cover})`;
+document.getElementById('spt').textContent=CFG.title;
+const imgs=CFG.bg.concat(CFG.bg).concat(CFG.bg);
+document.getElementById('bg').innerHTML=imgs.map(s=>`<img src="${s}">`).join('');
+const ease=k=>k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2;
+window.render=(t,D)=>{const k=Math.min(1,t/D);
+  const ry=CFG.dir*(-42+ease(k)*58), rx=8-ease(k)*4, y=Math.sin(t*1.6)*6;
+  document.getElementById('book').style.transform=`translateY(${y}px) rotateX(${rx}deg) rotateY(${ry}deg)`;
+  document.getElementById('shadow').style.transform=`scaleX(${1-Math.abs(ry)/160})`;
+  document.getElementById('bg').style.setProperty('--bx',(-k*120*CFG.dir)+'px');};
+</script></body></html>
