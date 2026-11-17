@@ -55,6 +55,6 @@ Nos meses em que não podia sair, copiou gravuras de Millet e de Delacroix, que 
 
 Em maio de 1890 mudou-se para Auvers-sur-Oise, perto de Paris, sob os cuidados do médico Paul Gachet. Em pouco mais de dois meses fez cerca de setenta pinturas e muitos desenhos, e pediu a Theo que lhe mandasse de novo as pranchas de Bargue (carta 874). Em 27 de julho foi ferido por um tiro no peito e morreu dois dias depois, em 29 de julho de 1890.
 
-Theo morreu seis meses depois. A viúva dele, Johanna van Gogh-Bonger, guardou as obras, organizou exposições e publicou as cartas em 1914. Foi graças a ela que o mundo conheceu Vincent e que hoje podemos estudar os desenhos que ele fez, folha por folha.
+Theo morreu seis meses depois. A viúva dele, Johanna van Gogh-Bonger, guardou as obras, organizou exposições e publicou as cartas em 1914. Foi por ela que os desenhos e as cartas chegaram ao público.
 
 <figure class="wide"><img src="img/lacrau.jpg" alt="La Crau vista de Montmajour"><figcaption><i>La Crau vista de Montmajour</i>, Arles, julho de 1888. Pena de junco e pena de ave sobre grafite. Van Gogh Museum, Amsterdã.</figcaption></figure>

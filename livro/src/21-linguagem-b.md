@@ -110,7 +110,7 @@ No autorretrato de setembro de 1889, pintado em Saint-Rémy e hoje no Musée d'O
 
 Os olhos são o ponto mais escuro e mais nítido. Em volta deles tudo pode se mexer. Cabelo e barba costumam ser a mesma marca, a chama, em direções opostas: o cabelo sobe e se afasta do rosto, a barba desce e se afasta da boca.
 
-Ele também se pintou ora virado para a esquerda, ora para a direita. Faça o mesmo. A mão estranha o lado contrário, e é exatamente por isso que vale treinar os dois.
+Ele também se pintou ora virado para a esquerda, ora para a direita. Faça o mesmo, porque a mão estranha o lado contrário.
 
 <div class="pair"><figure><img src="img/sp_straw.jpg" alt="Autorretrato com chapéu de palha"><figcaption><i>Autorretrato com chapéu de palha</i>, Paris, 1887. Metropolitan Museum of Art. Virado para a esquerda.</figcaption></figure><figure><img src="img/sp_ear.jpg" alt="Autorretrato com a orelha enfaixada"><figcaption><i>Autorretrato com a orelha enfaixada</i>, Arles, janeiro de 1889. The Courtauld, Londres. Virado para a direita.</figcaption></figure></div>
 
@@ -130,7 +130,7 @@ O contorno pesado entra por último e só de um lado, onde a forma vira ou apoia
 
 ## O peso embaixo
 
-As figuras dele têm mãos grandes, pés pesados e tamancos enormes. O peso visual fica embaixo e planta a figura no chão. Em Haia e em Nuenen o chão é feito de meia dúzia de riscos, e o fundo fica vazio. A silhueta resolve quase tudo.
+As figuras dele têm mãos grandes, pés pesados e tamancos enormes. O peso visual fica embaixo e planta a figura no chão. Em Haia e em Nuenen o chão é feito de meia dúzia de riscos, e o fundo fica vazio.
 
 ## A emoção na pose
 
@@ -191,7 +191,7 @@ Os estudos de mestre deste livro, no Nível 4, pedem um destes cinco métodos. S
 
 ## 1. Pela grade
 
-Divida a reprodução em quadrados de 3 a 4 centímetros. Repita a grade na sua folha, na mesma proporção, com grafite bem leve. Copie quadrado por quadrado só as grandes divisões: horizonte, contornos, eixos. Apague a grade antes de começar as marcas. A grade serve para a estrutura e nunca para o traço.
+Divida a reprodução em quadrados de 3 a 4 centímetros. Repita a grade na sua folha, na mesma proporção, com grafite bem leve. Copie quadrado por quadrado só as grandes divisões: horizonte, contornos, eixos. Apague a grade antes de começar as marcas.
 
 <figure><img src="img/g7.jpg" alt="Reprodução com grade ao lado de uma folha com a mesma grade"><figcaption>Grade sobre a reprodução e a mesma grade na folha.</figcaption></figure>
 
@@ -215,6 +215,6 @@ Olhe o modelo por cinco minutos e descreva para você mesmo a ordem das zonas e 
 
 ## A tradução de pintura para desenho
 
-No verão de 1888 ele redesenhou a pena muitas das próprias pinturas para mandar a Theo e aos amigos, e para cada cor da tela precisou escolher uma marca. Esse exercício junta quase tudo o que este livro ensina. Escolha uma pintura dele, faça uma tabela de cor para marca e redesenhe tudo em tinta. O exercício R19 e os autorretratos do Nível 4 usam esse método.
+No verão de 1888 ele redesenhou a pena muitas das próprias pinturas para mandar a Theo e aos amigos, e para cada cor da tela precisou escolher uma marca. Escolha uma pintura dele, faça uma tabela de cor para marca e redesenhe tudo em tinta. O exercício R19 e os autorretratos do Nível 4 usam esse método.
 
 <figure><img src="img/harvest.jpg" alt="A colheita, desenho para Émile Bernard"><figcaption><i>A colheita</i>, desenho para Émile Bernard, Arles, 1888. O amarelo do trigo virou tracinho, o verde virou vírgula e a cerca virou pente.</figcaption></figure>

@@ -108,7 +108,7 @@ def practice_line(chid):
     ess = [x['id'] for x in items if x['lv'] == 'e']
     lk = lambda c: f'<a href="#ex-{c}">{c.upper()}</a>'
     pg = lambda c: f'<a class="pg" href="#ex-{c}"></a>'
-    txt = (f'<b>Para praticar</b> {lk(first)}–{lk(last)} · p. {pg(first)}–{pg(last)}' if first != last
+    txt = (f'<b>Para praticar</b> {lk(first)} a {lk(last)} · p. {pg(first)} a {pg(last)}' if first != last
            else f'<b>Para praticar</b> {lk(first)} · p. {pg(first)}')
     if ess:
         txt += ' · essenciais ' + ', '.join(lk(c) for c in ess)
@@ -141,7 +141,7 @@ def build_sections():
                 h += pl
         S.append({**s, 'html': h})
         if s['id'] == 'cap8':  # depois da Parte II vem a Parte III
-            S.append({'id': 'parte3', 'title': 'Parte III · Exercícios', 'kind': 'part', 'opener': 'ex/part3.jpg',
+            S.append({'id': 'parte3', 'title': 'Parte III · Estudos', 'kind': 'part', 'opener': 'ex/part3.jpg',
                       'html': '<h1>Parte III</h1>\n<h2>Exercícios</h2>'})
             for code, lid, ln, name, intro in LEVELS:
                 if code == 'w':
@@ -275,16 +275,16 @@ def add_icons(h):
     return re.sub(r'<h2>([^<]+)</h2>', lambda m: (f'<h2 class="ic"><img class="icon" src="img/icons/{ICONS_H2[m.group(1)]}.svg" alt=""/>{m.group(1)}</h2>'
                                                   if m.group(1) in ICONS_H2 else m.group(0)), h)
 
-ENDERECOS = [('Borinage', '1879–1880', 'Pregador entre os mineiros, começa a desenhá-los.'),
-             ('Bruxelas', '1880–1881', 'Anatomia, perspectiva e as pranchas de Bargue.'),
+ENDERECOS = [('Borinage', '1879 a 1880', 'Pregador entre os mineiros, começa a desenhá-los.'),
+             ('Bruxelas', '1880 a 1881', 'Anatomia, perspectiva e as pranchas de Bargue.'),
              ('Etten', '1881', 'Na casa dos pais, copia Millet e desenha do natural.'),
-             ('Haia', '1881–1883', 'A escola do preto e branco.'),
+             ('Haia', '1881 a 1883', 'A escola do preto e branco.'),
              ('Drenthe', '1883', 'Três meses entre as turfeiras do norte.'),
-             ('Nuenen', '1883–1885', 'Tecelões, camponeses e a forma pelas massas.'),
-             ('Antuérpia', '1885–1886', 'Poucos meses na academia.'),
-             ('Paris', '1886–1888', 'A paleta clareia e chegam as gravuras japonesas.'),
-             ('Arles', '1888–1889', 'A pena de junco e o alfabeto de marcas.'),
-             ('Saint-Rémy', '1889–1890', 'O traço curto se alonga em curvas.'),
+             ('Nuenen', '1883 a 1885', 'Tecelões, camponeses e a forma pelas massas.'),
+             ('Antuérpia', '1885 a 1886', 'Poucos meses na academia.'),
+             ('Paris', '1886 a 1888', 'A paleta clareia e chegam as gravuras japonesas.'),
+             ('Arles', '1888 a 1889', 'A pena de junco e o alfabeto de marcas.'),
+             ('Saint-Rémy', '1889 a 1890', 'O traço curto se alonga em curvas.'),
              ('Auvers-sur-Oise', '1890', 'Setenta pinturas em dois meses e a única água-forte.')]
 # ano, lugar, imagem, centro x, centro y, largura (fração), obra, texto
 TRACOS = [('1881', 'Etten', 'sower2', .55, .22, .95, 'Semeador de perfil', 'Lápis duro e contorno contínuo. Ainda copia Millet.'),
@@ -504,7 +504,7 @@ figure.diag img{width:100%;max-height:none}
 .bleed.dark .bcap{color:#FBF8F1}
 /* capa */
 .cover{page:full;position:relative;width:6in;height:9in;background:#2A2119;color:#FBF8F1;break-after:page;bookmark-level:1;bookmark-label:"Capa"}
-.cover .art{position:absolute;top:0;bottom:0;left:0;right:0;background:url("img/cover-roulin.jpg") 46% 0/122% auto no-repeat}
+.cover .art{position:absolute;top:0;bottom:0;left:0;right:0;background:url("img/cover-roulin.jpg") 37% 0/122% auto no-repeat}
 .cover .topsh{position:absolute;left:0;right:0;top:0;height:1.1in;background:linear-gradient(to bottom,rgba(20,15,10,.32),rgba(20,15,10,0))}
 .cover .shade{position:absolute;left:0;right:0;bottom:0;height:5in;background:linear-gradient(to bottom,rgba(20,15,10,0),rgba(20,15,10,.55) 45%,rgba(20,15,10,.66))}
 .cover .spine{position:absolute;top:0;bottom:0;left:0;width:.13in;background:#F7F4EE}
@@ -561,7 +561,7 @@ section.level{page:chap;break-before:page}
 .lvhead{height:3.2in;position:relative}
 .lvhead .chlab{position:absolute;left:0;top:.05in;font:500 7.4pt Sans;margin:0}
 .lvhead .chnum{position:absolute;right:-.06in;top:-.2in;font:400 120pt/1 Disp;color:#BF8A5A;margin:0}
-.lvhead h1{position:absolute;left:0;bottom:0;margin:0;font-size:23pt}
+.lvhead h1{position:absolute;left:0;right:0;bottom:0;margin:0;font-size:23pt;white-space:nowrap}
 .lvlist{columns:2;column-gap:.22in;margin-top:.9em;border-top:.6pt solid #1E1913;padding-top:.1in}
 .lvlist p{font-size:8.8pt;line-height:1.3;text-align:left;margin:0 0 .3em;break-inside:avoid}
 .lvlist b{font:700 7.4pt Sans;display:inline-block;width:.36in}
@@ -676,8 +676,8 @@ def ex_pdf(x, chapnames, half=False):
 def level_pdf(code, lid, ln, name, intro, chapnames):
     items = [x for x in EX if x['lv'] == code]
     lst = ''.join(f'<p><b><a href="#ex-{x["id"]}">{x["id"].upper()}</a></b>{esc(x["t"])}</p>' for x in items)
-    out = [f'<section class="level" id="{lid}"><span class="rh">Exercícios · {ln}</span>'
-           f'<div class="lvhead"><p class="chlab">Parte III · Exercícios</p><p class="lvtag">{ln}</p><h1>{name}</h1></div>'
+    out = [f'<section class="level" id="{lid}"><span class="rh">Estudos · {ln}</span>'
+           f'<div class="lvhead"><p class="chlab">Parte III · Estudos</p><p class="lvtag">{ln}</p><h1>{name}</h1></div>'
            f'<p class="lead">{intro}</p><div class="lvlist">{lst}</div></section>']
     if code == 'w':
         for i in range(0, len(items), 2):
@@ -807,7 +807,11 @@ def pdf_html(S):
                     hd = ('<div class="pshead"><span class="rh">Primeiros passos</span><p class="psl">Primeiros passos</p>'
                           f'<p class="pst">Exercícios curtos do {CHAP[fs[0]["ch"]][1].lower()}, de 8 a 20 minutos.</p></div>') if i == 0 else ''
                     anchor = ' id="primeiros-passos"' if (i == 0 and fs[0]['ch'] == 'r') else ''
-                    P.append(f'<div class="pair2{" first" if i == 0 else ""}"{anchor}>{hd}' + ''.join(ex_pdf(x, chapnames, half=True) for x in fs[i:i + 2]) + '</div>')
+                    chunk = fs[i:i + 2]
+                    if len(chunk) == 1 and i > 0:
+                        P.append(ex_pdf(chunk[0], chapnames))
+                    else:
+                        P.append(f'<div class="pair2{" first" if i == 0 else ""}"{anchor}>{hd}' + ''.join(ex_pdf(x, chapnames, half=True) for x in chunk) + '</div>')
             if s['id'] in END_ART:
                 P.append(bleed_html(END_ART[s['id']]))
     P.append('<section class="fim"><img src="img/harvest.jpg" alt="A colheita, desenho a pena de Van Gogh"/>'
@@ -920,7 +924,7 @@ def kindle_html(body):
     """Simplifica o HTML para leitores: sem imagens lado a lado por porcentagem, sem SVG, sem páginas do PDF."""
     body = re.sub(r'<img class="icon"[^>]*?/?>', '', body)
     body = body.replace('img/mapa-caminho.svg', 'img/mapa-caminho.png')
-    body = re.sub(r' · p\. <a class="pg" href="[^"]*"></a>(–<a class="pg" href="[^"]*"></a>)?', '', body)
+    body = re.sub(r' · p\. <a class="pg" href="[^"]*"></a>( a <a class="pg" href="[^"]*"></a>)?', '', body)
     def bal(m):
         cells = re.findall(r'<figure class="bal"><img src="img/(det-[^"]+)\.jpg" alt="([^"]*)"/><figcaption>(.*?)</figcaption></figure>', m.group(0), re.S)
         tds = ''.join(f'<td class="kc"><img src="img/{k}.png" alt="{a}"/><p class="kt">{c}</p></td>' for k, a, c in cells)
@@ -1025,7 +1029,7 @@ def build_epub(S, out, small=None):
 COVER_EBOOK = """<!doctype html><html><head><meta charset="utf-8"><style>{fonts}
 @page{{size:6in 9.6in;margin:0}}*{{margin:0;padding:0}}
 .c{{position:relative;width:6in;height:9.6in;background:#2A2119;color:#FBF8F1;overflow:hidden}}
-.art{{position:absolute;inset:0;background:url("img/cover-roulin.jpg") 46% 0/126% auto no-repeat}}
+.art{{position:absolute;inset:0;background:url("img/cover-roulin.jpg") 38% 0/126% auto no-repeat}}
 .topsh{{position:absolute;left:0;right:0;top:0;height:1.2in;background:linear-gradient(to bottom,rgba(20,15,10,.35),rgba(20,15,10,0))}}
 .shade{{position:absolute;left:0;right:0;bottom:0;height:5.4in;background:linear-gradient(to bottom,rgba(20,15,10,0),rgba(20,15,10,.55) 45%,rgba(20,15,10,.7))}}
 .ed{{position:absolute;top:.42in;left:0;right:0;text-align:center;font:500 11.5pt Sans;letter-spacing:.2em}}
