@@ -370,8 +370,8 @@ figure.diag img{width:100%;max-height:none}
 .cover .shade{display:none}
 .cover .spine{position:absolute;top:0;bottom:0;left:0;width:.13in;background:#F7F4EE}
 .cover .ed{position:absolute;top:.38in;left:0;right:0;text-align:center;font:500 10.5pt Sans;letter-spacing:.2em}
-.cover .t{position:absolute;left:0;right:0;top:5.45in;text-align:center;font:400 46pt/1.02 Serif;letter-spacing:-.012em;white-space:nowrap}
-.cover .d{position:absolute;left:0;right:0;top:7.15in;text-align:center;font:italic 400 15pt Serif}
+.cover .t{position:absolute;left:0;right:0;top:6.12in;text-align:center;font:400 44pt/1.02 Serif;letter-spacing:-.012em;white-space:nowrap}
+.cover .d{position:absolute;left:0;right:0;top:7.62in;text-align:center;font:italic 400 15pt Serif}
 .cover .coll{position:absolute;bottom:.42in;left:0;right:0;text-align:center;font:italic 400 10.5pt Serif}
 
 /* folha de rosto e créditos */
@@ -875,8 +875,8 @@ COVER_EBOOK = """<!doctype html><html><head><meta charset="utf-8"><style>{fonts}
 .topsh{{display:none}}
 .shade{{display:none}}
 .ed{{position:absolute;top:.42in;left:0;right:0;text-align:center;font:500 11.5pt Sans;letter-spacing:.2em}}
-.t{{position:absolute;left:0;right:0;top:5.75in;text-align:center;font:400 48pt/1.02 Serif;letter-spacing:-.012em;white-space:nowrap}}
-.d{{position:absolute;left:0;right:0;top:7.5in;text-align:center;font:italic 400 16pt Serif}}
+.t{{position:absolute;left:0;right:0;top:6.55in;text-align:center;font:400 46pt/1.02 Serif;letter-spacing:-.012em;white-space:nowrap}}
+.d{{position:absolute;left:0;right:0;top:8.15in;text-align:center;font:italic 400 16pt Serif}}
 .coll{{position:absolute;bottom:.5in;left:0;right:0;text-align:center;font:italic 400 11.5pt Serif}}
 </style></head><body><div class="c"><div class="art"></div><div class="topsh"></div><div class="shade"></div>
 <div class="ed">PEDRO TORRES</div><div class="t">Grandes Artistas<br>a Lápis</div><div class="d">Cinco níveis com dez mestres</div>

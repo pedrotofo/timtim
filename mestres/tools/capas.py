@@ -36,7 +36,8 @@ def mosaico(nome):
     import numpy as np
     a = np.asarray(out, float); yy = np.arange(H)[:, None, None] / H
     t1 = np.clip(1 - yy / .1, 0, 1) * .45
-    t2 = np.clip((yy - (top - .14)) / .14, 0, 1)
+    f0 = o.get('f0', top - .14)
+    t2 = np.clip((yy - f0) / (top - f0), 0, 1)
     al = np.maximum(t1, t2)
     a = a * (1 - al) + np.array(INK, float) * al
     return Image.fromarray(a.clip(0, 255).astype('uint8'))
