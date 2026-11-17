@@ -1,6 +1,6 @@
 """Variações de título e fade sobre o mosaico 1-seis-desenhos. Gera out/capas/variantes.jpg."""
 import os, sys, subprocess, tempfile, json
-sys.path.insert(0, '.'); sys.argv = ['x']
+sys.path.insert(0, '.'); OUT = sys.argv[1] if len(sys.argv) > 1 else 'out/capas/variantes.jpg'; sys.argv = ['x']
 import numpy as np
 from PIL import Image, ImageDraw
 import importlib.util
@@ -24,11 +24,11 @@ def arte(top, f0, f1, amax, rows=3):
     return Image.fromarray((a * (1 - al) + np.array(INK, float) * al).clip(0, 255).astype('uint8'))
 
 V = [  # nome, (top, f0, f1, amax), título em 2 linhas?, tamanho, topo do título, topo do subtítulo
- ('A atual', (.64, .50, .64, 1), True, 48, 5.75, 7.5),
- ('B 2 linhas, fade curto', (.73, .66, .73, 1), True, 46, 6.55, 8.15),
- ('C 1 linha, fade curto', (.76, .70, .76, 1), False, 37, 7.55, 8.2),
- ('D 2 linhas, rostos até embaixo', (1.0, .52, .78, .72), True, 48, 5.95, 7.65),
- ('E 1 linha, rostos até embaixo', (1.0, .6, .82, .75), False, 37, 7.15, 7.85)]
+ ('B atual', (.73, .66, .73, 1), True, 46, 6.55, 8.15),
+ ('B1 fade acaba 0,5 pol. acima', (.66, .59, .66, 1), True, 46, 6.85, 8.4),
+ ('B2 idem, título 42 pt', (.68, .61, .68, 1), True, 42, 7.0, 8.4),
+ ('B3 fade mais longo e suave', (.66, .5, .66, 1), True, 46, 6.85, 8.4),
+ ('B4 fade acaba 0,8 pol. acima', (.62, .55, .62, 1), True, 46, 6.75, 8.3)]
 base = build.COVER_EBOOK.format(fonts=build.font_faces(), nex=build.NEX)
 outs = []
 for nome, ap, two, sz, tt, dt in V:
@@ -47,5 +47,5 @@ os.remove('img/_v.jpg')
 cm = Image.new('RGB', (len(outs) * 520 - 20, 840), 'white'); d = ImageDraw.Draw(cm)
 for i, (n, im) in enumerate(outs):
     cm.paste(im, (i * 520, 0)); d.text((i * 520 + 6, 812), n, fill='black')
-cm.save('out/capas/variantes.jpg', quality=88)
+cm.save(OUT, quality=88)
 print('ok')
