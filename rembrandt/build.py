@@ -91,7 +91,7 @@ def practice_line(chid):
     ess = [x['id'] for x in items if x['lv'] == 'e']
     lk = lambda c: f'<a href="#ex-{c}">{c.upper()}</a>'
     pg = lambda c: f'<a class="pg" href="#ex-{c}"></a>'
-    txt = (f'<b>Para praticar</b> {lk(first)}–{lk(last)} · p. {pg(first)}–{pg(last)}' if first != last
+    txt = (f'<b>Para praticar</b> {lk(first)} a {lk(last)} · p. {pg(first)} a {pg(last)}' if first != last
            else f'<b>Para praticar</b> {lk(first)} · p. {pg(first)}')
     if ess:
         txt += ' · essenciais ' + ', '.join(lk(c) for c in ess)
@@ -237,12 +237,12 @@ def add_icons(h):
     return re.sub(r'<h2>([^<]+)</h2>', lambda m: (f'<h2 class="ic"><img class="icon" src="img/icons/{ICONS_H2[m.group(1)]}.svg" alt=""/>{m.group(1)}</h2>'
                                                   if m.group(1) in ICONS_H2 else m.group(0)), h)
 
-ENDERECOS = [('Leiden, junto ao moinho', '1606–1631', 'A casa da família e, a partir de 1625, o ateliê dividido com Jan Lievens.'),
-             ('Amsterdã, casa de Uylenburgh', '1631–1635', 'Na Sint Antoniesbreestraat, entre os quadros do negociante. Os primeiros retratos de sucesso.'),
-             ('Amsterdã, Nieuwe Doelenstraat', '1635–1637', 'A primeira casa com Saskia.'),
-             ('Amsterdã, Binnen Amstel', '1637–1639', 'Uma casa alugada à beira do rio. O ano do elefante.'),
-             ('Amsterdã, a casa grande', '1639–1660', 'Na Sint Antoniesbreestraat, hoje o Museu Casa de Rembrandt. As gravuras grandes e as paisagens.'),
-             ('Amsterdã, Rozengracht', '1660–1669', 'A casa alugada depois da falência. Os desenhos mais largos e mais livres.')]
+ENDERECOS = [('Leiden, junto ao moinho', '1606 a 1631', 'A casa da família e, a partir de 1625, o ateliê dividido com Jan Lievens.'),
+             ('Amsterdã, casa de Uylenburgh', '1631 a 1635', 'Na Sint Antoniesbreestraat, entre os quadros do negociante. Os primeiros retratos de sucesso.'),
+             ('Amsterdã, Nieuwe Doelenstraat', '1635 a 1637', 'A primeira casa com Saskia.'),
+             ('Amsterdã, Binnen Amstel', '1637 a 1639', 'Uma casa alugada à beira do rio. O ano do elefante.'),
+             ('Amsterdã, a casa grande', '1639 a 1660', 'Na Sint Antoniesbreestraat, hoje o Museu Casa de Rembrandt. As gravuras grandes e as paisagens.'),
+             ('Amsterdã, Rozengracht', '1660 a 1669', 'A casa alugada depois da falência. Os desenhos mais largos e mais livres.')]
 # ano, lugar, imagem, centro x, centro y, largura (fração), obra, texto
 TRACOS = [('1628', 'Leiden', 'mother', .62, .4, .6, 'A mãe do artista', 'Gravura miúda. A luz de lado cava cada ruga.'),
           ('1629', 'Leiden', 'sp_shout', .5, .32, .8, 'Autorretrato de boca aberta', 'Pena e pincel. O rosto como estudo de expressão.'),
@@ -859,7 +859,7 @@ def kindle_html(body):
     """Simplifica o HTML para leitores: sem imagens lado a lado por porcentagem, sem SVG, sem páginas do PDF."""
     body = re.sub(r'<img class="icon"[^>]*?/?>', '', body)
     body = body.replace('img/mapa-caminho.svg', 'img/mapa-caminho.png')
-    body = re.sub(r' · p\. <a class="pg" href="[^"]*"></a>(–<a class="pg" href="[^"]*"></a>)?', '', body)
+    body = re.sub(r' · p\. <a class="pg" href="[^"]*"></a>( a <a class="pg" href="[^"]*"></a>)?', '', body)
     def bal(m):
         cells = re.findall(r'<figure class="bal"><img src="img/(det-[^"]+)\.jpg" alt="([^"]*)"/><figcaption>(.*?)</figcaption></figure>', m.group(0), re.S)
         tds = ''.join(f'<td class="kc"><img src="img/{k}.png" alt="{a}"/><p class="kt">{c}</p></td>' for k, a, c in cells)

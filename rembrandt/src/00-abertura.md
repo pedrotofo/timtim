@@ -7,9 +7,9 @@ A gente costuma lembrar dele pelas pinturas escuras, com uma luz dourada que cai
 
 Este livro fica com a parte menos conhecida, a que está no papel. Rembrandt desenhava o tempo todo: a mulher dormindo, o filho no berço, os mendigos na porta de casa, um elefante que passou pela cidade, as margens do rio Amstel num passeio de domingo. Sobraram centenas de desenhos e cerca de trezentas gravuras. Muitos foram feitos em poucos minutos, com meia dúzia de linhas e uma mancha de sombra, e é neles que dá para ver o desenhista decidindo onde está a luz, o que fica em branco e onde vale a pena gastar um traço.
 
-Para quem está começando, essas folhas trazem uma boa notícia: um desenho não precisa estar completo para estar pronto. Para quem já desenha, a dificuldade é outra, porque dizer muito com trinta traços leva anos.
+Essas folhas mostram a quem está começando que um desenho não precisa estar completo para estar pronto, e lembram a quem já desenha que dizer muito com trinta traços leva anos.
 
-Rembrandt desenhava quase sempre a pena, com tinta marrom, e com um pincel para as sombras. Às vezes usava giz. Este livro ensina a linguagem dele com o material mais simples que existe: o lápis grafite. Tudo o que ele fazia com a pena e o pincel tem um equivalente no lápis, e é por esse equivalente que o livro caminha. Por isso ele se chama *Rembrandt a Lápis*.
+Rembrandt desenhava quase sempre a pena, com tinta marrom, e com um pincel para as sombras. Às vezes usava giz. Este livro ensina a linguagem dele com lápis grafite, o material mais simples que existe. Tudo o que ele fazia com a pena e o pincel tem um equivalente no lápis, e é por esse equivalente que o livro caminha. Por isso ele se chama *Rembrandt a Lápis*.
 
 O que eu quero é que, no fim, você olhe para um rosto perto de uma janela e saiba por onde começar.
 
@@ -34,7 +34,7 @@ Cada exercício parte de um desenho-modelo feito a lápis, no espírito das folh
 
 ## Material para desenhar por cima
 
-Para desenhar por cima de um modelo, imprima a página e use papel vegetal, ou importe a página num aplicativo de desenho e trabalhe numa camada acima. Na maior parte do tempo, porém, desenhe ao lado do livro, olhando o modelo. É assim que o olho aprende.
+Para desenhar por cima de um modelo, imprima a página e use papel vegetal, ou importe a página num aplicativo de desenho e trabalhe numa camada acima. Na maior parte do tempo, porém, desenhe ao lado do livro, olhando o modelo, que é como o olho aprende.
 
 ## As vozes
 

@@ -7,7 +7,7 @@
 
 Rembrandt Harmenszoon van Rijn nasceu em 15 de julho de 1606 em Leiden, uma cidade universitária no oeste da Holanda. Era o nono filho de um moleiro, Harmen Gerritszoon, cujo moinho ficava à beira do braço do rio Reno que corta a cidade. Daí o "van Rijn" do nome: "do Reno". Morreu em Amsterdã em 1669. Nesses 63 anos pintou mais de trezentos quadros, gravou cerca de trezentas chapas e desenhou sem parar.
 
-Este capítulo acompanha essa vida pelo que ela mostra do desenho. Os capítulos seguintes voltam a várias das folhas citadas aqui.
+Este capítulo acompanha essa vida pelo que ela mostra do desenho.
 
 ## Leiden, 1606 a 1631
 
@@ -21,7 +21,7 @@ De volta a Leiden, por volta de 1625, abriu um ateliê com um amigo da mesma ida
 
 No fim de 1631 mudou-se para Amsterdã e foi trabalhar na casa de um negociante de arte, Hendrick Uylenburgh. Em poucos meses virou o retratista da moda. Em 1632 pintou *A lição de anatomia do Dr. Tulp*, um retrato de grupo que fez o nome dele na cidade.
 
-Em junho de 1633 ficou noivo de Saskia van Uylenburgh, prima do negociante. Três dias depois desenhou-a de chapéu de palha com uma ponta de prata, um estilete que risca uma folha preparada e que é uma espécie de avô do lápis. Escreveu embaixo que aquele era o retrato da noiva aos 21 anos. Casaram-se no ano seguinte. Nos anos seguintes desenhou Saskia muitas vezes: à janela, lendo, doente na cama.
+Em junho de 1633 ficou noivo de Saskia van Uylenburgh, prima do negociante. Três dias depois desenhou-a de chapéu de palha com uma ponta de prata, um estilete que risca uma folha preparada e que é uma espécie de avô do lápis. Escreveu embaixo que aquele era o retrato da noiva aos 21 anos. Casaram-se no ano seguinte, e ele continuou a desenhá-la: à janela, lendo, doente na cama.
 
 Em 1639 comprou uma casa grande na Sint Antoniesbreestraat, hoje o Museu Casa de Rembrandt, e encheu-a de coisas que comprava em leilões: gravuras de outros mestres, armaduras, conchas, roupas antigas, bustos. Muitas dessas coisas aparecem depois nos desenhos dele. Dos quatro filhos do casal, só Titus, nascido em 1641, sobreviveu aos primeiros meses.
 

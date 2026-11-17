@@ -3,7 +3,7 @@
 
 <aside class="vida"><h4>Na vida dele</h4><p>Leiden, 1628. Rembrandt grava uma velha que a tradição identifica como a mãe dele, Neeltgen Willemsdochter, então com cerca de sessenta anos. A gravura é pequena, do tamanho de uma mão, e a luz bate de um lado só, cavando cada ruga. Ele voltaria a desenhar e a pintar velhos a vida inteira.</p></aside>
 
-O rosto é o lugar onde a luz de Rembrandt aparece com mais força. Ele quase nunca ilumina uma cabeça de frente. A luz vem de lado e um pouco de cima, e o rosto se divide em duas metades: uma em papel, outra em sombra. Quase tudo o que este capítulo ensina acontece na fronteira entre as duas.
+O rosto é o lugar onde a luz de Rembrandt aparece com mais força. Ele quase nunca ilumina uma cabeça de frente. A luz vem de lado e um pouco de cima, e o rosto se divide em duas metades: uma em papel, outra em sombra.
 
 ## A metade na sombra
 
@@ -11,7 +11,7 @@ Comece sempre pela divisão. Uma linha leve desce pela testa, contorna o nariz, 
 
 ## O triângulo de luz
 
-Na metade escura do rosto, logo abaixo do olho, aparece quase sempre um pequeno triângulo de luz. É a luz que passa por cima do nariz e bate na maçã do rosto do outro lado. Rembrandt o pintou e o desenhou tantas vezes que fotógrafos e iluminadores de cinema chamam esse esquema de "luz Rembrandt". Reserve esse triângulo em papel, ou abra-o com a borracha moldável no fim. Ele é o detalhe que faz um rosto em sombra parecer vivo.
+Na metade escura do rosto, logo abaixo do olho, aparece quase sempre um pequeno triângulo de luz. É a luz que passa por cima do nariz e bate na maçã do rosto do outro lado. Rembrandt o pintou e o desenhou tantas vezes que fotógrafos e iluminadores de cinema chamam esse esquema de "luz Rembrandt". Reserve esse triângulo em papel, ou abra-o com a borracha moldável no fim.
 
 <div class="steps4">
 <figure><img src="img/st-c04-1.jpg" alt=""><figcaption>1. A oval, o eixo e a linha que divide a luz da sombra.</figcaption></figure>
@@ -28,7 +28,7 @@ Os olhos de Rembrandt quase sempre estão afundados na sombra. A órbita, a cavi
 
 ## Pouca marca no rosto jovem
 
-O rosto velho aguenta muito traço: rugas, papadas, a pele que cai. O rosto jovem não. No retrato de Saskia de chapéu de palha, feito com uma ponta de prata três dias depois do noivado, o rosto é quase só contorno, com uma sombra leve sob a aba. Em rostos jovens, menos marca dá mais resultado.
+O rosto velho aguenta muito traço: rugas, papadas, a pele que cai. O rosto jovem não. No retrato de Saskia de chapéu de palha, feito com uma ponta de prata três dias depois do noivado, o rosto é quase só contorno, com uma sombra leve sob a aba.
 
 <figure><img src="img/saskia_hat.jpg" alt="Saskia de chapéu de palha"><figcaption><i>Saskia de chapéu de palha</i>, 1633. Ponta de prata sobre pergaminho preparado. Kupferstichkabinett, Berlim.</figcaption></figure>
 
@@ -38,7 +38,7 @@ O rosto velho aguenta muito traço: rugas, papadas, a pele que cai. O rosto jove
 
 ## A mãe
 
-Na gravura da mãe, a luz vem da esquerda. O lado esquerdo do rosto fica quase em papel, com rugas finas feitas de linhas curtas. O lado direito é coberto de hachura, que segue as dobras da pele como a mão seguiria. O véu da cabeça é desenhado com linhas soltas e longas, e o casaco embaixo vai se desmanchando em traços cada vez mais livres. A atenção inteira está no rosto. O resto é dito pela metade.
+Na gravura da mãe, a luz vem da esquerda. O lado esquerdo do rosto fica quase em papel, com rugas finas feitas de linhas curtas. O lado direito é coberto de hachura, que segue as dobras da pele como a mão seguiria. O véu da cabeça é desenhado com linhas soltas e longas, e o casaco embaixo vai se desmanchando em traços cada vez mais livres.
 
 <figure><img src="img/mother.jpg" alt="A mãe do artista"><figcaption><i>A mãe do artista, cabeça e busto</i>, 1628. Gravura em metal. National Gallery of Art, Washington.</figcaption></figure>
 
@@ -66,15 +66,15 @@ Ainda em Leiden, Rembrandt encheu folhas com cabeças de velhos, vistas de vári
 <!-- id: cap5 | 5. Os autorretratos | chapter -->
 # 5. Os autorretratos
 
-<aside class="vida"><h4>Na vida dele</h4><p>Leiden, 1630. Rembrandt tem 24 anos e um espelho. Grava a si mesmo espantado, carrancudo, gritando, rindo. Não são retratos para vender: são estudos de expressão, que ele depois usa nas figuras das cenas bíblicas.</p></aside>
+<aside class="vida"><h4>Na vida dele</h4><p>Leiden, 1630. Rembrandt tem 24 anos e um espelho. Grava a si mesmo espantado, carrancudo, gritando, rindo. São estudos de expressão, que ele depois usa nas figuras das cenas bíblicas.</p></aside>
 
-Rembrandt se retratou perto de oitenta vezes, em pinturas, gravuras e desenhos, dos vinte e poucos anos até o ano da morte. Nenhum outro artista de antes do século XIX deixou uma sequência assim. Ela serve como um curso de rosto em três lições: a expressão, a pose e a luz.
+Rembrandt se retratou perto de oitenta vezes, em pinturas, gravuras e desenhos, dos vinte e poucos anos até o ano da morte. Nenhum outro artista de antes do século XIX deixou uma sequência assim. Este capítulo para em quatro momentos dela.
 
 <div class="obra" markdown="1">
 
 ## 1630: as caretas
 
-As pequenas gravuras de 1630 são do tamanho de uma caixa de fósforos. Em cada uma, ele faz uma expressão exagerada e estuda o que acontece com o rosto: a testa se franze, as sobrancelhas sobem, a boca se abre. O cabelo é sempre o mesmo rabisco solto e o casaco mal aparece. Tudo o que importa está entre a testa e o queixo.
+As pequenas gravuras de 1630 são do tamanho de uma caixa de fósforos. Em cada uma, ele faz uma expressão exagerada e estuda o que acontece com o rosto: a testa se franze, as sobrancelhas sobem, a boca se abre. O cabelo é sempre o mesmo rabisco solto e o casaco mal aparece.
 
 <div class="pair"><figure><img src="img/sp_frown.jpg" alt="Autorretrato carrancudo"><figcaption><i>Autorretrato carrancudo</i>, 1630. Gravura em metal. National Gallery of Art, Washington.</figcaption></figure><figure><img src="img/sp_wide.jpg" alt="Autorretrato de boné, de boca aberta"><figcaption><i>Autorretrato de boné, de boca aberta</i>, 1630. Gravura em metal. National Gallery of Art, Washington.</figcaption></figure></div>
 
@@ -94,7 +94,7 @@ Em 1639 Rembrandt viu num leilão em Amsterdã o retrato de Baldassare Castiglio
 
 ## 1648: a luz
 
-Nove anos depois, nenhuma pose de cavalheiro. Rembrandt se grava trabalhando, de chapéu, sentado à janela, desenhando numa folha apoiada sobre um livro. A luz entra pela janela à esquerda e bate no rosto e no papel. O resto da gravura é escuro. É um autorretrato e, ao mesmo tempo, uma aula sobre como desenhar com uma luz só.
+Nove anos depois, nenhuma pose de cavalheiro. Rembrandt se grava trabalhando, de chapéu, sentado à janela, desenhando numa folha apoiada sobre um livro. A luz entra pela janela à esquerda e bate no rosto e no papel. O resto da gravura é escuro.
 
 <figure><img src="img/sp_window.jpg" alt="Autorretrato desenhando à janela"><figcaption><i>Autorretrato desenhando à janela</i>, 1648. Gravura em metal. National Gallery of Art, Washington.</figcaption></figure>
 
@@ -104,7 +104,7 @@ Nove anos depois, nenhuma pose de cavalheiro. Rembrandt se grava trabalhando, de
 
 ## De corpo inteiro
 
-Por volta de 1655 ele se desenhou de pé, com a roupa que usava no ateliê: um avental comprido e amarrado na cintura, chapéu alto, as mãos na cintura. São linhas rápidas de pena, quase sem sombra. Uma inscrição posterior, embaixo, diz que ele se desenhou assim como se vestia no ateliê. É o oposto do autorretrato de 1639: nada de pose, só o corpo de um homem que trabalha.
+Por volta de 1655 ele se desenhou de pé, com a roupa que usava no ateliê: um avental comprido e amarrado na cintura, chapéu alto, as mãos na cintura. São linhas rápidas de pena, quase sem sombra. Uma inscrição posterior, embaixo, diz que ele se desenhou assim como se vestia no ateliê.
 
 <figure><img src="img/studio_attire.jpg" alt="Autorretrato com roupa de ateliê"><figcaption><i>Autorretrato com roupa de ateliê</i>, por volta de 1655. Pena e tinta marrom. Museu Casa de Rembrandt, Amsterdã.</figcaption></figure>
 
@@ -114,7 +114,7 @@ Por volta de 1655 ele se desenhou de pé, com a roupa que usava no ateliê: um a
 
 O olho mais próximo da luz é o ponto mais nítido do desenho. O outro fica mais apagado, às vezes perdido na sombra. O cabelo é um rabisco que acompanha a forma da cabeça, mais escuro do lado da sombra. O pescoço e a roupa recebem menos atenção que o rosto, e a atenção vai diminuindo de cima para baixo.
 
-Desenhe-se no espelho com uma luz só, de lado: uma luminária ou uma janela, com o resto do cômodo apagado. Ele também se desenhou ora virado para a esquerda, ora para a direita. Faça o mesmo. A mão estranha o lado contrário, e é exatamente por isso que vale treinar os dois.
+Desenhe-se no espelho com uma luz só, de lado: uma luminária ou uma janela, com o resto do cômodo apagado. Ele também se desenhou ora virado para a esquerda, ora para a direita. Faça o mesmo, porque a mão estranha o lado contrário.
 
 <figure><img src="img/sp_saskia.jpg" alt="Autorretrato com Saskia"><figcaption><i>Autorretrato com Saskia</i>, 1636. Gravura em metal. Metropolitan Museum of Art, Nova York. Ele em primeiro plano, de chapéu, desenhando. Saskia atrás, mais clara e mais apagada.</figcaption></figure>
 
@@ -127,7 +127,7 @@ Rembrandt desenhava o corpo pelo gesto. Antes de qualquer contorno, vinha uma li
 
 ## O gesto primeiro
 
-Antes de desenhar uma figura, faça com o lápis, no ar, o movimento dela. Depois trace uma única linha leve que vá da cabeça aos pés passando pela coluna. Essa linha é o gesto. Se ela estiver certa, a figura vai funcionar mesmo com a roupa mal desenhada. Se estiver errada, nenhum detalhe salva.
+Antes de desenhar uma figura, faça com o lápis, no ar, o movimento dela. Depois trace uma única linha leve que vá da cabeça aos pés passando pela coluna. Essa linha é o gesto. Quando ela está certa, a figura funciona mesmo com a roupa mal desenhada.
 
 ## O peso
 
@@ -135,11 +135,11 @@ Toda figura de pé tem uma perna que aguenta o peso. O quadril sobe desse lado e
 
 ## A roupa diz a forma
 
-Rembrandt raramente desenhava o corpo nu por baixo da roupa. Ele desenhava a roupa, e a roupa dizia a forma. Uma prega que desce reta diz que a perna está de pé. Uma prega que se dobra em ângulo diz que o joelho está dobrado. Duas ou três pregas certas valem mais que vinte inventadas.
+Rembrandt raramente desenhava o corpo nu por baixo da roupa. Uma prega que desce reta diz que a perna está de pé, e uma que se dobra em ângulo diz que o joelho está dobrado. Duas ou três pregas certas bastam.
 
 ## Mulheres e crianças
 
-Em casa, Rembrandt desenhou muitas vezes mulheres cuidando de crianças. Neste desenho a giz vermelho, duas mulheres ensinam uma criança a andar. Uma se curva e aponta, a outra segura. A criança é quase só um traço vertical com uma cabeça. Tudo é gesto: o arco das costas da primeira mulher, a linha reta da segunda, a criança no meio.
+Em casa, Rembrandt desenhou muitas vezes mulheres cuidando de crianças. Neste desenho a giz vermelho, duas mulheres ensinam uma criança a andar. Uma se curva e aponta, a outra segura. A criança é quase só um traço vertical com uma cabeça. O desenho se resume ao arco das costas da primeira mulher, à linha reta da segunda e à criança no meio.
 
 <figure class="wide"><img src="img/child_walk.jpg" alt="Duas mulheres ensinando uma criança a andar"><figcaption><i>Duas mulheres ensinando uma criança a andar</i>, por volta de 1635 a 1637. Giz vermelho. British Museum, Londres.</figcaption></figure>
 
@@ -167,7 +167,7 @@ Rembrandt desenhou atores do teatro de Amsterdã nos papéis que faziam. Este é
 
 ## Os animais
 
-Em 1637 passou por Amsterdã uma elefanta chamada Hansken, levada de cidade em cidade pela Europa. Rembrandt desenhou-a várias vezes a giz preto. O corpo é uma massa redonda, as pernas são colunas, e as rugas da pele são feitas com traços curtos que seguem a forma, como a hachura de um rosto. Mais tarde desenhou leões deitados com a pena e o pincel. O método é o mesmo da figura humana: a massa, o peso e a sombra.
+Em 1637 passou por Amsterdã uma elefanta chamada Hansken, levada de cidade em cidade pela Europa. Rembrandt desenhou-a várias vezes a giz preto. O corpo é uma massa redonda, as pernas são colunas, e as rugas da pele são feitas com traços curtos que seguem a forma, como a hachura de um rosto. Mais tarde desenhou leões deitados com a pena e o pincel. O método é o mesmo da figura humana.
 
 <div class="pair"><figure><img src="img/elephant.jpg" alt="Um elefante"><figcaption><i>Um elefante</i>, 1637. Giz preto. Albertina, Viena.</figcaption></figure><figure><img src="img/lion.jpg" alt="Leão deitado"><figcaption><i>Leão jovem deitado</i>. Pena e pincel, tinta marrom.</figcaption></figure></div>
 
@@ -176,7 +176,7 @@ Em 1637 passou por Amsterdã uma elefanta chamada Hansken, levada de cidade em c
 <!-- id: cap7 | 7. Como ele construía uma folha | chapter -->
 # 7. Como ele construía uma folha
 
-<aside class="vida"><h4>Na vida dele</h4><p>Amsterdã, anos 1650. Samuel van Hoogstraten, aluno de Rembrandt nos anos 1640, escreveu mais tarde que o mestre insistia que os alunos aprendessem a usar bem o que já sabiam, em vez de correr atrás de segredos. A ordem de trabalho era uma dessas coisas que se sabiam.</p></aside>
+<aside class="vida"><h4>Na vida dele</h4><p>Amsterdã, anos 1650. Samuel van Hoogstraten, aluno de Rembrandt nos anos 1640, escreveu mais tarde que o mestre insistia que os alunos aprendessem a usar bem o que já sabiam, em vez de correr atrás de segredos.</p></aside>
 
 As folhas mais trabalhadas de Rembrandt não nasciam de uma vez. Primeiro vinha um esboço leve, às vezes em giz, que ainda aparece por baixo em muitos desenhos. Depois vinha a pena, nas linhas que importavam. Por fim vinha o pincel, com as manchas de sombra, e os acentos mais fortes ficavam para o fim. No lápis a ordem é a mesma. As sequências abaixo mostram essa ordem em três desenhos-modelo.
 
@@ -189,7 +189,7 @@ As folhas mais trabalhadas de Rembrandt não nasciam de uma vez. Primeiro vinha 
 <figure><img src="img/t08.jpg" alt=""><figcaption>4. Os acentos: a porta, a base das árvores. O céu fica em branco.</figcaption></figure>
 </div>
 
-Na paisagem o céu decide tudo. Escolha logo no começo que ele vai ficar em papel. As árvores são a massa mais escura, e é a mancha delas que faz a cabana clara aparecer.
+Na paisagem, decida logo no começo que o céu vai ficar em papel. As árvores são a massa mais escura, e é a mancha delas que faz a cabana clara aparecer.
 
 ## Uma figura
 
@@ -226,7 +226,7 @@ Rembrandt nunca foi à Itália, mas conhecia a arte italiana pelas gravuras e pe
 
 ## A Última Ceia de Leonardo
 
-Por volta de 1635, Rembrandt copiou a *Última Ceia* de Leonardo da Vinci a partir de uma gravura, já que nunca viu o original. Primeiro desenhou com traço leve e fiel. Depois passou por cima com um traço mais forte e mudou o que quis: ergueu um dossel sobre a cabeça de Cristo, quebrou a simetria do fundo e deu mais movimento aos grupos de apóstolos. A cópia virou um estudo de composição.
+Por volta de 1635, Rembrandt copiou a *Última Ceia* de Leonardo da Vinci a partir de uma gravura, já que nunca viu o original. Primeiro desenhou com traço leve e fiel. Depois passou por cima com um traço mais forte e mudou o que quis: ergueu um dossel sobre a cabeça de Cristo, quebrou a simetria do fundo e deu mais movimento aos grupos de apóstolos.
 
 <figure class="wide"><img src="img/last_supper.jpg" alt="A Última Ceia, segundo Leonardo da Vinci"><figcaption><i>A Última Ceia, segundo Leonardo da Vinci</i>, por volta de 1634 a 1635. Giz vermelho. Metropolitan Museum of Art, Nova York.</figcaption></figure>
 
@@ -258,7 +258,7 @@ Os estudos de mestre deste livro, no Nível 4, pedem um destes cinco métodos. S
 
 ### 1. Pela grade
 
-Divida a reprodução em quadrados de 3 a 4 centímetros. Repita a grade na sua folha, na mesma proporção, com o 2B bem leve. Copie quadrado por quadrado só as grandes divisões: o contorno da figura, o horizonte, a linha entre a luz e a sombra. Apague a grade antes de começar a sombra. A grade serve para a estrutura e nunca para o traço.
+Divida a reprodução em quadrados de 3 a 4 centímetros. Repita a grade na sua folha, na mesma proporção, com o 2B bem leve. Copie quadrado por quadrado só as grandes divisões: o contorno da figura, o horizonte, a linha entre a luz e a sombra. Apague a grade antes de começar a sombra.
 
 ### 2. Pela medida a olho
 
@@ -270,7 +270,7 @@ Siga a ordem de construção do Capítulo 7: esboço leve, linhas principais, ma
 
 ### 4. Pelos três tons
 
-Antes de copiar, faça um esboço do tamanho de um selo só com os três tons do Capítulo 3: papel, meio-tom e escuro. Depois copie a folha inteira nessa ordem: primeiro todas as manchas de meio-tom, depois todos os escuros, por último as linhas e os acentos. Esse método ensina a ver como ele via.
+Antes de copiar, faça um esboço do tamanho de um selo só com os três tons do Capítulo 3: papel, meio-tom e escuro. Depois copie a folha inteira nessa ordem: primeiro todas as manchas de meio-tom, depois todos os escuros, por último as linhas e os acentos.
 
 ### 5. De memória
 
@@ -278,4 +278,4 @@ Olhe o modelo por cinco minutos e descreva para você mesmo onde está a luz, on
 
 ## A tradução da pena para o lápis
 
-Copiar Rembrandt a lápis é sempre uma tradução, porque ele quase nunca usou o grafite. Antes de começar, olhe a folha e pergunte, para cada zona, qual ferramenta ele usou: pena fina, pena larga, pincel ou papel. Depois use a tabela do Capítulo 1 para escolher o seu equivalente: 2B, 6B em pé, 6B deitado ou nada. Esse exercício junta quase tudo o que este livro ensina.
+Copiar Rembrandt a lápis é sempre uma tradução, porque ele quase nunca usou o grafite. Antes de começar, olhe a folha e pergunte, para cada zona, qual ferramenta ele usou: pena fina, pena larga, pincel ou papel. Depois use a tabela do Capítulo 1 para escolher o seu equivalente: 2B, 6B em pé, 6B deitado ou nada.

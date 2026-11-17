@@ -5,7 +5,7 @@
 <!-- id: cap1 | 1. Materiais | chapter -->
 # 1. Materiais
 
-<aside class="vida"><h4>Na vida dele</h4><p>Amsterdã, 1656. O inventário feito na falência lista, entre os quadros e as curiosidades da casa, dezenas de livros cheios de desenhos dele: paisagens, figuras do natural, estudos de animais e de mulheres. O desenho era a sua prática diária.</p></aside>
+<aside class="vida"><h4>Na vida dele</h4><p>Amsterdã, 1656. O inventário feito na falência lista, entre os quadros e as curiosidades da casa, dezenas de livros cheios de desenhos dele: paisagens, figuras do natural, estudos de animais e de mulheres.</p></aside>
 
 Rembrandt desenhava com o que havia no ateliê de um pintor do século XVII: penas de ave cortadas a canivete, penas de junco, um pincel, tinta marrom e, às vezes, um bastão de giz preto ou vermelho. Você não precisa de nada disso. Tudo o que dá a cara de Rembrandt a uma folha, a linha que respira, a mancha de sombra e o papel em branco, sai muito bem com um lápis comum.
 
@@ -21,7 +21,7 @@ Nos exercícios, o material aparece sempre assim: "Lápis 2B", "Lápis 6B" ou "L
 
 ## Da pena para o lápis
 
-Cada ferramenta dele tem um par no seu estojo. Vale olhar a tabela antes de começar, porque é ela que explica por que o livro pede o 6B em um momento e o esfuminho em outro.
+Cada ferramenta dele tem um par no seu estojo. A tabela explica por que o livro pede o 6B em um momento e o esfuminho em outro.
 
 <table>
 <tr><th>Rembrandt usava</th><th>Para fazer</th><th>Você usa</th></tr>
@@ -48,7 +48,7 @@ Boa parte do efeito dos desenhos dele vem do pincel com tinta diluída. Com uma 
 
 ## O papel
 
-Rembrandt desenhava em papel claro, às vezes com um tom amarelado ou cinza, e em algumas folhas usou papel japonês, mais quente e mais macio. Um papel creme ou bege deixa o grafite mais bonito e faz a parte reservada parecer luz, e não buraco. Para treinar, sulfite comum serve.
+Rembrandt desenhava em papel claro, às vezes com um tom amarelado ou cinza, e em algumas folhas usou papel japonês, mais quente e mais macio. Um papel creme ou bege deixa o grafite mais bonito e faz a parte reservada parecer luz. Para treinar, sulfite comum serve.
 
 ## No tablet
 
@@ -88,7 +88,7 @@ A pena de junco que ele usava fazia uma linha que mudava sozinha: cheia de tinta
 
 ## Pouca linha
 
-Muitas folhas dele têm vinte, trinta traços, e nenhum sobra. Antes de traçar, pergunte se aquela linha conta alguma coisa que ainda não foi contada. Se o ombro já está claro, o braço não precisa de contorno inteiro. O olho completa o resto, e completa melhor do que qualquer contorno.
+Muitas folhas dele têm vinte, trinta traços, e nenhum sobra. Antes de traçar, pergunte se aquela linha conta alguma coisa que ainda não foi contada. Se o ombro já está claro, o braço não precisa de contorno inteiro. O olho completa o resto.
 
 Arnold Houbraken, que escreveu sobre ele quase cinquenta anos depois da sua morte, conta que Rembrandt achava que um trabalho estava pronto quando o mestre tinha alcançado nele a sua intenção.
 
@@ -98,7 +98,7 @@ A *Paisagem de inverno* de Harvard é quase só papel. O horizonte é uma linha.
 
 ## A hachura segue a forma
 
-Nas gravuras, a hachura é o que dá volume. Ela não vai em qualquer direção: deita sobre a forma como um tecido. Num rosto, desce pela face. Num tronco, dá a volta. Num fundo, vai reta e calma, para não competir com a figura. Quando a hachura parece suja, quase sempre é porque mudou de direção sem motivo.
+Nas gravuras, a hachura é o que dá volume. Ela deita sobre a forma como um tecido: desce pela face num rosto, dá a volta num tronco e, atrás da figura, vai reta e calma para não competir com ela. Quando a hachura parece suja, quase sempre é porque mudou de direção sem motivo.
 
 ## O valor vem da quantidade
 
@@ -129,11 +129,11 @@ Nas gravuras o pincel não existe. Todo o escuro precisa vir da hachura, e Rembr
 
 <aside class="vida"><h4>Na vida dele</h4><p>Amsterdã, 1642. Rembrandt entrega <i>A Ronda Noturna</i>. O nome veio muito depois, quando o verniz escurecido fez o quadro parecer uma cena de noite. Na verdade é dia, e a luz cai de um lado só sobre poucas figuras, enquanto o resto da companhia fica na sombra.</p></aside>
 
-Antes de pensar em linha, Rembrandt pensava em luz. De onde ela vem? O que ela toca? O que fica no escuro? Respondidas essas três perguntas, o desenho está quase decidido. Se você for ler um capítulo só, leia este.
+Antes de pensar em linha, Rembrandt decidia de onde vinha a luz, o que ela tocava e o que ficava no escuro. Com isso resolvido, o desenho está quase decidido. Se você for ler um capítulo só, leia este.
 
 ## Uma luz só
 
-Em quase todos os desenhos dele a luz vem de um lugar só, quase sempre do alto e da esquerda, como de uma janela. Isso simplifica tudo. Cada forma tem um lado claro, virado para a janela, e um lado escuro, de costas para ela. Quando você começa um desenho, marque com uma setinha, no canto da folha, de onde vem a luz. E não mude de ideia no meio.
+Em quase todos os desenhos dele a luz vem de um lugar só, quase sempre do alto e da esquerda, como de uma janela. Isso simplifica o trabalho, porque cada forma passa a ter um lado claro, virado para a janela, e um lado escuro, de costas para ela. Quando você começa um desenho, marque com uma setinha, no canto da folha, de onde vem a luz, e não mude de ideia no meio.
 
 ## Os três tons
 
@@ -151,7 +151,7 @@ Olhe um desenho dele de longe, apertando os olhos, e você vai ver só três ton
 
 ## O escuro que envolve
 
-O truque mais famoso de Rembrandt é pôr o escuro atrás do claro. Uma cabeça clara se destaca muito mais contra um fundo escuro do que contra um fundo branco. Nas gravuras e nos desenhos com pincel, ele escurece o fundo justamente ao lado do lado claro da figura, e deixa o fundo claro ao lado do lado escuro. Assim a figura nunca se perde.
+O truque mais famoso de Rembrandt é pôr o escuro atrás do claro. Uma cabeça clara se destaca muito mais contra um fundo escuro do que contra um fundo branco. Nas gravuras e nos desenhos com pincel, ele escurece o fundo justamente ao lado do lado claro da figura, e deixa o fundo claro ao lado do lado escuro.
 
 No desenho da mulher descendo a escada com uma criança no colo, a parede à direita é uma mancha marrom forte, e a figura, quase toda em papel, salta para fora dela. Sem essa mancha, a mesma figura ficaria solta no branco.
 
@@ -159,7 +159,7 @@ No desenho da mulher descendo a escada com uma criança no colo, a parede à dir
 
 ## A luz que cai
 
-A luz de Rembrandt não ilumina tudo por igual. Ela é mais forte no ponto que interessa, quase sempre o rosto ou as mãos, e vai enfraquecendo conforme se afasta. Os pés de uma figura em pé quase sempre estão mais escuros que a cabeça. Pense numa lanterna apontada para o centro do desenho: o resto vai se apagando aos poucos.
+A luz de Rembrandt é mais forte no ponto que interessa, quase sempre o rosto ou as mãos, e enfraquece conforme se afasta. Os pés de uma figura em pé quase sempre estão mais escuros que a cabeça. Pense numa lanterna apontada para o centro do desenho: o resto vai se apagando aos poucos.
 
 <h2 class="newpage">Por que parece errado</h2>
 
@@ -184,7 +184,7 @@ Três erros fazem um desenho perder a luz de Rembrandt. Os três aparecem em qua
 
 ## Saskia na cama
 
-Um quarto inteiro com pena e pincel. A mulher sentada à esquerda, em primeiro plano, e Saskia na cama, ao fundo, ficam nas partes mais claras da folha. As cortinas, o dossel e a parede formam uma caixa de meios-tons em volta delas, e os pretos aparecem só nos cantos e no chão. Tudo na folha conduz o olho para as duas mulheres.
+É um quarto inteiro feito com pena e pincel. A mulher sentada à esquerda, em primeiro plano, e Saskia na cama, ao fundo, ficam nas partes mais claras da folha. As cortinas, o dossel e a parede formam uma caixa de meios-tons em volta delas, e os pretos aparecem só nos cantos e no chão.
 
 <figure><img src="img/saskia_bed2.jpg" alt="Interior com Saskia na cama"><figcaption><i>Interior com Saskia na cama</i>, por volta de 1640 a 1641. Pena e pincel, tinta marrom. Fondation Custodia, Paris.</figcaption></figure>
 
@@ -194,7 +194,7 @@ Um quarto inteiro com pena e pincel. A mulher sentada à esquerda, em primeiro p
 
 ## As três árvores
 
-Na gravura de 1643, a luz é o assunto. O céu da esquerda é riscado de chuva em hachura diagonal. À direita, o céu se abre em papel. As três árvores ficam no meio, escuras contra a claridade, e a planície embaixo vai da luz para a sombra em faixas. Repare como poucas zonas são realmente pretas.
+Na gravura de 1643, o céu da esquerda é riscado de chuva em hachura diagonal. À direita, o céu se abre em papel. As três árvores ficam no meio, escuras contra a claridade, e a planície embaixo vai da luz para a sombra em faixas. Repare como poucas zonas são realmente pretas.
 
 <figure class="wide"><img src="img/three_trees.jpg" alt="As três árvores"><figcaption><i>As três árvores</i>, 1643. Gravura em metal. National Gallery of Art, Washington.</figcaption></figure>
 
