@@ -14,7 +14,7 @@ for nome, (k, cx, y0, y1) in OPC.items():
     H = (y1 - y0) * h; W = H * .64
     x0 = max(0, min(w - W, cx * w - W / 2))
     im.crop((round(x0), round(y0 * h), round(x0 + W), round(y1 * h))).save(f'img/capa-{k}.jpg', quality=92)
-    html = build.COVER_EBOOK.format(fonts=build.font_faces(), nex=build.NEX).replace('img/cover-art.jpg', f'img/capa-{k}.jpg')
+    html = build.COVER_EBOOK.format(fonts=build.font_faces(), nex=build.NEX).replace('img/capa-gravura.jpg', f'img/capa-{k}.jpg')
     with tempfile.TemporaryDirectory() as td:
         HTML(string=html, base_url=build.ROOT).write_pdf(f'{td}/c.pdf')
         subprocess.run(['pdftoppm', '-r', '266.67', '-png', '-singlefile', f'{td}/c.pdf', f'{td}/c'], check=True)
