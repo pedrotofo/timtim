@@ -126,9 +126,11 @@ function stats() {
   return { cookies: S.cookies, total: S.totalCookies, time: S.time, hpLost: S.hpLost, gold: S.gold, allCookies, noHit, allGold, stars: 1 + (allCookies ? 1 : 0) + (allGold ? 1 : 0) };
 }
 
+// modo demonstração (só o script que grava o vídeo de apresentação liga): o Timtim não leva dano
+TT.demo = { noHurt: false };
 function hurt() {
   const p = S.player;
-  if (p.inv > 0 || p.mega > 0 || S.mode !== 'play') return;
+  if (p.inv > 0 || p.mega > 0 || S.mode !== 'play' || TT.demo.noHurt) return;
   p.hp--; S.hpLost++; p.inv = 1.6; p.hurtT = 0.5; S.trauma = Math.min(1, S.trauma + 0.6); S.hitstop = 0.08;
   p.vy = -500; p.vx = -p.face * 260;
   emit('hurt', { x: p.x + p.w / 2, y: p.y });
