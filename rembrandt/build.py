@@ -450,14 +450,15 @@ figure.diag img{width:100%;max-height:none}
 .bleed .bcap i{font:italic 400 9.6pt Serif}
 .bleed.dark .bcap{color:#FBF8F1}
 /* capa */
-.cover{page:full;position:relative;width:6in;height:9in;background:#8E4428;color:#F6EFE4;break-after:page;bookmark-level:1;bookmark-label:"Capa"}
-.cover .ed{position:absolute;top:.5in;left:0;right:0;text-align:center;font:500 9.8pt Sans;letter-spacing:.24em}
-.cover .pl{position:absolute;left:1in;width:4in;top:1.08in}
-.cover .pl img{display:block;width:4in;max-height:none}
-.cover .t{position:absolute;left:0;right:0;top:6.12in;text-align:center;font:400 42pt/1 Serif;letter-spacing:-.01em;white-space:nowrap}
-.cover .d{position:absolute;left:0;right:0;top:6.88in;text-align:center;font:italic 400 14pt Serif;color:#F0D9C4}
-.cover .r{position:absolute;left:2.75in;right:2.75in;top:7.45in;border-top:.6pt solid #F0D9C4}
-.cover .coll{position:absolute;bottom:.5in;left:0;right:0;text-align:center;font:italic 400 10pt Serif;color:#F0D9C4}
+.cover{page:full;position:relative;width:6in;height:9in;background:#2A2119;color:#FBF8F1;break-after:page;bookmark-level:1;bookmark-label:"Capa"}
+.cover .art{position:absolute;top:0;bottom:0;left:0;right:0;background:url("img/cover-art.jpg") 50% 0/cover no-repeat}
+.cover .topsh{display:none}
+.cover .shade{display:none}
+.cover .spine{position:absolute;top:0;bottom:0;left:0;width:.13in;background:#F7F4EE}
+.cover .ed{position:absolute;top:.38in;left:0;right:0;text-align:center;font:500 10.5pt Sans;letter-spacing:.2em}
+.cover .t{position:absolute;left:0;right:0;top:5.75in;text-align:center;font:400 50pt/1 Serif;letter-spacing:-.012em;white-space:nowrap}
+.cover .d{position:absolute;left:0;right:0;top:6.57in;text-align:center;font:italic 400 15pt Serif}
+.cover .coll{position:absolute;bottom:.42in;left:0;right:0;text-align:center;font:italic 400 10.5pt Serif}
 
 /* folha de rosto e créditos */
 .titlepage{page:bare;break-before:page;text-align:center;padding-top:2.3in}
@@ -673,13 +674,13 @@ def pdf_html(S):
     yr = datetime.date.today().year
     P = [f'<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><title>Rembrandt a Lápis</title>'
          f'<meta name="author" content="Pedro Torres"><style>{font_faces()}{PDF_CSS}</style></head><body>']
-    P.append('<div class="cover"><div class="ed">PEDRO TORRES</div><div class="pl"><img src="img/capa-gravura.jpg" alt=""/></div>'
-             '<div class="t">Rembrandt a Lápis</div><div class="d">Luz e sombra, traço por traço</div><div class="r"></div>'
+    P.append('<div class="cover"><div class="art"></div><div class="topsh"></div><div class="shade"></div>'
+             '<div class="ed">PEDRO TORRES</div><div class="t">Rembrandt a Lápis</div><div class="d">Luz e sombra, traço por traço</div>'
              f'<div class="coll">{NEX} exercícios em quatro níveis</div></div>')
     P.append('<div class="titlepage"><p class="t">Rembrandt a Lápis</p><p class="s">Luz e sombra, traço por traço</p><p class="a">PEDRO TORRES</p></div>')
     P.append(f'<div class="copy"><p>© {yr} Pedro Torres. Todos os direitos reservados.</p>'
              '<p>Nenhuma parte deste livro pode ser reproduzida sem autorização do autor, exceto as folhas de exercício destinadas ao uso pessoal do leitor.</p>'
-             '<p>Capa: <i>Autorretrato de boné, de boca aberta</i>, 1630, gravura em metal. National Gallery of Art, Washington.</p>'
+             '<p>Capa: <i>Autorretrato com gorro de veludo e pluma</i>, 1638, gravura em metal (detalhe). National Gallery of Art, Washington.</p>'
              f'<p>Texto composto em EB Garamond e Archivo. Primeira edição, {yr}.</p></div>')
     # sumário
     def row(label, href):
@@ -962,17 +963,16 @@ def build_epub(S, out, small=None):
 
 COVER_EBOOK = """<!doctype html><html><head><meta charset="utf-8"><style>{fonts}
 @page{{size:6in 9.6in;margin:0}}*{{margin:0;padding:0}}
-.c{{position:relative;width:6in;height:9.6in;background:#8E4428;color:#F6EFE4;overflow:hidden}}
-.ed{{position:absolute;top:.55in;left:0;right:0;text-align:center;font:500 10.5pt Sans;letter-spacing:.24em}}
-.pl{{position:absolute;left:.95in;width:4.1in;top:1.2in}}
-.pl img{{display:block;width:4.1in}}
-.t{{position:absolute;left:0;right:0;top:6.55in;text-align:center;font:400 44pt/1 Serif;letter-spacing:-.01em;white-space:nowrap}}
-.d{{position:absolute;left:0;right:0;top:7.35in;text-align:center;font:italic 400 15pt Serif;color:#F0D9C4}}
-.r{{position:absolute;left:2.75in;right:2.75in;top:7.95in;border-top:.6pt solid #F0D9C4}}
-.coll{{position:absolute;bottom:.55in;left:0;right:0;text-align:center;font:italic 400 10.5pt Serif;color:#F0D9C4}}
-</style></head><body><div class="c"><div class="ed">PEDRO TORRES</div>
-<div class="pl"><img src="img/capa-gravura.jpg"/></div>
-<div class="t">Rembrandt a Lápis</div><div class="d">Luz e sombra, traço por traço</div><div class="r"></div>
+.c{{position:relative;width:6in;height:9.6in;background:#2A2119;color:#FBF8F1;overflow:hidden}}
+.art{{position:absolute;inset:0;background:url("img/cover-art.jpg") 50% 0/cover no-repeat}}
+.topsh{{display:none}}
+.shade{{display:none}}
+.ed{{position:absolute;top:.42in;left:0;right:0;text-align:center;font:500 11.5pt Sans;letter-spacing:.2em}}
+.t{{position:absolute;left:0;right:0;top:6.05in;text-align:center;font:400 51pt/1 Serif;letter-spacing:-.012em;white-space:nowrap}}
+.d{{position:absolute;left:0;right:0;top:6.9in;text-align:center;font:italic 400 16pt Serif}}
+.coll{{position:absolute;bottom:.5in;left:0;right:0;text-align:center;font:italic 400 11.5pt Serif}}
+</style></head><body><div class="c"><div class="art"></div><div class="topsh"></div><div class="shade"></div>
+<div class="ed">PEDRO TORRES</div><div class="t">Rembrandt a Lápis</div><div class="d">Luz e sombra, traço por traço</div>
 <div class="coll">{nex} exercícios em quatro níveis</div></div></body></html>"""
 
 def make_cover():
