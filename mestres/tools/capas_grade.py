@@ -17,7 +17,8 @@ D = {'pag': ('n1_paganini', .53, .17, .3), 'durer': ('n2_durer13', .55, .31, .42
      'drap': ('n3_drapery', .4, .62, .5), 'sibyl': ('n4_sibyl', .5, .22, .45), 'boat': ('n1_boats', .3, .7, .35),
      'dancer': ('n2_dancer', .62, .42, .75), 'lhands': ('n2_hands', .55, .82, .55), 'ideal': ('n3_ideal', .3, .45, .45),
      'lady': ('n4_holbein_lady', .48, .36, .45), 'edith': ('n1_edith', .5, .2, .5), 'crau': ('n5_crau', .5, .45, .32),
-     'cat2': ('n1_cats', .3, .57, .3), 'pag_eye': ('n1_paganini', .53, .155, .16), 'mother_eye': ('n4_mother', .3, .34, .2)}
+     'cat2': ('n1_cats', .3, .57, .3), 'pag_eye': ('n1_paganini', .53, .155, .16), 'mother_eye': ('n4_mother', .3, .34, .2),
+     'rem': ('g_rembrandt', .47, .33, .5), 'vg': ('g_vangogh', .42, .42, .78), 'dancer2': ('n2_dancer', .66, .3, .62)}
 TMP = 'img/_grade'
 os.makedirs(TMP, exist_ok=True)
 
@@ -155,6 +156,19 @@ V['7-base3-solta'] = (PAPER, [
     (1, 2.5, 1, 1, 'img', 'mother', None), (1, 3.5, 1, 1, 'img', 'ideal', None), (1, 4.5, 1, 1, 'img', 'sibyl', None),
     (2, 2, 1, 1, 'txt', SUBB.replace('14pt', '12.5pt'), '#3B6386'), (2, 3, 1, 1, 'img', 'drap', None), (2, 4, 1, 1, 'img', 'yeats', None), (2, 5, 1, 1, 'img', 'boat', None),
     (3, 2.5, 1, 1, 'img', 'more', None), (3, 3.5, 1, 1, 'img', 'lady', None), (3, 4.5, 1, 1, 'img', 'edith', None)])
+# --- terceira rodada: um rosto por mestre, nome assentado na margem de baixo, sem a linha dos exercícios
+TIT3 = (f'<p class="t" style="color:{INK};font-size:44pt">Grandes<br/>Artistas<br/>a Lápis</p>'
+        f'<p class="ph" style="color:{INK};font-weight:500">DE LEONARDO DA VINCI<br/>A VAN GOGH</p>')
+BOT = 'display:flex;flex-direction:column;justify-content:flex-end;'
+V['8-um-por-mestre'] = (PAPER, [
+    (0, 0, 3, 2, 'txt', TIT3, None),
+    (3, 0, 1, 1, 'img', 'durer', None), (3, 1, 1, 1, 'img', 'girl', None),
+    (0, 2, 1, 1, 'img', 'pag', None), (0, 3, 1, 1, 'img', 'pray', None), (0, 4, 1, 1, 'img', 'cat', None),
+    (0, 5, 1, 1, 'txt', f'<div style="{BOT}height:100%"><p class="a" style="color:{INK}">PEDRO<br/>TORRES</p></div>', None),
+    (1, 2.5, 1, 1, 'img', 'mother', None), (1, 3.5, 1, 1, 'img', 'ideal', None), (1, 4.5, 1, 1, 'img', 'sibyl', None),
+    (2, 2, 1, 1, 'txt', f'<div style="{BOT}height:100%"><p class="s" style="font-size:12.5pt">Cinco níveis<br/>com dez mestres</p></div>', '#3B6386'),
+    (2, 3, 1, 1, 'img', 'dancer2', None), (2, 4, 1, 1, 'img', 'yeats', None), (2, 5, 1, 1, 'img', 'vg', None),
+    (3, 2.5, 1, 1, 'img', 'edith', None), (3, 3.5, 1, 1, 'img', 'rem', None), (3, 4.5, 1, 1, 'img', 'lady', None)])
 if len(sys.argv) > 1:
     V = {k: v for k, v in V.items() if k in sys.argv[1:]}
 for nome, (bg, cells) in V.items():
