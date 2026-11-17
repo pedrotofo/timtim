@@ -15,8 +15,15 @@ const { chromium } = require('playwright');
   check(await until(() => window.__tintim && __tintim.R.ready && __tintim.state === 'title'), 'abre na tela de título');
   await pg.waitForTimeout(600); await pg.click('#btnStart');
   check(await until(() => document.querySelector('#title').classList.contains('story')), 'Jogar abre a introdução');
-  await pg.waitForTimeout(1500); await pg.mouse.click(480, 270); // toque pula a introdução
-  check(await until(() => __tintim.state === 'play'), 'tocar na introdução inicia a partida');
+  const scene = () => ev(() => __tintim.storyScene);
+  await pg.waitForTimeout(700); await pg.mouse.click(480, 270); // cada toque avança uma tela
+  check(await until(() => __tintim.storyScene === 1, 3000) && await ev(() => __tintim.state) === 'title', 'toque avança só para a segunda tela');
+  await pg.mouse.click(480, 270); await pg.waitForTimeout(100);
+  check(await scene() === 1, 'dois toques seguidos não pulam duas telas');
+  await pg.waitForTimeout(600); await pg.mouse.click(480, 270);
+  check(await until(() => __tintim.storyScene === 2, 3000) && await ev(() => __tintim.state) === 'title', 'toque avança para a terceira tela');
+  await pg.waitForTimeout(600); await pg.mouse.click(480, 270);
+  check(await until(() => __tintim.state === 'play'), 'toque na última tela inicia a partida');
   check(await until(() => !!__tintim.S.thief && __tintim.S.cine && __tintim.S.cine.type === 'steal', 5000), 'Furtão aparece com o macaco na abertura');
   check(await until(() => !__tintim.S.cine && !__tintim.S.thief, 8000), 'Furtão foge e o controle é liberado');
   await pg.keyboard.down('ArrowRight');

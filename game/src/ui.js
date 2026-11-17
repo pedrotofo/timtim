@@ -53,16 +53,19 @@ function irisOpenFromBlack() { iris.style.transition = 'none'; irisTo(true, { x:
 
 function begin(fn) { TT.audioInit(); TT.sfx('ui'); irisTo(true, { x: 0.5, y: 0.5 }); setTimeout(() => { fn(); }, 520); }
 // abertura: introdução cinematográfica (src/intro.js) — três quadros com zoom lento, a frase escrita no pergaminho
-// de cada um e a voz do narrador lendo. Qualquer toque pula.
+// de cada um e a voz do narrador lendo. Cada toque (ou Enter/Espaço) avança uma tela; depois da terceira, começa o jogo.
 const titleEl = $('title'), STORY = ['Timtim, Zara e Elvis brincavam com o amado Macaco Fedido em paz na Vila de Reserva…',
   'Até que o Furtão, o valentão da vila, apareceu e roubou o macaco!', 'Agora Timtim, Zara e Elvis partem para resgatar o Macaco Fedido, custe o que custar!'];
 const DUR = (TT.intro && TT.intro.durations) || [3.1, 3.1, 3.1];
-let storyTimer = null, storyAt = 0;
+let storyTimer = null, storyAt = 0, storyI = 0;
 // a frase vai desenhada no pergaminho (canvas); #storyLine guarda o mesmo texto para leitores de tela
-function storyLine(i) { if (i >= STORY.length) return endStory(); if (TT.intro) TT.intro.scene(i, STORY[i]); $('storyLine').textContent = STORY[i]; TT.voice(i); storyTimer = setTimeout(() => storyLine(i + 1), DUR[i] * 1000); }
+function storyLine(i) { clearTimeout(storyTimer); if (i >= STORY.length) return endStory(); storyI = i; storyAt = performance.now(); if (TT.intro) TT.intro.scene(i, STORY[i]); $('storyLine').textContent = STORY[i]; TT.voice(i); storyTimer = setTimeout(() => storyLine(i + 1), DUR[i] * 1000); }
 function endStory() { if (!titleEl.classList.contains('story') || titleEl.classList.contains('leaving')) return; clearTimeout(storyTimer); TT.voice(-1); titleEl.classList.add('leaving'); begin(TT.start); }
-$('btnStart').onclick = () => { if (titleEl.classList.contains('story')) return endStory(); TT.audioInit(); TT.sfx('ui'); TT.music('title'); titleEl.classList.add('story'); storyAt = performance.now(); storyLine(0); };
-titleEl.addEventListener('pointerdown', () => { if (titleEl.classList.contains('story') && performance.now() - storyAt > 500) endStory(); });
+// avança para a próxima tela (um toque logo depois de outro, em menos de meio segundo, não pula duas)
+TT.storyScene = () => storyI;
+const nextStory = () => { if (performance.now() - storyAt > 500) storyLine(storyI + 1); };
+$('btnStart').onclick = () => { if (titleEl.classList.contains('story')) return nextStory(); TT.audioInit(); TT.sfx('ui'); TT.music('title'); titleEl.classList.add('story'); storyAt = performance.now(); storyLine(0); };
+titleEl.addEventListener('pointerdown', () => { if (titleEl.classList.contains('story')) nextStory(); });
 const firstTouch = () => { if (S.mode === 'title') { TT.audioInit(); TT.music('title'); } removeEventListener('pointerdown', firstTouch); removeEventListener('keydown', firstTouch); };
 addEventListener('pointerdown', firstTouch); addEventListener('keydown', firstTouch);
 TT.on('start', () => setTimeout(() => { titleEl.classList.remove('story', 'leaving'); if (TT.intro) TT.intro.stop(); }, 600));

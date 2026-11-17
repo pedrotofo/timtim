@@ -33,5 +33,5 @@ function loop(now) {
   requestAnimationFrame(loop);
 }
 requestAnimationFrame(loop);
-window.__tintim = { get state() { return S.mode; }, get player() { return S.player; }, get boss() { return S.boss; }, S, R };
+window.__tintim = { get state() { return S.mode; }, get player() { return S.player; }, get boss() { return S.boss; }, get storyScene() { return TT.storyScene ? TT.storyScene() : -1; }, S, R };
 })();
