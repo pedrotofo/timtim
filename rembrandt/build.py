@@ -680,7 +680,7 @@ def pdf_html(S):
     P.append('<div class="titlepage"><p class="t">Rembrandt a Lápis</p><p class="s">Luz e sombra, traço por traço</p><p class="a">PEDRO TORRES</p></div>')
     P.append(f'<div class="copy"><p>© {yr} Pedro Torres. Todos os direitos reservados.</p>'
              '<p>Nenhuma parte deste livro pode ser reproduzida sem autorização do autor, exceto as folhas de exercício destinadas ao uso pessoal do leitor.</p>'
-             '<p>Capa: <i>Autorretrato carrancudo</i>, 1630, gravura em metal (detalhe). National Gallery of Art, Washington.</p>'
+             '<p>Capa: <i>Autorretrato de boné, de boca aberta</i>, 1630, gravura em metal (detalhe). National Gallery of Art, Washington.</p>'
              f'<p>Texto composto em EB Garamond e Archivo. Primeira edição, {yr}.</p></div>')
     # sumário
     def row(label, href):

@@ -90,7 +90,7 @@ No autorretrato de Chicago, da primavera de 1887, a solução é outra: os traci
 
 ## 1888: o fundo calmo
 
-Em Arles, no autorretrato dedicado a Paul Gauguin, o fundo fica quase liso. O rosto, de cabeça raspada, ganha planos firmes e contorno pesado. Toda a energia do quadro está no rosto.
+Em Arles, no autorretrato dedicado a Paul Gauguin, o fundo fica quase liso. O rosto, de cabeça raspada, ganha planos firmes e contorno pesado.
 
 <figure><img src="img/sp_gauguin.jpg" alt="Autorretrato dedicado a Paul Gauguin"><figcaption><i>Autorretrato dedicado a Paul Gauguin</i>, Arles, setembro de 1888. Óleo sobre tela. Harvard Art Museums. F476, JH1581.</figcaption></figure>
 
