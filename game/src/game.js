@@ -59,10 +59,7 @@ function makeItems() {
   // chocolates no chão: cachorro não pode! Dá dor de barriga e ele anda devagar por um tempo. Dá para pular por cima.
   // O primeiro aparece sozinho, depois do pombo de treino e do primeiro amigo.
   [2240, 3900, 5370, 6330, 7830].forEach(x => it.push({ type: 'choco', x, y: GROUND - 34, got: false }));
-  it.push({ type: 'banana', x: 7270, y: 150, got: false });
-  it.push({ type: 'banana', x: 2010, y: 205, got: false });
-  it.push({ type: 'yarn', x: 4220, y: 170, got: false }); // bolinha de lã: invencível
-  it.push({ type: 'banana', x: 5550, y: 160, got: false });
+  // sem poderes soltos pela fase: turbo e invencibilidade vêm só dos presentes dos chihuahuas
   it.forEach(o => { o.x = sx(o.x); });
   // trecho de aprendizado (já em coordenadas finais): poucos biscoitos e o pombo de treino
   [1600, 1640, 1680].forEach(x => cookie(x, 290)); cookie(1860, 220);
@@ -222,8 +219,6 @@ TT.update = (rdt) => {
       if (it.type === 'cookie') { S.cookies++; emit('cookie', it); }
       if (it.type === 'gold') { S.gold++; emit('power', it); emit('gold', it); }
       if (it.type === 'choco') { if (p.mega <= 0) { p.slow = 5; p.fast = 0; emit('choco', it); } }
-      if (it.type === 'banana') { p.slow = 0; p.fast = 7; emit('power', it); }
-      if (it.type === 'yarn') { p.mega = 8; p.hp = Math.min(3, p.hp + 1); emit('power', it); }
     }
   }
 

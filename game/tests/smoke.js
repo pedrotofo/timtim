@@ -68,7 +68,7 @@ const { chromium } = require('playwright');
   check(await until(() => __tintim.S.prize.rest, 5000), 'o macaco cai no chão ao lado do Timtim');
   check(await until(() => __tintim.state === 'win', 40000), 'vitória depois do resgate');
   check(await pg.waitForSelector('#win.on', { timeout: 30000 }).then(() => true, () => false), 'tela de vitória aparece');
-  check(await ev(() => __tintim.S.items.some(i => i.type === 'yarn') && !__tintim.S.items.some(i => i.type === 'monkey')), 'bolinha de lã no lugar do macaco de pelúcia');
+  check(await ev(() => __tintim.S.items.every(i => ['cookie', 'gold', 'choco'].includes(i.type))), 'na fase só há biscoitos, biscoitos dourados e chocolates');
   check(errs.length === 0, 'sem erros no console' + (errs.length ? ': ' + errs.join(' | ') : ''));
   await b.close();
 })();

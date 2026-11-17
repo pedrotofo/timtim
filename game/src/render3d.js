@@ -28,10 +28,10 @@ const TL = new THREE.TextureLoader();
 const load = p => { const t = TL.load('assets/' + p); t.anisotropy = 4; return t; };
 const AR = { 'tintim-idle': 232 / 220, 'tintim-run': 1.2143, 'tintim-jump': 270 / 200, 'tintim-fall': 240 / 220, 'tintim-hurt': 218 / 220,
   'tintim-win': 189 / 240, 'brute-walk': 362 / 320, 'brute-charge': 454 / 253, 'brute-bark': 341 / 322, 'brute-ball': 413 / 265, 'brute-dizzy': 374 / 345, 'brute-down': 432 / 209, pigeon: 1.1381, 'monkey-front': 217 / 235, 'monkey-joy': 286 / 260,
-  banana: 1, cookie: 129 / 90, 'chi-pb': 245 / 300, 'chi-br': 223 / 300 };
+  cookie: 129 / 90, 'chi-pb': 245 / 300, 'chi-br': 223 / 300 };
 const TEX = {};
-AR.choco = 1.25; AR.yarn = 1.15;
-for (const k in AR) if (k !== 'choco' && k !== 'yarn') TEX[k] = load('sprites/' + k + '.png');
+AR.choco = 1.25;
+for (const k in AR) if (k !== 'choco') TEX[k] = load('sprites/' + k + '.png');
 // tiras de quadros desenhados: corrida do Timtim (8), corrida dos chihuahuas e andar do pombo (4 cada)
 const FRAMES = { 'tintim-run': 8, 'chi-pb-run': 4, 'chi-br-run': 4, pigeon: 4 };
 for (const k in FRAMES) if (TEX[k]) TEX[k].repeat.set(1 / FRAMES[k], 1);
@@ -417,23 +417,8 @@ TEX.choco = canvasTex(160, 128, x => { x.translate(80, 64); x.rotate(-0.18);
     x.fillStyle = '#d08a52'; x.beginPath(); x.roundRect(px + 3, py + 3, 28, 9, 4); x.fill(); x.fillStyle = '#5e2f14'; x.fillRect(px + 3, py + 25, 28, 4); }
   x.fillStyle = '#ff3d5e'; x.beginPath(); x.moveTo(-66, -44); x.lineTo(-8, -44); x.lineTo(-20, 44); x.lineTo(-66, 44); x.closePath(); x.fill();
   x.fillStyle = '#ffd98a'; x.fillRect(-66, -10, 52, 20); x.strokeStyle = '#fff3d6'; x.lineWidth = 3; x.beginPath(); x.moveTo(-8, -44); x.lineTo(-14, -20); x.lineTo(-6, 0); x.lineTo(-16, 22); x.lineTo(-20, 44); x.stroke(); });
-// bolinha de lã (o poder de invencível): novelo rosa com fios cruzados e uma ponta solta, desenhado por código
-TEX.yarn = canvasTex(148, 128, x => {
-  const cx = 62, cy = 66, r = 52;
-  x.lineCap = 'round'; x.strokeStyle = '#ff9fd0'; x.lineWidth = 5; // ponta solta, enrolando para fora
-  x.beginPath(); x.moveTo(cx + r * 0.7, cy + r * 0.6); x.bezierCurveTo(cx + r + 14, cy + r + 4, cx + r + 34, cy + 20, cx + r + 26, cy - 2); x.stroke();
-  x.strokeStyle = '#fff3d6'; x.lineWidth = 9; x.beginPath(); x.arc(cx, cy, r + 2, 0, 7); x.stroke(); // contorno creme, para ler no escuro
-  const g = x.createRadialGradient(cx - 16, cy - 18, 6, cx, cy, r); g.addColorStop(0, '#ffc2e2'); g.addColorStop(0.55, '#ff6fb5'); g.addColorStop(1, '#b8306f');
-  x.fillStyle = g; x.beginPath(); x.arc(cx, cy, r, 0, 7); x.fill();
-  x.save(); x.beginPath(); x.arc(cx, cy, r - 1, 0, 7); x.clip(); x.lineWidth = 2.6;
-  const band = (rot, n, col) => { x.save(); x.translate(cx, cy); x.rotate(rot); x.strokeStyle = col;
-    for (let i = 0; i < n; i++) { const k = (i + 0.5) / n * 2 - 1; x.beginPath(); x.ellipse(0, 0, r * 1.02, Math.abs(k) * r + 2, 0, k < 0 ? Math.PI : 0, k < 0 ? 2 * Math.PI : Math.PI); x.stroke(); } x.restore(); };
-  band(0.5, 9, 'rgba(255,225,240,.75)'); band(-0.9, 7, 'rgba(150,20,80,.45)');
-  x.restore();
-  x.fillStyle = 'rgba(255,255,255,.55)'; x.beginPath(); x.ellipse(cx - 20, cy - 24, 12, 7, -0.6, 0, 7); x.fill();
-});
 const itemM = S.items.map(it => { const m = sprite(it.type === 'gold' ? 'cookie' : it.type, 5, false, it.type === 'gold' ? 0xffd640 : 0xfff4e0); m.geometry = planeGeoC;
-  m.userData.glow = add(new THREE.Mesh(planeGeoC, glowMat(it.type === 'choco' ? 0xff3355 : it.type === 'yarn' ? 0xff6fb5 : it.type === 'cookie' ? 0xffc76a : 0xffe14d)), 4);
+  m.userData.glow = add(new THREE.Mesh(planeGeoC, glowMat(it.type === 'choco' ? 0xff3355 : it.type === 'cookie' ? 0xffc76a : 0xffe14d)), 4);
   return m; });
 const friendM = S.friends.map(f => { const m = sprite(f.kind, 5, true, 0xfff6ec); m.geometry = legGeo();
   m.userData.glow = add(new THREE.Mesh(planeGeoC, glowMat(0xffd9a0, 0.3)), 4); return m; });
@@ -723,7 +708,7 @@ R.frame = (rdt) => {
   S.items.forEach((it, i) => {
     const m = itemM[i]; m.visible = !it.got; const g = m.userData.glow; g.visible = !it.got;
     if (it.got) return;
-    const ck = it.type === 'cookie', gd = it.type === 'gold', hh = ck ? 27 : gd ? 36 : it.type === 'choco' ? 54 : it.type === 'banana' ? 46 : it.type === 'yarn' ? 46 : 54, bob = Math.sin(clock * 3 + it.x * 0.05) * 5;
+    const ck = it.type === 'cookie', gd = it.type === 'gold', hh = ck ? 27 : gd ? 36 : it.type === 'choco' ? 54 : 54, bob = Math.sin(clock * 3 + it.x * 0.05) * 5;
     m.scale.set(hh * AR[gd ? 'cookie' : it.type], hh, 1); m.position.set(it.x, Y(it.y) + bob, 0);
     m.rotation.y = Math.sin(clock * 2.2 + it.x * 0.01) * (ck ? 0.75 : 0.4); m.rotation.z = Math.sin(clock * 3 + it.x) * 0.12;
     const s = (ck ? 62 : it.type === 'choco' ? 130 : 104) + Math.sin(clock * 5 + it.x * 0.03) * (ck ? 8 : 12); g.scale.set(s, s, 1); g.position.set(it.x, Y(it.y) + bob, -2); g.material.opacity = ck ? 0.5 : it.type === 'choco' ? 0.7 + 0.25 * Math.sin(clock * 6 + it.x) : 0.6;

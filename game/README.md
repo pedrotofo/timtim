@@ -5,9 +5,9 @@ Jogo de plataforma 2.5D curtinho: o Furtão, o valentão da vila, roubou o Macac
 ## Como jogar
 - ← → / A D: andar · Espaço / ↑ / W: pular (segure para pular mais alto; aperte de novo no ar para a pirueta, um pulo duplo) · P ou Esc: pausa · M: som
 - Celular: botões na tela. Controle (gamepad): direcional + botão A.
-- 🍪 Biscoito: pontos · 🍌 Banana de pelúcia: turbo por 7s · 🧶 Bolinha de lã: invencível por 8s e +1 coração
+- 🍪 Biscoito: pontos (não há outros poderes soltos pela fase; só os presentes dos amigos)
 - 🍫 Chocolate: dá dor de barriga e deixa o Timtim lento por 5s (pule por cima)
-- 🐶 Amigos chihuahuas: os dois esperam no caminho e, quando o Timtim chega perto, jogam um biscoito de presente (+3 biscoitos e +1 coração)
+- 🐶 Amigos chihuahuas: os dois esperam no caminho e, quando o Timtim chega perto, jogam um biscoito de presente (+3 biscoitos e +1 coração; o primeiro dá turbo, o segundo deixa invencível). São os únicos poderes da fase.
 - Pombos: pise por cima.
 - Chefão, o Furtão: 3 corações e um ataque novo a cada um (investida, latidão com onda no chão, pisão do terremoto). Pisar nele não adianta, ele sacode o Timtim para o alto. De tempos em tempos a Zara ou o Elvis jogam uma bolinha: ele corre atrás e fica mordendo, e só nessa hora o pisão na cabeça acerta.
 - Estrelas: 1 por vencer, 1 por pegar 80% dos biscoitos, 1 por achar os 3 biscoitos dourados (só o pulo duplo alcança).
