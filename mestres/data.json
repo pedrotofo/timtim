@@ -836,6 +836,12 @@
 "l": "Por volta de 1884. Óleo sobre tela, inacabado. Tate.",
 "c": "Uma versão inacabada do retrato que ficou conhecido como Madame X. A pose inteira está na silhueta preta."
 },
+"c_roulin": {
+"t": "Retrato de Joseph Roulin",
+"a": "Vincent van Gogh",
+"l": "Arles, agosto de 1888. Pena de junco, pena de ave e giz preto. J. Paul Getty Museum.",
+"c": "O carteiro de Arles, amigo de Van Gogh. Barba em curvas que descem em leque, casaco em hachura cruzada, fundo em treliça."
+},
 "g_leonardo": {
 "t": "Autorretrato presumido",
 "a": "Leonardo da Vinci",
@@ -1032,6 +1038,11 @@
 "tec": "Óleo sobre tela",
 "dim": "206,4 × 107,9 cm",
 "ac": "Tate, Londres"
+},
+"c_roulin": {
+"tec": "Pena de junco e pena de ave, tinta e giz preto",
+"dim": "31,8 × 24,3 cm",
+"ac": "J. Paul Getty Museum, Los Angeles"
 },
 "g_leonardo": {
 "tec": "Giz vermelho",

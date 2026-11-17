@@ -82,6 +82,9 @@ OBRAS = {
  'n5_madamex': ('Estudo para Madame Gautreau', 'John Singer Sargent', 'Por volta de 1884. Óleo sobre tela, inacabado. Tate.',
    'Uma versão inacabada do retrato que ficou conhecido como Madame X. A pose inteira está na silhueta preta.',
    'Óleo sobre tela', '206,4 × 107,9 cm', 'Tate, Londres'),
+ 'c_roulin': ('Retrato de Joseph Roulin', 'Vincent van Gogh', 'Arles, agosto de 1888. Pena de junco, pena de ave e giz preto. J. Paul Getty Museum.',
+   'O carteiro de Arles, amigo de Van Gogh. Barba em curvas que descem em leque, casaco em hachura cruzada, fundo em treliça.',
+   'Pena de junco e pena de ave, tinta e giz preto', '31,8 × 24,3 cm', 'J. Paul Getty Museum, Los Angeles'),
  # galeria
  'g_leonardo': ('Autorretrato presumido', 'Leonardo da Vinci', 'Por volta de 1512. Giz vermelho. Biblioteca Real de Turim.',
    'Tradicionalmente tido como autorretrato, o que é discutido.', 'Giz vermelho', '33,3 × 21,3 cm', 'Biblioteca Real, Turim'),

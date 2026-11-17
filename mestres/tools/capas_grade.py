@@ -18,7 +18,7 @@ D = {'pag': ('n1_paganini', .53, .17, .3), 'durer': ('n2_durer13', .55, .31, .42
      'dancer': ('n2_dancer', .62, .42, .75), 'lhands': ('n2_hands', .55, .82, .55), 'ideal': ('n3_ideal', .3, .45, .45),
      'lady': ('n4_holbein_lady', .48, .36, .45), 'edith': ('n1_edith', .5, .2, .5), 'crau': ('n5_crau', .5, .45, .32),
      'cat2': ('n1_cats', .3, .57, .3), 'pag_eye': ('n1_paganini', .53, .155, .16), 'mother_eye': ('n4_mother', .3, .34, .2),
-     'rem': ('g_rembrandt', .47, .33, .5), 'vg': ('g_vangogh', .42, .42, .78), 'dancer2': ('n2_dancer', .66, .3, .62)}
+     'roulin': ('c_roulin', .5, .37, .62), 'rem': ('g_rembrandt', .47, .33, .5), 'vg': ('g_vangogh', .42, .42, .78), 'dancer2': ('n2_dancer', .66, .3, .62)}
 TMP = 'img/_grade'
 os.makedirs(TMP, exist_ok=True)
 
@@ -177,7 +177,7 @@ V['9-gabinete'] = (PAPER, [
     (0, 2, 1, 1, 'img', 'pag', None), (0, 3, 1, 1, 'img', 'pray', None), (0, 4, 1, 1, 'img', 'cat', None), (0, 5, 1, 1, 'img', 'drap', None),
     (1, 2.5, 1, 1, 'img', 'mother', None), (1, 3.5, 1, 1, 'img', 'ideal', None), (1, 4.5, 1, 1, 'img', 'sibyl', None),
     (2, 2, 1, 1, 'txt', f'<div style="{BOT}height:100%"><p class="s" style="font-size:12.5pt">Cinco níveis<br/>com dez mestres</p></div>', '#3B6386'),
-    (2, 3, 1, 1, 'img', 'dancer2', None), (2, 4, 1, 1, 'img', 'yeats', None), (2, 5, 1, 1, 'img', 'vg', None),
+    (2, 3, 1, 1, 'img', 'dancer2', None), (2, 4, 1, 1, 'img', 'yeats', None), (2, 5, 1, 1, 'img', 'roulin', None),
     (3, 2.5, 1, 1, 'img', 'edith', None), (3, 3.5, 1, 1, 'img', 'rem', None), (3, 4.5, 1, 1, 'img', 'lady', None),
     (3, 5.5, 1, .5, 'txt', f'<div style="{RIGHT}height:100%;padding:0"><p class="a" style="color:{INK}">PEDRO<br/>TORRES</p></div>', None)])
 TIT4 = (f'<p class="t" style="color:{INK};font-size:39pt;white-space:nowrap">Grandes Artistas<br/>a Lápis</p>'
