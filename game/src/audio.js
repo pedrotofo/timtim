@@ -122,7 +122,7 @@ function playSample(name, t) {
   src.connect(g).connect(sfxBus); src.start(t);
   return true;
 }
-// ---- narração da abertura (voz de vovô contador de histórias, gerada no Artlist): uma fala por quadro.
+// ---- narração da abertura (voz de vovô contador de histórias, gerada no Artlist já em fala rápida): uma fala por quadro.
 // Enquanto ele fala, a música abaixa. Se a fala ainda não carregou quando o quadro começa, entra assim que chegar (até 1,2 s depois).
 const vbufs = []; let voiceSrc = null, voiceWant = null;
 function loadVoices() {

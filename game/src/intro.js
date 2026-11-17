@@ -14,7 +14,7 @@ const load = src => { const i = new Image(); i.src = src; return i; };
 // zoom: escala inicial → final em torno de um ponto (embaixo no centro, para o pergaminho nunca sair do quadro);
 // wind: regiões de pelo (ring = rosto parado, só a borda mexe); scroll: o pergaminho [x0, y0, x1, y1]; sky: até onde vaga-lumes e folhas descem
 const SCENES = [
-  { img: load('assets/intro/1-brincando.jpg'), dur: 6.5, zoom: [1.0, 1.035], at: [836, 941], scroll: [60, 700, 1610, 900], sky: 600,
+  { img: load('assets/intro/1-brincando.jpg'), dur: 7.4, zoom: [1.0, 1.035], at: [836, 941], scroll: [60, 700, 1610, 900], sky: 600,
     wind: [ { x: 800, y: 300, rx: 250, ry: 230, amp: 2.6, speed: 2.6, freq: 0.035, ring: 1 },  // Timtim: juba e orelhas
             { x: 360, y: 340, rx: 160, ry: 170, amp: 2.2, speed: 3.2, freq: 0.05, ring: 1 },   // Zara
             { x: 1250, y: 380, rx: 150, ry: 160, amp: 2.2, speed: 3.0, freq: 0.05, ring: 1 },  // Elvis
@@ -23,7 +23,7 @@ const SCENES = [
     glow: [ { x: 390, y: 90, r: 70, c: '255,170,80', a: 0.4, pulse: 1.7, flicker: 1 }, { x: 507, y: 65, r: 60, c: '255,80,80', a: 0.35, pulse: 1.3 },
             { x: 605, y: 115, r: 60, c: '120,255,120', a: 0.35, pulse: 1.9 }, { x: 830, y: 520, r: 260, c: '255,200,110', a: 0.18, pulse: 1.1 } ],
     flies: 26, leaves: 3 },
-  { img: load('assets/intro/2-roubo.jpg'), dur: 5.5, zoom: [1.0, 1.04], at: [1200, 941], scroll: [50, 712, 1625, 900], sky: 620,
+  { img: load('assets/intro/2-roubo.jpg'), dur: 6.4, zoom: [1.0, 1.04], at: [1200, 941], scroll: [50, 712, 1625, 900], sky: 620,
     wind: [ { x: 1340, y: 330, rx: 260, ry: 210, amp: 1.4, speed: 38, freq: 0.5, jitter: 1 },   // Furtão correndo treme
             { x: 1440, y: 420, rx: 120, ry: 110, amp: 3, speed: 6, freq: 0.07 },                 // macaco balançando na boca
             { x: 450, y: 330, rx: 200, ry: 180, amp: 3, speed: 3.4, freq: 0.04, ring: 1 },       // Timtim assustado
@@ -31,7 +31,7 @@ const SCENES = [
     glow: [ { x: 300, y: 165, r: 70, c: '255,190,90', a: 0.4, pulse: 1.5, flicker: 1 }, { x: 420, y: 140, r: 70, c: '255,70,70', a: 0.4, pulse: 2.1 },
             { x: 585, y: 95, r: 65, c: '120,255,120', a: 0.35, pulse: 1.2 }, { x: 740, y: 35, r: 65, c: '255,70,70', a: 0.35, pulse: 1.8, flicker: 1 } ],
     flies: 16, leaves: 6, windX: 60 },
-  { img: load('assets/intro/3-resgate.jpg'), dur: 6.9, zoom: [1.04, 1.0], at: [836, 941], scroll: [55, 755, 1615, 892], sky: 650,
+  { img: load('assets/intro/3-resgate.jpg'), dur: 6.3, zoom: [1.04, 1.0], at: [836, 941], scroll: [55, 755, 1615, 892], sky: 650,
     wind: [ { x: 860, y: 320, rx: 270, ry: 240, amp: 3.2, speed: 2.8, freq: 0.035, ring: 1 },  // Timtim: juba ao vento
             { x: 640, y: 280, rx: 140, ry: 140, amp: 5, speed: 2.6, freq: 0.03 },               // rabo do Timtim
             { x: 990, y: 520, rx: 130, ry: 70, amp: 3, speed: 4, freq: 0.08 },                  // bandana
