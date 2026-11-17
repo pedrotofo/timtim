@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8">
+<style>
+/* Livros a Lápis v3 · 9:16 · 1080×1920 · 30 fps.
+   Mecanismo central: "o giro que troca o livro" — um só livro gira pela lombada e volta como o livro seguinte, sem corte.
+   O último abre, folheia acelerando, fecha, e os três se alinham para o fechamento. */
+@font-face{font-family:G;src:url("../../mestres/fonts/eb-garamond-latin-400-normal.ttf")}
+@font-face{font-family:G;src:url("../../mestres/fonts/eb-garamond-latin-ext-400-normal.ttf");unicode-range:U+0100-024F}
+@font-face{font-family:S;font-weight:500;src:url("../../mestres/fonts/archivo-latin-500-normal.woff")}
+:root{--bg:#0d0e11;--mint:#3cd48c;--text:#f1ede4;--dim:#7d8088}
+*{box-sizing:border-box}
+html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:var(--bg)}
+.bgi{position:absolute;left:50%;top:50%;width:1500px;height:2600px;margin:-1300px 0 0 -750px;object-fit:cover;
+  filter:blur(26px) brightness(.48) saturate(1.1);transform:translate(var(--px,0px),var(--py,0px)) scale(1.12)}
+.shade{position:absolute;inset:0;background:radial-gradient(ellipse 70% 48% at 50% 42%,rgba(13,14,17,0),rgba(13,14,17,.8) 100%)}
+.dots{position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.055) 1.5px,transparent 1.7px);background-size:34px 34px}
+.wave{position:absolute;inset:0;background-image:radial-gradient(rgba(60,212,140,.95) 2px,transparent 2.3px);background-size:34px 34px;opacity:0;
+  -webkit-mask-image:radial-gradient(circle at 50% 42%,transparent calc(var(--r,0px) - 160px),#000 calc(var(--r,0px) - 40px),transparent var(--r,0px))}
+#scene{position:absolute;inset:0;perspective:2400px;perspective-origin:50% 40%}
+.shadow{position:absolute;left:50%;top:1240px;width:640px;height:84px;margin-left:-320px;border-radius:50%;
+  background:radial-gradient(rgba(0,0,0,.8),rgba(0,0,0,0) 70%);filter:blur(10px)}
+.book{position:absolute;left:50%;top:800px;width:500px;height:800px;margin:-400px 0 0 -250px;transform-style:preserve-3d}
+.f{position:absolute;backface-visibility:hidden;-webkit-backface-visibility:hidden;overflow:hidden}
+.face{inset:0;background-size:100% 100%}
+.front{transform:translateZ(30px);border-radius:2px 6px 6px 2px}
+.back{transform:rotateY(180deg) translateZ(30px);border-radius:6px 2px 2px 6px}
+.face .dk{position:absolute;inset:0;background:#000;opacity:0}
+.face .gl{position:absolute;inset:-10%;background:linear-gradient(105deg,rgba(255,255,255,0) 42%,rgba(255,255,255,.28) 50%,rgba(255,255,255,0) 58%);
+  background-size:300% 100%;background-position:var(--gx,120%) 0;mix-blend-mode:screen}
+.face .hinge{position:absolute;left:0;top:0;bottom:0;width:26px;background:linear-gradient(90deg,rgba(0,0,0,.35),rgba(0,0,0,0))}
+.spine{width:60px;height:800px;left:-30px;transform:rotateY(-90deg);display:flex;align-items:center;justify-content:center}
+.spine span{writing-mode:vertical-rl;transform:rotate(180deg);font:400 26px G;white-space:nowrap}
+.edge{width:60px;height:792px;top:4px;left:470px;transform:rotateY(90deg);background:repeating-linear-gradient(90deg,#f4efe4 0 2px,#d6cebd 2px 3px)}
+.topedge{width:492px;height:60px;left:4px;top:-30px;transform:rotateX(90deg);background:repeating-linear-gradient(0deg,#f4efe4 0 2px,#d6cebd 2px 3px)}
+/* livro que abre */
+#leaves{position:absolute;inset:0;transform-style:preserve-3d}
+.leaf{position:absolute;inset:0;transform-origin:0 50%;transform-style:preserve-3d}
+.half{position:absolute;top:0;bottom:0;width:50%;transform-style:preserve-3d}
+.h1{left:0;transform-origin:0 50%}.h2{left:50%;transform-origin:0 50%}
+.half .pf,.half .pb{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;background-size:200% 100%}
+.h1 .pf{background-position:0 0}.h2 .pf{background-position:100% 0}
+.h1 .pb{transform:rotateY(180deg);background-position:100% 0}.h2 .pb{transform:rotateY(180deg);background-position:0 0}
+.h2{transform-origin:0 50%}
+.half .sd{position:absolute;inset:0;background:#000;opacity:0;pointer-events:none}
+.base{position:absolute;inset:0;background-size:100% 100%;transform:translateZ(-2px)}
+.base .cast{position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.45),rgba(0,0,0,0) 70%);opacity:0}
+.leftbase{position:absolute;inset:0;transform:translateX(-100%) translateZ(-2px);background-size:100% 100%}
+.gutter{position:absolute;left:-34px;top:0;width:68px;height:800px;background:linear-gradient(90deg,rgba(0,0,0,0),rgba(0,0,0,.25) 50%,rgba(0,0,0,0));transform:translateZ(3px);opacity:var(--go,0)}
+#list{position:absolute;left:0;right:0;top:1380px;height:240px}
+.row{position:absolute;left:0;right:0;display:flex;align-items:center;justify-content:center;gap:22px;font:400 46px/1 G;letter-spacing:-.005em;transform-origin:50% 50%}
+.ck{width:36px;height:36px;border-radius:9px;border:2.5px solid #4a4d54;display:grid;place-items:center;flex:none}
+.ck svg{width:24px;height:24px;opacity:0;transform:scale(.4)}
+.row.done .ck{background:var(--mint);border-color:var(--mint)}
+.row.done .ck svg{opacity:1;transform:scale(var(--pop,1))}
+.row.now .ck{border-color:var(--mint);box-shadow:0 0 0 5px rgba(60,212,140,.18)}
+#author{position:absolute;left:0;right:0;top:330px;text-align:center;font:500 30px S;letter-spacing:.32em;color:var(--text);opacity:0}
+</style></head>
+<body>
+<img class="bgi" id="bgA" alt=""><img class="bgi" id="bgB" alt=""><div class="shade"></div><div class="dots"></div><div class="wave" id="wave"></div>
+<div id="author">PEDRO TORRES</div>
+<div id="scene">
+  <div class="shadow" id="shH"></div>
+  <!-- livro herói: frente e verso trocam enquanto escondidos -->
+  <div class="book" id="hero">
+    <div class="f face front" id="hF"><div class="dk"></div><div class="gl"></div><div class="hinge"></div></div>
+    <div class="f face back" id="hB"><div class="dk"></div><div class="gl"></div></div>
+    <div class="f spine" id="hS"><span></span></div><div class="f edge"></div><div class="f topedge"></div>
+  </div>
+  <!-- livro que abre (Grandes Artistas) -->
+  <div class="book" id="gb">
+    <div class="leftbase" id="lb"></div>
+    <div class="base f" id="base"><div class="cast" id="cast"></div></div>
+    <div class="f spine" id="gS"><span></span></div><div class="f edge" id="gE"></div><div class="gutter" id="gut"></div>
+    <div id="leaves"></div>
+  </div>
+  <!-- fechamento: os outros dois livros -->
+  <div class="book" id="m0"><div class="f face front"><div class="dk"></div><div class="gl"></div><div class="hinge"></div></div><div class="f spine"><span></span></div><div class="f edge"></div></div>
+  <div class="book" id="m1"><div class="f face front"><div class="dk"></div><div class="gl"></div><div class="hinge"></div></div><div class="f spine"><span></span></div><div class="f edge"></div></div>
+</div>
+<div id="list"></div>
+<script>
+const COV=['../../livro/img/cover.jpg','../../rembrandt/img/cover.jpg','../../mestres/img/cover.jpg'];
+const BG=['bg_vangogh.jpg','bg_rembrandt.jpg','bg_mestres.jpg'];
+const TIT=['Van Gogh a Lápis','Rembrandt a Lápis','Grandes Artistas a Lápis'];
+const SPC=[['#2a2119','#efe8da'],['#2a2119','#efe8da'],['#eeeae0','#1e1913']];
+// tempos (s)
+const T={in:[0,.62], s1:[2.05,2.62], s2:[4.05,4.62], open:[5.35,6.0], f1:[6.1,6.75], rif:6.82, close:[7.92,8.28], shrink:[8.22,8.72], minis:[8.32,8.9], fin:8.72};
+const SWAP1=(T.s1[0]+T.s1[1])/2, SWAP2=(T.s2[0]+T.s2[1])/2;
+const $=id=>document.getElementById(id);
+const clamp=(x,a=0,b=1)=>Math.max(a,Math.min(b,x)), mix=(a,b,k)=>a+(b-a)*k, sub=(t,[a,b])=>clamp((t-a)/(b-a));
+const io=k=>{k=clamp(k);return k<.5?4*k*k*k:1-Math.pow(-2*k+2,3)/2;};             // ease in-out cúbico
+const io5=k=>{k=clamp(k);return k<.5?16*k**5:1-Math.pow(-2*k+2,5)/2;};           // giro: lento-rápido-lento
+const out=k=>{k=clamp(k);return 1-Math.pow(1-k,3);};
+const spring=(k,f=9,d=6)=>{k=clamp(k);return 1-Math.exp(-d*k)*Math.cos(f*k);};    // assenta com uma sobra
+// livros
+function setFace(el,src){el.style.backgroundImage=`url(${src})`;}
+function setSpine(el,i){el.style.background=SPC[i][0];const s=el.querySelector('span');s.style.color=SPC[i][1];s.textContent=TIT[i];}
+setFace($('hF'),COV[0]); setFace($('hB'),COV[1]); setSpine($('hS'),0);
+setSpine($('gS'),2);
+[[0,'m0'],[1,'m1']].forEach(([i,id])=>{setFace($(id).querySelector('.front'),COV[i]);setSpine($(id).querySelector('.spine'),i);});
+// folhas do livro aberto: [frente, verso]; base = última página da direita
+const LV=[[COV[2],'pags/p12.jpg'],['pags/p13.jpg','pags/p16.jpg'],['pags/p17.jpg','pags/p24.jpg'],['pags/p25.jpg','pags/p34.jpg'],['pags/p35.jpg','pags/p40.jpg'],['pags/p41.jpg','pags/p42.jpg']];
+$('base').style.backgroundImage='url(pags/p43.jpg)';
+$('leaves').innerHTML=LV.map(([f,b])=>`<div class="leaf"><div class="half h1"><div class="pf" style="background-image:url(${f})"></div><div class="pb" style="background-image:url(${b})"></div><div class="sd"></div></div>`+
+  `<div class="half h2"><div class="pf" style="background-image:url(${f})"></div><div class="pb" style="background-image:url(${b})"></div><div class="sd"></div></div></div>`).join('');
+const leaves=[...document.querySelectorAll('.leaf')];
+// agenda das folhas: capa abre, 1ª folha devagar, depois folhear acelerando
+const FL=[T.open,T.f1]; {let s=T.rif, d=.34; for(let j=2;j<LV.length;j++){FL.push([s,s+d]); s+=d*.55; d*=.86;}}
+const RIFEND=FL[FL.length-1][1];
+const ck='<svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="#07150e" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+$('list').innerHTML=TIT.map(b=>`<div class="row"><span class="ck">${ck}</span><span>${b}</span></div>`).join('');
+const rows=[...document.querySelectorAll('.row')];
+function light(face,ang,sweep){ // ang: graus entre a normal da face e a câmera; sweep: posição do reflexo
+  const c=Math.cos(ang*Math.PI/180); face.querySelector('.dk').style.opacity=clamp((1-c)*.75).toFixed(3);
+  face.querySelector('.gl').style.setProperty('--gx',sweep.toFixed(1)+'%');}
+window.render=t=>{
+  // ---- livro herói: entrada, giros pela lombada, assentos
+  let ry, rx, ty, s, rz=0;
+  const kin=sub(t,T.in);
+  if(t<T.s1[0]){ ry=mix(-38,-6,spring(kin,7,5.5))+mix(0,10,io(sub(t,[.7,T.s1[0]]))); rx=mix(18,5,out(kin)); ty=mix(-760,0,spring(kin,8,6)); s=mix(1.18,1,out(kin)); rz=mix(-7,0,spring(kin));}
+  else if(t<T.s2[0]){ const k=sub(t,T.s1); ry=mix(4,180-6,io5(k))+(k>=1?mix(0,12,io(sub(t,[T.s1[1],T.s2[0]]))):0) - (t<T.s1[0]+.12?6*Math.sin(sub(t,[T.s1[0],T.s1[0]+.12])*Math.PI):0);
+    rx=5+Math.sin(k*Math.PI)*4; ty=-Math.sin(k*Math.PI)*40; s=1+Math.sin(k*Math.PI)*.04; }
+  else { const k=sub(t,T.s2); ry=mix(186,360,io5(k)); const st=spring(sub(t,[T.s2[1]-.05,T.s2[1]+.6]),10,6); if(k>=1) ry=360+(1-st)*8;
+    rx=5+Math.sin(k*Math.PI)*4; ty=-Math.sin(k*Math.PI)*40; s=1+Math.sin(k*Math.PI)*.04; }
+  ty+=Math.sin(t*1.5)*7;
+  // troca de capas enquanto escondidas
+  setFace($('hF'), t<SWAP1+.01?COV[0]:COV[2]);
+  const hero=$('hero'); hero.style.transform=`translateY(${ty}px) scale(${s}) rotateX(${rx}deg) rotateY(${ry}deg) rotateZ(${rz}deg)`;
+  const r=((ry%360)+360)%360;
+  light($('hF'), Math.min(r,360-r), mix(130,-30,clamp((ry+40)/80)) + (t>.9&&t<1.6?0:0));
+  light($('hB'), Math.abs(180-r), mix(130,-30,clamp((ry-140)/80)));
+  // reflexo extra passando pela capa assentada (Van Gogh e Rembrandt)
+  const sw1=sub(t,[1.0,1.7]), sw2=sub(t,[3.0,3.7]);
+  if(sw1>0&&sw1<1) $('hF').querySelector('.gl').style.setProperty('--gx',mix(140,-40,io(sw1))+'%');
+  if(sw2>0&&sw2<1) $('hB').querySelector('.gl').style.setProperty('--gx',mix(140,-40,io(sw2))+'%');
+  // ---- livro que abre: entra no lugar do herói quando ele assenta de frente
+  const useGB=t>=T.open[0]-.02;
+  hero.style.display=useGB?'none':'block'; $('gb').style.display=useGB?'block':'none';
+  let tx=0, gs=1, gty=Math.sin(t*1.5)*7*(1-sub(t,T.open)), grx=5;
+  if(useGB){
+    const ko=io(sub(t,T.open)), kc=io(sub(t,T.close)), kshr=io(sub(t,T.shrink));
+    tx=mix(0,250,ko)*(1-kc); gs=mix(1,.97,ko); grx=mix(5,14,ko)*(1-kc)+mix(0,5,kc);
+    gs=mix(gs,.6,kshr); gty+=mix(0,10,kshr);
+    leaves.forEach((L,j)=>{const [a0,a1]=FL[j]; let k=io(sub(t,[a0,a1])); if(j>=2) k=io5(sub(t,[a0,a1]));
+      let a=-180*k; if(t>=T.close[0]) a=-180*(1-kc);
+      const left=a<-90, z=left?j*.5+1:(LV.length-j)*.5+1;
+      const bend=Math.sin(-a*Math.PI/180)*(j===0?6:-22)*(t>=T.close[0]?0:1);   // a folha curva no meio do giro
+      L.style.transform=`translateZ(${z}px) rotateY(${a}deg)`;
+      L.querySelector('.h2').style.transform=`rotateY(${bend}deg)`;
+      L.querySelectorAll('.sd').forEach(e=>e.style.opacity=(Math.sin(-a*Math.PI/180)*.35).toFixed(3));});
+    // sombra da folha que vira sobre a página de baixo
+    const fl=FL.slice(1).map(([a0,a1])=>sub(t,[a0,a1])).find(k=>k>0&&k<1)||0;
+    $('cast').style.opacity=(Math.sin(fl*Math.PI)*.8).toFixed(3);
+    $('gut').style.setProperty('--go',(ko*(1-kc)).toFixed(2));
+    $('gS').style.opacity=1-ko*(1-kc); $('gE').style.opacity=1-ko*(1-kc);
+    $('gb').style.transform=`translate3d(${tx}px,${gty}px,0) scale(${gs}) rotateX(${grx}deg)`;
+  }
+  // ---- fechamento: os outros dois entram dos lados
+  const km=spring(sub(t,T.minis),9,6.5), vis=t>=T.minis[0];
+  [['m0',-1],['m1',1]].forEach(([id,sd],i)=>{const m=$(id); m.style.display=vis?'block':'none';
+    const x=mix(sd*900,sd*345,km), rr=mix(-sd*60,-sd*22,km);
+    m.style.transform=`translate3d(${x}px,${16+Math.sin(t*1.5+i)*4}px,-60px) scale(.48) rotateX(5deg) rotateY(${rr}deg)`;
+    light(m.querySelector('.front'),Math.abs(rr),mix(130,60,km));});
+  // sombras
+  const shs=useGB?(gs*(1+mix(0,.45,io(sub(t,T.open)))*(1-io(sub(t,T.close))))):s*(1-Math.abs(Math.sin(ry*Math.PI/180))*.45);
+  $('shH').style.transform=`translate(${tx*.5}px,${(useGB?mix(0,-205,io(sub(t,T.shrink))):0).toFixed(1)}px) scaleX(${shs.toFixed(3)})`; $('shH').style.opacity=clamp(kin*1.5);
+  // ---- fundo: troca com dissolução no meio de cada giro, paralaxe contrária ao livro
+  const cur=t<SWAP1?0:t<SWAP2?1:2, nxt=Math.min(2,cur+1);
+  const sw=cur<2?sub(t,[ [SWAP1,SWAP2][cur]-.12, [SWAP1,SWAP2][cur]+.12 ]):0;
+  $('bgA').src=BG[cur]; $('bgB').src=BG[nxt]; $('bgB').style.opacity=sw.toFixed(3);
+  ['bgA','bgB'].forEach(id=>{$(id).style.setProperty('--px',(-Math.sin(ry*Math.PI/180)*40-tx*.15).toFixed(1)+'px');$(id).style.setProperty('--py',(-t*10+ty*.2).toFixed(1)+'px');});
+  // ---- lista: o livro da vez cresce, ✓ no meio de cada giro
+  const now=t<SWAP1?0:t<SWAP2?1:2;
+  rows.forEach((rw,j)=>{const fin=(j===0&&t>=SWAP1)||(j===1&&t>=SWAP2)||(j===2&&t>=T.fin), st=[SWAP1,SWAP2,T.fin][j];
+    rw.classList.toggle('done',fin); rw.classList.toggle('now',!fin&&j===now); rw.style.setProperty('--pop',fin?spring((t-st)/.5).toFixed(3):0);
+    const act=j===now&&t<T.fin?1:0, ka=out(clamp((t-[0,SWAP1,SWAP2][j])/.35))*act;
+    const sc=mix(.86,1.14,ka); rw.style.top=(j*74)+'px'; rw.style.transform=`scale(${sc.toFixed(3)})`;
+    rw.style.color=act?'#f1ede4':(fin?'#c9c6bd':'#6d7078');});
+  $('list').style.opacity=clamp((t-.35)/.4); $('list').style.transform=`translateY(${(1-out(clamp((t-.35)/.5)))*30}px)`;
+  // autor no fechamento
+  const ka=out(sub(t,[8.8,9.15])); $('author').style.opacity=ka; $('author').style.transform=`translateY(${(1-ka)*24}px)`;
+  // onda verde a cada ✓
+  const hits=[SWAP1,SWAP2,T.fin].filter(h=>t>=h), h=hits.length?hits[hits.length-1]:-9, wk=(t-h)/1.6;
+  $('wave').style.opacity=wk>=0&&wk<1?(1-wk*wk).toFixed(3):0; $('wave').style.setProperty('--r',(io(clamp(wk))*1600+420).toFixed(0)+'px');
+};
+render(+(new URLSearchParams(location.search).get('t')||0));
+</script></body></html>

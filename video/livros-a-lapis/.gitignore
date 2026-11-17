@@ -9,3 +9,8 @@ prev2-*.png
 pags/t-*.png
 sfx.wav
 render_cena.js
+sub/
+quadros3/
+jobs.json
+render_sub.js
+sfx3.wav
