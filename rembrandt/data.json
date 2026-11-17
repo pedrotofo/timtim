@@ -1,0 +1,958 @@
+{
+"ex": [
+{
+"id": "t01",
+"lv": "w",
+"ch": "t",
+"t": "A linha que respira",
+"m": "8 min · Lápis 6B",
+"d": "Faça dez linhas longas e curvas, de um lado ao outro da folha. Comece leve, aperte no meio e alivie no fim, sem levantar o lápis.",
+"c": "cada linha tem um ponto grosso e duas pontas finas.",
+"ref": null
+},
+{
+"id": "t02",
+"lv": "w",
+"ch": "t",
+"t": "Contorno quebrado",
+"m": "10 min · Lápis 6B",
+"d": "Desenhe um jarro ou uma caneca com a luz vindo da esquerda. Do lado direito, contorno grosso. Do lado esquerdo, a linha some e reaparece.",
+"c": "o jarro parece iluminado de um lado só, sem nenhum sombreado.",
+"ref": null
+},
+{
+"id": "t03",
+"lv": "w",
+"ch": "t",
+"t": "Hachura em degradê",
+"m": "10 min · Lápis 2B",
+"d": "Uma faixa de hachura paralela que vai do claro ao escuro. Mesma pressão do começo ao fim. Para escurecer, aproxime os traços.",
+"c": "o degradê é contínuo e nenhum traço está mais forte que os vizinhos.",
+"ref": null
+},
+{
+"id": "t04",
+"lv": "w",
+"ch": "t",
+"t": "Hachura cruzada em três camadas",
+"m": "12 min · Lápis 2B",
+"d": "Três quadrados. No primeiro, uma camada de hachura. No segundo, duas, em ângulos bem diferentes. No terceiro, três.",
+"c": "os três quadrados formam três tons nítidos, do claro ao escuro.",
+"ref": "jan_six"
+},
+{
+"id": "t05",
+"lv": "w",
+"ch": "t",
+"t": "Mancha deitada em três tons",
+"m": "10 min · Lápis 6B e esfuminho",
+"d": "Deite o 6B e faça três manchas: uma leve, uma média e uma escura, cada uma com mais camadas. Esfume só a última.",
+"c": "as três manchas se distinguem de longe e o papel ainda aparece na mais clara.",
+"ref": "hendrickje"
+},
+{
+"id": "t06",
+"lv": "w",
+"ch": "t",
+"t": "Rabisco que vira copa",
+"m": "8 min · Lápis 6B",
+"d": "Uma árvore feita só de rabisco solto em zigue-zague. Mais denso embaixo e do lado da sombra, mais aberto em cima.",
+"c": "de longe a copa tem volume, e de perto é só rabisco.",
+"ref": "cottage"
+},
+{
+"id": "l01",
+"lv": "w",
+"ch": "l",
+"t": "Três tons numa bola",
+"m": "12 min · Lápis 6B",
+"d": "Uma bola sobre a mesa, luz da esquerda. Papel no lado claro, meio-tom no lado escuro, escuro na sombra no chão. Acento onde a bola toca a mesa.",
+"c": "apertando os olhos, você vê só três tons e um ponto preto.",
+"ref": null
+},
+{
+"id": "l02",
+"lv": "w",
+"ch": "l",
+"t": "Uma caixa à janela",
+"m": "15 min · Lápis 6B",
+"d": "Uma caixa iluminada por uma janela à esquerda. Uma face em papel, outra em meio-tom, a sombra projetada escura e comprida.",
+"c": "a sombra projetada é a área mais escura da folha.",
+"ref": null
+},
+{
+"id": "l03",
+"lv": "w",
+"ch": "l",
+"t": "O escuro que envolve",
+"m": "15 min · Lápis 6B e esfuminho",
+"d": "Um ovo claro sobre um fundo escuro. Escureça o fundo justamente ao lado do lado iluminado do ovo e deixe-o mais claro do outro lado.",
+"c": "o ovo salta para a frente sem nenhum contorno.",
+"ref": "stairs"
+},
+{
+"id": "c01",
+"lv": "w",
+"ch": "c",
+"t": "Metade na sombra",
+"m": "12 min · Lápis 2B e 6B",
+"d": "Uma cabeça simples, oval, de três quartos. Trace a linha que divide a luz da sombra e passe o meio-tom no lado escuro.",
+"c": "a cabeça tem volume antes de ter olhos e boca.",
+"ref": null
+},
+{
+"id": "c02",
+"lv": "w",
+"ch": "c",
+"t": "O triângulo de luz",
+"m": "12 min · Lápis 6B e borracha moldável",
+"d": "A mesma cabeça do exercício anterior. Na face do lado escuro, abra com a borracha um pequeno triângulo de luz embaixo do olho.",
+"c": "o triângulo é pequeno, fica abaixo do olho e não encosta no nariz.",
+"ref": null
+},
+{
+"id": "c03",
+"lv": "w",
+"ch": "c",
+"t": "A sombra do chapéu",
+"m": "12 min · Lápis 6B",
+"d": "Uma cabeça de chapéu de aba larga, luz de cima. A aba joga uma sombra escura sobre a testa e os olhos.",
+"c": "os olhos estão quase escondidos e o rosto continua legível.",
+"ref": "sp_window"
+},
+{
+"id": "a01",
+"lv": "w",
+"ch": "a",
+"t": "Três caretas",
+"m": "15 min · Lápis 2B",
+"d": "No espelho, três cabeças do tamanho de uma caixa de fósforos: espantado, carrancudo, gritando. Só a testa, as sobrancelhas, os olhos e a boca.",
+"c": "cada careta é reconhecível sem legenda.",
+"ref": "sp_frown"
+},
+{
+"id": "a02",
+"lv": "w",
+"ch": "a",
+"t": "O olhar por cima do ombro",
+"m": "12 min · Lápis 2B e 6B",
+"d": "No espelho, vire o corpo de lado e o rosto para a frente. Desenhe só a cabeça e a linha do ombro.",
+"c": "o ombro e o rosto apontam para lados diferentes.",
+"ref": "sp_sill"
+},
+{
+"id": "b01",
+"lv": "w",
+"ch": "b",
+"t": "Dez gestos em dez minutos",
+"m": "10 min · Lápis 6B",
+"d": "Dez figuras de um minuto cada, a partir de fotos ou de pessoas na rua. Uma linha para o gesto, da cabeça aos pés, e meia dúzia de traços para o resto.",
+"c": "cada figura diz o que está fazendo.",
+"ref": "child_walk"
+},
+{
+"id": "b02",
+"lv": "w",
+"ch": "b",
+"t": "Sentado, de cabeça baixa",
+"m": "10 min · Lápis 6B",
+"d": "Uma pessoa cansada, sentada numa cadeira, de cabeça baixa. Comece pela linha do gesto, da cabeça aos pés, e termine com uma mancha de sombra embaixo da cadeira.",
+"c": "dá para sentir o peso do corpo na cadeira.",
+"ref": "old_man"
+},
+{
+"id": "b03",
+"lv": "w",
+"ch": "b",
+"t": "Mãos em poucos traços",
+"m": "12 min · Lápis 2B e 6B",
+"d": "Sua mão esquerda em quatro posições: aberta, fechada, segurando uma xícara, apoiando o rosto. Contorno quebrado e uma mancha do lado da sombra.",
+"c": "nenhuma mão tem os cinco dedos contornados por inteiro.",
+"ref": null
+},
+{
+"id": "t07",
+"lv": "e",
+"ch": "t",
+"t": "Cerca e caminho em vinte linhas",
+"m": "20 min · Lápis 2B e 6B",
+"d": "Uma paisagem plana: horizonte baixo, um caminho, uma cerca, uma casa ao longe. Conte as linhas e pare em vinte. O céu e o chão ficam em papel.",
+"c": "a paisagem tem profundidade e não passa de vinte linhas.",
+"ref": "winter"
+},
+{
+"id": "t08",
+"lv": "e",
+"ch": "t",
+"t": "A cabana entre as árvores",
+"m": "35 min · Lápis 2B e 6B",
+"d": "Uma cabana clara entre duas massas de árvores escuras. Telhado e troncos em linha, copas em rabisco e mancha. Céu em branco.",
+"c": "a cabana é o lugar mais claro e as árvores a emolduram.",
+"ref": "cottage"
+},
+{
+"id": "l04",
+"lv": "e",
+"ch": "l",
+"t": "Leitura à janela",
+"m": "40 min · Lápis 2B, 6B e esfuminho",
+"d": "Uma pessoa sentada lendo junto a uma janela à esquerda. A luz bate no rosto, nas mãos e no livro. A sala em volta escurece em mancha.",
+"c": "o rosto, as mãos e o livro são as três áreas mais claras e estão juntas.",
+"ref": "saskia_window"
+},
+{
+"id": "l05",
+"lv": "e",
+"ch": "l",
+"t": "A luz que cai",
+"m": "35 min · Lápis 6B e esfuminho",
+"d": "Uma figura de pé com a luz vindo de cima. A cabeça e os ombros claros, o corpo escurecendo até os pés, que quase somem na sombra.",
+"c": "a figura vai do claro, em cima, ao escuro, embaixo, sem nenhum salto.",
+"ref": "beggars_door"
+},
+{
+"id": "l06",
+"lv": "e",
+"ch": "l",
+"t": "Três árvores contra o céu",
+"m": "40 min · Lápis 2B e 6B",
+"d": "Uma colina com três árvores escuras contra um céu claro à direita. À esquerda, o céu riscado em hachura diagonal, como chuva.",
+"c": "as árvores são a massa mais escura e o céu claro está colado nelas.",
+"ref": "three_trees"
+},
+{
+"id": "c04",
+"lv": "e",
+"ch": "c",
+"t": "Velho de barba, luz lateral",
+"m": "45 min · Lápis 2B, 6B e borracha moldável",
+"d": "Cabeça de um velho de barba, de três quartos, luz da esquerda. Siga a ordem: divisão, meio-tom, triângulo de luz, feições, fundo e acentos.",
+"c": "metade do rosto está em sombra e o triângulo de luz aparece embaixo do olho.",
+"ref": "two_heads"
+},
+{
+"id": "c05",
+"lv": "e",
+"ch": "c",
+"t": "A cabeça da mãe",
+"m": "45 min · Lápis 2B e 6B",
+"d": "Uma velha de touca, olhando para baixo. Lado da luz em papel com rugas em linhas curtas. Lado da sombra em hachura que segue a pele.",
+"c": "as rugas do lado claro são poucas e as do lado escuro somem na hachura.",
+"ref": "mother"
+},
+{
+"id": "c06",
+"lv": "e",
+"ch": "c",
+"t": "Rosto jovem quase em papel",
+"m": "30 min · Lápis 2B",
+"d": "Uma jovem de chapéu de aba larga, de frente. Contorno leve, sombra só embaixo da aba, olhos e boca em poucos traços.",
+"c": "o rosto tem menos de vinte traços e a sombra do chapéu é a única mancha.",
+"ref": "saskia_hat"
+},
+{
+"id": "a03",
+"lv": "e",
+"ch": "a",
+"t": "Careta grande",
+"m": "30 min · Lápis 2B e 6B",
+"d": "Uma das caretas do Nível 1, agora do tamanho da folha. O cabelo em rabisco solto, o rosto com luz de lado, a roupa em quatro linhas.",
+"c": "a expressão continua forte mesmo com a sombra no rosto.",
+"ref": "sp_shout"
+},
+{
+"id": "a04",
+"lv": "e",
+"ch": "a",
+"t": "Autorretrato apoiado",
+"m": "50 min · Lápis 2B, 6B e esfuminho",
+"d": "No espelho, apoie o braço numa mesa, vire o corpo e olhe por cima do ombro. Rosto nítido, manga larga em massa de hachura, mesa em papel.",
+"c": "o rosto é a zona mais nítida e a manga é a mais escura.",
+"ref": "sp_sill"
+},
+{
+"id": "a05",
+"lv": "e",
+"ch": "a",
+"t": "Autorretrato à janela",
+"m": "50 min · Lápis 2B, 6B e esfuminho",
+"d": "Sente-se ao lado de uma janela, desenhando. A luz bate no rosto e no papel. O resto do cômodo vai para a sombra.",
+"c": "só o rosto, a mão e a folha estão claros.",
+"ref": "sp_window"
+},
+{
+"id": "b04",
+"lv": "e",
+"ch": "b",
+"t": "Mulher dormindo",
+"m": "20 min · Lápis 6B e esfuminho",
+"d": "Uma pessoa dormindo, com a cabeça apoiada no braço. Comece pelas manchas de sombra com o 6B deitado. Depois, poucas linhas, só onde a forma pesa, e meia dúzia de toques escuros.",
+"c": "a figura se lê pela mancha de sombra, e nenhum contorno dá a volta inteira numa forma.",
+"ref": "hendrickje"
+},
+{
+"id": "b05",
+"lv": "e",
+"ch": "b",
+"t": "Criança aprendendo a andar",
+"m": "25 min · Lápis 6B",
+"d": "Um adulto curvado segurando uma criança pelas mãos. Primeiro os dois gestos, depois a roupa em poucas pregas.",
+"c": "o arco das costas do adulto e a linha da criança são as duas linhas mais fortes.",
+"ref": "child_walk"
+},
+{
+"id": "b06",
+"lv": "e",
+"ch": "b",
+"t": "Mendigo de bengala",
+"m": "25 min · Lápis 2B e 6B",
+"d": "Um velho de pé, apoiado numa bengala, de capa e chapéu. O peso todo de um lado. Hachura só nas costas e embaixo do braço.",
+"c": "a figura se apoia na bengala e não cai para nenhum lado.",
+"ref": "beggar_draw"
+},
+{
+"id": "b07",
+"lv": "e",
+"ch": "b",
+"t": "Mãe com criança no colo",
+"m": "35 min · Lápis 2B, 6B e esfuminho",
+"d": "Uma mulher de pé carregando uma criança abraçada ao pescoço. A figura quase toda em papel. Atrás dela, de um lado, uma parede em mancha escura.",
+"c": "a figura clara salta da parede escura.",
+"ref": "stairs"
+},
+{
+"id": "b08",
+"lv": "e",
+"ch": "b",
+"t": "O elefante",
+"m": "30 min · Lápis 6B",
+"d": "Um elefante de perfil, a partir de uma foto. Corpo em massa redonda, pernas em colunas, rugas em traços curtos que seguem a forma.",
+"c": "o elefante tem peso e as rugas dão volta no corpo.",
+"ref": "elephant"
+},
+{
+"id": "t09",
+"lv": "d",
+"ch": "t",
+"t": "A ponte",
+"m": "30 min · Lápis 2B",
+"d": "Uma pequena ponte sobre um canal, dois homens apoiados no parapeito. Quase tudo em papel: a água, o céu, o caminho.",
+"c": "menos de um décimo da folha tem traço.",
+"ref": "six_bridge"
+},
+{
+"id": "t10",
+"lv": "d",
+"ch": "t",
+"t": "Paisagem de inverno",
+"m": "20 min · Lápis 2B e 6B",
+"d": "Uma fazenda na neve, com uma cerca que atravessa a folha em diagonal. A neve é o papel.",
+"c": "a cerca leva o olho até a fazenda.",
+"ref": "winter"
+},
+{
+"id": "l07",
+"lv": "d",
+"ch": "l",
+"t": "Contraluz",
+"m": "40 min · Lápis 6B e esfuminho",
+"d": "Uma figura sentada de costas para uma janela clara. A figura vira quase silhueta e só o contorno do cabelo e dos ombros pega luz.",
+"c": "a janela é a área mais clara e a figura a mais escura, encostadas.",
+"ref": "jan_six"
+},
+{
+"id": "l08",
+"lv": "d",
+"ch": "l",
+"t": "À luz de vela",
+"m": "40 min · Lápis 6B e esfuminho",
+"d": "Um rosto iluminado de baixo por uma vela. O queixo e a ponta do nariz claros, a testa e o fundo escuros.",
+"c": "o ponto mais claro é a chama e o rosto clareia em volta dela.",
+"ref": null
+},
+{
+"id": "l09",
+"lv": "d",
+"ch": "l",
+"t": "A concha",
+"m": "45 min · Lápis 2B",
+"d": "Uma concha sobre a mesa, luz da esquerda. Toda a sombra em hachura que dá a volta na forma, como numa gravura.",
+"c": "a hachura nunca corta a forma em linha reta.",
+"ref": "shell"
+},
+{
+"id": "c07",
+"lv": "d",
+"ch": "c",
+"t": "Chapéu de pele em hachura",
+"m": "50 min · Lápis 2B e 6B",
+"d": "Cabeça de velho com um chapéu alto de pele. O chapéu em hachura cruzada densa, o rosto em hachura leve, o fundo em papel.",
+"c": "o chapéu é o escuro máximo e o rosto continua claro.",
+"ref": "sp_frown"
+},
+{
+"id": "c08",
+"lv": "d",
+"ch": "c",
+"t": "Perfil contra o escuro",
+"m": "40 min · Lápis 2B, 6B e esfuminho",
+"d": "Um velho de chapéu, de perfil, com a luz vindo da frente. O rosto quase em papel, rugas em linhas curtas. Atrás da nuca e do chapéu, uma mancha escura de fundo que destaca o perfil.",
+"c": "o perfil claro se destaca do fundo escuro sem precisar de um contorno forte.",
+"ref": "mother"
+},
+{
+"id": "a06",
+"lv": "d",
+"ch": "a",
+"t": "Autorretrato com alguém",
+"m": "50 min · Lápis 2B e 6B",
+"d": "Você em primeiro plano e outra pessoa atrás, mais clara e mais apagada. Os dois de chapéu ou de touca.",
+"c": "a figura da frente tem mais contraste que a de trás.",
+"ref": "sp_saskia"
+},
+{
+"id": "a07",
+"lv": "d",
+"ch": "a",
+"t": "De corpo inteiro, de roupa de trabalho",
+"m": "40 min · Lápis 2B",
+"d": "De pé diante do espelho, com a roupa com que você trabalha, as mãos na cintura. Linhas rápidas, quase sem sombra.",
+"c": "a figura fica de pé sozinha, com o peso nas duas pernas.",
+"ref": "studio_attire"
+},
+{
+"id": "b09",
+"lv": "d",
+"ch": "b",
+"t": "O ator",
+"m": "30 min · Lápis 6B e esfuminho",
+"d": "Meia figura apoiada nos braços, de chapéu. Linhas grossas que se quebram, sombra em mancha, detalhe só no rosto.",
+"c": "o rosto é o único lugar com detalhe.",
+"ref": "actor"
+},
+{
+"id": "b10",
+"lv": "d",
+"ch": "b",
+"t": "Leão deitado",
+"m": "30 min · Lápis 6B",
+"d": "Um leão ou um gato grande deitado, a partir de uma foto. A juba em mancha, o corpo em contorno quebrado, as patas em quatro traços.",
+"c": "o animal está pesado no chão.",
+"ref": "lion"
+},
+{
+"id": "b11",
+"lv": "d",
+"ch": "b",
+"t": "Duas figuras conversando",
+"m": "40 min · Lápis 2B e 6B",
+"d": "Duas pessoas frente a frente, uma falando com a mão erguida, a outra ouvindo de cabeça baixa. O gesto da mão é o centro.",
+"c": "dá para saber quem fala e quem ouve sem ver os rostos.",
+"ref": "nathan"
+},
+{
+"id": "b12",
+"lv": "d",
+"ch": "b",
+"t": "A vendedora e as crianças",
+"m": "50 min · Lápis 2B e 6B",
+"d": "Uma velha sentada com um grupo de crianças em volta. Cada criança com um gesto diferente. A velha no centro, em sombra.",
+"c": "nenhuma criança repete o gesto de outra.",
+"ref": "pancake"
+},
+{
+"id": "b13",
+"lv": "d",
+"ch": "b",
+"t": "Na cama",
+"m": "40 min · Lápis 6B e esfuminho",
+"d": "Uma pessoa deitada na cama, apoiada nos travesseiros. A cortina ou a cabeceira em mancha escura emoldura a figura clara.",
+"c": "a figura é clara e está emoldurada pelo escuro.",
+"ref": "saskia_bed"
+},
+{
+"id": "p01",
+"lv": "p",
+"ch": "p",
+"t": "Cópia: Hendrickje dormindo",
+"m": "60 min · Lápis 6B e esfuminho",
+"d": "Copie pelos três tons: primeiro todas as manchas claras, depois as médias, depois as escuras. Nenhuma linha antes do fim.",
+"c": "a cópia tem a mesma economia do original, sem contorno fechado.",
+"ref": "hendrickje"
+},
+{
+"id": "p02",
+"lv": "p",
+"ch": "p",
+"t": "Cópia: o autorretrato carrancudo",
+"m": "60 min · Lápis 2B e 6B",
+"d": "Amplie a gravura para o tamanho de uma folha A4 pela grade. Copie a hachura na direção exata em que ele a fez.",
+"c": "a hachura do rosto segue as mesmas direções do original.",
+"ref": "sp_frown"
+},
+{
+"id": "p03",
+"lv": "p",
+"ch": "p",
+"t": "Cópia: as três árvores",
+"m": "90 min · Lápis 2B e 6B",
+"d": "Copie em etapas: o horizonte, as árvores, as faixas da planície, por fim a chuva no céu. Pare no fim de cada etapa e compare.",
+"c": "o céu da direita continua em papel.",
+"ref": "three_trees"
+},
+{
+"id": "p04",
+"lv": "p",
+"ch": "p",
+"t": "Cópia: Jan Six à janela",
+"m": "90 min · Lápis 2B, 6B e esfuminho",
+"d": "Traduza a gravura para o lápis: hachura onde ele usou hachura, mancha esfumada onde ela vira quase preto, papel na janela.",
+"c": "a janela é a área mais clara e o canto oposto a mais escura.",
+"ref": "jan_six"
+},
+{
+"id": "p05",
+"lv": "p",
+"ch": "p",
+"t": "Como ele copiava: uma cena famosa",
+"m": "60 min · Lápis 2B",
+"d": "Escolha uma pintura famosa com muitas figuras. Copie primeiro com traço leve e fiel. Depois passe por cima com traço forte e mude o que quiser, como ele fez com a Última Ceia.",
+"c": "a segunda camada muda pelo menos uma coisa importante na composição.",
+"ref": "last_supper"
+},
+{
+"id": "p06",
+"lv": "p",
+"ch": "p",
+"t": "Como ele copiava: o leilão",
+"m": "15 min · Lápis 6B",
+"d": "Num museu, num livro ou numa tela, copie um retrato em quinze minutos. Exagere o que mais chamou a sua atenção e anote na margem o que viu.",
+"c": "o desenho tem uma ideia só, dita com força.",
+"ref": "castiglione"
+},
+{
+"id": "p07",
+"lv": "p",
+"ch": "p",
+"t": "Cópia: mendigos à porta",
+"m": "90 min · Lápis 2B e 6B",
+"d": "Copie pela medida a olho, tomando a altura da cabeça do homem como unidade. Depois traduza a porta escura em mancha.",
+"c": "as figuras têm as mesmas proporções do original.",
+"ref": "beggars_door"
+},
+{
+"id": "p08",
+"lv": "p",
+"ch": "p",
+"t": "Projeto: a sua casa à luz de uma janela",
+"m": "livre · Lápis 2B, 6B e esfuminho",
+"d": "Escolha um canto da sua casa com uma janela e alguém da família fazendo alguma coisa. Faça três estudos rápidos de três tons e depois o desenho final.",
+"c": "a luz vem de um lugar só e a figura está no caminho dela.",
+"ref": "saskia_bed2"
+}
+],
+"pl": {
+"two_heads": {
+"t": "Dois estudos da cabeça de um velho",
+"c": "Leiden, por volta de 1625 a 1626. Pena e tinta marrom. J. Paul Getty Museum.",
+"l": "Luz no alto da testa e no nariz, órbita escura, barba em traços soltos que descem."
+},
+"mother": {
+"t": "A mãe do artista, cabeça e busto",
+"c": "Leiden, 1628. Gravura em metal. National Gallery of Art.",
+"l": "O lado da luz é quase papel. O lado da sombra é hachura que segue as dobras da pele."
+},
+"sp_shout": {
+"t": "Autorretrato de boca aberta",
+"c": "Leiden, por volta de 1629. Pena e tinta marrom, aguada cinza. British Museum.",
+"l": "Um estudo de expressão: a luz no alto da testa, a boca aberta, o cabelo em pinceladas largas."
+},
+"sp_frown": {
+"t": "Autorretrato carrancudo",
+"c": "Leiden, 1630. Gravura em metal. National Gallery of Art.",
+"l": "A testa franzida, o cabelo em rabiscos, o casaco em hachura larga. Tudo do tamanho de uma caixa de fósforos."
+},
+"sp_wide": {
+"t": "Autorretrato de boné, de boca aberta",
+"c": "Leiden, 1630. Gravura em metal. National Gallery of Art.",
+"l": "Olhos arregalados e boca aberta. A expressão inteira está entre a testa e o queixo."
+},
+"old_man": {
+"t": "Velho sentado",
+"c": "Leiden, 1630. Giz vermelho. National Gallery of Art.",
+"l": "O corpo afunda na cadeira. Contorno quebrado e poucas hachuras."
+},
+"beggar_draw": {
+"t": "Mendigo e mendiga",
+"c": "Leiden, por volta de 1630 a 1631. Pena e tinta marrom. National Gallery of Art.",
+"l": "Duas figuras de pé em linhas quase verticais. O peso todo embaixo."
+},
+"saskia_hat": {
+"t": "Saskia de chapéu de palha",
+"c": "Amsterdã, 1633. Ponta de prata. Kupferstichkabinett, Berlim.",
+"l": "Desenhada três dias depois do noivado. O rosto é quase só contorno, com uma sombra leve sob a aba."
+},
+"saskia_bed": {
+"t": "Saskia na cama",
+"c": "Amsterdã, 1635. Pena e tinta marrom. Groninger Museum.",
+"l": "A mulher deitada, os travesseiros e a cortina em poucas linhas e um pouco de aguada."
+},
+"child_walk": {
+"t": "Duas mulheres ensinando uma criança a andar",
+"c": "Amsterdã, por volta de 1635 a 1637. Giz vermelho. British Museum.",
+"l": "Tudo é gesto: o arco das costas de uma, a linha reta da outra, a criança no meio."
+},
+"stairs": {
+"t": "Mulher descendo a escada com uma criança no colo",
+"c": "Amsterdã, por volta de 1636. Pena e pincel, tinta marrom. Morgan Library.",
+"l": "A figura quase toda em papel salta da mancha escura da parede."
+},
+"pancake": {
+"t": "A vendedora de panquecas",
+"c": "Amsterdã, 1635. Gravura em metal. Metropolitan Museum.",
+"l": "Um grupo de crianças em volta da velha. Cada figura é um gesto diferente."
+},
+"sp_saskia": {
+"t": "Autorretrato com Saskia",
+"c": "Amsterdã, 1636. Gravura em metal. Metropolitan Museum.",
+"l": "Ele em primeiro plano, desenhando. Saskia atrás, mais clara e mais apagada."
+},
+"elephant": {
+"t": "Um elefante",
+"c": "Amsterdã, 1637. Giz preto. Albertina.",
+"l": "Hansken, a elefanta que passou pela cidade. Corpo em massa, rugas em traços que seguem a forma."
+},
+"actor": {
+"t": "O ator Willem Bartholsz Ruyter vestido de camponês",
+"c": "Amsterdã, por volta de 1638. Pena e pincel, tinta marrom. Rijksmuseum.",
+"l": "Pena grossa e rápida, aguada na sombra, detalhe só no rosto."
+},
+"last_supper": {
+"t": "A Última Ceia, segundo Leonardo da Vinci",
+"c": "Amsterdã, por volta de 1634 a 1635. Giz vermelho. Metropolitan Museum.",
+"l": "Uma cópia fiel por baixo, um traço forte por cima: o dossel sobre Cristo, a simetria quebrada."
+},
+"castiglione": {
+"t": "Retrato de Baldassare Castiglione, segundo Rafael",
+"c": "Amsterdã, 1639. Pena e tinta marrom. Albertina.",
+"l": "Feito num leilão, com o preço anotado em volta. O chapéu maior e mais inclinado."
+},
+"sp_sill": {
+"t": "Autorretrato apoiado numa mureta de pedra",
+"c": "Amsterdã, 1639. Gravura em metal. Metropolitan Museum.",
+"l": "A pose do Castiglione. Rosto nítido, manga em massa de hachura, mureta quase em papel."
+},
+"saskia_window": {
+"t": "Saskia sentada à janela",
+"c": "Amsterdã, por volta de 1635 a 1638. Pena e pincel, tinta marrom. Museu de Belas-Artes de Budapeste.",
+"l": "A mancha escura do fundo contorna a figura clara, sentada junto à mesa."
+},
+"saskia_bed2": {
+"t": "Interior com Saskia na cama",
+"c": "Amsterdã, por volta de 1640 a 1641. Pena e pincel, tinta marrom. Fondation Custodia.",
+"l": "As duas mulheres nas partes mais claras, dentro de uma caixa de meios-tons."
+},
+"three_trees": {
+"t": "As três árvores",
+"c": "Amsterdã, 1643. Gravura em metal. National Gallery of Art.",
+"l": "O céu riscado de chuva à esquerda, aberto à direita, e as árvores escuras contra a claridade."
+},
+"six_bridge": {
+"t": "A ponte de Six",
+"c": "Amsterdã, 1645. Gravura em metal. National Gallery of Art.",
+"l": "Uma paisagem quase inteira em papel, com uma ponte, dois homens e meia dúzia de linhas."
+},
+"jan_six": {
+"t": "Jan Six",
+"c": "Amsterdã, 1647. Gravura em metal. National Gallery of Art.",
+"l": "A janela clara e a sala escurecendo em camadas de hachura até o preto."
+},
+"sp_window": {
+"t": "Autorretrato desenhando à janela",
+"c": "Amsterdã, 1648. Gravura em metal. National Gallery of Art.",
+"l": "Uma luz só, vinda da janela. Rosto e folha iluminados, o resto em sombra."
+},
+"beggars_door": {
+"t": "Mendigos à porta de uma casa",
+"c": "Amsterdã, 1648. Gravura em metal. National Gallery of Art.",
+"l": "A família de mendigos em pé, em linhas verticais. A porta escura à esquerda."
+},
+"hundred": {
+"t": "A Folha dos cem florins",
+"c": "Amsterdã, por volta de 1648. Gravura em metal. Metropolitan Museum.",
+"l": "Cristo cura os doentes. Do lado esquerdo, figuras em contorno. Do direito, em sombra profunda."
+},
+"winter": {
+"t": "Paisagem com uma fazenda (Paisagem de inverno)",
+"c": "Amsterdã, por volta de 1649. Pena e pincel, tinta marrom. Harvard Art Museums.",
+"l": "Quase só papel. A neve não foi desenhada."
+},
+"cottage": {
+"t": "Cabana entre árvores",
+"c": "Amsterdã, por volta de 1650. Pena e pincel, tinta marrom. Metropolitan Museum.",
+"l": "A cabana clara entre as massas escuras das árvores. O céu em papel."
+},
+"lion": {
+"t": "Leão jovem deitado",
+"c": "Amsterdã, por volta de 1650. Pena de junco e pincel, tinta marrom.",
+"l": "O corpo em massa, a juba em pinceladas, a linha quebrada da pena de junco."
+},
+"sheet_studies": {
+"t": "Folha de estudos com a cabeça do artista, um mendigo e uma mulher com criança",
+"c": "Amsterdã, 1651. Gravura em metal. National Gallery of Art.",
+"l": "Uma página de caderno gravada: rostos e figuras soltos, de tamanhos diferentes."
+},
+"shell": {
+"t": "A concha",
+"c": "Amsterdã, 1650. Gravura em metal. Rijksmuseum.",
+"l": "Uma concha da coleção dele. A hachura dá a volta na forma."
+},
+"three_crosses": {
+"t": "As três cruzes",
+"c": "Amsterdã, 1653. Ponta-seca. Biblioteca Real da Bélgica.",
+"l": "Um feixe de luz cai sobre a cruz. Em volta, a escuridão é feita de linhas verticais."
+},
+"hendrickje": {
+"t": "Jovem mulher dormindo (Hendrickje Stoffels)",
+"c": "Amsterdã, por volta de 1654. Pincel e tinta marrom. British Museum.",
+"l": "Só pincel. Nenhum contorno fechado, e tudo está lá."
+},
+"nathan": {
+"t": "Natã repreende Davi",
+"c": "Amsterdã, por volta de 1650 a 1655. Pena e tinta marrom. Metropolitan Museum.",
+"l": "Duas figuras numa conversa. O gesto da mão de Natã diz tudo."
+},
+"studio_attire": {
+"t": "Autorretrato com roupa de ateliê",
+"c": "Amsterdã, por volta de 1655. Pena e tinta marrom. Museu Casa de Rembrandt.",
+"l": "De pé, de avental e chapéu, as mãos na cintura. Nada de pose."
+},
+"mughal": {
+"t": "Shah Jahan, segundo uma miniatura mogol",
+"c": "Amsterdã, por volta de 1656 a 1661. Pena e tinta marrom, aguada.",
+"l": "Linha fina e contorno contínuo: o jeito do mestre copiado, não o dele."
+},
+"woman_window": {
+"t": "Mulher apoiada no peitoril de uma janela",
+"c": "Amsterdã. Pena e pincel, tinta marrom.",
+"l": "Uma figura feita com uma única mancha de pincel e meia dúzia de linhas."
+},
+"nightwatch": {
+"t": "A Ronda Noturna",
+"c": "Amsterdã, 1642. Óleo sobre tela. Rijksmuseum.",
+"l": "A companhia do capitão Frans Banninck Cocq. A luz cai de um lado só sobre poucas figuras."
+},
+"tulp": {
+"t": "A lição de anatomia do Dr. Nicolaes Tulp",
+"c": "Amsterdã, 1632. Óleo sobre tela. Mauritshuis.",
+"l": "O retrato de grupo que fez o nome dele em Amsterdã."
+},
+"sp_1669": {
+"t": "Autorretrato",
+"c": "Amsterdã, 1659. Óleo sobre tela. National Gallery of Art.",
+"l": "Aos 53 anos, três anos depois da falência. A luz cai sobre o rosto e o resto se apaga."
+}
+},
+"fi": {
+"two_heads": {
+"tec": "Pena e tinta marrom",
+"dim": "9 × 14,9 cm",
+"inst": "J. Paul Getty Museum, Los Angeles"
+},
+"mother": {
+"tec": "Água-forte",
+"dim": "6,7 × 6,4 cm (chapa)",
+"inst": "National Gallery of Art, Washington"
+},
+"sp_shout": {
+"tec": "Pena e tinta marrom, aguada cinza",
+"dim": "12,7 × 9,5 cm",
+"inst": "British Museum, Londres"
+},
+"sp_frown": {
+"tec": "Água-forte",
+"dim": "7,6 × 6,5 cm",
+"inst": "National Gallery of Art, Washington"
+},
+"sp_wide": {
+"tec": "Água-forte",
+"dim": "5,2 × 4,5 cm",
+"inst": "National Gallery of Art, Washington"
+},
+"old_man": {
+"tec": "Giz vermelho sobre papel vergê",
+"dim": "15,7 × 14,7 cm",
+"inst": "National Gallery of Art, Washington"
+},
+"beggar_draw": {
+"tec": "Pena e tinta marrom sobre papel vergê",
+"dim": "12,5 × 11,2 cm",
+"inst": "National Gallery of Art, Washington"
+},
+"saskia_hat": {
+"tec": "Ponta de prata sobre pergaminho preparado",
+"dim": "18,5 × 10,7 cm",
+"inst": "Kupferstichkabinett, Staatliche Museen zu Berlin"
+},
+"saskia_bed": {
+"tec": "Pena e tinta marrom, aguada",
+"dim": "14,8 × 19,1 cm",
+"inst": "Groninger Museum, Groningen"
+},
+"child_walk": {
+"tec": "Giz vermelho",
+"dim": "",
+"inst": "British Museum, Londres"
+},
+"stairs": {
+"tec": "Pena e tinta marrom, aguada marrom",
+"dim": "18,7 × 13,2 cm",
+"inst": "The Morgan Library & Museum, Nova York"
+},
+"pancake": {
+"tec": "Água-forte",
+"dim": "11,1 × 8,1 cm",
+"inst": "Metropolitan Museum of Art, Nova York"
+},
+"sp_saskia": {
+"tec": "Água-forte",
+"dim": "",
+"inst": "Metropolitan Museum of Art, Nova York"
+},
+"elephant": {
+"tec": "Giz preto",
+"dim": "",
+"inst": "Albertina, Viena"
+},
+"actor": {
+"tec": "Pena e tinta marrom, aguada",
+"dim": "",
+"inst": "Rijksmuseum, Amsterdã"
+},
+"last_supper": {
+"tec": "Giz vermelho",
+"dim": "36,2 × 47,5 cm",
+"inst": "Metropolitan Museum of Art, Nova York"
+},
+"castiglione": {
+"tec": "Pena e tinta marrom",
+"dim": "16,3 × 20,7 cm",
+"inst": "Albertina, Viena"
+},
+"sp_sill": {
+"tec": "Água-forte e ponta-seca",
+"dim": "20 × 16 cm (chapa)",
+"inst": "Metropolitan Museum of Art, Nova York"
+},
+"saskia_window": {
+"tec": "Pena e tinta marrom, aguada",
+"dim": "16,4 × 12,5 cm",
+"inst": "Szépművészeti Múzeum, Budapeste"
+},
+"saskia_bed2": {
+"tec": "Pena e tinta marrom, aguada",
+"dim": "",
+"inst": "Fondation Custodia, Paris"
+},
+"three_trees": {
+"tec": "Água-forte com ponta-seca e buril",
+"dim": "21,4 × 28 cm (chapa)",
+"inst": "National Gallery of Art, Washington"
+},
+"six_bridge": {
+"tec": "Água-forte",
+"dim": "13 × 22,4 cm (chapa)",
+"inst": "National Gallery of Art, Washington"
+},
+"jan_six": {
+"tec": "Água-forte, ponta-seca e buril",
+"dim": "24,5 × 19,3 cm (chapa)",
+"inst": "National Gallery of Art, Washington"
+},
+"sp_window": {
+"tec": "Água-forte, ponta-seca e buril",
+"dim": "16 × 13 cm (chapa)",
+"inst": "National Gallery of Art, Washington"
+},
+"beggars_door": {
+"tec": "Água-forte, buril e ponta-seca",
+"dim": "16,6 × 12,9 cm",
+"inst": "National Gallery of Art, Washington"
+},
+"hundred": {
+"tec": "Água-forte, buril e ponta-seca",
+"dim": "28 × 39,3 cm (chapa)",
+"inst": "Metropolitan Museum of Art, Nova York"
+},
+"winter": {
+"tec": "Pena e tinta marrom, pincel",
+"dim": "",
+"inst": "Harvard Art Museums, Cambridge"
+},
+"cottage": {
+"tec": "Pena e tinta marrom, aguada",
+"dim": "17,1 × 27,6 cm",
+"inst": "Metropolitan Museum of Art, Nova York"
+},
+"lion": {
+"tec": "Pena e pincel, tinta marrom",
+"dim": "",
+"inst": ""
+},
+"sheet_studies": {
+"tec": "Água-forte",
+"dim": "",
+"inst": "National Gallery of Art, Washington"
+},
+"shell": {
+"tec": "Água-forte, ponta-seca e buril",
+"dim": "",
+"inst": "Rijksmuseum, Amsterdã"
+},
+"three_crosses": {
+"tec": "Ponta-seca",
+"dim": "38,7 × 45,4 cm",
+"inst": "Biblioteca Real da Bélgica, Bruxelas"
+},
+"hendrickje": {
+"tec": "Pincel e tinta marrom, aguada",
+"dim": "24,6 × 20,3 cm",
+"inst": "British Museum, Londres"
+},
+"nathan": {
+"tec": "Pena e tinta marrom, realces brancos",
+"dim": "18,6 × 25,4 cm",
+"inst": "Metropolitan Museum of Art, Nova York"
+},
+"studio_attire": {
+"tec": "Pena e tinta marrom",
+"dim": "",
+"inst": "Museu Casa de Rembrandt, Amsterdã"
+},
+"mughal": {
+"tec": "Pena e tinta marrom, pincel e aguada",
+"dim": "",
+"inst": ""
+},
+"woman_window": {
+"tec": "Pena e tinta marrom, aguada",
+"dim": "",
+"inst": ""
+},
+"nightwatch": {
+"tec": "Óleo sobre tela",
+"dim": "363 × 437 cm",
+"inst": "Rijksmuseum, Amsterdã"
+},
+"tulp": {
+"tec": "Óleo sobre tela",
+"dim": "169,5 × 216,5 cm",
+"inst": "Mauritshuis, Haia"
+},
+"sp_1669": {
+"tec": "Óleo sobre tela",
+"dim": "84,5 × 66 cm",
+"inst": "National Gallery of Art, Washington"
+}
+}
+}

@@ -1,0 +1,1002 @@
+"""Monta o livro Rembrandt a Lápis em PDF (WeasyPrint) e EPUB 3 a partir de src/*.md e data.json."""
+import os, re, json, glob, html, uuid, zipfile, datetime
+import markdown
+from lxml import etree, html as lhtml
+
+ROOT = os.path.dirname(os.path.abspath(__file__))
+os.chdir(ROOT)
+D = json.load(open('data.json'))
+EX, PL, FI = D['ex'], D['pl'], D['fi']
+# exercícios retirados na revisão de imagens (modelos fracos ou repetidos)
+REMOVED = set()
+EX = [x for x in EX if x['id'] not in REMOVED]
+NEX = len(EX)
+NESS = sum(1 for x in EX if x['lv'] == 'e')
+esc = html.escape
+
+# ---------------------------------------------------------------- textos dos exercícios para o livro
+FIX = {}
+for x in EX:
+    x.update(FIX.get(x['id'], {}))
+LEVELS = [('w', 'nivel1', 'Nível 1', 'Fundamentos',
+           'Exercícios curtos, de 8 a 15 minutos, que treinam um traço, um tom ou uma parte do rosto de cada vez. Comece por aqui se está começando a desenhar, e volte a eles como aquecimento antes de cada sessão.'),
+          ('e', 'nivel2', 'Nível 2', 'Essenciais',
+           f'Os {NESS} exercícios que formam o núcleo do método. Quem fizer só estes já aprende a linguagem: a linha que respira, os três tons, o rosto na sombra, os autorretratos e as figuras em poucas linhas.'),
+          ('d', 'nivel3', 'Nível 3', 'Aprofundamento',
+           'Variações e casos mais difíceis, para quando o essencial estiver firme: contraluz, luz de vela, hachura densa, grupos de figuras e animais.'),
+          ('p', 'nivel4', 'Nível 4', 'Provas de mestre',
+           'Estudos longos de obras de Rembrandt e um projeto pessoal, em que você leva a linguagem para a sua própria casa. Use os métodos do Capítulo 8.')]
+CHAP = {'t': ('cap2', 'Capítulo 2'), 'l': ('cap3', 'Capítulo 3'), 'c': ('cap4', 'Capítulo 4'), 'a': ('cap5', 'Capítulo 5'), 'b': ('cap6', 'Capítulo 6'), 'p': ('cap8', 'Capítulo 8')}
+STAGES = set('t08 l04 l05 l06 c04 c05 a04 a05 b07 b12'.split())
+STN = ['Esboço', 'Primeiras linhas', 'Manchas', 'Acabado']
+
+def ex_html(x):
+    cid, cname = CHAP[x['ch']]
+    meta = esc(x['m'])
+    out = [f'<section class="ex" id="ex-{x["id"]}">',
+           f'<p class="exnum">{x["id"].upper()}</p>',
+           f'<h3>{esc(x["t"])}</h3>',
+           f'<figure class="model"><img src="img/{x["id"]}.jpg" alt="Desenho-modelo do exercício {x["id"].upper()}"/></figure>',
+           f'<p class="exmeta">{meta}</p>',
+           f'<p>{esc(x["d"])}</p>',
+           f'<p class="crit"><span class="sc">Pronto quando</span> {esc(x["c"])}</p>']
+    extra = [f'Teoria no <a href="#{cid}">{cname}</a>.']
+    if x.get('ref') and x['ref'] in PL:
+        extra.append(f'Obra para comparar: <a href="#cat-{x["ref"]}"><i>{esc(PL[x["ref"]]["t"])}</i></a>, no catálogo.')
+    out.append(f'<p class="exref">{" ".join(extra)}</p>')
+    if x['id'] in STAGES:
+        imgs = ''.join(f'<figure><img src="img/{"st-"+x["id"]+"-"+str(k+1) if k < 3 else x["id"]}.jpg" alt="Etapa {k+1}"/><figcaption>{k+1}. {STN[k]}</figcaption></figure>' for k in range(4))
+        out.append(f'<div class="steps4 small">{imgs}</div>')
+    out.append('</section>')
+    return '\n'.join(out)
+
+# ---------------------------------------------------------------- leitura das fontes
+def parse_src():
+    secs = []
+    for f in sorted(glob.glob('src/*.md')):
+        txt = open(f).read()
+        parts = re.split(r'<!-- id: (.*?) -->', txt)
+        for i in range(1, len(parts), 2):
+            meta = [p.strip() for p in parts[i].split('|')]
+            body = parts[i + 1].strip()
+            secs.append({'id': meta[0], 'title': meta[1], 'kind': meta[2], 'opener': meta[3] if len(meta) > 3 else None, 'md': body})
+    return secs
+
+MD = markdown.Markdown(extensions=['md_in_html', 'tables'])
+def md2html(s):
+    MD.reset()
+    h = MD.convert(s)
+    return h.replace('src="ex/', 'src="img/').replace('{NEX}', str(NEX)).replace('{NESS}', str(NESS))
+
+def practice_list(chid):
+    rev = {v[0]: k for k, v in CHAP.items()}
+    if chid == 'cap7':
+        items = [x for x in EX if x['id'] in STAGES]
+        head = 'Exercícios com demonstração em etapas'
+    elif chid in rev:
+        items = [x for x in EX if x['ch'] == rev[chid]]
+        head = 'Para praticar'
+    else:
+        return ''
+    lvn = {l[0]: l[2] for l in LEVELS}
+    lis = ''.join(f'<li><a href="#ex-{x["id"]}">{x["id"].upper()}</a> {esc(x["t"])} <span class="lvl">{lvn[x["lv"]]}</span></li>' for x in items)
+    return f'<div class="practice"><h4>{head}</h4><ul>{lis}</ul></div>'
+
+def practice_line(chid):
+    rev = {v[0]: k for k, v in CHAP.items()}
+    if chid not in rev:
+        return ''
+    items = sorted((x for x in EX if x['ch'] == rev[chid]), key=lambda x: x['id'])
+    first, last = items[0]['id'], items[-1]['id']
+    ess = [x['id'] for x in items if x['lv'] == 'e']
+    lk = lambda c: f'<a href="#ex-{c}">{c.upper()}</a>'
+    pg = lambda c: f'<a class="pg" href="#ex-{c}"></a>'
+    txt = (f'<b>Para praticar</b> {lk(first)}–{lk(last)} · p. {pg(first)}–{pg(last)}' if first != last
+           else f'<b>Para praticar</b> {lk(first)} · p. {pg(first)}')
+    if ess:
+        txt += ' · essenciais ' + ', '.join(lk(c) for c in ess)
+    return f'<p class="pline">{txt}</p>'
+
+def build_sections():
+    src = parse_src()
+    S = []
+    for s in src:
+        h = md2html(s['md'])
+        if s['id'] in ('como-usar', 'cap1'):
+            h = add_icons(h)
+        if s['id'] == 'vida':
+            i = h.index('<h2>')
+            h = h[:i] + '<!--MAPA-->' + h[i:] + tracos_html()
+        if s['id'] in BALLOON_CHAPTERS:
+            h = add_balloons(h)
+        rev = {v[0]: k for k, v in CHAP.items()}
+        if s['id'] in rev:
+            fs = [x for x in EX if x['lv'] == 'w' and x['ch'] == rev[s['id']]]
+            if fs:
+                s = {**s, 'first_steps': fs,
+                     'epub_extra': '<h2>Primeiros passos</h2>' + '\n'.join(ex_html(x) for x in fs)}
+        if s['kind'] == 'chapter':
+            pl = practice_line(s['id'])
+            t = h.rstrip()
+            if '<div class="obra"' in t and re.fullmatch(r'(\s*</div>)+\s*', t[t.rfind('</figure>') + 9:]) and t.rfind('<div class="obra"') > t.rfind('</div>', 0, t.rfind('<div class="obra"') + 1) - 1:
+                h = t[:-len('</div>')] + pl + '</div>'
+            else:
+                h += pl
+        S.append({**s, 'html': h})
+        if s['id'] == 'cap8':  # depois da Parte II vem a Parte III
+            S.append({'id': 'parte3', 'title': 'Parte III · Estudos', 'kind': 'part', 'opener': 'ex/part3.jpg',
+                      'html': '<h1>Parte III</h1>\n<h2>Exercícios</h2>'})
+            for code, lid, ln, name, intro in LEVELS:
+                if code == 'w':
+                    continue
+                items = [x for x in EX if x['lv'] == code]
+                body = f'<h1><span class="lvnum">{ln}</span> {name}</h1>\n<p class="lead">{intro}</p>\n<p class="count">{len(items)} exercícios</p>\n' + '\n'.join(ex_html(x) for x in items)
+                S.append({'id': lid, 'title': f'{ln} · {name}', 'kind': 'level', 'html': body})
+    return S
+
+CAT_ORDER = ['two_heads', 'mother', 'sp_shout', 'sp_frown', 'sp_wide', 'old_man', 'beggar_draw', 'saskia_hat', 'saskia_bed', 'child_walk', 'stairs',
+             'pancake', 'sp_saskia', 'elephant', 'actor', 'last_supper', 'castiglione', 'sp_sill', 'saskia_window', 'saskia_bed2', 'three_trees',
+             'six_bridge', 'jan_six', 'sp_window', 'beggars_door', 'hundred', 'winter', 'cottage', 'lion', 'sheet_studies', 'shell', 'three_crosses',
+             'hendrickje', 'nathan', 'studio_attire', 'mughal', 'woman_window', 'nightwatch', 'tulp', 'sp_1669']
+
+def catalogue():
+    order = [k for k in CAT_ORDER if k in PL] + [k for k in PL if k not in CAT_ORDER]
+    rows = []
+    for i, k in enumerate(order, 1):
+        p = PL[k]; f = FI.get(k, {})
+        ficha = ' · '.join(v for v in [f.get('tec'), f.get('dim'), f.get('inst')] if v)
+        rows.append(f'<div class="cat" id="cat-{k}"><img src="img/{k}.jpg" alt="{esc(p["t"])}"/><div><p class="ct"><span class="cn">{i}</span> <i>{esc(p["t"])}</i></p>'
+                    f'<p class="cc">{esc(p["c"])}</p>' + (f'<p class="cf">{esc(ficha)}</p>' if ficha else '') + f'<p class="cl">{esc(p.get("l", ""))}</p></div></div>')
+    intro = ('<p>As obras de Rembrandt citadas no livro e indicadas nos exercícios, em ordem aproximada de data, com a técnica, '
+             'as dimensões (altura por largura) e o acervo, quando disponíveis.</p>')
+    return {'id': 'catalogo', 'title': 'Catálogo das obras', 'kind': 'back', 'html': '<h1>Catálogo das obras</h1>' + intro + ''.join(rows)}
+
+def ex_index():
+    lvn = {l[0]: l[2] for l in LEVELS}
+    rows = ''.join(f'<tr><td><a href="#ex-{x["id"]}">{x["id"].upper()}</a></td><td>{esc(x["t"])}</td><td>{lvn[x["lv"]]}</td></tr>'
+                   for x in sorted(EX, key=lambda x: ('tlcabp'.index(x['ch']), x['id'])))
+    return {'id': 'indice', 'title': 'Índice dos exercícios', 'kind': 'back',
+            'html': '<h1>Índice dos exercícios</h1><table class="idx"><tr><th>Código</th><th>Exercício</th><th>Nível</th></tr>' + rows + '</table>'}
+
+CREDITS = {'id': 'creditos', 'title': 'Créditos', 'kind': 'back', 'html': md2html(
+"""# Créditos
+
+As reproduções de obras de Rembrandt van Rijn são de domínio público e foram obtidas no Wikimedia Commons, a partir das imagens de acesso aberto dos museus indicados em cada legenda. Os dados das obras vêm dos museus e do Wikimedia Commons. As citações são traduções livres do autor.
+
+Os desenhos-modelo dos exercícios, as demonstrações em etapas, as amostras de traços e os diagramas de luz foram criados para este livro com o auxílio de ferramentas de inteligência artificial, a partir de orientações do autor. São interpretações a lápis no espírito dos desenhos de Rembrandt e não reproduzem obras dele. Os ícones foram desenhados para este livro.
+
+Texto composto em EB Garamond e Archivo.""")}
+
+# ---------------------------------------------------------------- detalhes das obras (balões logo depois de cada obra)
+# obra: (imagem de origem, [(centro x, centro y, lado como fração da largura, título, texto)])
+WORK_DETAILS = {
+ 'hendrickje': ('hendrickje', [(.25, .4, .3, 'A cabeça', 'Meia dúzia de toques em volta de uma forma clara.'),
+                               (.6, .55, .35, 'O braço em mancha', 'Pinceladas largas, sem nenhum contorno fechado.'),
+                               (.4, .1, .4, 'O fundo', 'Uma mancha diluída que clareia para baixo.')]),
+ 'stairs': ('stairs', [(.55, .2, .3, 'Dois rostos', 'As cabeças coladas, com o detalhe concentrado ali.'),
+                       (.85, .45, .25, 'A parede escura', 'A mancha que faz a figura clara saltar.')]),
+ 'mother': ('mother', [(.42, .45, .25, 'O lado da luz', 'Quase papel, com rugas em linhas curtas.'),
+                       (.6, .5, .2, 'O lado da sombra', 'Hachura que segue as dobras da pele.'),
+                       (.3, .8, .35, 'O casaco', 'Traços cada vez mais soltos para baixo.')]),
+ 'sp_sill': ('sp_sill', [(.53, .47, .18, 'O rosto', 'A zona mais nítida, entre o boné e a gola.'),
+                         (.5, .8, .35, 'A manga', 'Uma massa de hachura que segura a composição.'),
+                         (.2, .95, .35, 'A mureta', 'Quase só papel.')]),
+ 'sp_window': ('sp_window', [(.5, .37, .2, 'O rosto na luz', 'A luz da janela bate de lado.'),
+                             (.15, .3, .25, 'A janela', 'A abertura de luz: quase papel.'),
+                             (.68, .74, .3, 'O escuro', 'Hachura cruzada até o preto.')]),
+ 'child_walk': ('child_walk', [(.35, .15, .25, 'As costas curvadas', 'Um arco só faz o gesto da mulher.'),
+                               (.52, .5, .2, 'A criança', 'Quase só um traço vertical.')]),
+ 'castiglione': ('castiglione', [(.5, .24, .22, 'O chapéu', 'Maior e mais inclinado que o de Rafael.'),
+                                 (.86, .17, .26, 'O preço', 'Vendido por 3.500 florins, anotado na hora.')]),
+ 'three_trees': ('three_trees', [(.72, .45, .25, 'As três árvores', 'Massas escuras contra o céu claro.'),
+                                 (.2, .2, .25, 'A chuva', 'Hachura diagonal riscando o céu.')]),
+ 'actor': ('actor', [(.43, .5, .2, 'O rosto', 'Quase papel, o único lugar com detalhe.'),
+                     (.5, .78, .4, 'Os braços', 'Linhas largas que se quebram.')]),
+ 'saskia_bed2': ('saskia_bed2', [(.6, .5, .25, 'Saskia', 'No fundo, sentada na cama.'),
+                                 (.2, .62, .25, 'A ama', 'Em primeiro plano, à esquerda.')]),
+}
+BALLOON_CHAPTERS = ('cap2', 'cap3', 'cap4', 'cap5', 'cap6', 'cap8')
+
+def make_details():
+    from PIL import Image
+    for key, (src, items) in WORK_DETAILS.items():
+        for i, (cx, cy, sz, *rest) in enumerate(items, 1):
+            im = Image.open(f'img/{rest[2] if len(rest) > 2 else src}.jpg').convert('RGB')
+            side = sz * im.width
+            x0 = max(0, min(im.width - side, cx * im.width - side / 2))
+            y0 = max(0, min(im.height - side, cy * im.height - side / 2))
+            im.crop((round(x0), round(y0), round(x0 + side), round(y0 + side))).resize((520, 520), Image.LANCZOS).save(f'img/det-{key}-{i}.jpg', quality=90)
+
+def balloons_html(key):
+    src, items = WORK_DETAILS[key]
+    cells = ''.join(f'<figure class="bal"><img src="img/det-{key}-{i}.jpg" alt="{esc(t)}"/>'
+                    f'<figcaption><b>{esc(t)}</b> {esc(d)}</figcaption></figure>'
+                    for i, (cx, cy, sz, t, d, *_) in enumerate(items, 1))
+    return f'<div class="balrow n{len(items)}">{cells}</div>'
+
+def add_balloons(h):
+    done = set()
+    def rep(m):
+        key = m.group(1)
+        if key not in WORK_DETAILS or key in done:
+            return m.group(0)
+        done.add(key)
+        from PIL import Image
+        w_, h_ = Image.open(f'img/{key}.jpg').size
+        side = h_ > w_ * 1.05
+        return f'<div class="figbal{" side" if side else ""}">{m.group(0)}{balloons_html(key)}</div>'
+    h = re.sub(r'<div class="figbal side">(<figure>.*?</figure>)</div>', r'\1', h, flags=re.S)
+    return re.sub(r'<figure[^>]*>\s*<img src="img/([a-z0-9_]+)\.jpg"[^>]*>.*?</figure>', rep, h, flags=re.S)
+
+# ---------------------------------------------------------------- ícones e linha do tempo
+ICONS_H2 = {'Por onde começar': 'comecar', 'Os desenhos-modelo': 'modelo', 'Material para desenhar por cima': 'imprimir',
+            'As vozes': 'cartas', 'Da pena para o lápis': 'junco', 'O lápis 2B': 'lapis', 'O lápis 6B': 'giz', 'O esfuminho': 'carvao',
+            'O papel': 'papel', 'No tablet': 'tablet'}
+
+def add_icons(h):
+    return re.sub(r'<h2>([^<]+)</h2>', lambda m: (f'<h2 class="ic"><img class="icon" src="img/icons/{ICONS_H2[m.group(1)]}.svg" alt=""/>{m.group(1)}</h2>'
+                                                  if m.group(1) in ICONS_H2 else m.group(0)), h)
+
+ENDERECOS = [('Leiden, junto ao moinho', '1606–1631', 'A casa da família e, a partir de 1625, o ateliê dividido com Jan Lievens.'),
+             ('Amsterdã, casa de Uylenburgh', '1631–1635', 'Na Sint Antoniesbreestraat, entre os quadros do negociante. Os primeiros retratos de sucesso.'),
+             ('Amsterdã, Nieuwe Doelenstraat', '1635–1637', 'A primeira casa com Saskia.'),
+             ('Amsterdã, Binnen Amstel', '1637–1639', 'Uma casa alugada à beira do rio. O ano do elefante.'),
+             ('Amsterdã, a casa grande', '1639–1658', 'Na Sint Antoniesbreestraat, hoje o Museu Casa de Rembrandt. As gravuras grandes e as paisagens.'),
+             ('Amsterdã, Rozengracht', 'c. 1660–1669', 'A casa alugada depois da falência. Os desenhos mais largos e mais livres.')]
+# ano, lugar, imagem, centro x, centro y, largura (fração), obra, texto
+TRACOS = [('1628', 'Leiden', 'mother', .62, .4, .6, 'A mãe do artista', 'Gravura miúda. A luz de lado cava cada ruga.'),
+          ('1629', 'Leiden', 'sp_shout', .5, .32, .8, 'Autorretrato de boca aberta', 'Pena e pincel. O rosto como estudo de expressão.'),
+          ('1630', 'Leiden', 'sp_frown', .5, .4, .8, 'Autorretrato carrancudo', 'O cabelo é um rabisco. Tudo está entre a testa e o queixo.'),
+          ('1633', 'Amsterdã', 'saskia_hat', .5, .38, .7, 'Saskia de chapéu de palha', 'Ponta de prata: quase só contorno.'),
+          ('1636', 'Amsterdã', 'stairs', .5, .2, .9, 'Mulher descendo a escada', 'A mancha escura atrás da figura clara.'),
+          ('1637', 'Amsterdã', 'elephant', .6, .45, .7, 'Um elefante', 'Giz preto. Traços curtos que seguem a forma.'),
+          ('1643', 'Amsterdã', 'three_trees', .6, .45, .6, 'As três árvores', 'A luz como assunto da folha.'),
+          ('1648', 'Amsterdã', 'sp_window', .5, .3, .7, 'Autorretrato à janela', 'Uma luz só, e o resto em sombra.'),
+          ('c. 1650', 'Amsterdã', 'lion', .4, .45, .6, 'Leão deitado', 'Pena de junco e pincel. A linha se quebra.'),
+          ('c. 1654', 'Amsterdã', 'hendrickje', .45, .45, .8, 'Hendrickje dormindo', 'Só pincel. Nenhum contorno fechado.')]
+
+def make_tracos():
+    from PIL import Image
+    for i, (yy, pl, k, cx, cy, w, t, tx) in enumerate(TRACOS, 1):
+        im = Image.open(f'img/{k}.jpg').convert('RGB'); W = w * im.width; H = W / 2.1
+        x0 = max(0, min(im.width - W, cx * im.width - W / 2)); y0 = max(0, min(im.height - H, cy * im.height - H / 2))
+        im.crop((round(x0), round(y0), round(x0 + W), round(y0 + H))).resize((840, 400), Image.LANCZOS).save(f'img/traco-{i:02d}.jpg', quality=90)
+
+def map_html(inline=True):
+    rows = ''.join(f'<div class="end"><span class="en">{i}</span><div><p><b>{c}</b> <span class="ey">{y}</span></p><p>{t}</p></div></div>'
+                   for i, (c, y, t) in enumerate(ENDERECOS, 1))
+    return ('<div class="enderecos" id="toc-caminho"><h2>Seis endereços</h2><p class="sub">Uma vida inteira entre duas cidades, a meia hora de barco uma da outra. '
+            'Quase tudo aconteceu em Amsterdã, numa dúzia de ruas.</p>' + rows + '</div>')
+
+def tracos_html():
+    def row(i, x):
+        yy, pl, k, cx, cy, w, t, tx = x
+        return (f'<div class="tr"><img src="img/traco-{i:02d}.jpg" alt="Detalhe de {esc(t)}"/>'
+                f'<div class="trt"><p class="ty">{yy}</p><p class="tp">{pl} · <i>{esc(t)}</i></p><p>{tx}</p></div></div>')
+    rows = [row(i, x) for i, x in enumerate(TRACOS, 1)]
+    return ('<div class="tracos" id="toc-tracos"><h2>Quarenta anos em dez traços</h2><p class="sub">O mesmo desenhista, de 1628 a 1654, sempre visto de perto.</p>'
+            + ''.join(rows[:5]) + '<div class="tr2">' + ''.join(rows[5:]) + '</div></div>')
+
+# ---------------------------------------------------------------- PDF (edição ilustrada)
+FONTDIR = os.path.join(ROOT, 'fonts')
+PARTS = {'parte1': ('01', 'Parte I', 'Uma vida desenhando', None),
+         'parte2': ('02', 'Parte II', 'A linguagem',
+                    'O material, os traços, a luz, o rosto, os autorretratos, o corpo, a ordem em que ele construía uma folha e a maneira de copiar um mestre. Um capítulo para cada coisa.'),
+         'parte3': ('03', 'Parte III', 'Estudos', f'<p>Os {NEX - sum(1 for x in EX if x["lv"] == "w")} estudos dos Níveis 2 a 4. Os exercícios curtos do Nível 1 já apareceram no fim de cada capítulo, como Primeiros passos. Aqui o desenho é inteiro: paisagens, rostos, figuras e cópias de mestre. O código de cada exercício indica o assunto: T para traços, L para luz, C para cabeças, A para autorretratos, B para o corpo e P para o projeto.</p><p>Cada página traz o desenho-modelo, o tempo e o material sugeridos, a instrução e um critério para saber quando o exercício está pronto. {len(STAGES)} exercícios mostram também as etapas da construção, do esboço ao acabamento.</p><p>Para desenhar por cima, imprima a página e use papel vegetal, ou importe-a num aplicativo de desenho e trabalhe numa camada acima. Na maioria das vezes, porém, desenhe ao lado do livro, olhando o modelo.</p>')}
+END_ART = {'cap2': ('saskia_window', 'saskia_window'), 'cap4': ('sp_shout', 'sp_shout'), 'cap5': ('sheet_studies', 'sheet_studies'), 'cap6': ('beggars_door', 'beggars_door')}
+
+def bleed_html(spec):
+    key, img = spec
+    from PIL import Image, ImageStat
+    im = Image.open(f'img/{img}.jpg').convert('L')
+    w, h = im.size
+    lum = ImageStat.Stat(im.crop((0, int(h * .82), w, h))).mean[0]
+    dark = lum < 150
+    return (f'<section class="bleed{" dark" if dark else ""}"><img src="img/{img}.jpg" alt="{esc(PL[key]["t"])}"/>'
+            f'<p class="bcap"><i>{esc(PL[key]["t"])}</i> · {esc(PL[key]["c"])}</p></section>')
+
+LEVEL_ART = {'e': 'pancake', 'd': 'six_bridge', 'p': 'mughal'}
+PART_ART = {'parte1': 'studio_attire', 'parte2': 'hendrickje', 'parte3': 'hundred'}
+
+def font_faces(base='file://' + FONTDIR + '/'):
+    css = ''
+    for w in (400, 500, 600, 700):
+        for st in ('normal', 'italic'):
+            for sub in ('latin', 'latin-ext'):
+                f = f'eb-garamond-{sub}-{w}-{st}.ttf'
+                if os.path.exists(os.path.join(FONTDIR, f)):
+                    css += f'@font-face{{font-family:"Serif";src:url("{base}{f}");font-weight:{w};font-style:{st}}}\n'
+    for f in sorted(os.listdir(FONTDIR)):
+        m = re.match(r'archivo-(black-)?latin(-ext)?-(\d+)-(normal|italic)\.woff$', f)
+        if m:
+            fam = 'Disp' if m.group(1) else 'Sans'
+            css += f'@font-face{{font-family:"{fam}";src:url("{base}{f}");font-weight:{m.group(3)};font-style:{m.group(4)}}}\n'
+    return css
+
+PDF_CSS = """
+@page{size:6in 9in;margin:.62in .72in .82in .55in;background:#EEEAE0}
+@page :left{margin-left:.55in;margin-right:.72in;
+  @bottom-left{content:counter(page) "\\2003" string(sec);font:400 7.2pt Sans;color:#6E6253;vertical-align:top;padding-top:.3in}}
+@page :right{margin-left:.72in;margin-right:.55in;
+  @bottom-right{content:string(sec) "\\2003" counter(page);font:400 7.2pt Sans;color:#6E6253;vertical-align:top;padding-top:.3in}}
+@page full{margin:0;@bottom-left{content:none}@bottom-right{content:none}}
+@page part{margin:0;background:#9A4A2C;@bottom-left{content:none}@bottom-right{content:none}}
+@page kraft{margin:0;background:#D6C7A8;@bottom-left{content:none}@bottom-right{content:none}}
+@page bare{@bottom-left{content:none}@bottom-right{content:none}}
+@page chap:first{@bottom-left{content:none}@bottom-right{content:none}}
+:root{--ink:#1E1913;--mute:#6E6253;--soft:#A39682;--clay:#9A4A2C;--kraft:#D6C7A8;--paper:#EEEAE0}
+html{font-family:Serif,serif;font-size:10.3pt;line-height:1.42;color:#1E1913;hyphens:auto}
+body{margin:0}
+*{bookmark-level:none}
+p{margin:0 0 .55em;text-align:justify;orphans:2;widows:2}
+a{color:inherit;text-decoration:none}
+i,em{font-style:italic}
+.rh{string-set:sec content();display:block;height:0;overflow:hidden;margin:0}
+h1,h2,h3,h4{hyphens:manual}
+h1{font:400 21pt/1.05 Disp;margin:0 0 .8em;letter-spacing:-.01em}
+h2{font:400 12pt/1.2 Disp;margin:1.5em 0 .5em;break-after:avoid}
+h3{font:700 10.5pt/1.25 Sans;margin:1.1em 0 .35em;break-after:avoid}
+h4{font:700 7.6pt/1.3 Sans;margin:0 0 .4em;color:#1E1913}
+figure{margin:1em 0;break-inside:avoid;text-align:center}
+figure img{max-width:100%;max-height:4.1in}
+figure.wide img{max-height:3.4in}
+figcaption{font:400 8pt/1.42 Sans;color:#6E6253;text-align:left;margin-top:.45em}
+figcaption i{color:#1E1913;font-weight:500}
+table{border-collapse:collapse;width:100%;font-size:9.2pt;margin:.6em 0 1em}
+th{font:700 7.2pt Sans;text-align:left;border-bottom:.6pt solid #1E1913;padding:.3em .4em .3em 0}
+td{border-bottom:.4pt solid #CFC4B0;padding:.35em .5em .35em 0;vertical-align:top}
+table.chrono td,table.letters td{vertical-align:baseline;line-height:1.38}
+table.chrono tr,table.letters tr{break-inside:avoid}
+table.chrono td:first-child{font:400 10pt Disp;width:.62in;white-space:nowrap}
+table.letters td:first-child{font:400 9pt Disp;width:.82in;white-space:nowrap}
+table.letters td:nth-child(2){font:400 7.6pt/1.4 Sans;color:#6E6253;width:1.4in}
+ol.check li{margin:.35em 0}
+dl.gloss dt{font:700 8.6pt Sans;margin-top:.7em}dl.gloss dd{margin:.1em 0 0 0}
+.ref{padding-left:1.2em;text-indent:-1.2em;text-align:left}
+.sign{text-align:right;font-style:italic;margin-top:1.2em}
+.vida{background:#E3D9C6;padding:.14in .16in .1in;margin:0 0 1.3em}
+.vida h4{margin-bottom:.3em}.vida p{text-align:left;font-size:9.4pt;line-height:1.4;margin:0}
+.kit{background:#E3D9C6;padding:.14in .18in .1in;margin:.4em 0 1.3em}
+.kit ul{margin:0;padding:0 0 0 1.1em}
+.kit li{margin:0 0 .35em;font-size:9.6pt;line-height:1.38;text-align:left}
+.kit li b{font-weight:600}
+.marks{display:grid;grid-template-columns:1fr 1fr;column-gap:.16in;row-gap:.12in;margin:.6em 0 1em}
+.marks figure{margin:0}.marks img{max-height:1.35in;width:100%;object-fit:cover}
+.pair{display:grid;grid-template-columns:1fr 1fr;column-gap:.16in;break-inside:avoid;margin:.8em 0}.pair figure{margin:0}
+.pair img{max-height:2.3in}
+.steps4{display:grid;grid-template-columns:repeat(4,1fr);column-gap:.08in;break-inside:avoid;margin:.8em 0}.steps4 figure{margin:0}
+.steps4 img{max-height:1.55in}.steps4 figcaption{font-size:6.8pt}
+.practice{margin-top:1.6em;border-top:.6pt solid #1E1913;padding-top:.7em;break-inside:avoid}
+.practice ul{margin:0;padding:0;list-style:none;font-size:9.2pt;columns:2;column-gap:.2in}
+.practice li{margin:.1em 0;break-inside:avoid}.practice a{font:700 7.6pt Sans;margin-right:.35em}
+.practice .lvl{font:400 6.8pt Sans;color:#6E6253;margin-left:.25em}
+.lead{font-size:11pt;font-style:italic;text-align:left}
+
+
+/* ícones, balões, linha do tempo */
+h2.ic{display:flex;align-items:center;gap:.1in}
+h2.ic .icon{width:.36in;height:.36in;flex:none}
+figure.flow{break-inside:avoid}
+figure.mat img{max-height:2.5in}
+figure.flow img{max-height:4.2in}
+figure.flow figcaption b{font-weight:700;color:#1E1913}
+.figbal{break-inside:avoid;margin:1em 0 1.3em}
+.figbal > figure{margin:0 0 .16in}
+.figbal > figure img{max-height:3.25in}
+.figbal.side{display:flex;gap:.22in;align-items:flex-start}
+.figbal.side > figure{flex:none;width:3.05in;margin:0}
+.figbal.side > figure img{max-height:4.1in;width:auto;max-width:3.05in}
+.figbal.side .balrow{display:block;flex:1}
+.figbal.side .bal{width:auto;display:block;margin:0 0 .14in}
+.figbal.side .bal img{width:.92in;height:.92in}
+.pline{margin-top:1.4em;border-top:.6pt solid #1E1913;padding-top:.08in;font:400 7.8pt/1.5 Sans;text-align:left}
+.pline b{font-weight:700;margin-right:.3em}
+.pline a.pg{border:0;font-weight:400}.pline a.pg::after{content:target-counter(attr(href), page)}
+h2.newpage{break-before:page}
+.obra{break-before:page;break-inside:avoid}
+.obra > h2:first-child{margin-top:0}
+.obra .figbal.side > figure img{max-height:3.55in}
+.obra .figbal > figure img{max-height:2.9in}
+.obra ol.laws ~ .figbal.side > figure img{max-height:2.6in}
+.obra ol.laws ~ .figbal .bal img{width:.8in;height:.8in}
+.obra ol.laws li{padding-top:.06in;padding-bottom:.06in}.pline a{font-weight:700;border-bottom:.5pt solid #9A4A2C}
+.balrow{display:flex;gap:.22in;justify-content:center}
+.bal{width:1.45in;flex:none;margin:0;text-align:left}
+.bal img{width:1.1in;height:1.1in;border-radius:50%;display:block;margin:0 0 .08in}
+.bal figcaption{margin:0;font-size:7.8pt;line-height:1.4}
+.bal figcaption b{display:block;font-weight:700;color:#1E1913;margin-bottom:.02in}
+.mapa{page:full;break-before:page;width:6in;height:9in}
+.mapa svg{display:block;width:6in;height:9in}
+.enderecos{break-before:page}
+.enderecos h2,.tracos h2{font:400 17pt/1.1 Disp;margin:0 0 .05in}
+.enderecos .sub,.tracos .sub{font:italic 10pt/1.35 Serif;margin:0 0 .2in;text-align:left}
+.end{display:flex;gap:.12in;border-top:.6pt solid #CFC4B0;padding:.07in 0}
+.end .en{flex:none;width:.2in;height:.2in;border-radius:50%;background:#1E1913;color:#F4EFE6;font:700 6.8pt/.2in Sans;text-align:center}
+.end p{margin:0;text-align:left;font-size:9.2pt;line-height:1.32}.end b{font:700 8.4pt Sans}.end .ey{font:400 7.6pt Sans;color:#6E6253}
+.tracos{break-before:page}
+.tr{display:flex;gap:.16in;border-top:.6pt solid #CFC4B0;padding:.07in 0 .08in;break-inside:avoid}
+.tr img{width:2.3in;height:1.1in;flex:none}
+.trt p{margin:0;text-align:left;font-size:9pt;line-height:1.32}.trt .ty{font:400 16pt/1 Disp}
+.trt .tp{font:700 7.6pt Sans;margin:.05in 0 .04in}.trt .tp i{font-weight:400}
+.tr2{break-before:page;padding-top:.68in}
+.lvhead .lvtag{position:absolute;left:0;bottom:.62in;font:400 30pt/1 Disp;color:#9A4A2C;margin:0}
+
+/* blocos numerados e diagramas */
+ol.laws{list-style:none;margin:.6em 0 1.2em;padding:0;counter-reset:law}
+ol.laws li{counter-increment:law;position:relative;padding:.09in 0 .09in .46in;border-top:.6pt solid #CFC4B0;text-align:left;break-inside:avoid}
+ol.laws li:last-child{border-bottom:.6pt solid #CFC4B0}
+ol.laws li::before{content:counter(law);position:absolute;left:0;top:.06in;font:400 17pt/1 Disp;color:#1E1913}
+ol.laws li b{display:block;font:700 8.8pt Sans;margin-bottom:.03in}
+figure.diag img{width:100%;max-height:none}
+
+/* final */
+.fim{page:kraft;break-before:page;width:6in;height:9in;position:relative}
+.fim img{position:absolute;left:.7in;top:.8in;width:4.6in;height:4.2in;object-fit:contain}
+.fim .fq{position:absolute;left:.85in;right:.85in;top:5.45in;font:italic 400 15pt/1.35 Serif;text-align:left;color:#1E1913}
+.fim .fs{position:absolute;left:.85in;right:.85in;top:7.25in;font:500 7.4pt/1.4 Sans;color:#4A4034;text-align:left}
+.contra{page:full;break-before:page;width:6in;height:9in;background:#2A2119;color:#EFE8DA;text-align:center;position:relative}
+.contra .ct1{position:absolute;left:0;right:0;top:3.7in;font:400 30pt/1 Serif;text-align:center}
+.contra .ct2{position:absolute;left:0;right:0;top:4.35in;font:italic 400 11pt Serif;color:#BDB09A;text-align:center}
+.contra .ct3{position:absolute;left:0;right:0;bottom:.7in;font:500 8pt Sans;letter-spacing:.2em;text-align:center}
+/* obra em página inteira */
+.bleed{page:full;break-before:page;width:6in;height:9in;position:relative;overflow:hidden}
+.bleed img{position:absolute;inset:0;width:6in;height:9in;object-fit:cover}
+.bleed::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2in;background:linear-gradient(to bottom,rgba(240,233,218,0),rgba(240,233,218,.92) 60%)}
+.bleed.dark::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2.2in;background:linear-gradient(to bottom,rgba(15,11,8,0),rgba(15,11,8,.8) 70%)}
+.bleed .bcap{position:absolute;left:.4in;right:.4in;bottom:.45in;z-index:2;white-space:nowrap;font:400 7pt/1.45 Sans;color:#1E1913;text-align:left;margin:0}
+.bleed .bcap i{font:italic 400 9.6pt Serif}
+.bleed.dark .bcap{color:#FBF8F1}
+/* capa */
+.cover{page:full;position:relative;width:6in;height:9in;background:#2A2119;color:#FBF8F1;break-after:page;bookmark-level:1;bookmark-label:"Capa"}
+.cover .art{position:absolute;top:0;bottom:0;left:0;right:0;background:url("img/cover-art.jpg") 50% 0/cover no-repeat}
+.cover .topsh{position:absolute;left:0;right:0;top:0;height:1.1in;background:linear-gradient(to bottom,rgba(20,15,10,.32),rgba(20,15,10,0))}
+.cover .shade{position:absolute;left:0;right:0;bottom:0;height:5in;background:linear-gradient(to bottom,rgba(20,15,10,0),rgba(20,15,10,.55) 45%,rgba(20,15,10,.66))}
+.cover .spine{position:absolute;top:0;bottom:0;left:0;width:.13in;background:#F7F4EE}
+.cover .ed{position:absolute;top:.38in;left:0;right:0;text-align:center;font:500 10.5pt Sans;letter-spacing:.2em}
+.cover .t{position:absolute;left:0;right:0;top:5.75in;text-align:center;font:400 50pt/1 Serif;letter-spacing:-.012em;white-space:nowrap}
+.cover .d{position:absolute;left:0;right:0;top:6.57in;text-align:center;font:italic 400 15pt Serif}
+.cover .coll{position:absolute;bottom:.42in;left:0;right:0;text-align:center;font:italic 400 10.5pt Serif}
+
+/* folha de rosto e créditos */
+.titlepage{page:bare;break-before:page;text-align:center;padding-top:2.3in}
+.titlepage .t{font:400 34pt/1 Serif;margin:0 0 .25em;text-align:center;letter-spacing:-.01em}
+.titlepage .s{font:italic 400 12pt Serif;color:#6E6253;text-align:center;margin:0 0 3.2in}
+.titlepage .a{font:500 9pt Sans;letter-spacing:.2em;text-align:center}
+.copy{page:bare;break-before:page;padding-top:5.3in;font:400 7.6pt/1.5 Sans;color:#6E6253}.copy p{text-align:left;margin-bottom:.8em}
+
+/* sumário */
+.toc{page:bare;break-before:page;bookmark-level:1;bookmark-label:"Sumário"}
+.toc h1{font:400 22pt/1 Disp;margin:0 0 .3in}
+.toc a{color:#1E1913;text-decoration:none}
+.toc .blk{display:flex;margin-bottom:.19in}
+.toc .col{width:.5in;flex:none;font:400 10pt/1.6 Sans;color:#9A4A2C;padding-top:.01in}
+.toc .body{flex:1}
+.toc p{display:flex;justify-content:space-between;align-items:baseline;margin:0;text-align:left}
+.toc .pt{font:400 11pt/1.6 Disp;margin-bottom:.04in;border-bottom:.5pt solid #1E1913;padding-bottom:.03in}
+.toc .r{font:400 10.2pt/1.5 Serif}
+.toc .pg::after{content:target-counter(attr(href),page);font:400 8.4pt Sans;color:#6E6253}
+.toc .pt .pg::after{color:#1E1913}
+/* páginas de parte */
+.partimg{page:kraft;break-before:page;width:6in;height:9in;position:relative}
+.partimg img{position:absolute;left:.55in;top:.55in;width:4.9in;height:7.4in;object-fit:contain}
+.partimg .pcap{position:absolute;left:.55in;right:.55in;bottom:.45in;font:400 7pt/1.4 Sans;color:#4A4034;text-align:center}
+.partimg .pcap i{color:#1E1913}
+.part{page:part;break-before:page;position:relative;width:6in;height:9in;color:#F6EFE4}
+.part .prule{border-top-color:#F6EFE4!important}
+.part .plab{position:absolute;left:.55in;top:1.72in;font:500 7.4pt Sans;margin:0}
+.part .prule{position:absolute;left:.55in;right:.55in;top:1.95in;border-top:.6pt solid #1E1913}
+.part .pnum{position:absolute;left:.5in;top:2.1in;font:400 118pt/1 Disp;margin:0}
+.part h1{position:absolute;left:.55in;top:3.85in;width:4.4in;font-size:23pt;margin:0}
+.part .pintro{position:absolute;left:.55in;top:4.85in;width:3.9in;font-size:9.6pt;line-height:1.42}
+.part .pintro p{text-align:left;margin:0 0 .55em}
+
+/* capítulos */
+section.chap{page:chap;break-before:page}
+.chhead{position:relative;height:2.95in;margin-bottom:.15in}
+.chhead .chlab{position:absolute;left:0;top:.05in;font:500 7.4pt/1.4 Sans;margin:0}
+.chhead .chnum{position:absolute;right:-.08in;top:-.2in;font:400 132pt/1 Disp;color:#9A4A2C;margin:0}
+.chhead h1{position:absolute;left:0;bottom:0;width:3.7in;margin:0;font-size:23pt}
+.chhead.nonum{height:1.9in}
+section.front{page:chap;break-before:page}
+section.front h1{font:400 30pt/1.1 Serif;text-align:center;margin:.25in 0 .9em;letter-spacing:-.01em}
+section.front .ini{font:400 38pt/.8 Serif;float:left;margin:.04in .07in 0 0}
+
+/* níveis */
+section.level{page:chap;break-before:page}
+.lvhead{height:3.2in;position:relative}
+.lvhead .chlab{position:absolute;left:0;top:.05in;font:500 7.4pt Sans;margin:0}
+.lvhead .chnum{position:absolute;right:-.06in;top:-.2in;font:400 120pt/1 Disp;color:#9A4A2C;margin:0}
+.lvhead h1{position:absolute;left:0;bottom:0;margin:0;font-size:23pt}
+.lvlist{columns:2;column-gap:.22in;margin-top:.9em;border-top:.6pt solid #1E1913;padding-top:.1in}
+.lvlist p{font-size:8.8pt;line-height:1.3;text-align:left;margin:0 0 .3em;break-inside:avoid}
+.lvlist b{font:700 7.4pt Sans;display:inline-block;width:.36in}
+
+/* exercícios */
+.ex{break-before:page;break-inside:avoid}
+.ex.half{break-before:auto;height:3.5in;margin-top:0;overflow:hidden}
+.pair2{break-before:page}
+.pshead{border-bottom:.6pt solid #1E1913;padding-bottom:.06in;margin-bottom:.12in}
+.pshead .psl{font:400 13pt Disp;margin:0;white-space:nowrap}.pshead .pst{font:400 7.6pt Sans;color:#6E6253;margin:.03in 0 0;text-align:left}
+.pair2.first .ex.half{height:3.14in}
+.pair2 .ex.half + .ex.half{border-top:.6pt solid #CFC4B0;padding-top:.14in;margin-top:.14in}
+.exh{position:relative;height:.62in}
+.exh .code{position:absolute;left:0;top:0;font:400 30pt/1 Disp}
+.exh .lv{position:absolute;left:1.25in;top:.07in;font:500 7.2pt/1.4 Sans;color:#1E1913}
+.half .exh{height:.5in}.half .exh .code{font-size:23pt}.half .exh .lv{left:.95in;top:.02in}
+.ex h3{font:400 13pt/1.12 Disp;margin:0 0 .12in}
+.half h3{font-size:11pt;margin-bottom:.08in}
+.meta{display:flex;border-top:.6pt solid #1E1913;border-bottom:.6pt solid #1E1913;margin-bottom:.14in;font:400 7.2pt/1.35 Sans}
+.meta div{flex:1;padding:.05in 0}
+.meta div+div{border-left:.6pt solid #1E1913;padding-left:.08in}
+.meta b{display:block;font-weight:700;font-size:7.6pt;margin-top:.02in}
+.exart{height:4.3in;position:relative;margin-bottom:.14in}
+.exart .model{position:absolute;left:0;top:0;width:3.3in;height:4.3in;object-fit:cover}
+.exart .steps{position:absolute;left:3.42in;right:0;top:0}
+.exart .steps figure{margin:0 0 .09in;text-align:left}
+.exart .steps img{width:100%;height:1.17in;object-fit:cover;display:block}
+.exart .steps figcaption{margin-top:.03in;font-size:6.6pt;color:#1E1913}
+.exsolo{text-align:center;margin-bottom:.14in}
+.exsolo img{max-width:100%;max-height:4.7in}
+.half .exsolo img{max-height:1.75in}
+.half .exsolo{float:left;width:2.35in;margin:0 .18in .05in 0;text-align:left}.half .exsolo img{max-width:2.35in}
+.exfoot{display:flex;gap:.18in}
+.exfoot .desc{flex:1}
+.exfoot .desc p{font-size:9.6pt;line-height:1.4;margin:0 0 .4em}
+.exfoot .done{width:1.5in;border-left:1.3pt solid #9A4A2C;padding-left:.08in;font:400 7.4pt/1.4 Sans}
+.exfoot .done b{font-weight:700}
+.half .exfoot{display:block}.half .exfoot .done{width:auto;margin-top:.06in}
+.exref{font:400 7.2pt/1.4 Sans;color:#6E6253;margin-top:.12in;text-align:left}
+.exref a{border-bottom:.5pt solid #9A4A2C;color:#1E1913}
+
+/* catálogo */
+.iconimg{page:kraft;break-before:page;width:6in;height:9in;position:relative}
+.iconimg img{position:absolute;left:.45in;top:.45in;width:5.1in;height:8.1in;object-fit:contain}
+.iconinfo{page:bare;break-before:page;position:relative;height:7.5in}
+.iconinfo .ptop{display:flex;justify-content:space-between;border-bottom:.6pt solid #1E1913;padding-bottom:.06in;font:500 7.2pt Sans;margin-bottom:.9in}
+.iconinfo .no{font:400 36pt/1 Disp;margin:0 0 .1in}
+.iconinfo h2{font:italic 400 17pt/1.2 Serif;margin:0 0 .18in}
+.iconinfo .cc{font:400 7.8pt/1.45 Sans;color:#6E6253;text-align:left}
+.iconinfo .cl{font-size:10.6pt;line-height:1.45;margin:.2in 0}
+.ficha{width:100%;font:400 7.4pt Sans;margin-top:.15in}
+.iconinfo .balrow{margin-top:.35in;justify-content:flex-start;gap:.18in}
+.iconinfo .bal{width:1.5in}
+.ficha td{border-top:.6pt solid #A39682;border-bottom:none;padding:.05in 0}
+.ficha td:first-child{width:.95in;color:#6E6253}
+.catlist{}
+.cat{display:flex;gap:.16in;margin:0 0 .12in;break-inside:avoid;align-items:flex-start;border-top:.6pt solid #CFC4B0;padding-top:.1in}
+.cat .im{width:1.15in;flex:none;text-align:left}
+.cat img{max-width:1.15in;max-height:1.25in}
+.cat p{text-align:left;margin:0 0 .18em}
+.cat .ct{font:400 10.4pt/1.25 Serif}
+.cat .cn{font:400 9pt Disp;margin-right:.35em}
+.cat .cc{font:400 7.2pt/1.42 Sans;color:#6E6253}
+.cat .cf{font:400 6.8pt/1.4 Sans;color:#6E6253}
+.cat .cl{font-size:8.8pt;line-height:1.34}
+
+/* índice */
+.idx{columns:2;column-gap:.25in}
+.idx p{font-size:8.6pt;line-height:1.28;margin:0 0 .16em;text-align:left;break-inside:avoid}
+.idx b{font:700 7.2pt Sans;display:inline-block;width:.33in}
+.idx span{font:400 6.6pt Sans;color:#6E6253}
+.idx h4{column-span:none;margin:.8em 0 .3em}
+"""
+
+def chapter_head(s, part):
+    h = s['html']
+    m = re.match(r'\s*<h1>(.*?)</h1>', h, re.S)
+    title = m.group(1) if m else esc(s['title'])
+    body = h[m.end():] if m else h
+    n = re.match(r'(\d+)\.\s*(.*)', title)
+    plab = f'{part[1]} · {part[2]}' if part else 'Consulta'
+    short = re.sub(r':.*', '', n.group(2) if n else title)
+    rh = f'<span class="rh">{short}</span>'
+    if n:
+        head = f'<div class="chhead"><p class="chlab">{plab}<br/>Capítulo {n.group(1)}</p><p class="chnum">{n.group(1)}</p><h1>{n.group(2)}</h1></div>'
+    else:
+        head = f'<div class="chhead nonum"><p class="chlab">{plab}</p><h1>{title}</h1></div>'
+    return rh + head, body, (n.group(2) if n else title)
+
+def ex_pdf(x, chapnames, half=False):
+    cid, cname = CHAP[x['ch']]
+    lvn = {l[0]: (l[2], l[3]) for l in LEVELS}
+    tempo, _, mat = x['m'].partition(' · ')
+    ln, lname = lvn[x['lv']]
+    head = (f'<div class="exh"><span class="code">{x["id"].upper()}</span>'
+            f'<span class="lv">{ln} · {lname}<br/>{cname} · {esc(chapnames.get(cid, ""))}</span></div>'
+            f'<h3>{esc(x["t"])}</h3>')
+    meta = (f'<div class="meta"><div>Tempo<b>{esc(tempo)}</b></div><div>Material<b>{esc(mat)}</b></div>'
+            f'<div>Teoria<b><a href="#{cid}">{cname}</a></b></div></div>')
+    if x['id'] in STAGES and not half:
+        st = ''.join(f'<figure><img src="img/st-{x["id"]}-{k}.jpg" alt=""/><figcaption>{k} · {STN[k-1]}</figcaption></figure>' for k in (1, 2, 3))
+        art = f'<div class="exart"><img class="model" src="img/{x["id"]}.jpg" alt=""/><div class="steps">{st}</div></div>'
+    else:
+        art = f'<div class="exsolo"><img src="img/{x["id"]}.jpg" alt=""/></div>'
+    ref = ''
+    if x.get('ref') and x['ref'] in PL:
+        ref = f'<p class="exref">Obra para comparar: <a href="#cat-{x["ref"]}"><i>{esc(PL[x["ref"]]["t"])}</i></a>, no catálogo.</p>'
+    foot = (f'<div class="exfoot"><div class="desc"><p>{esc(x["d"])}</p></div>'
+            f'<div class="done"><b>Pronto quando</b> {esc(x["c"])}</div></div>')
+    return f'<section class="ex{" half" if half else ""}" id="ex-{x["id"]}">{head}{meta}{art}{foot}{ref}</section>'
+
+def level_pdf(code, lid, ln, name, intro, chapnames):
+    items = [x for x in EX if x['lv'] == code]
+    lst = ''.join(f'<p><b><a href="#ex-{x["id"]}">{x["id"].upper()}</a></b>{esc(x["t"])}</p>' for x in items)
+    out = [f'<section class="level" id="{lid}"><span class="rh">Exercícios · {ln}</span>'
+           f'<div class="lvhead"><p class="chlab">Parte III · Exercícios</p><p class="lvtag">{ln}</p><h1>{name}</h1></div>'
+           f'<p class="lead">{intro}</p><div class="lvlist">{lst}</div></section>']
+    if code == 'w':
+        for i in range(0, len(items), 2):
+            out.append('<div class="pair2">' + ''.join(ex_pdf(x, chapnames, half=True) for x in items[i:i + 2]) + '</div>')
+    else:
+        out += [ex_pdf(x, chapnames) for x in items]
+    return ''.join(out)
+
+def cat_numbers():
+    order = CAT_ORDER + [k for k in PL if k not in CAT_ORDER]
+    return {k: i for i, k in enumerate(order, 1)}, order
+
+
+def catalogue_pdf():
+    num, order = cat_numbers()
+    cards = []
+    for k in order:
+        p = PL[k]; f = FI.get(k, {})
+        fi = ' · '.join(v for v in [f.get('tec'), f.get('dim'), f.get('inst')] if v)
+        cards.append(f'<div class="cat" id="cat-{k}"><div class="im"><img src="img/{k}.jpg" alt="{esc(p["t"])}"/></div><div>'
+                     f'<p class="ct"><span class="cn">{num[k]}</span><i>{esc(p["t"])}</i></p><p class="cc">{esc(p["c"])}</p>'
+                     + (f'<p class="cf">{esc(fi)}</p>' if fi else '') + f'<p class="cl">{esc(p.get("l", ""))}</p></div></div>')
+    return ('<section class="chap" id="catalogo"><span class="rh">Catálogo das obras</span>'
+            '<div class="chhead nonum"><p class="chlab">Consulta</p><h1>Catálogo das obras</h1></div>'
+            '<p>As obras de Rembrandt citadas no livro e indicadas nos exercícios, em ordem aproximada de data, com a técnica, '
+            'as dimensões (altura por largura) e o acervo, quando disponíveis.</p>'
+            + ''.join(cards) + '</section>')
+
+def ex_index_pdf():
+    lvn = {l[0]: l[2] for l in LEVELS}
+    groups = [('t', 'Traços'), ('l', 'Luz'), ('c', 'Rostos'), ('a', 'Autorretratos'), ('b', 'Corpo'), ('p', 'Projeto')]
+    body = ''
+    for ch, nm in groups:
+        body += f'<h4>{nm}</h4>' + ''.join(f'<p><b><a href="#ex-{x["id"]}">{x["id"].upper()}</a></b>{esc(x["t"])} <span>{lvn[x["lv"]]}</span></p>'
+                                         for x in sorted(EX, key=lambda x: x['id']) if x['ch'] == ch)
+    return ('<section class="chap" id="indice"><span class="rh">Índice dos exercícios</span>'
+            '<div class="chhead nonum"><p class="chlab">Consulta</p><h1>Índice dos exercícios</h1></div>'
+            f'<div class="idx">{body}</div></section>')
+
+def pdf_html(S):
+    chapnames = {}
+    for s in S:
+        m = re.match(r'\s*<h1>\d+\.\s*(.*?)</h1>', s.get('html', ''))
+        if m:
+            chapnames[s['id']] = re.sub(r':.*', '', m.group(1))
+    yr = datetime.date.today().year
+    P = [f'<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><title>Rembrandt a Lápis</title>'
+         f'<meta name="author" content="Pedro Torres"><style>{font_faces()}{PDF_CSS}</style></head><body>']
+    P.append('<div class="cover"><div class="art"></div><div class="topsh"></div><div class="shade"></div>'
+             '<div class="ed">PEDRO TORRES</div><div class="t">Rembrandt a Lápis</div><div class="d">Luz e sombra, traço por traço</div>'
+             f'<div class="coll">{NEX} exercícios em quatro níveis</div></div>')
+    P.append('<div class="titlepage"><p class="t">Rembrandt a Lápis</p><p class="s">Luz e sombra, traço por traço</p><p class="a">PEDRO TORRES</p></div>')
+    P.append(f'<div class="copy"><p>© {yr} Pedro Torres. Todos os direitos reservados.</p>'
+             '<p>Nenhuma parte deste livro pode ser reproduzida sem autorização do autor, exceto as folhas de exercício destinadas ao uso pessoal do leitor.</p>'
+             '<p>Capa: <i>Autorretrato carrancudo</i>, 1630, gravura em metal (detalhe). National Gallery of Art, Washington.</p>'
+             f'<p>Texto composto em EB Garamond e Archivo. Primeira edição, {yr}.</p></div>')
+    # sumário
+    def row(label, href):
+        return f'<p class="r"><a href="#{href}">{label}</a><a class="pg" href="#{href}"></a></p>'
+    def blk(num, inner):
+        return f'<div class="blk"><div class="col">{num}</div><div class="body">{inner}</div></div>'
+    def head(pid):
+        return f'<p class="pt"><a href="#{pid}">{PARTS[pid][2]}</a><a class="pg" href="#{pid}"></a></p>'
+    caps = ''.join(row(t.replace('. ', '.&#8194;', 1), i) for i, t in ((x['id'], x['title']) for x in S if x['kind'] == 'chapter' and re.match(r'\d+\.', x['title'])))
+    lv = row('Nível 1&#8194;Fundamentos, no fim dos capítulos 2 a 6', 'primeiros-passos') + ''.join(row(f'{l[2]}&#8194;{l[3]}', l[1]) for l in LEVELS if l[0] != 'w')
+    front = ''.join(row(esc(x['title']), x['id']) for x in S if x['kind'] == 'front')
+    back = ''.join(row(esc(x['title']), x['id']) for x in S if x['kind'] == 'back')
+    toc = ['<div class="toc"><h1>Sumário</h1>', blk('', front),
+           blk('01', head('parte1') + row('Seis endereços', 'toc-caminho') + row('De Leiden ao Rozengracht', 'toc-periodos') + row('Quarenta anos em dez traços', 'toc-tracos')),
+           blk('02', head('parte2') + caps), blk('03', head('parte3') + lv), blk('', back), '</div>']
+    P.extend(toc)
+    part = None
+    vida_intro = ''
+    for s in S:
+        if s['id'] == 'vida':
+            m = re.match(r'\s*<h1>.*?</h1>(.*?)<!--MAPA-->', s['html'], re.S)
+            vida_intro = m.group(1).strip()
+    for s in S:
+        k = s['kind']
+        if k == 'part':
+            part = PARTS[s['id']]
+            n, lab, name, intro = part
+            if intro is None:
+                intro = vida_intro
+            art = PART_ART[s['id']]
+            P.append(f'<section class="partimg"><img src="img/{art}.jpg" alt="{esc(PL[art]["t"])}"/>'
+                     f'<p class="pcap"><i>{esc(PL[art]["t"])}</i>. {esc(PL[art]["c"])}</p></section>')
+            P.append(f'<section class="part" id="{s["id"]}" style="bookmark-level:1;bookmark-label:\'{lab} · {name}\'">'
+                     f'<p class="plab">{lab}</p><div class="prule"></div><p class="pnum">{n}</p><h1>{name}</h1><div class="pintro">{intro if intro.startswith('<p>') else '<p>' + intro + '</p>'}</div></section>')
+        elif k == 'front':
+            h = s['html']
+            m = re.match(r'\s*<h1>(.*?)</h1>', h, re.S)
+            body = h[m.end():]
+            if s['id'] == 'prefacio':
+                body = re.sub(r'<p>(\w)', r'<p><span class="ini">\1</span>', body, count=1)
+            P.append(f'<section class="front" id="{s["id"]}" style="bookmark-level:1;bookmark-label:\'{s["title"]}\'"><span class="rh">{s["title"]}</span><h1>{m.group(1)}</h1>{body}</section>')
+        elif k == 'level':
+            code, lid, ln, name, intro = next(l for l in LEVELS if l[1] == s['id'])
+            art = LEVEL_ART.get(code)
+            if art:
+                P.append(f'<section class="partimg"><img src="img/{art}.jpg" alt="{esc(PL[art]["t"])}"/>'
+                         f'<p class="pcap"><i>{esc(PL[art]["t"])}</i>. {esc(PL[art]["c"])}</p></section>')
+            P.append(level_pdf(code, lid, ln, name, intro, chapnames).replace(
+                f'<section class="level" id="{lid}">', f'<section class="level" id="{lid}" style="bookmark-level:2;bookmark-label:\'{ln} · {name}\'">', 1))
+        elif s['id'] == 'catalogo':
+            P.append(catalogue_pdf().replace('<section class="chap" id="catalogo">', '<section class="chap" id="catalogo" style="bookmark-level:1;bookmark-label:\'Catálogo das obras\'">', 1))
+        elif s['id'] == 'indice':
+            P.append(ex_index_pdf().replace('<section class="chap" id="indice">', '<section class="chap" id="indice" style="bookmark-level:1;bookmark-label:\'Índice dos exercícios\'">', 1))
+        elif s['id'] == 'vida':
+            body = s['html'][s['html'].index('<!--MAPA-->'):].replace('<h2>', '<h2 id="toc-periodos">', 1)
+            body = body.replace('<!--MAPA-->', '<!--MAPA--><span class="rh">Uma vida desenhando</span>', 1)
+            P.append(f'<section id="vida">{body}</section>')
+        else:
+            head, body, t = chapter_head(s, part if k == 'chapter' else None)
+            lvl = 2 if k == 'chapter' else 1
+            lab = s['title'].replace("'", "’")
+            P.append(f'<section class="chap" id="{s["id"]}" style="bookmark-level:{lvl};bookmark-label:\'{lab}\'">{head}{body}</section>')
+            fs = s.get('first_steps')
+            if fs:
+                for i in range(0, len(fs), 2):
+                    hd = ('<div class="pshead"><span class="rh">Primeiros passos</span><p class="psl">Primeiros passos</p>'
+                          f'<p class="pst">Exercícios curtos do {CHAP[fs[0]["ch"]][1].lower()}, de 8 a 20 minutos.</p></div>') if i == 0 else ''
+                    anchor = ' id="primeiros-passos"' if (i == 0 and fs[0]['ch'] == 't') else ''
+                    P.append(f'<div class="pair2{" first" if i == 0 else ""}"{anchor}>{hd}' + ''.join(ex_pdf(x, chapnames, half=True) for x in fs[i:i + 2]) + '</div>')
+            if s['id'] in END_ART:
+                P.append(bleed_html(END_ART[s['id']]))
+    P.append('<section class="fim"><img src="img/cottage.jpg" alt="Cabana entre árvores, desenho a pena de Rembrandt"/>'
+             '<p class="fq">“Aprenda a pôr bem em prática o que você já sabe. Assim, com o tempo, vai descobrir as coisas escondidas '
+             'que agora pergunta.”</p>'
+             '<p class="fs">Resposta de Rembrandt ao aluno Samuel van Hoogstraten, segundo o próprio Hoogstraten (1678)</p></section>')
+    P.append('<section class="contra"><p class="ct1">Rembrandt a Lápis</p><p class="ct2">Luz e sombra, traço por traço</p>'
+             '<p class="ct3">PEDRO TORRES</p></section>')
+    P.append('</body></html>')
+    html_ = '\n'.join(P).replace('<!--MAPA-->', map_html(True))
+    # cada capítulo ganha um nome de página próprio, para a primeira página sair sem rodapé
+    n = [0]
+    def pg(m):
+        n[0] += 1
+        return f'{m.group(1)} style="page:pg{n[0]};'
+    html_ = re.sub(r'(<section class="(?:chap|front|level)" id="[^"]+") style="', pg, html_)
+    extra = ''.join(f'@page :nth(1 of pg{i}){{@bottom-left{{content:none}}@bottom-right{{content:none}}}}' for i in range(1, n[0] + 1))
+    return html_.replace('</style>', extra + '</style>', 1)
+
+# ---------------------------------------------------------------- EPUB
+EPUB_FONTS = [('Serif', 'eb-garamond-latin-400-normal.ttf', 400, 'normal'), ('Serif', 'eb-garamond-latin-400-italic.ttf', 400, 'italic'),
+              ('Serif', 'eb-garamond-latin-600-normal.ttf', 600, 'normal'), ('Disp', 'archivo-black-latin-400-normal.woff', 400, 'normal'),
+              ('Sans', 'archivo-latin-400-normal.woff', 400, 'normal'), ('Sans', 'archivo-latin-700-normal.woff', 700, 'normal')]
+EPUB_CSS = """
+body{font-family:Serif,serif;line-height:1.5;margin:0;color:#1E1913}
+h1{font-family:Disp,sans-serif;font-weight:400;font-size:1.65em;line-height:1.12;margin:1.4em 0 .9em;page-break-before:always}
+h1 .lvnum{display:block;font-family:Sans,sans-serif;font-weight:700;font-size:.45em;color:#9A4A2C;margin-bottom:.4em}
+h2{font-family:Disp,sans-serif;font-weight:400;font-size:1.15em;line-height:1.2;margin:1.6em 0 .5em}
+h3{font-family:Sans,sans-serif;font-weight:700;font-size:1.05em;margin:.3em 0 .4em}
+h4{font-family:Sans,sans-serif;font-weight:700;font-size:.78em;margin:0 0 .4em}
+p{margin:0 0 .6em;text-indent:0}
+a{color:#1E1913}
+figure{display:block;margin:1.2em 0;text-align:center;page-break-inside:avoid}
+img{max-width:100%;height:auto}
+figcaption{font-family:Sans,sans-serif;font-size:.72em;line-height:1.45;color:#5F5446;text-align:left;margin-top:.4em}
+.vida{background:#EFE8DB;padding:.7em .9em .5em;margin:0 0 1.3em;font-size:.92em}
+.marks figure,.pair figure{margin:.8em 0}
+.kgrid{width:100%;border-collapse:collapse;margin:.4em 0 1.2em;page-break-inside:avoid}
+.kgrid td.kc{border:0;padding:.2em .4em .4em;vertical-align:top;text-align:center}
+.kgrid td.kc img{width:100%;max-width:9em}
+.kgrid p.kt{font-family:Sans,sans-serif;font-size:.68em;line-height:1.35;color:#5F5446;text-align:left;margin:.3em 0 0}
+.kgrid p.kt b{display:block;color:#1E1913}
+.practice{border-top:1px solid #1E1913;margin-top:1.6em;padding-top:.6em;font-size:.9em}
+.practice ul{list-style:none;padding:0}.practice a{font-family:Sans,sans-serif;font-weight:700;font-size:.85em;margin-right:.3em}
+.practice .lvl{font-family:Sans,sans-serif;color:#6E6253;font-size:.75em}
+.exnum{font-family:Disp,sans-serif;font-size:1.9em;line-height:1;margin:1.2em 0 .1em}
+section.ex{page-break-before:always}
+.ex h3{font-family:Disp,sans-serif;font-weight:400;font-size:1.2em}
+.exmeta{font-family:Sans,sans-serif;font-size:.78em;color:#5F5446;border-top:1px solid #1E1913;border-bottom:1px solid #1E1913;padding:.35em 0}
+.exref{font-family:Sans,sans-serif;font-size:.78em;color:#5F5446}
+.crit{border-left:3px solid #9A4A2C;padding-left:.6em}.crit .sc{font-family:Sans,sans-serif;font-weight:700;font-size:.85em}
+.lead{font-style:italic}.count{font-family:Sans,sans-serif;font-size:.75em;color:#6E6253}
+table{border-collapse:collapse;width:100%;font-size:.88em}th,td{border-bottom:1px solid #CFC4B0;padding:.3em .4em;text-align:left;vertical-align:top}
+th{font-family:Sans,sans-serif;font-size:.8em;border-bottom:1px solid #1E1913}
+dl.gloss dt{font-family:Sans,sans-serif;font-weight:700;font-size:.9em;margin-top:.7em}dl.gloss dd{margin-left:0}
+.sign{text-align:right;font-style:italic}
+.cat{margin:0 0 1.4em;page-break-inside:avoid;clear:both;overflow:hidden;border-top:1px solid #CFC4B0;padding-top:.6em}.cat img{display:block;width:34%;margin:0 0 .5em}.cat div{overflow:hidden}
+.cat p{margin:0 0 .2em}.cc,.cf{font-family:Sans,sans-serif;font-size:.75em;color:#5F5446}.cn{font-family:Disp,sans-serif;margin-right:.35em}
+.parttitle{margin-top:1.2em}.parttitle .pn{font-family:Disp,sans-serif;font-size:3.6em;line-height:1;color:#9A4A2C;margin:0}
+.parttitle h1{page-break-before:avoid;font-family:Sans,sans-serif;font-weight:700;font-size:.8em;margin:.6em 0 .2em}
+.parttitle h2{font-size:1.7em;margin:0 0 .6em}
+h2.ic img.icon{width:1.6em;height:1.6em;vertical-align:middle;margin-right:.4em}
+.balrow{text-align:center;margin:-.4em 0 1.2em}
+.bal{display:inline-block;width:30%;margin:.4em 1.2% .8em;vertical-align:top;text-align:left}
+.bal img{width:100%;border-radius:50%}
+.bal figcaption b{display:block;font-weight:700}
+.mapa{margin:0 0 1.2em;text-align:center}
+.end{border-top:1px solid #CFC4B0;padding:.4em 0;overflow:hidden}.end .en{float:left;font-family:Sans,sans-serif;font-weight:700;width:1.6em}
+.end p{margin:0 0 0 1.6em}.end .ey{font-family:Sans,sans-serif;font-size:.8em;color:#5F5446}
+.tr{border-top:1px solid #CFC4B0;padding:.6em 0;page-break-inside:avoid}.tr img{width:100%}
+.trt .ty{font-family:Disp,sans-serif;font-size:1.3em;margin:.3em 0 0}.trt .tp{font-family:Sans,sans-serif;font-size:.85em;font-weight:700;margin:0}
+.tracos .sub,.enderecos .sub{font-style:italic}
+ol.laws{list-style:none;padding:0}ol.laws li{border-top:1px solid #CFC4B0;padding:.5em 0}ol.laws li b{display:block;font-family:Sans,sans-serif}
+figure.diag img{width:100%}
+.titlepage{text-align:center;margin-top:25%}.titlepage .t{font-size:2.1em;line-height:1.1}.titlepage .s{font-style:italic;color:#5F5446}
+.titlepage .a{font-family:Sans,sans-serif;font-size:.8em;letter-spacing:.2em;margin-top:3em}
+"""
+
+def xhtml(fragment):
+    root = lhtml.fragment_fromstring(fragment, create_parent='div')
+    s = ''.join(etree.tostring(c, method='xml', encoding='unicode') for c in root)
+    if root.text and root.text.strip():
+        s = esc(root.text) + s
+    return s
+
+def page(title, body):
+    return ('<?xml version="1.0" encoding="utf-8"?>\n<!DOCTYPE html>\n<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" lang="pt-BR" xml:lang="pt-BR">'
+            f'<head><meta charset="utf-8"/><title>{esc(title)}</title><link rel="stylesheet" type="text/css" href="style.css"/></head><body>{body}</body></html>')
+
+def epub_assets():
+    """Imagens extras para leitores (Kindle): balões em PNG com círculo transparente e o mapa em PNG."""
+    from PIL import Image, ImageDraw
+    import glob, subprocess, tempfile
+    for f in glob.glob('img/det-*.jpg'):
+        out = f[:-4] + '.png'
+        if os.path.exists(out) and os.path.getmtime(out) >= os.path.getmtime(f):
+            continue
+        im = Image.open(f).convert('RGB').resize((360, 360), Image.LANCZOS)
+        m = Image.new('L', (1440, 1440), 0); ImageDraw.Draw(m).ellipse((0, 0, 1439, 1439), fill=255)
+        im.putalpha(m.resize((360, 360), Image.LANCZOS)); im.save(out, optimize=True)
+
+def kindle_html(body):
+    """Simplifica o HTML para leitores: sem imagens lado a lado por porcentagem, sem SVG, sem páginas do PDF."""
+    body = re.sub(r'<img class="icon"[^>]*?/?>', '', body)
+    body = body.replace('img/mapa-caminho.svg', 'img/mapa-caminho.png')
+    body = re.sub(r' · p\. <a class="pg" href="[^"]*"></a>(–<a class="pg" href="[^"]*"></a>)?', '', body)
+    def bal(m):
+        cells = re.findall(r'<figure class="bal"><img src="img/(det-[^"]+)\.jpg" alt="([^"]*)"/><figcaption>(.*?)</figcaption></figure>', m.group(0), re.S)
+        tds = ''.join(f'<td class="kc"><img src="img/{k}.png" alt="{a}"/><p class="kt">{c}</p></td>' for k, a, c in cells)
+        return f'<table class="kgrid"><tr>{tds}</tr></table>'
+    body = re.sub(r'<div class="balrow[^"]*">.*?</div>', bal, body, flags=re.S)
+    def steps(m):
+        figs = re.findall(r'<figure><img src="([^"]+)" alt="([^"]*)"/?>\s*<figcaption>(.*?)</figcaption></figure>', m.group(0), re.S)
+        rows = ''
+        for i in range(0, len(figs), 2):
+            rows += '<tr>' + ''.join(f'<td class="kc"><img src="{s_}" alt="{a}"/><p class="kt">{c}</p></td>' for s_, a, c in figs[i:i + 2]) + '</tr>'
+        return f'<table class="kgrid">{rows}</table>'
+    body = re.sub(r'<div class="steps4[^"]*">.*?</div>', steps, body, flags=re.S)
+    return body
+
+def build_epub(S, out, small=None):
+    files = []  # (name, title, body, kind)
+    files.append(('titulo.xhtml', 'Folha de rosto', '<div class="titlepage"><p class="t">Rembrandt a Lápis</p><p class="s">Luz e sombra, traço por traço</p><p class="a">PEDRO TORRES</p></div>'
+                  f'<p style="margin-top:3em;font-size:.8em;color:#666">© {datetime.date.today().year} Pedro Torres. Todos os direitos reservados.</p>', 'front'))
+    idfile = {}
+    for i, s in enumerate(S):
+        name = f'{i:02d}-{s["id"]}.xhtml'
+        if s['kind'] == 'part':
+            img = f'img/{PART_ART[s["id"]]}.jpg'
+            n_, lab_, name_, intro_ = PARTS[s['id']]
+            it = '' if intro_ is None else (intro_ if intro_.startswith('<p>') else f'<p>{intro_}</p>')
+            body = (f'<section id="{s["id"]}"><figure><img src="{img}" alt=""/></figure><div class="parttitle"><p class="pn">{n_}</p>'
+                    f'<h1>{lab_}</h1><h2>{name_}</h2>{it}</div></section>')
+        else:
+            body = f'<section id="{s["id"]}">{s["html"].replace("<!--MAPA-->", map_html(False))}{s.get("epub_extra", "")}</section>'
+        body = kindle_html(body)
+        files.append((name, s['title'], body, s['kind']))
+        for m in re.finditer(r'id="([^"]+)"', body):
+            idfile[m.group(1)] = name
+    def fixlinks(body):
+        return re.sub(r'href="#([^"]+)"', lambda m: f'href="{idfile.get(m.group(1), "")}#{m.group(1)}"', body)
+    imgs = set()
+    fonts_added = []
+    bid = 'urn:uuid:' + str(uuid.uuid5(uuid.NAMESPACE_URL, 'rembrandt-a-lapis-pedro-torres'))
+    with zipfile.ZipFile(out, 'w') as z:
+        z.writestr(zipfile.ZipInfo('mimetype'), 'application/epub+zip', compress_type=zipfile.ZIP_STORED)
+        z.writestr('META-INF/container.xml', '<?xml version="1.0"?><container version="1.0" xmlns="urn:oasis:names:tc:opendocument:xmlns:container"><rootfiles><rootfile full-path="OEBPS/content.opf" media-type="application/oebps-package+xml"/></rootfiles></container>', compress_type=zipfile.ZIP_DEFLATED)
+        fcss = ''
+        from fontTools.ttLib import TTFont
+        import io
+        for fam, f, w, st in EPUB_FONTS:
+            ft = TTFont(os.path.join(FONTDIR, f)); ft.flavor = None
+            buf = io.BytesIO(); ft.save(buf)
+            name = re.sub(r'\.woff$', '.ttf', f)
+            z.writestr('OEBPS/fonts/' + name, buf.getvalue(), compress_type=zipfile.ZIP_DEFLATED)
+            fonts_added.append(name)
+            fcss += f'@font-face{{font-family:"{fam}";src:url("fonts/{name}");font-weight:{w};font-style:{st}}}\n'
+        z.writestr('OEBPS/style.css', fcss + EPUB_CSS, compress_type=zipfile.ZIP_DEFLATED)
+        z.writestr('OEBPS/cover.xhtml', page('Capa', '<figure style="margin:0;text-align:center"><img src="img/cover.jpg" alt="Capa" style="max-height:100%"/></figure>'), compress_type=zipfile.ZIP_DEFLATED)
+        for name, title, body, kind in files:
+            x = xhtml(fixlinks(body))
+            imgs.update(re.findall(r'src="(img/[^"]+)"', x))
+            z.writestr('OEBPS/' + name, page(title, x), compress_type=zipfile.ZIP_DEFLATED)
+        imgs.add('img/cover.jpg')
+        for im in sorted(imgs):
+            if im.endswith('.png'):
+                z.write(im, 'OEBPS/' + im, compress_type=zipfile.ZIP_STORED)
+            elif im.endswith('.svg'):
+                z.write(im, 'OEBPS/' + im, compress_type=zipfile.ZIP_DEFLATED)
+            elif small:
+                from PIL import Image
+                import io
+                pic = Image.open(im).convert('RGB')
+                if im != 'img/cover.jpg':
+                    pic.thumbnail((small, small))
+                buf = io.BytesIO(); pic.save(buf, 'JPEG', quality=68, optimize=True, progressive=True)
+                z.writestr('OEBPS/' + im, buf.getvalue(), compress_type=zipfile.ZIP_STORED)
+            else:
+                z.write(im, 'OEBPS/' + im, compress_type=zipfile.ZIP_STORED)
+        nav = ['<nav epub:type="toc" id="toc"><h1>Sumário</h1><ol>']
+        for name, title, body, kind in files[1:]:
+            nav.append(f'<li><a href="{name}">{esc(title)}</a></li>')
+        nav.append('</ol></nav><nav epub:type="landmarks" hidden=""><ol><li><a epub:type="cover" href="cover.xhtml">Capa</a></li>'
+                   f'<li><a epub:type="toc" href="nav.xhtml">Sumário</a></li><li><a epub:type="bodymatter" href="{files[1][0]}">Início</a></li></ol></nav>')
+        z.writestr('OEBPS/nav.xhtml', page('Sumário', ''.join(nav)), compress_type=zipfile.ZIP_DEFLATED)
+        man = ['<item id="css" href="style.css" media-type="text/css"/>', '<item id="nav" href="nav.xhtml" media-type="application/xhtml+xml" properties="nav"/>',
+               '<item id="coverpage" href="cover.xhtml" media-type="application/xhtml+xml"/>']
+        spine = ['<itemref idref="coverpage" linear="yes"/>', '<itemref idref="nav"/>']
+        for i, (name, title, body, kind) in enumerate(files):
+            man.append(f'<item id="p{i}" href="{name}" media-type="application/xhtml+xml"/>')
+            spine.insert(-1 if i == 0 else len(spine), f'<itemref idref="p{i}"/>')
+        for k, f in enumerate(fonts_added):
+            man.append(f'<item id="f{k}" href="fonts/{f}" media-type="font/ttf"/>')
+        for k, im in enumerate(sorted(imgs)):
+            props = ' properties="cover-image"' if im == 'img/cover.jpg' else ''
+            mt = 'image/svg+xml' if im.endswith('.svg') else 'image/png' if im.endswith('.png') else 'image/jpeg'
+            man.append(f'<item id="i{k}" href="{im}" media-type="{mt}"{props}/>')
+        now = datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')
+        opf = ('<?xml version="1.0" encoding="utf-8"?><package xmlns="http://www.idpf.org/2007/opf" version="3.0" unique-identifier="bid" xml:lang="pt-BR">'
+               '<metadata xmlns:dc="http://purl.org/dc/elements/1.1/">'
+               f'<dc:identifier id="bid">{bid}</dc:identifier><dc:title>Rembrandt a Lápis</dc:title><dc:creator>Pedro Torres</dc:creator>'
+               '<dc:language>pt-BR</dc:language><dc:subject>Desenho</dc:subject>'
+               f'<dc:description>Um curso de desenho a lápis na linguagem de Rembrandt: traços, luz e sombra, rostos, autorretratos e figuras, com {NEX} exercícios em quatro níveis.</dc:description>'
+               f'<meta property="dcterms:modified">{now}</meta><meta name="cover" content="i{sorted(imgs).index("img/cover.jpg")}"/></metadata>'
+               f'<manifest>{"".join(man)}</manifest><spine>{"".join(spine)}</spine></package>')
+        z.writestr('OEBPS/content.opf', opf, compress_type=zipfile.ZIP_DEFLATED)
+
+COVER_EBOOK = """<!doctype html><html><head><meta charset="utf-8"><style>{fonts}
+@page{{size:6in 9.6in;margin:0}}*{{margin:0;padding:0}}
+.c{{position:relative;width:6in;height:9.6in;background:#2A2119;color:#FBF8F1;overflow:hidden}}
+.art{{position:absolute;inset:0;background:url("img/cover-art.jpg") 50% 0/cover no-repeat}}
+.topsh{{position:absolute;left:0;right:0;top:0;height:1.2in;background:linear-gradient(to bottom,rgba(20,15,10,.35),rgba(20,15,10,0))}}
+.shade{{position:absolute;left:0;right:0;bottom:0;height:5.4in;background:linear-gradient(to bottom,rgba(20,15,10,0),rgba(20,15,10,.55) 45%,rgba(20,15,10,.7))}}
+.ed{{position:absolute;top:.42in;left:0;right:0;text-align:center;font:500 11.5pt Sans;letter-spacing:.2em}}
+.t{{position:absolute;left:0;right:0;top:6.05in;text-align:center;font:400 51pt/1 Serif;letter-spacing:-.012em;white-space:nowrap}}
+.d{{position:absolute;left:0;right:0;top:6.9in;text-align:center;font:italic 400 16pt Serif}}
+.coll{{position:absolute;bottom:.5in;left:0;right:0;text-align:center;font:italic 400 11.5pt Serif}}
+</style></head><body><div class="c"><div class="art"></div><div class="topsh"></div><div class="shade"></div>
+<div class="ed">PEDRO TORRES</div><div class="t">Rembrandt a Lápis</div><div class="d">Luz e sombra, traço por traço</div>
+<div class="coll">{nex} exercícios em quatro níveis</div></div></body></html>"""
+
+def make_cover():
+    """Capa do e-book em 1600 × 2560 px (proporção pedida pela Amazon)."""
+    import subprocess, tempfile
+    from weasyprint import HTML
+    from PIL import Image
+    with tempfile.TemporaryDirectory() as td:
+        HTML(string=COVER_EBOOK.format(fonts=font_faces(), nex=NEX), base_url=ROOT).write_pdf(f'{td}/c.pdf')
+        subprocess.run(['pdftoppm', '-r', '266.67', '-png', '-singlefile', f'{td}/c.pdf', f'{td}/c'], check=True)
+        im = Image.open(f'{td}/c.png').convert('RGB').resize((1600, 2560), Image.LANCZOS)
+    im.save('img/cover.jpg', quality=92)
+    im.save('out/capa-ebook-1600x2560.jpg', quality=92)
+
+if __name__ == '__main__':
+    import sys
+    S = build_sections()
+    S += [catalogue(), CREDITS]
+    os.makedirs('out', exist_ok=True)
+    args = sys.argv[1:] or ['cover', 'pdf']  # EPUB só com: python3 build.py epub
+    make_details(); make_tracos()
+    if 'cover' in args:
+        make_cover(); print('capa ok')
+    if 'pdf' in args:
+        open('out/livro.html', 'w').write(pdf_html(S))
+        from weasyprint import HTML
+        doc = HTML('out/livro.html', base_url=ROOT).render()
+        print('páginas', len(doc.pages))
+        doc.write_pdf('out/Rembrandt-a-Lapis.pdf')
+    if 'epub' in args:
+        epub_assets()
+        build_epub(S, 'out/Rembrandt-a-Lapis.epub')
+        build_epub(S, 'out/Rembrandt-a-Lapis-loja-Amazon.epub', small=800)
+        print('epub ok')
