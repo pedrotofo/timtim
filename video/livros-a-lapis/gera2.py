@@ -53,6 +53,6 @@ out = out / np.max(np.abs(out)) * .7
 w = wave.open('sfx3.wav', 'wb'); w.setnchannels(1); w.setsampwidth(2); w.setframerate(SR); w.writeframes((out * 32767).astype(np.int16).tobytes()); w.close()
 v = ['-c:v', 'libx264', '-preset', 'slow', '-crf', '17', '-pix_fmt', 'yuv420p', '-colorspace', 'bt709', '-color_primaries', 'bt709', '-color_trc', 'bt709', '-movflags', '+faststart']
 fr = ['-framerate', '30', '-i', 'quadros3/%04d.png']
-subprocess.run(['ffmpeg', '-v', 'error', '-y', *fr, '-i', 'sfx3.wav', *v, '-c:a', 'aac', '-b:a', '192k', '-shortest', 'livros-a-lapis-v3-9x16.mp4'], check=True)
-subprocess.run(['ffmpeg', '-v', 'error', '-y', *fr, *v, 'livros-a-lapis-v3-9x16-sem-som.mp4'], check=True)
+subprocess.run(['ffmpeg', '-v', 'error', '-y', *fr, '-i', 'sfx3.wav', *v, '-c:a', 'aac', '-b:a', '192k', '-shortest', 'livros-a-lapis-v4-9x16.mp4'], check=True)
+subprocess.run(['ffmpeg', '-v', 'error', '-y', *fr, *v, 'livros-a-lapis-v4-9x16-sem-som.mp4'], check=True)
 print('pronto')

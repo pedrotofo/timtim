@@ -25,7 +25,7 @@ html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:var(--b
 .front{transform:translateZ(30px);border-radius:2px 6px 6px 2px}
 .back{transform:rotateY(180deg) translateZ(30px);border-radius:6px 2px 2px 6px}
 .face .dk{position:absolute;inset:0;background:#000;opacity:0}
-.face .gl{position:absolute;inset:-10%;background:linear-gradient(105deg,rgba(255,255,255,0) 42%,rgba(255,255,255,.28) 50%,rgba(255,255,255,0) 58%);
+.face .gl{display:none;position:absolute;inset:-10%;background:linear-gradient(105deg,rgba(255,255,255,0) 42%,rgba(255,255,255,.28) 50%,rgba(255,255,255,0) 58%);
   background-size:300% 100%;background-position:var(--gx,120%) 0;mix-blend-mode:screen}
 .face .hinge{position:absolute;left:0;top:0;bottom:0;width:26px;background:linear-gradient(90deg,rgba(0,0,0,.35),rgba(0,0,0,0))}
 .spine{width:60px;height:800px;left:-30px;transform:rotateY(-90deg);display:flex;align-items:center;justify-content:center}
@@ -57,7 +57,6 @@ html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:var(--b
 </style></head>
 <body>
 <img class="bgi" id="bgA" alt=""><img class="bgi" id="bgB" alt=""><div class="shade"></div><div class="dots"></div><div class="wave" id="wave"></div>
-<div id="author">PEDRO TORRES</div>
 <div id="scene">
   <div class="shadow" id="shH"></div>
   <!-- livro herói: frente e verso trocam enquanto escondidos -->
@@ -178,7 +177,7 @@ window.render=t=>{
     rw.style.color=act?'#f1ede4':(fin?'#c9c6bd':'#6d7078');});
   $('list').style.opacity=clamp((t-.35)/.4); $('list').style.transform=`translateY(${(1-out(clamp((t-.35)/.5)))*30}px)`;
   // autor no fechamento
-  const ka=out(sub(t,[8.8,9.15])); $('author').style.opacity=ka; $('author').style.transform=`translateY(${(1-ka)*24}px)`;
+  
   // onda verde a cada ✓
   const hits=[SWAP1,SWAP2,T.fin].filter(h=>t>=h), h=hits.length?hits[hits.length-1]:-9, wk=(t-h)/1.6;
   $('wave').style.opacity=wk>=0&&wk<1?(1-wk*wk).toFixed(3):0; $('wave').style.setProperty('--r',(io(clamp(wk))*1600+420).toFixed(0)+'px');
