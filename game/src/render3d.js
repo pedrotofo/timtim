@@ -680,11 +680,11 @@ R.frame = (rdt) => {
       thiefM.userData.ph += (run ? 18 : 0) * rdt;
       setAnim(thiefM, n, h, flip);
       // rindo: o corpo sacode em soluços curtos ("he-he-he") e a cabeça balança
-      const lt = run ? 0 : q.t - 1.0, giggle = run ? 0 : Math.abs(Math.sin(lt * 15)) * Math.max(0, 1 - lt / 1.6);
+      const lt = run ? 0 : q.t - 1.0, giggle = run ? 0 : Math.abs(Math.sin(lt * 15)) * Math.max(0, 1 - lt / 2.4);
       const sy = run ? 1 + Math.sin(thiefM.userData.ph * 2) * 0.05 : 1 + giggle * 0.07;
       thiefM.scale.x *= 2 - sy; thiefM.scale.y *= sy;
       const y = Y(GROUND) - 4 + (run ? Math.abs(Math.sin(thiefM.userData.ph)) * 10 : 0);
-      thiefM.position.set(q.x, y, 1); thiefM.rotation.z = run ? 0.06 * -q.dir : Math.sin(lt * 15) * 0.03 * Math.max(0, 1 - lt / 1.6);
+      thiefM.position.set(q.x, y, 1); thiefM.rotation.z = run ? 0.06 * -q.dir : Math.sin(lt * 15) * 0.03 * Math.max(0, 1 - lt / 2.4);
       legs(thiefM, thiefM.userData.ph, run ? 0.07 : 0, { f: -1, tailX: Math.sin(time * 14) * 0.03, tailY: 0, headX: 0, headY: giggle * 0.03, breathe: 0, shear: run ? -0.04 * q.dir : 0 });
       if (run && Math.random() < 0.8) spawn({ x: q.x - q.dir * 60, y: GROUND - 4, vx: -q.dir * (40 + Math.random() * 60), vy: -30 - Math.random() * 60, g: -40, life: 0.6, r: 4 + Math.random() * 3, grow: 8, color: 0xfff2c8 });
       // o macaco pendurado pela boca, balançando com a corrida
@@ -748,7 +748,7 @@ R.frame = (rdt) => {
   let zt = 1, fx = cx, fy = LOOK_Y + up * 0.9;
   if (S.cine && S.cine.type === 'boss') { const t = S.cine.t, k = ease(Math.min(1, t / 0.7)) * (1 - ease(Math.max(0, Math.min(1, (t - 2.8) / 0.6))));
     zt = 1 + 0.34 * k; fx = cx + (ARENA_X + 760 - cx) * k; fy = LOOK_Y - 95 * k; }
-  else if (S.cine && S.cine.type === 'steal') { const t = S.cine.t, k = ease(Math.min(1, t / 0.8)) * (1 - ease(Math.max(0, Math.min(1, (t - 3.1) / 0.8))));
+  else if (S.cine && S.cine.type === 'steal') { const t = S.cine.t, k = ease(Math.min(1, t / 0.8)) * (1 - ease(Math.max(0, Math.min(1, (t - 3.8) / 0.8))));
     zt = 1 + 0.16 * k; fx = cx + (p.x + p.w / 2 + 170 - cx) * k; fy = LOOK_Y - 40 * k; }
   else if (S.mode === 'winning' || S.mode === 'win') { zt = 1.2; fx = cx + (p.x + p.w / 2 - cx) * 0.6; fy = LOOK_Y - 60; }
   const kk = Math.min(1, rdt * 4);

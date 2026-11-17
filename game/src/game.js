@@ -111,7 +111,7 @@ reset();
 
 // a fase abre com o roubo: o Timtim fica parado e o Furtão passa correndo com o Macaco Fedido na boca,
 // para na frente dele, ri e foge para a direita (para onde a fase vai). Só então o controle é liberado.
-const STEAL = { inT: 1.0, laughT: 2.5, dur: 3.9 };
+const STEAL = { inT: 1.0, laughT: 3.3, dur: 4.6 }; // a risada gravada dura ~2,2 s: ele fica parado rindo até ela acabar
 TT.start = () => { reset(); S.mode = 'play'; S.thief = { x: -260, dir: 1, state: 'run', t: 0, laughed: false };
   S.cine = { type: 'steal', t: 0, dur: STEAL.dur }; emit('start'); emit('stealIntro'); };
 TT.retry = () => {
