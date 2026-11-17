@@ -4,7 +4,7 @@ import glob, os
 import numpy as np
 from PIL import Image
 TARGET = np.array([246, 240, 226], float)
-CROP = {'s02': .07, 'f02': .055, 's05': .05, 'l01': .05, 's01': .05, 'f05': .04}
+CROP = {'s02': .07, 'f02': .055, 's05': .05, 'l01': .05, 's01': .05, 'f05': .04, 'r06': .06, 'c01': .05, 'r01': .05, 'r03': .05}
 TONED = {'s02'}      # papel cinza: não clarear
 def fix(im, crop=.035, toned=False):
     im = im.convert('RGB')

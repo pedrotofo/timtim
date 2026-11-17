@@ -1,0 +1,316 @@
+{
+ "n1_pillows": {
+  "Title": "Self-portrait, Study of a Hand and a Pillow (recto); Six Studies of Pillows (verso)",
+  "Date": "1493 date QS:P571,+1493-00-00T00:00:00Z/9",
+  "Medium": "Pen and brown ink",
+  "Dimensions": "10 15/16 x 7 15/16 in. (27.8 x 20.2 cm)",
+  "Collection": "Metropolitan Museum of Art",
+  "Current location": "Robert Lehman Collection",
+  "Accession number": "1975.1.862",
+  "Artist": "Albrecht Dürer (1471–1528)"
+ },
+ "n1_cats": {
+  "Artist": "Leonardo da Vinci (1452–1519)"
+ },
+ "n1_boats": {
+  "Title": "Deutsch: Fischerboote am Strand von Saintes-Maries English: Fishing Boats on the beach at Saintes-Maries",
+  "Object type": "drawing",
+  "Date": "June 1888 date QS:P571,+1888-06-00T00:00:00Z/10",
+  "Medium": "Deutsch: Rohrfeder English: Reed-pen",
+  "Dimensions": "height: 39.5 cm (15.5 in); width: 53.5 cm (21 in) dimensions QS:P2048,39.5U174728 dimensions QS:P2049,53.5U174728",
+  "Collection": "Private collection institution QS:P195,somevalue,P3831,Q768717",
+  "Current location": "Deutsch: ?",
+  "Artist": "Vincent van Gogh (1853–1890)"
+ },
+ "n1_paganini": {
+  "Title": "English: The Violinist Niccolò Paganini",
+  "Date": "1819 date QS:P571,+1819-00-00T00:00:00Z/9",
+  "Medium": "pencil medium QS:P186,Q14674",
+  "Dimensions": "height: 298 mm (11.73 in); width: 218 mm (8.58 in) dimensions QS:P2048,298U174789 dimensions QS:P2049,218U174789",
+  "Collection": "Louvre Museum ( Inventory )",
+  "Artist": "Jean-Auguste-Dominique Ingres (1780–1867)"
+ },
+ "n1_edith": {
+  "Date": "1917",
+  "Author": "Egon Schiele (1890–1918)"
+ },
+ "n2_durer13": {
+  "Title": "Self-portrait at Thirteen label QS:Les,\"autorretrato de Durero\" label QS:Lfr,\"Autoportrait à l'âge de 13 ans\" label QS:Lcy,\"Hunanbortread\" label QS:Lpt,\"Autorretrato aos 13 anos\" label QS:Len-gb,\"Self-portrait\" label QS:",
+  "Object type": "drawing",
+  "Date": "1484",
+  "Medium": "silverpoint and wove paper",
+  "Dimensions": "height: 27.3 cm (10.7 in) ; width: 19.5 cm (7.6 in) dimensions QS:P2048,+27.3U174728 dimensions QS:P2049,+19.5U174728",
+  "Collection": "Albertina",
+  "Current location": "Graphische Sammlung, Vienna",
+  "Accession number": "4839 ( Albertina )",
+  "Artist": "Albrecht Dürer (1471–1528)"
+ },
+ "n2_more": {
+  "Date": "1526–27",
+  "Author": "Hans Holbein the Younger (1497/1498–1543)"
+ },
+ "n2_hands": {
+  "Title": "A study of a woman's hands label QS:Lro,\"Studiu de mâini\" label QS:Lfr,\"étude de mains de femme\" label QS:Luk,\"Етюд рук\" label QS:Lnl,\"Studie van vrouwen handen\" label QS:Lru,\"Этюд рук\" label QS:Lde,\"Studie von Frauenhän",
+  "Object type": "drawing / study",
+  "Date": "circa 1490",
+  "Medium": "Silverpoint and white highlights on pink prepared paper",
+  "Dimensions": "height: 21.4 cm (8.4 in) ; width: 15 cm (5.9 in) dimensions QS:P2048,+21.4U174728 dimensions QS:P2049,+15U174728",
+  "Collection": "Royal Collection",
+  "Current location": "Royal Collection",
+  "Accession number": "RCIN 912558 ( Royal Collection )",
+  "Artist": "Leonardo da Vinci (1452–1519)"
+ },
+ "n2_worn": {
+  "Title": "Old Man with his Head in his Hands (\"At Eternity's Gate\")",
+  "Object type": "lithograph print",
+  "Date": "1882 date QS:P571,+1882-00-00T00:00:00Z/9",
+  "Medium": "Transfer lithography, printed in black ink, crayon, brush and autographic ink (source VGM letter 288 n.13 ).",
+  "Dimensions": "Printed surface height: 55.5 cm (21.8 in); width: 36.5 cm (14.3 in) dimensions QS:P2048,55.5U174728 dimensions QS:P2049,36.5U174728",
+  "Collection": "Various collections. This example (? source David Brooks vggallery.com) Tehran Museum of Contemporary Art",
+  "Artist": "Vincent van Gogh (1853–1890)"
+ },
+ "n2_dancer": {
+  "Title": "Dancer Adjusting Her Slipper",
+  "Date": "1873 date QS:P571,+1873-00-00T00:00:00Z/9",
+  "Medium": "Graphite heightened with black and white chalk on pink wove paper (now faded); squared for transfer",
+  "Dimensions": "Sheet: 13 x 9 5/8 in. (33 x 24.4cm)",
+  "Collection": "Metropolitan Museum of Art",
+  "Current location": "Drawings and Prints",
+  "Accession number": "29.100.941",
+  "Artist": "Edgar Degas (1834–1917)"
+ },
+ "n3_drapery": {
+  "Title": "English: Drapery for a seated figure",
+  "Date": "second half of 15 th century date QS:P571,+1450-00-00T00:00:00Z/7",
+  "Dimensions": "height: 319 mm (12.55 in); width: 218 mm (8.58 in) dimensions QS:P2048,319U174789 dimensions QS:P2049,218U174789",
+  "Collection": "Louvre Museum ( Inventory )",
+  "Artist": "Leonardo da Vinci (1452–1519)"
+ },
+ "n3_hands": {
+  "Title": "Praying Hands label QS:Lde,\"Betende Hände\" label QS:Len,\"Praying Hands\"",
+  "Object type": "drawing / study / work of art",
+  "Date": "1508 date QS:P571,+1508-00-00T00:00:00Z/9",
+  "Medium": "brush , gray India ink , white India ink and gray wash on blue paper",
+  "Dimensions": "height: 29.1 cm (11.4 in); width: 19.7 cm (7.7 in) dimensions QS:P2048,29.1U174728 dimensions QS:P2049,19.7U174728",
+  "Collection": "Albertina",
+  "Accession number": "3113",
+  "Artist": "Albrecht Dürer (1471–1528)"
+ },
+ "n3_ideal": {
+  "Artist": "Michelangelo (1475–1564)"
+ },
+ "n3_sleeping": {
+  "Date": "16 April 2015, 19:44:06",
+  "Author": "Txllxt TxllxT"
+ },
+ "n3_yeats": {
+  "Date": "1908",
+  "Author": "John Singer Sargent (1856–1925)"
+ },
+ "n4_mother": {
+  "Title": "Barbara Dürer, née Holper / Barbara Dürer, the artist's mother label QS:Lde,\"Barbara Dürer, geb. Holper / Barbara Dürer, die Mutter des Künstlers\" label QS:Len,\"Barbara Dürer, née Holper / Barbara Dürer, the artist's mot",
+  "Object type": "drawing object_type QS:P31,Q93184",
+  "Date": "early Spring 1514 date QS:P571,+1514-00-00T00:00:00Z/9,P4241,Q40720559",
+  "Medium": "charcoal on paper medium QS:P186,Q1424515;P186,Q11472,P518,Q861259",
+  "Dimensions": "height: 42.2 cm (16.6 in); width: 30.6 cm (12 in) dimensions QS:P2048,42.2U174728 dimensions QS:P2049,30.6U174728",
+  "Collection": "Kupferstichkabinett Berlin",
+  "Accession number": "KdZ 22",
+  "Artist": "Albrecht Dürer (1471–1528)"
+ },
+ "n4_girl": {
+  "Title": "Head of a girl",
+  "Object type": "drawing",
+  "Date": "circa 1483 date QS:P571,+1483-00-00T00:00:00Z/9,P1480,Q5727902",
+  "Medium": "silverpoint and white highlights on prepared paper medium QS:P186,Q11472",
+  "Dimensions": "height: 181 mm (7.12 in); width: 159 mm (6.25 in) dimensions QS:P2048,181U174789 dimensions QS:P2049,159U174789",
+  "Collection": "Royal Library of Turin",
+  "Accession number": "15572r ( Royal Library of Turin )",
+  "Artist": "Leonardo da Vinci (1452–1519)"
+ },
+ "n4_holbein_lady": {
+  "Title": "An unidentified woman label QS:Len,\"An unidentified woman\"",
+  "Date": "circa 1532 date QS:P571,+1532-00-00T00:00:00Z/9,P1480,Q5727902 –43",
+  "Medium": "Black and coloured chalks, and metalpoint on pale pink prepared paper",
+  "Dimensions": "height: 27.7 cm (10.9 in); width: 19.7 cm (7.7 in) dimensions QS:P2048,27.7U174728 dimensions QS:P2049,19.7U174728",
+  "Collection": "Royal Collection",
+  "Accession number": "RCIN 912218",
+  "Artist": "Hans Holbein the Younger (1497/1498–1543)",
+  "Author": "Unspecified"
+ },
+ "n4_schiele_man": {
+  "Title": "Portrait of the painter Max Oppenheimer label QS:Len,\"Portrait of the painter Max Oppenheimer\" label QS:Lde,\"Bildnis des Malers Max Oppenheimer\"",
+  "Object type": "painting object_type QS:P31,Q3305213",
+  "Date": "1910 date QS:P571,+1910-00-00T00:00:00Z/9",
+  "Medium": "painting",
+  "Artist": "Egon Schiele (1890–1918)"
+ },
+ "n4_sibyl": {
+  "Title": "Studies for the Libyan Sibyl (recto); Studies for the Libyan Sibyl and a small Sketch for a Seated Figure (verso)",
+  "Date": "circa 1510 date QS:P571,+1510-00-00T00:00:00Z/9,P1480,Q5727902 –11",
+  "Medium": "Red chalk, with small accents of white chalk on the left shoulder of the figure in the main study (recto); soft black chalk, or less probably charcoal (verso)",
+  "Dimensions": "Sheet: 11 3/8 x 8 7/16 in. (28.9 x 21.4 cm)",
+  "Collection": "Metropolitan Museum of Art",
+  "Current location": "Drawings and Prints",
+  "Accession number": "24.197.2",
+  "Artist": "Michelangelo (1475–1564)"
+ },
+ "n4_dancers": {
+  "Date": "circa 1885 date QS:P,+1885-00-00T00:00:00Z/9,P1480,Q5727902",
+  "Author": "Edgar Degas (1834–1917)"
+ },
+ "n4_digger": {
+  "Date": "1 January 1881 date QS:P571,+1881-01-01T00:00:00Z/11",
+  "Artist": "Vincent van Gogh (1853–1890)"
+ },
+ "n5_arno": {
+  "Title": "Italian: Paesaggio con fiume Arno Landscape title QS:P1476,it:\"Paesaggio con fiume \" label QS:Lit,\"Paesaggio con fiume \" label QS:Lro,\"Peisaj din Valea râului Arno\" label QS:Lca,\"Paisatge de la vall de l'Arno\" label QS:L",
+  "Object type": "drawing",
+  "Date": "1473 date QS:P571,+1473-00-00T00:00:00Z/9",
+  "Medium": "drawing",
+  "Dimensions": "height: 19 cm (7.4 in); width: 28.5 cm (11.2 in) dimensions QS:P2048,19U174728 dimensions QS:P2049,28.5U174728",
+  "Collection": "Uffizi Gallery",
+  "Accession number": "436E and 8P ( Gabinetto dei disegni e delle stampe )",
+  "Artist": "Leonardo da Vinci (1452–1519)"
+ },
+ "n5_rembrandt_land": {
+  "Title": "Cottage among Trees",
+  "Date": "circa 1650 date QS:P571,+1650-00-00T00:00:00Z/9,P1480,Q5727902",
+  "Medium": "Pen and brown ink, brush and brown wash, on paper washed with brown",
+  "Dimensions": "6 3/4 x 10 7/8 in. (17.1 x 27.6 cm); vertical strip 6 3/4 x 1 1/4 in. (17.2 x 3.2 cm) added by artist to the sheet at right.",
+  "Collection": "Metropolitan Museum of Art",
+  "Current location": "Drawings and Prints",
+  "Accession number": "29.100.939",
+  "Artist": "Rembrandt (1606–1669)"
+ },
+ "n5_crau": {
+  "Title": "Deutsch: Die Ebene \"La Crau\" bei Arles, von Montmajour aus gesehen English: The plain \"La Crau\" near Arles, seen from Montmajour",
+  "Object type": "drawing",
+  "Date": "July 1888 date QS:P571,+1888-07-00T00:00:00Z/10",
+  "Medium": "pencil , pen and ink",
+  "Dimensions": "height: 48.6 cm (19.1 in); width: 60.4 cm (23.7 in) dimensions QS:P2048,48.6U174728 dimensions QS:P2049,60.4U174728",
+  "Collection": "Van Gogh Museum",
+  "Current location": "Amsterdam",
+  "Artist": "Vincent van Gogh (1853–1890)"
+ },
+ "n5_stamaty": {
+  "Title": "French: La Famille Stamaty title QS:P1476,fr:\"La Famille Stamaty\" label QS:Lfr,\"La Famille Stamaty\"",
+  "Date": "1818 date QS:P571,+1818-00-00T00:00:00Z/9",
+  "Medium": "Mine de plomb",
+  "Dimensions": "46.3 × 37.1 cm (18.2 × 14.6 in)",
+  "Collection": "Louvre Museum ( Inventory )",
+  "Current location": "Cabinet des dessins, Fonds des dessins et miniatures, Grand format",
+  "Accession number": "RF 4114, Recto",
+  "Artist": "Jean-Auguste-Dominique Ingres (1780–1867)"
+ },
+ "n5_madamex": {
+  "Title": "English: Study of Mme Gautreau",
+  "Object type": "painting object_type QS:P31,Q3305213",
+  "Date": "circa 1884 date QS:P571,+1884-00-00T00:00:00Z/9,P1480,Q5727902",
+  "Medium": "oil on canvas medium QS:P186,Q296955;P186,Q12321255,P518,Q861259",
+  "Dimensions": "height: 206.4 cm (81.2 in); width: 107.9 cm (42.4 in) dimensions QS:P2048,206.4U174728 dimensions QS:P2049,107.9U174728",
+  "Collection": "Tate Britain",
+  "Accession number": "N04102 ( Tate ) NG4102 ( National Gallery )",
+  "Artist": "John Singer Sargent (1856–1925)"
+ },
+ "g_leonardo": {
+  "Title": "presumed Self-portrait",
+  "Object type": "drawing",
+  "Date": "circa 1512",
+  "Medium": "sanguine and sanguine on paper",
+  "Dimensions": "height: 333 mm (13.1 in) ; width: 213 mm (8.3 in) dimensions QS:P2048,+333U174789 dimensions QS:P2049,+213U174789",
+  "Collection": "Royal Library of Turin",
+  "Accession number": "15571 ( Royal Library of Turin )",
+  "Artist": "Leonardo da Vinci (1452–1519)"
+ },
+ "g_durer": {
+  "Title": "German: Selbstbildnis im Pelzrock Self-Portrait with Fur-Trimmed Robe title QS:P1476,de:\"Selbstbildnis im Pelzrock \" label QS:Lde,\"Selbstbildnis im Pelzrock \" label QS:Les,\"Autorretrato de Durero\" label QS:Leu,\"Autoerret",
+  "Object type": "painting",
+  "Date": "1500",
+  "Medium": "oil on lime panel",
+  "Dimensions": "height: 67.1 cm (26.4 in) ; width: 48.9 cm (19.2 in) dimensions QS:P2048,+67.1U174728 dimensions QS:P2049,+48.9U174728",
+  "Collection": "Alte Pinakothek",
+  "Current location": "1 st floor Alte Pinakothek, upper floor, gallery I",
+  "Accession number": "537 ( Bavarian State Painting Collections )",
+  "Artist": "Albrecht Dürer (1471–1528)"
+ },
+ "g_michelangelo": {
+  "Title": "Michelangelo Buonarroti (1475–1564) title QS:P1476,en:\"Michelangelo Buonarroti (1475–1564) \" label QS:Len,\"Michelangelo Buonarroti (1475–1564) \" label QS:Lit,\"Michelangelo Buonarroti\" label QS:Lde,\"Michelangelo Buonarrot",
+  "Object type": "painting",
+  "Date": "circa 1545",
+  "Medium": "oil on panel medium QS:P186,Q296955;P186,Q106857709,P518,Q861259",
+  "Dimensions": "height: 88.3 cm (34.7 in) ; width: 64.1 cm (25.2 in) dimensions QS:P2048,+88.3U174728 dimensions QS:P2049,+64.1U174728",
+  "Collection": "Metropolitan Museum of Art",
+  "Accession number": "1977.384.1 ( Metropolitan Museum of Art )",
+  "Artist": "Attributed to Daniele da Volterra (1509–1566)",
+  "Author": "Trujillo"
+ },
+ "g_holbein": {
+  "Title": "Deutsch: Selbstporträt",
+  "Object type": "painting",
+  "Date": "1542–43",
+  "Medium": "Deutsch: Buntstiftzeichnung",
+  "Dimensions": "height: 23 cm (9 in); width: 18 cm (7 in) dimensions QS:P2048,23U174728 dimensions QS:P2049,18U174728",
+  "Collection": "Uffizi Gallery",
+  "Accession number": "1630 ( Uffizi Gallery )",
+  "Artist": "Hans Holbein the Younger (1497/1498–1543)"
+ },
+ "g_rembrandt": {
+  "Title": "Self-Portrait Drawing at a Window",
+  "Date": "1648 date QS:P571,+1648-00-00T00:00:00Z/9",
+  "Medium": "etching, drypoint, and engraving on laid paper",
+  "Dimensions": "sheet (trimmed within plate mark): 15.7 x 12.9 cm (6 3/16 x 5 1/16 in.)",
+  "Collection": "National Gallery of Art",
+  "Accession number": "1994.63.1",
+  "Artist": "Rembrandt van Rijn"
+ },
+ "g_ingres": {
+  "Title": "Self-Portrait",
+  "Date": "1822 date QS:P571,+1822-00-00T00:00:00Z/9",
+  "Medium": "graphite on wove paper",
+  "Dimensions": "overall: 20.2 x 16.1 cm (7 15/16 x 6 5/16 in.)",
+  "Collection": "National Gallery of Art",
+  "Accession number": "1995.47.51",
+  "Artist": "Jean-Auguste-Dominique Ingres (1780–1867)",
+  "Author": "National Gallery of Art"
+ },
+ "g_degas": {
+  "Title": "Self-portrait",
+  "Object type": "painting",
+  "Date": "1854 / 1855",
+  "Medium": "oil on canvas and on paper",
+  "Dimensions": "height: 81.3 cm (32 in) ; width: 64.5 cm (25.3 in) dimensions QS:P2048,+81.3U174728 dimensions QS:P2049,+64.5U174728",
+  "Collection": "Musée d'Orsay",
+  "Accession number": "RF 2649 ( Musée d'Orsay )",
+  "Artist": "Edgar Degas (1834–1917)"
+ },
+ "g_vangogh": {
+  "Title": "Self-portrait",
+  "Object type": "painting",
+  "Date": "Spring 1887 date QS:P571,+1887-00-00T00:00:00Z/9,P4241,Q40720559",
+  "Medium": "oil on cardboard medium QS:P186,Q296955;P186,Q389782,P518,Q861259",
+  "Dimensions": "height: 42 cm (16.5 in); width: 33.7 cm (13.2 in) dimensions QS:P2048,42U174728 dimensions QS:P2049,33.7U174728",
+  "Collection": "Art Institute of Chicago",
+  "Accession number": "1954.326 ( Art Institute of Chicago )",
+  "Artist": "Vincent van Gogh (1853–1890)"
+ },
+ "g_sargent": {
+  "Title": "Self Portrait title QS:P1476,en:\"Self Portrait \" label QS:Len,\"Self Portrait \" label QS:Lfr,\"Autoportrait\" label QS:Lde,\"Selbstporträt\"",
+  "Object type": "painting",
+  "Date": "1886",
+  "Medium": "oil on canvas medium QS:P186,Q296955;P186,Q12321255,P518,Q861259",
+  "Dimensions": "height: 34.5 cm (13.5 in) ; width: 29.7 cm (11.6 in) dimensions QS:P2048,+34.5U174728 dimensions QS:P2049,+29.7U174728",
+  "Collection": "Aberdeen Archives, Gallery and Museums collections",
+  "Accession number": "ABDAG003876 ( Aberdeen Archives, Gallery and Museums collections )",
+  "Artist": "John Singer Sargent (1856–1925)",
+  "Author": ""
+ },
+ "g_schiele": {
+  "Title": "Self-Portrait",
+  "Date": "1912 date QS:P571,+1912-00-00T00:00:00Z/9",
+  "Medium": "watercolor over graphite on light brown wove japan paper; partial sketch of face in graphite on verso",
+  "Dimensions": "overall: 34.9 x 25.4 cm (13 3/4 x 10 in.)",
+  "Collection": "National Gallery of Art",
+  "Accession number": "1997.127.1",
+  "Artist": "Egon Schiele"
+ }
+}

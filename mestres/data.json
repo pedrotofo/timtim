@@ -1,0 +1,1087 @@
+{
+"ex": [
+{
+"id": "L01",
+"lv": 1,
+"aula": "cap1",
+"t": "Linhas que respiram",
+"m": "15 min · Lápis 2B e 6B",
+"d": "Encha uma folha com fileiras de marcas: linhas longas que vão de finas a grossas e voltam a afinar só pela pressão, curvas lentas e rápidas, hachuras que se aproximam, círculos feitos num gesto só. Use a pegada por cima nas linhas longas.",
+"c": "nenhuma linha longa tem emenda e dá para ver nelas três pressões diferentes.",
+"ref": null,
+"img": "l01",
+"st": false
+},
+{
+"id": "L02",
+"lv": 1,
+"aula": "cap2",
+"t": "Seis vezes o mesmo travesseiro",
+"m": "25 min · Lápis 2B",
+"d": "Pegue um travesseiro ou almofada e desenhe-o seis vezes na mesma folha, cada vez numa posição: amassado, dobrado, em pé, apertado pela mão. Primeiro o contorno inteiro, depois as dobras em ganchos curtos, depois poucas linhas curvas que seguem o volume.",
+"c": "cada almofada parece macia e as linhas de dentro seguem a curva do pano.",
+"ref": "n1_pillows",
+"img": "l02",
+"st": false
+},
+{
+"id": "L03",
+"lv": 1,
+"aula": "cap2",
+"t": "Cópia: um travesseiro de Dürer",
+"m": "20 min · Lápis 2B",
+"d": "Copie uma das almofadas da folha de Dürer. Comece pelo contorno de fora, depois as dobras maiores, por último as linhas curtas que dão o volume. Não sombreie.",
+"c": "as linhas curvas da cópia vão na mesma direção das do original.",
+"ref": "n1_pillows",
+"img": "cp-n1_pillows",
+"st": false
+},
+{
+"id": "L04",
+"lv": 1,
+"aula": "cap3",
+"t": "Uma folha de gatos",
+"m": "20 min · Lápis 2B",
+"d": "Desenhe um gato ou um cachorro de casa enquanto ele se mexe, ou a partir de vídeos pausados. Dez ou doze desenhos pequenos na mesma folha, cada um em menos de um minuto. Comece sempre pela linha das costas.",
+"c": "cada bicho tem uma linha das costas clara e nenhum tem detalhe nos olhos.",
+"ref": "n1_cats",
+"img": "l03",
+"st": false
+},
+{
+"id": "L05",
+"lv": 1,
+"aula": "cap3",
+"t": "Cópia: os gatos de Leonardo",
+"m": "20 min · Lápis 2B",
+"d": "Escolha três gatos da folha de Leonardo e copie cada um em dois minutos, sem apagar. Se errar, faça a linha certa por cima.",
+"c": "dá para ver as linhas refeitas e mesmo assim o gesto está certo.",
+"ref": "n1_cats",
+"img": "cp-n1_cats",
+"st": false
+},
+{
+"id": "L06",
+"lv": 1,
+"aula": "cap4",
+"t": "Uma cena feita de marcas",
+"m": "30 min · Lápis 6B",
+"d": "Desenhe uma cena simples ao ar livre, ou de uma foto: barcos, carros estacionados, uma praça. Contorno firme para os objetos e, para tudo o mais, uma marca diferente: pontos no chão, traços deitados na água ou no asfalto, ganchos no céu.",
+"c": "cada área da cena tem a sua marca e nenhuma marca foi esfumada.",
+"ref": "n1_boats",
+"img": "l04",
+"st": false
+},
+{
+"id": "L07",
+"lv": 1,
+"aula": "cap4",
+"t": "Cópia: as marcas de Van Gogh",
+"m": "25 min · Lápis 6B",
+"d": "Copie um trecho do desenho dos barcos, marca por marca. Mantenha o tamanho e o espaço entre os pontos e os traços.",
+"c": "a cópia tem a mesma quantidade de tipos de marca que o original.",
+"ref": "n1_boats",
+"img": "cp-n1_boats",
+"st": false
+},
+{
+"id": "L08",
+"lv": 1,
+"aula": "cap5",
+"t": "Corpo em contorno, rosto acabado",
+"m": "40 min · Lápis 2B",
+"d": "Desenhe uma pessoa de pé, de corpo inteiro. A roupa em linhas leves e rápidas, um contorno só e poucas dobras. Gaste três quartos do tempo no rosto, com tom suave e as feições exatas.",
+"c": "o rosto é a única parte com sombra e o resto é linha clara.",
+"ref": "n1_paganini",
+"img": "l05",
+"st": false
+},
+{
+"id": "L09",
+"lv": 1,
+"aula": "cap5",
+"t": "Cópia: o rosto de Paganini",
+"m": "30 min · Lápis 2B",
+"d": "Copie o rosto do retrato de Ingres no tamanho do original. Primeiro o contorno do rosto e do cabelo, depois os olhos e a boca, por último o tom muito leve nas sombras.",
+"c": "o tom do rosto é tão leve que a cópia parece feita só de linhas.",
+"ref": "n1_paganini",
+"img": "cp-n1_paganini",
+"st": false
+},
+{
+"id": "L10",
+"lv": 1,
+"aula": "cap6",
+"t": "O contorno anguloso",
+"m": "20 min · Lápis 2B ou 6B",
+"d": "Desenhe alguém sentado numa cadeira, vestido, com os joelhos e os cotovelos dobrados. Uma linha só, sem tirar o lápis do papel por muito tempo, com cantos onde a forma dobra. Nenhuma sombra.",
+"c": "os cotovelos e os joelhos são cantos e não curvas.",
+"ref": "n1_edith",
+"img": "l06",
+"st": false
+},
+{
+"id": "L11",
+"lv": 1,
+"aula": "cap6",
+"t": "Cópia: o contorno de Schiele",
+"m": "20 min · Lápis 2B",
+"d": "Copie o contorno do desenho de Schiele numa linha contínua. Olhe mais para o original do que para a sua folha.",
+"c": "a cópia tem os mesmos cantos do original, no mesmo lugar.",
+"ref": "n1_edith",
+"img": "cp-n1_edith",
+"st": false
+},
+{
+"id": "F01",
+"lv": 2,
+"aula": "cap7",
+"t": "Autorretrato com medidas",
+"m": "40 min · Lápis 2B",
+"d": "Desenhe o seu rosto no espelho, de três quartos. Antes de qualquer feição, trace o eixo do rosto e as linhas dos olhos, da base do nariz e da boca. Confira cada medida com o lápis esticado.",
+"c": "os olhos estão na metade da altura da cabeça e as linhas de construção continuam visíveis.",
+"ref": "n2_durer13",
+"img": "f01",
+"st": false
+},
+{
+"id": "F02",
+"lv": 2,
+"aula": "cap7",
+"t": "Cópia: Dürer aos treze anos",
+"m": "40 min · Lápis 2B",
+"d": "Copie o autorretrato de Dürer. Antes de começar, divida a cabeça do original em metades e terços com uma régua e faça as mesmas divisões na sua folha.",
+"c": "os olhos, o nariz e a boca da cópia caem nas mesmas divisões do original.",
+"ref": "n2_durer13",
+"img": "cp-n2_durer13",
+"st": false
+},
+{
+"id": "F03",
+"lv": 2,
+"aula": "cap8",
+"t": "Cabeça de três quartos",
+"m": "40 min · Lápis 2B",
+"d": "Desenhe a cabeça de alguém virada de três quartos. Faça a forma da cabeça como uma caixa arredondada, marque o eixo que passa pelo meio da testa, do nariz e do queixo, e só então ponha as feições.",
+"c": "o olho mais distante é menor e fica mais perto da borda do rosto.",
+"ref": "n2_more",
+"img": "f02",
+"st": false
+},
+{
+"id": "F04",
+"lv": 2,
+"aula": "cap8",
+"t": "Cópia: Thomas More",
+"m": "45 min · Lápis 2B",
+"d": "Copie a cabeça de Thomas More. Comece pelo contorno de fora, de uma vez, e só depois as feições. Deixe a roupa em linha.",
+"c": "o contorno da cabeça foi feito antes de qualquer feição.",
+"ref": "n2_more",
+"img": "cp-n2_more",
+"st": false
+},
+{
+"id": "F05",
+"lv": 2,
+"aula": "cap9",
+"t": "Mãos",
+"m": "30 min · Lápis 2B",
+"d": "Desenhe a sua mão esquerda quatro vezes: apoiada, segurando uma xícara, aberta e com os dedos dobrados. Meça antes: o dedo médio tem quase o comprimento da palma.",
+"c": "em todas as quatro o dedo médio tem quase o comprimento da palma.",
+"ref": "n2_hands",
+"img": "f03",
+"st": false
+},
+{
+"id": "F06",
+"lv": 2,
+"aula": "cap9",
+"t": "Cópia: as mãos de Leonardo",
+"m": "30 min · Lápis 2B",
+"d": "Copie a mão de cima do estudo de Leonardo. Faça a hachura descer da esquerda para a direita, como ele fazia.",
+"c": "toda a hachura da cópia está na mesma direção.",
+"ref": "n2_hands",
+"img": "cp-n2_hands",
+"st": false
+},
+{
+"id": "F07",
+"lv": 2,
+"aula": "cap10",
+"t": "Uma pessoa sentada",
+"m": "30 min · Lápis 6B",
+"d": "Desenhe alguém sentado e inclinado para a frente. Comece pela linha que vai da cabeça ao quadril, depois as coxas, depois as pernas até o chão. Os pés apoiados de verdade.",
+"c": "a figura pesa na cadeira e os pés estão no chão.",
+"ref": "n2_worn",
+"img": "f04",
+"st": true
+},
+{
+"id": "F08",
+"lv": 2,
+"aula": "cap10",
+"t": "Cópia: o velho de Van Gogh",
+"m": "30 min · Lápis 6B",
+"d": "Copie a figura inteira. Comece pelo bloco do corpo curvado e só depois a cabeça entre as mãos.",
+"c": "o corpo curvado e a cadeira estão no mesmo ângulo do original.",
+"ref": "n2_worn",
+"img": "cp-n2_worn",
+"st": false
+},
+{
+"id": "F09",
+"lv": 2,
+"aula": "cap11",
+"t": "Uma pessoa se abaixando",
+"m": "20 min · Lápis 2B",
+"d": "Desenhe alguém se abaixando para amarrar o sapato ou pegar alguma coisa. Uma linha comprida para as costas e outra para a perna de apoio. Refaça as duas até acertar, sem apagar.",
+"c": "a linha das costas e a da perna de apoio estão claras e a figura não cai.",
+"ref": "n2_dancer",
+"img": "f05",
+"st": false
+},
+{
+"id": "F10",
+"lv": 2,
+"aula": "cap11",
+"t": "Cópia: a bailarina de Degas",
+"m": "25 min · Lápis 2B",
+"d": "Copie a bailarina. Comece pela curva das costas e pelo braço estendido até o pé. Repasse as linhas que achar erradas, como ele fez.",
+"c": "a cópia tem mais de uma linha em alguns contornos, e a postura é a mesma.",
+"ref": "n2_dancer",
+"img": "cp-n2_dancer",
+"st": false
+},
+{
+"id": "S01",
+"lv": 3,
+"aula": "cap12",
+"t": "Um pano",
+"m": "45 min · Lápis 6B e esfuminho",
+"d": "Jogue um pano grosso sobre uma cadeira ou sobre os seus joelhos, com uma luz de um lado só. Desenhe só o pano: primeiro as dobras grandes, depois o tom médio, depois os escuros no fundo das dobras.",
+"c": "as luzes do pano são papel e o escuro mais forte está no fundo das dobras.",
+"ref": "n3_drapery",
+"img": "s01",
+"st": false
+},
+{
+"id": "S02",
+"lv": 3,
+"aula": "cap12",
+"t": "Cópia: o panejamento de Leonardo",
+"m": "45 min · Lápis 6B e esfuminho",
+"d": "Copie um trecho do panejamento, com o lápis deitado. Ponha primeiro o tom médio no pano inteiro e só depois os escuros e as luzes, com a borracha moldável.",
+"c": "a cópia tem pelo menos cinco tons diferentes, do papel ao quase preto.",
+"ref": "n3_drapery",
+"img": "cp-n3_drapery",
+"st": false
+},
+{
+"id": "S03",
+"lv": 3,
+"aula": "cap13",
+"t": "Mãos em papel cinza",
+"m": "40 min · Lápis 2B e lápis branco",
+"d": "Num papel cinza ou bege, desenhe as suas mãos juntas. O papel é o tom médio. Escureça as sombras com o grafite e ponha as luzes com o lápis branco, só nos lugares mais claros.",
+"c": "o branco aparece só em poucos lugares e o papel cinza continua sendo a maior parte.",
+"ref": "n3_hands",
+"img": "s02",
+"st": false
+},
+{
+"id": "S04",
+"lv": 3,
+"aula": "cap13",
+"t": "Cópia: as mãos em oração",
+"m": "45 min · Lápis 2B e lápis branco",
+"d": "Copie as mãos de Dürer em papel cinza. Primeiro o contorno, depois as sombras com hachura que segue a forma, por último os brancos.",
+"c": "a hachura da cópia contorna os dedos como no original.",
+"ref": "n3_hands",
+"img": "cp-n3_hands",
+"st": false
+},
+{
+"id": "S05",
+"lv": 3,
+"aula": "cap14",
+"t": "Uma cabeça modelada",
+"m": "50 min · Lápis 2B e 6B",
+"d": "Desenhe uma cabeça com um lenço ou capuz, iluminada de um lado. Construa a sombra com hachura fina e cerrada, camada sobre camada, até ela virar tom.",
+"c": "o lado da sombra é escuro mas ainda dá para ver o que está dentro dele.",
+"ref": "n3_ideal",
+"img": "s03",
+"st": false
+},
+{
+"id": "S06",
+"lv": 3,
+"aula": "cap14",
+"t": "Cópia: a cabeça de Michelangelo",
+"m": "50 min · Lápis 2B e 6B",
+"d": "Copie o perfil da cabeça de Michelangelo, do alto da testa ao queixo, e a sombra da nuca. Faça a sombra em camadas de hachura, sem esfumar.",
+"c": "a sombra do rosto foi feita só com hachura.",
+"ref": "n3_ideal",
+"img": "cp-n3_ideal",
+"st": false
+},
+{
+"id": "S07",
+"lv": 3,
+"aula": "cap15",
+"t": "Três tons em mancha",
+"m": "20 min · Lápis 6B",
+"d": "Desenhe alguém dormindo ou lendo numa poltrona, só com o lápis deitado. Três tons: o papel, um cinza médio e poucos escuros. Nenhuma linha de contorno.",
+"c": "o desenho não tem nenhuma linha fechada e a pessoa está lá.",
+"ref": "n3_sleeping",
+"img": "s04",
+"st": false
+},
+{
+"id": "S08",
+"lv": 3,
+"aula": "cap15",
+"t": "Cópia: a mulher dormindo de Rembrandt",
+"m": "20 min · Lápis 6B",
+"d": "Copie o desenho de Rembrandt em dez minutos, com o lápis deitado. Depois faça de novo, em cinco.",
+"c": "a segunda cópia tem menos marcas que a primeira e diz o mesmo.",
+"ref": "n3_sleeping",
+"img": "cp-n3_sleeping",
+"st": false
+},
+{
+"id": "S09",
+"lv": 3,
+"aula": "cap16",
+"t": "Retrato em massas",
+"m": "45 min · Lápis 6B, esfuminho e borracha moldável",
+"d": "Desenhe um rosto pensando em manchas e não em linhas: o cabelo, a sombra do rosto e a roupa são três massas escuras. Espalhe, depois tire as luzes com a borracha moldável.",
+"c": "de longe o retrato funciona só com as três massas.",
+"ref": "n3_yeats",
+"img": "s05",
+"st": false
+},
+{
+"id": "S10",
+"lv": 3,
+"aula": "cap16",
+"t": "Cópia: o retrato de Sargent",
+"m": "40 min · Lápis 6B e esfuminho",
+"d": "Copie a cabeça do retrato a carvão. Comece pelas massas escuras do cabelo e da sombra, depois os planos do rosto. Os detalhes por último.",
+"c": "as massas da cópia têm o mesmo desenho das do original.",
+"ref": "n3_yeats",
+"img": "cp-n3_yeats",
+"st": false
+},
+{
+"id": "R01",
+"lv": 4,
+"aula": "cap17",
+"t": "Um rosto sem embelezar",
+"m": "50 min · Lápis 2B e 6B",
+"d": "Desenhe uma pessoa mais velha da sua família ou de uma foto. Procure os ossos: a órbita, a maçã, o queixo. Desenhe as rugas que existem e não as que você imagina.",
+"c": "dá para reconhecer a pessoa e nada foi alisado.",
+"ref": "n4_mother",
+"img": "r01",
+"st": false
+},
+{
+"id": "R02",
+"lv": 4,
+"aula": "cap17",
+"t": "Cópia: a mãe de Dürer",
+"m": "50 min · Lápis 6B",
+"d": "Copie a cabeça da mãe de Dürer, começando pelos ossos do rosto e pelo lenço. Linhas firmes, sem hesitar.",
+"c": "os ossos do rosto na cópia estão tão marcados quanto no original.",
+"ref": "n4_mother",
+"img": "cp-n4_mother",
+"st": false
+},
+{
+"id": "R03",
+"lv": 4,
+"aula": "cap18",
+"t": "Olhando por cima do ombro",
+"m": "40 min · Lápis 2B",
+"d": "Desenhe alguém virando a cabeça para trás, de três quartos. Hachura fina e paralela na sombra, numa direção só. O ombro e o cabelo em poucas linhas soltas.",
+"c": "o rosto é a parte mais acabada e o ombro é quase só uma linha.",
+"ref": "n4_girl",
+"img": "r02",
+"st": false
+},
+{
+"id": "R04",
+"lv": 4,
+"aula": "cap18",
+"t": "Cópia: a cabeça de moça de Leonardo",
+"m": "45 min · Lápis 2B",
+"d": "Copie o rosto do estudo de Leonardo, com pressão muito leve, como se fosse ponta de prata. Toda a hachura na mesma direção.",
+"c": "a cópia está clara e a hachura não muda de direção.",
+"ref": "n4_girl",
+"img": "cp-n4_girl",
+"st": false
+},
+{
+"id": "R05",
+"lv": 4,
+"aula": "cap19",
+"t": "Retrato com touca e gola",
+"m": "40 min · Lápis 2B",
+"d": "Desenhe alguém de três quartos com chapéu, touca, gorro ou gola alta. O rosto acabado, o chapéu e a roupa só em contorno.",
+"c": "o rosto está acabado e o chapéu e a roupa estão em linha.",
+"ref": "n4_holbein_lady",
+"img": "r03",
+"st": false
+},
+{
+"id": "R06",
+"lv": 4,
+"aula": "cap19",
+"t": "Cópia: o retrato de Holbein",
+"m": "45 min · Lápis 2B",
+"d": "Copie o rosto do retrato de Holbein. Comece pelo contorno de fora e pela linha dos olhos. Sombra leve só no lado escuro.",
+"c": "a sombra da cópia está toda de um lado só.",
+"ref": "n4_holbein_lady",
+"img": "cp-n4_holbein_lady",
+"st": false
+},
+{
+"id": "R07",
+"lv": 4,
+"aula": "cap20",
+"t": "Um retrato com caráter",
+"m": "25 min · Lápis 2B",
+"d": "Desenhe meio corpo de alguém numa pose tensa: braços cruzados, ombros levantados, mãos grandes. Exagere os ângulos. Nenhuma sombra.",
+"c": "a pose parece tensa e as mãos estão maiores do que o normal.",
+"ref": "n4_schiele_man",
+"img": "r04",
+"st": false
+},
+{
+"id": "R08",
+"lv": 4,
+"aula": "cap20",
+"t": "Cópia: o retrato de Schiele",
+"m": "25 min · Lápis 2B",
+"d": "Copie o retrato de Schiele em linha contínua, prestando atenção aos ângulos das mãos e dos ombros.",
+"c": "os ângulos da cópia são tão fortes quanto os do original.",
+"ref": "n4_schiele_man",
+"img": "cp-n4_schiele_man",
+"st": false
+},
+{
+"id": "R09",
+"lv": 4,
+"aula": "cap21",
+"t": "Costas e braços",
+"m": "45 min · Lápis 6B",
+"d": "Desenhe alguém de costas, de regata, torcendo o corpo e levantando os braços. Ao lado, desenhe uma mão e um pé dessa pessoa, em tamanho maior.",
+"c": "a hachura das costas segue a curva dos ombros.",
+"ref": "n4_sibyl",
+"img": "r05",
+"st": false
+},
+{
+"id": "R10",
+"lv": 4,
+"aula": "cap21",
+"t": "Cópia: os estudos de Michelangelo",
+"m": "50 min · Lápis 6B",
+"d": "Copie um dos estudos menores da folha: a mão, o pé ou a cabeça. Hachura que segue a forma.",
+"c": "a cópia tem o mesmo volume do original, sem esfumar.",
+"ref": "n4_sibyl",
+"img": "cp-n4_sibyl",
+"st": false
+},
+{
+"id": "R11",
+"lv": 4,
+"aula": "cap22",
+"t": "Duas figuras",
+"m": "30 min · Lápis 2B e 6B",
+"d": "Desenhe duas pessoas se alongando ou trabalhando lado a lado. Comece pelas duas linhas de ação e só depois o corpo. Os rostos podem ficar sem feição.",
+"c": "as duas figuras têm gestos diferentes e se apoiam no mesmo chão.",
+"ref": "n4_dancers",
+"img": "r06",
+"st": false
+},
+{
+"id": "R12",
+"lv": 4,
+"aula": "cap22",
+"t": "Cópia: as bailarinas de Degas",
+"m": "30 min · Lápis 6B",
+"d": "Copie uma das bailarinas. Contorno longo, repassado, e um pouco de tom na saia.",
+"c": "a figura copiada tem o mesmo peso da original.",
+"ref": "n4_dancers",
+"img": "cp-n4_dancers",
+"st": false
+},
+{
+"id": "R13",
+"lv": 4,
+"aula": "cap23",
+"t": "Uma figura trabalhando",
+"m": "30 min · Lápis 6B",
+"d": "Desenhe alguém fazendo um trabalho pesado: cavando, varrendo, carregando uma caixa. Primeiro a linha do esforço, das mãos até o pé de apoio.",
+"c": "dá para sentir o peso do trabalho e onde o corpo está fazendo força.",
+"ref": "n4_digger",
+"img": "r07",
+"st": false
+},
+{
+"id": "R14",
+"lv": 4,
+"aula": "cap23",
+"t": "Cópia: o camponês de Van Gogh",
+"m": "30 min · Lápis 6B",
+"d": "Copie a figura de Van Gogh com contorno pesado e escuro, sem detalhe no rosto.",
+"c": "o contorno da cópia é tão forte quanto o do original.",
+"ref": "n4_digger",
+"img": "cp-n4_digger",
+"st": false
+},
+{
+"id": "C01",
+"lv": 5,
+"aula": "cap24",
+"t": "Uma paisagem vista do alto",
+"m": "40 min · Lápis 2B",
+"d": "De um lugar alto, ou de uma foto, desenhe uma paisagem com um primeiro plano perto e um vale longe. Traços grandes e curvos na frente, traços pequenos e deitados no fundo.",
+"c": "as marcas diminuem de tamanho com a distância.",
+"ref": "n5_arno",
+"img": "c01",
+"st": false
+},
+{
+"id": "C02",
+"lv": 5,
+"aula": "cap24",
+"t": "Cópia: o vale do Arno",
+"m": "40 min · Lápis 2B",
+"d": "Copie a paisagem de Leonardo, guardando a diferença entre os traços do primeiro plano e os do vale.",
+"c": "o primeiro plano e o fundo estão feitos com marcas diferentes.",
+"ref": "n5_arno",
+"img": "cp-n5_arno",
+"st": false
+},
+{
+"id": "C03",
+"lv": 5,
+"aula": "cap25",
+"t": "Uma casa entre árvores",
+"m": "30 min · Lápis 2B e 6B",
+"d": "Desenhe uma casa, um galpão ou um quiosque entre árvores. A casa em poucas linhas, as árvores em massas rabiscadas, o chão e o céu quase em branco.",
+"c": "mais da metade da folha continua em branco.",
+"ref": "n5_rembrandt_land",
+"img": "c02",
+"st": false
+},
+{
+"id": "C04",
+"lv": 5,
+"aula": "cap25",
+"t": "Cópia: a paisagem de Rembrandt",
+"m": "30 min · Lápis 6B",
+"d": "Copie a paisagem com o mesmo número aproximado de traços. Conte, se precisar.",
+"c": "a cópia não tem mais marcas que o original.",
+"ref": "n5_rembrandt_land",
+"img": "cp-n5_rembrandt_land",
+"st": false
+},
+{
+"id": "C05",
+"lv": 5,
+"aula": "cap26",
+"t": "Uma planície em camadas",
+"m": "50 min · Lápis 6B",
+"d": "Desenhe uma paisagem larga e plana, de um lugar alto ou de uma foto. Divida o terreno em faixas e dê a cada faixa uma marca diferente. As marcas ficam menores perto do horizonte.",
+"c": "cada faixa tem a sua marca e o horizonte parece longe.",
+"ref": "n5_crau",
+"img": "c03",
+"st": false
+},
+{
+"id": "C06",
+"lv": 5,
+"aula": "cap26",
+"t": "Cópia: a planície de La Crau",
+"m": "50 min · Lápis 6B",
+"d": "Copie um retângulo do desenho de Van Gogh, do primeiro plano até o horizonte. Respeite o tamanho de cada marca.",
+"c": "as marcas da cópia diminuem como as do original.",
+"ref": "n5_crau",
+"img": "cp-n5_crau",
+"st": false
+},
+{
+"id": "C07",
+"lv": 5,
+"aula": "cap27",
+"t": "Um retrato de família",
+"m": "60 min · Lápis 2B",
+"d": "Desenhe três ou quatro pessoas da sua casa juntas, de uma foto. Roupa e móveis em linha leve, só os rostos acabados. Junte as figuras por mãos e ombros que se tocam.",
+"c": "as figuras formam um grupo e os rostos são a única parte com tom.",
+"ref": "n5_stamaty",
+"img": "c04",
+"st": false
+},
+{
+"id": "C08",
+"lv": 5,
+"aula": "cap27",
+"t": "Cópia: a família Stamaty",
+"m": "60 min · Lápis 2B",
+"d": "Copie o grupo de Ingres primeiro como quatro formas simples, para acertar a composição. Depois o contorno, e por último os rostos.",
+"c": "o grupo da cópia ocupa a folha do mesmo jeito que o original.",
+"ref": "n5_stamaty",
+"img": "cp-n5_stamaty",
+"st": false
+},
+{
+"id": "C09",
+"lv": 5,
+"aula": "cap28",
+"t": "Silhueta e pose",
+"m": "25 min · Lápis 2B e 6B",
+"d": "Desenhe uma pessoa de pé, de perfil, com uma roupa comprida. Poucas linhas longas para a silhueta, a roupa preenchida em traços soltos. Muito espaço vazio em volta.",
+"c": "a pose se entende só pela silhueta.",
+"ref": "n5_madamex",
+"img": "c05",
+"st": false
+},
+{
+"id": "C10",
+"lv": 5,
+"aula": "cap28",
+"t": "Cópia: o estudo para Madame X",
+"m": "25 min · Lápis 2B",
+"d": "O estudo de Sargent é uma pintura inacabada. Traduza-o para o lápis: a linha do perfil, do pescoço e do braço com o 2B, a mancha do vestido com o 6B deitado. Nada mais.",
+"c": "a cópia tem poucas linhas, uma mancha só e a mesma pose.",
+"ref": "n5_madamex",
+"img": "cp-n5_madamex",
+"st": false
+},
+{
+"id": "C11",
+"lv": 5,
+"aula": "cap28",
+"t": "Projeto: uma folha com cinco mestres",
+"m": "livre · Lápis 2B, 6B e esfuminho",
+"d": "Escolha um assunto da sua casa ou da sua rua e desenhe-o cinco vezes, um desenho para cada nível: o contorno, a medida, a luz, a figura e por fim a folha inteira composta. Junte as cinco folhas lado a lado.",
+"c": "dá para ver nas cinco folhas o que cada nível acrescentou.",
+"ref": null,
+"img": null,
+"st": false
+}
+],
+"pl": {
+"n1_pillows": {
+"t": "Seis estudos de travesseiros",
+"a": "Albrecht Dürer",
+"l": "1493. Pena e tinta marrom. Metropolitan Museum of Art.",
+"c": "O mesmo travesseiro seis vezes, em seis posições. Contorno firme, dobras em ganchos escuros, hachura curva que segue o volume."
+},
+"n1_cats": {
+"t": "Gatos, leões e um dragão",
+"a": "Leonardo da Vinci",
+"l": "Por volta de 1517 a 1518. Royal Collection, Windsor.",
+"c": "Mais de vinte bichos numa folha: gatos dormindo, brigando, se lambendo, se espreguiçando. Cada um começa pela curva das costas."
+},
+"n1_boats": {
+"t": "Barcos de pesca na praia de Saintes-Maries",
+"a": "Vincent van Gogh",
+"l": "Junho de 1888. Pena de junco. Coleção particular.",
+"c": "Os barcos em contorno firme, a areia em pontos, o mar em traços longos. Ele escreveu nos cascos o nome das cores para lembrar depois."
+},
+"n1_paganini": {
+"t": "O violinista Niccolò Paganini",
+"a": "J.-A.-D. Ingres",
+"l": "Roma, 1819. Grafite. Museu do Louvre.",
+"c": "O rosto acabado, com o cabelo em cachos escuros. O casaco, o violino e o arco em poucas linhas claras."
+},
+"n1_edith": {
+"t": "A mulher do artista",
+"a": "Egon Schiele",
+"l": "1917. Retrato de Edith Schiele sentada.",
+"c": "Um contorno só, anguloso, em volta da roupa larga. As mãos cruzadas e o rosto são os únicos lugares com cor e detalhe."
+},
+"n2_durer13": {
+"t": "Autorretrato aos treze anos",
+"a": "Albrecht Dürer",
+"l": "1484. Ponta de prata. Albertina, Viena.",
+"c": "Feito no espelho por um menino que ainda aprendia o ofício de ourives. Linha fina e igual, sem possibilidade de apagar."
+},
+"n2_more": {
+"t": "Sir Thomas More",
+"a": "Hans Holbein, o Jovem",
+"l": "Por volta de 1526 a 1527. Giz preto e colorido. Royal Collection, Windsor.",
+"c": "Estudo para o retrato pintado do chanceler. O contorno da cabeça e do chapéu foi feito de uma vez, antes de qualquer detalhe."
+},
+"n2_hands": {
+"t": "Estudo das mãos de uma mulher",
+"a": "Leonardo da Vinci",
+"l": "Por volta de 1490. Ponta de prata e realce branco. Royal Collection, Windsor.",
+"c": "Um braço levantado e duas mãos cruzadas em repouso, desenhados sobre papel preparado cor-de-rosa, com hachura de canhoto."
+},
+"n2_worn": {
+"t": "Velho com a cabeça entre as mãos (Às portas da eternidade)",
+"a": "Vincent van Gogh",
+"l": "Haia, 1882. Litografia.",
+"c": "Um velho sentado, curvado, com os punhos no rosto. O corpo inteiro cabe num bloco inclinado, e as botas pesam no chão."
+},
+"n2_dancer": {
+"t": "Bailarina ajustando a sapatilha",
+"a": "Edgar Degas",
+"l": "1873. Grafite com giz preto e branco. Metropolitan Museum of Art.",
+"c": "A bailarina se abaixa para arrumar a fita. A folha ainda tem a grade que ele traçou para passar o desenho para a tela."
+},
+"n3_drapery": {
+"t": "Panejamento para uma figura sentada",
+"a": "Leonardo da Vinci",
+"l": "Por volta de 1470 a 1480. Pincel sobre linho. Museu do Louvre.",
+"c": "Vasari conta que Leonardo molhava panos em argila e os arrumava sobre modelos. Este foi pintado a pincel, em cinza e branco, sobre linho."
+},
+"n3_hands": {
+"t": "Mãos em oração",
+"a": "Albrecht Dürer",
+"l": "1508. Pincel, tinta cinza e branca sobre papel azul. Albertina, Viena.",
+"c": "Estudo para um apóstolo de um altar que se perdeu num incêndio. O papel azul é o meio-tom, a tinta branca é a luz."
+},
+"n3_ideal": {
+"t": "Cabeça ideal de mulher",
+"a": "Michelangelo",
+"l": "Por volta de 1525 a 1528. Giz preto. British Museum.",
+"c": "Um perfil inventado, com um penteado de tranças. A luz vem da esquerda, e a sombra da nuca é feita de hachura miúda."
+},
+"n3_sleeping": {
+"t": "Jovem dormindo",
+"a": "Rembrandt",
+"l": "Por volta de 1654. Pincel e aguada marrom. British Museum.",
+"c": "Uma mulher dorme apoiada no braço, talvez Hendrickje, a companheira dele. Tudo feito com o pincel, em poucas pinceladas largas."
+},
+"n3_yeats": {
+"t": "William Butler Yeats",
+"a": "John Singer Sargent",
+"l": "1908. Carvão.",
+"c": "Retrato do poeta irlandês feito numa sessão. O cabelo e o casaco são duas massas escuras, o rosto é quase papel."
+},
+"n4_mother": {
+"t": "A mãe do artista aos 63 anos",
+"a": "Albrecht Dürer",
+"l": "1514. Carvão. Kupferstichkabinett, Berlim.",
+"c": "Barbara Dürer dois meses antes de morrer. Ele desenhou os ossos, os tendões do pescoço e o olho saltado sem nenhuma piedade."
+},
+"n4_girl": {
+"t": "Cabeça de moça",
+"a": "Leonardo da Vinci",
+"l": "Por volta de 1483. Ponta de prata. Biblioteca Real de Turim.",
+"c": "Tradicionalmente ligada ao anjo da Virgem dos Rochedos. O rosto acabado, o cabelo e o ombro em linhas soltas."
+},
+"n4_holbein_lady": {
+"t": "Retrato de uma mulher desconhecida",
+"a": "Hans Holbein, o Jovem",
+"l": "Por volta de 1532 a 1543. Giz sobre papel rosa. Royal Collection, Windsor.",
+"c": "Uma mulher da corte inglesa, de touca branca. Já foi chamada de Catherine Howard, mas a identificação foi abandonada."
+},
+"n4_schiele_man": {
+"t": "O pintor Max Oppenheimer",
+"a": "Egon Schiele",
+"l": "1910. Albertina, Viena.",
+"c": "Um amigo pintor, de corpo inteiro, virado de lado. O casaco é uma mancha preta, e as mãos e o rosto são ossudos e enormes."
+},
+"n4_sibyl": {
+"t": "Estudos para a Sibila Líbia",
+"a": "Michelangelo",
+"l": "Por volta de 1510 a 1511. Giz vermelho. Metropolitan Museum of Art.",
+"c": "Estudo para uma figura do teto da Capela Sistina. As costas, a mão e a cabeça foram desenhadas várias vezes na mesma folha."
+},
+"n4_dancers": {
+"t": "Duas bailarinas",
+"a": "Edgar Degas",
+"l": "Por volta de 1885. Carvão sobre papel rosa. High Museum of Art.",
+"c": "Duas bailarinas cansadas, curvadas, nos intervalos do ensaio. Contornos repassados várias vezes e toques de branco."
+},
+"n4_digger": {
+"t": "Homem cavando",
+"a": "Vincent van Gogh",
+"l": "Etten, 1881.",
+"c": "Um dos primeiros desenhos dele, feito no campo, na casa dos pais. O esforço está na linha que vai das mãos ao pé no chão."
+},
+"n5_arno": {
+"t": "Paisagem do vale do Arno",
+"a": "Leonardo da Vinci",
+"l": "5 de agosto de 1473. Pena e tinta. Galeria Uffizi.",
+"c": "O desenho de paisagem datado mais antigo que se conhece na arte ocidental. Leonardo tinha 21 anos."
+},
+"n5_rembrandt_land": {
+"t": "Cabana entre árvores",
+"a": "Rembrandt",
+"l": "Por volta de 1650. Pena e aguada marrom. Metropolitan Museum of Art.",
+"c": "A cabana no meio, emoldurada pelas árvores. A estrada, o campo e o céu são papel."
+},
+"n5_crau": {
+"t": "A planície de La Crau vista de Montmajour",
+"a": "Vincent van Gogh",
+"l": "Julho de 1888. Lápis, pena e tinta. Van Gogh Museum.",
+"c": "Uma planície inteira, do primeiro plano às colinas do horizonte, feita só de marcas que diminuem com a distância."
+},
+"n5_stamaty": {
+"t": "A família Stamaty",
+"a": "J.-A.-D. Ingres",
+"l": "Roma, 1818. Grafite. Museu do Louvre.",
+"c": "A família inteira numa folha: o pai de pé, a mãe com a criança menor no colo, o filho à direita, a filha mais velha ao piano."
+},
+"n5_madamex": {
+"t": "Estudo para Madame Gautreau",
+"a": "John Singer Sargent",
+"l": "Por volta de 1884. Óleo sobre tela, inacabado. Tate.",
+"c": "Uma versão inacabada do retrato que ficou conhecido como Madame X. A pose inteira está na silhueta preta."
+},
+"g_leonardo": {
+"t": "Autorretrato presumido",
+"a": "Leonardo da Vinci",
+"l": "Por volta de 1512. Giz vermelho. Biblioteca Real de Turim.",
+"c": "Tradicionalmente tido como autorretrato, o que é discutido."
+},
+"g_durer": {
+"t": "Autorretrato com casaco de pele",
+"a": "Albrecht Dürer",
+"l": "1500. Óleo sobre madeira. Alte Pinakothek, Munique.",
+"c": "Pintado de frente, aos 28 anos."
+},
+"g_michelangelo": {
+"t": "Michelangelo",
+"a": "Daniele da Volterra",
+"l": "Por volta de 1545. Óleo sobre madeira. Metropolitan Museum of Art.",
+"c": "Retrato feito por um amigo e seguidor."
+},
+"g_holbein": {
+"t": "Autorretrato",
+"a": "Hans Holbein, o Jovem",
+"l": "1542 a 1543. Giz colorido. Galeria Uffizi.",
+"c": "Um ano antes de morrer, em Londres."
+},
+"g_rembrandt": {
+"t": "Autorretrato desenhando à janela",
+"a": "Rembrandt",
+"l": "1648. Gravura em metal. National Gallery of Art.",
+"c": "Aos 42 anos, desenhando junto à janela."
+},
+"g_ingres": {
+"t": "Autorretrato",
+"a": "J.-A.-D. Ingres",
+"l": "1822. Grafite. National Gallery of Art.",
+"c": "Aos 42 anos, ainda na Itália."
+},
+"g_degas": {
+"t": "Autorretrato",
+"a": "Edgar Degas",
+"l": "1855. Óleo. Musée d’Orsay.",
+"c": "Aos 21 anos, no ano em que conheceu Ingres."
+},
+"g_vangogh": {
+"t": "Autorretrato",
+"a": "Vincent van Gogh",
+"l": "Paris, 1887. Óleo sobre cartão. Art Institute of Chicago.",
+"c": "Pintado em pinceladas curtas, como marcas."
+},
+"g_sargent": {
+"t": "Autorretrato",
+"a": "John Singer Sargent",
+"l": "1886. Óleo. Aberdeen Art Gallery.",
+"c": "Aos 30 anos, dois anos depois do escândalo do Madame X."
+},
+"g_schiele": {
+"t": "Autorretrato",
+"a": "Egon Schiele",
+"l": "1912. Aquarela sobre grafite. National Gallery of Art.",
+"c": "Aos 22 anos."
+}
+},
+"fi": {
+"n1_pillows": {
+"tec": "Pena e tinta marrom (verso de um autorretrato)",
+"dim": "27,8 × 20,2 cm",
+"ac": "Metropolitan Museum of Art, Nova York"
+},
+"n1_cats": {
+"tec": "",
+"dim": "",
+"ac": "Royal Collection, Windsor"
+},
+"n1_boats": {
+"tec": "Pena de junco e tinta",
+"dim": "39,5 × 53,5 cm",
+"ac": "Coleção particular"
+},
+"n1_paganini": {
+"tec": "Grafite",
+"dim": "29,8 × 21,8 cm",
+"ac": "Museu do Louvre, Paris"
+},
+"n1_edith": {
+"tec": "",
+"dim": "",
+"ac": ""
+},
+"n2_durer13": {
+"tec": "Ponta de prata",
+"dim": "27,3 × 19,5 cm",
+"ac": "Albertina, Viena"
+},
+"n2_more": {
+"tec": "Giz preto e giz colorido",
+"dim": "",
+"ac": "Royal Collection, Windsor"
+},
+"n2_hands": {
+"tec": "Ponta de prata e realce branco sobre papel preparado",
+"dim": "21,4 × 15 cm",
+"ac": "Royal Collection, Windsor"
+},
+"n2_worn": {
+"tec": "Litografia",
+"dim": "55,5 × 36,5 cm (área impressa)",
+"ac": ""
+},
+"n2_dancer": {
+"tec": "Grafite, giz preto e branco sobre papel rosa",
+"dim": "33 × 24,4 cm",
+"ac": "Metropolitan Museum of Art, Nova York"
+},
+"n3_drapery": {
+"tec": "Pincel, tinta cinza e realce branco sobre linho",
+"dim": "31,9 × 21,8 cm",
+"ac": "Museu do Louvre, Paris"
+},
+"n3_hands": {
+"tec": "Pincel, tinta cinza e branca, aguada cinza sobre papel azul",
+"dim": "29,1 × 19,7 cm",
+"ac": "Albertina, Viena"
+},
+"n3_ideal": {
+"tec": "Giz preto",
+"dim": "",
+"ac": "British Museum, Londres"
+},
+"n3_sleeping": {
+"tec": "Pincel e aguada marrom",
+"dim": "",
+"ac": "British Museum, Londres"
+},
+"n3_yeats": {
+"tec": "Carvão",
+"dim": "",
+"ac": ""
+},
+"n4_mother": {
+"tec": "Carvão",
+"dim": "42,2 × 30,6 cm",
+"ac": "Kupferstichkabinett, Berlim"
+},
+"n4_girl": {
+"tec": "Ponta de prata e realce branco sobre papel preparado",
+"dim": "18,1 × 15,9 cm",
+"ac": "Biblioteca Real, Turim"
+},
+"n4_holbein_lady": {
+"tec": "Giz preto e colorido e ponta de metal sobre papel preparado rosa",
+"dim": "27,7 × 19,7 cm",
+"ac": "Royal Collection, Windsor"
+},
+"n4_schiele_man": {
+"tec": "",
+"dim": "",
+"ac": "Albertina, Viena"
+},
+"n4_sibyl": {
+"tec": "Giz vermelho, com toques de giz branco",
+"dim": "28,9 × 21,4 cm",
+"ac": "Metropolitan Museum of Art, Nova York"
+},
+"n4_dancers": {
+"tec": "Carvão e giz branco sobre papel rosa",
+"dim": "",
+"ac": "High Museum of Art, Atlanta"
+},
+"n4_digger": {
+"tec": "",
+"dim": "",
+"ac": ""
+},
+"n5_arno": {
+"tec": "Pena e tinta",
+"dim": "19 × 28,5 cm",
+"ac": "Galeria Uffizi, Florença"
+},
+"n5_rembrandt_land": {
+"tec": "Pena e tinta marrom, pincel e aguada marrom",
+"dim": "17,1 × 27,6 cm",
+"ac": "Metropolitan Museum of Art, Nova York"
+},
+"n5_crau": {
+"tec": "Lápis, pena de junco e pena de bico, tinta",
+"dim": "48,6 × 60,4 cm",
+"ac": "Van Gogh Museum, Amsterdã"
+},
+"n5_stamaty": {
+"tec": "Grafite",
+"dim": "46,3 × 37,1 cm",
+"ac": "Museu do Louvre, Paris"
+},
+"n5_madamex": {
+"tec": "Óleo sobre tela",
+"dim": "206,4 × 107,9 cm",
+"ac": "Tate, Londres"
+},
+"g_leonardo": {
+"tec": "Giz vermelho",
+"dim": "33,3 × 21,3 cm",
+"ac": "Biblioteca Real, Turim"
+},
+"g_durer": {
+"tec": "Óleo sobre madeira",
+"dim": "67,1 × 48,9 cm",
+"ac": "Alte Pinakothek, Munique"
+},
+"g_michelangelo": {
+"tec": "Óleo sobre madeira",
+"dim": "88,3 × 64,1 cm",
+"ac": "Metropolitan Museum of Art, Nova York"
+},
+"g_holbein": {
+"tec": "Giz colorido",
+"dim": "23 × 18 cm",
+"ac": "Galeria Uffizi, Florença"
+},
+"g_rembrandt": {
+"tec": "Água-forte, ponta-seca e buril",
+"dim": "15,7 × 12,9 cm",
+"ac": "National Gallery of Art, Washington"
+},
+"g_ingres": {
+"tec": "Grafite",
+"dim": "20,2 × 16,1 cm",
+"ac": "National Gallery of Art, Washington"
+},
+"g_degas": {
+"tec": "Óleo sobre tela e papel",
+"dim": "81,3 × 64,5 cm",
+"ac": "Musée d’Orsay, Paris"
+},
+"g_vangogh": {
+"tec": "Óleo sobre cartão",
+"dim": "42 × 33,7 cm",
+"ac": "Art Institute of Chicago"
+},
+"g_sargent": {
+"tec": "Óleo sobre tela",
+"dim": "34,5 × 29,7 cm",
+"ac": "Aberdeen Art Gallery, Escócia"
+},
+"g_schiele": {
+"tec": "Aquarela sobre grafite, papel japonês",
+"dim": "34,9 × 25,4 cm",
+"ac": "National Gallery of Art, Washington"
+}
+}
+}

@@ -52,8 +52,14 @@ def parse_src():
     return secs
 
 MD = markdown.Markdown(extensions=['md_in_html', 'tables'])
+def obra_block(m):
+    k = m.group(1); p = PL[k]
+    return (f'<div class="obra"><figure><img src="img/{k}.jpg" alt="{esc(p["t"])}"/>'
+            f'<figcaption><i>{esc(p["t"])}</i>, {esc(p["a"])}. {esc(p["l"])}</figcaption></figure></div>')
+
 def md2html(s):
     MD.reset()
+    s = re.sub(r'\{\{obra:([a-z0-9_]+)\}\}', obra_block, s)
     h = MD.convert(s)
     return h.replace('src="ex/', 'src="img/').replace('{NEX}', str(NEX)).replace('{NMESTRES}', str(NMESTRES))
 
@@ -150,7 +156,7 @@ def add_balloons(h):
 
 # ---------------------------------------------------------------- ícones e linha do tempo
 ICONS_H2 = {'Por onde começar': 'comecar', 'Os desenhos-modelo': 'modelo', 'Material para desenhar por cima': 'imprimir',
-            'As vozes': 'cartas', 'Da pena para o lápis': 'junco', 'O lápis 2B': 'lapis', 'O lápis 6B': 'giz', 'O esfuminho': 'carvao',
+            'As vozes': 'cartas', 'As aulas': 'moldura', 'O que eles usavam': 'junco', 'Como segurar o lápis': 'lapis', 'A pressão': 'giz',
             'O papel': 'papel', 'No tablet': 'tablet'}
 
 def add_icons(h):
@@ -297,14 +303,17 @@ figure.flow figcaption b{font-weight:700;color:#1E1913}
 .figbal.side .balrow{display:block;flex:1}
 .figbal.side .bal{width:auto;display:block;margin:0 0 .14in}
 .figbal.side .bal img{width:.92in;height:.92in}
-.pline{margin-top:1.4em;border-top:.6pt solid #1E1913;padding-top:.08in;font:400 7.8pt/1.5 Sans;text-align:left}
+.pline{break-before:avoid;margin-top:1.4em;border-top:.6pt solid #1E1913;padding-top:.08in;font:400 7.8pt/1.5 Sans;text-align:left}
 .pline b{font-weight:700;margin-right:.3em}
 .pline a.pg{border:0;font-weight:400}.pline a.pg::after{content:target-counter(attr(href), page)}
 h2.newpage{break-before:page}
-.obra{break-before:page;break-inside:avoid}
+.obra{break-inside:avoid;margin:1em 0}
 .obra > h2:first-child{margin-top:0}
-.obra .figbal.side > figure img{max-height:3.55in}
-.obra .figbal > figure img{max-height:2.9in}
+.obra .figbal.side > figure img{max-height:3.05in;max-width:2.9in}
+.obra .figbal.side > figure{width:2.9in}
+.obra .figbal > figure img{max-height:2.05in}
+.obra .figbal .bal img{width:.85in;height:.85in}.obra .figbal .balrow{gap:.16in}
+.obra > figure img{max-height:4.3in}
 .obra ol.laws ~ .figbal.side > figure img{max-height:2.6in}
 .obra ol.laws ~ .figbal .bal img{width:.8in;height:.8in}
 .obra ol.laws li{padding-top:.06in;padding-bottom:.06in}.pline a{font-weight:700;border-bottom:.5pt solid #3B6386}
@@ -361,8 +370,8 @@ figure.diag img{width:100%;max-height:none}
 .cover .shade{display:none}
 .cover .spine{position:absolute;top:0;bottom:0;left:0;width:.13in;background:#F7F4EE}
 .cover .ed{position:absolute;top:.38in;left:0;right:0;text-align:center;font:500 10.5pt Sans;letter-spacing:.2em}
-.cover .t{position:absolute;left:0;right:0;top:5.75in;text-align:center;font:400 50pt/1 Serif;letter-spacing:-.012em;white-space:nowrap}
-.cover .d{position:absolute;left:0;right:0;top:6.57in;text-align:center;font:italic 400 15pt Serif}
+.cover .t{position:absolute;left:0;right:0;top:5.45in;text-align:center;font:400 46pt/1.02 Serif;letter-spacing:-.012em;white-space:nowrap}
+.cover .d{position:absolute;left:0;right:0;top:7.15in;text-align:center;font:italic 400 15pt Serif}
 .cover .coll{position:absolute;bottom:.42in;left:0;right:0;text-align:center;font:italic 400 10.5pt Serif}
 
 /* folha de rosto e créditos */
@@ -400,9 +409,9 @@ figure.diag img{width:100%;max-height:none}
 
 /* capítulos */
 section.chap{page:chap;break-before:page}
-.chhead{position:relative;height:2.95in;margin-bottom:.15in}
+.chhead{position:relative;height:2.05in;margin-bottom:.12in}
 .chhead .chlab{position:absolute;left:0;top:.05in;font:500 7.4pt/1.4 Sans;margin:0}
-.chhead .chnum{position:absolute;right:-.08in;top:-.2in;font:400 132pt/1 Disp;color:#3B6386;margin:0}
+.chhead .chnum{position:absolute;right:-.06in;top:-.16in;font:400 104pt/1 Disp;color:#3B6386;margin:0}
 .chhead h1{position:absolute;left:0;bottom:0;width:3.7in;margin:0;font-size:23pt}
 .chhead.nonum{height:1.9in}
 section.front{page:chap;break-before:page}
@@ -495,7 +504,7 @@ section.level{page:chap;break-before:page}
 .cat .ca{display:block;font:500 7.2pt Sans;color:#1E1913;margin-top:.02in}
 /* índice */
 .idx{columns:2;column-gap:.25in}
-.idx p{font-size:8.6pt;line-height:1.28;margin:0 0 .16em;text-align:left;break-inside:avoid}
+.idx p{font-size:8.3pt;line-height:1.2;margin:0 0 .16em;text-align:left;break-inside:avoid}
 .idx b{font:700 7.2pt Sans;display:inline-block;width:.33in}
 .idx span{font:400 6.6pt Sans;color:#6E6253}
 .idx h4{column-span:none;margin:.8em 0 .3em}
@@ -553,7 +562,7 @@ def catalogue_pdf():
     cards = []
     for k in order:
         p = PL[k]; f = FI.get(k, {})
-        fi = ' · '.join(v for v in [f.get('tec'), f.get('dim')] if v)
+        fi = f.get('dim', '')
         cards.append(f'<div class="cat" id="cat-{k}"><div class="im"><img src="img/{k}.jpg" alt="{esc(p["t"])}"/></div><div>'
                      f'<p class="ct"><span class="cn">{num[k]}</span><i>{esc(p["t"])}</i><span class="ca">{esc(p["a"])}</span></p><p class="cc">{esc(p["c"])}</p>'
                      + (f'<p class="cf">{esc(fi)}</p>' if fi else '') + f'<p class="cl">{esc(p.get("l", ""))}</p></div></div>')
@@ -645,7 +654,10 @@ def pdf_html(S):
                         i += 1
                     else:
                         chunk = [x] + ([exs[i + 1]] if i + 1 < len(exs) and exs[i + 1]['id'] not in STAGES else [])
-                        P.append(f'<div class="pair2{" first" if first else ""}">{hd}' + ''.join(ex_pdf(y, chapnames, half=True) for y in chunk) + '</div>')
+                        if len(chunk) == 1:
+                            P.append(ex_pdf(x, chapnames))
+                        else:
+                            P.append(f'<div class="pair2{" first" if first else ""}">{hd}' + ''.join(ex_pdf(y, chapnames, half=True) for y in chunk) + '</div>')
                         i += len(chunk)
                     first = False
             if s['id'] in END_ART:
@@ -663,8 +675,10 @@ def pdf_html(S):
     extra = ''.join(f'@page :nth(1 of pg{i}){{@bottom-left{{content:none}}@bottom-right{{content:none}}}}' for i in range(1, n[0] + 1))
     return html_.replace('</style>', extra + '</style>', 1)
 
-COVER_CREDIT = ''
-FIM_HTML = ''
+COVER_CREDIT = json.load(open('tools/capa_credito.json')) if os.path.exists('tools/capa_credito.json') else ''
+FIM_HTML = ('<section class="fim"><img src="img/g_ingres.jpg" alt="Autorretrato de Ingres, desenho a grafite"/>'
+            '<p class="fq">“O desenho é a probidade da arte.”</p>'
+            '<p class="fs">J.-A.-D. Ingres, segundo o biógrafo Henri Delaborde (1870)</p></section>')
 
 # ---------------------------------------------------------------- EPUB
 EPUB_FONTS = [('Serif', 'eb-garamond-latin-400-normal.ttf', 400, 'normal'), ('Serif', 'eb-garamond-latin-400-italic.ttf', 400, 'italic'),
@@ -861,11 +875,11 @@ COVER_EBOOK = """<!doctype html><html><head><meta charset="utf-8"><style>{fonts}
 .topsh{{display:none}}
 .shade{{display:none}}
 .ed{{position:absolute;top:.42in;left:0;right:0;text-align:center;font:500 11.5pt Sans;letter-spacing:.2em}}
-.t{{position:absolute;left:0;right:0;top:6.05in;text-align:center;font:400 51pt/1 Serif;letter-spacing:-.012em;white-space:nowrap}}
-.d{{position:absolute;left:0;right:0;top:6.9in;text-align:center;font:italic 400 16pt Serif}}
+.t{{position:absolute;left:0;right:0;top:5.75in;text-align:center;font:400 48pt/1.02 Serif;letter-spacing:-.012em;white-space:nowrap}}
+.d{{position:absolute;left:0;right:0;top:7.5in;text-align:center;font:italic 400 16pt Serif}}
 .coll{{position:absolute;bottom:.5in;left:0;right:0;text-align:center;font:italic 400 11.5pt Serif}}
 </style></head><body><div class="c"><div class="art"></div><div class="topsh"></div><div class="shade"></div>
-<div class="ed">PEDRO TORRES</div><div class="t">Grandes Artistas a Lápis</div><div class="d">Cinco níveis com dez mestres</div>
+<div class="ed">PEDRO TORRES</div><div class="t">Grandes Artistas<br>a Lápis</div><div class="d">Cinco níveis com dez mestres</div>
 <div class="coll">{nex} exercícios em cinco níveis</div></div></body></html>"""
 
 def make_cover():

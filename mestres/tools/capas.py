@@ -15,9 +15,11 @@ OPC = json.load(open('tools/capas_opcoes.json'))  # nome: {"faces": [...], "cols
 
 def face(k, w, h):
     f, cx, cy, fh = ROSTOS[k]
-    p = f'obras/hd/{f}.jpg' if os.path.exists(f'obras/hd/{f}.jpg') else f'obras/{f}.jpg'
+    p = f'img/{f}.jpg' if f in ('n3_ideal',) else (f'obras/hd/{f}.jpg' if os.path.exists(f'obras/hd/{f}.jpg') else f'obras/{f}.jpg')
     im = Image.open(p).convert('RGB'); iw, ih = im.size
     ch = fh * ih; cw = ch * w / h
+    if cw > iw:
+        cw = iw; ch = cw * h / w
     x0 = cx * iw - cw / 2; y0 = cy * ih - ch * .42   # olhos um pouco acima do meio
     x0 = max(0, min(iw - cw, x0)); y0 = max(0, min(ih - ch, y0))
     return im.crop((round(x0), round(y0), round(x0 + cw), round(y0 + ch))).resize((w, h), Image.LANCZOS)

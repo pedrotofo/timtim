@@ -37,9 +37,9 @@ As citações deste livro são traduções livres. Quando a frase foi registrada
 <tr><td>c. 1490</td><td>Leonardo da Vinci, cadernos</td><td>“O artista deve primeiro exercitar a mão copiando desenhos de um bom mestre.” Aulas 3 e 9.</td></tr>
 <tr><td>1484</td><td>Albrecht Dürer, inscrição no autorretrato</td><td>“Isto eu desenhei de mim mesmo, no espelho, no ano de 1484, quando ainda era criança.” A inscrição foi acrescentada por ele anos depois. Aula 7.</td></tr>
 <tr><td>1514</td><td>Albrecht Dürer, inscrição no retrato da mãe</td><td>O desenho traz a idade dela, 63 anos, e a data da morte, acrescentada depois. Aula 17.</td></tr>
-<tr><td>1526</td><td>Erasmo de Roterdã, carta a Pieter Gillis</td><td>Sobre Holbein, que partia para a Inglaterra: “Aqui as artes estão congelando.” Aula 8.</td></tr>
-<tr><td>1568</td><td>Giorgio Vasari, <i>Vidas</i></td><td>Conta que Michelangelo queimou muitos desenhos antes de morrer, para que ninguém visse o trabalho que tinham dado. Aulas 14 e 21.</td></tr>
-<tr><td>séc. XIX</td><td>J.-A.-D. Ingres, segundo o biógrafo Henri Delaborde (1870)</td><td>“O desenho é a probidade da arte.” “Desenhar não é só reproduzir contornos. O desenho é também a expressão, a forma de dentro, o plano, o modelado.” Aulas 5 e 27.</td></tr>
+<tr><td>1526</td><td>Erasmo de Roterdã, carta a Pieter Gillis</td><td>Sobre Holbein, que partia para a Inglaterra: “Aqui as artes estão congelando.” <i>Os dez mestres</i> e Aula 8.</td></tr>
+<tr><td>1568</td><td>Giorgio Vasari, <i>Vidas</i></td><td>Conta que Michelangelo queimou muitos desenhos antes de morrer, para que ninguém visse o trabalho que tinham dado. <i>Os dez mestres</i>.</td></tr>
+<tr><td>séc. XIX</td><td>J.-A.-D. Ingres, segundo o biógrafo Henri Delaborde (1870)</td><td>“O desenho é a probidade da arte.” “Desenhar não é só reproduzir contornos. O desenho é também a expressão, a forma de dentro, o plano, o modelado.” Aula 5 e última página.</td></tr>
 <tr><td>c. 1855</td><td>Ingres a Degas, segundo Paul Valéry, <i>Degas Dança Desenho</i> (1936)</td><td>“Faça linhas, meu rapaz, muitas linhas.” Aula 11.</td></tr>
 <tr><td>séc. XIX</td><td>Edgar Degas, segundo Paul Valéry (1936)</td><td>“O desenho não é a forma, é a maneira de ver a forma.” Aula 22.</td></tr>
 <tr><td>1882</td><td>Vincent van Gogh, carta ao irmão Theo, Haia</td><td>“O que é desenhar? Como se chega lá? É abrir caminho através de uma parede de ferro invisível, que parece estar entre o que se sente e o que se consegue fazer.” Aula 10.</td></tr>

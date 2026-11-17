@@ -22,3 +22,10 @@ c01 https://cdn.openart.ai/openart-ai/production/2026-11/create-image/MPlYjLbSAt
 r05 https://cdn.openart.ai/openart-ai/production/2026-11/create-image/MPlYjLbSAtvk0yvA505B/image_1794893413128_e9e7c9b6_1794893413195_9ef068e0.png
 r06 https://cdn.openart.ai/openart-ai/production/2026-11/create-image/MPlYjLbSAtvk0yvA505B/image_1794893415406_050d84e6_1794893415794_c4f0739b.png
 r07 https://cdn.openart.ai/openart-ai/production/2026-11/create-image/MPlYjLbSAtvk0yvA505B/image_1794893414386_04173796_1794893414444_a6f3af02.png
+c05 https://cdn.openart.ai/openart-ai/production/2026-11/create-image/MPlYjLbSAtvk0yvA505B/image_1794893464353_536300a0_1794893464442_d4f18495.png
+c02 https://cdn.openart.ai/openart-ai/production/2026-11/create-image/MPlYjLbSAtvk0yvA505B/image_1794893461885_eb0cdc6f_1794893461964_951c4f3a.png
+c03 https://cdn.openart.ai/openart-ai/production/2026-11/create-image/MPlYjLbSAtvk0yvA505B/image_1794893461643_41aad360_1794893461702_419db098.png
+c04 https://cdn.openart.ai/openart-ai/production/2026-11/create-image/MPlYjLbSAtvk0yvA505B/image_1794893466012_5c0e817b_1794893466105_d03cde8a.png
+st-f04-1 https://cdn.openart.ai/openart-ai/production/2026-11/create-image/MPlYjLbSAtvk0yvA505B/image_1794906921450_4804d24d_1794906921515_efe13929.png
+st-f04-2 https://cdn.openart.ai/openart-ai/production/2026-11/create-image/MPlYjLbSAtvk0yvA505B/image_1794906924372_075908c9_1794906924686_4796ce07.png
+st-f04-3 https://cdn.openart.ai/openart-ai/production/2026-11/create-image/MPlYjLbSAtvk0yvA505B/image_1794906924620_089f3270_1794906925184_2d029466.png
