@@ -1,4 +1,4 @@
-// Timtim e o Brutão — regras do jogo (física, inimigos, chefão, fluxo). Sem nada de desenho aqui.
+// Timtim e o Resgate do Macaco Fedido — regras do jogo (física, inimigos, chefão, fluxo). Sem nada de desenho aqui.
 (() => {
 'use strict';
 const TT = window.TT = window.TT || {};
@@ -61,7 +61,7 @@ function makeItems() {
   [2240, 3900, 5370, 6330, 7830].forEach(x => it.push({ type: 'choco', x, y: GROUND - 34, got: false }));
   it.push({ type: 'banana', x: 7270, y: 150, got: false });
   it.push({ type: 'banana', x: 2010, y: 205, got: false });
-  it.push({ type: 'monkey', x: 4220, y: 170, got: false });
+  it.push({ type: 'yarn', x: 4220, y: 170, got: false }); // bolinha de lã: invencível
   it.push({ type: 'banana', x: 5550, y: 160, got: false });
   it.forEach(o => { o.x = sx(o.x); });
   // trecho de aprendizado (já em coordenadas finais): poucos biscoitos e o pombo de treino
@@ -76,13 +76,13 @@ function makeEnemies() {
   return [[1750, 1480, 1960], ...[[1700, 1570, 1980], [2700, 2560, 3300], [3700, 3520, 4500], [4300, 4150, 4300], [5100, 4930, 5600], [6100, 5860, 6560], [7100, 6840, 7500], [8100, 7700, 8700]].map(e => e.map(sx))]
     .map(([x, a, b]) => ({ x, y: GROUND - 30, w: 38, h: 30, a, b, dir: -1, alive: true, t: Math.random() * 6, dy: 0 }));
 }
-// ---- Brutão, o chefão ----
+// ---- Furtão, o chefão (no código ainda "boss"/"brute") ----
 // Três corações = três fases, e cada fase traz um ataque novo: investida, latidão (onda no chão) e pisão do terremoto.
 // O ponto fraco é a bolinha: de tempos em tempos a Zara ou o Elvis jogam uma, o Brutão não resiste, vai buscar e fica
 // mordendo. Só nessa hora um pisão na cabeça acerta. Fora disso ele sacode o Timtim para o alto, sem dano para ninguém.
 const BOSS = { ballEvery: [5, 6, 7], chew: [3.0, 2.5, 2.1], charge: [520, 590, 660], wind: { charge: 0.75, bark: 0.6, pound: 0.5 } };
 function makeBoss() {
-  return { name: 'Brutão', x: ARENA_X + 700, y: GROUND - 100, w: 150, h: 100, vx: 0, vy: 0, dir: -1, hp: 3,
+  return { name: 'Furtão', x: ARENA_X + 700, y: GROUND - 100, w: 150, h: 100, vx: 0, vy: 0, dir: -1, hp: 3,
     state: 'idle', atk: '', last: '', t: 0, cd: 1.8, hurt: 0, spin: 0, landT: 0, turnT: 0, tx: 0, ballT: 4, thrower: 0 };
 }
 function makePlayer(x) {
@@ -102,17 +102,22 @@ function reset() {
     player: makePlayer(120), items: makeItems(), enemies: makeEnemies(), boss: makeBoss(), ball: null, waves: [],
     cam: { x: 0, y: 0, look: 0 }, time: 0, clock: 0, cookies: 0, arena: false, trauma: 0, hitstop: 0,
     gold: 0, timeScale: 1, slowT: 0, cine: null, checkpoint: -1, bossSeen: false, hpLost: 0, winT: 0, dustT: 0,
+    thief: null, prize: null,
     friends: C.friends.map(f => ({ x: f.x, home: f.x, vx: 0, follow: 0, kind: f.kind, given: false, hop: 0, face: -1, t: 0 })), gifts: [],
   });
   S.totalCookies = S.items.filter(i => i.type === 'cookie').length + C.friends.length * C.GIFT;
 }
 reset();
 
-TT.start = () => { reset(); S.mode = 'play'; emit('start'); };
+// a fase abre com o roubo: o Timtim fica parado e o Furtão passa correndo com o Macaco Fedido na boca,
+// para na frente dele, ri e foge para a direita (para onde a fase vai). Só então o controle é liberado.
+const STEAL = { inT: 1.0, laughT: 2.5, dur: 3.9 };
+TT.start = () => { reset(); S.mode = 'play'; S.thief = { x: -260, dir: 1, state: 'run', t: 0, laughed: false };
+  S.cine = { type: 'steal', t: 0, dur: STEAL.dur }; emit('start'); emit('stealIntro'); };
 TT.retry = () => {
   if (S.checkpoint < 0) return TT.start();
   const x = C.checkpoints[S.checkpoint];
-  S.player = makePlayer(x); S.player.inv = 1.6; S.boss = makeBoss(); S.ball = null; S.waves = []; S.arena = false; S.cine = null; S.timeScale = 1; S.slowT = 0; S.hitstop = 0; S.gifts = [];
+  S.player = makePlayer(x); S.player.inv = 1.6; S.boss = makeBoss(); S.ball = null; S.thief = null; S.prize = null; S.waves = []; S.arena = false; S.cine = null; S.timeScale = 1; S.slowT = 0; S.hitstop = 0; S.gifts = [];
   S.cam.x = Math.max(0, x - W * 0.4); S.cam.look = 0; S.mode = 'play';
   emit('start', { retry: true });
 };
@@ -141,13 +146,14 @@ TT.update = (rdt) => {
   if (S.slowT > 0) { S.slowT -= rdt; S.timeScale = S.slowT > 0 ? 0.2 : 1; }
   const dt = rdt * S.timeScale;
   S.clock += dt;
-  if (S.cine) { S.cine.t += rdt; if (S.cine.t >= S.cine.dur) { S.cine = null; emit('cineEnd'); } }
+  if (S.cine) { S.cine.t += rdt; if (S.cine.t >= S.cine.dur) { const type = S.cine.type; S.cine = null; emit('cineEnd', { type }); } }
+  updateThief(rdt); updatePrize(rdt);
   const playing = S.mode === 'play', locked = !playing || !!S.cine;
   if (playing && !S.cine) S.time += dt;
   if (S.mode === 'winning') {
     S.winT += rdt;
     if (S.winT > 0.9 && S.player.onGround) S.player.won = true;
-    if (S.winT > 2.4) { S.mode = 'win'; S.player.won = true; emit('win', stats()); }
+    if (S.winT > 3.2) { S.mode = 'win'; S.player.won = true; emit('win', stats()); }
   }
 
   const p = S.player, I = TT.input;
@@ -217,7 +223,7 @@ TT.update = (rdt) => {
       if (it.type === 'gold') { S.gold++; emit('power', it); emit('gold', it); }
       if (it.type === 'choco') { if (p.mega <= 0) { p.slow = 5; p.fast = 0; emit('choco', it); } }
       if (it.type === 'banana') { p.slow = 0; p.fast = 7; emit('power', it); }
-      if (it.type === 'monkey') { p.mega = 8; p.hp = Math.min(3, p.hp + 1); emit('power', it); }
+      if (it.type === 'yarn') { p.mega = 8; p.hp = Math.min(3, p.hp + 1); emit('power', it); }
     }
   }
 
@@ -278,6 +284,20 @@ TT.update = (rdt) => {
   cam.y += (wantY - cam.y) * Math.min(1, dt * 3.4);
 };
 
+function updateThief(rdt) {
+  const q = S.thief; if (!q) return; q.t += rdt;
+  const p = S.player, stop = p.x + p.w / 2 + 330;
+  if (q.t < STEAL.inT) { const k = q.t / STEAL.inT; q.state = 'run'; q.dir = 1; q.x = -260 + (stop + 260) * (1 - (1 - k) * (1 - k)); }
+  else if (q.t < STEAL.laughT) { // vira para o Timtim e ri com o macaco na boca
+    if (q.state !== 'laugh') { q.state = 'laugh'; q.dir = -1; q.x = stop; p.vy = -330; p.onGround = false; emit('laugh', { x: q.x, y: GROUND - 120 }); }
+  } else { q.state = 'run'; q.dir = 1; q.x += 980 * rdt; if (q.x > S.cam.x + W + 400) S.thief = null; }
+  if (S.thief) p.face = q.x > p.x ? 1 : -1;
+}
+function updatePrize(rdt) {
+  const m = S.prize; if (!m) return; m.t += rdt;
+  if (!m.rest) { const dt = rdt * S.timeScale; m.vy += GRAV * dt; m.x += m.vx * dt; m.y += m.vy * dt; m.spin += dt * 9;
+    if (m.y >= GROUND - 30 && m.vy > 0) { m.y = GROUND - 30; m.rest = true; m.t = 0; m.spin = 0; emit('monkeyLand', { x: m.x, y: GROUND }); } }
+}
 function throwBall() {
   const b = S.boss, f = S.friends[b.thrower++ % 2], fromLeft = f.home < ARENA_X + W / 2;
   // cai do lado oposto ao do Brutão, para ele precisar atravessar a arena (e o Timtim ter tempo de chegar)
@@ -376,7 +396,10 @@ function updateBoss(dt, prevBottom, playing) {
         b.vy = -500; b.vx = -b.dir * 180; S.waves.length = 0;
         S.mode = 'winning'; S.winT = 0; S.slowT = 0.75;
         S.friends.forEach((f, i) => { f.home = Math.max(ARENA_X + 60, p.x - 120 - i * 85) + (p.x < ARENA_X + 300 ? 330 : 0); f.vx = 0; });
-        emit('finalBlow', { x: bx, y: b.y });
+        // o Macaco Fedido pula do Furtão e cai bem do lado do Timtim
+        const land = Math.max(ARENA_X + 60, Math.min(ARENA_X + W - 60, pcx + (bx > pcx ? 70 : -70))), vy = -980, T = 2 * -vy / GRAV;
+        S.prize = { x: bx + b.dir * 50, y: b.y + 20, vx: (land - (bx + b.dir * 50)) / T, vy, rest: false, t: 0, spin: 0 };
+        emit('finalBlow', { x: bx, y: b.y }); emit('monkeyFree', { x: bx, y: b.y });
       }
     } else { p.vy = -720; p.vx = (pcx < bx ? -1 : 1) * 280; p.dj = true; emit('shrug', { x: bx, y: b.y }); } // ele sacode o Timtim para o alto
   } else if (!['chew', 'hurt', 'bonk'].includes(b.state) && p.mega <= 0) hurt();

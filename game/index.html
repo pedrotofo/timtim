@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
-<title>Timtim e o Brutão</title>
+<title>Timtim e o Resgate do Macaco Fedido</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marcellus&family=Nunito:wght@500;600;700;800&display=swap">
 <style>
   /* Sistema visual: entardecer no parque. Vidro cor de vinho, contornos finos de luz, texto que brilha. */
@@ -112,28 +112,16 @@
   #title .on-anim .gap { flex: 1; }
   #title.story .on-anim { opacity: 0; pointer-events: none; }
   #title.story .tbg { transform: scale(1.5); filter: brightness(.62); }
-  #storyLine { position: absolute; left: 10%; right: 10%; bottom: 13%; text-align: center; font-family: var(--display); font-size: 3.1cqw; line-height: 1.35; letter-spacing: .12cqw; color: #fff4dc; opacity: 0; text-wrap: balance;
-    text-shadow: 0 0 1.4cqw rgba(255, 190, 110, .7), 0 .2cqw .8cqw rgba(0, 4, 14, .95); }
-  #title.story #storyLine.show { animation: line var(--d, 3.1s) var(--out) both; }
+  #storyLine { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; } /* só para leitores de tela: a frase aparece desenhada no pergaminho */
   #introC { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 1s; pointer-events: none; }
   #title.story #introC { opacity: 1; }
-  #introScrim { position: absolute; inset: 0; opacity: 0; transition: opacity 1s; pointer-events: none; background: linear-gradient(180deg, transparent 55%, rgba(6, 10, 24, .75)); }
-  #title.story #introScrim { opacity: 1; }
-  /* a frase de cada quadro fica num espaço vazio da pintura (definido em src/intro.js), com uma sombra só daquele lado */
-  #storyLine[data-pos="tl"] { left: 4%; right: 54%; top: 9%; bottom: auto; text-align: left; }
-  #storyLine[data-pos="right"] { left: 60%; right: 4%; top: 56%; bottom: auto; text-align: left; }
-  #storyLine[data-pos="top"] { left: 12%; right: 12%; top: 7%; bottom: auto; }
-  #introScrim[data-pos="tl"] { background: radial-gradient(ellipse 60% 55% at 0% 0%, rgba(6, 10, 24, .7), transparent); }
-  #introScrim[data-pos="right"] { background: linear-gradient(270deg, rgba(6, 10, 24, .6), transparent 50%); }
-  #introScrim[data-pos="top"] { background: linear-gradient(180deg, rgba(6, 10, 24, .7), transparent 30%); }
-  @keyframes line { 0% { opacity: 0; transform: translateY(1.2cqw); filter: blur(.4cqw); } 14%, 84% { opacity: 1; transform: none; filter: none; } 100% { opacity: 0; transform: translateY(-.8cqw); } }
   #skip { position: absolute; right: 2.4cqw; bottom: 2.4cqw; font-size: 1.3cqw; letter-spacing: .2cqw; color: var(--dim); opacity: 0; transition: opacity .6s .8s; }
   #title.story #skip { opacity: 1; }
   @keyframes float { 50% { transform: translateY(-.8cqw); } }
   .logo { margin: 0; font-family: var(--display); font-weight: 400; line-height: .9; }
   .logo b { display: block; font-weight: 400; font-size: 11.5cqw; letter-spacing: 1cqw; color: #fff;
     text-shadow: 0 0 1.6cqw rgba(255, 214, 160, .95), 0 0 5cqw rgba(255, 130, 90, .85), 0 0 12cqw rgba(230, 90, 120, .6); }
-  .logo i { display: block; font-style: normal; font-size: 2.5cqw; letter-spacing: .9cqw; color: var(--gold); margin-top: 1.4cqw; text-shadow: 0 0 1.4cqw rgba(255, 200, 110, .7); }
+  .logo i { display: block; font-style: normal; font-size: 2.5cqw; letter-spacing: .45cqw; color: var(--gold); margin-top: 1.4cqw; text-shadow: 0 0 1.4cqw rgba(255, 200, 110, .7); }
   #title .on-anim > * { animation: rise 1s var(--out) both; }
   #title .on-anim > *:nth-child(2) { animation-delay: .15s; } #title .on-anim > *:nth-child(3) { animation-delay: .3s; } #title .on-anim > *:nth-child(4) { animation-delay: .45s; }
   @keyframes rise { from { opacity: 0; transform: translateY(1.6cqw); filter: blur(.4cqw); } }
@@ -150,6 +138,7 @@
   .screen.on .card { transform: none; }
   .card h2 { margin: 0; font-family: var(--display); font-weight: 400; font-size: 4.4cqw; letter-spacing: .3cqw; line-height: 1.1; color: #fff; text-shadow: 0 0 1.4cqw rgba(255, 214, 160, .9), 0 0 4cqw rgba(255, 130, 90, .6); }
   .card p { margin: 1.2cqw 0 2.2cqw; font-size: 1.8cqw; font-weight: 500; color: var(--dim); }
+  .winMonkey { display: block; width: 9cqw; margin: -6cqw auto .4cqw; filter: drop-shadow(0 0 1.6cqw rgba(255, 200, 110, .7)); animation: float 1.6s ease-in-out infinite; }
   .stars { display: flex; justify-content: center; gap: 1.4cqw; margin: 1.8cqw 0 .6cqw; }
   .star { width: 7cqw; height: 7cqw; opacity: .22; transform: scale(.8); }
   .star path { fill: transparent; stroke: var(--dim); stroke-width: 1.5; }
@@ -189,7 +178,7 @@
     <div id="hr" class="pill">
       <div id="prog"><div id="progFill"></div><img id="progDog" src="assets/sprites/tintim-idle.png" alt=""></div><span id="progEnd">🛝</span>
       <div id="bossBars">
-        <div class="bossRow p1"><b>Brutão</b><i class="seg"></i><i class="seg"></i><i class="seg"></i></div>
+        <div class="bossRow p1"><b>Furtão</b><i class="seg"></i><i class="seg"></i><i class="seg"></i></div>
       </div>
     </div>
     <button class="round" id="btnMute" aria-label="Som">♪</button>
@@ -203,19 +192,19 @@
     <button class="tbtn" id="tJ" data-k="jump" aria-label="Pular">▲</button>
   </div>
   <div class="bar" id="barT"></div><div class="bar" id="barB"></div>
-  <div id="bossCard"><small>CHEFÃO</small><h2>O BRUTÃO</h2><p>o valentão que tirou a paz da vila</p></div>
+  <div id="bossCard"><small>CHEFÃO</small><h2>O FURTÃO</h2><p>o valentão que roubou o Macaco Fedido</p></div>
   <div id="iris" class="layer"></div>
 
   <section id="title" class="screen on">
     <div class="tbg"></div><i class="fly" style="left:18%;top:62%;animation-delay:-0s"></i><i class="fly" style="left:31%;top:48%;animation-delay:-3s"></i><i class="fly" style="left:44%;top:70%;animation-delay:-6s"></i><i class="fly" style="left:52%;top:40%;animation-delay:-1.5s"></i><i class="fly" style="left:70%;top:66%;animation-delay:-4.5s"></i><i class="fly" style="left:78%;top:44%;animation-delay:-7s"></i><i class="fly" style="left:88%;top:58%;animation-delay:-2.5s"></i><i class="fly" style="left:25%;top:30%;animation-delay:-5.5s"></i><div class="vig"></div>
     <div class="on-anim">
-      <h1 class="logo"><b>TIMTIM</b><i>E O BRUTÃO</i></h1>
+      <h1 class="logo"><b>TIMTIM</b><i>E O RESGATE DO MACACO FEDIDO</i></h1>
       <div class="gap"></div>
       <button class="btn" id="btnStart">Jogar</button>
       <p class="hint" id="hint">← → andar · Espaço pula · no ar, de novo: pirueta</p>
       <p id="best"></p>
     </div>
-    <canvas id="introC" width="1280" height="720"></canvas><div id="introScrim"></div><p id="storyLine"></p><span id="skip">toque para pular</span>
+    <canvas id="introC" width="1600" height="900"></canvas><p id="storyLine" aria-live="polite"></p><span id="skip">toque para pular</span>
   </section>
 
   <section id="pause" class="screen scrim"><div class="card">
@@ -229,14 +218,15 @@
   </div></section>
 
   <section id="win" class="screen scrim"><div class="card">
-    <h2>A paz voltou à vila!</h2><p style="margin:.6cqw 0 0">Timtim, Zara e Elvis acalmaram o Brutão. A Vila de Reserva está em harmonia.</p>
+    <img class="winMonkey" src="assets/sprites/monkey-joy.png" alt="">
+    <h2>O Macaco Fedido voltou!</h2><p style="margin:.6cqw 0 0">Timtim, Zara e Elvis resgataram o macaco das patas do Furtão. Continua fedido, e mais amado do que nunca.</p>
     <div class="stars">
       <svg class="star" viewBox="0 0 48 46"><path d="M24 2l6.6 13.6 15 2-11 10.4 2.8 14.8L24 35.6l-13.4 7.2 2.800-14.800-11-10.400 15-2z" fill="#ffd23f" stroke="#2b1a10" stroke-width="3" stroke-linejoin="round"/></svg>
       <svg class="star" viewBox="0 0 48 46"><path d="M24 2l6.6 13.6 15 2-11 10.4 2.8 14.8L24 35.6l-13.4 7.2 2.800-14.800-11-10.400 15-2z" fill="#ffd23f" stroke="#2b1a10" stroke-width="3" stroke-linejoin="round"/></svg>
       <svg class="star" viewBox="0 0 48 46"><path d="M24 2l6.6 13.6 15 2-11 10.4 2.8 14.8L24 35.6l-13.4 7.2 2.800-14.800-11-10.400 15-2z" fill="#ffd23f" stroke="#2b1a10" stroke-width="3" stroke-linejoin="round"/></svg>
     </div>
     <div class="stats">
-      <div class="stat ok"><b>✓</b>Brutão domado</div>
+      <div class="stat ok"><b>✓</b>Macaco resgatado</div>
       <div class="stat" id="stCookies"><b>0/36</b>Biscoitos</div>
       <div class="stat" id="stHearts"><b>0/3</b>Biscoitos dourados</div>
       <div class="stat" id="stTime"><b>0s</b>Tempo</div>
@@ -244,7 +234,7 @@
     <div class="row"><button class="btn" id="btnAgain">Jogar de novo</button></div>
   </div></section>
 
-  <div id="msg">Ajude Timtim a restaurar a paz e harmonia na Vila de Reserva…</div>
+  <div id="msg">Ajude Timtim a resgatar o Macaco Fedido…</div>
 </div></div>
 
 <script src="vendor/three.min.js"></script>

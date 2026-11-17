@@ -27,11 +27,11 @@ THREE.DefaultLoadingManager.onLoad = () => { R.ready = true; TT.emit('assetsRead
 const TL = new THREE.TextureLoader();
 const load = p => { const t = TL.load('assets/' + p); t.anisotropy = 4; return t; };
 const AR = { 'tintim-idle': 232 / 220, 'tintim-run': 1.2143, 'tintim-jump': 270 / 200, 'tintim-fall': 240 / 220, 'tintim-hurt': 218 / 220,
-  'tintim-win': 189 / 240, 'brute-walk': 362 / 320, 'brute-charge': 454 / 253, 'brute-bark': 341 / 322, 'brute-ball': 413 / 265, 'brute-dizzy': 374 / 345, 'brute-down': 432 / 209, pigeon: 1.1381, monkey: 126 / 140,
+  'tintim-win': 189 / 240, 'brute-walk': 362 / 320, 'brute-charge': 454 / 253, 'brute-bark': 341 / 322, 'brute-ball': 413 / 265, 'brute-dizzy': 374 / 345, 'brute-down': 432 / 209, pigeon: 1.1381, 'monkey-front': 217 / 235, 'monkey-joy': 286 / 260,
   banana: 1, cookie: 129 / 90, 'chi-pb': 245 / 300, 'chi-br': 223 / 300 };
 const TEX = {};
-AR.choco = 1.25;
-for (const k in AR) if (k !== 'choco') TEX[k] = load('sprites/' + k + '.png');
+AR.choco = 1.25; AR.yarn = 1.15;
+for (const k in AR) if (k !== 'choco' && k !== 'yarn') TEX[k] = load('sprites/' + k + '.png');
 // tiras de quadros desenhados: corrida do Timtim (8), corrida dos chihuahuas e andar do pombo (4 cada)
 const FRAMES = { 'tintim-run': 8, 'chi-pb-run': 4, 'chi-br-run': 4, pigeon: 4 };
 for (const k in FRAMES) if (TEX[k]) TEX[k].repeat.set(1 / FRAMES[k], 1);
@@ -417,13 +417,36 @@ TEX.choco = canvasTex(160, 128, x => { x.translate(80, 64); x.rotate(-0.18);
     x.fillStyle = '#d08a52'; x.beginPath(); x.roundRect(px + 3, py + 3, 28, 9, 4); x.fill(); x.fillStyle = '#5e2f14'; x.fillRect(px + 3, py + 25, 28, 4); }
   x.fillStyle = '#ff3d5e'; x.beginPath(); x.moveTo(-66, -44); x.lineTo(-8, -44); x.lineTo(-20, 44); x.lineTo(-66, 44); x.closePath(); x.fill();
   x.fillStyle = '#ffd98a'; x.fillRect(-66, -10, 52, 20); x.strokeStyle = '#fff3d6'; x.lineWidth = 3; x.beginPath(); x.moveTo(-8, -44); x.lineTo(-14, -20); x.lineTo(-6, 0); x.lineTo(-16, 22); x.lineTo(-20, 44); x.stroke(); });
+// bolinha de lã (o poder de invencível): novelo rosa com fios cruzados e uma ponta solta, desenhado por código
+TEX.yarn = canvasTex(148, 128, x => {
+  const cx = 62, cy = 66, r = 52;
+  x.lineCap = 'round'; x.strokeStyle = '#ff9fd0'; x.lineWidth = 5; // ponta solta, enrolando para fora
+  x.beginPath(); x.moveTo(cx + r * 0.7, cy + r * 0.6); x.bezierCurveTo(cx + r + 14, cy + r + 4, cx + r + 34, cy + 20, cx + r + 26, cy - 2); x.stroke();
+  x.strokeStyle = '#fff3d6'; x.lineWidth = 9; x.beginPath(); x.arc(cx, cy, r + 2, 0, 7); x.stroke(); // contorno creme, para ler no escuro
+  const g = x.createRadialGradient(cx - 16, cy - 18, 6, cx, cy, r); g.addColorStop(0, '#ffc2e2'); g.addColorStop(0.55, '#ff6fb5'); g.addColorStop(1, '#b8306f');
+  x.fillStyle = g; x.beginPath(); x.arc(cx, cy, r, 0, 7); x.fill();
+  x.save(); x.beginPath(); x.arc(cx, cy, r - 1, 0, 7); x.clip(); x.lineWidth = 2.6;
+  const band = (rot, n, col) => { x.save(); x.translate(cx, cy); x.rotate(rot); x.strokeStyle = col;
+    for (let i = 0; i < n; i++) { const k = (i + 0.5) / n * 2 - 1; x.beginPath(); x.ellipse(0, 0, r * 1.02, Math.abs(k) * r + 2, 0, k < 0 ? Math.PI : 0, k < 0 ? 2 * Math.PI : Math.PI); x.stroke(); } x.restore(); };
+  band(0.5, 9, 'rgba(255,225,240,.75)'); band(-0.9, 7, 'rgba(150,20,80,.45)');
+  x.restore();
+  x.fillStyle = 'rgba(255,255,255,.55)'; x.beginPath(); x.ellipse(cx - 20, cy - 24, 12, 7, -0.6, 0, 7); x.fill();
+});
 const itemM = S.items.map(it => { const m = sprite(it.type === 'gold' ? 'cookie' : it.type, 5, false, it.type === 'gold' ? 0xffd640 : 0xfff4e0); m.geometry = planeGeoC;
-  m.userData.glow = add(new THREE.Mesh(planeGeoC, glowMat(it.type === 'choco' ? 0xff3355 : it.type === 'monkey' ? 0xff8a2a : it.type === 'cookie' ? 0xffc76a : 0xffe14d)), 4);
+  m.userData.glow = add(new THREE.Mesh(planeGeoC, glowMat(it.type === 'choco' ? 0xff3355 : it.type === 'yarn' ? 0xff6fb5 : it.type === 'cookie' ? 0xffc76a : 0xffe14d)), 4);
   return m; });
 const friendM = S.friends.map(f => { const m = sprite(f.kind, 5, true, 0xfff6ec); m.geometry = legGeo();
   m.userData.glow = add(new THREE.Mesh(planeGeoC, glowMat(0xffd9a0, 0.3)), 4); return m; });
 const giftM = [0, 1].map(() => { const m = sprite('cookie', 7, false); m.geometry = planeGeoC; m.visible = false;
   m.userData.glow = add(new THREE.Mesh(planeGeoC, glowMat(0xffd27a, 0.8)), 6); m.userData.glow.visible = false; return m; });
+// cena do roubo: um segundo Furtão (o chefão real só aparece na arena) com o Macaco Fedido pendurado na boca
+const thiefM = sprite('brute-charge', 6, true, 0xd8dcec); thiefM.geometry = legGeo(); thiefM.userData.ph = 0; thiefM.visible = false;
+const carryM = sprite('monkey-front', 7, true, 0xfff4e6); carryM.geometry = planeGeoTop; carryM.visible = false;
+// boca de cada pose do Furtão, em fração da imagem (o desenho olha para a esquerda): [x, y a partir do topo]
+const MOUTH = { 'brute-walk': [0.2, 0.38], 'brute-charge': [0.07, 0.55] };
+// o macaco solto no fim da luta: voa girando, cai do lado do Timtim e pula de alegria
+const prizeM = sprite('monkey-joy', 7, true, 0xfff4e6); prizeM.geometry = planeGeoC; prizeM.visible = false;
+const prizeGlow = add(new THREE.Mesh(planeGeoC, glowMat(0xffd27a, 0.6)), 6); prizeGlow.visible = false;
 let runPhase = 0, sq = 1, sqV = 0, rotS = 0;
 
 // ---------------- partículas (todas de luz) ----------------
@@ -453,6 +476,8 @@ TT.on('choco', e => { burst(e.x, e.y, [0x9a5a30, 0xff3355, 0x4a2414], 16, 220); 
 TT.on('power', e => burst(e.x, e.y, [0xffe14d, 0xff8a2a, 0xffffff], 24, 320));
 TT.on('hurt', e => burst(e.x, e.y + 20, [0xff5a7e, 0xffc0d0], 12, 240));
 TT.on('stomp', e => { burst(e.x, e.y, [0xfff2c8, 0x8fe9ff, 0xffffff], e.boss ? 22 : 12, e.boss ? 380 : 260); dustPuff(e.x, e.y + 40, 6, 300); });
+TT.on('monkeyLand', e => { dustPuff(e.x, e.y, 10, 260); burst(e.x, e.y - 30, [0xffd98a, 0xff9fc0, 0xffffff, 0x8fe9ff], 30, 300, 300); });
+TT.on('laugh', e => burst(e.x - 40, e.y, [0xfff2c8, 0xffffff], 6, 120, -40));
 TT.on('finalBlow', e => { R.flash = 0.85; burst(e.x, e.y, [0x8fe9ff, 0xffd98a, 0xffffff, 0xa98bff], 40, 520); });
 TT.on('checkpoint', e => { flags[e.index].on = true; burst(e.x, GROUND - 122, [0xffd98a, 0xffb866, 0xffffff], 18, 240, 200); });
 TT.on('friend', e => burst(e.x, e.y, [0xffd98a, 0xff9fc0, 0xffffff], 10, 150, 100));
@@ -544,6 +569,7 @@ R.frame = (rdt) => {
   if (moving) runPhase += Math.abs(p.vx) * live / 15; // passo acompanha a velocidade: as patas não patinam
   let name = 'tintim-idle', h = 80, fr = 0, nf = 1;
   if (p.won) { name = 'tintim-win'; h = 92; }
+  else if (S.thief && S.thief.state === 'laugh' && p.onGround) name = 'tintim-hurt'; // assustado: roubaram o macaco!
   else if (p.hurtT > 0 || S.mode === 'lose') name = 'tintim-hurt';
   else if (!p.onGround) { if (p.vy < 0 || p.djT > 0) { name = 'tintim-jump'; h = 66; } else { name = 'tintim-fall'; h = 78; } }
   else if (moving) { name = 'tintim-run'; h = 72; h = 76; nf = 8; fr = Math.floor(runPhase) % 8; }
@@ -647,6 +673,35 @@ R.frame = (rdt) => {
     bruteShadow.position.set(g.tx, Y(GROUND) + 26, 6); bruteShadow.scale.set(230, 64, 1);
     m.userData.stars.forEach((s, k) => { s.visible = st === 'hurt' && !dead; if (s.visible) { const a = time * 6 + k * 2.1; s.position.set(x - g.dir * 30 + Math.cos(a) * 34, y + 150 + Math.sin(a) * 8, 4 + Math.sin(a)); s.rotation.z = a; } });
   }
+  // Furtão fugindo com o macaco (abertura da fase)
+  { const q = S.thief; thiefM.visible = carryM.visible = !!q;
+    if (q) {
+      const run = q.state === 'run', n = run ? 'brute-charge' : 'brute-walk', h = run ? 124 : 150, flip = q.dir > 0;
+      thiefM.userData.ph += (run ? 18 : 0) * rdt;
+      setAnim(thiefM, n, h, flip);
+      // rindo: o corpo sacode em soluços curtos ("he-he-he") e a cabeça balança
+      const lt = run ? 0 : q.t - 1.0, giggle = run ? 0 : Math.abs(Math.sin(lt * 15)) * Math.max(0, 1 - lt / 1.6);
+      const sy = run ? 1 + Math.sin(thiefM.userData.ph * 2) * 0.05 : 1 + giggle * 0.07;
+      thiefM.scale.x *= 2 - sy; thiefM.scale.y *= sy;
+      const y = Y(GROUND) - 4 + (run ? Math.abs(Math.sin(thiefM.userData.ph)) * 10 : 0);
+      thiefM.position.set(q.x, y, 1); thiefM.rotation.z = run ? 0.06 * -q.dir : Math.sin(lt * 15) * 0.03 * Math.max(0, 1 - lt / 1.6);
+      legs(thiefM, thiefM.userData.ph, run ? 0.07 : 0, { f: -1, tailX: Math.sin(time * 14) * 0.03, tailY: 0, headX: 0, headY: giggle * 0.03, breathe: 0, shear: run ? -0.04 * q.dir : 0 });
+      if (run && Math.random() < 0.8) spawn({ x: q.x - q.dir * 60, y: GROUND - 4, vx: -q.dir * (40 + Math.random() * 60), vy: -30 - Math.random() * 60, g: -40, life: 0.6, r: 4 + Math.random() * 3, grow: 8, color: 0xfff2c8 });
+      // o macaco pendurado pela boca, balançando com a corrida
+      const w = Math.abs(thiefM.scale.x), mo = MOUTH[n], mx = (mo[0] - 0.5) * w * (flip ? -1 : 1), my = (1 - mo[1]) * thiefM.scale.y;
+      setAnim(carryM, 'monkey-front', 62, flip);
+      carryM.position.set(q.x + mx, y + my + 12, 2);
+      carryM.rotation.z = (flip ? 0.5 : -0.5) + Math.sin(time * (run ? 16 : 6)) * (run ? 0.25 : 0.12);
+    } }
+  // Macaco Fedido livre: gira no ar, cai e pula de alegria junto com a turma
+  { const m = S.prize; prizeM.visible = prizeGlow.visible = !!m;
+    if (m) {
+      const hop = m.rest ? Math.abs(Math.sin(m.t * 7)) * 26 : 0, h = m.rest ? 70 : 62;
+      setAnim(prizeM, m.rest && Math.sin(m.t * 7) < 0.2 ? 'monkey-front' : 'monkey-joy', h, m.x < tx);
+      prizeM.position.set(m.x, Y(m.y) + hop, 7); prizeM.rotation.z = m.rest ? Math.sin(m.t * 7) * 0.12 : -m.spin;
+      prizeGlow.position.set(m.x, Y(m.y) + hop, 6); const gs = 150 + Math.sin(time * 5) * 14; prizeGlow.scale.set(gs, gs, 1);
+      if (!m.rest && Math.random() < 0.8) spawn({ x: m.x, y: m.y, vx: (Math.random() - 0.5) * 60, vy: (Math.random() - 0.5) * 60, g: 60, life: 0.5, r: 3, color: 0xffd98a });
+    } }
   // bolinha e ondas de choque
   { const q = S.ball; ballM.visible = ballGlow.visible = !!q;
     if (q) { const r = 26; ballM.position.set(q.x, Y(q.y), 6); ballM.scale.set(r, r, 1); ballM.rotation.z -= q.vx * live / 13;
@@ -668,7 +723,7 @@ R.frame = (rdt) => {
   S.items.forEach((it, i) => {
     const m = itemM[i]; m.visible = !it.got; const g = m.userData.glow; g.visible = !it.got;
     if (it.got) return;
-    const ck = it.type === 'cookie', gd = it.type === 'gold', hh = ck ? 27 : gd ? 36 : it.type === 'choco' ? 54 : it.type === 'banana' ? 46 : 54, bob = Math.sin(clock * 3 + it.x * 0.05) * 5;
+    const ck = it.type === 'cookie', gd = it.type === 'gold', hh = ck ? 27 : gd ? 36 : it.type === 'choco' ? 54 : it.type === 'banana' ? 46 : it.type === 'yarn' ? 46 : 54, bob = Math.sin(clock * 3 + it.x * 0.05) * 5;
     m.scale.set(hh * AR[gd ? 'cookie' : it.type], hh, 1); m.position.set(it.x, Y(it.y) + bob, 0);
     m.rotation.y = Math.sin(clock * 2.2 + it.x * 0.01) * (ck ? 0.75 : 0.4); m.rotation.z = Math.sin(clock * 3 + it.x) * 0.12;
     const s = (ck ? 62 : it.type === 'choco' ? 130 : 104) + Math.sin(clock * 5 + it.x * 0.03) * (ck ? 8 : 12); g.scale.set(s, s, 1); g.position.set(it.x, Y(it.y) + bob, -2); g.material.opacity = ck ? 0.5 : it.type === 'choco' ? 0.7 + 0.25 * Math.sin(clock * 6 + it.x) : 0.6;
@@ -693,6 +748,8 @@ R.frame = (rdt) => {
   let zt = 1, fx = cx, fy = LOOK_Y + up * 0.9;
   if (S.cine && S.cine.type === 'boss') { const t = S.cine.t, k = ease(Math.min(1, t / 0.7)) * (1 - ease(Math.max(0, Math.min(1, (t - 2.8) / 0.6))));
     zt = 1 + 0.34 * k; fx = cx + (ARENA_X + 760 - cx) * k; fy = LOOK_Y - 95 * k; }
+  else if (S.cine && S.cine.type === 'steal') { const t = S.cine.t, k = ease(Math.min(1, t / 0.8)) * (1 - ease(Math.max(0, Math.min(1, (t - 3.1) / 0.8))));
+    zt = 1 + 0.16 * k; fx = cx + (p.x + p.w / 2 + 170 - cx) * k; fy = LOOK_Y - 40 * k; }
   else if (S.mode === 'winning' || S.mode === 'win') { zt = 1.2; fx = cx + (p.x + p.w / 2 - cx) * 0.6; fy = LOOK_Y - 60; }
   const kk = Math.min(1, rdt * 4);
   R.zoom += (zt - R.zoom) * kk; fxS += (fx - fxS) * (S.cine || S.mode !== 'play' ? kk : 1); fyS += (fy - fyS) * (S.cine || S.mode !== 'play' ? kk : 1);

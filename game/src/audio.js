@@ -22,7 +22,7 @@ function init() {
     sfxBus = ctx.createGain(); sfxBus.gain.value = 0.8; sfxBus.connect(master);
     noiseBuf = ctx.createBuffer(1, ctx.sampleRate * 0.5, ctx.sampleRate);
     const d = noiseBuf.getChannelData(0); for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
-    loadSamples(); loadTrack('theme'); loadTrack('boss');
+    loadSamples(); loadVoices(); loadTrack('theme'); loadTrack('boss');
     return true;
   } catch (_) { ctx = null; return false; }
 }
@@ -94,6 +94,8 @@ const sfx = {
   lose: t => [392, 349, 311, 262].forEach((f, i) => tone(f, t + i * 0.18, 0.35, { vol: 0.16, type: 'sine' })),
   star: t => { tone(1318, t, 0.1, { vol: 0.16 }); tone(1976, t + 0.07, 0.25, { vol: 0.14 }); },
   ui: t => tone(880, t, 0.05, { vol: 0.1 }),
+  // Furtão rindo com o macaco na boca: "he-he-he" grave, cada vez mais baixo (reserva do arquivo gravado)
+  laugh: t => { [0, 0.16, 0.32, 0.5].forEach((o, i) => woof(t + o, { f0: 190 - i * 8, dur: 0.12, f1: 700, f2: 1500, vol: 0.3 - i * 0.05 })); },
   choco: t => { [330, 277, 233, 185].forEach((f, i) => tone(f, t + i * 0.12, 0.22, { type: 'sawtooth', vol: 0.1, slide: 0.85 })); tone(90, t + 0.5, 0.5, { type: 'sine', vol: 0.25, slide: 0.6 }); },
 };
 // ---- efeitos gravados: um arquivo por evento; v = volume, vary = quanto a altura muda a cada vez (para repetições não soarem iguais),
@@ -104,7 +106,7 @@ const SAMPLES = {
   yapZara: { v: 0.5, vary: 0.04 }, yapElvis: { v: 0.55, vary: 0.04 }, hurt: { v: 0.6, vary: 0.05 },
   bossWoof: { v: 0.8, vary: 0.04 }, bigBark: { v: 0.85 }, stomp: { v: 0.65 }, final: { v: 0.8 }, boss: { v: 0.55 },
   thud: { v: 0.5, vary: 0.08 }, pigeon: { v: 0.38, vary: 0.06 }, boing: { v: 0.45 }, pound: { v: 0.9 }, bonk: { v: 0.7 },
-  throwBall: { v: 0.45 }, squeak: { v: 0.5, vary: 0.08 }, choco: { v: 0.6 }, win: { v: 0.6 }, lose: { v: 0.55 },
+  throwBall: { v: 0.45 }, squeak: { v: 0.5, vary: 0.08 }, laugh: { v: 0.8 }, choco: { v: 0.6 }, win: { v: 0.6 }, lose: { v: 0.55 },
 };
 const sbufs = {}, lastAt = {};
 function loadSamples() {
@@ -120,6 +122,22 @@ function playSample(name, t) {
   src.connect(g).connect(sfxBus); src.start(t);
   return true;
 }
+// ---- narração da abertura (voz de vovô contador de histórias, gerada no Artlist): uma fala por quadro.
+// Enquanto ele fala, a música abaixa. Se a fala ainda não carregou quando o quadro começa, entra assim que chegar (até 1,2 s depois).
+const vbufs = []; let voiceSrc = null, voiceWant = null;
+function loadVoices() {
+  [1, 2, 3].forEach((n, i) => fetch('assets/voice/intro' + n + '.mp3').then(r => { if (!r.ok) throw 0; return r.arrayBuffer(); })
+    .then(a => ctx.decodeAudioData(a)).then(b => { vbufs[i] = b; if (voiceWant && voiceWant.i === i && performance.now() - voiceWant.at < 1200) playVoice(i); }).catch(() => {}));
+}
+function stopVoice() { if (voiceSrc) { try { voiceSrc.stop(); } catch (_) {} voiceSrc = null; } TT.audioDuck(false); }
+function playVoice(i) {
+  stopVoice(); voiceWant = null; const b = vbufs[i]; if (!b) return;
+  const s = ctx.createBufferSource(), g = ctx.createGain(); s.buffer = b; g.gain.value = 1.1; s.connect(g).connect(master);
+  s.start(ctx.currentTime + 0.3); voiceSrc = s; TT.audioDuck(true, 0.45);
+  s.onended = () => { if (voiceSrc === s) { voiceSrc = null; TT.audioDuck(false); } };
+}
+TT.voice = i => { if (!init()) return; if (i < 0) { voiceWant = null; return stopVoice(); } voiceWant = { i, at: performance.now() }; if (vbufs[i]) playVoice(i); };
+
 TT.sfx = name => { if (!init()) return; const t = ctx.currentTime; if (playSample(name, t)) return; if (sfx[name]) sfx[name](t); };
 
 // ---- trilha: caixinha de música etérea para a fase e um baião tenso para a luta com o Brutão ----
@@ -201,6 +219,6 @@ TT.setMuted = m => {
   if (ctx) master.gain.setTargetAtTime(m ? 0 : 0.9, ctx.currentTime, 0.03);
 };
 TT.isMuted = () => muted;
-TT.audioDuck = on => { if (ctx) { musicBus.gain.setTargetAtTime(on ? 0.1 : 0.32, ctx.currentTime, 0.1); trackBus.gain.setTargetAtTime(on ? 0.2 : 0.62, ctx.currentTime, 0.1); } };
+TT.audioDuck = (on, k = 0.32) => { if (ctx) { musicBus.gain.setTargetAtTime(on ? 0.32 * k : 0.32, ctx.currentTime, 0.1); trackBus.gain.setTargetAtTime(on ? 0.62 * k : 0.62, ctx.currentTime, 0.1); } };
 TT.audioInit = init;
 })();

@@ -1,47 +1,51 @@
 // Introdução cinematográfica: três quadros pintados com zoom lento e "vida" desenhada por cima —
-// vento nos pelos (deformação suave só nas regiões marcadas), vaga-lumes, folhas, névoa e brilhos pulsando.
-// Tudo em canvas 2D, sem vídeo. Coordenadas das regiões no espaço da imagem (1280 × 714).
+// vento nos pelos (deformação suave só nas regiões marcadas), vaga-lumes, folhas e brilhos pulsando.
+// Cada quadro tem um pergaminho pintado embaixo; a frase é escrita nele (no canvas, junto com a imagem).
+// Tudo em canvas 2D, sem vídeo. Coordenadas das regiões no espaço da imagem (1672 × 941).
 (() => {
 'use strict';
 const TT = window.TT;
 const cv = document.getElementById('introC'); if (!cv) return;
 const ctx = cv.getContext('2d'), W = cv.width, H = cv.height;
-const IW = 1280, IH = 714, FADE = 0.9;
+const IW = 1672, IH = 941, FADE = 0.9;
 const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const load = src => { const i = new Image(); i.src = src; return i; };
 
-// zoom: escala inicial → final em torno de um ponto; wind: regiões de pelo (ring = rosto parado, só a borda mexe)
+// zoom: escala inicial → final em torno de um ponto (embaixo no centro, para o pergaminho nunca sair do quadro);
+// wind: regiões de pelo (ring = rosto parado, só a borda mexe); scroll: o pergaminho [x0, y0, x1, y1]; sky: até onde vaga-lumes e folhas descem
 const SCENES = [
-  { img: load('assets/intro/1-brutao.jpg'), text: 'tl', dur: 4.6, zoom: [1.0, 1.1], at: [820, 420],
-    wind: [ { x: 860, y: 440, rx: 120, ry: 90, amp: 1.5, speed: 40, freq: 0.5, jitter: 1 },  // Brutão latindo treme
-            { x: 660, y: 210, rx: 150, ry: 90, amp: 2.4, speed: 9, freq: 0.07 } ],           // passarinhos batendo asa
-    glow: [ { x: 890, y: 175, r: 260, c: '190,255,170', a: 0.16, pulse: 0.9 },
-            { x: 1010, y: 440, r: 80, c: '255,220,120', a: 0.35, pulse: 7 },
-            { x: 1110, y: 445, r: 70, c: '255,190,110', a: 0.25, pulse: 3, flicker: 1 } ],
-    flies: 16, leaves: 5, fog: 1, windX: 30 },
-  { img: load('assets/intro/2-timtim.jpg'), text: 'right', dur: 4.4, zoom: [1.0, 1.12], at: [430, 330],
-    wind: [ { x: 430, y: 320, rx: 270, ry: 270, amp: 3.2, speed: 2.6, freq: 0.035, ring: 1 }, // juba e orelhas
-            { x: 90, y: 520, rx: 130, ry: 170, amp: 5, speed: 2.2, freq: 0.03 },              // rabo
-            { x: 200, y: 460, rx: 70, ry: 50, amp: 4, speed: 4.2, freq: 0.09 },               // ponta da bandana
-            { x: 470, y: 600, rx: 160, ry: 100, amp: 2.4, speed: 3.4, freq: 0.06 } ],         // bandana
-    glow: [ { x: 790, y: 360, r: 190, c: '255,170,80', a: 0.22, pulse: 1.4 } ],
-    flies: 22, leaves: 7, fog: 0, windX: 70 },
-  { img: load('assets/intro/3-amigos.jpg'), text: 'top', dur: 5.4, zoom: [1.12, 1.0], at: [630, 390],
-    wind: [ { x: 385, y: 295, rx: 125, ry: 155, amp: 2.4, speed: 2.4, freq: 0.04, ring: 1 },  // Zara
-            { x: 628, y: 285, rx: 155, ry: 175, amp: 2.6, speed: 2.7, freq: 0.04, ring: 1 },  // Timtim
-            { x: 848, y: 350, rx: 125, ry: 145, amp: 2.4, speed: 2.2, freq: 0.04, ring: 1 } ], // Elvis
-    glow: [ { x: 630, y: 420, r: 300, c: '255,200,110', a: 0.16, pulse: 1.1 } ],             // brilho dourado em volta dos três (sem buraco na árvore)
-    flies: 30, leaves: 3, fog: 1, windX: 25, rise: 1 },
+  { img: load('assets/intro/1-brincando.jpg'), dur: 7.8, zoom: [1.0, 1.035], at: [836, 941], scroll: [60, 700, 1610, 900], sky: 600,
+    wind: [ { x: 800, y: 300, rx: 250, ry: 230, amp: 2.6, speed: 2.6, freq: 0.035, ring: 1 },  // Timtim: juba e orelhas
+            { x: 360, y: 340, rx: 160, ry: 170, amp: 2.2, speed: 3.2, freq: 0.05, ring: 1 },   // Zara
+            { x: 1250, y: 380, rx: 150, ry: 160, amp: 2.2, speed: 3.0, freq: 0.05, ring: 1 },  // Elvis
+            { x: 200, y: 470, rx: 90, ry: 90, amp: 4, speed: 5, freq: 0.08 },                  // rabo da Zara abanando
+            { x: 1380, y: 440, rx: 80, ry: 80, amp: 4, speed: 5.4, freq: 0.08 } ],             // rabo do Elvis
+    glow: [ { x: 390, y: 90, r: 70, c: '255,170,80', a: 0.4, pulse: 1.7, flicker: 1 }, { x: 507, y: 65, r: 60, c: '255,80,80', a: 0.35, pulse: 1.3 },
+            { x: 605, y: 115, r: 60, c: '120,255,120', a: 0.35, pulse: 1.9 }, { x: 830, y: 520, r: 260, c: '255,200,110', a: 0.18, pulse: 1.1 } ],
+    flies: 26, leaves: 3 },
+  { img: load('assets/intro/2-roubo.jpg'), dur: 7.3, zoom: [1.0, 1.04], at: [1200, 941], scroll: [50, 712, 1625, 900], sky: 620,
+    wind: [ { x: 1340, y: 330, rx: 260, ry: 210, amp: 1.4, speed: 38, freq: 0.5, jitter: 1 },   // Furtão correndo treme
+            { x: 1440, y: 420, rx: 120, ry: 110, amp: 3, speed: 6, freq: 0.07 },                 // macaco balançando na boca
+            { x: 450, y: 330, rx: 200, ry: 180, amp: 3, speed: 3.4, freq: 0.04, ring: 1 },       // Timtim assustado
+            { x: 170, y: 330, rx: 140, ry: 150, amp: 2.6, speed: 3.4, freq: 0.05, ring: 1 } ],   // Zara
+    glow: [ { x: 300, y: 165, r: 70, c: '255,190,90', a: 0.4, pulse: 1.5, flicker: 1 }, { x: 420, y: 140, r: 70, c: '255,70,70', a: 0.4, pulse: 2.1 },
+            { x: 585, y: 95, r: 65, c: '120,255,120', a: 0.35, pulse: 1.2 }, { x: 740, y: 35, r: 65, c: '255,70,70', a: 0.35, pulse: 1.8, flicker: 1 } ],
+    flies: 16, leaves: 6, windX: 60 },
+  { img: load('assets/intro/3-resgate.jpg'), dur: 8.6, zoom: [1.04, 1.0], at: [836, 941], scroll: [55, 755, 1615, 892], sky: 650,
+    wind: [ { x: 860, y: 320, rx: 270, ry: 240, amp: 3.2, speed: 2.8, freq: 0.035, ring: 1 },  // Timtim: juba ao vento
+            { x: 640, y: 280, rx: 140, ry: 140, amp: 5, speed: 2.6, freq: 0.03 },               // rabo do Timtim
+            { x: 990, y: 520, rx: 130, ry: 70, amp: 3, speed: 4, freq: 0.08 },                  // bandana
+            { x: 340, y: 380, rx: 150, ry: 150, amp: 2.4, speed: 3, freq: 0.05, ring: 1 },      // Zara
+            { x: 1330, y: 470, rx: 140, ry: 140, amp: 2.4, speed: 3, freq: 0.05, ring: 1 } ],   // Elvis
+    glow: [ { x: 1450, y: 130, r: 300, c: '200,235,255', a: 0.22, pulse: 0.8 }, { x: 225, y: 170, r: 65, c: '255,80,80', a: 0.4, pulse: 1.6 },
+            { x: 340, y: 165, r: 65, c: '120,255,120', a: 0.35, pulse: 1.3, flicker: 1 }, { x: 465, y: 115, r: 65, c: '255,190,90', a: 0.4, pulse: 2 },
+            { x: 590, y: 75, r: 65, c: '255,80,80', a: 0.35, pulse: 1.1 } ],
+    flies: 30, leaves: 5, windX: 70, rise: 1 },
 ];
+SCENES.forEach(s => { s.windX = s.windX || 25; s.text = ''; });
 
-// pedaços reaproveitados: canvas de trabalho e textura de névoa
+// canvas de trabalho para o vento nos pelos
 const off = document.createElement('canvas'), ox = off.getContext('2d');
-const fog = document.createElement('canvas'); fog.width = 1024; fog.height = 400;
-{ const f = fog.getContext('2d'), r = (s => () => (s = (s * 16807) % 2147483647) / 2147483647)(7);
-  // manchas inteiras dentro da textura (sem bordas cortadas) e repetidas dos dois lados para emendar sem costura
-  for (let i = 0; i < 26; i++) { const s = 50 + r() * 140, x = r() * 1024, y = s + 10 + r() * (380 - 2 * s), g = f.createRadialGradient(x, y, 0, x, y, s);
-    g.addColorStop(0, 'rgba(200,230,255,.2)'); g.addColorStop(1, 'rgba(200,230,255,0)'); f.fillStyle = g;
-    for (const o of [-1024, 0, 1024]) { f.save(); f.translate(o, 0); f.fillRect(x - s, y - s, s * 2, s * 2); f.restore(); } } }
 
 // rajadas de vento: sempre um pouco, às vezes mais forte
 const gust = t => 0.55 + 0.3 * Math.sin(t * 1.1) + 0.15 * Math.sin(t * 2.7 + 1.3);
@@ -67,14 +71,41 @@ function windPatch(img, w, t) {
   ctx.drawImage(off, 0, 0, bw, bh, x0, y0, bw, bh);
 }
 
+// a frase no pergaminho: tinta marrom, centralizada, que aparece palavra por palavra no ritmo da narração
+const FONT = '"Marcellus", Georgia, serif';
+function wrap(text, maxW) {
+  const words = text.split(' '), lines = []; let cur = '';
+  for (const w of words) { const t = cur ? cur + ' ' + w : w; if (ctx.measureText(t).width > maxW && cur) { lines.push(cur); cur = w; } else cur = t; }
+  if (cur) lines.push(cur); return lines;
+}
+function writeScroll(s, t) {
+  if (!s.text) return;
+  const [x0, y0, x1, y1] = s.scroll, maxW = (x1 - x0) * 0.9;
+  let size = 58, lines;
+  do { ctx.font = `${size}px ${FONT}`; lines = wrap(s.text, maxW); size -= 2; } while ((lines.length * size * 1.3 > (y1 - y0) * 0.86 || lines.length > 2) && size > 30);
+  size += 2; const lh = size * 1.28, cx = (x0 + x1) / 2, top = (y0 + y1) / 2 - (lines.length - 1) * lh / 2;
+  // revelação: as palavras surgem ao longo de 70% da cena, cada uma num esmaecer rápido
+  const total = s.text.split(' ').length, shown = still ? total : Math.max(0, (t - 0.35) / (s.dur * 0.62)) * total;
+  ctx.textAlign = 'left'; ctx.textBaseline = 'middle'; let k = 0; const base = ctx.globalAlpha;
+  lines.forEach((ln, i) => {
+    let x = cx - ctx.measureText(ln).width / 2; const y = top + i * lh;
+    for (const w of ln.split(' ')) {
+      const a = Math.max(0, Math.min(1, shown - k)); k++;
+      if (a > 0) { ctx.globalAlpha = a * base; ctx.fillStyle = 'rgba(255,240,200,.55)'; ctx.fillText(w, x + 1.5, y + 2); ctx.fillStyle = '#4a2410'; ctx.fillText(w, x, y + (1 - a) * 8); }
+      x += ctx.measureText(w + ' ').width;
+    }
+  });
+  ctx.globalAlpha = base;
+}
+
 function makeParts(s) {
   const r = Math.random, p = [];
-  for (let i = 0; i < s.flies; i++) p.push({ k: 'fly', x: r() * IW, y: (s.rise ? 0.3 : 0.15) * IH + r() * IH * 0.8, ph: r() * 9, sz: 1.6 + r() * 2.4, sp: 0.4 + r() * 0.8 });
-  for (let i = 0; i < s.leaves; i++) p.push({ k: 'leaf', x: -r() * IW, y: r() * IH * 0.8, ph: r() * 9, sz: 7 + r() * 7, sp: 0.7 + r() * 0.6 });
+  for (let i = 0; i < s.flies; i++) p.push({ k: 'fly', x: r() * IW, y: 40 + r() * (s.sky - 40) + (s.rise ? 120 : 0), ph: r() * 9, sz: 2 + r() * 3, sp: 0.4 + r() * 0.8 });
+  for (let i = 0; i < s.leaves; i++) p.push({ k: 'leaf', x: -r() * IW, y: r() * s.sky * 0.6, ph: r() * 9, sz: 9 + r() * 9, sp: 0.7 + r() * 0.6 });
   return p;
 }
 
-function drawScene(s, t, alpha) {
+function drawScene(s, t, alpha, outgoing) {
   const img = s.img; if (!img.complete || !img.naturalWidth) return;
   const k = Math.min(1, t / s.dur), e = k * k * (3 - 2 * k) * 0.35 + k * 0.65; // zoom contínuo, levemente suavizado
   const sc = (s.zoom[0] + (s.zoom[1] - s.zoom[0]) * e) * Math.max(W / IW, H / IH);
@@ -92,11 +123,11 @@ function drawScene(s, t, alpha) {
     const gr = ctx.createRadialGradient(g.x, g.y, 0, g.x, g.y, g.r);
     gr.addColorStop(0, `rgba(${g.c},${a})`); gr.addColorStop(1, `rgba(${g.c},0)`); ctx.fillStyle = gr; ctx.fillRect(g.x - g.r, g.y - g.r, g.r * 2, g.r * 2);
   }
-  if (s.fog) { ctx.globalAlpha = alpha * 0.8; const fx = (t * 22) % 1024; for (let x = -fx; x < IW; x += 1024) ctx.drawImage(fog, x, IH - 320, 1024, 320); ctx.globalAlpha = alpha; }
   for (const p of s.parts) {
     const gx = s.windX * gust(t + p.ph);
     if (p.k === 'fly') {
       const x = (p.x + t * gx * p.sp + Math.sin(t * 1.3 + p.ph) * 14) % IW, y = p.y - (s.rise ? t * 26 * p.sp : 0) + Math.sin(t * 0.9 + p.ph * 2) * 10;
+      if (y > s.sky) continue;
       const a = 0.5 + 0.5 * Math.sin(t * 3 * p.sp + p.ph), R = p.sz * 4;
       const gr = ctx.createRadialGradient(x, y, 0, x, y, R);
       gr.addColorStop(0, `rgba(255,236,160,${0.9 * a})`); gr.addColorStop(0.25, `rgba(255,210,110,${0.45 * a})`); gr.addColorStop(1, 'rgba(255,200,100,0)');
@@ -110,6 +141,7 @@ function drawScene(s, t, alpha) {
     ctx.save(); ctx.translate(x, y); ctx.rotate(t * 3 * p.sp + p.ph); ctx.scale(1, 0.45 + 0.4 * Math.sin(t * 5 + p.ph));
     ctx.fillStyle = 'rgba(30,70,50,.85)'; ctx.beginPath(); ctx.ellipse(0, 0, p.sz, p.sz * 0.5, 0, 0, 7); ctx.fill(); ctx.restore();
   }
+  if (!outgoing) writeScroll(s, t); // a frase do quadro que está saindo some na hora; o pergaminho novo cobre o antigo
   ctx.restore();
 }
 
@@ -118,13 +150,12 @@ function frame(now) {
   raf = requestAnimationFrame(frame);
   const t = (now - t0) / 1000;
   ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.fillStyle = '#060a18'; ctx.fillRect(0, 0, W, H);
-  if (prev >= 0 && t < FADE) drawScene(SCENES[prev], (now - tp0) / 1000, 1);
+  if (prev >= 0 && t < FADE) drawScene(SCENES[prev], (now - tp0) / 1000, 1, true);
   if (cur >= 0) drawScene(SCENES[cur], t, Math.min(1, t / FADE));
 }
 TT.intro = {
   durations: SCENES.map(s => s.dur),
-  textPos: SCENES.map(s => s.text), // onde a frase fica em cada quadro: sempre num canto livre, longe dos personagens
-  scene(i) { const now = performance.now(); prev = cur; tp0 = t0; cur = i; t0 = now; SCENES[i].parts = makeParts(SCENES[i]); if (!raf) raf = requestAnimationFrame(frame); },
+  scene(i, text) { SCENES[i].text = text || ''; const now = performance.now(); prev = cur; tp0 = t0; cur = i; t0 = now; SCENES[i].parts = makeParts(SCENES[i]); if (!raf) raf = requestAnimationFrame(frame); },
   stop() { cancelAnimationFrame(raf); raf = 0; cur = prev = -1; },
 };
 })();

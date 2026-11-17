@@ -14,7 +14,11 @@ const { chromium } = require('playwright');
   await pg.goto(url + '?q=0');
   check(await until(() => window.__tintim && __tintim.R.ready && __tintim.state === 'title'), 'abre na tela de título');
   await pg.waitForTimeout(600); await pg.click('#btnStart');
-  check(await until(() => __tintim.state === 'play'), 'Jogar inicia a partida');
+  check(await until(() => document.querySelector('#title').classList.contains('story')), 'Jogar abre a introdução');
+  await pg.waitForTimeout(1500); await pg.mouse.click(480, 270); // toque pula a introdução
+  check(await until(() => __tintim.state === 'play'), 'tocar na introdução inicia a partida');
+  check(await until(() => !!__tintim.S.thief && __tintim.S.cine && __tintim.S.cine.type === 'steal', 5000), 'Furtão aparece com o macaco na abertura');
+  check(await until(() => !__tintim.S.cine && !__tintim.S.thief, 8000), 'Furtão foge e o controle é liberado');
   await pg.keyboard.down('ArrowRight');
   check(await until(() => __tintim.player.x > 300), 'Tintim anda para a direita');
   check(await until(() => __tintim.S.cookies > 0), 'coleta biscoitos');
@@ -37,13 +41,13 @@ const { chromium } = require('playwright');
   check(await until(() => __tintim.state === 'play' && __tintim.player.x > 4100 && __tintim.player.hp === 3), 'tentar de novo volta ao checkpoint com 3 corações');
   await ev(() => { const p = __tintim.player; p.x = 9400; p.y = 300; });
   await pg.keyboard.down('ArrowRight');
-  check(await until(() => !!__tintim.S.cine), 'cena de apresentação do Brutão');
+  check(await until(() => __tintim.S.cine && __tintim.S.cine.type === 'boss'), 'cena de apresentação do Furtão');
   await pg.keyboard.up('ArrowRight');
   check(await until(() => !__tintim.S.cine && __tintim.S.arena, 40000), 'luta começa depois da cena');
   // pisar fora da hora não tira coração do Brutão: ele sacode o Timtim
   const hp0 = await ev(() => { const b = __tintim.boss, p = __tintim.player; p.inv = 5; p.x = b.x + 50; p.y = b.y - 70; p.vy = 300; return b.hp; });
   await pg.waitForTimeout(600);
-  check(await ev(() => __tintim.boss.hp) === hp0, 'pisar fora da hora não machuca o Brutão');
+  check(await ev(() => __tintim.boss.hp) === hp0, 'pisar fora da hora não machuca o Furtão');
   // a bolinha distrai o Brutão; pisar na cabeça enquanto ele morde acerta
   await ev(() => { window.__safe = setInterval(() => { __tintim.player.inv = 2; __tintim.player.hp = 3; }, 100); }); // o teste não desvia dos ataques
   for (let i = 0; i < 3; i++) {
@@ -51,10 +55,13 @@ const { chromium } = require('playwright');
     if (!ok || await ev(() => __tintim.state) !== 'play') break;
     const hp = await ev(() => { const b = __tintim.boss, p = __tintim.player; p.inv = 5; p.x = b.x + b.w / 2 - p.w / 2; p.y = b.y - 70; p.vy = 300; return b.hp; });
     await pg.waitForFunction(h => __tintim.boss.hp < h || __tintim.state !== 'play', hp, { timeout: 4000, polling: 50 }).catch(() => {});
-    if (i === 0) check(await ev(() => __tintim.boss.hp) === hp - 1, 'bolinha distrai o Brutão e o pisão acerta');
+    if (i === 0) check(await ev(() => __tintim.boss.hp) === hp - 1, 'bolinha distrai o Furtão e o pisão acerta');
   }
-  check(await until(() => __tintim.state === 'win', 40000), '3 pisões na hora certa vencem o Brutão');
+  check(await until(() => __tintim.state !== 'play' && !!__tintim.S.prize, 40000), '3 pisões na hora certa soltam o Macaco Fedido');
+  check(await until(() => __tintim.S.prize.rest, 5000), 'o macaco cai no chão ao lado do Timtim');
+  check(await until(() => __tintim.state === 'win', 40000), 'vitória depois do resgate');
   check(await pg.waitForSelector('#win.on', { timeout: 30000 }).then(() => true, () => false), 'tela de vitória aparece');
+  check(await ev(() => __tintim.S.items.some(i => i.type === 'yarn') && !__tintim.S.items.some(i => i.type === 'monkey')), 'bolinha de lã no lugar do macaco de pelúcia');
   check(errs.length === 0, 'sem erros no console' + (errs.length ? ': ' + errs.join(' | ') : ''));
   await b.close();
 })();

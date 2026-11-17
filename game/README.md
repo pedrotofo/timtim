@@ -1,15 +1,15 @@
-# Timtim e o Brutão
+# Timtim e o Resgate do Macaco Fedido
 
-Jogo de plataforma 2.5D curtinho: o Brutão, o valentão da vila, tirou a paz da Vila de Reserva com seus latidos, e só o Timtim pode acalmá-lo. Os dois amigos chihuahuas esperam no caminho e dão poderes (turbo e invencibilidade). Uma partida leva em torno de 2 minutos.
+Jogo de plataforma 2.5D curtinho: o Furtão, o valentão da vila, roubou o Macaco Fedido (o primeiro brinquedo do Timtim, fedido de tanto ser mordido), e o Timtim, a Zara e o Elvis partem para resgatá-lo. A abertura tem três quadros pintados com a frase escrita no pergaminho e a voz de um narrador; a fase começa com o Furtão passando com o macaco na boca, rindo e fugindo; no fim da luta o macaco pula dele e a turma comemora. Os dois amigos chihuahuas esperam no caminho e dão poderes (turbo e invencibilidade). Uma partida leva em torno de 2 minutos.
 
 ## Como jogar
 - ← → / A D: andar · Espaço / ↑ / W: pular (segure para pular mais alto; aperte de novo no ar para a pirueta, um pulo duplo) · P ou Esc: pausa · M: som
 - Celular: botões na tela. Controle (gamepad): direcional + botão A.
-- 🍪 Biscoito: pontos · 🍌 Banana de pelúcia: turbo por 7s · 🐒 Macaco de pelúcia: invencível por 8s e +1 coração
+- 🍪 Biscoito: pontos · 🍌 Banana de pelúcia: turbo por 7s · 🧶 Bolinha de lã: invencível por 8s e +1 coração
 - 🍫 Chocolate: dá dor de barriga e deixa o Timtim lento por 5s (pule por cima)
 - 🐶 Amigos chihuahuas: os dois esperam no caminho e, quando o Timtim chega perto, jogam um biscoito de presente (+3 biscoitos e +1 coração)
 - Pombos: pise por cima.
-- Chefão, o Brutão: 3 corações e um ataque novo a cada um (investida, latidão com onda no chão, pisão do terremoto). Pisar nele não adianta, ele sacode o Timtim para o alto. De tempos em tempos a Zara ou o Elvis jogam uma bolinha: ele corre atrás e fica mordendo, e só nessa hora o pisão na cabeça acerta.
+- Chefão, o Furtão: 3 corações e um ataque novo a cada um (investida, latidão com onda no chão, pisão do terremoto). Pisar nele não adianta, ele sacode o Timtim para o alto. De tempos em tempos a Zara ou o Elvis jogam uma bolinha: ele corre atrás e fica mordendo, e só nessa hora o pisão na cabeça acerta.
 - Estrelas: 1 por vencer, 1 por pegar 80% dos biscoitos, 1 por achar os 3 biscoitos dourados (só o pulo duplo alcança).
 
 ## Rodar
@@ -25,7 +25,8 @@ cd game && python3 -m http.server 8765   # abrir http://localhost:8765
 | `src/game.js` | Regras: física, inimigos, chefão, checkpoints, fluxo. Avisa o resto por eventos. |
 | `src/render3d.js` | Cenário 3D (three.js) desenhado por código, sprites, sombras, luzes, partículas, câmera e pós-processamento. |
 | `src/ui.js` | Controles, placar, telas e transições (HTML/CSS). |
-| `src/audio.js` | Efeitos gravados (`assets/sfx`) e trilhas gravadas (`assets/music`), tocadas em laço. Versões sintetizadas no navegador cobrem enquanto os arquivos carregam. |
+| `src/intro.js` | Abertura: três quadros pintados (`assets/intro`) com vento, vaga-lumes e a frase escrita no pergaminho. |
+| `src/audio.js` | Narração da abertura (`assets/voice`, gerada no Artlist), efeitos gravados (`assets/sfx`) e trilhas gravadas (`assets/music`), tocadas em laço. Versões sintetizadas no navegador cobrem enquanto os arquivos carregam. |
 | `src/main.js` | Laço principal e qualidade adaptativa. |
 | `docs/design.md` | Decisões de design e de arte. |
 | `tests/smoke.js` | Teste automático do caminho crítico (`node game/tests/smoke.js`). |
