@@ -44,6 +44,17 @@ Regra do projeto (CLAUDE.md): durante a produção só se gera capa e PDF. EPUB,
 6. **Corrija na fonte** (CSS do `build.py`, `src/*.md`, `tools/*.py`), gere de novo e **repita os passos 3 a 5** até a rodada sair limpa. Nunca edite um PDF ou EPUB gerado à mão.
 7. **Entregue** com o relatório: arquivos e tamanhos, o resultado de cada verificador, os AVISOs aceitos e por quê, o que só pode ser visto no site da KDP (Kindle Previewer, Visualizador de Impressão, preço por página colorida) e as perguntas que ficaram para o autor. Faça commit do relatório junto com os arquivos.
 
+## Decisões do autor antes de publicar o e-book
+
+Nenhum script decide isto; pergunte ao autor e anote a resposta no relatório.
+
+- **KDP Select ou lojas abertas.** O Select dá Kindle Unlimited e promoções, mas por 90 dias o e-book só pode estar na Amazon (nem Apple, Google, Kobo, nem venda direta do EPUB). O impresso fica livre.
+- **Royalty de 70 % ou 35 %.** Com a tarifa de entrega por MB, a de 70 % só compensa acima de duas vezes a tarifa (o relatório calcula). Confira no painel a faixa de preço que permite 70 % em reais.
+- **Amostra grátis.** Se os 10 % iniciais não chegam a uma aula, decidir o que vai para depois no EPUB.
+- **Acessibilidade.** Os metadados descritivos já saem no OPF. Declarar a isenção de microempresa da lei europeia é escolha do autor.
+- **ISBN** para o impresso e para o EPUB das outras lojas (opcional; no Brasil, CBL).
+- **Kindle Previewer** (gratuito, Windows e Mac) e um envio de teste para um Kindle de verdade antes de publicar: esta máquina não roda o Kindle Previewer.
+
 ## Níveis do relatório
 
 - **ERRO**: a loja recusa ou o livro sai com defeito visível. Não entregue.
@@ -63,6 +74,8 @@ Regra do projeto (CLAUDE.md): durante a produção só se gera capa e PDF. EPUB,
 - **Capa como `<img>`.** Deixa faixa branca ou corta. Use o invólucro SVG na página de capa e nenhuma página de capa na versão Kindle.
 - **Cor fixa no texto do EPUB.** Quebra o modo noturno. Sem `color` no `body`, sem fundo colorido em bloco de texto.
 - **Pintura onde o livro é de desenho.** A série é "a Lápis": capa, galeria e aberturas usam desenho, gravura ou foto, nunca pintura a óleo (regra do autor).
+- **Capa interna de 1600 × 2560.** Passa de 4 milhões de pixels e a Apple Books recusa. Dentro do EPUB, 1500 × 2400.
+- **Frase de livro impresso no EPUB.** "Imprima a página", "p. 42", "página ao lado": troque no `kindle_html` por uma versão de tela.
 - **`alt` vazio em obra.** Abertura de parte e catálogo mostram obras: `alt` com título e artista. Só ornamento leva `alt=""`.
 
 ## Ferramentas

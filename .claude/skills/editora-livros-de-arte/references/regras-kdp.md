@@ -8,7 +8,10 @@ Levantadas em 17/11/2026. O site da KDP (kdp.amazon.com) estava bloqueado na red
 |---|---|---|
 | Formato do original | EPUB é o formato recomendado; layout refluível | KDP Help; guias de requisitos KDP |
 | Tamanho do arquivo | até 650 MB | vários guias KDP |
-| Custo de entrega | na opção de 70 %, cobrado por MB do arquivo convertido (cerca de US$ 0,15/MB nos EUA) ⚠ tabela por país | KDP Pricing |
+| Custo de entrega | na opção de 70 %, cobrado por MB do arquivo **convertido** (o KPF, que pode pesar diferente do EPUB): US$ 0,15/MB na Amazon.com, R$ 0,30/MB na Amazon.com.br. A tela de preço da KDP mostra o valor real depois do envio | KDP Pricing (G200634500) |
+| 70 % ou 35 % | royalty de 70 % = 70 % × (preço − impostos − entrega); 35 % não tem tarifa de entrega. Num livro de imagens, a de 70 % só compensa acima de **duas vezes a tarifa de entrega**. A faixa de preço que permite 70 % mudou em 07/07/2026 (nos EUA, US$ 2,99 a 12,99) ⚠ confira a faixa em reais no painel | KDP Pricing |
+| Amostra grátis | os primeiros 10 % do conteúdo (front matter incluído) viram a amostra e o "Ler amostra" | KDP Help (G200644250) |
+| KDP Select | 90 dias de exclusividade do **e-book**: enquanto durar, o EPUB não pode estar na Apple, Google, Kobo nem no seu site. Impresso fica livre | guias de KDP Select ⚠ termos atuais |
 | Validação | EPUBCheck sem erros; conferir no Kindle Previewer | guias KDP; deckle.studio |
 | Sumário | documento de navegação (EPUB 3 `nav` com `epub:type="toc"`) | guias KDP |
 | Capa interna | imagem declarada no manifesto (`properties="cover-image"`) | guias KDP |
@@ -48,6 +51,9 @@ Levantadas em 17/11/2026. O site da KDP (kdp.amazon.com) estava bloqueado na red
 - `lang` em cada página (hifenização e leitura em voz alta).
 - `alt` descritivo em toda imagem de conteúdo.
 - Fontes embutidas só com licença que permita (EB Garamond e Archivo: SIL Open Font License, permitido).
+- **Apple Books: nenhuma imagem dentro do EPUB acima de 4 milhões de pixels**, e isso vale para a capa interna (1600 × 2560 = 4,1 milhões é recusada). Dentro do EPUB a capa vai a 1500 × 2400; a de 1600 × 2560 é enviada à parte. A capa da loja precisa de pelo menos 1400 px no lado menor.
+- **Acessibilidade.** Desde 28/06/2025 a Lei Europeia de Acessibilidade vale para e-books vendidos na UE. O build declara no OPF os metadados `schema:accessMode`, `accessibilityFeature`, `accessibilityHazard` e `accessibilitySummary` (o que o livro tem), sem afirmar conformidade auditada. Um autor sozinho se enquadra como microempresa (menos de 10 pessoas e até 2 milhões de euros); declarar a isenção (`a11y:exemption` = `eaa-microenterprise`) é decisão do autor, e as lojas podem não aceitar.
+- ISBN: o Kindle não exige; Apple, Google e Kobo aceitam sem. No Brasil o ISBN sai pela CBL e cada formato (impresso, EPUB) tem o seu.
 
 ## Fontes consultadas
 
@@ -59,3 +65,9 @@ Levantadas em 17/11/2026. O site da KDP (kdp.amazon.com) estava bloqueado na red
 - [deckle.studio — Amazon KDP EPUB requirements](https://deckle.studio/wiki/workflow/export/epub/amazon-kdp-epub-requirements/)
 - [KDP spine width calculator (inkfluenceai)](https://www.inkfluenceai.com/kdp-spine-width-calculator)
 - [Lightning Source — ePUB File Creation Guidelines](https://help.lightningsource.com/hc/en-us/articles/5294175362061-ePUB-File-Creation-Guidelines)
+- [KDP — eBook Royalties e custo de entrega (G200634500, pt-BR)](https://kdp.amazon.com/pt_BR/help/topic/G200634500)
+- [KDP — amostra e Look Inside (G200644250)](https://kdp.amazon.com/help/topic/G200644250)
+- [Apple Books — preparar o livro (limite de imagem)](https://itunespartner.apple.com/books/support/9-prepare-book)
+- [W3C — EPUB Accessibility exemption property](https://www.w3.org/TR/epub-a11y-exemption)
+- [ALLi — European Accessibility Act](https://selfpublishingadvice.org/european-accessibility-act/)
+- [Scribecount — KDP Select, guia](https://scribecount.com/author-resource/publishing-a-book/kdp-select-the-complete-operational-guide)

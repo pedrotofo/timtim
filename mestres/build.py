@@ -892,6 +892,9 @@ def kindle_html(body):
     body = re.sub(r'<div class="steps4[^"]*">.*?</div>', steps, body, flags=re.S)
     body = re.sub(r'<p class="pline">.*?</p>', '', body, flags=re.S)
     body = body.replace('<h2>Para praticar</h2>', '<h2 class="pp">Para praticar</h2>')
+    # frase que só vale no papel: no e-book não se imprime a página
+    body = body.replace('imprima a página e use papel vegetal, ou importe a página num aplicativo de desenho',
+                        'faça uma captura da tela e importe-a num aplicativo de desenho')
     # galeria dos mestres e comparações: imagem e texto lado a lado, em tabela (o Kindle não respeita flex)
     body = re.sub(r'<div class="mestre"([^>]*)><figure>(<img [^>]*?/?>)</figure><div>(.*?)</div></div>',
                   lambda m: f'<table class="mtab"{m.group(1)}><tr><td class="mimg">{m.group(2)}</td><td class="mestre">{m.group(3)}</td></tr></table>', body, flags=re.S)
@@ -977,8 +980,8 @@ def build_epub(S, out, small=None, kindle=False):
         z.writestr('OEBPS/style.css', fcss + EPUB_CSS, compress_type=zipfile.ZIP_DEFLATED)
         if not kindle:  # a capa como página: SVG que se ajusta a qualquer tela sem cortar nem esticar
             capa_svg = ('<div class="capa"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" '
-                        'width="100%" height="100%" viewBox="0 0 1600 2560" preserveAspectRatio="xMidYMid meet">'
-                        '<image width="1600" height="2560" xlink:href="img/cover.jpg"/></svg></div>')
+                        'width="100%" height="100%" viewBox="0 0 1500 2400" preserveAspectRatio="xMidYMid meet">'
+                        '<image width="1500" height="2400" xlink:href="img/cover.jpg"/></svg></div>')
             z.writestr('OEBPS/cover.xhtml', page('Capa', capa_svg), compress_type=zipfile.ZIP_DEFLATED)
         for name, title, body, kind in files:
             x = xhtml(fixlinks(body))
@@ -990,12 +993,18 @@ def build_epub(S, out, small=None, kindle=False):
                 z.write(im, 'OEBPS/' + im, compress_type=zipfile.ZIP_STORED)
             elif im.endswith('.svg'):
                 z.write(im, 'OEBPS/' + im, compress_type=zipfile.ZIP_DEFLATED)
+            elif im == 'img/cover.jpg':
+                # dentro do EPUB a capa fica abaixo de 4 milhões de pixels (limite da Apple Books para imagens internas);
+                # a capa de 1600 × 2560 da loja vai à parte, em out/capa-ebook-1600x2560.jpg
+                from PIL import Image
+                import io
+                buf = io.BytesIO(); Image.open(im).convert('RGB').resize((1500, 2400), Image.LANCZOS).save(buf, 'JPEG', quality=90, optimize=True)
+                z.writestr('OEBPS/' + im, buf.getvalue(), compress_type=zipfile.ZIP_STORED)
             elif small:
                 from PIL import Image
                 import io
                 pic = Image.open(im).convert('RGB')
-                if im != 'img/cover.jpg':
-                    pic.thumbnail((small, small))
+                pic.thumbnail((small, small))
                 buf = io.BytesIO(); pic.save(buf, 'JPEG', quality=76, optimize=True, progressive=True)
                 z.writestr('OEBPS/' + im, buf.getvalue(), compress_type=zipfile.ZIP_STORED)
             else:
@@ -1025,6 +1034,16 @@ def build_epub(S, out, small=None, kindle=False):
                '<metadata xmlns:dc="http://purl.org/dc/elements/1.1/">'
                f'<dc:identifier id="bid">{bid}</dc:identifier><dc:title>Grandes Artistas a Lápis</dc:title><dc:creator>Pedro Torres</dc:creator>'
                '<dc:language>pt-BR</dc:language><dc:subject>Desenho</dc:subject>'
+               f'<dc:date>{datetime.date.today().year}</dc:date><dc:rights>© {datetime.date.today().year} Pedro Torres. Todos os direitos reservados.</dc:rights>'
+               '<meta property="belongs-to-collection" id="serie">a Lápis</meta><meta refines="#serie" property="collection-type">series</meta>'
+               # acessibilidade (EPUB Accessibility 1.1): descreve o que o livro tem, sem declarar conformidade auditada
+               '<meta property="schema:accessMode">textual</meta><meta property="schema:accessMode">visual</meta>'
+               '<meta property="schema:accessModeSufficient">textual,visual</meta>'
+               '<meta property="schema:accessibilityFeature">alternativeText</meta><meta property="schema:accessibilityFeature">structuralNavigation</meta>'
+               '<meta property="schema:accessibilityFeature">tableOfContents</meta><meta property="schema:accessibilityFeature">readingOrder</meta>'
+               '<meta property="schema:accessibilityFeature">displayTransformability</meta>'
+               '<meta property="schema:accessibilityHazard">none</meta>'
+               '<meta property="schema:accessibilitySummary">Livro refluível com sumário navegável, títulos em ordem e texto alternativo em todas as obras e desenhos. As aulas dependem de ver as imagens: o texto descreve cada obra, mas os exercícios pedem que o leitor olhe o desenho.</meta>'
                f'<dc:description>Um curso de desenho a lápis com dez mestres, de Leonardo a Schiele: linha, proporção, luz e sombra, rosto, figura e composição, com {NEX} exercícios em cinco níveis.</dc:description>'
                f'<meta property="dcterms:modified">{now}</meta><meta name="cover" content="i{sorted(imgs).index("img/cover.jpg")}"/></metadata>'
                f'<manifest>{"".join(man)}</manifest><spine>{"".join(spine)}</spine></package>')

@@ -50,11 +50,22 @@ A orientação sai da própria imagem (largura ≥ altura → horizontal). O `ki
 - Balões em PNG com transparência: **256 cores** (quantização). Um recorte de desenho não muda a olho e cai de ~180 KB para ~30 KB. Em 17/11/2026 isso tirou 12 MB do EPUB da Amazon (29,4 → 16,8 MB).
 - Antes de mudar a resolução, veja o que pesa (`unzip -lv` ou o resumo de `verifica_epub.py`): o vilão costuma ser um tipo de arquivo, não as fotos.
 
+### Kindle de tinta eletrônica (Kindle básico, Paperwhite)
+- **A capa não preenche a tela.** A tela do Kindle básico é 1072 × 1448 (1,35:1) e a capa é 1,6:1: ela entra inteira, encaixada pela altura, com uma faixa branca de uns 8 % de cada lado. Nos celulares (cerca de 2:1) as faixas ficam em cima e embaixo. Não há proporção que preencha todas as telas, e a KDP usa a mesma capa na loja: mantenha 1,6:1.
+- O livro abre no início do conteúdo, não na capa; a capa aparece na biblioteca, na tela de bloqueio (modelos sem anúncios) e em "Ir para > Capa".
+- **16 tons de cinza.** A cor de cada nível some: o nível precisa estar escrito ("Nível 1 · Linha e contorno"), nunca indicado só pela cor. Desenhos muito claros (ponta de prata, sanguínea fraca) ficam suaves; não use um desses como única imagem de uma explicação.
+- O fundo creme da capa vira um cinza claro diferente da faixa branca. É aceitável e comum.
+
+### Amostra grátis (Amazon)
+- A Amazon dá os primeiros 10 % do e-book como amostra. Quem baixa precisa ver **pelo menos uma aula ou um exercício**; uma amostra só de prefácio e galeria não vende um livro de exercícios. O `verifica_epub.py` diz onde a amostra termina. Se a primeira aula ficar de fora, leve para depois no EPUB o que é consulta (galeria longa, linha do tempo).
+
 ## Como conferir
 1. `previa_epub.py` nas duas telas, celular e Kindle: nada transborda; olhe a folha inteira procurando imagem que ocupa a tela sem ser a obra da aula.
 2. Abra lado a lado uma aula no PDF e a mesma aula na prévia: a ordem dos tamanhos (obra > modelo > recorte > balão) tem de ser a mesma.
 3. Capa: sem faixa branca na prévia de celular; na versão Kindle, nenhuma página de capa no começo.
 4. Modo noturno: no Kindle Previewer, ligue o fundo preto e passe pela galeria, uma aula e a linha das vidas.
+5. Tinta eletrônica: no Kindle Previewer escolha um Kindle (não tablet) e veja a capa e uma aula em cinza.
+6. Frases do papel: `verifica_epub.py` aponta "imprima", "p. 42", "página ao lado". Cada uma ganha uma versão de tela no `kindle_html` ou sai do texto.
 
 ## PDF, EPUB e a Amazon
 - A Amazon **não vende PDF para baixar**. Na KDP o PDF serve para o livro impresso (brochura e capa dura).
