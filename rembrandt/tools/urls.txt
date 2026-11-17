@@ -102,3 +102,13 @@ st-c04-2 https://cdn.openart.ai/openart-ai/production/2026-11/create-image/MPlYj
 st-t08-1 https://cdn.openart.ai/openart-ai/production/2026-11/create-image/MPlYjLbSAtvk0yvA505B/image_1794886173826_79b1604d_1794886173876_9a794d33.png
 st-c04-2 https://cdn.openart.ai/openart-ai/production/2026-11/create-image/MPlYjLbSAtvk0yvA505B/image_1794886421921_cb5bd6e4_1794886422110_86e3969c.png
 st-c04-3 https://cdn.openart.ai/openart-ai/production/2026-11/create-image/MPlYjLbSAtvk0yvA505B/image_1794886425082_fc7ad654_1794886425496_15876c61.png
+a06 https://cdn.openart.ai/openart-ai/production/2026-11/create-image/MPlYjLbSAtvk0yvA505B/image_1794887106622_845c0ab0_1794887107142_8f92ba30.png
+a07 https://cdn.openart.ai/openart-ai/production/2026-11/create-image/MPlYjLbSAtvk0yvA505B/image_1794887106295_e045b66f_1794887106388_df0f0f83.png
+l08 https://cdn.openart.ai/openart-ai/production/2026-11/create-image/MPlYjLbSAtvk0yvA505B/image_1794887106872_475f9bd9_1794887107102_dbc10f6e.png
+a03 https://cdn.openart.ai/openart-ai/production/2026-11/create-image/MPlYjLbSAtvk0yvA505B/image_1794887107567_208923e0_1794887107740_ec94d21f.png
+a01 https://cdn.openart.ai/openart-ai/production/2026-11/create-image/MPlYjLbSAtvk0yvA505B/image_1794887242417_ea36278b_1794887242498_99eda31c.png
+c06 https://cdn.openart.ai/openart-ai/production/2026-11/create-image/MPlYjLbSAtvk0yvA505B/image_1794887242397_fe8da5b5_1794887242689_22b10db5.png
+p08 https://cdn.openart.ai/openart-ai/production/2026-11/create-image/MPlYjLbSAtvk0yvA505B/image_1794887243752_d7054f49_1794887243817_925b56cc.png
+b01 https://cdn.openart.ai/openart-ai/production/2026-11/create-image/MPlYjLbSAtvk0yvA505B/image_1794887244487_e7e91e83_1794887244557_31593475.png
+bad-luz3 https://cdn.openart.ai/openart-ai/production/2026-11/create-image/MPlYjLbSAtvk0yvA505B/image_1794887319141_5e63fafd_1794887319786_a0b21681.png
+bad-luz1 https://cdn.openart.ai/openart-ai/production/2026-11/create-image/MPlYjLbSAtvk0yvA505B/image_1794887319928_03b94ec1_1794887320030_48d9727b.png

@@ -137,14 +137,14 @@ def build_sections():
 CAT_ORDER = ['two_heads', 'mother', 'sp_shout', 'sp_frown', 'sp_wide', 'old_man', 'beggar_draw', 'saskia_hat', 'saskia_bed', 'child_walk', 'stairs',
              'pancake', 'sp_saskia', 'elephant', 'actor', 'last_supper', 'castiglione', 'sp_sill', 'saskia_window', 'saskia_bed2', 'three_trees',
              'six_bridge', 'jan_six', 'sp_window', 'beggars_door', 'hundred', 'winter', 'cottage', 'lion', 'sheet_studies', 'shell', 'three_crosses',
-             'hendrickje', 'nathan', 'studio_attire', 'mughal', 'woman_window', 'nightwatch', 'tulp', 'sp_1669']
+             'hendrickje', 'nathan', 'studio_attire', 'mughal', 'nightwatch', 'tulp', 'sp_1669']
 
 def catalogue():
     order = [k for k in CAT_ORDER if k in PL] + [k for k in PL if k not in CAT_ORDER]
     rows = []
     for i, k in enumerate(order, 1):
         p = PL[k]; f = FI.get(k, {})
-        ficha = ' · '.join(v for v in [f.get('tec'), f.get('dim'), f.get('inst')] if v)
+        ficha = ' · '.join(v for v in [f.get('tec'), f.get('dim')] if v)
         rows.append(f'<div class="cat" id="cat-{k}"><img src="img/{k}.jpg" alt="{esc(p["t"])}"/><div><p class="ct"><span class="cn">{i}</span> <i>{esc(p["t"])}</i></p>'
                     f'<p class="cc">{esc(p["c"])}</p>' + (f'<p class="cf">{esc(ficha)}</p>' if ficha else '') + f'<p class="cl">{esc(p.get("l", ""))}</p></div></div>')
     intro = ('<p>As obras de Rembrandt citadas no livro e indicadas nos exercícios, em ordem aproximada de data, com a técnica, '
@@ -241,8 +241,8 @@ ENDERECOS = [('Leiden, junto ao moinho', '1606–1631', 'A casa da família e, a
              ('Amsterdã, casa de Uylenburgh', '1631–1635', 'Na Sint Antoniesbreestraat, entre os quadros do negociante. Os primeiros retratos de sucesso.'),
              ('Amsterdã, Nieuwe Doelenstraat', '1635–1637', 'A primeira casa com Saskia.'),
              ('Amsterdã, Binnen Amstel', '1637–1639', 'Uma casa alugada à beira do rio. O ano do elefante.'),
-             ('Amsterdã, a casa grande', '1639–1658', 'Na Sint Antoniesbreestraat, hoje o Museu Casa de Rembrandt. As gravuras grandes e as paisagens.'),
-             ('Amsterdã, Rozengracht', 'c. 1660–1669', 'A casa alugada depois da falência. Os desenhos mais largos e mais livres.')]
+             ('Amsterdã, a casa grande', '1639–1660', 'Na Sint Antoniesbreestraat, hoje o Museu Casa de Rembrandt. As gravuras grandes e as paisagens.'),
+             ('Amsterdã, Rozengracht', '1660–1669', 'A casa alugada depois da falência. Os desenhos mais largos e mais livres.')]
 # ano, lugar, imagem, centro x, centro y, largura (fração), obra, texto
 TRACOS = [('1628', 'Leiden', 'mother', .62, .4, .6, 'A mãe do artista', 'Gravura miúda. A luz de lado cava cada ruga.'),
           ('1629', 'Leiden', 'sp_shout', .5, .32, .8, 'Autorretrato de boca aberta', 'Pena e pincel. O rosto como estudo de expressão.'),
@@ -252,7 +252,7 @@ TRACOS = [('1628', 'Leiden', 'mother', .62, .4, .6, 'A mãe do artista', 'Gravur
           ('1637', 'Amsterdã', 'elephant', .6, .45, .7, 'Um elefante', 'Giz preto. Traços curtos que seguem a forma.'),
           ('1643', 'Amsterdã', 'three_trees', .6, .45, .6, 'As três árvores', 'A luz como assunto da folha.'),
           ('1648', 'Amsterdã', 'sp_window', .5, .3, .7, 'Autorretrato à janela', 'Uma luz só, e o resto em sombra.'),
-          ('c. 1650', 'Amsterdã', 'lion', .4, .45, .6, 'Leão deitado', 'Pena de junco e pincel. A linha se quebra.'),
+          ('c. 1649', 'Amsterdã', 'winter', .62, .3, .7, 'Paisagem de inverno', 'Meia dúzia de linhas. A neve é o papel.'),
           ('c. 1654', 'Amsterdã', 'hendrickje', .45, .45, .8, 'Hendrickje dormindo', 'Só pincel. Nenhum contorno fechado.')]
 
 def make_tracos():
@@ -265,8 +265,8 @@ def make_tracos():
 def map_html(inline=True):
     rows = ''.join(f'<div class="end"><span class="en">{i}</span><div><p><b>{c}</b> <span class="ey">{y}</span></p><p>{t}</p></div></div>'
                    for i, (c, y, t) in enumerate(ENDERECOS, 1))
-    return ('<div class="enderecos" id="toc-caminho"><h2>Seis endereços</h2><p class="sub">Uma vida inteira entre duas cidades, a meia hora de barco uma da outra. '
-            'Quase tudo aconteceu em Amsterdã, numa dúzia de ruas.</p>' + rows + '</div>')
+    return ('<div class="enderecos" id="toc-caminho"><h2>Seis endereços</h2><p class="sub">Uma vida inteira entre duas cidades, a uns quarenta quilômetros uma da outra. '
+            'A partir de 1631, quase tudo aconteceu em Amsterdã, numa dúzia de ruas.</p>' + rows + '</div>')
 
 def tracos_html():
     def row(i, x):
@@ -351,7 +351,7 @@ table.chrono td:first-child{font:400 10pt Disp;width:.62in;white-space:nowrap}
 table.letters td:first-child{font:400 9pt Disp;width:.82in;white-space:nowrap}
 table.letters td:nth-child(2){font:400 7.6pt/1.4 Sans;color:#6E6253;width:1.4in}
 ol.check li{margin:.35em 0}
-dl.gloss dt{font:700 8.6pt Sans;margin-top:.7em}dl.gloss dd{margin:.1em 0 0 0}
+dl.gloss dt{font:700 8.6pt Sans;margin-top:.7em;break-after:avoid}dl.gloss dd{margin:.1em 0 0 0}
 .ref{padding-left:1.2em;text-indent:-1.2em;text-align:left}
 .sign{text-align:right;font-style:italic;margin-top:1.2em}
 .vida{background:#E3D9C6;padding:.14in .16in .1in;margin:0 0 1.3em}
@@ -360,10 +360,13 @@ dl.gloss dt{font:700 8.6pt Sans;margin-top:.7em}dl.gloss dd{margin:.1em 0 0 0}
 .kit ul{margin:0;padding:0 0 0 1.1em}
 .kit li{margin:0 0 .35em;font-size:9.6pt;line-height:1.38;text-align:left}
 .kit li b{font-weight:600}
-.marks{display:grid;grid-template-columns:1fr 1fr;column-gap:.16in;row-gap:.12in;margin:.6em 0 1em}
-.marks figure{margin:0}.marks img{max-height:1.35in;width:100%;object-fit:cover}
-.pair{display:grid;grid-template-columns:1fr 1fr;column-gap:.16in;break-inside:avoid;margin:.8em 0}.pair figure{margin:0}
+.marks{display:flex;gap:.16in;margin:.12in 0;break-inside:avoid}
+.marks figure{margin:0;flex:1}.marks img{max-height:1.35in;width:100%;object-fit:cover}
+.pair{display:flex;gap:.16in;break-inside:avoid;margin:.8em 0}.pair figure{margin:0;flex:1}
 .pair img{max-height:2.3in}
+.pair.small{margin:.4em 0}.pair.small img{max-height:1.45in}
+figure.mid img{max-height:3in}
+.keep{break-inside:avoid}
 .steps4{display:grid;grid-template-columns:repeat(4,1fr);column-gap:.08in;break-inside:avoid;margin:.8em 0}.steps4 figure{margin:0}
 .steps4 img{max-height:1.55in}.steps4 figcaption{font-size:6.8pt}
 .practice{margin-top:1.6em;border-top:.6pt solid #1E1913;padding-top:.7em;break-inside:avoid}
@@ -443,7 +446,7 @@ figure.diag img{width:100%;max-height:none}
 .bleed img{position:absolute;inset:0;width:6in;height:9in;object-fit:cover}
 .bleed::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2in;background:linear-gradient(to bottom,rgba(240,233,218,0),rgba(240,233,218,.92) 60%)}
 .bleed.dark::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2.2in;background:linear-gradient(to bottom,rgba(15,11,8,0),rgba(15,11,8,.8) 70%)}
-.bleed .bcap{position:absolute;left:.4in;right:.4in;bottom:.45in;z-index:2;white-space:nowrap;font:400 7pt/1.45 Sans;color:#1E1913;text-align:left;margin:0}
+.bleed .bcap{position:absolute;left:.4in;right:.4in;bottom:.4in;z-index:2;font:400 7pt/1.45 Sans;color:#1E1913;text-align:left;margin:0}
 .bleed .bcap i{font:italic 400 9.6pt Serif}
 .bleed.dark .bcap{color:#FBF8F1}
 /* capa */
@@ -506,7 +509,7 @@ section.level{page:chap;break-before:page}
 .lvhead{height:3.2in;position:relative}
 .lvhead .chlab{position:absolute;left:0;top:.05in;font:500 7.4pt Sans;margin:0}
 .lvhead .chnum{position:absolute;right:-.06in;top:-.2in;font:400 120pt/1 Disp;color:#9A4A2C;margin:0}
-.lvhead h1{position:absolute;left:0;bottom:0;margin:0;font-size:23pt}
+.lvhead h1{position:absolute;left:0;right:0;bottom:0;margin:0;font-size:23pt;white-space:nowrap}
 .lvlist{columns:2;column-gap:.22in;margin-top:.9em;border-top:.6pt solid #1E1913;padding-top:.1in}
 .lvlist p{font-size:8.8pt;line-height:1.3;text-align:left;margin:0 0 .3em;break-inside:avoid}
 .lvlist b{font:700 7.4pt Sans;display:inline-block;width:.36in}
@@ -621,8 +624,8 @@ def ex_pdf(x, chapnames, half=False):
 def level_pdf(code, lid, ln, name, intro, chapnames):
     items = [x for x in EX if x['lv'] == code]
     lst = ''.join(f'<p><b><a href="#ex-{x["id"]}">{x["id"].upper()}</a></b>{esc(x["t"])}</p>' for x in items)
-    out = [f'<section class="level" id="{lid}"><span class="rh">Exercícios · {ln}</span>'
-           f'<div class="lvhead"><p class="chlab">Parte III · Exercícios</p><p class="lvtag">{ln}</p><h1>{name}</h1></div>'
+    out = [f'<section class="level" id="{lid}"><span class="rh">Estudos · {ln}</span>'
+           f'<div class="lvhead"><p class="chlab">Parte III · Estudos</p><p class="lvtag">{ln}</p><h1>{name}</h1></div>'
            f'<p class="lead">{intro}</p><div class="lvlist">{lst}</div></section>']
     if code == 'w':
         for i in range(0, len(items), 2):
@@ -641,7 +644,7 @@ def catalogue_pdf():
     cards = []
     for k in order:
         p = PL[k]; f = FI.get(k, {})
-        fi = ' · '.join(v for v in [f.get('tec'), f.get('dim'), f.get('inst')] if v)
+        fi = ' · '.join(v for v in [f.get('tec'), f.get('dim')] if v)
         cards.append(f'<div class="cat" id="cat-{k}"><div class="im"><img src="img/{k}.jpg" alt="{esc(p["t"])}"/></div><div>'
                      f'<p class="ct"><span class="cn">{num[k]}</span><i>{esc(p["t"])}</i></p><p class="cc">{esc(p["c"])}</p>'
                      + (f'<p class="cf">{esc(fi)}</p>' if fi else '') + f'<p class="cl">{esc(p.get("l", ""))}</p></div></div>')
@@ -746,7 +749,11 @@ def pdf_html(S):
                     hd = ('<div class="pshead"><span class="rh">Primeiros passos</span><p class="psl">Primeiros passos</p>'
                           f'<p class="pst">Exercícios curtos do {CHAP[fs[0]["ch"]][1].lower()}, de 8 a 20 minutos.</p></div>') if i == 0 else ''
                     anchor = ' id="primeiros-passos"' if (i == 0 and fs[0]['ch'] == 't') else ''
-                    P.append(f'<div class="pair2{" first" if i == 0 else ""}"{anchor}>{hd}' + ''.join(ex_pdf(x, chapnames, half=True) for x in fs[i:i + 2]) + '</div>')
+                    chunk = fs[i:i + 2]
+                    if len(chunk) == 1 and i > 0:
+                        P.append(ex_pdf(chunk[0], chapnames))
+                    else:
+                        P.append(f'<div class="pair2{" first" if i == 0 else ""}"{anchor}>{hd}' + ''.join(ex_pdf(x, chapnames, half=True) for x in chunk) + '</div>')
             if s['id'] in END_ART:
                 P.append(bleed_html(END_ART[s['id']]))
     P.append('<section class="fim"><img src="img/cottage.jpg" alt="Cabana entre árvores, desenho a pena de Rembrandt"/>'

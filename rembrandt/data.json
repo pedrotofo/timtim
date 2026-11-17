@@ -246,7 +246,7 @@
 "ch": "c",
 "t": "Rosto jovem quase em papel",
 "m": "30 min · Lápis 2B",
-"d": "Uma jovem de chapéu de aba larga, de frente. Contorno leve, sombra só embaixo da aba, olhos e boca em poucos traços.",
+"d": "Uma jovem de chapéu de aba larga, de três quartos. Contorno leve, sombra só embaixo da aba, olhos e boca em poucos traços.",
 "c": "o rosto tem menos de vinte traços e a sombra do chapéu é a única mancha.",
 "ref": "saskia_hat"
 },
@@ -366,7 +366,7 @@
 "ch": "l",
 "t": "À luz de vela",
 "m": "40 min · Lápis 6B e esfuminho",
-"d": "Um rosto iluminado de baixo por uma vela. O queixo e a ponta do nariz claros, a testa e o fundo escuros.",
+"d": "Um rosto iluminado por uma vela segurada na altura do queixo. O lado virado para a chama fica claro, o cabelo e o fundo escuros.",
 "c": "o ponto mais claro é a chama e o rosto clareia em volta dela.",
 "ref": null
 },
@@ -560,7 +560,7 @@
 "mother": {
 "t": "A mãe do artista, cabeça e busto",
 "c": "Leiden, 1628. Gravura em metal. National Gallery of Art.",
-"l": "O lado da luz é quase papel. O lado da sombra é hachura que segue as dobras da pele."
+"l": "A velha que a tradição identifica como a mãe dele. O lado da luz é quase papel, o da sombra é hachura que segue a pele."
 },
 "sp_shout": {
 "t": "Autorretrato de boca aberta",
@@ -644,7 +644,7 @@
 },
 "saskia_window": {
 "t": "Saskia sentada à janela",
-"c": "Amsterdã, por volta de 1635 a 1638. Pena e pincel, tinta marrom. Museu de Belas-Artes de Budapeste.",
+"c": "Amsterdã, por volta de 1635 a 1638. Pena e pincel. Museu de Belas-Artes, Budapeste.",
 "l": "A mancha escura do fundo contorna a figura clara, sentada junto à mesa."
 },
 "saskia_bed2": {
@@ -694,8 +694,8 @@
 },
 "lion": {
 "t": "Leão jovem deitado",
-"c": "Amsterdã, por volta de 1650. Pena de junco e pincel, tinta marrom.",
-"l": "O corpo em massa, a juba em pinceladas, a linha quebrada da pena de junco."
+"c": "Amsterdã. Pena e pincel, tinta marrom.",
+"l": "O corpo em massa, a juba em pinceladas, o contorno em linha quebrada."
 },
 "sheet_studies": {
 "t": "Folha de estudos com a cabeça do artista, um mendigo e uma mulher com criança",
@@ -731,11 +731,6 @@
 "t": "Shah Jahan, segundo uma miniatura mogol",
 "c": "Amsterdã, por volta de 1656 a 1661. Pena e tinta marrom, aguada.",
 "l": "Linha fina e contorno contínuo: o jeito do mestre copiado, não o dele."
-},
-"woman_window": {
-"t": "Mulher apoiada no peitoril de uma janela",
-"c": "Amsterdã. Pena e pincel, tinta marrom.",
-"l": "Uma figura feita com uma única mancha de pincel e meia dúzia de linhas."
 },
 "nightwatch": {
 "t": "A Ronda Noturna",
@@ -931,11 +926,6 @@
 },
 "mughal": {
 "tec": "Pena e tinta marrom, pincel e aguada",
-"dim": "",
-"inst": ""
-},
-"woman_window": {
-"tec": "Pena e tinta marrom, aguada",
 "dim": "",
 "inst": ""
 },

@@ -1,17 +1,17 @@
 <!-- id: prefacio | Prefácio | front -->
 # Prefácio
 
-Rembrandt van Rijn é talvez o pintor mais admirado da Holanda e um dos poucos nomes da história da arte que quase todo mundo já ouviu. Viveu no século XVII, o chamado Século de Ouro holandês, quando Amsterdã era a cidade mais rica da Europa. Teve fama cedo, ganhou muito dinheiro, gastou mais do que ganhou, perdeu a mulher, os filhos, a casa e a coleção, e continuou trabalhando até o fim. Morreu em 1669, aos 63 anos.
+Rembrandt van Rijn é talvez o pintor mais admirado da Holanda e um dos poucos nomes da história da arte que quase todo mundo já ouviu. Viveu no século XVII, o chamado Século de Ouro holandês, quando Amsterdã era a cidade mais rica da Europa. Teve fama cedo, ganhou muito dinheiro, gastou mais do que ganhou, perdeu a mulher, quase todos os filhos, a casa e a coleção, e continuou trabalhando até o fim. Morreu em 1669, aos 63 anos.
 
 A gente costuma lembrar dele pelas pinturas escuras, com uma luz dourada que cai sobre um rosto e deixa o resto na sombra. *A Ronda Noturna* é a mais famosa delas. Essa luz tem nome, claro-escuro, e Rembrandt foi um dos grandes mestres dela.
 
-O que mais me interessa nele, porém, está no papel. Rembrandt desenhava o tempo todo: a mulher dormindo, o filho no berço, os mendigos na porta de casa, um elefante que passou pela cidade, as margens do rio Amstel num passeio de domingo. Sobraram centenas de desenhos e cerca de trezentas gravuras, e muitos deles foram feitos em poucos minutos, com meia dúzia de linhas e uma mancha de sombra. É nessas folhas rápidas que se vê melhor como ele pensava: decidir onde está a luz, deixar o papel fazer o claro e gastar o traço só onde ele é necessário.
+Este livro fica com a parte menos conhecida, a que está no papel. Rembrandt desenhava o tempo todo: a mulher dormindo, o filho no berço, os mendigos na porta de casa, um elefante que passou pela cidade, as margens do rio Amstel num passeio de domingo. Sobraram centenas de desenhos e cerca de trezentas gravuras. Muitos foram feitos em poucos minutos, com meia dúzia de linhas e uma mancha de sombra, e é neles que dá para ver o desenhista decidindo onde está a luz, o que fica em branco e onde vale a pena gastar um traço.
 
-Isso faz dele um professor generoso. Quem está começando aprende com ele que um desenho não precisa ser completo para estar pronto. Quem já desenha encontra nas mesmas folhas uma economia que leva anos para conquistar.
+Para quem está começando, essas folhas trazem uma boa notícia: um desenho não precisa estar completo para estar pronto. Para quem já desenha, a dificuldade é outra, porque dizer muito com trinta traços leva anos.
 
 Rembrandt desenhava quase sempre a pena, com tinta marrom, e com um pincel para as sombras. Às vezes usava giz. Este livro ensina a linguagem dele com o material mais simples que existe: o lápis grafite. Tudo o que ele fazia com a pena e o pincel tem um equivalente no lápis, e é por esse equivalente que o livro caminha. Por isso ele se chama *Rembrandt a Lápis*.
 
-A proposta é aprender a ver a luz como Rembrandt, entender por que cada traço está onde está e levar esse jeito de desenhar para o caderno ou o tablet, no nosso dia a dia.
+O que eu quero é que, no fim, você olhe para um rosto perto de uma janela e saiba por onde começar.
 
 <p class="sign">Pedro Torres</p>
 

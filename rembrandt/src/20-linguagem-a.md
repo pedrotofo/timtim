@@ -44,7 +44,7 @@ O grafite brilha quando você aperta demais. Para o preto mais fundo, prefira pa
 
 ## O esfuminho
 
-O pincel com tinta diluída era a arma secreta de Rembrandt. Com uma pincelada ele cobria um fundo inteiro e fazia a figura saltar para a luz. No lápis, o equivalente é deitar o 6B e, se quiser uma mancha mais lisa, passar o esfuminho por cima. Use pouco: o grafite esfumado demais fica cinza e sem vida. Muitas vezes a mancha feita só com o lápis deitado, com o grão do papel aparecendo, já basta.
+Boa parte do efeito dos desenhos dele vem do pincel com tinta diluída. Com uma pincelada ele cobria um fundo inteiro e fazia a figura saltar para a luz. No lápis, o equivalente é deitar o 6B e, se quiser uma mancha mais lisa, passar o esfuminho por cima. Use pouco: o grafite esfumado demais fica cinza e sem vida. Muitas vezes a mancha feita só com o lápis deitado, com o grão do papel aparecendo, já basta.
 
 ## O papel
 
@@ -59,7 +59,7 @@ No Procreate ou num aplicativo parecido, use dois pincéis de lápis: um fino, c
 
 <aside class="vida"><h4>Na vida dele</h4><p>Amsterdã, por volta de 1654. Hendrickje adormece apoiada no braço e Rembrandt a desenha só com o pincel, em poucas pinceladas largas. Não há contorno nem detalhe, e mesmo assim tudo está lá: o peso da cabeça, o braço dobrado, a cadeira.</p></aside>
 
-Rembrandt não tinha um jeito só de traçar. Num mesmo desenho a linha engrossa, afina, se quebra, vira hachura, vira mancha. Mas os traços que ele usa se repetem de folha em folha, e dá para separá-los num pequeno alfabeto. Aprender esse alfabeto é o primeiro passo para desenhar como ele.
+Rembrandt não tinha um jeito só de traçar. Num mesmo desenho a linha engrossa, afina, se quebra, vira hachura, vira mancha. Mas os traços que ele usa se repetem de folha em folha, e dá para separá-los num pequeno alfabeto.
 
 ## Os oito traços
 
@@ -68,23 +68,33 @@ São oito, e quase todos os desenhos dele usam três ou quatro de cada vez. Cada
 <div class="marks">
 <figure><img src="img/m01.jpg" alt=""><figcaption><b>Linha que respira.</b> Contornos de corpo, mangas, ombros. Começa fina, engrossa onde a forma pesa e afina de novo. Tudo pela pressão.</figcaption></figure>
 <figure><img src="img/m02.jpg" alt=""><figcaption><b>Contorno quebrado.</b> Roupas, costas, objetos. A linha para e recomeça. Mais grossa no lado da sombra, ausente onde bate a luz.</figcaption></figure>
+</div>
+<div class="marks">
 <figure><img src="img/m03.jpg" alt=""><figcaption><b>Hachura paralela.</b> Sombras no rosto e na roupa, céus. Traços retos, lado a lado, na mesma direção. Para escurecer, aproxime.</figcaption></figure>
 <figure><img src="img/m04.jpg" alt=""><figcaption><b>Hachura cruzada.</b> O escuro máximo das gravuras: fundos, portas, a aba do chapéu. Uma segunda camada em outro ângulo, e às vezes uma terceira.</figcaption></figure>
+</div>
+<div class="marks">
 <figure><img src="img/m05.jpg" alt=""><figcaption><b>Rabisco.</b> Folhagem, cabelo, mato. Um zigue-zague solto que vira tom de longe.</figcaption></figure>
 <figure><img src="img/m06.jpg" alt=""><figcaption><b>Mancha deitada.</b> A sombra grande, o fundo, a parede. O lápis 6B deitado, no lugar do pincel.</figcaption></figure>
+</div>
+<div class="marks">
 <figure><img src="img/m07.jpg" alt=""><figcaption><b>Mancha esfumada.</b> O escuro que envolve a figura. A mancha deitada espalhada com o esfuminho, mais lisa e mais funda.</figcaption></figure>
 <figure><img src="img/m08.jpg" alt=""><figcaption><b>Acento.</b> A pupila, a boca, o canto debaixo do chapéu. Um toque curto e muito escuro, sempre no fim.</figcaption></figure>
 </div>
 
 ## A linha que respira
 
-A pena de junco que ele usava fazia uma linha que mudava sozinha: cheia de tinta no começo, mais seca e quebrada no fim. Com o lápis você precisa fazer isso de propósito. Aperte onde a forma pesa, embaixo de um braço, no lado da sombra, e alivie onde a luz bate. Uma linha de espessura igual do começo ao fim parece desenho técnico. Uma linha que respira parece Rembrandt.
+A pena de junco que ele usava fazia uma linha que mudava sozinha: cheia de tinta no começo, mais seca e quebrada no fim. Com o lápis você precisa fazer isso de propósito. Aperte onde a forma pesa, embaixo de um braço, no lado da sombra, e alivie onde a luz bate. Com a mesma espessura do começo ao fim, o contorno fica com cara de desenho técnico.
 
 ## Pouca linha
 
 Muitas folhas dele têm vinte, trinta traços, e nenhum sobra. Antes de traçar, pergunte se aquela linha conta alguma coisa que ainda não foi contada. Se o ombro já está claro, o braço não precisa de contorno inteiro. O olho completa o resto, e completa melhor do que qualquer contorno.
 
-Arnold Houbraken, que escreveu sobre ele quase cinquenta anos depois da sua morte, conta que Rembrandt achava que um trabalho estava pronto quando o mestre tinha alcançado nele a sua intenção. Não quando estava cheio. Quando estava dito.
+Arnold Houbraken, que escreveu sobre ele quase cinquenta anos depois da sua morte, conta que Rembrandt achava que um trabalho estava pronto quando o mestre tinha alcançado nele a sua intenção.
+
+A *Paisagem de inverno* de Harvard é quase só papel. O horizonte é uma linha. A fazenda, no alto à direita, é meia dúzia de traços. A cerca que atravessa a folha é uma fileira de toques verticais. A neve não foi desenhada: é o papel.
+
+<figure class="wide"><img src="img/winter.jpg" alt="Paisagem de inverno com uma fazenda"><figcaption><i>Paisagem com uma fazenda (Paisagem de inverno)</i>, por volta de 1649. Pena e tinta marrom, pincel. Harvard Art Museums, Cambridge, Massachusetts.</figcaption></figure>
 
 ## A hachura segue a forma
 
@@ -106,19 +116,9 @@ O desenho de Hendrickje dormindo, de perto de 1654, é o exemplo mais radical do
 
 <div class="obra" markdown="1">
 
-## Uma paisagem em vinte linhas
-
-A *Paisagem de inverno* de Harvard é quase só papel. O horizonte é uma linha. A fazenda, no alto à direita, é meia dúzia de traços. A cerca que atravessa a folha é uma fileira de toques verticais. A neve não foi desenhada: é o papel. É uma lição de economia que vale para qualquer assunto.
-
-<figure class="wide"><img src="img/winter.jpg" alt="Paisagem de inverno com uma fazenda"><figcaption><i>Paisagem com uma fazenda (Paisagem de inverno)</i>, por volta de 1649. Pena e tinta marrom, pincel. Harvard Art Museums, Cambridge, Massachusetts.</figcaption></figure>
-
-</div>
-
-<div class="obra" markdown="1">
-
 ## A gravura: hachura sobre hachura
 
-Nas gravuras o pincel não existe. Todo o escuro precisa vir da hachura, e Rembrandt a empilha até o preto. O biógrafo italiano Filippo Baldinucci, em 1686, achou estranha essa maneira de gravar, com linhas irregulares e sem contorno definido, e admitiu que era com ela que Rembrandt chegava a um claro-escuro profundo. No retrato de Jan Six, a janela clara é quase papel e o resto da sala vai escurecendo camada por camada. Copiar uma gravura dele a lápis é o melhor treino de hachura que existe.
+Nas gravuras o pincel não existe. Todo o escuro precisa vir da hachura, e Rembrandt a empilha até o preto. O biógrafo italiano Filippo Baldinucci, em 1686, achou estranha essa maneira de gravar, com linhas irregulares e sem contorno definido, e admitiu que era com ela que Rembrandt chegava a um claro-escuro profundo. No retrato de Jan Six, a janela clara é quase papel e o resto da sala vai escurecendo camada por camada. Por isso as gravuras são bom material de cópia para quem quer treinar hachura.
 
 <figure><img src="img/jan_six.jpg" alt="Jan Six"><figcaption><i>Jan Six</i>, 1647. Gravura em metal. National Gallery of Art, Washington.</figcaption></figure>
 
@@ -129,7 +129,7 @@ Nas gravuras o pincel não existe. Todo o escuro precisa vir da hachura, e Rembr
 
 <aside class="vida"><h4>Na vida dele</h4><p>Amsterdã, 1642. Rembrandt entrega <i>A Ronda Noturna</i>. O nome veio muito depois, quando o verniz escurecido fez o quadro parecer uma cena de noite. Na verdade é dia, e a luz cai de um lado só sobre poucas figuras, enquanto o resto da companhia fica na sombra.</p></aside>
 
-Antes de pensar em linha, Rembrandt pensava em luz. De onde ela vem? O que ela toca? O que fica no escuro? Respondidas essas três perguntas, o desenho está quase decidido. Este é o capítulo mais importante do livro.
+Antes de pensar em linha, Rembrandt pensava em luz. De onde ela vem? O que ela toca? O que fica no escuro? Respondidas essas três perguntas, o desenho está quase decidido. Se você for ler um capítulo só, leia este.
 
 ## Uma luz só
 
@@ -139,15 +139,15 @@ Em quase todos os desenhos dele a luz vem de um lugar só, quase sempre do alto 
 
 Olhe um desenho dele de longe, apertando os olhos, e você vai ver só três tons: o papel, um cinza médio e um escuro. Às vezes há um quarto, o acento, que é um preto pequeno e muito forte. Tudo o que está entre esses tons é detalhe, e o detalhe vem depois.
 
+<figure class="wide"><img src="img/fig-tons.jpg" alt="Uma esfera e uma caixa em três tons"><figcaption>Os três tons numa esfera e numa caixa: o papel, o meio-tom da sombra própria e o escuro da sombra projetada. Os acentos ficam onde as sombras se encontram.</figcaption></figure>
+
 <ol class="laws">
 <li><b>O papel é a luz.</b> O lado que a luz toca fica em branco, ou quase. Não desenhe a luz: deixe o papel.</li>
 <li><b>O meio-tom é a sombra própria.</b> O lado da forma que fica de costas para a luz. Uma mancha uniforme, sem muito detalhe.</li>
 <li><b>O escuro é a sombra projetada e o fundo.</b> A sombra que a forma joga no chão ou na parede, e o fundo atrás do lado claro.</li>
 <li><b>O acento entra no fim.</b> Meia dúzia de toques pretos onde duas sombras se encontram: a pupila, o canto da boca, debaixo do chapéu.</li>
-<li><b>Mais papel do que sombra.</b> Na maior parte das folhas dele, a área em branco é maior que a área escura. A sombra é o que faz a luz brilhar, e não o contrário.</li>
+<li><b>Mais papel do que sombra.</b> Na maior parte das folhas dele, a área em branco é maior que a área escura. O papel só parece luz porque há sombra em volta.</li>
 </ol>
-
-<figure class="wide"><img src="img/fig-tons.jpg" alt="Uma esfera e uma caixa em três tons"><figcaption>Os três tons numa esfera e numa caixa: o papel, o meio-tom da sombra própria e o escuro da sombra projetada. Os acentos ficam onde as sombras se encontram.</figcaption></figure>
 
 ## O escuro que envolve
 
@@ -165,19 +165,19 @@ A luz de Rembrandt não ilumina tudo por igual. Ela é mais forte no ponto que i
 
 Três erros fazem um desenho perder a luz de Rembrandt. Os três aparecem em quase todo desenho de quem está começando.
 
-<div class="pair">
-<figure><img src="img/bad-luz1.jpg" alt="Objeto sombreado por igual, sem direção de luz"><figcaption><b>Errado.</b> Tudo sombreado um pouco, sem lado claro e lado escuro.</figcaption></figure>
-<figure><img src="img/bom-luz1.jpg" alt="Objeto com uma luz só"><figcaption><b>Certo.</b> Uma luz só: um lado de papel, um lado de sombra.</figcaption></figure>
+<div class="pair small">
+<figure><img src="img/bad-luz1.jpg" alt="Objeto sombreado por igual, sem direção de luz"><figcaption><b>Errado.</b> Sombra igual em toda a volta, sem lado claro e lado escuro: a bola vira um anel.</figcaption></figure>
+<figure><img src="img/l01.jpg" alt="A mesma bola com uma luz só"><figcaption><b>Certo.</b> Uma luz só: um lado de papel, um lado de sombra, a sombra no chão.</figcaption></figure>
 </div>
 
-<div class="pair">
-<figure><img src="img/bad-luz2.jpg" alt="Figura clara contra fundo claro, perdida"><figcaption><b>Errado.</b> A figura clara contra um fundo claro some.</figcaption></figure>
-<figure><img src="img/bom-luz2.jpg" alt="Figura clara contra fundo escuro"><figcaption><b>Certo.</b> O escuro do fundo encosta no lado claro.</figcaption></figure>
+<div class="pair small">
+<figure><img src="img/st-b07-2.jpg" alt="Figura clara sem fundo"><figcaption><b>Errado.</b> A figura clara fica solta no papel claro.</figcaption></figure>
+<figure><img src="img/b07.jpg" alt="A mesma figura com a parede escura atrás"><figcaption><b>Certo.</b> O escuro da parede encosta na figura e a destaca.</figcaption></figure>
 </div>
 
-<div class="pair">
-<figure><img src="img/bad-luz3.jpg" alt="Desenho coberto de detalhes por igual"><figcaption><b>Errado.</b> Detalhe por igual em toda a folha.</figcaption></figure>
-<figure><img src="img/bom-luz3.jpg" alt="Desenho com detalhe só no centro de interesse"><figcaption><b>Certo.</b> A luz e o detalhe se concentram num ponto e se apagam em volta.</figcaption></figure>
+<div class="pair small">
+<figure><img src="img/bad-luz3.jpg" alt="Cena com o mesmo cinza em toda a folha"><figcaption><b>Errado.</b> O mesmo cinza e o mesmo detalhe em toda a folha.</figcaption></figure>
+<figure><img src="img/l04.jpg" alt="A mesma cena com a luz concentrada"><figcaption><b>Certo.</b> A luz e o detalhe se concentram no rosto, nas mãos e no livro.</figcaption></figure>
 </div>
 
 <div class="obra" markdown="1">
