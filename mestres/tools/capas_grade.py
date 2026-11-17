@@ -53,7 +53,7 @@ def fatias(k, cx, cy, fw, cells, seed=3, jit=.05):
 def pos(c, r, w=1, h=1):
     return M + c * (CW + G), M + r * (CH + G), w * CW + (w - 1) * G, h * CH + (h - 1) * G
 
-def render(nome, bg, cells, extra_css=''):
+def render(nome, bg, cells, extra_css='', out=None, size=(1600, 2560)):
     divs = []
     for c, r, w, h, kind, val, col in cells:
         x, y, ww, hh = pos(c, r, w, h)
@@ -76,7 +76,7 @@ def render(nome, bg, cells, extra_css=''):
     with tempfile.TemporaryDirectory() as td:
         HTML(string=html, base_url=build.ROOT).write_pdf(f'{td}/c.pdf')
         subprocess.run(['pdftoppm', '-r', '266.67', '-png', '-singlefile', f'{td}/c.pdf', f'{td}/c'], check=True)
-        Image.open(f'{td}/c.png').convert('RGB').resize((1600, 2560), Image.LANCZOS).save(f'out/capas/grade-{nome}.jpg', quality=90)
+        Image.open(f'{td}/c.png').convert('RGB').resize(size, Image.LANCZOS).save(out or f'out/capas/grade-{nome}.jpg', quality=92)
     print(nome)
 
 NEX = build.NEX
@@ -186,6 +186,13 @@ TIT4b = (f'<div style="display:flex;flex-direction:column;justify-content:space-
          f'<p class="t" style="color:{INK};font-size:39pt;white-space:nowrap">Grandes Artistas<br/>a Lápis</p>'
          f'<p class="ph" style="color:{INK};font-weight:500;margin:0">DE LEONARDO DA VINCI A VAN GOGH</p></div>')
 V['10-gabinete-2linhas'] = (PAPER, [(0, 0, 3, 2, 'txt', TIT4b, None)] + V['9-gabinete'][1][1:])
+if len(sys.argv) > 2 and sys.argv[1] == 'usar':
+    # capa do livro: e-book 6 x 9.6 (img/cover-ebook.jpg) e impressa 6 x 9 (img/cover-pdf.jpg)
+    nome = sys.argv[2]; bg, cells = V[nome]
+    render(nome, bg, cells, out='img/cover-ebook.jpg')
+    H = 9.0; CH = (H - 2 * M - (R - 1) * G) / R
+    render(nome, bg, cells, out='img/cover-pdf.jpg', size=(1800, 2700))
+    open('tools/capa_aplicada.txt', 'w').write(nome + '\n'); print('capa aplicada:', nome); sys.exit()
 if len(sys.argv) > 1:
     V = {k: v for k, v in V.items() if k in sys.argv[1:]}
 for nome, (bg, cells) in V.items():

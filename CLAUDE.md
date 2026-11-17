@@ -4,4 +4,4 @@
 - Para qualquer trabalho num livro da série (novo artista, capa, exercícios, ilustrações, texto), siga a skill `.claude/skills/livro-a-lapis/SKILL.md`.
 - Durante a produção, gere só a capa e o PDF: `python3 build.py` (sem argumentos). EPUB e outros formatos só quando o autor disser que o livro está encerrado (`python3 build.py cover pdf epub`).
 - Capa aplicada no Rembrandt: `1-gorro-de-veludo-1638` (`tools/capas.py`).
-- Grandes Artistas: capa em mosaico de rostos (`mestres/tools/capas.py`, opções em `tools/capas_opcoes.json`); aplicada `1-seis-desenhos-b` (provisória; o autor vai buscar referências para refazer). Obras em `tools/obras.py`, exercícios em `tools/make_data.py`.
+- Grandes Artistas: capa em mosaico de rostos (`mestres/tools/capas.py`, opções em `tools/capas_opcoes.json`); aplicada a capa em grade `9-gabinete` (`tools/capas_grade.py usar 9-gabinete`, gera img/cover-pdf.jpg e img/cover-ebook.jpg); só desenhos, nunca pintura. Obras em `tools/obras.py`, exercícios em `tools/make_data.py`.

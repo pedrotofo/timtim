@@ -351,9 +351,9 @@ figure.diag img{width:100%;max-height:none}
 .fim img{position:absolute;left:.7in;top:.8in;width:4.6in;height:4.2in;object-fit:contain}
 .fim .fq{position:absolute;left:.85in;right:.85in;top:5.45in;font:italic 400 15pt/1.35 Serif;text-align:left;color:#1E1913}
 .fim .fs{position:absolute;left:.85in;right:.85in;top:7.25in;font:500 7.4pt/1.4 Sans;color:#4A4034;text-align:left}
-.contra{page:full;break-before:page;width:6in;height:9in;background:#2A2119;color:#EFE8DA;text-align:center;position:relative}
+.contra{page:full;break-before:page;width:6in;height:9in;background:#EEEAE0;color:#1E1913;text-align:center;position:relative}
 .contra .ct1{position:absolute;left:0;right:0;top:3.7in;font:400 30pt/1 Serif;text-align:center}
-.contra .ct2{position:absolute;left:0;right:0;top:4.35in;font:italic 400 11pt Serif;color:#BDB09A;text-align:center}
+.contra .ct2{position:absolute;left:0;right:0;top:4.35in;font:italic 400 11pt Serif;color:#6E6253;text-align:center}
 .contra .ct3{position:absolute;left:0;right:0;bottom:.7in;font:500 8pt Sans;letter-spacing:.2em;text-align:center}
 /* obra em página inteira */
 .bleed{page:full;break-before:page;width:6in;height:9in;position:relative;overflow:hidden}
@@ -590,7 +590,10 @@ def pdf_html(S):
     yr = datetime.date.today().year
     P = [f'<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><title>Grandes Artistas a Lápis</title>'
          f'<meta name="author" content="Pedro Torres"><style>{font_faces()}{PDF_CSS}</style></head><body>']
-    P.append('<div class="cover"><div class="art"></div>'
+    if os.path.exists('img/cover-pdf.jpg'):
+        P.append('<div class="cover"><img src="img/cover-pdf.jpg" alt="Capa" style="position:absolute;inset:0;width:6in;height:9in"/></div>')
+    else:
+      P.append('<div class="cover"><div class="art"></div>'
              '<div class="ed">PEDRO TORRES</div><div class="t">Grandes Artistas<br/>a Lápis</div><div class="d">Cinco níveis com dez mestres</div>'
              f'<div class="coll">{NEX} exercícios em cinco níveis</div></div>')
     P.append('<div class="titlepage"><p class="t">Grandes Artistas a Lápis</p><p class="s">Cinco níveis com dez mestres</p><p class="a">PEDRO TORRES</p></div>')
@@ -884,6 +887,11 @@ COVER_EBOOK = """<!doctype html><html><head><meta charset="utf-8"><style>{fonts}
 
 def make_cover():
     """Capa do e-book em 1600 × 2560 px (proporção pedida pela Amazon)."""
+    if os.path.exists('img/cover-ebook.jpg'):
+        from PIL import Image
+        im = Image.open('img/cover-ebook.jpg').convert('RGB')
+        im.save('img/cover.jpg', quality=92); im.save('out/capa-ebook-1600x2560.jpg', quality=92)
+        return
     import subprocess, tempfile
     from weasyprint import HTML
     from PIL import Image
