@@ -1,3 +1,10 @@
+<!-- id: marcas | As marcas dos mestres | back -->
+# As marcas dos mestres
+
+Cada mestre tem uma marca que se reconhece de longe. Use esta página como consulta rápida: um detalhe ampliado de cada um e a aula onde ele aparece.
+
+{{marcas}}
+
 <!-- id: glossario | Glossário | back -->
 # Glossário
 
@@ -56,3 +63,10 @@ As citações deste livro são traduções livres. Quando a frase foi registrada
 <p class="ref">Valéry, Paul. <i>Degas Dança Desenho</i>, 1936. Há edição brasileira pela Cosac Naify.</p>
 <p class="ref">Van Gogh, Vincent. <i>The Letters</i>, edição de Leo Jansen, Hans Luijten e Nienke Bakker. Van Gogh Museum e Huygens ING, em vangoghletters.org.</p>
 <p class="ref">Coleções on-line dos museus citados no catálogo, em especial a Royal Collection Trust (Windsor), a Albertina (Viena), o Metropolitan Museum of Art (Nova York), o British Museum (Londres), o Museu do Louvre (Paris) e o Van Gogh Museum (Amsterdã).</p>
+
+<!-- id: progresso | Meu progresso | back -->
+# Meu progresso
+
+Marque cada exercício quando ele estiver pronto, pelo critério da própria página. Escreva a data dentro do quadrado. Volte aos que ficaram em branco antes de passar ao nível seguinte.
+
+{{progresso}}

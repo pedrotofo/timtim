@@ -60,6 +60,8 @@ def obra_block(m):
 def md2html(s):
     MD.reset()
     s = re.sub(r'\{\{obra:([a-z0-9_]+)\}\}', obra_block, s)
+    if '{{marcas}}' in s: s = s.replace('{{marcas}}', marcas_html())
+    if '{{progresso}}' in s: s = s.replace('{{progresso}}', progresso_html())
     h = MD.convert(s)
     return h.replace('src="ex/', 'src="img/').replace('{NEX}', str(NEX)).replace('{NMESTRES}', str(NMESTRES))
 
@@ -85,7 +87,7 @@ def build_sections():
         if s['kind'] == 'part' and s['id'].startswith('nivel'):
             lv = int(s['id'][5:])
         if s['id'] == 'mestres':
-            h = h + tracos_html()
+            h = h + vidas_html() + tracos_html()
         if s['kind'] == 'chapter' and lv:
             AULA_LV[s['id']] = lv
             h = add_balloons(h)
@@ -113,7 +115,7 @@ def catalogue():
 CREDITS = {'id': 'creditos', 'title': 'Créditos', 'kind': 'back', 'html': md2html(
 """# Créditos
 
-As reproduções das obras de Leonardo da Vinci, Albrecht Dürer, Michelangelo, Hans Holbein, o Jovem, Rembrandt van Rijn, Jean-Auguste-Dominique Ingres, Edgar Degas, Vincent van Gogh, John Singer Sargent e Egon Schiele são de domínio público e foram obtidas no Wikimedia Commons, a partir das imagens de acesso aberto dos museus indicados no catálogo. Os dados das obras vêm dos museus e do Wikimedia Commons. As citações são traduções livres do autor.
+As reproduções das obras de Leonardo da Vinci, Albrecht Dürer, Michelangelo, Hans Holbein, o Jovem, Rembrandt van Rijn, Jean-Auguste-Dominique Ingres, Edgar Degas, Vincent van Gogh, John Singer Sargent e Egon Schiele, e os retratos feitos por Daniele da Volterra e Henri de Toulouse-Lautrec, são de domínio público e foram obtidas no Wikimedia Commons, a partir das imagens de acesso aberto dos museus indicados no catálogo. Os dados das obras vêm dos museus e do Wikimedia Commons. As citações são traduções livres do autor.
 
 Os desenhos-modelo dos exercícios e as demonstrações em etapas foram criados para este livro com o auxílio de ferramentas de inteligência artificial, a partir de orientações do autor. São interpretações a lápis no espírito dos desenhos de cada mestre e não reproduzem obras deles. Os ícones foram desenhados para este livro.
 
@@ -165,6 +167,46 @@ def add_icons(h):
 
 # ano, artista, imagem, centro x, centro y, largura (fração), obra, texto
 TRACOS = json.load(open('tools/tracos.json')) if os.path.exists('tools/tracos.json') else []
+XTR = json.load(open('tools/extras.json')) if os.path.exists('tools/extras.json') else {'cmp': {}, 'marcas': [], 'vidas': []}
+
+def vidas_html():
+    y0, y1 = 1440, 1930
+    X = lambda y: (y - y0) / (y1 - y0) * 100
+    ticks = ''.join(f'<span class="vt" style="left:{X(y):.2f}%"><i>{y}</i></span>' for y in range(1450, 1951, 50) if y <= 1925)
+    rows = ''.join(f'<div class="vr"><p class="vn">{esc(n)}</p><div class="vb">{ticks if i == 0 else ""}'
+                   f'<span class="bar" style="left:{X(a):.2f}%;width:{X(b) - X(a):.2f}%"></span>'
+                   f'<span class="vy" style="left:{X(a):.2f}%">{a}</span><span class="vy e" style="left:{X(b):.2f}%">{b}</span></div></div>'
+                   for i, (n, a, b) in enumerate(XTR['vidas']))
+    grid = ''.join(f'<span class="vg" style="left:{X(y):.2f}%"></span>' for y in range(1450, 1951, 50) if y <= 1925)
+    return ('<div class="vidas" id="toc-vidas"><h2>Dez vidas, quase cinco séculos</h2><p class="sub">Quem foi contemporâneo de quem. '
+            'Leonardo, Dürer e Michelangelo viveram ao mesmo tempo. Degas, Van Gogh, Sargent e Schiele também.</p>'
+            f'<div class="vgrid"><div class="vlines">{grid}</div>{rows}</div></div>')
+
+def cmp_html(lv):
+    d = XTR['cmp'].get(str(lv))
+    if not d:
+        return ''
+    n, lid, lab, name, cor, code = LV[lv]
+    it = ''.join(f'<div class="ci"><img src="img/cmp-{lv}-{i}.jpg" alt="Detalhe, {esc(m)}"/><div><p class="cm">{esc(m)}</p>'
+                 f'<p class="co"><i>{esc(PL[k]["t"])}</i></p><p class="ct2">{esc(t)}</p></div></div>'
+                 for i, (k, cx, cy, fw, m, t) in enumerate(d['it'], 1))
+    return (f'<section class="cmp lv{lv}" id="cmp-{lv}" style="bookmark-level:2;bookmark-label:\'Três mestres · {esc(d["t"])}\'">'
+            f'<span class="rh">Três mestres</span><p class="chlab">{lab} · {name}</p><p class="ck">O mesmo problema, três mestres</p>'
+            f'<h1>{esc(d["t"])}</h1><p class="lead">{esc(d["i"])}</p>{it}</section>')
+
+def marcas_html():
+    cells = ''.join(f'<div class="mk"><img src="img/marca-{i:02d}.jpg" alt="Marca de {esc(n)}"/><div><p class="mn2">{esc(n)}</p>'
+                    f'<p class="mm">{esc(m)}</p><p class="ma"><a href="#cap{a}">Aula {a}</a></p></div></div>'
+                    for i, (n, m, k, cx, cy, fw, a) in enumerate(XTR['marcas'], 1))
+    return f'<div class="marcas">{cells}</div>'
+
+def progresso_html():
+    out = ''
+    for n, lid, lab, name, cor, code in LEVELS:
+        bx = ''.join(f'<span class="pb" style="border-color:{cor}"><b>{x["id"]}</b></span>' for x in EX if x['lv'] == n)
+        out += f'<div class="pl"><p style="color:{cor}">{lab} · {name}</p><div class="pbs">{bx}</div></div>'
+    return f'<div class="prog">{out}</div>'
+
 
 def make_tracos():
     from PIL import Image
@@ -502,6 +544,38 @@ section.level{page:chap;break-before:page}
 .mestre .mx{font:400 7.6pt/1.45 Sans;color:#1E1913;margin-top:.06in}
 .mestre .mx a{border-bottom:.5pt solid #3B6386}
 .cat .ca{display:block;font:500 7.2pt Sans;color:#1E1913;margin-top:.02in}
+
+/* aberturas em grade, vidas, comparações, marcas, progresso */
+.abgrid{page:full;break-before:page;width:6in;height:9in;position:relative}
+.abgrid img{position:absolute;inset:0;width:6in;height:9in}
+.vidas{break-before:page}
+.vidas h2{font:400 17pt/1.1 Disp;margin:0 0 .05in}.vidas .sub{font:italic 10pt/1.35 Serif;margin:0 0 .35in;text-align:left}
+.vgrid{position:relative;padding-top:.25in}
+.vlines{position:absolute;left:1.35in;right:0;top:.25in;bottom:0}
+.vg{position:absolute;top:0;bottom:0;border-left:.4pt solid #CFC4B0}
+.vr{display:flex;align-items:center;height:.48in;position:relative}
+.vn{width:1.35in;flex:none;font:700 7.6pt Sans;margin:0;text-align:left}
+.vb{position:relative;flex:1;height:.48in}
+.vt{position:absolute;top:-.25in;font:400 6.4pt Sans;color:#6E6253}.vt i{font-style:normal;margin-left:-.12in}
+.bar{position:absolute;top:.17in;height:.1in;background:#3B6386}
+.vy{position:absolute;top:.3in;font:400 6.2pt Sans;color:#6E6253}.vy.e{margin-left:-.25in}
+section.cmp{break-before:page;page:chap}
+.cmp .chlab{font:500 7.4pt Sans;margin:0 0 .25in}
+.cmp .ck{font:700 7.4pt Sans;letter-spacing:.14em;text-transform:uppercase;margin:0 0 .05in;color:#3B6386}
+.cmp h1{font:400 22pt/1.1 Disp;margin:0 0 .1in}.cmp .lead{margin:0 0 .25in}
+.ci{display:flex;gap:.2in;align-items:flex-start;border-top:.6pt solid #CFC4B0;padding:.12in 0;break-inside:avoid}
+.ci img{width:1.75in;height:1.75in;flex:none}
+.ci p{text-align:left;margin:0}.ci .cm{font:400 13pt/1.1 Disp;margin-bottom:.04in}.ci .co{font-size:9.6pt;color:#6E6253;margin-bottom:.1in}
+.ci .ct2{font-size:10.2pt;line-height:1.4}
+.lv1 .ck{color:#5B87A6}.lv2 .ck{color:#4A7699}.lv3 .ck{color:#3B6386}.lv4 .ck{color:#304F78}.lv5 .ck{color:#243B5E}
+.marcas{display:flex;flex-wrap:wrap;justify-content:space-between}
+.mk{display:flex;gap:.12in;width:2.28in;break-inside:avoid;border-top:.6pt solid #CFC4B0;padding:.07in 0 .07in}
+.mk img{width:.82in;height:.82in;flex:none}
+.mk p{margin:0;text-align:left}.mk .mn2{font:700 7.6pt/1.3 Sans}.mk .mm{font-size:9.6pt;line-height:1.3;margin:.03in 0}.mk .ma{font:400 7pt Sans;color:#6E6253}
+.prog .pl{margin:0 0 .12in;break-inside:avoid}.prog .pl p{font:700 7.6pt Sans;margin:0 0 .08in;text-align:left}
+.pbs{display:flex;flex-wrap:wrap;gap:.04in}
+.pb{width:.38in;height:.38in;border:1pt solid;box-sizing:border-box;position:relative}
+.pb b{position:absolute;left:.03in;top:.02in;font:700 5.6pt Sans;color:#1E1913}
 /* índice */
 .idx{columns:2;column-gap:.25in}
 .idx p{font-size:8.3pt;line-height:1.2;margin:0 0 .16em;text-align:left;break-inside:avoid}
@@ -610,20 +684,27 @@ def pdf_html(S):
     front = ''.join(row(esc(x['title']), x['id']) for x in S if x['kind'] == 'front')
     back = ''.join(row(esc(x['title']), x['id']) for x in S if x['kind'] == 'back') + row('Índice dos exercícios', 'indice')
     toc = ['<div class="toc"><h1>Sumário</h1>', blk('', front),
-           blk('', head('parte1') + row('Os dez mestres, um a um', 'mestres') + row('Quatrocentos anos em dez traços', 'toc-tracos'))]
+           blk('', head('parte1') + row('Os dez mestres, um a um', 'mestres') + row('Dez vidas, quase cinco séculos', 'toc-vidas') + row('Quatrocentos anos em dez traços', 'toc-tracos'))]
     for n, lid, lab, name, col, code in LEVELS:
         caps = ''.join(row(x['title'].replace('. ', '.&#8194;', 1), x['id']) for x in S if x['kind'] == 'chapter' and x.get('lv') == n)
-        toc.append(blk(str(n), head(lid) + caps, f' style="color:{col}"'))
+        cmpr = row(f'Três mestres: {esc(XTR["cmp"][str(n)]["t"])}', f'cmp-{n}') if str(n) in XTR['cmp'] else ''
+        toc.append(blk(str(n), head(lid) + caps + cmpr, f' style="color:{col}"'))
     toc += [blk('', back), '</div>']
     P.extend(toc)
     part = None
+    global LASTCAP
+    LASTCAP = {}
+    for s in S:
+        if s['kind'] == 'chapter' and s.get('lv'): LASTCAP[s['lv']] = s['id']
     for s in S:
         k = s['kind']
         if k == 'part':
             part = PARTS[s['id']]
             n, lab, name, intro = part
             art = PART_ART.get(s['id'])
-            if art:
+            if art and art.startswith('ab_'):
+                P.append(f'<section class="abgrid"><img src="img/{art}.jpg" alt=""/></section>')
+            elif art:
                 P.append(f'<section class="partimg"><img src="img/{art}.jpg" alt="{esc(PL[art]["t"])}"/>'
                          f'<p class="pcap"><i>{esc(PL[art]["t"])}</i>, {esc(PL[art]["a"])}. {esc(PL[art]["l"])}</p></section>')
             pg = f'part{s["lv"]}' if s.get('lv') else 'part'
@@ -665,6 +746,8 @@ def pdf_html(S):
                     first = False
             if s['id'] in END_ART:
                 P.append(bleed_html(END_ART[s['id']]))
+            if s.get('lv') and s['id'] == LASTCAP.get(s['lv']):
+                P.append(cmp_html(s['lv']))
     P.append(FIM_HTML)
     P.append('<section class="contra"><p class="ct1">Grandes Artistas a Lápis</p><p class="ct2">Cinco níveis com dez mestres</p>'
              '<p class="ct3">PEDRO TORRES</p></section>')

@@ -8,7 +8,7 @@ CP = {'n1_pillows': (.5, .06, .99, .4), 'n1_cats': (.25, .3, .97, .62), 'n1_boat
       'n3_ideal': (.05, .12, .7, .78), 'n3_sleeping': (0, .15, 1, .95), 'n3_yeats': (.12, .03, .88, .62), 'n4_mother': (.04, .12, .7, .68),
       'n4_girl': (.15, .15, .8, .78), 'n4_holbein_lady': (.08, .04, .88, .62), 'n4_schiele_man': (0, 0, 1, 1), 'n4_sibyl': (0, .55, .48, .87),
       'n4_dancers': (0, 0, .52, 1), 'n4_digger': (0, 0, 1, 1), 'n5_arno': (0, 0, 1, 1), 'n5_rembrandt_land': (0, 0, 1, 1),
-      'n5_crau': (.33, 0, .78, 1), 'n5_stamaty': (0, 0, 1, 1), 'n5_madamex': (.08, .04, .95, .96)}
+      'n5_crau': (.33, 0, .78, 1), 'n5_stamaty': (0, 0, 1, 1), 'n5_sargent': (.05, 0, .95, 1)}
 for k, (x0, y0, x1, y1) in CP.items():
     im = Image.open(f'img/{k}.jpg'); w, h = im.size
     im.crop((round(x0 * w), round(y0 * h), round(x1 * w), round(y1 * h))).save(f'img/cp-{k}.jpg', quality=88)
@@ -40,7 +40,7 @@ B = {
  'n5_rembrandt_land': [(.48, .5, .25, 'A cabana', 'No centro, quase só contorno.'), (.5, .9, .3, 'A estrada', 'Papel em branco.')],
  'n5_crau': [(.3, .8, .25, 'O primeiro plano', 'Árvores e marcas grandes.'), (.6, .2, .25, 'O horizonte', 'Marcas miúdas, quase pontos.')],
  'n5_stamaty': [(.58, .38, .2, 'Os rostos', 'A única parte modelada.'), (.12, .9, .2, 'O carrinho', 'Um brinquedo esquecido no chão.')],
- 'n5_madamex': [(.75, .2, .22, 'O perfil', 'A cabeça virada, o pescoço longo.'), (.6, .55, .35, 'A silhueta', 'Uma mancha só faz o vestido.')],
+ 'n5_sargent': [(.5, .15, .25, 'A cabeça', 'O único lugar com detalhe.'), (.45, .55, .35, 'O vestido', 'Traços longos com o lápis deitado.'), (.8, .3, .3, 'O fundo', 'Riscos horizontais que recortam a figura.')],
 }
 json.dump({k: [k, v] for k, v in B.items()}, open('tools/detalhes.json', 'w'), ensure_ascii=False, indent=0)
 # linha do tempo: um desenho de cada mestre
@@ -55,6 +55,5 @@ T = [('1473', 'Leonardo', 'n5_arno', .5, .45, .7, 'Paisagem do vale do Arno', 'P
      ('1908', 'Sargent', 'n3_yeats', .5, .25, .8, 'W. B. Yeats', 'Carvão. Massas escuras e papel.'),
      ('1917', 'Schiele', 'n1_edith', .5, .15, .9, 'A mulher do artista', 'Lápis e cor. O contorno anguloso.')]
 json.dump(T, open('tools/tracos.json', 'w'), ensure_ascii=False, indent=0)
-json.dump({'parte1': 'g_rembrandt', 'nivel1': 'g_holbein', 'nivel2': 'g_leonardo', 'nivel3': 'g_degas', 'nivel4': 'g_schiele', 'nivel5': 'g_vangogh'},
-          open('tools/part_art.json', 'w'))
+json.dump({k: 'ab_' + k for k in ['parte1', 'nivel1', 'nivel2', 'nivel3', 'nivel4', 'nivel5']}, open('tools/part_art.json', 'w'))
 print('ok')

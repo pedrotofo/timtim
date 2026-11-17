@@ -6,7 +6,7 @@ from obras import OBRAS
 Image.MAX_IMAGE_PIXELS = None
 # recorte (x0, y0, x1, y1) em frações
 CROP = {'n3_ideal': (0, 0, .865, .975), 'n3_sleeping': (.055, .04, .935, .95), 'n5_crau': (0, .02, 1, .935),
-        'n1_cats': (.03, .02, .97, .98), 'g_sargent': (.1, .08, .9, .92), 'n5_rembrandt_land': (0, 0, .86, 1)}
+        'n1_cats': (.03, .02, .97, .98), 'n5_rembrandt_land': (0, 0, .86, 1)}
 for k in OBRAS:
     p = f'obras/hd/{k}.jpg' if os.path.exists(f'obras/hd/{k}.jpg') else f'obras/{k}.jpg'
     im = Image.open(p).convert('RGB')

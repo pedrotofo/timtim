@@ -563,22 +563,29 @@
 ]
 ]
 ],
-"n5_madamex": [
-"n5_madamex",
+"n5_sargent": [
+"n5_sargent",
 [
 [
-0.75,
-0.2,
-0.22,
-"O perfil",
-"A cabeça virada, o pescoço longo."
+0.5,
+0.15,
+0.25,
+"A cabeça",
+"O único lugar com detalhe."
 ],
 [
-0.6,
+0.45,
 0.55,
 0.35,
-"A silhueta",
-"Uma mancha só faz o vestido."
+"O vestido",
+"Traços longos com o lápis deitado."
+],
+[
+0.8,
+0.3,
+0.3,
+"O fundo",
+"Riscos horizontais que recortam a figura."
 ]
 ]
 ]

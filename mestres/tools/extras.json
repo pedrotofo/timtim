@@ -1,0 +1,298 @@
+{
+ "cmp": {
+  "1": {
+   "t": "O contorno",
+   "i": "Três mestres, três jeitos de fechar uma forma com uma linha só.",
+   "it": [
+    [
+     "n1_pillows",
+     0.3,
+     0.18,
+     0.32,
+     "Dürer",
+     "A borda firme e contínua, mais grossa onde o pano dobra para dentro."
+    ],
+    [
+     "n1_paganini",
+     0.42,
+     0.52,
+     0.34,
+     "Ingres",
+     "Uma linha leve que mal toca o papel e ainda assim descreve a manga inteira."
+    ],
+    [
+     "n1_edith",
+     0.25,
+     0.55,
+     0.32,
+     "Schiele",
+     "O contorno que quebra em ângulo onde a forma dobra."
+    ]
+   ]
+  },
+  "2": {
+   "t": "A cabeça medida",
+   "i": "Antes de qualquer feição, cada um acertou o tamanho e a inclinação da cabeça.",
+   "it": [
+    [
+     "n2_durer13",
+     0.52,
+     0.32,
+     0.55,
+     "Dürer",
+     "Três quartos, com os olhos perto da metade da altura."
+    ],
+    [
+     "n2_more",
+     0.55,
+     0.45,
+     0.72,
+     "Holbein",
+     "O contorno da cabeça feito de uma vez, antes do olho."
+    ],
+    [
+     "n2_worn",
+     0.38,
+     0.24,
+     0.38,
+     "Van Gogh",
+     "A cabeça entre os punhos, no ponto mais alto do bloco do corpo."
+    ]
+   ]
+  },
+  "3": {
+   "t": "Onde a luz bate",
+   "i": "A parte mais clara de cada desenho, e como cada um a reservou.",
+   "it": [
+    [
+     "n3_drapery",
+     0.3,
+     0.48,
+     0.32,
+     "Leonardo",
+     "Branco posto a pincel no alto das dobras."
+    ],
+    [
+     "n3_hands",
+     0.3,
+     0.36,
+     0.42,
+     "Dürer",
+     "Realce branco nas pontas dos dedos e nas juntas, sobre o papel azul."
+    ],
+    [
+     "n3_ideal",
+     0.25,
+     0.45,
+     0.34,
+     "Michelangelo",
+     "O perfil deixado quase em papel, do lado da janela."
+    ]
+   ]
+  },
+  "4": {
+   "t": "O olho",
+   "i": "O mesmo detalhe em três rostos.",
+   "it": [
+    [
+     "n4_mother",
+     0.27,
+     0.32,
+     0.18,
+     "Dürer",
+     "Saltado, com a pálpebra pesada, desenhado sem piedade."
+    ],
+    [
+     "n4_girl",
+     0.42,
+     0.37,
+     0.2,
+     "Leonardo",
+     "Pálpebra baixa e o olhar que volta para quem olha."
+    ],
+    [
+     "n4_holbein_lady",
+     0.42,
+     0.33,
+     0.2,
+     "Holbein",
+     "Contorno exato e quase nenhuma sombra."
+    ]
+   ]
+  },
+  "5": {
+   "t": "O papel em branco",
+   "i": "Em cada folha, uma área grande ficou sem nenhuma marca.",
+   "it": [
+    [
+     "n5_rembrandt_land",
+     0.5,
+     0.82,
+     0.5,
+     "Rembrandt",
+     "A estrada que vem até quem olha é só papel."
+    ],
+    [
+     "n5_crau",
+     0.5,
+     0.1,
+     0.5,
+     "Van Gogh",
+     "Acima das colinas, o céu fica vazio."
+    ],
+    [
+     "n5_sargent",
+     0.75,
+     0.75,
+     0.4,
+     "Sargent",
+     "Os riscos do fundo param, e o vestido começa."
+    ]
+   ]
+  }
+ },
+ "marcas": [
+  [
+   "Leonardo da Vinci",
+   "Hachura de canhoto",
+   "n4_girl",
+   0.67,
+   0.52,
+   0.16,
+   "18"
+  ],
+  [
+   "Albrecht Dürer",
+   "Linha curva que segue o volume",
+   "n1_pillows",
+   0.28,
+   0.55,
+   0.14,
+   "2"
+  ],
+  [
+   "Michelangelo",
+   "Hachura que acompanha o músculo",
+   "n4_sibyl",
+   0.5,
+   0.25,
+   0.13,
+   "21"
+  ],
+  [
+   "Hans Holbein",
+   "Contorno exato",
+   "n4_holbein_lady",
+   0.3,
+   0.38,
+   0.16,
+   "19"
+  ],
+  [
+   "Rembrandt",
+   "Mancha de pincel",
+   "n3_sleeping",
+   0.5,
+   0.5,
+   0.22,
+   "15"
+  ],
+  [
+   "J.-A.-D. Ingres",
+   "Linha leve de grafite",
+   "n1_paganini",
+   0.42,
+   0.52,
+   0.16,
+   "5"
+  ],
+  [
+   "Edgar Degas",
+   "Contorno repassado",
+   "n2_dancer",
+   0.35,
+   0.4,
+   0.2,
+   "11"
+  ],
+  [
+   "Vincent van Gogh",
+   "Pontos e traços de pena de junco",
+   "n1_boats",
+   0.3,
+   0.86,
+   0.12,
+   "4"
+  ],
+  [
+   "John Singer Sargent",
+   "Massa de carvão",
+   "n3_yeats",
+   0.42,
+   0.1,
+   0.2,
+   "16"
+  ],
+  [
+   "Egon Schiele",
+   "Ângulo no lugar da curva",
+   "n1_edith",
+   0.24,
+   0.55,
+   0.16,
+   "6"
+  ]
+ ],
+ "vidas": [
+  [
+   "Leonardo da Vinci",
+   1452,
+   1519
+  ],
+  [
+   "Albrecht Dürer",
+   1471,
+   1528
+  ],
+  [
+   "Michelangelo",
+   1475,
+   1564
+  ],
+  [
+   "Hans Holbein",
+   1497,
+   1543
+  ],
+  [
+   "Rembrandt",
+   1606,
+   1669
+  ],
+  [
+   "J.-A.-D. Ingres",
+   1780,
+   1867
+  ],
+  [
+   "Edgar Degas",
+   1834,
+   1917
+  ],
+  [
+   "Vincent van Gogh",
+   1853,
+   1890
+  ],
+  [
+   "John Singer Sargent",
+   1856,
+   1925
+  ],
+  [
+   "Egon Schiele",
+   1890,
+   1918
+  ]
+ ]
+}

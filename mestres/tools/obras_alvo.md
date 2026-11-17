@@ -38,7 +38,7 @@ Chave: descrição (artista, data aproximada, técnica, acervo esperado). Todas 
 - n5_rembrandt_land: Rembrandt, paisagem desenhada (Cottage among Trees, Met, c. 1650; ou outra paisagem a pena)
 - n5_crau: Vincent van Gogh, A planície de La Crau vista de Montmajour, 1888, pena de junco e giz, Van Gogh Museum
 - n5_stamaty: J.-A.-D. Ingres, A família Stamaty, 1818, grafite, Louvre
-- n5_madamex: John Singer Sargent, estudo para Madame X (Madame Gautreau), c. 1883, grafite ou aquarela, Metropolitan Museum ou Harvard
+- n5_sargent: John Singer Sargent, estudo para Madame X (Madame Gautreau), c. 1883, grafite ou aquarela, Metropolitan Museum ou Harvard
 
 ## Galeria (um retrato de cada artista, de preferência autorretrato desenhado)
 - g_leonardo: autorretrato a giz vermelho de Turim (atribuição tradicional)

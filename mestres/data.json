@@ -644,7 +644,7 @@
 "m": "25 min · Lápis 2B e 6B",
 "d": "Desenhe uma pessoa de pé, de perfil, com uma roupa comprida. Poucas linhas longas para a silhueta, a roupa preenchida em traços soltos. Muito espaço vazio em volta.",
 "c": "a pose se entende só pela silhueta.",
-"ref": "n5_madamex",
+"ref": "n5_sargent",
 "img": "c05",
 "st": false
 },
@@ -652,12 +652,12 @@
 "id": "C10",
 "lv": 5,
 "aula": "cap28",
-"t": "Cópia: o estudo para Madame X",
-"m": "25 min · Lápis 2B",
-"d": "O estudo de Sargent é uma pintura inacabada. Traduza-o para o lápis: a linha do perfil, do pescoço e do braço com o 2B, a mancha do vestido com o 6B deitado. Nada mais.",
-"c": "a cópia tem poucas linhas, uma mancha só e a mesma pose.",
-"ref": "n5_madamex",
-"img": "cp-n5_madamex",
+"t": "Cópia: a mulher sentada de Sargent",
+"m": "25 min · Lápis 6B",
+"d": "Copie a figura de Sargent com o lápis deitado: primeiro a forma inteira do vestido em traços longos, depois a cabeça, por último os riscos do fundo atrás dela.",
+"c": "a cópia tem poucos traços, e a figura se lê pela forma inteira.",
+"ref": "n5_sargent",
+"img": "cp-n5_sargent",
 "st": false
 },
 {
@@ -830,11 +830,11 @@
 "l": "Roma, 1818. Grafite. Museu do Louvre.",
 "c": "A família inteira numa folha: o pai de pé, a mãe com a criança menor no colo, o filho à direita, a filha mais velha ao piano."
 },
-"n5_madamex": {
-"t": "Estudo para Madame Gautreau",
+"n5_sargent": {
+"t": "Mulher sentada",
 "a": "John Singer Sargent",
-"l": "Por volta de 1884. Óleo sobre tela, inacabado. Tate.",
-"c": "Uma versão inacabada do retrato que ficou conhecido como Madame X. A pose inteira está na silhueta preta."
+"l": "Por volta de 1890 a 1900. Grafite. National Gallery of Art.",
+"c": "Uma mulher de vestido longo, feita com traços largos e rápidos do lápis deitado. O fundo é uma trama de riscos horizontais."
 },
 "c_roulin": {
 "t": "Retrato de Joseph Roulin",
@@ -849,16 +849,16 @@
 "c": "Tradicionalmente tido como autorretrato, o que é discutido."
 },
 "g_durer": {
-"t": "Autorretrato com casaco de pele",
+"t": "Autorretrato com a mão na cabeça",
 "a": "Albrecht Dürer",
-"l": "1500. Óleo sobre madeira. Alte Pinakothek, Munique.",
-"c": "Pintado de frente, aos 28 anos."
+"l": "Por volta de 1491. Pena e tinta. Universidade de Erlangen.",
+"c": "Aos 20 anos, durante a viagem de aprendiz."
 },
 "g_michelangelo": {
-"t": "Michelangelo",
+"t": "Retrato de Michelangelo",
 "a": "Daniele da Volterra",
-"l": "Por volta de 1545. Óleo sobre madeira. Metropolitan Museum of Art.",
-"c": "Retrato feito por um amigo e seguidor."
+"l": "Giz preto.",
+"c": "Desenhado por um amigo e seguidor, nos últimos anos de vida do mestre."
 },
 "g_holbein": {
 "t": "Autorretrato",
@@ -881,20 +881,20 @@
 "g_degas": {
 "t": "Autorretrato",
 "a": "Edgar Degas",
-"l": "1855. Óleo. Musée d’Orsay.",
-"c": "Aos 21 anos, no ano em que conheceu Ingres."
+"l": "Provavelmente 1857. Água-forte. National Gallery of Art.",
+"c": "Aos 23 anos, numa das primeiras gravuras que fez."
 },
 "g_vangogh": {
-"t": "Autorretrato",
-"a": "Vincent van Gogh",
-"l": "Paris, 1887. Óleo sobre cartão. Art Institute of Chicago.",
-"c": "Pintado em pinceladas curtas, como marcas."
+"t": "Retrato de Vincent van Gogh",
+"a": "Henri de Toulouse-Lautrec",
+"l": "Paris, 1887. Pastel. Van Gogh Museum.",
+"c": "Feito por um colega de ateliê em Paris, com traços de pastel que parecem hachura."
 },
 "g_sargent": {
-"t": "Autorretrato",
-"a": "John Singer Sargent",
-"l": "1886. Óleo. Aberdeen Art Gallery.",
-"c": "Aos 30 anos, dois anos depois do escândalo do Madame X."
+"t": "Sargent desenhando",
+"a": "Fotografia",
+"l": "1903.",
+"c": "Sargent trabalha num dos retratos a carvão que fazia em uma sessão."
 },
 "g_schiele": {
 "t": "Autorretrato",
@@ -1034,10 +1034,10 @@
 "dim": "46,3 × 37,1 cm",
 "ac": "Museu do Louvre, Paris"
 },
-"n5_madamex": {
-"tec": "Óleo sobre tela",
-"dim": "206,4 × 107,9 cm",
-"ac": "Tate, Londres"
+"n5_sargent": {
+"tec": "Grafite",
+"dim": "",
+"ac": "National Gallery of Art, Washington"
 },
 "c_roulin": {
 "tec": "Pena de junco e pena de ave, tinta e giz preto",
@@ -1050,14 +1050,14 @@
 "ac": "Biblioteca Real, Turim"
 },
 "g_durer": {
-"tec": "Óleo sobre madeira",
-"dim": "67,1 × 48,9 cm",
-"ac": "Alte Pinakothek, Munique"
+"tec": "Pena e tinta",
+"dim": "",
+"ac": "Coleção Gráfica da Universidade de Erlangen-Nuremberg"
 },
 "g_michelangelo": {
-"tec": "Óleo sobre madeira",
-"dim": "88,3 × 64,1 cm",
-"ac": "Metropolitan Museum of Art, Nova York"
+"tec": "Giz preto",
+"dim": "",
+"ac": ""
 },
 "g_holbein": {
 "tec": "Giz colorido",
@@ -1075,19 +1075,19 @@
 "ac": "National Gallery of Art, Washington"
 },
 "g_degas": {
-"tec": "Óleo sobre tela e papel",
-"dim": "81,3 × 64,5 cm",
-"ac": "Musée d’Orsay, Paris"
+"tec": "Água-forte",
+"dim": "",
+"ac": "National Gallery of Art, Washington"
 },
 "g_vangogh": {
-"tec": "Óleo sobre cartão",
-"dim": "42 × 33,7 cm",
-"ac": "Art Institute of Chicago"
+"tec": "Pastel sobre cartão",
+"dim": "",
+"ac": "Van Gogh Museum, Amsterdã"
 },
 "g_sargent": {
-"tec": "Óleo sobre tela",
-"dim": "34,5 × 29,7 cm",
-"ac": "Aberdeen Art Gallery, Escócia"
+"tec": "Fotografia",
+"dim": "",
+"ac": ""
 },
 "g_schiele": {
 "tec": "Aquarela sobre grafite, papel japonês",

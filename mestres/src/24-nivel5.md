@@ -73,21 +73,21 @@ Comece pelo arranjo: desenhe cada pessoa como uma forma simples e veja se o conj
 <!-- id: cap28 | 28. A silhueta | chapter -->
 # 28. A silhueta
 
-{{obra:n5_madamex}}
+{{obra:n5_sargent}}
 
-<aside class="vida"><h4>Na vida dele</h4><p>Paris, por volta de 1884. Sargent pinta o retrato de Virginie Gautreau, uma americana famosa pela beleza, de vestido preto, de pé, com a cabeça de perfil. Faz também uma versão que deixa inacabada. O quadro final escandaliza o Salão de 1884.</p></aside>
+<aside class="vida"><h4>Na vida dele</h4><p>Londres, década de 1890. Sargent é o retratista mais procurado da cidade. Antes de pintar, faz estudos rápidos a lápis da pessoa que vai posar, para decidir a pose e o caimento da roupa. Muitos ficaram em cadernos e folhas soltas.</p></aside>
 
-Uma figura sozinha num espaço vazio se lê primeiro pela silhueta, a forma escura recortada contra o fundo. Se a silhueta está certa, a pose se entende de longe, antes de qualquer detalhe. Esta versão inacabada mostra isso melhor que o quadro final: Sargent parou quando a silhueta já dizia tudo.
+Uma figura sozinha numa folha se lê primeiro pela silhueta, a forma inteira recortada contra o fundo. Se a silhueta está certa, a pose se entende de longe, antes de qualquer detalhe. Neste estudo, Sargent não desenhou quase nada além dela.
 
 ## O que ele fez
 
-A mulher está de pé, de frente, com a cabeça virada de perfil para a direita. O vestido preto é uma mancha só, sem dobras, que vai do peito até o chão e se abre um pouco embaixo. Os braços, os ombros e o pescoço são claros contra o fundo marrom. Uma das mãos se apoia numa mesa que mal aparece. O resto da tela ficou sem pintar.
+Uma mulher de vestido longo, com a cabeça no alto da folha e o rosto virado para quem olha. A cabeça e o cabelo são a parte mais escura e a única com algum detalhe. O vestido é feito de traços longos, com o lápis deitado, que descem do ombro até embaixo da folha sem fechar o contorno. Atrás dela, uma trama de riscos horizontais faz o fundo e recorta a figura. Onde os riscos param, a roupa começa.
 
-É uma pintura a óleo, e não um desenho, mas a lição vale para o lápis: uma forma escura bem recortada faz o trabalho de muitas linhas.
+Não há sombra modelada nem dobra desenhada uma a uma. A pose inteira está na forma geral e na direção dos traços.
 
 ## No lápis
 
-Desenhe a pose com poucas linhas longas: o perfil, o pescoço, os ombros, os braços. Depois preencha a roupa com o 6B deitado, numa mancha só, sem dobras. Deixe muito espaço vazio em volta da figura. Afaste o desenho e olhe de longe: a pose deve se entender só pela forma escura.
+Desenhe a pose com poucas linhas longas, do alto da cabeça até a barra da roupa. Depois deite o 6B e preencha a roupa com traços na direção do tecido. Faça o fundo com riscos horizontais só em volta da figura, para recortá-la. Afaste o desenho e olhe de longe: a pose deve se entender só pela forma.
 
 ## O projeto final
 
