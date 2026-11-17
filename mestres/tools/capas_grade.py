@@ -70,7 +70,7 @@ def render(nome, bg, cells, extra_css=''):
             '.cell{position:absolute;overflow:hidden}.cell img{width:100%;height:100%;object-fit:cover;display:block}'
             '.txt{color:#FBF8F1;font:400 30pt/1.02 Serif;padding:.1in .12in;box-sizing:border-box}'
             '.t{font:400 33pt/1 Serif;letter-spacing:-.01em}.s{font:italic 400 13pt/1.3 Serif}.a{font:500 9pt/1.4 Sans;letter-spacing:.2em}'
-            '.n{font:400 40pt/1 Disp}.l{font:500 7.5pt/1.3 Sans;letter-spacing:.06em}.b{font:400 21pt/1.05 Disp;letter-spacing:.01em}'
+            '.ph{font:700 8.6pt/1.5 Sans;letter-spacing:.16em;margin-top:.22in}.n{font:400 40pt/1 Disp}.l{font:500 7.5pt/1.3 Sans;letter-spacing:.06em}.b{font:400 21pt/1.05 Disp;letter-spacing:.01em}'
             f'{extra_css}</style></head><body>{"".join(divs)}</body></html>')
     with tempfile.TemporaryDirectory() as td:
         HTML(string=html, base_url=build.ROOT).write_pdf(f'{td}/c.pdf')
@@ -136,11 +136,30 @@ c5 = [(0, 0, 3, 2, 'txt', f'<p class="t" style="color:{INK};font-size:44pt">Gran
       (2, 5, 2, 1, 'txt', f'<p class="a" style="color:{INK};margin-top:.35in">PEDRO TORRES</p><p class="s" style="color:{INK};margin-top:.1in;font-size:11pt">{NEX} exercícios em cinco níveis</p>', None)]
 V['5-papel'] = (PAPER, c5)
 
+# --- segunda rodada: bases 5 e 3, título grande no alto, frase dos artistas, nome em duas linhas, uma célula azul
+TIT = (f'<p class="t" style="color:{INK};font-size:44pt">Grandes<br/>Artistas<br/>a Lápis</p>'
+       f'<p class="ph" style="color:{INK}">DE LEONARDO DA VINCI<br/>A VAN GOGH</p>')
+AUT2 = f'<p class="a" style="color:{INK}">PEDRO<br/>TORRES</p><p class="s" style="color:{INK};font-size:10.5pt;margin-top:.12in">{NEX} exercícios<br/>em cinco níveis</p>'
+SUBB = '<p class="s" style="font-size:14pt;margin-top:.12in">Cinco níveis<br/>com dez mestres</p>'
+V['6-base5'] = (PAPER, [
+    (0, 0, 3, 2, 'txt', TIT, None),
+    (3, 0, 1, 1, 'img', 'durer', None), (3, 1, 1, 1, 'img', 'pillow', None), (0, 2, 1, 1, 'img', 'cat', None), (1, 2, 1, 1, 'img', 'pag', None),
+    (2, 2, 2, 1, 'txt', SUBB, '#3B6386'),
+    (1, 3, 1, 1, 'img', 'girl', None), (2, 3, 1, 1, 'img', 'mother', None), (0, 4, 1, 1, 'img', 'pray', None), (3, 3, 1, 1, 'img', 'boat', None),
+    (2, 4, 1, 1, 'img', 'drap', None), (3, 4, 1, 1, 'img', 'yeats', None), (1, 5, 1, 1, 'img', 'sibyl', None),
+    (2, 5, 2, 1, 'txt', AUT2, None)])
+V['7-base3-solta'] = (PAPER, [
+    (0, 0, 3, 2, 'txt', TIT, None),
+    (3, 0, 1, 1, 'img', 'durer', None), (3, 1, 1, 1, 'img', 'girl', None),
+    (0, 2, 1, 1, 'img', 'pag', None), (0, 3, 1, 1, 'img', 'pray', None), (0, 4, 1, 1, 'img', 'cat', None), (0, 5, 1, 1, 'txt', AUT2, None),
+    (1, 2.5, 1, 1, 'img', 'mother', None), (1, 3.5, 1, 1, 'img', 'ideal', None), (1, 4.5, 1, 1, 'img', 'sibyl', None),
+    (2, 2, 1, 1, 'txt', SUBB.replace('14pt', '12.5pt'), '#3B6386'), (2, 3, 1, 1, 'img', 'drap', None), (2, 4, 1, 1, 'img', 'yeats', None), (2, 5, 1, 1, 'img', 'boat', None),
+    (3, 2.5, 1, 1, 'img', 'more', None), (3, 3.5, 1, 1, 'img', 'lady', None), (3, 4.5, 1, 1, 'img', 'edith', None)])
 if len(sys.argv) > 1:
     V = {k: v for k, v in V.items() if k in sys.argv[1:]}
 for nome, (bg, cells) in V.items():
     render(nome, bg, cells)
-ims = [Image.open(f'out/capas/grade-{n}.jpg').resize((500, 800)) for n in ['1-museu', '2-um-rosto', '3-dez-rostos', '4-cinco-azuis', '5-papel'] if os.path.exists(f'out/capas/grade-{n}.jpg')]
+ims = [Image.open(f'out/capas/grade-{n}.jpg').resize((500, 800)) for n in (sys.argv[1:] or ['1-museu', '2-um-rosto', '3-dez-rostos', '4-cinco-azuis', '5-papel']) if os.path.exists(f'out/capas/grade-{n}.jpg')]
 cm = Image.new('RGB', (len(ims) * 520 - 20, 800), 'white')
 for i, im in enumerate(ims): cm.paste(im, (i * 520, 0))
-cm.save('out/capas/grade-comparacao.jpg', quality=88)
+cm.save('out/capas/grade-comparacao' + ('-' + '-'.join(sys.argv[1:]) if len(sys.argv) > 1 else '') + '.jpg', quality=88)
