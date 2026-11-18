@@ -67,18 +67,18 @@ A ideia vem das gravuras japonesas que ele colecionou em Paris. Nelas, a chuva �
 São doze marcas, e quase todos os desenhos dele usam uma parte delas. Cada uma tem um lugar típico e um jeito de ser feita.
 
 <div class="marks">
-<figure><img src="img/m01.jpg" alt=""><figcaption><b>Hachura paralela.</b> Roupas e sombras da Haia, casacos. Traços do mesmo tamanho, todos do mesmo lado, sem ir e voltar.</figcaption></figure>
-<figure><img src="img/m02.jpg" alt=""><figcaption><b>Hachura cruzada.</b> Casacos, fundos em treliça. Camadas em ângulos bem diferentes; a terceira só entra no escuro máximo.</figcaption></figure>
-<figure><img src="img/m03.jpg" alt=""><figcaption><b>Ponto.</b> Areia, campos e céus distantes. Toque e levante a ponta sem girar.</figcaption></figure>
-<figure><img src="img/m04.jpg" alt=""><figcaption><b>Tracinho deitado.</b> Mar, campos ceifados, telhados, pele. Fileiras desencontradas, como tijolos.</figcaption></figure>
-<figure><img src="img/m05.jpg" alt=""><figcaption><b>Vírgula.</b> Relva, trigo, barba. Um gancho curto que sobe e cai, sempre em tufos.</figcaption></figure>
-<figure><img src="img/m06.jpg" alt=""><figcaption><b>Chama.</b> Ciprestes, cabelo. Um C de dois a quatro traços paralelos, sempre subindo.</figcaption></figure>
-<figure><img src="img/m07.jpg" alt=""><figcaption><b>Redemoinho.</b> Céus de 1889, fundos de autorretrato, a órbita dos olhos. Tracinhos em volta de um centro, sem nunca se cruzarem.</figcaption></figure>
-<figure><img src="img/m08.jpg" alt=""><figcaption><b>Contorno quebrado.</b> Cascos de barco, troncos, pálpebras. Linha grossa em pedaços, mais pesada embaixo da forma.</figcaption></figure>
-<figure><img src="img/m09.jpg" alt=""><figcaption><b>Onda longa.</b> Trigo ao vento, colinas, o casaco de 1889. Linhas vizinhas quase paralelas, com pequenas falhas.</figcaption></figure>
-<figure><img src="img/m10.jpg" alt=""><figcaption><b>Raios.</b> O sol, as estrelas, o halo. Um disco em contorno e coroas de tracinhos que crescem ao se afastar.</figcaption></figure>
-<figure><img src="img/m11.jpg" alt=""><figcaption><b>Laço.</b> Arbustos, sebes, nuvens. Uma letra "e" cursiva repetida sem levantar a caneta.</figcaption></figure>
-<figure><img src="img/m12.jpg" alt=""><figcaption><b>Mancha e luz levantada.</b> Só em Haia e Nuenen. Lápis deitado, borracha para abrir a luz, acento preto no fim.</figcaption></figure>
+<figure><img src="img/m01.jpg" alt="Amostra da marca hachura paralela, feita a nanquim"><figcaption><b>Hachura paralela.</b> Roupas e sombras da Haia, casacos. Traços do mesmo tamanho, todos do mesmo lado, sem ir e voltar.</figcaption></figure>
+<figure><img src="img/m02.jpg" alt="Amostra da marca hachura cruzada, feita a nanquim"><figcaption><b>Hachura cruzada.</b> Casacos, fundos em treliça. Camadas em ângulos bem diferentes; a terceira só entra no escuro máximo.</figcaption></figure>
+<figure><img src="img/m03.jpg" alt="Amostra da marca ponto, feita a nanquim"><figcaption><b>Ponto.</b> Areia, campos e céus distantes. Toque e levante a ponta sem girar.</figcaption></figure>
+<figure><img src="img/m04.jpg" alt="Amostra da marca tracinho deitado, feita a nanquim"><figcaption><b>Tracinho deitado.</b> Mar, campos ceifados, telhados, pele. Fileiras desencontradas, como tijolos.</figcaption></figure>
+<figure><img src="img/m05.jpg" alt="Amostra da marca vírgula, feita a nanquim"><figcaption><b>Vírgula.</b> Relva, trigo, barba. Um gancho curto que sobe e cai, sempre em tufos.</figcaption></figure>
+<figure><img src="img/m06.jpg" alt="Amostra da marca chama, feita a nanquim"><figcaption><b>Chama.</b> Ciprestes, cabelo. Um C de dois a quatro traços paralelos, sempre subindo.</figcaption></figure>
+<figure><img src="img/m07.jpg" alt="Amostra da marca redemoinho, feita a nanquim"><figcaption><b>Redemoinho.</b> Céus de 1889, fundos de autorretrato, a órbita dos olhos. Tracinhos em volta de um centro, sem nunca se cruzarem.</figcaption></figure>
+<figure><img src="img/m08.jpg" alt="Amostra da marca contorno quebrado, feita a nanquim"><figcaption><b>Contorno quebrado.</b> Cascos de barco, troncos, pálpebras. Linha grossa em pedaços, mais pesada embaixo da forma.</figcaption></figure>
+<figure><img src="img/m09.jpg" alt="Amostra da marca onda longa, feita a nanquim"><figcaption><b>Onda longa.</b> Trigo ao vento, colinas, o casaco de 1889. Linhas vizinhas quase paralelas, com pequenas falhas.</figcaption></figure>
+<figure><img src="img/m10.jpg" alt="Amostra da marca raios, feita a nanquim"><figcaption><b>Raios.</b> O sol, as estrelas, o halo. Um disco em contorno e coroas de tracinhos que crescem ao se afastar.</figcaption></figure>
+<figure><img src="img/m11.jpg" alt="Amostra da marca laço, feita a nanquim"><figcaption><b>Laço.</b> Arbustos, sebes, nuvens. Uma letra "e" cursiva repetida sem levantar a caneta.</figcaption></figure>
+<figure><img src="img/m12.jpg" alt="Amostra da marca mancha e luz levantada, feita a nanquim"><figcaption><b>Mancha e luz levantada.</b> Só em Haia e Nuenen. Lápis deitado, borracha para abrir a luz, acento preto no fim.</figcaption></figure>
 </div>
 
 ## O tamanho da marca é a distância

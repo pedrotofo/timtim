@@ -361,27 +361,27 @@ def font_faces(base='file://' + FONTDIR + '/'):
             for sub in ('latin', 'latin-ext'):
                 f = f'eb-garamond-{sub}-{w}-{st}.ttf'
                 if os.path.exists(os.path.join(FONTDIR, f)):
-                    css += f'@font-face{{font-family:"Serif";src:url("{base}{f}");font-weight:{w};font-style:{st}}}\n'
+                    css += f'@font-face{{font-family:"LivroSerif";src:url("{base}{f}");font-weight:{w};font-style:{st}}}\n'
     for f in sorted(os.listdir(FONTDIR)):
         m = re.match(r'archivo-(black-)?latin(-ext)?-(\d+)-(normal|italic)\.woff$', f)
         if m:
-            fam = 'Disp' if m.group(1) else 'Sans'
+            fam = 'LivroDisp' if m.group(1) else 'LivroSans'
             css += f'@font-face{{font-family:"{fam}";src:url("{base}{f}");font-weight:{m.group(3)};font-style:{m.group(4)}}}\n'
     return css
 
 PDF_CSS = """
 @page{size:6in 9in;margin:.62in .72in .82in .55in;background:#EEEAE0}
 @page :left{margin-left:.55in;margin-right:.72in;
-  @bottom-left{content:counter(page) "\\2003" string(sec);font:400 7.2pt Sans;color:#6E6253;vertical-align:top;padding-top:.3in}}
+  @bottom-left{content:counter(page) "\\2003" string(sec);font:400 7.2pt LivroSans;color:#6E6253;vertical-align:top;padding-top:.3in}}
 @page :right{margin-left:.72in;margin-right:.55in;
-  @bottom-right{content:string(sec) "\\2003" counter(page);font:400 7.2pt Sans;color:#6E6253;vertical-align:top;padding-top:.3in}}
+  @bottom-right{content:string(sec) "\\2003" counter(page);font:400 7.2pt LivroSans;color:#6E6253;vertical-align:top;padding-top:.3in}}
 @page full{margin:0;@bottom-left{content:none}@bottom-right{content:none}}
 @page part{margin:0;background:#BF8A5A;@bottom-left{content:none}@bottom-right{content:none}}
 @page kraft{margin:0;background:#D6C7A8;@bottom-left{content:none}@bottom-right{content:none}}
 @page bare{@bottom-left{content:none}@bottom-right{content:none}}
 @page chap:first{@bottom-left{content:none}@bottom-right{content:none}}
 :root{--ink:#1E1913;--mute:#6E6253;--soft:#A39682;--clay:#BF8A5A;--kraft:#D6C7A8;--paper:#EEEAE0}
-html{font-family:Serif,serif;font-size:10.3pt;line-height:1.42;color:#1E1913;hyphens:auto}
+html{font-family:LivroSerif,serif;font-size:10.3pt;line-height:1.42;color:#1E1913;hyphens:auto;hyphenate-character:"-"}
 body{margin:0}
 *{bookmark-level:none}
 p{margin:0 0 .55em;text-align:justify;orphans:2;widows:2}
@@ -389,25 +389,25 @@ a{color:inherit;text-decoration:none}
 i,em{font-style:italic}
 .rh{string-set:sec content();display:block;height:0;overflow:hidden;margin:0}
 h1,h2,h3,h4{hyphens:manual}
-h1{font:400 21pt/1.05 Disp;margin:0 0 .8em;letter-spacing:-.01em}
-h2{font:400 12pt/1.2 Disp;margin:1.5em 0 .5em;break-after:avoid}
-h3{font:700 10.5pt/1.25 Sans;margin:1.1em 0 .35em;break-after:avoid}
-h4{font:700 7.6pt/1.3 Sans;margin:0 0 .4em;color:#1E1913}
+h1{font:400 21pt/1.05 LivroDisp;margin:0 0 .8em;letter-spacing:-.01em}
+h2{font:400 12pt/1.2 LivroDisp;margin:1.5em 0 .5em;break-after:avoid}
+h3{font:700 10.5pt/1.25 LivroSans;margin:1.1em 0 .35em;break-after:avoid}
+h4{font:700 7.6pt/1.3 LivroSans;margin:0 0 .4em;color:#1E1913}
 figure{margin:1em 0;break-inside:avoid;text-align:center}
 figure img{max-width:100%;max-height:4.1in}
 figure.wide img{max-height:3.4in}
-figcaption{font:400 8pt/1.42 Sans;color:#6E6253;text-align:left;margin-top:.45em}
+figcaption{font:400 8pt/1.42 LivroSans;color:#6E6253;text-align:left;margin-top:.45em}
 figcaption i{color:#1E1913;font-weight:500}
 table{border-collapse:collapse;width:100%;font-size:9.2pt;margin:.6em 0 1em}
-th{font:700 7.2pt Sans;text-align:left;border-bottom:.6pt solid #1E1913;padding:.3em .4em .3em 0}
+th{font:700 7.2pt LivroSans;text-align:left;border-bottom:.6pt solid #1E1913;padding:.3em .4em .3em 0}
 td{border-bottom:.4pt solid #CFC4B0;padding:.35em .5em .35em 0;vertical-align:top}
 table.chrono td,table.letters td{vertical-align:baseline;line-height:1.38}
 table.chrono tr,table.letters tr{break-inside:avoid}
-table.chrono td:first-child{font:400 10pt Disp;width:.62in;white-space:nowrap}
-table.letters td:first-child{font:400 9pt Disp;width:.82in;white-space:nowrap}
-table.letters td:nth-child(2){font:400 7.6pt/1.4 Sans;color:#6E6253;width:1.4in}
+table.chrono td:first-child{font:400 10pt LivroDisp;width:.62in;white-space:nowrap}
+table.letters td:first-child{font:400 9pt LivroDisp;width:.82in;white-space:nowrap}
+table.letters td:nth-child(2){font:400 7.6pt/1.4 LivroSans;color:#6E6253;width:1.4in}
 ol.check li{margin:.35em 0}
-dl.gloss dt{font:700 8.6pt Sans;margin-top:.7em}dl.gloss dd{margin:.1em 0 0 0}
+dl.gloss dt{font:700 8.6pt LivroSans;margin-top:.7em}dl.gloss dd{margin:.1em 0 0 0}
 .ref{padding-left:1.2em;text-indent:-1.2em;text-align:left}
 .sign{text-align:right;font-style:italic;margin-top:1.2em}
 .vida{background:#E3D9C6;padding:.14in .16in .1in;margin:0 0 1.3em}
@@ -424,8 +424,8 @@ dl.gloss dt{font:700 8.6pt Sans;margin-top:.7em}dl.gloss dd{margin:.1em 0 0 0}
 .steps4 img{max-height:1.55in}.steps4 figcaption{font-size:6.8pt}
 .practice{margin-top:1.6em;border-top:.6pt solid #1E1913;padding-top:.7em;break-inside:avoid}
 .practice ul{margin:0;padding:0;list-style:none;font-size:9.2pt;columns:2;column-gap:.2in}
-.practice li{margin:.1em 0;break-inside:avoid}.practice a{font:700 7.6pt Sans;margin-right:.35em}
-.practice .lvl{font:400 6.8pt Sans;color:#6E6253;margin-left:.25em}
+.practice li{margin:.1em 0;break-inside:avoid}.practice a{font:700 7.6pt LivroSans;margin-right:.35em}
+.practice .lvl{font:400 6.8pt LivroSans;color:#6E6253;margin-left:.25em}
 .lead{font-size:11pt;font-style:italic;text-align:left}
 
 
@@ -445,7 +445,7 @@ figure.flow figcaption b{font-weight:700;color:#1E1913}
 .figbal.side .balrow{display:block;flex:1}
 .figbal.side .bal{width:auto;display:block;margin:0 0 .14in}
 .figbal.side .bal img{width:.92in;height:.92in}
-.pline{margin-top:1.4em;border-top:.6pt solid #1E1913;padding-top:.08in;font:400 7.8pt/1.5 Sans;text-align:left}
+.pline{margin-top:1.4em;border-top:.6pt solid #1E1913;padding-top:.08in;font:400 7.8pt/1.5 LivroSans;text-align:left}
 .pline b{font-weight:700;margin-right:.3em}
 .pline a.pg{border:0;font-weight:400}.pline a.pg::after{content:target-counter(attr(href), page)}
 h2.newpage{break-before:page}
@@ -464,43 +464,43 @@ h2.newpage{break-before:page}
 .mapa{page:full;break-before:page;width:6in;height:9in}
 .mapa svg{display:block;width:6in;height:9in}
 .enderecos{break-before:page}
-.enderecos h2,.tracos h2{font:400 17pt/1.1 Disp;margin:0 0 .05in}
-.enderecos .sub,.tracos .sub{font:italic 10pt/1.35 Serif;margin:0 0 .2in;text-align:left}
+.enderecos h2,.tracos h2{font:400 17pt/1.1 LivroDisp;margin:0 0 .05in}
+.enderecos .sub,.tracos .sub{font:italic 10pt/1.35 LivroSerif;margin:0 0 .2in;text-align:left}
 .end{display:flex;gap:.12in;border-top:.6pt solid #CFC4B0;padding:.07in 0}
-.end .en{flex:none;width:.2in;height:.2in;border-radius:50%;background:#1E1913;color:#F4EFE6;font:700 6.8pt/.2in Sans;text-align:center}
-.end p{margin:0;text-align:left;font-size:9.2pt;line-height:1.32}.end b{font:700 8.4pt Sans}.end .ey{font:400 7.6pt Sans;color:#6E6253}
+.end .en{flex:none;width:.2in;height:.2in;border-radius:50%;background:#1E1913;color:#F4EFE6;font:700 6.8pt/.2in LivroSans;text-align:center}
+.end p{margin:0;text-align:left;font-size:9.2pt;line-height:1.32}.end b{font:700 8.4pt LivroSans}.end .ey{font:400 7.6pt LivroSans;color:#6E6253}
 .tracos{break-before:page}
 .tr{display:flex;gap:.16in;border-top:.6pt solid #CFC4B0;padding:.07in 0 .08in;break-inside:avoid}
 .tr img{width:2.3in;height:1.1in;flex:none}
-.trt p{margin:0;text-align:left;font-size:9pt;line-height:1.32}.trt .ty{font:400 16pt/1 Disp}
-.trt .tp{font:700 7.6pt Sans;margin:.05in 0 .04in}.trt .tp i{font-weight:400}
+.trt p{margin:0;text-align:left;font-size:9pt;line-height:1.32}.trt .ty{font:400 16pt/1 LivroDisp}
+.trt .tp{font:700 7.6pt LivroSans;margin:.05in 0 .04in}.trt .tp i{font-weight:400}
 .tr2{break-before:page;padding-top:.68in}
-.lvhead .lvtag{position:absolute;left:0;bottom:.62in;font:400 30pt/1 Disp;color:#BF8A5A;margin:0}
+.lvhead .lvtag{position:absolute;left:0;bottom:.62in;font:400 30pt/1 LivroDisp;color:#BF8A5A;margin:0}
 
 /* blocos numerados e diagramas */
 ol.laws{list-style:none;margin:.6em 0 1.2em;padding:0;counter-reset:law}
 ol.laws li{counter-increment:law;position:relative;padding:.09in 0 .09in .46in;border-top:.6pt solid #CFC4B0;text-align:left;break-inside:avoid}
 ol.laws li:last-child{border-bottom:.6pt solid #CFC4B0}
-ol.laws li::before{content:counter(law);position:absolute;left:0;top:.06in;font:400 17pt/1 Disp;color:#1E1913}
-ol.laws li b{display:block;font:700 8.8pt Sans;margin-bottom:.03in}
+ol.laws li::before{content:counter(law);position:absolute;left:0;top:.06in;font:400 17pt/1 LivroDisp;color:#1E1913}
+ol.laws li b{display:block;font:700 8.8pt LivroSans;margin-bottom:.03in}
 figure.diag img{width:100%;max-height:none}
 
 /* final */
 .fim{page:kraft;break-before:page;width:6in;height:9in;position:relative}
 .fim img{position:absolute;left:.7in;top:.8in;width:4.6in;height:4.2in;object-fit:contain}
-.fim .fq{position:absolute;left:.85in;right:.85in;top:5.45in;font:italic 400 15pt/1.35 Serif;text-align:left;color:#1E1913}
-.fim .fs{position:absolute;left:.85in;right:.85in;top:7.25in;font:500 7.4pt/1.4 Sans;color:#4A4034;text-align:left}
+.fim .fq{position:absolute;left:.85in;right:.85in;top:5.45in;font:italic 400 15pt/1.35 LivroSerif;text-align:left;color:#1E1913}
+.fim .fs{position:absolute;left:.85in;right:.85in;top:7.25in;font:500 7.4pt/1.4 LivroSans;color:#4A4034;text-align:left}
 .contra{page:full;break-before:page;width:6in;height:9in;background:#2A2119;color:#EFE8DA;text-align:center;position:relative}
-.contra .ct1{position:absolute;left:0;right:0;top:3.7in;font:400 30pt/1 Serif;text-align:center}
-.contra .ct2{position:absolute;left:0;right:0;top:4.35in;font:italic 400 11pt Serif;color:#BDB09A;text-align:center}
-.contra .ct3{position:absolute;left:0;right:0;bottom:.7in;font:500 8pt Sans;letter-spacing:.2em;text-align:center}
+.contra .ct1{position:absolute;left:0;right:0;top:3.7in;font:400 30pt/1 LivroSerif;text-align:center}
+.contra .ct2{position:absolute;left:0;right:0;top:4.35in;font:italic 400 11pt LivroSerif;color:#BDB09A;text-align:center}
+.contra .ct3{position:absolute;left:0;right:0;bottom:.7in;font:500 8pt LivroSans;letter-spacing:.2em;text-align:center}
 /* obra em página inteira */
 .bleed{page:full;break-before:page;width:6in;height:9in;position:relative;overflow:hidden}
 .bleed img{position:absolute;inset:0;width:6in;height:9in;object-fit:cover}
 .bleed::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2in;background:linear-gradient(to bottom,rgba(240,233,218,0),rgba(240,233,218,.92) 60%)}
 .bleed.dark::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2.2in;background:linear-gradient(to bottom,rgba(15,11,8,0),rgba(15,11,8,.8) 70%)}
-.bleed .bcap{position:absolute;left:.4in;right:.4in;bottom:.45in;z-index:2;white-space:nowrap;font:400 7pt/1.45 Sans;color:#1E1913;text-align:left;margin:0}
-.bleed .bcap i{font:italic 400 9.6pt Serif}
+.bleed .bcap{position:absolute;left:.4in;right:.4in;bottom:.45in;z-index:2;white-space:nowrap;font:400 7pt/1.45 LivroSans;color:#1E1913;text-align:left;margin:0}
+.bleed .bcap i{font:italic 400 9.6pt LivroSerif}
 .bleed.dark .bcap{color:#FBF8F1}
 /* capa */
 .cover{page:full;position:relative;width:6in;height:9in;background:#2A2119;color:#FBF8F1;break-after:page;bookmark-level:1;bookmark-label:"Capa"}
@@ -508,39 +508,39 @@ figure.diag img{width:100%;max-height:none}
 .cover .topsh{position:absolute;left:0;right:0;top:0;height:1.1in;background:linear-gradient(to bottom,rgba(20,15,10,.32),rgba(20,15,10,0))}
 .cover .shade{position:absolute;left:0;right:0;bottom:0;height:5in;background:linear-gradient(to bottom,rgba(20,15,10,0),rgba(20,15,10,.55) 45%,rgba(20,15,10,.66))}
 .cover .spine{position:absolute;top:0;bottom:0;left:0;width:.13in;background:#F7F4EE}
-.cover .ed{position:absolute;top:.38in;left:0;right:0;text-align:center;font:500 10.5pt Sans;letter-spacing:.2em}
-.cover .t{position:absolute;left:0;right:0;top:5.75in;text-align:center;font:400 50pt/1 Serif;letter-spacing:-.012em;white-space:nowrap}
-.cover .d{position:absolute;left:0;right:0;top:6.57in;text-align:center;font:italic 400 15pt Serif}
-.cover .coll{position:absolute;bottom:.42in;left:0;right:0;text-align:center;font:italic 400 10.5pt Serif}
+.cover .ed{position:absolute;top:.38in;left:0;right:0;text-align:center;font:500 10.5pt LivroSans;letter-spacing:.2em}
+.cover .t{position:absolute;left:0;right:0;top:5.75in;text-align:center;font:400 50pt/1 LivroSerif;letter-spacing:-.012em;white-space:nowrap}
+.cover .d{position:absolute;left:0;right:0;top:6.57in;text-align:center;font:italic 400 15pt LivroSerif}
+.cover .coll{position:absolute;bottom:.42in;left:0;right:0;text-align:center;font:italic 400 10.5pt LivroSerif}
 
 /* folha de rosto e créditos */
 .titlepage{page:bare;break-before:page;text-align:center;padding-top:2.3in}
-.titlepage .t{font:400 34pt/1 Serif;margin:0 0 .25em;text-align:center;letter-spacing:-.01em}
-.titlepage .s{font:italic 400 12pt Serif;color:#6E6253;text-align:center;margin:0 0 3.2in}
-.titlepage .a{font:500 9pt Sans;letter-spacing:.2em;text-align:center}
-.copy{page:bare;break-before:page;padding-top:5.3in;font:400 7.6pt/1.5 Sans;color:#6E6253}.copy p{text-align:left;margin-bottom:.8em}
+.titlepage .t{font:400 34pt/1 LivroSerif;margin:0 0 .25em;text-align:center;letter-spacing:-.01em}
+.titlepage .s{font:italic 400 12pt LivroSerif;color:#6E6253;text-align:center;margin:0 0 3.2in}
+.titlepage .a{font:500 9pt LivroSans;letter-spacing:.2em;text-align:center}
+.copy{page:bare;break-before:page;padding-top:5.3in;font:400 7.6pt/1.5 LivroSans;color:#6E6253}.copy p{text-align:left;margin-bottom:.8em}
 
 /* sumário */
 .toc{page:bare;break-before:page;bookmark-level:1;bookmark-label:"Sumário"}
-.toc h1{font:400 22pt/1 Disp;margin:0 0 .3in}
+.toc h1{font:400 22pt/1 LivroDisp;margin:0 0 .3in}
 .toc a{color:#1E1913;text-decoration:none}
 .toc .blk{display:flex;margin-bottom:.19in}
-.toc .col{width:.5in;flex:none;font:400 10pt/1.6 Sans;color:#BF8A5A;padding-top:.01in}
+.toc .col{width:.5in;flex:none;font:400 10pt/1.6 LivroSans;color:#BF8A5A;padding-top:.01in}
 .toc .body{flex:1}
 .toc p{display:flex;justify-content:space-between;align-items:baseline;margin:0;text-align:left}
-.toc .pt{font:400 11pt/1.6 Disp;margin-bottom:.04in;border-bottom:.5pt solid #1E1913;padding-bottom:.03in}
-.toc .r{font:400 10.2pt/1.5 Serif}
-.toc .pg::after{content:target-counter(attr(href),page);font:400 8.4pt Sans;color:#6E6253}
+.toc .pt{font:400 11pt/1.6 LivroDisp;margin-bottom:.04in;border-bottom:.5pt solid #1E1913;padding-bottom:.03in}
+.toc .r{font:400 10.2pt/1.5 LivroSerif}
+.toc .pg::after{content:target-counter(attr(href),page);font:400 8.4pt LivroSans;color:#6E6253}
 .toc .pt .pg::after{color:#1E1913}
 /* páginas de parte */
 .partimg{page:kraft;break-before:page;width:6in;height:9in;position:relative}
 .partimg img{position:absolute;left:.55in;top:.55in;width:4.9in;height:7.4in;object-fit:contain}
-.partimg .pcap{position:absolute;left:.55in;right:.55in;bottom:.45in;font:400 7pt/1.4 Sans;color:#4A4034;text-align:center}
+.partimg .pcap{position:absolute;left:.55in;right:.55in;bottom:.45in;font:400 7pt/1.4 LivroSans;color:#4A4034;text-align:center}
 .partimg .pcap i{color:#1E1913}
 .part{page:part;break-before:page;position:relative;width:6in;height:9in;color:#1E1913}
-.part .plab{position:absolute;left:.55in;top:1.72in;font:500 7.4pt Sans;margin:0}
+.part .plab{position:absolute;left:.55in;top:1.72in;font:500 7.4pt LivroSans;margin:0}
 .part .prule{position:absolute;left:.55in;right:.55in;top:1.95in;border-top:.6pt solid #1E1913}
-.part .pnum{position:absolute;left:.5in;top:2.1in;font:400 118pt/1 Disp;margin:0}
+.part .pnum{position:absolute;left:.5in;top:2.1in;font:400 118pt/1 LivroDisp;margin:0}
 .part h1{position:absolute;left:.55in;top:3.85in;width:4.4in;font-size:23pt;margin:0}
 .part .pintro{position:absolute;left:.55in;top:4.85in;width:3.9in;font-size:9.6pt;line-height:1.42}
 .part .pintro p{text-align:left;margin:0 0 .55em}
@@ -548,39 +548,39 @@ figure.diag img{width:100%;max-height:none}
 /* capítulos */
 section.chap{page:chap;break-before:page}
 .chhead{position:relative;height:2.95in;margin-bottom:.15in}
-.chhead .chlab{position:absolute;left:0;top:.05in;font:500 7.4pt/1.4 Sans;margin:0}
-.chhead .chnum{position:absolute;right:-.08in;top:-.2in;font:400 132pt/1 Disp;color:#BF8A5A;margin:0}
+.chhead .chlab{position:absolute;left:0;top:.05in;font:500 7.4pt/1.4 LivroSans;margin:0}
+.chhead .chnum{position:absolute;right:-.08in;top:-.2in;font:400 132pt/1 LivroDisp;color:#BF8A5A;margin:0}
 .chhead h1{position:absolute;left:0;bottom:0;width:3.7in;margin:0;font-size:23pt}
 .chhead.nonum{height:1.9in}
 section.front{page:chap;break-before:page}
-section.front h1{font:400 30pt/1.1 Serif;text-align:center;margin:.25in 0 .9em;letter-spacing:-.01em}
-section.front .ini{font:400 38pt/.8 Serif;float:left;margin:.04in .07in 0 0}
+section.front h1{font:400 30pt/1.1 LivroSerif;text-align:center;margin:.25in 0 .9em;letter-spacing:-.01em}
+section.front .ini{font:400 38pt/.8 LivroSerif;float:left;margin:.04in .07in 0 0}
 
 /* níveis */
 section.level{page:chap;break-before:page}
 .lvhead{height:3.2in;position:relative}
-.lvhead .chlab{position:absolute;left:0;top:.05in;font:500 7.4pt Sans;margin:0}
-.lvhead .chnum{position:absolute;right:-.06in;top:-.2in;font:400 120pt/1 Disp;color:#BF8A5A;margin:0}
+.lvhead .chlab{position:absolute;left:0;top:.05in;font:500 7.4pt LivroSans;margin:0}
+.lvhead .chnum{position:absolute;right:-.06in;top:-.2in;font:400 120pt/1 LivroDisp;color:#BF8A5A;margin:0}
 .lvhead h1{position:absolute;left:0;right:0;bottom:0;margin:0;font-size:23pt;white-space:nowrap}
 .lvlist{columns:2;column-gap:.22in;margin-top:.9em;border-top:.6pt solid #1E1913;padding-top:.1in}
 .lvlist p{font-size:8.8pt;line-height:1.3;text-align:left;margin:0 0 .3em;break-inside:avoid}
-.lvlist b{font:700 7.4pt Sans;display:inline-block;width:.36in}
+.lvlist b{font:700 7.4pt LivroSans;display:inline-block;width:.36in}
 
 /* exercícios */
 .ex{break-before:page;break-inside:avoid}
 .ex.half{break-before:auto;height:3.5in;margin-top:0;overflow:hidden}
 .pair2{break-before:page}
 .pshead{border-bottom:.6pt solid #1E1913;padding-bottom:.06in;margin-bottom:.12in}
-.pshead .psl{font:400 13pt Disp;margin:0;white-space:nowrap}.pshead .pst{font:400 7.6pt Sans;color:#6E6253;margin:.03in 0 0;text-align:left}
+.pshead .psl{font:400 13pt LivroDisp;margin:0;white-space:nowrap}.pshead .pst{font:400 7.6pt LivroSans;color:#6E6253;margin:.03in 0 0;text-align:left}
 .pair2.first .ex.half{height:3.14in}
 .pair2 .ex.half + .ex.half{border-top:.6pt solid #CFC4B0;padding-top:.14in;margin-top:.14in}
 .exh{position:relative;height:.62in}
-.exh .code{position:absolute;left:0;top:0;font:400 30pt/1 Disp}
-.exh .lv{position:absolute;left:1.25in;top:.07in;font:500 7.2pt/1.4 Sans;color:#1E1913}
+.exh .code{position:absolute;left:0;top:0;font:400 30pt/1 LivroDisp}
+.exh .lv{position:absolute;left:1.25in;top:.07in;font:500 7.2pt/1.4 LivroSans;color:#1E1913}
 .half .exh{height:.5in}.half .exh .code{font-size:23pt}.half .exh .lv{left:.95in;top:.02in}
-.ex h3{font:400 13pt/1.12 Disp;margin:0 0 .12in}
+.ex h3{font:400 13pt/1.12 LivroDisp;margin:0 0 .12in}
 .half h3{font-size:11pt;margin-bottom:.08in}
-.meta{display:flex;border-top:.6pt solid #1E1913;border-bottom:.6pt solid #1E1913;margin-bottom:.14in;font:400 7.2pt/1.35 Sans}
+.meta{display:flex;border-top:.6pt solid #1E1913;border-bottom:.6pt solid #1E1913;margin-bottom:.14in;font:400 7.2pt/1.35 LivroSans}
 .meta div{flex:1;padding:.05in 0}
 .meta div+div{border-left:.6pt solid #1E1913;padding-left:.08in}
 .meta b{display:block;font-weight:700;font-size:7.6pt;margin-top:.02in}
@@ -597,22 +597,22 @@ section.level{page:chap;break-before:page}
 .exfoot{display:flex;gap:.18in}
 .exfoot .desc{flex:1}
 .exfoot .desc p{font-size:9.6pt;line-height:1.4;margin:0 0 .4em}
-.exfoot .done{width:1.5in;border-left:1.3pt solid #BF8A5A;padding-left:.08in;font:400 7.4pt/1.4 Sans}
+.exfoot .done{width:1.5in;border-left:1.3pt solid #BF8A5A;padding-left:.08in;font:400 7.4pt/1.4 LivroSans}
 .exfoot .done b{font-weight:700}
 .half .exfoot{display:block}.half .exfoot .done{width:auto;margin-top:.06in}
-.exref{font:400 7.2pt/1.4 Sans;color:#6E6253;margin-top:.12in;text-align:left}
+.exref{font:400 7.2pt/1.4 LivroSans;color:#6E6253;margin-top:.12in;text-align:left}
 .exref a{border-bottom:.5pt solid #BF8A5A;color:#1E1913}
 
 /* catálogo */
 .iconimg{page:kraft;break-before:page;width:6in;height:9in;position:relative}
 .iconimg img{position:absolute;left:.45in;top:.45in;width:5.1in;height:8.1in;object-fit:contain}
 .iconinfo{page:bare;break-before:page;position:relative;height:7.5in}
-.iconinfo .ptop{display:flex;justify-content:space-between;border-bottom:.6pt solid #1E1913;padding-bottom:.06in;font:500 7.2pt Sans;margin-bottom:.9in}
-.iconinfo .no{font:400 36pt/1 Disp;margin:0 0 .1in}
-.iconinfo h2{font:italic 400 17pt/1.2 Serif;margin:0 0 .18in}
-.iconinfo .cc{font:400 7.8pt/1.45 Sans;color:#6E6253;text-align:left}
+.iconinfo .ptop{display:flex;justify-content:space-between;border-bottom:.6pt solid #1E1913;padding-bottom:.06in;font:500 7.2pt LivroSans;margin-bottom:.9in}
+.iconinfo .no{font:400 36pt/1 LivroDisp;margin:0 0 .1in}
+.iconinfo h2{font:italic 400 17pt/1.2 LivroSerif;margin:0 0 .18in}
+.iconinfo .cc{font:400 7.8pt/1.45 LivroSans;color:#6E6253;text-align:left}
 .iconinfo .cl{font-size:10.6pt;line-height:1.45;margin:.2in 0}
-.ficha{width:100%;font:400 7.4pt Sans;margin-top:.15in}
+.ficha{width:100%;font:400 7.4pt LivroSans;margin-top:.15in}
 .iconinfo .balrow{margin-top:.35in;justify-content:flex-start;gap:.18in}
 .iconinfo .bal{width:1.5in}
 .ficha td{border-top:.6pt solid #A39682;border-bottom:none;padding:.05in 0}
@@ -622,17 +622,17 @@ section.level{page:chap;break-before:page}
 .cat .im{width:1.15in;flex:none;text-align:left}
 .cat img{max-width:1.15in;max-height:1.25in}
 .cat p{text-align:left;margin:0 0 .18em}
-.cat .ct{font:400 10.4pt/1.25 Serif}
-.cat .cn{font:400 9pt Disp;margin-right:.35em}
-.cat .cc{font:400 7.2pt/1.42 Sans;color:#6E6253}
-.cat .cf{font:400 6.8pt/1.4 Sans;color:#6E6253}
+.cat .ct{font:400 10.4pt/1.25 LivroSerif}
+.cat .cn{font:400 9pt LivroDisp;margin-right:.35em}
+.cat .cc{font:400 7.2pt/1.42 LivroSans;color:#6E6253}
+.cat .cf{font:400 6.8pt/1.4 LivroSans;color:#6E6253}
 .cat .cl{font-size:8.8pt;line-height:1.34}
 
 /* índice */
 .idx{columns:2;column-gap:.25in}
 .idx p{font-size:8.6pt;line-height:1.28;margin:0 0 .16em;text-align:left;break-inside:avoid}
-.idx b{font:700 7.2pt Sans;display:inline-block;width:.33in}
-.idx span{font:400 6.6pt Sans;color:#6E6253}
+.idx b{font:700 7.2pt LivroSans;display:inline-block;width:.33in}
+.idx span{font:400 6.6pt LivroSans;color:#6E6253}
 .idx h4{column-span:none;margin:.8em 0 .3em}
 """
 
@@ -662,10 +662,10 @@ def ex_pdf(x, chapnames, half=False):
     meta = (f'<div class="meta"><div>Tempo<b>{esc(tempo)}</b></div><div>Material<b>{esc(mat)}</b></div>'
             f'<div>Teoria<b><a href="#{cid}">{cname}</a></b></div></div>')
     if x['id'] in STAGES and not half:
-        st = ''.join(f'<figure><img src="img/st-{x["id"]}-{k}.jpg" alt=""/><figcaption>{k} · {STN[k-1]}</figcaption></figure>' for k in (1, 2, 3))
-        art = f'<div class="exart"><img class="model" src="img/{x["id"]}.jpg" alt=""/><div class="steps">{st}</div></div>'
+        st = ''.join(f'<figure><img src="img/st-{x["id"]}-{k}.jpg" alt="Etapa {k} do exercício {x['id'].upper()}: {STN[k-1].lower()}"/><figcaption>{k} · {STN[k-1]}</figcaption></figure>' for k in (1, 2, 3))
+        art = f'<div class="exart"><img class="model" src="img/{x["id"]}.jpg" alt="Desenho-modelo do exercício {x['id'].upper()}"/><div class="steps">{st}</div></div>'
     else:
-        art = f'<div class="exsolo"><img src="img/{x["id"]}.jpg" alt=""/></div>'
+        art = f'<div class="exsolo"><img src="img/{x["id"]}.jpg" alt="Desenho-modelo do exercício {x['id'].upper()}"/></div>'
     ref = ''
     if x.get('ref') and x['ref'] in PL:
         ref = f'<p class="exref">Obra para comparar: <a href="#cat-{x["ref"]}"><i>{esc(PL[x["ref"]]["t"])}</i></a>, no catálogo.</p>'
@@ -832,46 +832,46 @@ def pdf_html(S):
     return html_.replace('</style>', extra + '</style>', 1)
 
 # ---------------------------------------------------------------- EPUB
-EPUB_FONTS = [('Serif', 'eb-garamond-latin-400-normal.ttf', 400, 'normal'), ('Serif', 'eb-garamond-latin-400-italic.ttf', 400, 'italic'),
-              ('Serif', 'eb-garamond-latin-600-normal.ttf', 600, 'normal'), ('Disp', 'archivo-black-latin-400-normal.woff', 400, 'normal'),
-              ('Sans', 'archivo-latin-400-normal.woff', 400, 'normal'), ('Sans', 'archivo-latin-700-normal.woff', 700, 'normal')]
+EPUB_FONTS = [('LivroSerif', 'eb-garamond-latin-400-normal.ttf', 400, 'normal'), ('LivroSerif', 'eb-garamond-latin-400-italic.ttf', 400, 'italic'),
+              ('LivroSerif', 'eb-garamond-latin-600-normal.ttf', 600, 'normal'), ('LivroDisp', 'archivo-black-latin-400-normal.woff', 400, 'normal'),
+              ('LivroSans', 'archivo-latin-400-normal.woff', 400, 'normal'), ('LivroSans', 'archivo-latin-700-normal.woff', 700, 'normal')]
 EPUB_CSS = """
-body{font-family:Serif,serif;line-height:1.5;margin:0;color:#1E1913}
-h1{font-family:Disp,sans-serif;font-weight:400;font-size:1.65em;line-height:1.12;margin:1.4em 0 .9em;page-break-before:always}
-h1 .lvnum{display:block;font-family:Sans,sans-serif;font-weight:700;font-size:.45em;color:#8C5A2E;margin-bottom:.4em}
-h2{font-family:Disp,sans-serif;font-weight:400;font-size:1.15em;line-height:1.2;margin:1.6em 0 .5em}
-h3{font-family:Sans,sans-serif;font-weight:700;font-size:1.05em;margin:.3em 0 .4em}
-h4{font-family:Sans,sans-serif;font-weight:700;font-size:.78em;margin:0 0 .4em}
+body{font-family:LivroSerif,serif;line-height:1.5;margin:0}
+h1{font-family:LivroDisp,sans-serif;font-weight:400;font-size:1.65em;line-height:1.12;margin:1.4em 0 .9em;page-break-before:always}
+h1 .lvnum{display:block;font-family:LivroSans,sans-serif;font-weight:700;font-size:.45em;color:#8C5A2E;margin-bottom:.4em}
+h2{font-family:LivroDisp,sans-serif;font-weight:400;font-size:1.15em;line-height:1.2;margin:1.6em 0 .5em}
+h3{font-family:LivroSans,sans-serif;font-weight:700;font-size:1.05em;margin:.3em 0 .4em}
+h4{font-family:LivroSans,sans-serif;font-weight:700;font-size:.78em;margin:0 0 .4em}
 p{margin:0 0 .6em;text-indent:0}
-a{color:#1E1913}
+a{color:inherit}
 figure{display:block;margin:1.2em 0;text-align:center;page-break-inside:avoid}
 img{max-width:100%;height:auto}
-figcaption{font-family:Sans,sans-serif;font-size:.72em;line-height:1.45;color:#5F5446;text-align:left;margin-top:.4em}
-.vida{background:#EFE8DB;padding:.7em .9em .5em;margin:0 0 1.3em;font-size:.92em}
+figcaption{font-family:LivroSans,sans-serif;font-size:.72em;line-height:1.45;color:#5F5446;text-align:left;margin-top:.4em}
+.vida{border-left:3px solid #BF8A5A;padding:.1em 0 .1em .8em;margin:0 0 1.3em;font-size:.92em}
 .marks figure,.pair figure{margin:.8em 0}
 .kgrid{width:100%;border-collapse:collapse;margin:.4em 0 1.2em;page-break-inside:avoid}
 .kgrid td.kc{border:0;padding:.2em .4em .4em;vertical-align:top;text-align:center}
 .kgrid td.kc img{width:100%;max-width:9em}
-.kgrid p.kt{font-family:Sans,sans-serif;font-size:.68em;line-height:1.35;color:#5F5446;text-align:left;margin:.3em 0 0}
+.kgrid p.kt{font-family:LivroSans,sans-serif;font-size:.68em;line-height:1.35;color:#5F5446;text-align:left;margin:.3em 0 0}
 .kgrid p.kt b{display:block;color:#1E1913}
 .practice{border-top:1px solid #1E1913;margin-top:1.6em;padding-top:.6em;font-size:.9em}
-.practice ul{list-style:none;padding:0}.practice a{font-family:Sans,sans-serif;font-weight:700;font-size:.85em;margin-right:.3em}
-.practice .lvl{font-family:Sans,sans-serif;color:#6E6253;font-size:.75em}
-.exnum{font-family:Disp,sans-serif;font-size:1.9em;line-height:1;margin:1.2em 0 .1em}
+.practice ul{list-style:none;padding:0}.practice a{font-family:LivroSans,sans-serif;font-weight:700;font-size:.85em;margin-right:.3em}
+.practice .lvl{font-family:LivroSans,sans-serif;color:#6E6253;font-size:.75em}
+.exnum{font-family:LivroDisp,sans-serif;font-size:1.9em;line-height:1;margin:1.2em 0 .1em}
 section.ex{page-break-before:always}
-.ex h3{font-family:Disp,sans-serif;font-weight:400;font-size:1.2em}
-.exmeta{font-family:Sans,sans-serif;font-size:.78em;color:#5F5446;border-top:1px solid #1E1913;border-bottom:1px solid #1E1913;padding:.35em 0}
-.exref{font-family:Sans,sans-serif;font-size:.78em;color:#5F5446}
-.crit{border-left:3px solid #BF8A5A;padding-left:.6em}.crit .sc{font-family:Sans,sans-serif;font-weight:700;font-size:.85em}
-.lead{font-style:italic}.count{font-family:Sans,sans-serif;font-size:.75em;color:#6E6253}
+.ex h3{font-family:LivroDisp,sans-serif;font-weight:400;font-size:1.2em}
+.exmeta{font-family:LivroSans,sans-serif;font-size:.78em;color:#5F5446;border-top:1px solid #1E1913;border-bottom:1px solid #1E1913;padding:.35em 0}
+.exref{font-family:LivroSans,sans-serif;font-size:.78em;color:#5F5446}
+.crit{border-left:3px solid #BF8A5A;padding-left:.6em}.crit .sc{font-family:LivroSans,sans-serif;font-weight:700;font-size:.85em}
+.lead{font-style:italic}.count{font-family:LivroSans,sans-serif;font-size:.75em;color:#6E6253}
 table{border-collapse:collapse;width:100%;font-size:.88em}th,td{border-bottom:1px solid #CFC4B0;padding:.3em .4em;text-align:left;vertical-align:top}
-th{font-family:Sans,sans-serif;font-size:.8em;border-bottom:1px solid #1E1913}
-dl.gloss dt{font-family:Sans,sans-serif;font-weight:700;font-size:.9em;margin-top:.7em}dl.gloss dd{margin-left:0}
+th{font-family:LivroSans,sans-serif;font-size:.8em;border-bottom:1px solid #1E1913}
+dl.gloss dt{font-family:LivroSans,sans-serif;font-weight:700;font-size:.9em;margin-top:.7em}dl.gloss dd{margin-left:0}
 .sign{text-align:right;font-style:italic}
 .cat{margin:0 0 1.4em;page-break-inside:avoid;clear:both;overflow:hidden;border-top:1px solid #CFC4B0;padding-top:.6em}.cat img{display:block;width:34%;margin:0 0 .5em}.cat div{overflow:hidden}
-.cat p{margin:0 0 .2em}.cc,.cf{font-family:Sans,sans-serif;font-size:.75em;color:#5F5446}.cn{font-family:Disp,sans-serif;margin-right:.35em}
-.parttitle{margin-top:1.2em}.parttitle .pn{font-family:Disp,sans-serif;font-size:3.6em;line-height:1;color:#BF8A5A;margin:0}
-.parttitle h1{page-break-before:avoid;font-family:Sans,sans-serif;font-weight:700;font-size:.8em;margin:.6em 0 .2em}
+.cat p{margin:0 0 .2em}.cc,.cf{font-family:LivroSans,sans-serif;font-size:.75em;color:#5F5446}.cn{font-family:LivroDisp,sans-serif;margin-right:.35em}
+.parttitle{margin-top:1.2em}.parttitle .pn{font-family:LivroDisp,sans-serif;font-size:3.6em;line-height:1;color:#BF8A5A;margin:0}
+.parttitle h1{page-break-before:avoid;font-family:LivroSans,sans-serif;font-weight:700;font-size:.8em;margin:.6em 0 .2em}
 .parttitle h2{font-size:1.7em;margin:0 0 .6em}
 h2.ic img.icon{width:1.6em;height:1.6em;vertical-align:middle;margin-right:.4em}
 .balrow{text-align:center;margin:-.4em 0 1.2em}
@@ -879,15 +879,16 @@ h2.ic img.icon{width:1.6em;height:1.6em;vertical-align:middle;margin-right:.4em}
 .bal img{width:100%;border-radius:50%}
 .bal figcaption b{display:block;font-weight:700}
 .mapa{margin:0 0 1.2em;text-align:center}
-.end{border-top:1px solid #CFC4B0;padding:.4em 0;overflow:hidden}.end .en{float:left;font-family:Sans,sans-serif;font-weight:700;width:1.6em}
-.end p{margin:0 0 0 1.6em}.end .ey{font-family:Sans,sans-serif;font-size:.8em;color:#5F5446}
+.end{border-top:1px solid #CFC4B0;padding:.4em 0;overflow:hidden}.end .en{float:left;font-family:LivroSans,sans-serif;font-weight:700;width:1.6em}
+.end p{margin:0 0 0 1.6em}.end .ey{font-family:LivroSans,sans-serif;font-size:.8em;color:#5F5446}
 .tr{border-top:1px solid #CFC4B0;padding:.6em 0;page-break-inside:avoid}.tr img{width:100%}
-.trt .ty{font-family:Disp,sans-serif;font-size:1.3em;margin:.3em 0 0}.trt .tp{font-family:Sans,sans-serif;font-size:.85em;font-weight:700;margin:0}
+.trt .ty{font-family:LivroDisp,sans-serif;font-size:1.3em;margin:.3em 0 0}.trt .tp{font-family:LivroSans,sans-serif;font-size:.85em;font-weight:700;margin:0}
 .tracos .sub,.enderecos .sub{font-style:italic}
-ol.laws{list-style:none;padding:0}ol.laws li{border-top:1px solid #CFC4B0;padding:.5em 0}ol.laws li b{display:block;font-family:Sans,sans-serif}
+ol.laws{list-style:none;padding:0}ol.laws li{border-top:1px solid #CFC4B0;padding:.5em 0}ol.laws li b{display:block;font-family:LivroSans,sans-serif}
 figure.diag img{width:100%}
 .titlepage{text-align:center;margin-top:25%}.titlepage .t{font-size:2.1em;line-height:1.1}.titlepage .s{font-style:italic;color:#5F5446}
-.titlepage .a{font-family:Sans,sans-serif;font-size:.8em;letter-spacing:.2em;margin-top:3em}
+.titlepage .a{font-family:LivroSans,sans-serif;font-size:.8em;letter-spacing:.2em;margin-top:3em}
+.capa{margin:0;padding:0;height:100%;text-align:center}.capa svg{width:100%;height:100%}
 """
 
 def xhtml(fragment):
@@ -911,7 +912,8 @@ def epub_assets():
             continue
         im = Image.open(f).convert('RGB').resize((360, 360), Image.LANCZOS)
         m = Image.new('L', (1440, 1440), 0); ImageDraw.Draw(m).ellipse((0, 0, 1439, 1439), fill=255)
-        im.putalpha(m.resize((360, 360), Image.LANCZOS)); im.save(out, optimize=True)
+        im.putalpha(m.resize((360, 360), Image.LANCZOS))
+        im.quantize(256, method=Image.Quantize.FASTOCTREE, dither=Image.Dither.FLOYDSTEINBERG).save(out, optimize=True)
     if not os.path.exists('img/mapa-caminho.png') or os.path.getmtime('img/mapa-caminho.png') < os.path.getmtime('img/mapa-caminho.svg'):
         from weasyprint import HTML
         with tempfile.TemporaryDirectory() as td:
@@ -924,6 +926,10 @@ def kindle_html(body):
     """Simplifica o HTML para leitores: sem imagens lado a lado por porcentagem, sem SVG, sem páginas do PDF."""
     body = re.sub(r'<img class="icon"[^>]*?/?>', '', body)
     body = body.replace('img/mapa-caminho.svg', 'img/mapa-caminho.png')
+    body = body.replace('imprima a página do exercício e trabalhe por cima com papel vegetal, ou abra a página num aplicativo',
+                        'faça uma captura de tela do exercício e abra-a num aplicativo')
+    body = body.replace('Para desenhar por cima, imprima a página e use papel vegetal, ou importe-a num aplicativo de desenho e trabalhe numa camada acima.',
+                        'Para desenhar por cima, faça uma captura de tela do modelo e abra-a num aplicativo de desenho, trabalhando numa camada acima.')
     body = re.sub(r' · p\. <a class="pg" href="[^"]*"></a>( a <a class="pg" href="[^"]*"></a>)?', '', body)
     def bal(m):
         cells = re.findall(r'<figure class="bal"><img src="img/(det-[^"]+)\.jpg" alt="([^"]*)"/><figcaption>(.*?)</figcaption></figure>', m.group(0), re.S)
@@ -939,10 +945,10 @@ def kindle_html(body):
     body = re.sub(r'<div class="steps4[^"]*">.*?</div>', steps, body, flags=re.S)
     return body
 
-def build_epub(S, out, small=None):
+def build_epub(S, out, small=None, kindle=False):
     files = []  # (name, title, body, kind)
     files.append(('titulo.xhtml', 'Folha de rosto', '<div class="titlepage"><p class="t">Van Gogh a Lápis</p><p class="s">Teoria e prática para desenhar como Vincent</p><p class="a">PEDRO TORRES</p></div>'
-                  f'<p style="margin-top:3em;font-size:.8em;color:#666">© {datetime.date.today().year} Pedro Torres. Todos os direitos reservados.</p>', 'front'))
+                  f'<p style="margin-top:3em;font-size:.8em">© {datetime.date.today().year} Pedro Torres. Todos os direitos reservados.</p>', 'front'))
     idfile = {}
     for i, s in enumerate(S):
         name = f'{i:02d}-{s["id"]}.xhtml'
@@ -950,7 +956,7 @@ def build_epub(S, out, small=None):
             img = f'img/{PART_ART[s["id"]]}.jpg'
             n_, lab_, name_, intro_ = PARTS[s['id']]
             it = '' if intro_ is None else (intro_ if intro_.startswith('<p>') else f'<p>{intro_}</p>')
-            body = (f'<section id="{s["id"]}"><figure><img src="{img}" alt=""/></figure><div class="parttitle"><p class="pn">{n_}</p>'
+            body = (f'<section id="{s["id"]}"><figure><img src="{img}" alt="{esc(PL[PART_ART[s['id']]]['t'])}, desenho de Van Gogh"/></figure><div class="parttitle"><p class="pn">{n_}</p>'
                     f'<h1>{lab_}</h1><h2>{name_}</h2>{it}</div></section>')
         else:
             body = f'<section id="{s["id"]}">{s["html"].replace("<!--MAPA-->", map_html(False))}{s.get("epub_extra", "")}</section>'
@@ -977,7 +983,11 @@ def build_epub(S, out, small=None):
             fonts_added.append(name)
             fcss += f'@font-face{{font-family:"{fam}";src:url("fonts/{name}");font-weight:{w};font-style:{st}}}\n'
         z.writestr('OEBPS/style.css', fcss + EPUB_CSS, compress_type=zipfile.ZIP_DEFLATED)
-        z.writestr('OEBPS/cover.xhtml', page('Capa', '<figure style="margin:0;text-align:center"><img src="img/cover.jpg" alt="Capa" style="max-height:100%"/></figure>'), compress_type=zipfile.ZIP_DEFLATED)
+        if not kindle:  # a capa como página: SVG que se ajusta a qualquer tela sem cortar nem esticar
+            capa_svg = ('<div class="capa"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" '
+                        'width="100%" height="100%" viewBox="0 0 1500 2400" preserveAspectRatio="xMidYMid meet">'
+                        '<image width="1500" height="2400" xlink:href="img/cover.jpg"/></svg></div>')
+            z.writestr('OEBPS/cover.xhtml', page('Capa', capa_svg), compress_type=zipfile.ZIP_DEFLATED)
         for name, title, body, kind in files:
             x = xhtml(fixlinks(body))
             imgs.update(re.findall(r'src="(img/[^"]+)"', x))
@@ -988,25 +998,35 @@ def build_epub(S, out, small=None):
                 z.write(im, 'OEBPS/' + im, compress_type=zipfile.ZIP_STORED)
             elif im.endswith('.svg'):
                 z.write(im, 'OEBPS/' + im, compress_type=zipfile.ZIP_DEFLATED)
+            elif im == 'img/cover.jpg':  # a Apple Books recusa imagem acima de 4 milhões de pixels
+                from PIL import Image
+                import io
+                buf = io.BytesIO(); Image.open(im).convert('RGB').resize((1500, 2400), Image.LANCZOS).save(buf, 'JPEG', quality=90, optimize=True)
+                z.writestr('OEBPS/' + im, buf.getvalue(), compress_type=zipfile.ZIP_STORED)
             elif small:
                 from PIL import Image
                 import io
                 pic = Image.open(im).convert('RGB')
-                if im != 'img/cover.jpg':
-                    pic.thumbnail((small, small))
-                buf = io.BytesIO(); pic.save(buf, 'JPEG', quality=68, optimize=True, progressive=True)
+                # cada imagem no tamanho em que aparece: etapas ficam duas por linha, modelos de exercício em largura de tela
+                base = os.path.basename(im)
+                lado, q = (560, 72) if base.startswith('st-') else (800, 70) if re.match(r'[a-z]\d\d\.jpg$', base) else (small, 72)
+                pic.thumbnail((lado, lado), Image.LANCZOS)
+                buf = io.BytesIO(); pic.save(buf, 'JPEG', quality=q, optimize=True, progressive=True)
                 z.writestr('OEBPS/' + im, buf.getvalue(), compress_type=zipfile.ZIP_STORED)
             else:
                 z.write(im, 'OEBPS/' + im, compress_type=zipfile.ZIP_STORED)
         nav = ['<nav epub:type="toc" id="toc"><h1>Sumário</h1><ol>']
         for name, title, body, kind in files[1:]:
             nav.append(f'<li><a href="{name}">{esc(title)}</a></li>')
-        nav.append('</ol></nav><nav epub:type="landmarks" hidden=""><ol><li><a epub:type="cover" href="cover.xhtml">Capa</a></li>'
+        nav.append('</ol></nav><nav epub:type="landmarks" hidden=""><ol>' + ('' if kindle else '<li><a epub:type="cover" href="cover.xhtml">Capa</a></li>') +
                    f'<li><a epub:type="toc" href="nav.xhtml">Sumário</a></li><li><a epub:type="bodymatter" href="{files[1][0]}">Início</a></li></ol></nav>')
         z.writestr('OEBPS/nav.xhtml', page('Sumário', ''.join(nav)), compress_type=zipfile.ZIP_DEFLATED)
         man = ['<item id="css" href="style.css" media-type="text/css"/>', '<item id="nav" href="nav.xhtml" media-type="application/xhtml+xml" properties="nav"/>',
-               '<item id="coverpage" href="cover.xhtml" media-type="application/xhtml+xml"/>']
-        spine = ['<itemref idref="coverpage" linear="yes"/>', '<itemref idref="nav"/>']
+               ]
+        spine = ['<itemref idref="nav"/>']
+        if not kindle:
+            man.append('<item id="coverpage" href="cover.xhtml" media-type="application/xhtml+xml" properties="svg"/>')
+            spine.insert(0, '<itemref idref="coverpage" linear="yes"/>')
         for i, (name, title, body, kind) in enumerate(files):
             man.append(f'<item id="p{i}" href="{name}" media-type="application/xhtml+xml"/>')
             spine.insert(-1 if i == 0 else len(spine), f'<itemref idref="p{i}"/>')
@@ -1022,7 +1042,15 @@ def build_epub(S, out, small=None):
                f'<dc:identifier id="bid">{bid}</dc:identifier><dc:title>Van Gogh a Lápis</dc:title><dc:creator>Pedro Torres</dc:creator>'
                '<dc:language>pt-BR</dc:language><dc:subject>Desenho</dc:subject>'
                f'<dc:description>Um curso de desenho na linguagem de Vincent van Gogh: ranhuras, fluxo, rostos e autorretratos, com {NEX} exercícios em quatro níveis.</dc:description>'
-               f'<meta property="dcterms:modified">{now}</meta><meta name="cover" content="i{sorted(imgs).index("img/cover.jpg")}"/></metadata>'
+               f'<meta property="dcterms:modified">{now}</meta>'
+               '<meta property="schema:accessMode">textual</meta><meta property="schema:accessMode">visual</meta>'
+               '<meta property="schema:accessModeSufficient">textual,visual</meta>'
+               '<meta property="schema:accessibilityFeature">alternativeText</meta><meta property="schema:accessibilityFeature">structuralNavigation</meta>'
+               '<meta property="schema:accessibilityFeature">tableOfContents</meta><meta property="schema:accessibilityFeature">readingOrder</meta>'
+               '<meta property="schema:accessibilityFeature">displayTransformability</meta>'
+               '<meta property="schema:accessibilityHazard">none</meta>'
+               '<meta property="schema:accessibilitySummary">Livro refluível com sumário navegável, títulos em ordem e texto alternativo nas obras e desenhos. As aulas dependem de ver as imagens: o texto descreve cada obra, mas os exercícios pedem que o leitor olhe o desenho.</meta>'
+               f'<meta name="cover" content="i{sorted(imgs).index("img/cover.jpg")}"/></metadata>'
                f'<manifest>{"".join(man)}</manifest><spine>{"".join(spine)}</spine></package>')
         z.writestr('OEBPS/content.opf', opf, compress_type=zipfile.ZIP_DEFLATED)
 
@@ -1032,10 +1060,10 @@ COVER_EBOOK = """<!doctype html><html><head><meta charset="utf-8"><style>{fonts}
 .art{{position:absolute;inset:0;background:url("img/cover-roulin.jpg") 38% 0/126% auto no-repeat}}
 .topsh{{position:absolute;left:0;right:0;top:0;height:1.2in;background:linear-gradient(to bottom,rgba(20,15,10,.35),rgba(20,15,10,0))}}
 .shade{{position:absolute;left:0;right:0;bottom:0;height:5.4in;background:linear-gradient(to bottom,rgba(20,15,10,0),rgba(20,15,10,.55) 45%,rgba(20,15,10,.7))}}
-.ed{{position:absolute;top:.42in;left:0;right:0;text-align:center;font:500 11.5pt Sans;letter-spacing:.2em}}
-.t{{position:absolute;left:0;right:0;top:6.05in;text-align:center;font:400 51pt/1 Serif;letter-spacing:-.012em;white-space:nowrap}}
-.d{{position:absolute;left:0;right:0;top:6.9in;text-align:center;font:italic 400 16pt Serif}}
-.coll{{position:absolute;bottom:.5in;left:0;right:0;text-align:center;font:italic 400 11.5pt Serif}}
+.ed{{position:absolute;top:.42in;left:0;right:0;text-align:center;font:500 11.5pt LivroSans;letter-spacing:.2em}}
+.t{{position:absolute;left:0;right:0;top:6.05in;text-align:center;font:400 51pt/1 LivroSerif;letter-spacing:-.012em;white-space:nowrap}}
+.d{{position:absolute;left:0;right:0;top:6.9in;text-align:center;font:italic 400 16pt LivroSerif}}
+.coll{{position:absolute;bottom:.5in;left:0;right:0;text-align:center;font:italic 400 11.5pt LivroSerif}}
 </style></head><body><div class="c"><div class="art"></div><div class="topsh"></div><div class="shade"></div>
 <div class="ed">PEDRO TORRES</div><div class="t">Van Gogh a Lápis</div><div class="d">Teoria e prática para desenhar como Vincent</div>
 <div class="coll">{nex} exercícios em quatro níveis</div></div></body></html>"""
@@ -1071,5 +1099,5 @@ if __name__ == '__main__':
     if 'epub' in args:
         epub_assets()
         build_epub(S, 'out/Van-Gogh-a-Lapis.epub')
-        build_epub(S, 'out/Van-Gogh-a-Lapis-loja-Amazon.epub', small=800)
+        build_epub(S, 'out/Van-Gogh-a-Lapis-loja-Amazon.epub', small=1000, kindle=True)
         print('epub ok')
