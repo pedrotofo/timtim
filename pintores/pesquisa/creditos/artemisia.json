@@ -19,5 +19,26 @@
   "artista": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Artemisia_Gentileschi\" class=\"extiw\" title=\"w:en:Artemisia Gentileschi\"><span title=\"Italian Baroque painter (1593-1651)\">Artemisia Gentileschi</span></a></bdi>",
   "credito": "<a rel=\"nofollow\" class=\"external text\" href=\"https://www.google.com/culturalinstitute/asset-viewer/self-portrait-as-the-allegory-of-painting-la-pittura/fAHok0QVLkyJXQ?projectId=art-project\">Google Cultural Institute</a>",
   "pagina": "https://commons.wikimedia.org/wiki/File:Self-portrait_as_the_Allegory_of_Painting_(La_Pittura)_-_Artemisia_Gentileschi.jpg"
+ },
+ "artemisia/catarina.jpg": {
+  "arquivo": "File:Self-Portrait as Saint Catherine of Alexandria (Gentileschi).jpg",
+  "licenca": "Public domain",
+  "artista": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Artemisia_Gentileschi\" class=\"extiw\" title=\"w:en:Artemisia Gentileschi\"><span title=\"Italian Baroque painter (1593-1651)\">Artemisia Gentileschi</span></a></bdi>",
+  "credito": "<a rel=\"nofollow\" class=\"external free\" href=\"https://www.nationalgallery.org.uk/paintings/artemisia-gentileschi-self-portrait-as-saint-catherine-of-alexandria\">https://www.nationalgallery.org.uk/paintings/artemisia-gentileschi-self-portrait-as-saint-catherine-of-alexandria</a>",
+  "pagina": "https://commons.wikimedia.org/wiki/File:Self-Portrait_as_Saint_Catherine_of_Alexandria_(Gentileschi).jpg"
+ },
+ "artemisia/ester.jpg": {
+  "arquivo": "File:Esther before Ahasuerus MET DT1440.jpg",
+  "licenca": "CC0",
+  "artista": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Artemisia_Gentileschi\" class=\"extiw\" title=\"w:en:Artemisia Gentileschi\"><span title=\"Italian Baroque painter (1593-1651)\">Artemisia Gentileschi</span></a></bdi>",
+  "credito": "This file was donated to Wikimedia Commons as part of a project by the <a href=\"//commons.wikimedia.org/wiki/Commons:Met\" title=\"Commons:Met\">Metropolitan Museum of Art</a>. See the <a rel=\"nofollow\" class=\"external text\" href=\"https://metmuseum.org/about-the-met/policies-and-documents/image-resources\">Image and Data Resources Open Access Policy</a>",
+  "pagina": "https://commons.wikimedia.org/wiki/File:Esther_before_Ahasuerus_MET_DT1440.jpg"
+ },
+ "artemisia/madalena.jpg": {
+  "arquivo": "File:Artemisia Gentileschi Mary Magdalene Pitti.jpg",
+  "licenca": "Public domain",
+  "artista": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Artemisia_Gentileschi\" class=\"extiw\" title=\"w:en:Artemisia Gentileschi\"><span title=\"Italian Baroque painter (1593-1651)\">Artemisia Gentileschi</span></a></bdi>",
+  "credito": "<a rel=\"nofollow\" class=\"external free\" href=\"https://caravaggismo.files.wordpress.com/2010/08/agentileschi-maddalena.jpg\">https://caravaggismo.files.wordpress.com/2010/08/agentileschi-maddalena.jpg</a>",
+  "pagina": "https://commons.wikimedia.org/wiki/File:Artemisia_Gentileschi_Mary_Magdalene_Pitti.jpg"
  }
 }
