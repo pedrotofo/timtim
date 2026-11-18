@@ -41,12 +41,6 @@
    "Museu Sumida Hokusai (Tóquio), Museu Britânico (Londres), Metropolitan (Nova York)"
   ]
  ],
- "ranking": {
-  "wikis": 166,
-  "wikis_pos": 11,
-  "influencia": 6,
-  "nota": 58.1
- },
  "vida_txt": [
   {
    "t": "Um menino de Edo",
@@ -272,5 +266,15 @@
  "vida_fig": {
   "img": "hokusai/manga.jpg",
   "legenda": "Uma página do Hokusai Manga, livro de desenhos para estudar (primeiro volume, 1814)."
- }
+ },
+ "imagens": {
+  "retrato.jpg": "File:Self-portrait between 1834 and 1846 by Hokusai.jpg",
+  "fuji-vermelho.jpg": "File:Katsushika Hokusai - Fine Wind, Clear Morning (Gaifū kaisei) - Google Art Project.jpg",
+  "onda.jpg": "File:「富嶽三十六景 神奈川沖浪裏」-Under the Wave off Kanagawa (Kanagawa oki nami ura), or The Great Wave, from the series Thirty-six Views of Mount Fuji (Fugaku sanjūrokkei) MET DP141042.jpg",
+  "ejiri.jpg": "File:冨嶽三十六景 駿州江尻-Ejiri in Suruga Province (Sunshū Ejiri), from the series Thirty-six Views of Mount Fuji (Fugaku sanjūrokkei) MET DP141030.jpg",
+  "kajikazawa.jpg": "File:Katsushika Hokusai (1760-1849), Kajikazawa in de provincie Kai (1829-33).jpg",
+  "kirifuri.jpg": "File:Kirifuri Waterfall at Kurokami Mountain in Shimotsuke MET DP141256.jpg",
+  "manga.jpg": "File:Hokusai Manga 01.jpg"
+ },
+ "pron": "por ele"
 }
