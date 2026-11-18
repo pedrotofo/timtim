@@ -1,0 +1,272 @@
+{
+ "pos": 6,
+ "chave": "durer",
+ "nome": "Albrecht Dürer",
+ "nome_original": "",
+ "vida": "1471–1528",
+ "origem": "Alemanha",
+ "cor": "#5A3A22",
+ "frase": "Filho de um ourives de Nuremberg, levou o Renascimento à Alemanha e ficou famoso em toda a Europa com suas gravuras.",
+ "retrato": {
+  "img": "durer/retrato.jpg",
+  "legenda": "Autorretrato, 1500, aos 28 anos. Óleo sobre madeira. Alte Pinakothek, Munique.",
+  "pos": "center 22%"
+ },
+ "abertura": {
+  "img": "durer/festa-rosario.jpg",
+  "legenda": "A Festa do Rosário, 1506, pintada em Veneza. Óleo sobre madeira. Galeria Nacional, Praga.",
+  "pos": "center 30%"
+ },
+ "ficha": [
+  [
+   "Nasceu",
+   "1471, em Nuremberg, no Sacro Império (hoje Alemanha)"
+  ],
+  [
+   "Morreu",
+   "1528, em Nuremberg, aos 56 anos"
+  ],
+  [
+   "Movimento",
+   "Renascimento do Norte"
+  ],
+  [
+   "Técnica",
+   "Gravura em metal e em madeira, aquarela, óleo sobre madeira"
+  ],
+  [
+   "Obra",
+   "Dezenas de pinturas e centenas de gravuras, aquarelas e desenhos"
+  ],
+  [
+   "Onde ver",
+   "Alte Pinakothek (Munique), Albertina (Viena), Museu Nacional Germânico (Nuremberg)"
+  ]
+ ],
+ "vida_titulo": "O artista que vendia estampas",
+ "vida_txt": [
+  {
+   "t": "Filho de ourives",
+   "p": "Albrecht Dürer nasceu em 1471 em Nuremberg, uma das cidades mais ricas da Alemanha, filho de um ourives vindo da Hungria. Aprendeu primeiro o ofício do pai: gravar o metal com precisão. Aos 13 anos fez um autorretrato com ponta de prata, técnica que não deixa apagar. Aos 15 foi aprender com o pintor Michael Wolgemut, cuja oficina ilustrava livros com xilogravuras."
+  },
+  {
+   "t": "Duas viagens a Veneza",
+   "p": "Depois de quatro anos viajando pelo sul da Alemanha, casou-se em 1494 com Agnes Frey e, no mesmo ano, partiu para Veneza. No caminho pintou paisagens em aquarela, tidas entre as primeiras paisagens puras da arte europeia. Na Itália estudou a perspectiva e as proporções do corpo. Voltou a Veneza em 1505, ficou quase dois anos e pintou um grande altar para os mercadores alemães da cidade."
+  },
+  {
+   "t": "O Apocalipse e o monograma",
+   "p": "Em 1498 publicou por conta própria o Apocalipse, quinze xilogravuras grandes com o texto da Bíblia. As estampas eram baratas, viajavam fácil e levaram seu nome a toda a Europa, sempre com o monograma AD. Entre 1513 e 1514 gravou em cobre suas três estampas mais famosas, entre elas Melencolia I. O imperador Maximiliano I lhe deu uma pensão anual."
+  },
+  {
+   "t": "O pintor que ensinava",
+   "p": "Em 1520 viajou pelos Países Baixos com Agnes e anotou tudo num diário: gastos, encontros, presentes, desenhos. Na volta adoeceu, provavelmente de malária, e nunca se curou de vez. Nos últimos anos escreveu tratados para ensinar a medir, a construir a perspectiva e a desenhar o corpo humano, dos primeiros escritos em alemão sobre esses assuntos. Morreu em Nuremberg em 1528, aos 56 anos."
+  }
+ ],
+ "citacao": {
+  "texto": "Pois, na verdade, a arte está escondida na natureza; quem consegue arrancá-la de lá, esse a possui.",
+  "fonte": "Quatro livros sobre a proporção humana, 1528"
+ },
+ "vida_fig": {
+  "img": "durer/autorretrato-13.jpg",
+  "legenda": "Autorretrato aos 13 anos, 1484. Ponta de prata sobre papel. Albertina, Viena."
+ },
+ "linha": [
+  [
+   1471,
+   "Nasce em Nuremberg",
+   "vida"
+  ],
+  [
+   1492,
+   "Colombo chega à América",
+   "mundo"
+  ],
+  [
+   1494,
+   "Primeira viagem a Veneza",
+   "vida"
+  ],
+  [
+   1498,
+   "Publica o Apocalipse",
+   "vida"
+  ],
+  [
+   1500,
+   "Os portugueses chegam ao Brasil",
+   "mundo"
+  ],
+  [
+   1515,
+   "Grava O rinoceronte",
+   "vida"
+  ],
+  [
+   1517,
+   "Lutero publica suas 95 teses",
+   "mundo"
+  ],
+  [
+   1519,
+   "Parte a expedição de Magalhães",
+   "mundo"
+  ],
+  [
+   1521,
+   "Os espanhóis tomam Tenochtitlán",
+   "mundo"
+  ],
+  [
+   1528,
+   "Morre em Nuremberg, aos 56 anos",
+   "vida"
+  ]
+ ],
+ "foco": {
+  "img": "durer/rinoceronte.jpg",
+  "titulo": "O rinoceronte",
+  "dados": "1515 · xilogravura · 23,5 × 29,8 cm · esta cópia: National Gallery of Art, Washington",
+  "intro": "Em 1515 chegou a Lisboa um rinoceronte da Índia, presente ao rei de Portugal: o primeiro visto vivo na Europa em mais de mil anos. Dürer nunca o viu. Desenhou a partir de uma carta e de um esboço enviados de Lisboa.",
+  "marcas": [
+   [
+    35,
+    5,
+    "O texto",
+    "Em alemão, conta a viagem do bicho até Lisboa e garante que ele vence o elefante."
+   ],
+   [
+    64,
+    23,
+    "O chifre extra",
+    "Um chifrinho torcido nas costas, que não existe."
+   ],
+   [
+    33,
+    45,
+    "A armadura",
+    "A pele vira placas com rebites e as patas ganham escamas, como uma armadura de cavaleiro."
+   ],
+   [
+    77,
+    23,
+    "Data e monograma",
+    "O ano, o nome do bicho em latim e o AD, a marca de Dürer."
+   ]
+  ]
+ },
+ "sabia": [
+  "Em 1520, em Bruxelas, viu o ouro asteca enviado por Cortés e anotou que nada na vida o alegrara tanto.",
+  "De Veneza, em 1506, escreveu a um amigo: \"Aqui sou um senhor, em casa sou um parasita\".",
+  "O rinoceronte foi mandado de presente ao papa, mas o navio afundou em 1516 e o animal morreu."
+ ],
+ "tecnica": {
+  "titulo": "Como nascia uma gravura",
+  "intro": "Dürer foi mestre nas duas gravuras da época. Na xilogravura, um entalhador cortava a madeira seguindo o seu desenho. Na gravura em metal, ele mesmo abria cada linha no cobre, com o buril.",
+  "passos": [
+   [
+    "A placa",
+    "Uma placa de cobre lisa e polida, do tamanho da futura estampa."
+   ],
+   [
+    "O buril",
+    "Com uma haste de aço de ponta em losango, empurrada à mão, abria sulcos finos. Linhas cruzadas faziam as sombras."
+   ],
+   [
+    "A tinta",
+    "Passava tinta preta e grossa na placa e limpava a superfície. A tinta ficava só dentro dos sulcos."
+   ],
+   [
+    "A prensa",
+    "Papel úmido sobre a placa, e os dois sob o rolo da prensa. O papel puxava a tinta. Uma placa dava centenas de cópias."
+   ]
+  ],
+  "box_t": "A marca AD",
+  "box": "Dürer assinava quase tudo com o monograma AD, um D dentro de um A. As estampas eram vendidas em feiras, pela mulher, Agnes, e por agentes. Conta Giorgio Vasari que, quando o gravador italiano Marcantonio Raimondi copiou suas estampas com o monograma, Dürer foi a Veneza reclamar.",
+  "paleta": [
+   [
+    "#1E1A16",
+    "Tinta preta"
+   ],
+   [
+    "#E6DCC6",
+    "Papel"
+   ],
+   [
+    "#8A6A45",
+    "Lebre"
+   ],
+   [
+    "#5A3A22",
+    "Casaco"
+   ],
+   [
+    "#C9A27A",
+    "Pele"
+   ]
+  ]
+ },
+ "obras": [
+  {
+   "img": "durer/lebre.jpg",
+   "titulo": "A lebre",
+   "ano": "1502",
+   "nota": "Aquarela e guache. Pelo a pelo; no olho, o reflexo de uma janela."
+  },
+  {
+   "img": "durer/melencolia.jpg",
+   "titulo": "Melencolia I",
+   "ano": "1514",
+   "nota": "Gravura em metal cheia de enigmas: um quadrado mágico, uma ampulheta, um sólido estranho."
+  },
+  {
+   "img": "durer/cavaleiros.jpg",
+   "titulo": "Os quatro cavaleiros do Apocalipse",
+   "ano": "c. 1497–1498",
+   "nota": "Xilogravura da série do Apocalipse: a guerra, a fome e a morte a galope."
+  }
+ ],
+ "influenciou": [
+  [
+   "Hans Baldung Grien",
+   null
+  ],
+  [
+   "Marcantonio Raimondi",
+   null
+  ],
+  [
+   "Pontormo",
+   null
+  ]
+ ],
+ "rival": [
+  "Rafael",
+  5,
+  "Em 1515 trocaram desenhos; o de Rafael guarda uma anotação de Dürer."
+ ],
+ "pensar": "Peça a alguém que descreva por escrito um bicho que você nunca viu. Desenhe só a partir do texto e depois compare com uma foto. O que você inventou sem perceber?",
+ "palavras": [
+  [
+   "Gravura em metal",
+   "Imagem aberta com buril numa placa de cobre; a tinta fica nos sulcos e passa ao papel na prensa."
+  ],
+  [
+   "Xilogravura",
+   "Gravura impressa com um bloco de madeira entalhado; a tinta fica nas partes em relevo."
+  ],
+  [
+   "Monograma",
+   "Assinatura feita com as iniciais entrelaçadas. A de Dürer é um D dentro de um A."
+  ]
+ ],
+ "imagens": {
+  "retrato.jpg": "File:Albrecht Dürer - 1500 self-portrait (High resolution and detail).jpg",
+  "festa-rosario.jpg": "File:Albrecht Dürer - Feast of Rose Garlands - Google Art Project.jpg",
+  "autorretrato-13.jpg": "File:Durer-self-portrait-at-the-age-of-thirteen.jpg",
+  "rinoceronte.jpg": "File:Albrecht Dürer, The Rhinoceros, 1515, NGA 47903.jpg",
+  "lebre.jpg": "File:Albrecht Dürer - Hare, 1502 - Google Art Project.jpg",
+  "melencolia.jpg": "File:Albrecht Dürer, Melencolia I, 1514, NGA 6640.jpg",
+  "cavaleiros.jpg": "File:Albrecht Dürer, The Four Horsemen, 1498, NGA 142352.jpg"
+ },
+ "pron": "por ele"
+}

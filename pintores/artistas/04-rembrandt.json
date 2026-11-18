@@ -1,0 +1,272 @@
+{
+ "pos": 4,
+ "chave": "rembrandt",
+ "nome": "Rembrandt van Rijn",
+ "nome_original": "",
+ "vida": "1606–1669",
+ "origem": "Holanda",
+ "cor": "#6B4A1E",
+ "frase": "Mestre da luz que sai do escuro, retratou o próprio rosto da juventude à velhice, na pintura e na gravura.",
+ "retrato": {
+  "img": "rembrandt/retrato.jpg",
+  "legenda": "Autorretrato, 1659, aos 53 anos. Óleo sobre tela. National Gallery of Art, Washington.",
+  "pos": "center 30%"
+ },
+ "abertura": {
+  "img": "rembrandt/sindicos.jpg",
+  "legenda": "Os síndicos da guilda dos fabricantes de tecidos, 1662. Óleo sobre tela. Rijksmuseum, Amsterdã.",
+  "pos": "center 35%"
+ },
+ "ficha": [
+  [
+   "Nasceu",
+   "1606, em Leiden, na República Holandesa"
+  ],
+  [
+   "Morreu",
+   "1669, em Amsterdã, aos 63 anos"
+  ],
+  [
+   "Movimento",
+   "Barroco; Século de Ouro holandês"
+  ],
+  [
+   "Técnica",
+   "Óleo sobre tela e madeira, água-forte, desenho a pena"
+  ],
+  [
+   "Obra",
+   "Cerca de 300 pinturas, quase 300 águas-fortes e centenas de desenhos"
+  ],
+  [
+   "Onde ver",
+   "Rijksmuseum e Casa de Rembrandt (Amsterdã), Mauritshuis (Haia)"
+  ]
+ ],
+ "vida_titulo": "Da fama à falência",
+ "vida_txt": [
+  {
+   "t": "O filho do moleiro",
+   "p": "Rembrandt Harmenszoon van Rijn nasceu em 1606 em Leiden, na Holanda, nono filho de um moleiro. Os pais o puseram na escola de latim e chegaram a matriculá-lo na universidade, mas ele preferiu a pintura. Depois de três anos com um pintor da cidade, passou seis meses em Amsterdã com Pieter Lastman, famoso pelas cenas da Bíblia. De volta a Leiden, dividiu um ateliê com o amigo Jan Lievens."
+  },
+  {
+   "t": "Sucesso em Amsterdã",
+   "p": "Por volta de 1631 mudou-se para Amsterdã, então a cidade mais rica da Europa, e virou o retratista da moda. A lição de anatomia do dr. Tulp, de 1632, fez seu nome. Em 1634 casou-se com Saskia van Uylenburgh e, em 1639, comprou uma casa grande e cara, que encheu de quadros, gravuras, conchas, armaduras e bustos antigos. Hoje a casa é o museu Casa de Rembrandt."
+  },
+  {
+   "t": "As perdas",
+   "p": "Em 1642, ano em que entregou a Ronda noturna, Saskia morreu. Dos quatro filhos do casal, só Titus passou da infância. Rembrandt gastava mais do que ganhava e, em 1656, declarou falência: a casa e a coleção foram a leilão. Para que ele pudesse continuar pintando, a companheira, Hendrickje Stoffels, e o filho Titus abriram uma loja de arte e o contrataram."
+  },
+  {
+   "t": "O velho pintor",
+   "p": "Nos últimos anos pintou com mais liberdade do que nunca: tinta grossa, posta em camadas, às vezes riscada com o cabo do pincel, e figuras que parecem sair da sombra. Fez os autorretratos mais duros e mais sinceros da sua vida. Hendrickje morreu em 1663 e Titus em 1668. Rembrandt morreu em Amsterdã em 1669, pobre, e foi enterrado numa cova alugada na igreja Westerkerk."
+  }
+ ],
+ "citacao": {
+  "texto": "Nelas foi observado o movimento mais forte e mais natural, e essa é também a principal razão de terem ficado tanto tempo em minhas mãos.",
+  "fonte": "Carta a Constantijn Huygens sobre duas pinturas da Paixão de Cristo, 12 de janeiro de 1639"
+ },
+ "vida_fig": {
+  "img": "rembrandt/com-saskia.jpg",
+  "legenda": "Autorretrato com Saskia, 1636. Água-forte. National Gallery of Art, Washington."
+ },
+ "linha": [
+  [
+   1606,
+   "Nasce em Leiden",
+   "vida"
+  ],
+  [
+   1626,
+   "Holandeses compram a ilha de Manhattan",
+   "mundo"
+  ],
+  [
+   1630,
+   "Holandeses ocupam Pernambuco",
+   "mundo"
+  ],
+  [
+   1632,
+   "Pinta A lição de anatomia",
+   "vida"
+  ],
+  [
+   1637,
+   "Maurício de Nassau chega ao Recife",
+   "mundo"
+  ],
+  [
+   1642,
+   "A ronda noturna; morre Saskia",
+   "vida"
+  ],
+  [
+   1648,
+   "Espanha reconhece a independência holandesa",
+   "mundo"
+  ],
+  [
+   1654,
+   "Holandeses deixam o Brasil",
+   "mundo"
+  ],
+  [
+   1656,
+   "Declara falência",
+   "vida"
+  ],
+  [
+   1669,
+   "Morre em Amsterdã, aos 63 anos",
+   "vida"
+  ]
+ ],
+ "foco": {
+  "img": "rembrandt/ronda-noturna.jpg",
+  "titulo": "A ronda noturna",
+  "dados": "1642 · óleo sobre tela · 379,5 × 453,5 cm · Rijksmuseum, Amsterdã",
+  "intro": "A companhia do capitão Frans Banninck Cocq sai em marcha. Os retratos de grupo punham todos enfileirados; Rembrandt pintou os homens em movimento, uns na luz, outros na sombra.",
+  "marcas": [
+   [
+    44,
+    72,
+    "O capitão",
+    "De preto e faixa vermelha. A sombra da mão cai no tenente."
+   ],
+   [
+    29,
+    71,
+    "A menina",
+    "Na cintura, uma galinha: as garras eram símbolo da milícia."
+   ],
+   [
+    60,
+    14,
+    "O escudo",
+    "Traz os nomes de 18 homens, pintados anos depois."
+   ],
+   [
+    19,
+    63,
+    "O mosquete",
+    "Ele carrega a arma; outro, atrás do capitão, atira."
+   ]
+  ]
+ },
+ "sabia": [
+  "O nome \"Ronda noturna\" surgiu no fim do século XVIII, quando o verniz escurecido parecia noite. A cena se passa de dia.",
+  "Em 1715, para caber numa parede da prefeitura de Amsterdã, a tela foi cortada e perdeu figuras.",
+  "Rembrandt fez cerca de oitenta autorretratos, em pintura, gravura e desenho, da juventude à velhice."
+ ],
+ "tecnica": {
+  "titulo": "Como se fazia uma água-forte",
+  "intro": "Na água-forte não se corta o metal com força, como no buril: desenha-se numa camada de verniz e o ácido faz o resto. Rembrandt desenhava na placa quase como no papel.",
+  "passos": [
+   [
+    "O verniz",
+    "Uma placa de cobre era coberta com um verniz que o ácido não atravessa, escurecido com fumaça de vela."
+   ],
+   [
+    "A agulha",
+    "Com uma agulha, ele desenhava livremente, raspando o verniz. Onde passava a agulha, o cobre ficava exposto."
+   ],
+   [
+    "O ácido",
+    "A placa ia ao banho de ácido, que corroía só as linhas abertas. Quanto mais tempo, mais funda e escura a linha."
+   ],
+   [
+    "A impressão",
+    "Tinta, prensa e papel úmido. Às vezes usava papel japonês, trazido pelos navios holandeses, e deixava um véu de tinta na placa."
+   ]
+  ],
+  "box_t": "Luz que sai do escuro",
+  "box": "Claro-escuro é o contraste entre luz forte e sombra profunda. Rembrandt deixava boa parte do quadro no escuro e acendia só o que importava: um rosto, uma mão, uma menina de dourado. Na água-forte fazia o mesmo com linhas cruzadas, mais densas nas sombras.",
+  "paleta": [
+   [
+    "#2A2016",
+    "Sombra"
+   ],
+   [
+    "#D8B45A",
+    "Dourado"
+   ],
+   [
+    "#9A2F22",
+    "Faixa vermelha"
+   ],
+   [
+    "#7A5A32",
+    "Ocre"
+   ],
+   [
+    "#E9D9B0",
+    "Luz"
+   ]
+  ]
+ },
+ "obras": [
+  {
+   "img": "rembrandt/noiva-judia.jpg",
+   "titulo": "A noiva judia",
+   "ano": "c. 1665–1669",
+   "nota": "Um casal num gesto de carinho, com mangas pintadas em tinta grossa."
+  },
+  {
+   "img": "rembrandt/filho-prodigo.jpg",
+   "titulo": "O retorno do filho pródigo",
+   "ano": "c. 1668",
+   "nota": "O pai abraça o filho que volta arruinado. Museu Hermitage, São Petersburgo."
+  },
+  {
+   "img": "rembrandt/tres-arvores.jpg",
+   "titulo": "As três árvores",
+   "ano": "1643",
+   "nota": "Água-forte: céu de chuva, árvores contra a luz e gente minúscula na planície."
+  }
+ ],
+ "influenciou": [
+  [
+   "Vincent van Gogh",
+   1
+  ],
+  [
+   "Francisco de Goya",
+   11
+  ],
+  [
+   "Carel Fabritius",
+   null
+  ]
+ ],
+ "rival": [
+  "Johannes Vermeer",
+  13,
+  "Da geração seguinte, outro mestre da luz no Século de Ouro holandês."
+ ],
+ "pensar": "Num quarto escuro, ilumine um rosto de lado com uma lanterna. Cubra a folha toda de lápis bem escuro e tire a luz com a borracha. Onde a luz bate primeiro?",
+ "palavras": [
+  [
+   "Claro-escuro",
+   "Contraste forte entre luz e sombra para dar volume e drama. Em italiano, chiaroscuro."
+  ],
+  [
+   "Água-forte",
+   "Gravura em que o ácido abre, numa placa de metal, as linhas desenhadas com agulha sobre um verniz."
+  ],
+  [
+   "Retrato de grupo",
+   "Quadro encomendado por uma associação; cada retratado pagava para aparecer."
+  ]
+ ],
+ "imagens": {
+  "retrato.jpg": "File:Rembrandt van Rijn, Self-Portrait, 1659, NGA 79.jpg",
+  "sindicos.jpg": "File:Rembrandt - De Staalmeesters- het college van staalmeesters (waardijns) van het Amsterdamse lakenbereidersgilde - Google Art Project.jpg",
+  "com-saskia.jpg": "File:Rembrandt van Rijn, Self-Portrait with Saskia, 1636, NGA 10036.jpg",
+  "ronda-noturna.jpg": "File:La ronda de noche, por Rembrandt van Rijn.jpg",
+  "noiva-judia.jpg": "File:Rembrandt Harmensz. van Rijn - Portret van een paar als oudtestamentische figuren, genaamd 'Het Joodse bruidje' - Google Art Project.jpg",
+  "filho-prodigo.jpg": "File:Rembrandt Harmensz van Rijn - Return of the Prodigal Son - Google Art Project.jpg",
+  "tres-arvores.jpg": "File:Rembrandt van Rijn, The Three Trees, 1643, NGA 35123.jpg"
+ },
+ "pron": "por ele"
+}

@@ -1,0 +1,276 @@
+{
+ "pos": 2,
+ "chave": "leonardo",
+ "nome": "Leonardo da Vinci",
+ "nome_original": "",
+ "vida": "1452–1519",
+ "origem": "Itália",
+ "cor": "#4A5A3A",
+ "frase": "Pintor, engenheiro e inventor, deixou menos de vinte quadros, entre eles o retrato mais famoso do mundo.",
+ "retrato": {
+  "img": "leonardo/retrato.jpg",
+  "legenda": "Provável autorretrato, c. 1512. Sanguínea sobre papel. Biblioteca Real, Turim.",
+  "pos": "center 32%"
+ },
+ "abertura": {
+  "img": "leonardo/mona-lisa.jpg",
+  "legenda": "Mona Lisa (detalhe), c. 1503–1519. Óleo sobre madeira de choupo. Museu do Louvre, Paris.",
+  "pos": "center 23%"
+ },
+ "ficha": [
+  [
+   "Nasceu",
+   "1452, em Vinci, na Toscana, Itália"
+  ],
+  [
+   "Morreu",
+   "1519, em Amboise, França, aos 67 anos"
+  ],
+  [
+   "Movimento",
+   "Alta Renascença"
+  ],
+  [
+   "Técnica",
+   "Óleo e têmpera sobre madeira, desenho; também engenheiro e cientista"
+  ],
+  [
+   "Obra",
+   "Menos de 20 pinturas e mais de 7 mil páginas de cadernos"
+  ],
+  [
+   "Onde ver",
+   "Louvre (Paris), Santa Maria delle Grazie (Milão), Uffizi (Florença)"
+  ]
+ ],
+ "vida_titulo": "Curioso por tudo",
+ "vida_txt": [
+  {
+   "t": "O menino de Vinci",
+   "p": "Leonardo nasceu em 1452 perto de Vinci, uma aldeia da Toscana, filho de um tabelião, Piero, e de uma jovem chamada Caterina, que não eram casados. Cresceu na casa do avô paterno e não estudou latim; mais tarde se chamaria de \"homem sem letras\". Por volta dos 14 anos entrou na oficina de Andrea del Verrocchio, em Florença, onde se aprendia pintura, escultura e ourivesaria."
+  },
+  {
+   "t": "O anjo e a carta",
+   "p": "Conta Vasari que, num Batismo de Cristo de Verrocchio, o jovem Leonardo pintou um anjo tão bom que o mestre desistiu de pintar. Em 1472 já estava inscrito na associação dos pintores de Florença. Por volta de 1482 mudou-se para Milão. Na carta em que ofereceu seus serviços ao duque Ludovico Sforza, listou pontes, canhões e máquinas de guerra; só no fim lembrou que também sabia pintar."
+  },
+  {
+   "t": "Milão e Florença",
+   "p": "Em Milão passou quase vinte anos: pintou a Última Ceia e a Dama com arminho, organizou festas da corte e fez o modelo em argila de um cavalo gigante, que nunca chegou a ser fundido em bronze. Quando os franceses tomaram a cidade, em 1499, voltou a Florença. Ali, por volta de 1503, começou o retrato de Lisa Gherardini, a Mona Lisa."
+  },
+  {
+   "t": "Os cadernos e a França",
+   "p": "Leonardo enchia cadernos com tudo o que via e pensava: o voo dos pássaros, o corpo humano, a água, as máquinas, sempre escrevendo da direita para a esquerda. Começava muitos projetos e terminava poucos. Em 1516 aceitou o convite do rei Francisco I e foi morar em Amboise, na França, levando a Mona Lisa. Morreu lá em 1519, aos 67 anos."
+  }
+ ],
+ "citacao": {
+  "texto": "Também farei esculturas em mármore, em bronze e em barro, e em pintura farei o que se possa fazer, tão bem quanto qualquer outro, seja ele quem for.",
+  "fonte": "Rascunho de carta a Ludovico Sforza, duque de Milão, c. 1482 (trecho)"
+ },
+ "vida_fig": {
+  "img": "leonardo/maquina-voar.jpg",
+  "legenda": "Projeto de máquina de voar, c. 1485, com a escrita em espelho. Institut de France, Paris."
+ },
+ "linha": [
+  [
+   1452,
+   "Nasce perto de Vinci",
+   "vida"
+  ],
+  [
+   1455,
+   "Gutenberg imprime sua Bíblia",
+   "mundo"
+  ],
+  [
+   1482,
+   "Muda-se para Milão",
+   "vida"
+  ],
+  [
+   1492,
+   "Colombo chega à América",
+   "mundo"
+  ],
+  [
+   1498,
+   "Termina a Última Ceia",
+   "vida"
+  ],
+  [
+   1500,
+   "Os portugueses chegam ao Brasil",
+   "mundo"
+  ],
+  [
+   1503,
+   "Começa a Mona Lisa",
+   "vida"
+  ],
+  [
+   1513,
+   "Maquiavel escreve O príncipe",
+   "mundo"
+  ],
+  [
+   1517,
+   "Lutero publica suas 95 teses",
+   "mundo"
+  ],
+  [
+   1519,
+   "Morre em Amboise, aos 67 anos",
+   "vida"
+  ]
+ ],
+ "foco": {
+  "img": "leonardo/ultima-ceia.jpg",
+  "titulo": "A Última Ceia",
+  "dados": "c. 1495–1498 · têmpera e óleo sobre parede · 460 × 880 cm · Santa Maria delle Grazie, Milão",
+  "intro": "Jesus acaba de dizer: \"Um de vocês vai me trair\". Os apóstolos reagem em ondas, em grupos de três. Leonardo pintou a seco, na parede do refeitório de um convento, e a pintura começou a descascar ainda em vida dele.",
+  "marcas": [
+   [
+    54,
+    64,
+    "Jesus",
+    "Calmo no meio da agitação, forma um triângulo com os braços abertos. A janela atrás da cabeça faz as vezes de auréola."
+   ],
+   [
+    29,
+    64,
+    "Judas",
+    "Recua na sombra, o rosto escuro de perfil. Segura a bolsa com o dinheiro da traição e derruba o saleiro."
+   ],
+   [
+    33,
+    49,
+    "Pedro",
+    "Inclina-se para falar com João, o mais jovem, e segura uma faca na mão escondida atrás das costas."
+   ],
+   [
+    60,
+    16,
+    "Ponto de fuga",
+    "As linhas do teto, das tapeçarias e das janelas convergem para a cabeça de Jesus, que vira o centro de tudo."
+   ]
+  ]
+ },
+ "sabia": [
+  "Na têmpora de Jesus há um pequeno furo de prego. Os restauradores concluíram que Leonardo prendia ali os fios para traçar as linhas da perspectiva.",
+  "Em agosto de 1943 uma bomba destruiu parte do refeitório. A parede da Ceia, protegida com sacos de areia, resistiu. A última restauração durou de 1978 a 1999.",
+  "A Mona Lisa foi roubada do Louvre em 1911 por Vincenzo Peruggia, um operário italiano que tinha trabalhado no museu. Ela só voltou em 1914."
+ ],
+ "tecnica": {
+  "titulo": "O sfumato da Mona Lisa",
+  "intro": "Leonardo não desenhava contornos duros. Passava da luz para a sombra como fumaça, em camadas tão finas que o pincel não aparece. Os italianos chamam isso de sfumato, \"esfumado\".",
+  "passos": [
+   [
+    "Base branca",
+    "Um painel de madeira de choupo coberto de gesso branco, sobre o qual ele traçava o desenho."
+   ],
+   [
+    "Camadas finas",
+    "Velaturas de óleo quase transparentes, umas sobre as outras. Algumas têm poucos milésimos de milímetro."
+   ],
+   [
+    "Sem contorno",
+    "Os cantos da boca e dos olhos ficam na penumbra. Por isso o sorriso parece mudar conforme olhamos."
+   ],
+   [
+    "Ar azulado",
+    "Ao fundo, a paisagem fica mais azul e pálida, como montanhas vistas de longe: é a perspectiva aérea."
+   ]
+  ],
+  "box_t": "O quadro que ficou",
+  "box": "Leonardo começou o retrato de Lisa Gherardini, mulher de um comerciante de seda de Florença, por volta de 1503. Nunca o entregou. Levou-o para Milão, Roma e França e continuou mexendo nele por anos. Depois da sua morte, o quadro acabou nas mãos do rei da França.",
+  "paleta": [
+   [
+    "#5B4A2A",
+    "Vestido"
+   ],
+   [
+    "#C79C6A",
+    "Pele"
+   ],
+   [
+    "#7F8B6A",
+    "Verde musgo"
+   ],
+   [
+    "#8FA0A0",
+    "Montanhas"
+   ],
+   [
+    "#2B2618",
+    "Sombra"
+   ]
+  ]
+ },
+ "obras": [
+  {
+   "img": "leonardo/dama-arminho.jpg",
+   "titulo": "Dama com arminho",
+   "ano": "c. 1489–1491",
+   "nota": "Cecilia Gallerani, da corte de Milão, vira-se como se alguém a chamasse."
+  },
+  {
+   "img": "leonardo/ginevra.jpg",
+   "titulo": "Ginevra de' Benci",
+   "ano": "c. 1474–1478",
+   "nota": "Um dos primeiros retratos; o único Leonardo nas Américas, em Washington."
+  },
+  {
+   "img": "leonardo/anunciacao.jpg",
+   "titulo": "A Anunciação",
+   "ano": "c. 1472–1476",
+   "nota": "Obra de juventude: o anjo Gabriel anuncia a Maria que ela será mãe."
+  }
+ ],
+ "influenciou": [
+  [
+   "Rafael",
+   5
+  ],
+  [
+   "Peter Paul Rubens",
+   14
+  ],
+  [
+   "Bernardino Luini",
+   null
+  ],
+  [
+   "Francesco Melzi",
+   null
+  ]
+ ],
+ "rival": [
+  "Michelangelo",
+  3,
+  "Rivais em Florença: fizeram batalhas para a mesma sala, e nenhuma ficou pronta."
+ ],
+ "pensar": "Desenhe um rosto sem nenhuma linha de contorno, só com sombras esfumadas com o dedo ou um papel. Depois desenhe o mesmo rosto com contorno forte. Qual parece mais vivo?",
+ "palavras": [
+  [
+   "Sfumato",
+   "Passagem suave da luz à sombra, sem contornos, \"como fumaça\". A marca de Leonardo."
+  ],
+  [
+   "Perspectiva aérea",
+   "Truque para dar distância: o que está longe fica mais azulado, mais claro e menos nítido."
+  ],
+  [
+   "Têmpera",
+   "Tinta de pigmento com gema de ovo. Seca depressa, o que obriga a pintar por partes."
+  ]
+ ],
+ "imagens": {
+  "retrato.jpg": "File:Leonardo da Vinci - presumed self-portrait - WGA12798.jpg",
+  "mona-lisa.jpg": "File:Mona Lisa, by Leonardo da Vinci, from C2RMF retouched.jpg",
+  "maquina-voar.jpg": "File:Leonardo da vinci, Drawing of a flying machine.jpg",
+  "ultima-ceia.jpg": "File:Leonardo da Vinci - The Last Supper high res.jpg",
+  "dama-arminho.jpg": "File:Lady with an Ermine - Leonardo da Vinci - Google Art Project.jpg",
+  "ginevra.jpg": "File:Leonardo da Vinci, Ginevra de' Benci (obverse), c. 1474-1478, NGA 50724.jpg",
+  "anunciacao.jpg": "File:Leonardo da Vinci - Annunciazione - Google Art Project.jpg"
+ },
+ "pron": "por ele"
+}

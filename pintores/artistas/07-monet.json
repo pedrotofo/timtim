@@ -1,0 +1,272 @@
+{
+ "pos": 7,
+ "chave": "monet",
+ "nome": "Claude Monet",
+ "nome_original": "",
+ "vida": "1840–1926",
+ "origem": "França",
+ "cor": "#2D4D4A",
+ "frase": "Pintou a luz mudando de hora em hora, e um quadro seu sobre um porto ao amanhecer deu nome ao impressionismo.",
+ "retrato": {
+  "img": "monet/retrato.jpg",
+  "legenda": "Claude Monet em 1899, aos 58 anos. Fotografia do ateliê Nadar.",
+  "pos": "center 30%"
+ },
+ "abertura": {
+  "img": "monet/ponte-japonesa.jpg",
+  "legenda": "A ponte japonesa, 1899. Óleo sobre tela. National Gallery of Art, Washington.",
+  "pos": "center 12%"
+ },
+ "ficha": [
+  [
+   "Nasceu",
+   "1840, em Paris, França"
+  ],
+  [
+   "Morreu",
+   "1926, em Giverny, França, aos 86 anos"
+  ],
+  [
+   "Movimento",
+   "Impressionismo, que ganhou o nome de um quadro dele"
+  ],
+  [
+   "Técnica",
+   "Óleo sobre tela, pintado ao ar livre e em séries"
+  ],
+  [
+   "Obra",
+   "Cerca de 2 mil pinturas, pelas estimativas"
+  ],
+  [
+   "Onde ver",
+   "Museu d'Orsay e Museu Marmottan Monet (Paris), Art Institute of Chicago"
+  ]
+ ],
+ "vida_titulo": "O pintor que perseguia a luz",
+ "vida_txt": [
+  {
+   "t": "O caricaturista de Le Havre",
+   "p": "Claude Monet nasceu em Paris em 1840, mas cresceu em Le Havre, um porto no norte da França, onde o pai tinha um comércio. Na adolescência ficou conhecido na cidade pelas caricaturas, que vendia numa loja de molduras. Ali conheceu o pintor Eugène Boudin, que o levou para pintar ao ar livre, diante do mar. Monet contou mais tarde que devia a Boudin o ter virado pintor."
+  },
+  {
+   "t": "Amigos, guerra e Londres",
+   "p": "Em 1859 foi estudar em Paris. Depois do serviço militar na Argélia, entrou no ateliê do pintor Charles Gleyre, onde ficou amigo de Renoir, Sisley e Bazille. Com eles pintava fora do ateliê, na floresta e à beira do rio Sena. Na guerra de 1870 fugiu para Londres com Camille, sua mulher, viu as paisagens de Turner e conheceu o marchand Paul Durand-Ruel, que venderia seus quadros por décadas."
+  },
+  {
+   "t": "Um nome de deboche",
+   "p": "Em 1874, cansados das recusas do Salão oficial, Monet e os amigos montaram uma exposição própria em Paris, no antigo estúdio do fotógrafo Nadar. Um crítico, Louis Leroy, zombou do quadro Impressão, sol nascente e chamou o grupo de \"impressionistas\". O apelido pegou. Os anos seguintes foram de dívidas e mudanças. Camille morreu em 1879, e Monet ficou sozinho com dois filhos pequenos."
+  },
+  {
+   "t": "O jardim de Giverny",
+   "p": "Em 1883 foi morar em Giverny, uma vila a 75 km de Paris, com Alice Hoschedé, com quem se casaria, e os oito filhos dos dois. Nessa fase pintou séries: o mesmo motivo em horas e estações diferentes. Em casa, cavou um lago, plantou ninfeias e construiu uma ponte japonesa. Pintou esse jardim por quase trinta anos e, mesmo com catarata, trabalhou até morrer, em 1926."
+  }
+ ],
+ "citacao": {
+  "texto": "Estou teimando numa série de efeitos diferentes (as medas), mas nesta época o sol se põe tão depressa que não consigo acompanhá-lo. Quanto mais avanço, mais vejo que é preciso trabalhar muito para chegar ao que procuro: a \"instantaneidade\".",
+  "fonte": "Carta ao crítico Gustave Geffroy, 7 de outubro de 1890 (trecho)"
+ },
+ "vida_fig": {
+  "img": "monet/caricatura.jpg",
+  "legenda": "Caricatura do pintor Jules Didier, desenhada pelo jovem Monet por volta de 1860. Art Institute of Chicago."
+ },
+ "linha": [
+  [
+   1840,
+   "Nasce em Paris",
+   "vida"
+  ],
+  [
+   1870,
+   "Começa a Guerra Franco-Prussiana",
+   "mundo"
+  ],
+  [
+   1874,
+   "Primeira exposição impressionista",
+   "vida"
+  ],
+  [
+   1883,
+   "Muda-se para Giverny",
+   "vida"
+  ],
+  [
+   1888,
+   "Abolição da escravidão no Brasil",
+   "mundo"
+  ],
+  [
+   1891,
+   "Expõe a série das medas",
+   "vida"
+  ],
+  [
+   1895,
+   "Primeira sessão de cinema, em Paris",
+   "mundo"
+  ],
+  [
+   1914,
+   "Começa a Primeira Guerra Mundial",
+   "mundo"
+  ],
+  [
+   1922,
+   "Semana de Arte Moderna, São Paulo",
+   "mundo"
+  ],
+  [
+   1926,
+   "Morre em Giverny, aos 86 anos",
+   "vida"
+  ]
+ ],
+ "foco": {
+  "img": "monet/impressao.jpg",
+  "titulo": "Impressão, sol nascente",
+  "dados": "1872 · óleo sobre tela · 48 × 63 cm · Museu Marmottan Monet, Paris",
+  "intro": "O porto de Le Havre ao amanhecer, entre a névoa e a fumaça das chaminés. Monet pintou depressa, com pinceladas soltas, e deu ao quadro o nome de \"Impressão\". Em 1874, o título virou o nome de um movimento inteiro.",
+  "marcas": [
+   [
+    64,
+    26,
+    "O sol",
+    "Um disco laranja sem contorno. Na escala de cinzas, ele quase some: tem o mesmo tom do céu."
+   ],
+   [
+    66,
+    64,
+    "O reflexo",
+    "Poucas pinceladas laranja, uma sob a outra, fazem a água brilhar."
+   ],
+   [
+    51,
+    75,
+    "O barco",
+    "Dois homens num bote, feitos com poucos toques escuros."
+   ],
+   [
+    25,
+    21,
+    "O porto",
+    "Mastros, guindastes e chaminés de fábrica aparecem só como manchas na névoa."
+   ]
+  ]
+ },
+ "sabia": [
+  "O título nasceu no catálogo de 1874: a tela não era bem uma vista do Havre, e Monet disse \"Ponha Impressão\".",
+  "O quadro foi roubado do Museu Marmottan em 1985 e só reapareceu em 1990, na Córsega.",
+  "Monet colecionou mais de duzentas gravuras japonesas, de Hokusai e Hiroshige, até hoje na casa de Giverny."
+ ],
+ "tecnica": {
+  "titulo": "A luz ao ar livre",
+  "intro": "Monet levava cavalete, telas e tintas para o campo, a praia ou o barco. Não queria pintar a coisa, mas a luz sobre ela naquele instante, antes que mudasse.",
+  "passos": [
+   [
+    "Tela clara",
+    "Pintava sobre uma base branca ou creme, e não sobre o fundo escuro dos ateliês. O branco por baixo deixa as cores mais luminosas."
+   ],
+   [
+    "Pinceladas curtas",
+    "Toques rápidos e soltos, um ao lado do outro, sem esconder a marca do pincel nem desenhar contornos."
+   ],
+   [
+    "Cores puras",
+    "Em vez de misturar tudo na paleta, punha cores puras uma junto da outra. De longe, o olho as junta."
+   ],
+   [
+    "Troca de tela",
+    "Nas séries, levava várias telas ao mesmo lugar e trocava de tela quando a luz mudava."
+   ]
+  ],
+  "box_t": "A tinta em tubo",
+  "box": "Antes, os pintores guardavam a tinta em bexigas de porco, que secavam e estouravam. Em 1841, o pintor americano John Goffe Rand patenteou um tubo de metal que se fechava e se espremia. Com ele, os impressionistas puderam passar o dia inteiro pintando ao ar livre.",
+  "paleta": [
+   [
+    "#E2552F",
+    "Sol"
+   ],
+   [
+    "#B07A5E",
+    "Céu rosado"
+   ],
+   [
+    "#7E8C80",
+    "Névoa"
+   ],
+   [
+    "#4D6966",
+    "Água"
+   ],
+   [
+    "#13312D",
+    "Barco"
+   ]
+  ]
+ },
+ "obras": [
+  {
+   "img": "monet/sombrinha.jpg",
+   "titulo": "Mulher com sombrinha",
+   "ano": "1875",
+   "nota": "Camille e o filho Jean num dia de vento, vistos de baixo."
+  },
+  {
+   "img": "monet/medas.jpg",
+   "titulo": "Medas de feno, fim do verão",
+   "ano": "1890–1891",
+   "nota": "Uma das cerca de 25 telas da série, pintadas perto de casa."
+  },
+  {
+   "img": "monet/catedral.jpg",
+   "titulo": "Catedral de Rouen, fachada ao sol",
+   "ano": "1894",
+   "nota": "Mais de trinta telas da mesma fachada, cada uma numa hora."
+  }
+ ],
+ "influenciou": [
+  [
+   "Vincent van Gogh",
+   1
+  ],
+  [
+   "Wassily Kandinsky",
+   27
+  ],
+  [
+   "Joan Mitchell",
+   null
+  ]
+ ],
+ "rival": [
+  "Pierre-Auguste Renoir",
+  29,
+  "Amigo de juventude; em 1869 pintaram lado a lado no rio Sena."
+ ],
+ "pensar": "Escolha uma janela e desenhe ou pinte a mesma vista três vezes no mesmo dia: de manhã, ao meio-dia e no fim da tarde. O que muda nas cores e nas sombras?",
+ "palavras": [
+  [
+   "Impressionismo",
+   "Movimento francês dos anos 1870 que pintava a luz e o instante, com pinceladas soltas, muitas vezes ao ar livre."
+  ],
+  [
+   "Ao ar livre",
+   "Pintura feita diante do motivo, fora do ateliê. Em francês, en plein air."
+  ],
+  [
+   "Série",
+   "Conjunto de quadros do mesmo motivo, pintados em horas, estações ou climas diferentes."
+  ]
+ ],
+ "imagens": {
+  "retrato.jpg": "File:Claude Monet 1899 Nadar crop.jpg",
+  "ponte-japonesa.jpg": "File:Claude Monet, The Japanese Footbridge, 1899, NGA 74796.jpg",
+  "impressao.jpg": "File:Monet - Impression, Sunrise.jpg",
+  "caricatura.jpg": "File:Claude Monet - Caricature of Jules Didier.jpg",
+  "sombrinha.jpg": "File:Claude Monet - Woman with a Parasol - Madame Monet and Her Son - Google Art Project.jpg",
+  "medas.jpg": "File:Claude Monet - Stacks of Wheat (End of Summer) - 1985.1103 - Art Institute of Chicago.jpg",
+  "catedral.jpg": "File:Claude Monet - Rouen Cathedral, West Façade, Sunlight - Google Art Project.jpg"
+ },
+ "pron": "por ele"
+}

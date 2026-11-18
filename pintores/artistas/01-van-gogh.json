@@ -1,0 +1,272 @@
+{
+ "pos": 1,
+ "chave": "van-gogh",
+ "nome": "Vincent van Gogh",
+ "nome_original": "",
+ "vida": "1853–1890",
+ "origem": "Holanda",
+ "cor": "#1F3B73",
+ "frase": "Pintou por apenas dez anos, vendeu quase nada em vida e hoje é o pintor mais conhecido do mundo.",
+ "retrato": {
+  "img": "van-gogh/retrato.jpg",
+  "legenda": "Autorretrato, setembro de 1889, em Saint-Rémy. Óleo sobre tela. Museu d'Orsay, Paris.",
+  "pos": "center 35%"
+ },
+ "abertura": {
+  "img": "van-gogh/amendoeira.jpg",
+  "legenda": "Amendoeira em flor, 1890, pintada para o sobrinho recém-nascido. Óleo sobre tela. Museu Van Gogh, Amsterdã.",
+  "pos": "center 40%"
+ },
+ "ficha": [
+  [
+   "Nasceu",
+   "1853, em Zundert, Holanda"
+  ],
+  [
+   "Morreu",
+   "1890, em Auvers-sur-Oise, França, aos 37 anos"
+  ],
+  [
+   "Movimento",
+   "Pós-impressionismo"
+  ],
+  [
+   "Técnica",
+   "Óleo sobre tela em pinceladas grossas; desenho a pena e a lápis"
+  ],
+  [
+   "Obra",
+   "Cerca de 850 pinturas e quase 1.300 desenhos, em dez anos"
+  ],
+  [
+   "Onde ver",
+   "Museu Van Gogh (Amsterdã), Kröller-Müller (Otterlo), Museu d'Orsay (Paris)"
+  ]
+ ],
+ "vida_titulo": "Dez anos de pintura",
+ "vida_txt": [
+  {
+   "t": "Muitos começos",
+   "p": "Vincent van Gogh nasceu em 1853 em Zundert, no sul da Holanda, filho de um pastor protestante. Aos 16 anos começou a trabalhar numa galeria de arte em Haia, depois em Londres e em Paris, até ser demitido. Tentou ser professor, livreiro e pregador entre os mineiros de carvão da Bélgica. Só aos 27 anos decidiu ser artista, sustentado pelo irmão mais novo, Theo."
+  },
+  {
+   "t": "Da sombra à cor",
+   "p": "Aprendeu quase sozinho, desenhando sem parar. Na Holanda pintou camponeses em cores de terra, como em Os comedores de batata, de 1885. Em 1886 foi morar em Paris com Theo, que trabalhava como marchand, e passou alguns meses num ateliê de pintura. Lá conheceu Toulouse-Lautrec, os impressionistas e as gravuras japonesas, e sua pintura clareou: azuis e amarelos, pinceladas curtas, cores puras."
+  },
+  {
+   "t": "A casa amarela",
+   "p": "Em 1888 mudou-se para Arles, no sul da França, atrás da luz forte. Alugou a casa amarela e sonhava com um ateliê para vários pintores. Pintou girassóis para enfeitar o quarto de Paul Gauguin, que chegou em outubro. A convivência terminou mal: em dezembro, numa crise, Van Gogh feriu a própria orelha esquerda com uma navalha, e Gauguin foi embora."
+  },
+  {
+   "t": "Os últimos anos",
+   "p": "Em 1889 internou-se por vontade própria num hospital em Saint-Rémy, onde pintou A noite estrelada. Em 1890 foi para Auvers-sur-Oise, perto de Paris, para ficar perto do irmão e de um médico amigo de artistas, o dr. Gachet. Ali fez cerca de setenta quadros em setenta dias. Em julho deu um tiro em si mesmo e morreu dois dias depois, aos 37 anos. Theo morreu seis meses mais tarde."
+  }
+ ],
+ "citacao": {
+  "texto": "Isso não me impede de ter uma necessidade terrível de, digamos a palavra, religião. Então saio à noite para pintar as estrelas.",
+  "fonte": "Carta ao irmão Theo, Arles, 29 de setembro de 1888"
+ },
+ "vida_fig": {
+  "img": "van-gogh/ameixeiras.jpg",
+  "legenda": "Ameixeiras em flor, 1887: cópia a óleo de uma gravura de Hiroshige. Museu Van Gogh, Amsterdã."
+ },
+ "linha": [
+  [
+   1853,
+   "Nasce em Zundert",
+   "vida"
+  ],
+  [
+   1871,
+   "Lei do Ventre Livre no Brasil",
+   "mundo"
+  ],
+  [
+   1876,
+   "Graham Bell patenteia o telefone",
+   "mundo"
+  ],
+  [
+   1880,
+   "Decide ser artista, aos 27",
+   "vida"
+  ],
+  [
+   1886,
+   "Benz patenteia o automóvel",
+   "mundo"
+  ],
+  [
+   1888,
+   "Arles e a casa amarela",
+   "vida"
+  ],
+  [
+   1888,
+   "Abolição da escravidão no Brasil",
+   "mundo"
+  ],
+  [
+   1889,
+   "Pinta A noite estrelada",
+   "vida"
+  ],
+  [
+   1889,
+   "Proclamação da República no Brasil",
+   "mundo"
+  ],
+  [
+   1890,
+   "Morre em Auvers, aos 37 anos",
+   "vida"
+  ]
+ ],
+ "foco": {
+  "img": "van-gogh/noite-estrelada.jpg",
+  "titulo": "A noite estrelada",
+  "dados": "1889 · óleo sobre tela · 73,7 × 92,1 cm · MoMA, Nova York",
+  "intro": "A vista da janela do hospital de Saint-Rémy antes do amanhecer, com a lua, as estrelas e um vento que se pode ver. Van Gogh pintou a cena de dia, de memória, e inventou a aldeia.",
+  "marcas": [
+   [
+    22,
+    70,
+    "O cipreste",
+    "Como uma chama escura, liga a terra ao céu."
+   ],
+   [
+    51,
+    36,
+    "O redemoinho",
+    "O vento vira espirais de pinceladas grossas."
+   ],
+   [
+    41,
+    47,
+    "Estrela da manhã",
+    "A mais brilhante é provavelmente Vênus, que ele via da janela antes do sol nascer."
+   ],
+   [
+    60,
+    72,
+    "A igreja",
+    "A torre pontuda lembra as igrejas da Holanda natal."
+   ]
+  ]
+ },
+ "sabia": [
+  "Van Gogh escreveu mais de 800 cartas, cerca de 650 a Theo. A cunhada, Jo, publicou-as em 1914.",
+  "Em vida, que se tenha registro, vendeu só um quadro: A vinha vermelha, em 1890, em Bruxelas.",
+  "Numa carta de 1889, contou que via da janela, antes do sol nascer, só a estrela da manhã, \"que parecia muito grande\"."
+ ],
+ "tecnica": {
+  "titulo": "Pinceladas que se veem",
+  "intro": "Van Gogh não escondia o pincel: cada toque fica visível, com direção e espessura. Juntou o que viu nos impressionistas e nas gravuras japonesas e pintava depressa, quase sempre diante do motivo.",
+  "passos": [
+   [
+    "Tinta grossa",
+    "Punha a tinta espessa, quase direto do tubo. Cada pincelada fica em relevo e mostra o caminho da mão."
+   ],
+   [
+    "Cores opostas",
+    "Em Paris aprendeu a juntar cores complementares, azul e laranja, amarelo e violeta, para que uma acenda a outra."
+   ],
+   [
+    "Contornos",
+    "Das gravuras japonesas tirou os contornos escuros e as áreas de cor lisa."
+   ],
+   [
+    "Rapidez",
+    "Muitas telas eram feitas em um ou dois dias. Em Auvers, chegou a pintar mais de um quadro por dia."
+   ]
+  ],
+  "box_t": "O Japão de Van Gogh",
+  "box": "Em Arles, escreveu ao irmão que se sentia no Japão. Admirava Hokusai e, numa carta de 1888, disse que suas ondas são garras que prendem o barco. Copiou Hiroshige para aprender: contorno firme, cor chapada, galhos que cortam a cena em primeiro plano.",
+  "paleta": [
+   [
+    "#1E3A7A",
+    "Azul ultramar"
+   ],
+   [
+    "#4F7DB8",
+    "Azul cobalto"
+   ],
+   [
+    "#E8C845",
+    "Amarelo cromo"
+   ],
+   [
+    "#6E8F5C",
+    "Verde"
+   ],
+   [
+    "#1F2A22",
+    "Cipreste"
+   ]
+  ]
+ },
+ "obras": [
+  {
+   "img": "van-gogh/comedores-batata.jpg",
+   "titulo": "Os comedores de batata",
+   "ano": "1885",
+   "nota": "Camponeses jantam o que plantaram, em cores de terra. A fase escura."
+  },
+  {
+   "img": "van-gogh/girassois.jpg",
+   "titulo": "Girassóis",
+   "ano": "1888",
+   "nota": "Feito para o quarto de Gauguin na casa amarela. National Gallery, Londres."
+  },
+  {
+   "img": "van-gogh/quarto.jpg",
+   "titulo": "O quarto em Arles",
+   "ano": "1888",
+   "nota": "O próprio quarto na casa amarela, em cores puras, para sugerir descanso."
+  }
+ ],
+ "influenciou": [
+  [
+   "Henri Matisse",
+   12
+  ],
+  [
+   "Maurice de Vlaminck",
+   null
+  ],
+  [
+   "Ernst Ludwig Kirchner",
+   null
+  ]
+ ],
+ "rival": [
+  "Paul Gauguin",
+  17,
+  "Dividiu com ele a casa amarela em Arles por dois meses, em 1888."
+ ],
+ "pensar": "Escolha uma árvore perto de casa e desenhe só com traços curtos e grossos, todos seguindo a forma: do tronco para cima, dos galhos para fora. Como fica o movimento?",
+ "palavras": [
+  [
+   "Pós-impressionismo",
+   "Nome dado depois aos pintores que partiram do impressionismo para outros caminhos: Van Gogh, Gauguin, Cézanne, Seurat."
+  ],
+  [
+   "Empaste",
+   "Tinta posta bem grossa, que fica em relevo na tela. Em italiano, impasto."
+  ],
+  [
+   "Cores complementares",
+   "Pares de cores opostas no círculo das cores, como azul e laranja. Lado a lado, uma realça a outra."
+  ]
+ ],
+ "imagens": {
+  "retrato.jpg": "File:Vincent van Gogh - Self-Portrait - Google Art Project.jpg",
+  "amendoeira.jpg": "File:Amandelbloesem - s0176V1962 - Van Gogh Museum.jpg",
+  "ameixeiras.jpg": "File:Bloeiende pruimenboomgaard (naar Hiroshige) - s0115V1962 - Van Gogh Museum.jpg",
+  "noite-estrelada.jpg": "File:Van Gogh - Starry Night - Google Art Project.jpg",
+  "comedores-batata.jpg": "File:Vincent van Gogh - The potato eaters - Google Art Project.jpg",
+  "girassois.jpg": "File:Vincent van Gogh - Sunflowers (1888, National Gallery London).jpg",
+  "quarto.jpg": "File:Vincent van Gogh - De slaapkamer - Google Art Project.jpg"
+ },
+ "pron": "por ele"
+}

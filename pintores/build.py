@@ -76,10 +76,9 @@ p{margin:0}
 .ab{padding:0}
 .ab .heroi{height:4.55in;background-size:cover;background-position:center 40%;position:relative}
 .ab .heroi:after{content:"";position:absolute;left:0;right:0;bottom:0;height:2.2in;background:linear-gradient(rgba(0,0,0,0),rgba(0,0,0,.55))}
-.ab .heroi:before{content:"";position:absolute;left:0;right:0;top:0;height:1.3in;z-index:1;background:linear-gradient(rgba(0,0,0,.45),rgba(0,0,0,0))}
 .ab .num{position:absolute;left:.55in;bottom:.18in;z-index:2;font:400 150pt/0.8 LivroDisp;color:#fff;letter-spacing:-.04em}
 .ab .num small{display:block;font:700 9pt LivroSans;letter-spacing:.24em;margin:0 0 .12in .06in}
-.ab .serie{position:absolute;top:.38in;right:.6in;z-index:2;font:700 7.6pt LivroSans;letter-spacing:.2em;text-transform:uppercase;color:#fff;background:rgba(0,0,0,.35);padding:.05in .12in;border-radius:.2in}
+.ab .serie{position:absolute;top:.38in;right:.6in;z-index:2;font:700 7.6pt LivroSans;letter-spacing:.2em;text-transform:uppercase;color:#fff;background:rgba(0,0,0,.55);padding:.05in .12in;border-radius:.2in}
 .ab .hcap{position:absolute;left:.6in;top:4.62in;width:4.2in;font:400 6.8pt/1.3 LivroSans;color:#7A6F60}
 .ab .ret{position:absolute;right:.75in;top:3.55in;z-index:3;width:1.85in;height:1.85in;border-radius:50%;border:.07in solid #FBF8F2;background-size:cover;background-position:center 20%;box-shadow:0 .03in .1in rgba(0,0,0,.25)}
 .ab .corpo{padding:.42in .8in 0 .6in}
@@ -87,7 +86,7 @@ p{margin:0}
 .ab .orig{font:400 15pt LivroSerif;color:var(--c);margin:.05in 0 0}
 .ab .dt{font:700 9pt LivroSans;letter-spacing:.12em;text-transform:uppercase;color:#7A6F60;margin:.08in 0 0}
 .ab .frase{font:italic 400 15.5pt/1.3 LivroSerif;margin:.24in 0 .26in;padding-left:.18in;border-left:.05in solid var(--c);width:6.6in}
-.ab .retcap{position:absolute;right:.6in;top:5.5in;width:2.15in;text-align:center;font:400 6.6pt/1.3 LivroSans;color:#7A6F60}
+.ab .retcap{position:absolute;right:.6in;top:5.64in;width:2.15in;text-align:center;font:400 6.6pt/1.3 LivroSans;color:#7A6F60}
 .duas{display:flex;gap:.3in}
 .ficha{flex:1.05;border-collapse:collapse;font:400 8.6pt/1.3 LivroSans}
 .ficha td{padding:.055in 0;border-bottom:.6pt solid #DDD3C2;vertical-align:top}
@@ -130,6 +129,12 @@ p{margin:0}
 .leg div{width:3.4in;display:flex;gap:.1in;font:400 8.6pt/1.32 LivroSans}
 .leg i{flex:none;width:.24in;height:.24in;border-radius:50%;background:var(--c);color:#fff;font:400 8.5pt/.24in LivroDisp;text-align:center;font-style:normal}
 .leg b{display:block;font-weight:700}
+.vert{display:flex;gap:.28in;align-items:flex-start}
+.vert .quadro{flex:none;margin:0}
+.vert .quadro img{width:auto;height:6.55in;max-width:4.3in}
+.vert .lado{flex:1}
+.vert .leg{flex-direction:column;gap:.14in}
+.vert .leg div{width:auto}
 .sabia{background:#F6D86B;border-radius:.1in;padding:.15in .2in .14in;position:relative}
 .sabia h4{font:400 13pt LivroDisp;margin:0 0 .06in}
 .sabia ul{margin:0;padding-left:.16in;font:400 8.8pt/1.38 LivroSans}
@@ -176,6 +181,14 @@ def folio_txt(a, n, lado):
     num = f'<b>{n}</b>'
     nome = f'Nº {a["pos"]} · {esc(a["nome"])}'
     return f'{num}{nome}' if lado == 'esq' else f'{nome}{num}'
+
+def foco_corpo(f, mks, leg, sabia):
+    """Obra horizontal: imagem na largura toda. Obra vertical (altura maior que 0,85 da largura): imagem à esquerda."""
+    q = f'<div class="quadro"><img src="{img(f["img"], 2400)}" alt="{esc(f["titulo"])}"/>{mks}</div>'
+    s = f'<div class="sabia"><h4>Você sabia?</h4><ul>{sabia}</ul></div>'
+    if razao(f['img']) > .85:
+        return f'<div class="vert">{q}<div class="lado"><div class="leg">{leg}</div>{s}</div></div>'
+    return f'{q}<div class="leg">{leg}</div>{s}'
 
 def retrato(a):
     rt = a.get('retrato')
@@ -229,9 +242,7 @@ def artista(a, p0):
     sabia = ''.join(f'<li>{esc(s)}</li>' for s in a['sabia'])
     P.append(pagina('esq', 'foco', f'''<span class="chip">Obra em foco</span><h2>{esc(f["titulo"])}</h2>
       <p class="dados">{esc(f["dados"])}</p><p class="intro">{esc(f["intro"])}</p>
-      <div class="quadro"><img src="{img(f["img"], 2400)}" alt="{esc(f["titulo"])}"/>{mks}</div>
-      <div class="leg">{leg}</div>
-      <div class="sabia"><h4>Você sabia?</h4><ul>{sabia}</ul></div>''', folio_txt(a, p0 + 2, 'esq'), c))
+      {foco_corpo(f, mks, leg, sabia)}''', folio_txt(a, p0 + 2, 'esq'), c))
     # 4 técnica e obras
     t = a['tecnica']
     passos = ''.join(f'<div class="passo"><i>{i}</i><b>{esc(k)}</b>{esc(v)}</div>' for i, (k, v) in enumerate(t['passos'], 1))
@@ -274,7 +285,20 @@ def livro(arts):
 
 def carrega(filtro=None):
     fs = sorted(glob.glob(os.path.join(ROOT, 'artistas', '*.json')), key=lambda f: -int(os.path.basename(f).split('-')[0]))
-    return [json.load(open(f)) for f in fs if not filtro or os.path.basename(f).startswith(f'{int(filtro):02d}-')]
+    out = []
+    for f in fs:
+        if filtro and not os.path.basename(f).startswith(f'{int(filtro):02d}-'): continue
+        try:
+            a = json.load(open(f))
+            falta = [k for k in ('pos', 'nome', 'abertura', 'ficha', 'vida_txt', 'linha', 'foco', 'tecnica', 'obras') if k not in a]
+            if falta: raise ValueError('faltam ' + ', '.join(falta))
+            refs = re.findall(r'"img": "([^"]+)"', json.dumps(a, ensure_ascii=False))
+            sem = [r for r in refs if not os.path.exists(os.path.join(ROOT, 'obras', r))]
+            if sem: raise ValueError('imagens ainda não baixadas: ' + ', '.join(sem[:3]))
+            out.append(a)
+        except Exception as e:
+            print(f'AVISO: {os.path.basename(f)} ficou de fora ({e})', file=sys.stderr)
+    return out
 
 def verifica(doc, artistas, p0=2):
     """Acusa texto que passa da página: linha abaixo do limite do rodapé ou coluna que escapou para a direita."""

@@ -1,0 +1,276 @@
+{
+ "pos": 3,
+ "chave": "michelangelo",
+ "nome": "Michelangelo Buonarroti",
+ "nome_original": "",
+ "vida": "1475–1564",
+ "origem": "Itália",
+ "cor": "#7B3B2A",
+ "frase": "Escultor que dizia não ser pintor, pintou quase sozinho, de pé num andaime, o teto mais famoso do mundo.",
+ "retrato": {
+  "img": "michelangelo/retrato.jpg",
+  "legenda": "Michelangelo aos 70 anos, c. 1545, atribuído a Daniele da Volterra (detalhe). Metropolitan Museum, Nova York.",
+  "pos": "center 30%"
+ },
+ "abertura": {
+  "img": "michelangelo/sibila-delfos.jpg",
+  "legenda": "O rosto da Sibila de Delfos, c. 1509, no teto da Capela Sistina (detalhe). Afresco. Vaticano.",
+  "pos": "center 40%"
+ },
+ "ficha": [
+  [
+   "Nasceu",
+   "1475, em Caprese, na Toscana, Itália"
+  ],
+  [
+   "Morreu",
+   "1564, em Roma, aos 88 anos"
+  ],
+  [
+   "Movimento",
+   "Alta Renascença"
+  ],
+  [
+   "Técnica",
+   "Afresco, escultura em mármore, desenho e arquitetura"
+  ],
+  [
+   "Obra",
+   "Afrescos em duas capelas do Vaticano, poucos quadros, dezenas de esculturas"
+  ],
+  [
+   "Onde ver",
+   "Capela Sistina (Vaticano), Galeria Uffizi e Galeria da Academia (Florença)"
+  ]
+ ],
+ "vida_titulo": "O escultor que pintou o céu",
+ "vida_txt": [
+  {
+   "t": "O martelo no leite",
+   "p": "Michelangelo Buonarroti nasceu em 1475 em Caprese, na Toscana, e cresceu em Florença. A ama que o amamentou era mulher de um cortador de pedra, e ele brincava, conta Vasari, que tinha bebido o martelo e o cinzel com o leite. Aos 13 anos entrou na oficina do pintor Domenico Ghirlandaio, onde aprendeu o afresco. Logo foi estudar escultura no jardim de Lourenço de Médici."
+  },
+  {
+   "t": "Um escultor famoso",
+   "p": "Aos 24 anos terminou em Roma a Pietà, a Virgem com o Cristo morto no colo, a única obra que assinou. De volta a Florença, esculpiu o Davi, de mais de quatro metros, num bloco de mármore que outros tinham abandonado. Em 1505 o papa Júlio II o chamou a Roma para fazer seu túmulo, um projeto enorme que se arrastaria por quarenta anos."
+  },
+  {
+   "t": "O teto da Sistina",
+   "p": "Em 1508 o papa mudou de planos e mandou que ele pintasse o teto da Capela Sistina. Michelangelo protestou que era escultor, não pintor, mas aceitou. Dispensou quase todos os ajudantes e trabalhou quatro anos num andaime, a cerca de 20 metros do chão. Pintou nove cenas do Gênesis, profetas, sibilas e mais de trezentas figuras. O teto foi apresentado em 1512."
+  },
+  {
+   "t": "O Juízo Final",
+   "p": "Mais de vinte anos depois voltou à Sistina para pintar o Juízo Final na parede do altar, entre 1536 e 1541. Os muitos nus causaram escândalo, e depois da sua morte o pintor Daniele da Volterra cobriu vários com panos. Já velho, foi arquiteto da Basílica de São Pedro e projetou a cúpula. Morreu em Roma em 1564, aos 88 anos, e foi enterrado em Florença."
+  }
+ ],
+ "citacao": {
+  "texto": "Já me cresceu um papo neste esforço. A barba aponta para o céu, a nuca encosta nas costas, e o pincel, pingando sem parar, faz do meu rosto um piso colorido. [...] Não estou em bom lugar, e eu não sou pintor.",
+  "fonte": "Soneto ao amigo Giovanni da Pistoia, c. 1509–1510 (trechos)"
+ },
+ "vida_fig": {
+  "img": "michelangelo/soneto.jpg",
+  "legenda": "O soneto, com Michelangelo desenhado de pé no andaime, pintando o teto. Casa Buonarroti, Florença."
+ },
+ "linha": [
+  [
+   1475,
+   "Nasce em Caprese, na Toscana",
+   "vida"
+  ],
+  [
+   1492,
+   "Colombo chega à América",
+   "mundo"
+  ],
+  [
+   1500,
+   "Os portugueses chegam ao Brasil",
+   "mundo"
+  ],
+  [
+   1504,
+   "O Davi é instalado em Florença",
+   "vida"
+  ],
+  [
+   1512,
+   "Termina o teto da Sistina",
+   "vida"
+  ],
+  [
+   1517,
+   "Lutero publica suas 95 teses",
+   "mundo"
+  ],
+  [
+   1532,
+   "Fundada São Vicente, primeira vila",
+   "mundo"
+  ],
+  [
+   1541,
+   "Termina o Juízo Final",
+   "vida"
+  ],
+  [
+   1549,
+   "Tomé de Sousa funda Salvador",
+   "mundo"
+  ],
+  [
+   1564,
+   "Morre em Roma, aos 88 anos",
+   "vida"
+  ]
+ ],
+ "foco": {
+  "img": "michelangelo/criacao-adao.jpg",
+  "titulo": "A criação de Adão",
+  "dados": "c. 1511–1512 · afresco · cerca de 280 × 570 cm · teto da Capela Sistina, Vaticano",
+  "intro": "Deus estende o braço para dar vida ao primeiro homem. A cena, uma das nove do livro do Gênesis no teto, foi pintada a cerca de 20 metros do chão, para ser vista de baixo.",
+  "marcas": [
+   [
+    38.5,
+    33,
+    "Os dedos",
+    "Quase se tocam. A vida ainda vai passar de um para o outro."
+   ],
+   [
+    17,
+    40,
+    "Adão",
+    "Deitado e sem força, levanta a mão como quem ainda não acordou."
+   ],
+   [
+    66,
+    38,
+    "Deus",
+    "Voa envolto num manto vermelho, cercado de anjos, todo movimento."
+   ],
+   [
+    74,
+    13,
+    "A mulher",
+    "Sob o braço de Deus, uma figura olha para Adão. Talvez seja Eva, ainda por criar."
+   ]
+  ]
+ },
+ "sabia": [
+  "Uma restauração de 1980 a 1994 tirou séculos de fuligem de velas e cola do teto e revelou cores vivas.",
+  "Em 1990, um médico americano propôs que o manto em volta de Deus tem a forma de um cérebro humano.",
+  "Vasari e Condivi publicaram biografias dele enquanto ele ainda vivia, coisa rara para um artista."
+ ],
+ "tecnica": {
+  "titulo": "Um afresco no teto",
+  "intro": "Afresco é pintar sobre reboco fresco. A tinta entra na cal e, ao secar, vira parte da parede. Não dá para corrigir depois: era preciso planejar cada dia.",
+  "passos": [
+   [
+    "O andaime",
+    "Michelangelo projetou um andaime em ponte, apoiado em vigas presas nas paredes, que deixava o chão livre para as missas."
+   ],
+   [
+    "O cartão",
+    "Desenhos em tamanho real iam encostados no reboco. Ele furava as linhas e batia pó de carvão, ou riscava o contorno com uma ponta."
+   ],
+   [
+    "A giornata",
+    "Só se rebocava o pedaço que dava para pintar num dia. De perto, as emendas entre os dias ainda aparecem."
+   ],
+   [
+    "As cores",
+    "Pigmentos moídos e misturados com água, postos depressa, antes de o reboco secar. Alguns retoques iam a seco."
+   ]
+  ],
+  "box_t": "De pé, não deitado",
+  "box": "Conta-se que ele pintou o teto deitado de costas. Não é verdade. No soneto ao amigo Giovanni, Michelangelo se desenhou de pé no andaime, o corpo arqueado e o braço erguido para o teto, e reclamou da dor no pescoço e da tinta pingando no rosto.",
+  "paleta": [
+   [
+    "#C98E6B",
+    "Pele"
+   ],
+   [
+    "#9C3B2E",
+    "Manto"
+   ],
+   [
+    "#B9B6A6",
+    "Céu"
+   ],
+   [
+    "#6E7A5A",
+    "Terra"
+   ],
+   [
+    "#E3D6BC",
+    "Reboco"
+   ]
+  ]
+ },
+ "obras": [
+  {
+   "img": "michelangelo/tondo-doni.jpg",
+   "titulo": "Sagrada Família (Tondo Doni)",
+   "ano": "c. 1505–1506",
+   "nota": "Pintura redonda em madeira, seu único quadro de cavalete terminado aceito por todos."
+  },
+  {
+   "img": "michelangelo/sibila-libia.jpg",
+   "titulo": "A Sibila Líbia",
+   "ano": "c. 1511",
+   "nota": "Gira o corpo inteiro para fechar um livro enorme."
+  },
+  {
+   "img": "michelangelo/jeremias.jpg",
+   "titulo": "O profeta Jeremias",
+   "ano": "c. 1511",
+   "nota": "O profeta das lamentações, curvado, com a mão na barba."
+  }
+ ],
+ "influenciou": [
+  [
+   "Rafael",
+   5
+  ],
+  [
+   "Peter Paul Rubens",
+   14
+  ],
+  [
+   "Tintoretto",
+   null
+  ],
+  [
+   "Auguste Rodin",
+   null
+  ]
+ ],
+ "rival": [
+  "Leonardo da Vinci",
+  2,
+  "Rivais em Florença: em 1504 receberam paredes da mesma sala para pintar batalhas."
+ ],
+ "pensar": "Prenda uma folha embaixo de uma mesa e desenhe por cinco minutos com o braço erguido, olhando para cima, como Michelangelo no andaime. O que acontece com o traço e com o seu pescoço?",
+ "palavras": [
+  [
+   "Giornata",
+   "Em italiano, \"jornada\": o pedaço de reboco fresco pintado num só dia."
+  ],
+  [
+   "Sibila",
+   "Profetisa da Antiguidade. No teto da Sistina, cinco sibilas se alternam com sete profetas da Bíblia."
+  ],
+  [
+   "Spolvero",
+   "Jeito de passar o desenho do cartão para a parede: furos nas linhas e pó de carvão batido por cima."
+  ]
+ ],
+ "imagens": {
+  "retrato.jpg": "File:Michelangelo Daniele da Volterra (dettaglio).jpg",
+  "sibila-delfos.jpg": "File:Sibyl of Delphi - Sistine Chapel - closeup.JPG",
+  "soneto.jpg": "File:“I’ ho già fatto un gozzo” (“I’ve Grown a Goitre”) – Michelangelo.jpg",
+  "criacao-adao.jpg": "File:Michelangelo - Creation of Adam (cropped).jpg",
+  "tondo-doni.jpg": "File:Tondo Doni, por Miguel Ángel.jpg",
+  "sibila-libia.jpg": "File:Michelangelo libyan.jpg",
+  "jeremias.jpg": "File:Michelangelo, profeti, Jeremiah 01.jpg"
+ },
+ "pron": "por ele"
+}

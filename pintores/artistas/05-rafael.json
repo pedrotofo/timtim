@@ -1,0 +1,272 @@
+{
+ "pos": 5,
+ "chave": "rafael",
+ "nome": "Rafael Sanzio",
+ "nome_original": "",
+ "vida": "1483–1520",
+ "origem": "Itália",
+ "cor": "#7A2E2A",
+ "frase": "Aprendeu com Perugino, Leonardo e Michelangelo e, morto aos 37 anos, virou o modelo das escolas de arte por séculos.",
+ "retrato": {
+  "img": "rafael/retrato.jpg",
+  "legenda": "Autorretrato, c. 1504–1506. Óleo sobre madeira. Galeria Uffizi, Florença.",
+  "pos": "center 30%"
+ },
+ "abertura": {
+  "img": "rafael/madona-sistina.jpg",
+  "legenda": "Os dois anjinhos da Madona Sistina, c. 1512–1513 (detalhe). Óleo sobre tela. Gemäldegalerie Alte Meister, Dresden.",
+  "pos": "center 100%"
+ },
+ "ficha": [
+  [
+   "Nasceu",
+   "1483, em Urbino, Itália"
+  ],
+  [
+   "Morreu",
+   "1520, em Roma, aos 37 anos"
+  ],
+  [
+   "Movimento",
+   "Alta Renascença"
+  ],
+  [
+   "Técnica",
+   "Afresco, óleo sobre madeira e desenho; também foi arquiteto"
+  ],
+  [
+   "Obra",
+   "Dezenas de pinturas, afrescos no Vaticano e centenas de desenhos"
+  ],
+  [
+   "Onde ver",
+   "Museus Vaticanos (Roma), Galeria Uffizi (Florença), Louvre (Paris)"
+  ]
+ ],
+ "vida_titulo": "Uma carreira de vinte anos",
+ "vida_txt": [
+  {
+   "t": "Filho de pintor",
+   "p": "Rafael Sanzio nasceu em 1483 em Urbino, pequena cidade com uma das cortes mais refinadas da Itália. O pai, Giovanni Santi, era pintor e poeta a serviço do duque e lhe ensinou o ofício. Rafael perdeu a mãe aos 8 anos e o pai aos 11. Na adolescência ligou-se à oficina de Pietro Perugino, o pintor mais procurado da época, e logo pintava como ele."
+  },
+  {
+   "t": "Florença, a escola",
+   "p": "Em 1504 assinou O casamento da Virgem, com uma perspectiva mais ousada que a do mestre. No mesmo ano foi para Florença, onde Leonardo e Michelangelo trabalhavam. Estudou os dois: de Leonardo tirou as composições em forma de pirâmide e as sombras suaves; de Michelangelo, os corpos em movimento. Para as famílias florentinas pintou uma série de Madonas, a Virgem com o Menino."
+  },
+  {
+   "t": "As salas do papa",
+   "p": "Em 1508 o papa Júlio II o chamou a Roma para decorar seus aposentos no Vaticano. Na primeira sala, a da Assinatura, pintou a Escola de Atenas, enquanto Michelangelo pintava o teto da Capela Sistina a poucos metros dali. O sucesso foi imediato. O papa seguinte, Leão X, o fez arquiteto da Basílica de São Pedro e encarregado das ruínas antigas de Roma."
+  },
+  {
+   "t": "Cedo demais",
+   "p": "Rafael dirigia a maior oficina de Roma, com dezenas de ajudantes, e cuidava ao mesmo tempo de quadros, tapeçarias, palácios e igrejas. Morreu de uma febre em 6 de abril de 1520, aos 37 anos, quando terminava a Transfiguração. Segundo Vasari, o quadro ficou junto ao corpo durante o velório. Foi enterrado no Panteão de Roma, como ele mesmo tinha pedido."
+  }
+ ],
+ "citacao": {
+  "texto": "Aqui está Rafael. Enquanto ele vivia, a natureza, mãe de todas as coisas, temeu ser vencida; quando ele morreu, temeu morrer também.",
+  "fonte": "Epitáfio escrito pelo poeta Pietro Bembo para o túmulo de Rafael, no Panteão de Roma"
+ },
+ "vida_fig": {
+  "img": "rafael/cartao.jpg",
+  "legenda": "O cartão da Escola de Atenas, desenho no tamanho do afresco. Pinacoteca Ambrosiana, Milão."
+ },
+ "linha": [
+  [
+   1483,
+   "Nasce em Urbino",
+   "vida"
+  ],
+  [
+   1492,
+   "Colombo chega à América",
+   "mundo"
+  ],
+  [
+   1498,
+   "Vasco da Gama chega à Índia",
+   "mundo"
+  ],
+  [
+   1500,
+   "Os portugueses chegam ao Brasil",
+   "mundo"
+  ],
+  [
+   1504,
+   "Pinta O casamento da Virgem",
+   "vida"
+  ],
+  [
+   1508,
+   "Chamado a Roma pelo papa",
+   "vida"
+  ],
+  [
+   1514,
+   "Arquiteto da Basílica de São Pedro",
+   "vida"
+  ],
+  [
+   1517,
+   "Lutero publica suas 95 teses",
+   "mundo"
+  ],
+  [
+   1519,
+   "Parte a expedição de Magalhães",
+   "mundo"
+  ],
+  [
+   1520,
+   "Morre em Roma, aos 37 anos",
+   "vida"
+  ]
+ ],
+ "foco": {
+  "img": "rafael/escola-atenas.jpg",
+  "titulo": "A Escola de Atenas",
+  "dados": "c. 1509–1511 · afresco · cerca de 500 × 770 cm · Sala da Assinatura, Museus Vaticanos",
+  "intro": "Mais de cinquenta figuras reúnem os sábios da Grécia antiga num só edifício imaginário. Rafael pintou o afresco numa das salas do papa, que provavelmente era a biblioteca dele.",
+  "marcas": [
+   [
+    48,
+    64,
+    "Platão",
+    "Aponta para o céu, onde estariam as ideias perfeitas. Segundo a tradição, o rosto é o de Leonardo."
+   ],
+   [
+    55,
+    64,
+    "Aristóteles",
+    "Estende a mão aberta para baixo, para o mundo que se pode observar e medir."
+   ],
+   [
+    91.5,
+    59.5,
+    "Rafael",
+    "O próprio pintor, de boina escura, olha direto para quem vê o afresco."
+   ],
+   [
+    50,
+    24,
+    "A arquitetura",
+    "Arcos e abóbadas puxam o olhar para um ponto de fuga entre os dois filósofos."
+   ]
+  ]
+ },
+ "sabia": [
+  "O homem que pensa sozinho na escada, Heráclito, não está no cartão: foi acrescentado depois. Muitos estudiosos veem nele o rosto de Michelangelo.",
+  "Diz Vasari que Euclides, curvado sobre um compasso, tem o rosto de Bramante, o arquiteto que levou Rafael para Roma.",
+  "O cartão da Escola de Atenas é considerado o maior desenho preparatório do Renascimento que chegou até nós."
+ ],
+ "tecnica": {
+  "titulo": "Do esboço à parede",
+  "intro": "Rafael desenhava muito antes de pintar. Cada figura de uma obra grande passava por vários papéis, do rabisco à folha do tamanho da parede.",
+  "passos": [
+   [
+    "Esboços",
+    "Com pena ou carvão, rabiscos rápidos para achar a composição e as poses."
+   ],
+   [
+    "Estudo do natural",
+    "Ajudantes posavam no ateliê. Rafael desenhava cada corpo, depois cada dobra de pano, mãos e rostos."
+   ],
+   [
+    "O cartão",
+    "Juntava tudo num desenho em tamanho real, que servia de guia para o afresco."
+   ],
+   [
+    "A oficina",
+    "Nas obras dos últimos anos, os ajudantes pintavam partes inteiras a partir dos desenhos do mestre."
+   ]
+  ],
+  "box_t": "Uma escola de pintores",
+  "box": "Rafael chegou a ter a maior oficina de Roma. Giorgio Vasari conta que ele andava pela cidade acompanhado de uns cinquenta pintores, que o seguiam por respeito. Dois deles, Giulio Romano e Gianfrancesco Penni, terminaram as obras que ele deixou pela metade.",
+  "paleta": [
+   [
+    "#8E3B2E",
+    "Manto vermelho"
+   ],
+   [
+    "#2F5A84",
+    "Manto azul"
+   ],
+   [
+    "#C9B79A",
+    "Pedra"
+   ],
+   [
+    "#9DB4C5",
+    "Céu"
+   ],
+   [
+    "#6E5A3E",
+    "Sombra"
+   ]
+  ]
+ },
+ "obras": [
+  {
+   "img": "rafael/casamento.jpg",
+   "titulo": "O casamento da Virgem",
+   "ano": "1504",
+   "nota": "Assinado no templo ao fundo: \"Raphael Urbinas\", Rafael de Urbino."
+  },
+  {
+   "img": "rafael/castiglione.jpg",
+   "titulo": "Retrato de Baldassare Castiglione",
+   "ano": "c. 1514–1515",
+   "nota": "O amigo escritor, autor de O cortesão, em cinza, preto e branco."
+  },
+  {
+   "img": "rafael/transfiguracao.jpg",
+   "titulo": "A Transfiguração",
+   "ano": "1516–1520",
+   "nota": "Seu último quadro: Cristo no alto do monte e, embaixo, um menino doente."
+  }
+ ],
+ "influenciou": [
+  [
+   "Giulio Romano",
+   null
+  ],
+  [
+   "Nicolas Poussin",
+   36
+  ],
+  [
+   "Jean-Auguste-Dominique Ingres",
+   22
+  ]
+ ],
+ "rival": [
+  "Michelangelo",
+  3,
+  "Pintavam no Vaticano ao mesmo tempo. Michelangelo escreveu que Rafael aprendera tudo com ele."
+ ],
+ "pensar": "Desenhe sua sala de aula como um palco, com as linhas do chão e do teto correndo para um só ponto no centro. Depois ponha as pessoas. Onde você coloca a mais importante?",
+ "palavras": [
+  [
+   "Afresco",
+   "Pintura feita sobre o reboco ainda úmido da parede; ao secar, a cor fica presa na cal."
+  ],
+  [
+   "Ponto de fuga",
+   "Na perspectiva, o ponto para onde parecem correr todas as linhas que se afastam de quem olha."
+  ],
+  [
+   "Cartão",
+   "Desenho no tamanho exato da obra, usado para passar a composição para a parede."
+  ]
+ ],
+ "imagens": {
+  "retrato.jpg": "File:Raffaello Sanzio.jpg",
+  "madona-sistina.jpg": "File:Raphael - The Sistine Madonna - Google Arts & Culture.jpg",
+  "cartao.jpg": "File:Ambrosiana-Raffaello-Sanzio-La-Scuola-di-Atene-cartone-prepa.jpg",
+  "escola-atenas.jpg": "File:Raphael School of Athens.jpg",
+  "casamento.jpg": "File:Raphael Marriage of the Virgin.jpg",
+  "castiglione.jpg": "File:Baldassare Castiglione, by Raffaello Sanzio, from C2RMF retouched.jpg",
+  "transfiguracao.jpg": "File:Transfiguration Raphael.jpg"
+ },
+ "pron": "por ele"
+}
