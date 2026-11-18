@@ -131,7 +131,7 @@ p{margin:0}
 .leg b{display:block;font-weight:700}
 .vert{display:flex;gap:.28in;align-items:flex-start}
 .vert .quadro{flex:none;margin:0}
-.vert .quadro img{width:auto;height:6.55in;max-width:4.3in}
+.vert .quadro img{width:100%;height:auto}
 .vert .lado{flex:1}
 .vert .leg{flex-direction:column;gap:.14in}
 .vert .leg div{width:auto}
@@ -184,10 +184,14 @@ def folio_txt(a, n, lado):
 
 def foco_corpo(f, mks, leg, sabia):
     """Obra horizontal: imagem na largura toda. Obra vertical (altura maior que 0,85 da largura): imagem à esquerda."""
-    q = f'<div class="quadro"><img src="{img(f["img"], 2400)}" alt="{esc(f["titulo"])}"/>{mks}</div>'
     s = f'<div class="sabia"><h4>Você sabia?</h4><ul>{sabia}</ul></div>'
-    if razao(f['img']) > .85:
+    r = razao(f['img'])
+    if r > .85:
+        # caixa do tamanho exato da imagem (sem distorcer, marcas em % no lugar): até 6,55 pol. de altura e 4,3 de largura
+        h = min(6.55, 4.3 * r); w = h / r
+        q = f'<div class="quadro" style="width:{w:.3f}in"><img src="{img(f["img"], 2400)}" alt="{esc(f["titulo"])}"/>{mks}</div>'
         return f'<div class="vert">{q}<div class="lado"><div class="leg">{leg}</div>{s}</div></div>'
+    q = f'<div class="quadro"><img src="{img(f["img"], 2400)}" alt="{esc(f["titulo"])}"/>{mks}</div>'
     return f'{q}<div class="leg">{leg}</div>{s}'
 
 def retrato(a):
