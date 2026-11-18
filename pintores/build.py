@@ -168,8 +168,9 @@ def aspas(t):
     """Aspas retas viram curvas."""
     return re.sub(r'"([^"]*)"', '“\\1”', t)
 
-def pagina(lado, cls, corpo, folio, cor):
-    return f'<section class="pg {lado} {cls}" style="--c:{cor}">{corpo}<div class="folio">{folio}</div></section>'
+def pagina(lado, cls, corpo, folio, cor, id_=''):
+    ident = f' id="{id_}"' if id_ else ''
+    return f'<section class="pg {lado} {cls}"{ident} style="--c:{cor}">{corpo}<div class="folio">{folio}</div></section>'
 
 def folio_txt(a, n, lado):
     num = f'<b>{n}</b>'
@@ -208,7 +209,7 @@ def artista(a, p0):
         <div class="duas"><table class="ficha">{ficha}</table>
           <div class="porque"><h4>Por que está no ranking</h4>{barras}
 </div></div>
-      </div>''', folio_txt(a, p0, 'esq'), c))
+      </div>''', folio_txt(a, p0, 'esq'), c, f'p{a["pos"]}'))
     # 2 a vida
     fig = a.get('vida_fig')
     figura = f'<figure class="vfig"><img src="{img(fig["img"], 1000)}" alt="{esc(fig["legenda"])}"/><figcaption>{esc(fig["legenda"])}</figcaption></figure>' if fig else ''
@@ -253,6 +254,23 @@ def artista(a, p0):
 def documento(artistas, p0=2):
     corpo = ''.join(artista(a, p0 + 4 * i) for i, a in enumerate(artistas))
     return f'<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><title>Os 50 Maiores Pintores</title><style>{font_faces()}{familias(CSS)}</style></head><body>{corpo}</body></html>'
+
+def livro(arts):
+    """O livro inteiro: frente (11 páginas), os 50 a partir da página 12, consulta e contracapa."""
+    import extras
+    n = [1]   # a página 1 é a capa
+    def fixa(lado, cls, corpo, rotulo, cor=extras.COR):
+        n[0] += 1
+        fol = '' if not rotulo else (f'<b>{n[0]}</b>{rotulo}' if lado == 'esq' else f'{rotulo}<b>{n[0]}</b>')
+        return pagina(lado, cls, corpo, fol, cor)
+    frente = extras.frente(arts, img, esc, fixa, ranking)
+    assert n[0] == extras.FRENTE, n[0]
+    corpo = ''.join(artista(a, extras.FRENTE + 1 + 4 * i) for i, a in enumerate(arts))
+    n[0] = extras.FRENTE + 4 * len(arts)
+    fundo = extras.fundo(arts, esc, fixa, ranking, ROOT) + extras.contracapa(arts, esc)
+    css = font_faces() + familias(CSS + extras.CSS)
+    return (f'<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><title>Os 50 Maiores Pintores</title>'
+            f'<meta name="author" content="Pedro Torres"><style>{css}</style></head><body>{frente}{corpo}{fundo}</body></html>')
 
 def carrega(filtro=None):
     fs = sorted(glob.glob(os.path.join(ROOT, 'artistas', '*.json')), key=lambda f: -int(os.path.basename(f).split('-')[0]))
@@ -305,5 +323,10 @@ if __name__ == '__main__':
         for p_ in pgs: os.remove(p_)
         print('ok', out)
     else:
-        HTML(string=documento(carrega()), base_url=ROOT).write_pdf(os.path.join(ROOT, 'out', 'Os-50-Maiores-Pintores.pdf'))
+        arts = carrega()
+        doc = HTML(string=livro(arts), base_url=ROOT).render()
+        print('páginas', len(doc.pages))
+        doc.write_pdf(os.path.join(ROOT, 'out', 'Os-50-Maiores-Pintores.pdf'))
+        if 'previa' in args:
+            subprocess.run(['pdftoppm', '-r', '40', '-png', os.path.join(ROOT, 'out', 'Os-50-Maiores-Pintores.pdf'), os.path.join(ROOT, 'out', 'prev')], check=True)
         print('ok')
