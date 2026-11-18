@@ -1,0 +1,266 @@
+{
+ "pos": 43,
+ "chave": "behzad",
+ "nome": "Kamāl ud-Dīn Behzād",
+ "nome_original": "كمال‌الدین بهزاد",
+ "vida": "c. 1450–1535",
+ "origem": "Pérsia",
+ "cor": "#22407A",
+ "frase": "Mestre da miniatura persa, pôs nas páginas dos livros reais gente comum trabalhando e virou modelo para pintores do Irã à Índia.",
+ "retrato": null,
+ "abertura": {
+  "img": "behzad/khawarnaq.jpg",
+  "legenda": "A construção do palácio de Khawarnaq, c. 1494–1495, numa Khamsa de Nizami. Biblioteca Britânica, Londres.",
+  "pos": "center 62%"
+ },
+ "ficha": [
+  [
+   "Nasceu",
+   "c. 1450, em Herat (hoje Afeganistão)"
+  ],
+  [
+   "Morreu",
+   "c. 1535, provavelmente em Tabriz (hoje Irã)"
+  ],
+  [
+   "Movimento",
+   "Pintura timúrida de Herat; começo da escola safávida"
+  ],
+  [
+   "Técnica",
+   "Miniatura: aquarela opaca, tinta e ouro sobre papel"
+  ],
+  [
+   "Obra",
+   "Algumas dezenas de miniaturas aceitas pelos especialistas"
+  ],
+  [
+   "Onde ver",
+   "Dar al-Kutub (Cairo), Biblioteca Britânica (Londres), Metropolitan (Nova York)"
+  ]
+ ],
+ "vida_titulo": "O pintor da biblioteca do rei",
+ "vida_txt": [
+  {
+   "t": "Um órfão em Herat",
+   "p": "Behzad nasceu por volta de 1450 em Herat, cidade de oásis no oeste do atual Afeganistão. Era a capital dos timúridas, a dinastia herdeira do conquistador Tamerlão. Ficou órfão cedo e, segundo as fontes antigas, foi criado pelo pintor Mirak Naqqash, que trabalhava na biblioteca do rei. Cresceu no meio de calígrafos, douradores e encadernadores, as equipes que faziam os livros de luxo da corte."
+  },
+  {
+   "t": "O pintor do sultão",
+   "p": "Herat viveu seu auge com o sultão Husayn Bayqara, que reinou de 1469 a 1506 e reuniu poetas, músicos e sábios. Seu amigo e ministro, o poeta Mir Ali Shir Navai, também protegeu Behzad. Em 1488 ele pintou as cenas de um Bustan, o livro de poemas de Saadi, hoje no Cairo. Assinou várias delas, coisa rara: até então os pintores de livros quase nunca punham o nome."
+  },
+  {
+   "t": "De Herat a Tabriz",
+   "p": "Em 1507 os uzbeques tomaram Herat. Três anos depois, o xá Ismail, fundador da dinastia safávida do Irã, venceu-os e ficou com a cidade. Behzad continuou pintando. Em 1522, um decreto do xá o nomeou chefe da biblioteca real em Tabriz, a capital safávida. Calígrafos, pintores, douradores e encadernadores passaram a trabalhar sob suas ordens."
+  },
+  {
+   "t": "Um nome que vale ouro",
+   "p": "Em Tabriz, ao lado de pintores mais novos como Sultan Muhammad, Behzad ajudou a formar o estilo safávida. Morreu por volta de 1535. Seu nome virou sinônimo de perfeição: por séculos, colecionadores do Irã, da Turquia e da Índia pagaram caro por obras \"de Behzad\", e muitas assinaturas foram acrescentadas depois. Separar o que é mesmo dele ainda é trabalho de especialistas."
+  }
+ ],
+ "citacao": {
+  "texto": "Entre os pintores, um era Behzad. Seu trabalho era muito delicado, mas ele não desenhava bem rostos sem barba: alongava demais o queixo duplo. Os rostos com barba, desenhava admiravelmente.",
+  "fonte": "Babur, primeiro imperador mogol da Índia, nas memórias Baburnama"
+ },
+ "vida_fig": {
+  "img": "behzad/sultao.jpg",
+  "legenda": "O sultão Husayn Bayqara, patrono de Behzad. Cópia de c. 1500–1525 de um retrato atribuído a ele."
+ },
+ "linha": [
+  [
+   1450,
+   "Nasce em Herat",
+   "vida"
+  ],
+  [
+   1453,
+   "Os otomanos tomam Constantinopla",
+   "mundo"
+  ],
+  [
+   1488,
+   "Pinta o Bustan do Cairo",
+   "vida"
+  ],
+  [
+   1492,
+   "Colombo chega à América",
+   "mundo"
+  ],
+  [
+   1495,
+   "Ilustra a Khamsa de Nizami",
+   "vida"
+  ],
+  [
+   1500,
+   "Cabral chega ao Brasil",
+   "mundo"
+  ],
+  [
+   1510,
+   "O xá Ismail toma Herat",
+   "mundo"
+  ],
+  [
+   1522,
+   "Chefe da biblioteca real em Tabriz",
+   "vida"
+  ],
+  [
+   1532,
+   "Fundada São Vicente, no Brasil",
+   "mundo"
+  ],
+  [
+   1535,
+   "Morre, por volta desse ano",
+   "vida"
+  ]
+ ],
+ "foco": {
+  "img": "behzad/yusuf.jpg",
+  "titulo": "Yusuf foge de Zulaykha",
+  "dados": "1488 · aquarela opaca, tinta e ouro sobre papel · página do Bustan de Saadi · Biblioteca Nacional do Egito (Dar al-Kutub), Cairo",
+  "intro": "A bela Zulaykha tenta seduzir o jovem Yusuf, o José da Bíblia. Behzad imaginou um palácio de salas trancadas, uma dentro da outra. Na história, quando Yusuf foge, as portas se abrem sozinhas.",
+  "marcas": [
+   [
+    54,
+    31,
+    "Yusuf",
+    "O jovem de verde tem a cabeça cercada por uma chama dourada, sinal de profeta."
+   ],
+   [
+    70,
+    36,
+    "Zulaykha",
+    "De laranja, ela estica o braço e tenta segurar Yusuf pela roupa."
+   ],
+   [
+    17,
+    55,
+    "A escada",
+    "Uma escada em ziguezague sobe pelo palácio. Vemos o prédio de frente e de cima ao mesmo tempo."
+   ],
+   [
+    29,
+    57,
+    "Os versos",
+    "Os poemas não ficam só embaixo: entram na pintura em cartelas presas às paredes."
+   ]
+  ]
+ },
+ "sabia": [
+  "A assinatura de Behzad costuma vir escondida: numa inscrição de um prédio pintado ou, em Dario e o pastor, bordada em ouro na aljava do rei.",
+  "Saadi escreveu o Bustan, \"O pomar\", em 1257. Behzad o ilustrou mais de 230 anos depois.",
+  "Herat, a cidade onde Behzad nasceu, fica hoje no Afeganistão; Tabriz, onde passou os últimos anos, fica no Irã."
+ ],
+ "tecnica": {
+  "titulo": "Como se fazia uma miniatura",
+  "intro": "Miniatura persa não quer dizer pintura pequena: é a cena pintada à mão nas páginas de um livro. Cada livro passava por uma equipe da biblioteca real, o kitabkhana.",
+  "passos": [
+   [
+    "O papel polido",
+    "A folha recebia uma camada de goma e era esfregada com uma pedra lisa até brilhar. Assim a tinta não se espalhava."
+   ],
+   [
+    "O texto primeiro",
+    "O calígrafo copiava os versos e deixava espaços vazios. O pintor encaixava a cena neles, às vezes saindo da moldura."
+   ],
+   [
+    "O desenho",
+    "Com pincel finíssimo e tinta preta, o mestre traçava a cena. Conta-se que os melhores pincéis eram de pelo de filhote de gato."
+   ],
+   [
+    "Cor e ouro",
+    "Pedras e minerais moídos, misturados com goma arábica, viravam cores chapadas, sem sombra. O ouro em pó fazia brilhar céus e roupas."
+   ]
+  ],
+  "box_t": "Um azul mais caro que ouro",
+  "box": "O azul profundo das miniaturas vem do lápis-lazúli, uma pedra das minas de Badakhshan, no atual Afeganistão. Moída e lavada muitas vezes, ela dava o ultramarino, que na Europa chegou a custar mais que o ouro. Por isso tanto azul era sinal de livro feito para rei.",
+  "paleta": [
+   [
+    "#2B4C8C",
+    "Lápis-lazúli"
+   ],
+   [
+    "#C8452E",
+    "Vermelhão"
+   ],
+   [
+    "#E39A2E",
+    "Açafrão"
+   ],
+   [
+    "#3E7A4E",
+    "Malaquita"
+   ],
+   [
+    "#D9BE86",
+    "Papel dourado"
+   ]
+  ]
+ },
+ "obras": [
+  {
+   "img": "behzad/frontispicio.jpg",
+   "titulo": "A festa do sultão (página dupla)",
+   "ano": "c. 1488",
+   "nota": "Abertura do mesmo Bustan, atribuída a Behzad: a corte de Husayn Bayqara em festa."
+  },
+  {
+   "img": "behzad/dario.jpg",
+   "titulo": "Dario e o pastor",
+   "ano": "1488",
+   "nota": "Perdido na caça, o rei quase flecha o próprio cavalariço, que não reconheceu."
+  },
+  {
+   "img": "behzad/mendigo.jpg",
+   "titulo": "O mendigo na mesquita",
+   "ano": "1488",
+   "nota": "Um pregador no púlpito, fiéis sentados e, à porta, o mendigo da história."
+  }
+ ],
+ "influenciou": [
+  [
+   "Qasim Ali",
+   null
+  ],
+  [
+   "Sultan Muhammad",
+   null
+  ],
+  [
+   "Mir Sayyid Ali",
+   null
+  ],
+  [
+   "Pintura mogol da Índia",
+   null
+  ]
+ ],
+ "pensar": "Desenhe sua casa ou sua escola vista de vários lados ao mesmo tempo, como Behzad: o chão visto de cima, as paredes de frente, as escadas de lado. Mostre o que acontece dentro de cada cômodo.",
+ "palavras": [
+  [
+   "Miniatura",
+   "Pintura que ilustra um livro escrito à mão; na Pérsia, cena pintada nas páginas entre os versos."
+  ],
+  [
+   "Kitabkhana",
+   "\"Casa dos livros\": a biblioteca-ateliê real, onde calígrafos, pintores e encadernadores trabalhavam juntos."
+  ],
+  [
+   "Timúridas",
+   "Dinastia descendente de Tamerlão que governou o Irã e a Ásia Central entre 1370 e 1507."
+  ]
+ ],
+ "imagens": {
+  "frontispicio.jpg": "File:Frontispiece from the Cairo Bustan. Herat, c. 1488, for Sultan Husayn Bayqara. Cairo, Dar al-kutub, Adab farisi 22, folio 1b-2a.jpg",
+  "yusuf.jpg": "File:Yusuf fleeing the Advances of Zulaikha.jpg",
+  "khawarnaq.jpg": "File:Kamal-ud-din Bihzad - Construction of the fort of Kharnaq.jpg",
+  "dario.jpg": "File:Darius and the Herdsman, from the Cairo Bustan. Herat, December 1488–November 1489. Bihzad. Dar al-kutub, Adab farisi 22, folio 10a.jpg",
+  "sultao.jpg": "File:Portrait of Sultan Husayn Mirza Bayqara at the age of about 50 years. 1500–25 copy from Behzād's original of about 1490.jpg",
+  "mendigo.jpg": "File:The Beggar at the Mosque, from the Cairo Bustan. Herat, December 1488–November 1489. Bihzad. Dar al-kutub, Adab farisi 22, folio 26a.jpg"
+ },
+ "pron": "por ele"
+}

@@ -1,0 +1,264 @@
+{
+ "pos": 35,
+ "chave": "toulouse-lautrec",
+ "nome": "Henri de Toulouse-Lautrec",
+ "nome_original": "",
+ "vida": "1864–1901",
+ "origem": "França",
+ "cor": "#9E2E25",
+ "pron": "por ele",
+ "frase": "Desenhou as noites de Montmartre, com seus cabarés, dançarinas e cantores, e transformou o cartaz de rua em arte.",
+ "retrato": {
+  "img": "toulouse-lautrec/retrato.jpg",
+  "legenda": "Toulouse-Lautrec fotografado por seu amigo Paul Sescau, c. 1894.",
+  "pos": "center 25%"
+ },
+ "abertura": {
+  "img": "toulouse-lautrec/circo.jpg",
+  "legenda": "No Circo Fernando: a amazona, 1887–1888. Óleo sobre tela. Art Institute of Chicago.",
+  "pos": "center 50%"
+ },
+ "ficha": [
+  [
+   "Nasceu",
+   "1864, em Albi, no sul da França"
+  ],
+  [
+   "Morreu",
+   "1901, no castelo de Malromé, França, aos 36 anos"
+  ],
+  [
+   "Movimento",
+   "Pós-impressionismo; um dos criadores do cartaz moderno"
+  ],
+  [
+   "Técnica",
+   "Óleo diluído sobre papelão, pastel e litografia em cores"
+  ],
+  [
+   "Obra",
+   "Cerca de 740 pinturas, 370 gravuras e cartazes, 5 mil desenhos"
+  ],
+  [
+   "Onde ver",
+   "Museu Toulouse-Lautrec (Albi), Museu d'Orsay (Paris), Art Institute (Chicago)"
+  ]
+ ],
+ "vida_titulo": "Um conde em Montmartre",
+ "vida_txt": [
+  {
+   "t": "Um menino de Albi",
+   "p": "Henri de Toulouse-Lautrec nasceu em 1864 em Albi, no sul da França, numa família de condes. Os pais eram primos. Menino frágil, quebrou o fêmur esquerdo em 1878 e o direito em 1879. Os ossos não se recuperaram bem e as pernas pararam de crescer: adulto, ele media cerca de 1,52 m. Na longa recuperação, passava os dias desenhando cavalos, cães e gente da família."
+  },
+  {
+   "t": "Aluno em Paris",
+   "p": "Em 1882 foi estudar pintura em Paris, primeiro com Léon Bonnat, depois no ateliê de Fernand Cormon. Ali fez amizade com Émile Bernard e, em 1886, com Vincent van Gogh, recém-chegado a Paris. Lautrec foi morar em Montmartre, o bairro dos cabarés no alto da cidade. Pintava os amigos, as lavadeiras e as moças do bairro, muitas vezes ao ar livre, no jardim de um vizinho."
+  },
+  {
+   "t": "O cartaz que parou Paris",
+   "p": "O Moulin Rouge abriu em 1889, e Lautrec virou frequentador. Em 1891 o cabaré lhe encomendou um cartaz. Ele pôs a dançarina La Goulue no centro, a silhueta escura do parceiro Valentin na frente e o público como uma faixa de sombras. Colado pelas ruas, o cartaz o tornou famoso de uma hora para outra. Vieram outros: Aristide Bruant, Jane Avril, o Divan Japonais."
+  },
+  {
+   "t": "Os últimos anos",
+   "p": "Lautrec trabalhava muito e bebia muito. Em 1899, depois de uma crise, foi internado numa clínica em Neuilly, perto de Paris. Para mostrar aos médicos que estava bem, desenhou de memória dezenas de cenas de circo. Saiu meses depois, mas a saúde não voltou. Em 1901 sofreu um derrame e morreu em 9 de setembro, no castelo da família em Malromé. Tinha 36 anos."
+  }
+ ],
+ "citacao": {
+  "texto": "Talvez você queira saber que incentivo Bonnat me dá. Ele me diz: \"Sua pintura não é ruim, tem estilo, mas enfim não é ruim. Mas o seu desenho é simplesmente atroz.\"",
+  "fonte": "Carta ao tio Charles, 1882"
+ },
+ "vida_fig": {
+  "img": "toulouse-lautrec/van-gogh.jpg",
+  "legenda": "Retrato de Vincent van Gogh, 1887. Pastel sobre papelão. Museu Van Gogh, Amsterdã."
+ },
+ "linha": [
+  [
+   1864,
+   "Nasce em Albi",
+   "vida"
+  ],
+  [
+   1870,
+   "Guerra entre França e Prússia",
+   "mundo"
+  ],
+  [
+   1878,
+   "Quebra a primeira perna",
+   "vida"
+  ],
+  [
+   1882,
+   "Vai estudar pintura em Paris",
+   "vida"
+  ],
+  [
+   1888,
+   "Lei Áurea abole a escravidão",
+   "mundo"
+  ],
+  [
+   1889,
+   "Proclamação da República no Brasil",
+   "mundo"
+  ],
+  [
+   1891,
+   "Cartaz do Moulin Rouge",
+   "vida"
+  ],
+  [
+   1895,
+   "Primeira sessão de cinema, em Paris",
+   "mundo"
+  ],
+  [
+   1900,
+   "Exposição Universal de Paris",
+   "mundo"
+  ],
+  [
+   1901,
+   "Morre em Malromé, aos 36 anos",
+   "vida"
+  ]
+ ],
+ "foco": {
+  "img": "toulouse-lautrec/moulin-rouge.jpg",
+  "titulo": "No Moulin Rouge",
+  "dados": "1892–1895 · óleo sobre tela · 123 × 141 cm · Art Institute of Chicago",
+  "intro": "Uma noite no cabaré. Amigos do pintor conversam à mesa, a dançarina La Goulue arruma o cabelo diante do espelho e, ao fundo, passa o próprio Lautrec. A faixa da direita foi cortada do quadro e, anos depois, devolvida.",
+  "marcas": [
+   [
+    30,
+    45,
+    "A mesa",
+    "Amigos de Lautrec, entre eles o escritor Édouard Dujardin, de barba, sentados à luz do gás."
+   ],
+   [
+    55,
+    30,
+    "O pintor",
+    "Lautrec, de chapéu-coco, passa ao fundo ao lado do primo alto, Gabriel Tapié de Céleyran."
+   ],
+   [
+    70,
+    30,
+    "La Goulue",
+    "A dançarina do cartaz, de costas, ajeita o coque ruivo."
+   ],
+   [
+    90,
+    70,
+    "O rosto verde",
+    "A luz artificial deixa verde o rosto da mulher cortada pela borda, como numa foto."
+   ]
+  ]
+ },
+ "sabia": [
+  "Lautrec assinava com um monograma, as iniciais HTL dentro de um círculo, à moda dos selos das gravuras japonesas.",
+  "O quadro No Circo Fernando foi comprado pelos donos do Moulin Rouge e ficou exposto na entrada do cabaré.",
+  "Depois da morte do pintor, a mãe e o amigo Maurice Joyant doaram as obras que formaram o museu de Albi, aberto em 1922."
+ ],
+ "tecnica": {
+  "titulo": "A litografia em cores",
+  "intro": "Lautrec não entalhava madeira nem gravava metal: desenhava direto na pedra. A litografia funciona porque gordura e água não se misturam. Cada cor do cartaz pedia uma pedra diferente.",
+  "passos": [
+   [
+    "Desenho na pedra",
+    "Com lápis gorduroso ou tinta oleosa, desenhava sobre uma pedra calcária lisa, do tamanho da folha."
+   ],
+   [
+    "Água e gordura",
+    "A pedra era molhada. A água fica onde não há desenho; a tinta de impressão gruda só nas linhas gordurosas."
+   ],
+   [
+    "Pedra por cor",
+    "Vermelho, amarelo, preto: uma pedra para cada. O papel passava várias vezes pela prensa, sempre no mesmo lugar."
+   ],
+   [
+    "O crachis",
+    "Para fazer chuviscos de cor, raspava uma escova de dentes cheia de tinta e espirrava pontinhos sobre a pedra."
+   ]
+  ],
+  "box_t": "A lição japonesa",
+  "box": "As gravuras japonesas chegavam a Paris aos montes, e Lautrec as colecionava. Delas tirou as cores chapadas, sem sombra, os contornos fortes, as figuras cortadas pela borda e as diagonais que atravessam a cena. Hokusai e Hiroshige faziam xilogravura; Lautrec levou essas lições para a pedra.",
+  "paleta": [
+   [
+    "#E2B33C",
+    "Amarelo"
+   ],
+   [
+    "#BF3A2C",
+    "Vermelho"
+   ],
+   [
+    "#1F1B1A",
+    "Preto"
+   ],
+   [
+    "#ECE2C8",
+    "Papel"
+   ],
+   [
+    "#6F8A7A",
+    "Verde-gás"
+   ]
+  ]
+ },
+ "obras": [
+  {
+   "img": "toulouse-lautrec/la-goulue.jpg",
+   "titulo": "Moulin Rouge: La Goulue",
+   "ano": "1891",
+   "nota": "O primeiro cartaz: a dançarina no centro, o público como sombras."
+  },
+  {
+   "img": "toulouse-lautrec/bruant.jpg",
+   "titulo": "Aristide Bruant nos Ambassadeurs",
+   "ano": "1892",
+   "nota": "O cantor de capa preta e cachecol vermelho, feito quase só de manchas."
+  },
+  {
+   "img": "toulouse-lautrec/jane-avril.jpg",
+   "titulo": "Jane Avril no Jardin de Paris",
+   "ano": "1893",
+   "nota": "O braço de um contrabaixo emoldura a dançarina, como numa gravura japonesa."
+  }
+ ],
+ "influenciou": [
+  [
+   "Pablo Picasso",
+   null
+  ]
+ ],
+ "rival": [
+  "Edgar Degas",
+  21,
+  "O pintor que mais admirava; Degas também pintou cafés-concerto e bailarinas."
+ ],
+ "pensar": "Desenhe um cartaz para uma festa ou um show usando só três cores chapadas, sem sombra. Corte uma figura pela borda do papel e escreva o nome em letras grandes. O que chama atenção de longe?",
+ "palavras": [
+  [
+   "Litografia",
+   "Impressão feita com uma pedra lisa desenhada com material gorduroso; a tinta gruda só no desenho."
+  ],
+  [
+   "Cabaré",
+   "Casa noturna com música, dança e espetáculos, como o Moulin Rouge, em Montmartre."
+  ],
+  [
+   "Pós-impressionismo",
+   "Nome dado aos pintores que, depois dos impressionistas, buscaram cores, linhas e formas mais pessoais."
+  ]
+ ],
+ "imagens": {
+  "retrato.jpg": "File:Photolautrec.jpg",
+  "circo.jpg": "File:Henri de Toulouse-Lautrec - Equestrienne (At the Cirque Fernando) - 1925.523 - Art Institute of Chicago.jpg",
+  "moulin-rouge.jpg": "File:Henri de Toulouse-Lautrec - At the Moulin Rouge - Google Art Project.jpg",
+  "van-gogh.jpg": "File:Toulouse-Lautrec de Henri Vincent van Gogh Sun.jpg",
+  "la-goulue.jpg": "File:Moulin Rouge- La Goulue MET DT11780.jpg",
+  "bruant.jpg": "File:Toulouse-Lautrec - Ambassadeurs Aristide Bruant, 1948.450.jpg",
+  "jane-avril.jpg": "File:Jane Avril Jardin de Paris, Paris Musées 20230924145734.jpg"
+ }
+}

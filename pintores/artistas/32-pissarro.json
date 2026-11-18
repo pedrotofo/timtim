@@ -1,0 +1,276 @@
+{
+ "pos": 32,
+ "chave": "pissarro",
+ "nome": "Camille Pissarro",
+ "nome_original": "",
+ "vida": "1830–1903",
+ "origem": "França",
+ "cor": "#4F6286",
+ "pron": "por ele",
+ "frase": "Nascido numa ilha do Caribe, foi o único a expor nas oito mostras impressionistas e o mestre de Cézanne e Gauguin.",
+ "retrato": {
+  "img": "pissarro/retrato.jpg",
+  "legenda": "Autorretrato, 1873. Óleo sobre tela. Museu d'Orsay, Paris.",
+  "pos": "center 25%"
+ },
+ "abertura": {
+  "img": "pissarro/boulevard.jpg",
+  "legenda": "Boulevard Montmartre, manhã de inverno, 1897. Óleo sobre tela. Metropolitan Museum, Nova York.",
+  "pos": "center 45%"
+ },
+ "ficha": [
+  [
+   "Nasceu",
+   "1830, na ilha de São Tomás, Antilhas Dinamarquesas"
+  ],
+  [
+   "Morreu",
+   "1903, em Paris, França, aos 73 anos"
+  ],
+  [
+   "Movimento",
+   "Impressionismo; por alguns anos, neoimpressionismo"
+  ],
+  [
+   "Técnica",
+   "Óleo sobre tela, ao ar livre; também gravura em metal"
+  ],
+  [
+   "Obra",
+   "Mais de 1.500 pinturas, além de gravuras e desenhos"
+  ],
+  [
+   "Onde ver",
+   "Museu d'Orsay (Paris), National Gallery (Londres), Metropolitan (Nova York)"
+  ]
+ ],
+ "vida_titulo": "Um mestre para os amigos",
+ "vida_txt": [
+  {
+   "t": "Da ilha para o mundo",
+   "p": "Camille Pissarro nasceu em 1830 em Charlotte Amalie, na ilha de São Tomás, no Caribe, então colônia da Dinamarca. A família, judia de origem portuguesa, tinha uma loja no porto. Aos doze anos foi mandado a um colégio perto de Paris. Voltou para trabalhar na loja do pai, mas desenhava o porto e os barcos. Em 1852 partiu para a Venezuela com o pintor dinamarquês Fritz Melbye."
+  },
+  {
+   "t": "Paris e os amigos",
+   "p": "Em 1855 se mudou para Paris. Admirava as paisagens de Camille Corot, que lhe deu conselhos. Na Academia Suíça, um ateliê livre, conheceu Claude Monet e, depois, Paul Cézanne. Na guerra de 1870 fugiu com a família para Londres. Soldados prussianos ocuparam sua casa em Louveciennes e destruíram boa parte das pinturas que ele deixara lá. Em Londres casou com Julie Vellay, com quem teve oito filhos."
+  },
+  {
+   "t": "O professor do grupo",
+   "p": "De volta à França, viveu em Pontoise, perto de Paris. Ali pintou lado a lado com Cézanne e ensinou Paul Gauguin, um corretor da bolsa que pintava nas horas vagas. Foi o único a participar das oito exposições impressionistas, de 1874 a 1886. Em 1885 conheceu Georges Seurat e passou alguns anos pintando com pontinhos de cor pura, o pontilhismo."
+  },
+  {
+   "t": "Cidades vistas da janela",
+   "p": "Em 1884 a família foi morar em Éragny, uma aldeia no norte da França. Nos últimos anos, uma infecção nos olhos o impedia de pintar ao ar livre. Pissarro passou então a alugar quartos de hotel em Paris, Rouen e Le Havre e a pintar as ruas e pontes vistas da janela, em séries com horas e tempos diferentes. Morreu em Paris em 1903, aos 73 anos."
+  }
+ ],
+ "citacao": {
+  "texto": "Não proceda por regras e princípios: pinte o que você observa e sente. Pinte com generosidade e sem hesitar, porque é melhor não perder a primeira impressão. Só se deve ter um mestre, a natureza; é ela que se deve consultar sempre.",
+  "fonte": "Conselhos ao jovem pintor Louis Le Bail, c. 1896, anotados por Le Bail"
+ },
+ "vida_fig": {
+  "img": "pissarro/sao-tomas.jpg",
+  "legenda": "Duas mulheres conversando à beira-mar, São Tomás, 1856. National Gallery of Art, Washington."
+ },
+ "linha": [
+  [
+   1830,
+   "Nasce na ilha de São Tomás",
+   "vida"
+  ],
+  [
+   1848,
+   "Abolição nas Antilhas Dinamarquesas",
+   "mundo"
+  ],
+  [
+   1850,
+   "Brasil proíbe o tráfico de escravizados",
+   "mundo"
+  ],
+  [
+   1852,
+   "Parte para a Venezuela",
+   "vida"
+  ],
+  [
+   1855,
+   "Muda-se para Paris",
+   "vida"
+  ],
+  [
+   1870,
+   "Guerra entre França e Prússia",
+   "mundo"
+  ],
+  [
+   1874,
+   "Primeira exposição impressionista",
+   "vida"
+  ],
+  [
+   1888,
+   "Lei Áurea abole a escravidão",
+   "mundo"
+  ],
+  [
+   1889,
+   "Proclamação da República no Brasil",
+   "mundo"
+  ],
+  [
+   1903,
+   "Morre em Paris, aos 73 anos",
+   "vida"
+  ]
+ ],
+ "foco": {
+  "img": "pissarro/geada.jpg",
+  "titulo": "Geada branca",
+  "dados": "1873 · óleo sobre tela · 65 × 93 cm · Museu d'Orsay, Paris",
+  "intro": "Uma manhã fria perto de Pontoise. Um camponês carrega lenha por uma estrada, e o sol baixo estende sombras compridas sobre o campo gelado. Na primeira mostra impressionista, em 1874, um crítico zombou do quadro.",
+  "marcas": [
+   [
+    30,
+    60,
+    "O camponês",
+    "Curvado sob o feixe de lenha, ele é pequeno diante do campo."
+   ],
+   [
+    60,
+    75,
+    "As sombras",
+    "Árvores fora do quadro deitam sombras azuis sobre a geada."
+   ],
+   [
+    80,
+    55,
+    "Os sulcos",
+    "Toques cruzados de tinta fazem a terra arada e o gelo brilharem."
+   ],
+   [
+    50,
+    15,
+    "O céu",
+    "Um céu claro de inverno, quase sem nuvens, que ilumina tudo de lado."
+   ]
+  ]
+ },
+ "sabia": [
+  "Em 1906, Cézanne se apresentou no catálogo de uma exposição em Aix como \"Paul Cézanne, aluno de Pissarro\".",
+  "Pissarro viveu quase toda a vida na França, mas nunca deixou de ser cidadão dinamarquês.",
+  "Foi ele quem indicou o doutor Gachet a Theo van Gogh, em 1890. Vincent passou seus últimos meses em Auvers, perto do médico."
+ ],
+ "tecnica": {
+  "titulo": "Pintar ao ar livre",
+  "intro": "Pissarro pintava a paisagem diante dela, em qualquer estação. Queria registrar a luz de um momento: a mesma estrada muda de cor de manhã e à tarde, com sol ou com neve.",
+  "passos": [
+   [
+    "O cavalete",
+    "Levava cavalete, caixa de tintas e tela para o campo e montava tudo diante do motivo."
+   ],
+   [
+    "Tintas em tubo",
+    "Usava tintas prontas em tubos de metal, novidade que facilitava pintar fora do ateliê."
+   ],
+   [
+    "Toques curtos",
+    "Cobria a tela com pinceladas pequenas e cruzadas, como uma trama, quase sem contornos."
+   ],
+   [
+    "Cor na sombra",
+    "Pintava as sombras com azuis e violetas, e não com preto ou marrom."
+   ]
+  ],
+  "box_t": "A fase dos pontinhos",
+  "box": "Entre 1885 e 1890, Pissarro seguiu Seurat e Signac: pintava com pontinhos de cores puras, lado a lado, para que se misturassem nos olhos de quem olha. O método era lento demais para quem gostava de pegar a luz depressa. Ele voltou às pinceladas livres, mas mais leves.",
+  "paleta": [
+   [
+    "#D9D6C8",
+    "Geada"
+   ],
+   [
+    "#6F7FA0",
+    "Sombra azul"
+   ],
+   [
+    "#B88E5A",
+    "Terra"
+   ],
+   [
+    "#7E8A56",
+    "Verde"
+   ],
+   [
+    "#C9D2D6",
+    "Céu"
+   ]
+  ]
+ },
+ "obras": [
+  {
+   "img": "pissarro/telhados.jpg",
+   "titulo": "Os telhados vermelhos",
+   "ano": "1877",
+   "nota": "Casas de aldeia vistas através de árvores sem folhas, no inverno."
+  },
+  {
+   "img": "pissarro/macas.jpg",
+   "titulo": "A colheita de maçãs",
+   "ano": "1888",
+   "nota": "Da fase pontilhista: a luz feita de milhares de pontinhos de cor."
+  },
+  {
+   "img": "pissarro/noite.jpg",
+   "titulo": "Boulevard Montmartre à noite",
+   "ano": "1897",
+   "nota": "O único da série pintado à noite: luzes refletidas na rua molhada."
+  }
+ ],
+ "influenciou": [
+  [
+   "Paul Cézanne",
+   9
+  ],
+  [
+   "Paul Gauguin",
+   17
+  ],
+  [
+   "Lucien Pissarro",
+   null
+  ],
+  [
+   "Mary Cassatt",
+   null
+  ]
+ ],
+ "rival": [
+  "Claude Monet",
+  7,
+  "Amigo desde 1859; os dois se refugiaram em Londres na guerra de 1870."
+ ],
+ "pensar": "Escolha uma janela da sua casa e desenhe a mesma vista três vezes: de manhã, à tarde e à noite, ou num dia de sol e num de chuva. O que muda nas cores e nas sombras?",
+ "palavras": [
+  [
+   "Impressionismo",
+   "Movimento de pintores que, a partir de 1874, pintavam ao ar livre a luz e a cor de um momento."
+  ],
+  [
+   "Pontilhismo",
+   "Técnica de pintar com pontinhos de cores puras que se misturam nos olhos de quem olha."
+  ],
+  [
+   "Ao ar livre",
+   "Pintar fora do ateliê, diante da paisagem; os franceses dizem \"en plein air\"."
+  ]
+ ],
+ "imagens": {
+  "retrato.jpg": "File:Camille Pissarro - Autoportrait - 1873.jpg",
+  "boulevard.jpg": "File:The Boulevard Montmartre on a Winter Morning MET DT1906.jpg",
+  "geada.jpg": "File:Camille Pissarro - Gelée blanche, ancienne route d´Ennery, Pontoise - 1873.jpg",
+  "sao-tomas.jpg": "File:Deux femmes causant au bord de la mer, Saint Thomas (Camille Pissarro) – NGA 1985.64.30.jpg",
+  "telhados.jpg": "File:Camille Pissarro - Red roofs, corner of a village, winter - Google Art Project.jpg",
+  "macas.jpg": "File:Camille Pissarro - Apple Harvest - 1955.17.M - Dallas Museum of Art.jpg",
+  "noite.jpg": "File:Camille Pissarro - Boulevard Montmartre at Night - c 1897 - National Gallery UK.jpg"
+ }
+}

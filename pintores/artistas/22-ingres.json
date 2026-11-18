@@ -1,0 +1,276 @@
+{
+ "pos": 22,
+ "chave": "ingres",
+ "nome": "Jean-Auguste-Dominique Ingres",
+ "nome_original": "",
+ "vida": "1780–1867",
+ "origem": "França",
+ "cor": "#5B2333",
+ "frase": "Defendeu o desenho acima de tudo e fez, a óleo e a lápis, alguns dos retratos mais exatos do século XIX.",
+ "retrato": {
+  "img": "ingres/retrato.jpg",
+  "legenda": "Autorretrato aos 24 anos, 1804 (retocado por volta de 1850). Museu Condé, Chantilly.",
+  "pos": "center 15%"
+ },
+ "abertura": {
+  "img": "ingres/moitessier.jpg",
+  "legenda": "Madame Moitessier, 1856. Óleo sobre tela. National Gallery, Londres.",
+  "pos": "center 15%"
+ },
+ "ficha": [
+  [
+   "Nasceu",
+   "1780, em Montauban, no sul da França"
+  ],
+  [
+   "Morreu",
+   "1867, em Paris, aos 86 anos"
+  ],
+  [
+   "Movimento",
+   "Neoclassicismo"
+  ],
+  [
+   "Técnica",
+   "Óleo sobre tela e retratos a lápis (grafite)"
+  ],
+  [
+   "Obra",
+   "Centenas de pinturas e milhares de desenhos"
+  ],
+  [
+   "Onde ver",
+   "Louvre (Paris), Museu Ingres Bourdelle (Montauban), National Gallery (Londres)"
+  ]
+ ],
+ "vida_titulo": "O pintor que defendia a linha",
+ "vida_txt": [
+  {
+   "t": "O menino do violino",
+   "p": "Ingres nasceu em 1780 em Montauban, no sul da França. O pai era pintor, escultor e músico, e ensinou ao filho as duas artes. Em Toulouse, o menino estudou na Academia de belas-artes e tocou violino na orquestra do teatro. Aos 17 anos foi para Paris estudar com Jacques-Louis David, o pintor mais importante da França. Em 1801 ganhou o Prêmio de Roma, a bolsa mais disputada da época."
+  },
+  {
+   "t": "Dezoito anos na Itália",
+   "p": "Só chegou a Roma em 1806, porque o governo não tinha dinheiro para a viagem. No mesmo ano, seu retrato de Napoleão no trono foi chamado de \"gótico\" pela crítica de Paris. Ingres ficou na Itália estudando Rafael. Quando as encomendas sumiram, depois da queda de Napoleão, viveu de desenhar a lápis o retrato de turistas. Casou-se em Roma com Madeleine Chapelle e só voltou à França em 1824."
+  },
+  {
+   "t": "A linha contra a cor",
+   "p": "No Salão de 1824, O voto de Luís XIII fez sucesso, e Ingres virou o chefe dos clássicos. Do outro lado estava Eugène Delacroix, chefe dos românticos. Ingres defendia o desenho e o contorno; Delacroix, a cor e o movimento. A disputa dividiu a crítica por décadas. Ingres abriu um ateliê com dezenas de alunos e dirigiu a Academia da França em Roma de 1835 a 1841."
+  },
+  {
+   "t": "Pintando até os oitenta",
+   "p": "Nos retratos levava anos: Madame Moitessier, começado em 1844, só ficou pronto em 1856. Viúvo em 1849, casou-se de novo aos 71 anos. A Exposição Universal de 1855 deu-lhe uma sala inteira, e em 1862 ele foi nomeado senador. Terminou O banho turco aos 82 anos. Morreu em Paris em 1867, aos 86, e deixou milhares de desenhos para a cidade onde nasceu."
+  }
+ ],
+ "citacao": {
+  "texto": "O desenho é a honestidade da arte. Desenhar não quer dizer só reproduzir contornos; o desenho não está só no traço: o desenho é também a expressão, a forma interior, o plano, o modelado.",
+  "fonte": "Anotações de Ingres publicadas por Henri Delaborde, 1870"
+ },
+ "vida_fig": {
+  "img": "ingres/paganini.jpg",
+  "legenda": "O violinista Niccolò Paganini, desenhado a lápis por Ingres em Roma, 1819. Museu do Louvre."
+ },
+ "linha": [
+  [
+   1780,
+   "Nasce em Montauban",
+   "vida"
+  ],
+  [
+   1789,
+   "Revolução Francesa",
+   "mundo"
+  ],
+  [
+   1801,
+   "Ganha o Prêmio de Roma",
+   "vida"
+  ],
+  [
+   1808,
+   "A corte portuguesa chega ao Brasil",
+   "mundo"
+  ],
+  [
+   1816,
+   "Missão Artística Francesa chega ao Rio",
+   "mundo"
+  ],
+  [
+   1822,
+   "Independência do Brasil",
+   "mundo"
+  ],
+  [
+   1824,
+   "Sucesso no Salão de Paris",
+   "vida"
+  ],
+  [
+   1850,
+   "Brasil proíbe o tráfico de escravizados",
+   "mundo"
+  ],
+  [
+   1855,
+   "Sala própria na Exposição Universal",
+   "vida"
+  ],
+  [
+   1867,
+   "Morre em Paris, aos 86 anos",
+   "vida"
+  ]
+ ],
+ "foco": {
+  "img": "ingres/apoteose.jpg",
+  "titulo": "A apoteose de Homero",
+  "dados": "1827 · óleo sobre tela · 386 × 512 cm · Museu do Louvre, Paris",
+  "intro": "Homero, o poeta grego da Ilíada e da Odisseia, é coroado diante de um templo, cercado por mais de quarenta artistas e escritores de todas as épocas. Foi pintado para o teto de uma sala do Louvre.",
+  "marcas": [
+   [
+    50,
+    42,
+    "Homero",
+    "O poeta cego, no trono, no centro exato de uma composição simétrica."
+   ],
+   [
+    60,
+    14,
+    "A Vitória",
+    "Uma figura alada desce para pôr a coroa de louros na cabeça de Homero."
+   ],
+   [
+    38,
+    72,
+    "Ilíada e Odisseia",
+    "Os dois poemas viram mulheres sentadas aos pés do autor: uma com espada, outra com remo."
+   ],
+   [
+    9,
+    88,
+    "Os modernos",
+    "Embaixo ficam artistas franceses do século XVII. O pintor Poussin aponta para Homero."
+   ]
+  ]
+ },
+ "sabia": [
+  "Em francês, \"violon d'Ingres\" (o violino de Ingres) quer dizer passatempo, por causa do violino que ele tocou a vida toda.",
+  "Degas contou que, jovem, ouviu de Ingres um conselho: \"Faça linhas, muitas linhas, de memória ou do natural\".",
+  "A Apoteose de Homero ficou no teto do Louvre até 1855. Desceu para a parede, e no teto pôs-se uma cópia."
+ ],
+ "tecnica": {
+  "titulo": "Linha primeiro, cor depois",
+  "intro": "Para Ingres, um quadro nascia do desenho. Antes de pegar o pincel ele resolvia cada figura a lápis, e a pintura guardava o contorno firme e a superfície lisa de uma porcelana.",
+  "passos": [
+   [
+    "Os estudos",
+    "Dezenas de desenhos para um só quadro: a pose inteira, depois uma mão, uma dobra do vestido, um braço."
+   ],
+   [
+    "A pose",
+    "Mudava a posição do modelo até achar a certa. Em Madame Moitessier, a pose da mão foi estudada várias vezes."
+   ],
+   [
+    "O contorno",
+    "Passava o desenho para a tela e mantinha as bordas nítidas. Às vezes alongava um braço ou um pescoço para a linha ficar mais bonita."
+   ],
+   [
+    "A superfície",
+    "Camadas finas, bem misturadas, sem marca de pincel. Tecidos, joias e madeira parecem polidos."
+   ]
+  ],
+  "box_t": "Retratos a lápis em Roma",
+  "box": "Depois de 1815, sem encomendas, Ingres desenhava turistas ingleses e franceses em Roma com grafite sobre papel liso. Rosto acabado com cuidado, roupa em poucas linhas. Fez centenas desses retratos, e hoje eles estão entre os desenhos mais admirados do século XIX.",
+  "paleta": [
+   [
+    "#5B2333",
+    "Vinho"
+   ],
+   [
+    "#E8D9C0",
+    "Pele clara"
+   ],
+   [
+    "#2F3A56",
+    "Azul escuro"
+   ],
+   [
+    "#B08A4A",
+    "Ouro"
+   ],
+   [
+    "#1E1A18",
+    "Preto"
+   ]
+  ]
+ },
+ "obras": [
+  {
+   "img": "ingres/napoleao.jpg",
+   "titulo": "Napoleão I no trono imperial",
+   "ano": "1806",
+   "nota": "Cetro, arminho e ouro: um imperador pintado como um ícone."
+  },
+  {
+   "img": "ingres/bertin.jpg",
+   "titulo": "Louis-François Bertin",
+   "ano": "1832",
+   "nota": "O dono de jornal, mãos nos joelhos, virou o retrato da burguesia."
+  },
+  {
+   "img": "ingres/haussonville.jpg",
+   "titulo": "Condessa d'Haussonville",
+   "ano": "1845",
+   "nota": "O espelho mostra o que a pintura esconde: as costas da condessa."
+  }
+ ],
+ "influenciou": [
+  [
+   "Edgar Degas",
+   21
+  ],
+  [
+   "Pierre-Auguste Renoir",
+   29
+  ],
+  [
+   "Pablo Picasso",
+   null
+  ],
+  [
+   "Henri Matisse",
+   12
+  ]
+ ],
+ "rival": [
+  "Eugène Delacroix",
+  25,
+  "Rival romântico: a cor de Delacroix contra a linha de Ingres."
+ ],
+ "pensar": "Desenhe o rosto de alguém da sua casa só com linhas, sem sombra nenhuma. Depois faça outro, com sombras leves só onde a forma vira. Qual dos dois parece mais com a pessoa?",
+ "palavras": [
+  [
+   "Neoclassicismo",
+   "Estilo do fim do século XVIII e começo do XIX que imitava a Grécia e a Roma antigas: linhas claras, poses calmas."
+  ],
+  [
+   "Grafite",
+   "Mineral de carbono, macio e cinzento, que forma a mina do lápis."
+  ],
+  [
+   "Salão",
+   "A grande exposição oficial de arte de Paris, com júri, que decidia carreiras no século XIX."
+  ]
+ ],
+ "imagens": {
+  "retrato.jpg": "File:Jean-Auguste-Dominique Ingres - Autoportrait à vingt-quatre ans - Google Art Project.jpg",
+  "moitessier.jpg": "File:Dominique Ingres - Mme Moitessier.jpg",
+  "apoteose.jpg": "File:Jean Auguste Dominique Ingres, Apotheosis of Homer, 1827.jpg",
+  "napoleao.jpg": "File:Ingres, Napoleon on his Imperial throne.jpg",
+  "bertin.jpg": "File:Louis-Francois Bertin.jpg",
+  "haussonville.jpg": "File:Jean-Auguste-Dominique Ingres - Comtesse d'Haussonville - Google Art Project.jpg",
+  "paganini.jpg": "File:Portrait du Violoniste Paganini (1819) - Jean A.D. Ingres.png"
+ },
+ "pron": "por ele"
+}

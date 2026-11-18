@@ -1,0 +1,145 @@
+{
+ "pos": 18,
+ "chave": "caravaggio",
+ "nome": "Caravaggio",
+ "nome_original": "",
+ "vida": "1571–1610",
+ "origem": "Itália",
+ "cor": "#6B2A1E",
+ "frase": "Pintou santos com rostos de gente da rua, iluminados por uma luz forte no escuro, e mudou a pintura europeia.",
+ "retrato": {
+  "img": "caravaggio/retrato.jpg",
+  "legenda": "Caravaggio desenhado por Ottavio Leoni, c. 1621. Giz sobre papel. Biblioteca Marucelliana, Florença.",
+  "pos": "center 30%"
+ },
+ "abertura": {
+  "img": "caravaggio/vocacao.jpg",
+  "legenda": "A vocação de São Mateus, 1599–1600. Óleo sobre tela. Igreja de São Luís dos Franceses, Roma.",
+  "pos": "center 40%"
+ },
+ "ficha": [
+  ["Nasceu", "1571, provavelmente em Milão, Itália"],
+  ["Morreu", "1610, em Porto Ercole, Itália, aos 38 anos"],
+  ["Movimento", "Barroco (o começo dele)"],
+  ["Técnica", "Óleo sobre tela, com claro-escuro extremo"],
+  ["Obra", "Menos de cem pinturas aceitas como dele, pelas estimativas"],
+  ["Onde ver", "São Luís dos Franceses (Roma), Galeria Borghese (Roma), National Gallery (Londres)"]
+ ],
+ "vida_titulo": "Luz, sombra e fuga",
+ "vida_txt": [
+  {
+   "t": "Um órfão de Milão",
+   "p": "Michelangelo Merisi nasceu em 1571, provavelmente em Milão. A família vinha de Caravaggio, uma cidadezinha ali perto, e o nome do lugar virou o nome dele. Em 1577 a peste matou seu pai. Aos 12 anos entrou como aprendiz no ateliê do pintor Simone Peterzano, em Milão, onde ficou quatro anos. Por volta de 1592 foi tentar a sorte em Roma, sem dinheiro."
+  },
+  {
+   "t": "Frutas, rapazes e um cardeal",
+   "p": "Em Roma pintou primeiro rapazes com frutas e cenas de rua, como Os trapaceiros. O cardeal Francesco del Monte comprou o quadro e o levou para morar no seu palácio. Em 1600, as telas de São Mateus na igreja de São Luís dos Franceses o deixaram famoso: santos de pés sujos e rostos do povo, saindo de um escuro profundo."
+  },
+  {
+   "t": "A espada e a fuga",
+   "p": "Caravaggio andava armado e brigava muito: os registros da polícia de Roma guardam queixas de agressão, insultos e porte de espada sem licença. Em maio de 1606, numa briga de espadas, matou Ranuccio Tomassoni. Condenado à morte, fugiu para Nápoles e depois para Malta, onde virou cavaleiro da Ordem de São João, até ser preso e expulso."
+  },
+  {
+   "t": "A volta que não houve",
+   "p": "Escapou para a Sicília e voltou a Nápoles, onde foi atacado e ferido no rosto em 1609. Nessa fase pintou cenas cada vez mais escuras e silenciosas. Em 1610 embarcou rumo a Roma, à espera do perdão do papa. Morreu em julho, em Porto Ercole, aos 38 anos, de causa até hoje discutida. Conta-se que o perdão já estava a caminho."
+  }
+ ],
+ "citacao": {
+  "texto": "Para mim, a palavra \"valente\" quer dizer quem sabe fazer bem a sua arte. Um pintor valente é aquele que sabe pintar bem e imitar bem as coisas naturais.",
+  "fonte": "Depoimento num processo por difamação, Roma, 1603"
+ },
+ "vida_fig": {
+  "img": "caravaggio/trapaceiros.jpg",
+  "legenda": "Os trapaceiros, c. 1594. Um rapaz ingênuo e dois espertos que o enganam no jogo. Kimbell Art Museum, Texas."
+ },
+ "linha": [
+  [1571, "Nasce, provavelmente em Milão", "vida"],
+  [1580, "Brasil passa à coroa espanhola", "mundo"],
+  [1584, "Aprendiz de Peterzano em Milão", "vida"],
+  [1588, "Espanha perde a Invencível Armada", "mundo"],
+  [1599, "Começa as telas de São Mateus", "vida"],
+  [1600, "Giordano Bruno é queimado em Roma", "mundo"],
+  [1605, "Sai o Dom Quixote", "mundo"],
+  [1606, "Mata um homem e foge", "vida"],
+  [1609, "Galileu aponta o telescópio ao céu", "mundo"],
+  [1610, "Morre em Porto Ercole", "vida"]
+ ],
+ "foco": {
+  "img": "caravaggio/emaus.jpg",
+  "titulo": "A ceia em Emaús",
+  "dados": "1601 · óleo sobre tela · 141 × 196,2 cm · National Gallery, Londres",
+  "intro": "Dois discípulos jantam com um viajante e só o reconhecem quando ele abençoa o pão: é Jesus, depois da ressurreição. Caravaggio pinta o segundo exato da surpresa.",
+  "marcas": [
+   [50, 35, "Jesus sem barba", "Aparece jovem e sem barba, diferente de quase todas as imagens dele."],
+   [80, 40, "Braços abertos", "Com a concha dos peregrinos no peito, o discípulo abre os braços; a mão da frente parece sair do quadro."],
+   [20, 50, "A cadeira", "O outro agarra a cadeira, a ponto de se levantar."],
+   [28, 70, "A cesta", "Na beira da mesa, quase caindo para o nosso lado. A fruta já começa a passar."]
+  ]
+ },
+ "sabia": [
+  "Não se conhece nenhum desenho de Caravaggio. Tudo indica que ele pintava direto na tela, olhando o modelo.",
+  "Recusada pela igreja que a encomendou, A morte da Virgem foi comprada pelo duque de Mântua em 1607, por conselho de Rubens.",
+  "Até a chegada do euro, o rosto de Caravaggio desenhado por Leoni estava na nota de 100 mil liras da Itália."
+ ],
+ "tecnica": {
+  "titulo": "Claro-escuro e tenebrismo",
+  "intro": "Claro-escuro é dar volume com luz e sombra. Caravaggio levou isso ao extremo: fundo quase preto e uma luz forte, vinda de um lado só. Esse exagero ganhou o nome de tenebrismo.",
+  "passos": [
+   ["O quarto escuro", "Segundo os primeiros biógrafos, pintava num quarto de paredes escuras, com uma só luz alta caindo sobre o modelo."],
+   ["O modelo vivo", "Gente da rua posava de santo e de apóstolo. Ele pintava olhando para ela, sem desenho no papel."],
+   ["Riscos na tela", "Marcava as posições com riscos feitos com o cabo do pincel na preparação ainda mole. Os exames técnicos mostram esses sulcos."],
+   ["Escuro primeiro", "Partia de uma base escura e a deixava aparecer como sombra. Só as partes iluminadas recebiam tinta grossa."]
+  ],
+  "box_t": "Os caravaggistas",
+  "box": "Em poucos anos, pintores de toda a Europa imitavam essa luz, em Roma, em Nápoles, em Utrecht e em Sevilha. Artemisia Gentileschi, Rubens, Velázquez e Rembrandt aprenderam com ela. Os historiadores chamam esses seguidores de caravaggistas.",
+  "paleta": [
+   ["#1C1712", "Fundo escuro"],
+   ["#D9B48A", "Pele na luz"],
+   ["#8C2A1F", "Vermelho"],
+   ["#4E5A3A", "Verde"],
+   ["#E6DDC8", "Toalha"]
+  ]
+ },
+ "obras": [
+  {
+   "img": "caravaggio/cesto.jpg",
+   "titulo": "Cesto de frutas",
+   "ano": "c. 1597–1600",
+   "nota": "Folhas secas e uma maçã furada: até a natureza-morta mostra o tempo."
+  },
+  {
+   "img": "caravaggio/conversao.jpg",
+   "titulo": "A conversão de São Paulo",
+   "ano": "1601",
+   "nota": "Paulo cai do cavalo, cego de luz. O cavalo ocupa metade do quadro."
+  },
+  {
+   "img": "caravaggio/sepultamento.jpg",
+   "titulo": "O sepultamento de Cristo",
+   "ano": "1603–1604",
+   "nota": "O corpo é baixado ao túmulo sobre uma pedra que avança para nós."
+  }
+ ],
+ "influenciou": [
+  ["Artemisia Gentileschi", 39],
+  ["Peter Paul Rubens", 14],
+  ["Diego Velázquez", 8],
+  ["Rembrandt", 4]
+ ],
+ "pensar": "Num quarto escuro, ilumine uma fruta ou o rosto de alguém com uma só lanterna, de um lado. Desenhe em papel escuro só as partes claras, com lápis branco. O que some na sombra?",
+ "palavras": [
+  ["Claro-escuro", "Contraste entre luz e sombra usado para dar volume às figuras."],
+  ["Tenebrismo", "Claro-escuro extremo: fundo quase preto e uma luz forte que recorta as figuras, como um holofote."],
+  ["Barroco", "Estilo europeu do século XVII, cheio de movimento, emoção e contraste."]
+ ],
+ "imagens": {
+  "retrato.jpg": "File:Ritratto di Caravaggio (Ottavio Leoni).jpg",
+  "vocacao.jpg": "File:The Calling of Saint Matthew-Caravaggo (1599-1600).jpg",
+  "emaus.jpg": "File:Supper at Emmaus-Caravaggio (1601).jpg",
+  "trapaceiros.jpg": "File:Caravaggio (Michelangelo Merisi) - The Cardsharps - Google Art Project.jpg",
+  "cesto.jpg": "File:Basket of Fruit-Caravaggio (c.1595).jpg",
+  "conversao.jpg": "File:Conversion on the Way to Damascus-Caravaggio (c.1600-1).jpg",
+  "sepultamento.jpg": "File:The Entombment of Christ-Caravaggio (c.1602-3).jpg"
+ },
+ "pron": "por ele"
+}

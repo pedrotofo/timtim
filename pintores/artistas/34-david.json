@@ -1,0 +1,276 @@
+{
+ "pos": 34,
+ "chave": "david",
+ "nome": "Jacques-Louis David",
+ "nome_original": "",
+ "vida": "1748–1825",
+ "origem": "França",
+ "cor": "#8E2A20",
+ "pron": "por ele",
+ "frase": "Pintou a Roma antiga como lição de coragem, viveu a Revolução Francesa por dentro e acabou pintor de Napoleão.",
+ "retrato": {
+  "img": "david/retrato.jpg",
+  "legenda": "Autorretrato pintado na prisão, 1794. Óleo sobre tela. Museu do Louvre, Paris.",
+  "pos": "center 25%"
+ },
+ "abertura": {
+  "img": "david/sagracao.jpg",
+  "legenda": "A sagração de Napoleão, 1805–1807. Óleo sobre tela, 621 × 979 cm. Museu do Louvre, Paris.",
+  "pos": "center 40%"
+ },
+ "ficha": [
+  [
+   "Nasceu",
+   "1748, em Paris, França"
+  ],
+  [
+   "Morreu",
+   "1825, exilado em Bruxelas, Bélgica, aos 77 anos"
+  ],
+  [
+   "Movimento",
+   "Neoclassicismo"
+  ],
+  [
+   "Técnica",
+   "Óleo sobre tela, a partir de muitos desenhos de modelo vivo"
+  ],
+  [
+   "Obra",
+   "Cerca de cem pinturas e mais de mil desenhos, pelas estimativas"
+  ],
+  [
+   "Onde ver",
+   "Louvre (Paris), Museus Reais de Belas-Artes (Bruxelas), Metropolitan (Nova York)"
+  ]
+ ],
+ "vida_titulo": "O pintor de três governos",
+ "vida_txt": [
+  {
+   "t": "O caminho até Roma",
+   "p": "Jacques-Louis David nasceu em Paris em 1748. O pai morreu num duelo quando ele tinha nove anos, e os tios o criaram. Por indicação do pintor François Boucher, parente da família, foi estudar com Joseph-Marie Vien. Tentou quatro vezes o Prêmio de Roma, a bolsa mais disputada da Academia. Ganhou em 1774 e passou cinco anos em Roma desenhando estátuas e relevos antigos."
+  },
+  {
+   "t": "Um quadro-manifesto",
+   "p": "Em 1784 voltou a Roma para pintar uma encomenda do rei Luís XVI: O juramento dos Horácios. Exposto no Salão de Paris de 1785, o quadro causou sensação. Contra os enfeites delicados do rococó, David oferecia figuras firmes como estátuas, cenário limpo e uma história de dever com a pátria. Os jovens pintores correram para o seu ateliê, que virou o mais procurado da França."
+  },
+  {
+   "t": "Na Revolução",
+   "p": "Com a Revolução de 1789, David entrou para a política. Foi eleito deputado em 1792 e, em 1793, votou pela morte de Luís XVI, o mesmo rei que lhe encomendara os Horácios. Organizou as grandes festas revolucionárias e pintou A morte de Marat. Quando Robespierre caiu, em 1794, David foi preso. Na cadeia, pintou o próprio retrato e a única paisagem de sua carreira."
+  },
+  {
+   "t": "Napoleão e o exílio",
+   "p": "Solto, David passou a admirar um general jovem, Napoleão Bonaparte. Pintou-o atravessando os Alpes e, entre 1805 e 1807, registrou a sua coroação numa tela de quase dez metros. Com a volta dos reis Bourbon, os que tinham votado pela morte de Luís XVI foram expulsos da França. Em 1816 David foi para Bruxelas, onde continuou pintando e ensinando. Morreu lá em 1825."
+  }
+ ],
+ "citacao": {
+  "texto": "O povo pedia de volta o seu amigo; sua voz aflita se fazia ouvir: \"David, pega teus pincéis, vinga o nosso amigo, vinga Marat.\" Eu ouvi a voz do povo, eu obedeci.",
+  "fonte": "Discurso à Convenção Nacional ao oferecer A morte de Marat, novembro de 1793"
+ },
+ "vida_fig": {
+  "img": "david/maria-antonieta.jpg",
+  "legenda": "Maria Antonieta a caminho da guilhotina, 16 de outubro de 1793. Esboço a pena de David. Museu do Louvre."
+ },
+ "linha": [
+  [
+   1748,
+   "Nasce em Paris",
+   "vida"
+  ],
+  [
+   1774,
+   "Ganha o Prêmio de Roma",
+   "vida"
+  ],
+  [
+   1785,
+   "Os Horácios no Salão de Paris",
+   "vida"
+  ],
+  [
+   1789,
+   "Revolução Francesa",
+   "mundo"
+  ],
+  [
+   1792,
+   "Tiradentes é executado no Rio",
+   "mundo"
+  ],
+  [
+   1793,
+   "Pinta A morte de Marat",
+   "vida"
+  ],
+  [
+   1808,
+   "A corte portuguesa chega ao Brasil",
+   "mundo"
+  ],
+  [
+   1816,
+   "Missão Artística Francesa chega ao Rio",
+   "mundo"
+  ],
+  [
+   1822,
+   "Independência do Brasil",
+   "mundo"
+  ],
+  [
+   1825,
+   "Morre exilado em Bruxelas",
+   "vida"
+  ]
+ ],
+ "foco": {
+  "img": "david/horacios.jpg",
+  "titulo": "O juramento dos Horácios",
+  "dados": "1784 · óleo sobre tela · 330 × 425 cm · Museu do Louvre, Paris",
+  "intro": "Roma antiga, em guerra com a cidade de Alba. Três irmãos Horácios juram ao pai lutar até a morte contra três irmãos de Alba, os Curiácios. À direita, as mulheres da família choram: elas estão ligadas aos dois lados.",
+  "marcas": [
+   [
+    22,
+    50,
+    "Os três irmãos",
+    "Os corpos formam uma só cunha, com os braços esticados."
+   ],
+   [
+    52,
+    42,
+    "As espadas",
+    "O pai ergue as três espadas bem no centro do quadro, para os filhos jurarem."
+   ],
+   [
+    78,
+    65,
+    "As mulheres",
+    "Curvas, contra as linhas retas dos homens: a dor da família."
+   ],
+   [
+    50,
+    15,
+    "Os três arcos",
+    "Fundo simples, dividido em três, como três atos de teatro."
+   ]
+  ]
+ },
+ "sabia": [
+  "Jean-Baptiste Debret, aluno e parente de David, chegou ao Rio em 1816 com a Missão Artística Francesa.",
+  "A França não deixou o corpo de David voltar: só o coração está em Paris, no cemitério Père-Lachaise.",
+  "Um ferimento de espada na juventude deixou David com um inchaço na bochecha que atrapalhava sua fala."
+ ],
+ "tecnica": {
+  "titulo": "Montar uma cena antiga",
+  "intro": "David compunha os quadros como um escultor arma um relevo. Estudava cada corpo, cada gesto e cada dobra de roupa antes de chegar à tela grande.",
+  "passos": [
+   [
+    "Modelo vivo",
+    "Desenhava modelos posando, primeiro sem roupa, para acertar a anatomia, e só depois vestidos."
+   ],
+   [
+    "Objetos antigos",
+    "Copiava capacetes, móveis e armas dos relevos romanos que desenhara nos cadernos de Roma."
+   ],
+   [
+    "Figuras em friso",
+    "Arrumava as figuras numa faixa, como num relevo antigo, com fundo simples e luz vinda de um lado."
+   ],
+   [
+    "Pintura lisa",
+    "Pinceladas quase invisíveis e contornos nítidos. Nas telas grandes, alunos ajudavam nas partes secundárias."
+   ]
+  ],
+  "box_t": "Um ateliê cheio de alunos",
+  "box": "David formou dezenas de pintores, vindos de toda a Europa: Gros, Girodet, Gérard, Ingres. Ensinava a desenhar com precisão a partir do modelo vivo e das estátuas antigas. Assim o neoclassicismo se espalhou pelas academias de arte, inclusive a do Rio de Janeiro, fundada por artistas franceses.",
+  "paleta": [
+   [
+    "#9C2A20",
+    "Vermelho"
+   ],
+   [
+    "#E3D8C3",
+    "Branco"
+   ],
+   [
+    "#B38A4A",
+    "Ocre"
+   ],
+   [
+    "#4C5A6A",
+    "Azul-cinza"
+   ],
+   [
+    "#2C2620",
+    "Sombra"
+   ]
+  ]
+ },
+ "obras": [
+  {
+   "img": "david/marat.jpg",
+   "titulo": "A morte de Marat",
+   "ano": "1793",
+   "nota": "O líder revolucionário assassinado na banheira, pintado como um mártir."
+  },
+  {
+   "img": "david/alpes.jpg",
+   "titulo": "Napoleão atravessando os Alpes",
+   "ano": "1801",
+   "nota": "Cavalo empinado e vento forte; na verdade, ele cruzou numa mula."
+  },
+  {
+   "img": "david/lavoisier.jpg",
+   "titulo": "Antoine Lavoisier e sua mulher",
+   "ano": "1788",
+   "nota": "O químico e Marie-Anne, que estudou desenho com David."
+  }
+ ],
+ "influenciou": [
+  [
+   "Jean-Auguste-Dominique Ingres",
+   22
+  ],
+  [
+   "Antoine-Jean Gros",
+   null
+  ],
+  [
+   "François Gérard",
+   null
+  ],
+  [
+   "Jean-Baptiste Debret",
+   null
+  ]
+ ],
+ "rival": [
+  "Francisco de Goya",
+  11,
+  "Contemporâneo: também viveu as guerras de Napoleão, mas pintou suas vítimas."
+ ],
+ "pensar": "Escolha uma cena de coragem ou de despedida e desenhe só três ou quatro figuras em fila, como num friso. Use os braços para apontar a ação. Para onde o olho de quem vê vai primeiro?",
+ "palavras": [
+  [
+   "Neoclassicismo",
+   "Estilo do fim do século XVIII que imitava a arte grega e romana, com formas claras e temas de virtude."
+  ],
+  [
+   "Prêmio de Roma",
+   "Concurso da Academia francesa: o vencedor ganhava anos de estudo em Roma, pagos pelo rei."
+  ],
+  [
+   "Friso",
+   "Faixa decorada com figuras em fila, como nos relevos dos templos antigos."
+  ]
+ ],
+ "imagens": {
+  "retrato.jpg": "File:Jacques-Louis David - Self-portrait, 1794.jpg",
+  "sagracao.jpg": "File:Jacques-Louis David - The Coronation of Napoleon (1805-1807).jpg",
+  "horacios.jpg": "File:\"Oath of the Horatii\" by Jacques-Louis David.jpg",
+  "maria-antonieta.jpg": "File:Jacques-Louis David - Marie Antoinette on the Way to the Guillotine.jpg",
+  "marat.jpg": "File:Death of Marat by David.jpg",
+  "alpes.jpg": "File:David - Napoleon crossing the Alps - Malmaison2.jpg",
+  "lavoisier.jpg": "File:Antoine-Laurent Lavoisier (1743–1794) and His Wife (Marie-Anne-Pierrette Paulze, 1758–1836) MET DT1992.jpg"
+ }
+}

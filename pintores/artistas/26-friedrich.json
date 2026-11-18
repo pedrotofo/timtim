@@ -1,0 +1,268 @@
+{
+ "pos": 26,
+ "chave": "friedrich",
+ "nome": "Caspar David Friedrich",
+ "nome_original": "",
+ "vida": "1774–1840",
+ "origem": "Alemanha",
+ "cor": "#2F4A5E",
+ "frase": "Pintou montanhas, mares e ruínas com figuras de costas, e transformou a paisagem num lugar para pensar na vida e na morte.",
+ "retrato": {
+  "img": "friedrich/retrato.jpg",
+  "legenda": "Autorretrato, c. 1810. Giz sobre papel. Kupferstichkabinett, Berlim.",
+  "pos": "center 30%"
+ },
+ "abertura": {
+  "img": "friedrich/viajante.jpg",
+  "legenda": "Viajante sobre o mar de névoa, c. 1817. Óleo sobre tela. Hamburger Kunsthalle, Hamburgo.",
+  "pos": "center 30%"
+ },
+ "ficha": [
+  [
+   "Nasceu",
+   "1774, em Greifswald, na Pomerânia, então sueca"
+  ],
+  [
+   "Morreu",
+   "1840, em Dresden, Alemanha, aos 65 anos"
+  ],
+  [
+   "Movimento",
+   "Romantismo"
+  ],
+  [
+   "Técnica",
+   "Óleo sobre tela, sépia e desenho a lápis"
+  ],
+  [
+   "Obra",
+   "Algumas centenas de pinturas, sépias e desenhos"
+  ],
+  [
+   "Onde ver",
+   "Alte Nationalgalerie (Berlim), Albertinum (Dresden), Kunsthalle (Hamburgo)"
+  ]
+ ],
+ "vida_titulo": "O pintor das figuras de costas",
+ "vida_txt": [
+  {
+   "t": "Um menino do Báltico",
+   "p": "Friedrich nasceu em 1774 em Greifswald, cidade do mar Báltico que então pertencia à Suécia. O pai fabricava velas e sabão. A infância foi marcada por mortes: perdeu a mãe aos sete anos e, aos treze, viu o irmão Johann Christoffer se afogar no gelo, segundo a tradição ao tentar salvá-lo. Estudou desenho em Greifswald e, depois, na Academia de Copenhague."
+  },
+  {
+   "t": "Dresden e as caminhadas",
+   "p": "Em 1798 mudou-se para Dresden, onde viveu até morrer. Fazia longas caminhadas pela ilha de Rügen, pelas montanhas do Harz e pelos rochedos do vale do Elba, desenhando árvores, pedras e nuvens a lápis, com a data anotada. No ateliê, juntava esses desenhos em paisagens que nunca existiram daquele jeito. Só passou a pintar a óleo com mais de trinta anos."
+  },
+  {
+   "t": "Fama em Berlim",
+   "p": "Em 1810 expôs em Berlim O monge à beira-mar e A abadia no carvalhal. O príncipe herdeiro da Prússia, ainda adolescente, pediu ao pai, o rei, que comprasse os dois, e Friedrich virou membro da Academia de Berlim. Em 1818 casou-se com Caroline Bommer, bem mais jovem, e a levou à ilha de Rügen. O casal teve três filhos."
+  },
+  {
+   "t": "Esquecido e redescoberto",
+   "p": "O gosto mudou, e suas paisagens silenciosas saíram de moda. Em 1835 sofreu um derrame e quase não conseguiu mais pintar a óleo. Morreu pobre em Dresden em 1840. Ficou esquecido até 1906, quando uma grande exposição em Berlim o trouxe de volta. Hoje o Viajante sobre o mar de névoa é uma das imagens mais conhecidas da pintura alemã."
+  }
+ ],
+ "citacao": {
+  "texto": "O pintor não deve pintar só o que vê diante de si, mas também o que vê dentro de si. Se não vê nada dentro de si, que deixe também de pintar o que vê diante de si.",
+  "fonte": "Anotações sobre uma coleção de pinturas, c. 1830"
+ },
+ "vida_fig": {
+  "img": "friedrich/atelie.jpg",
+  "legenda": "Friedrich no ateliê, pintado pelo amigo Georg Friedrich Kersting, c. 1812. Alte Nationalgalerie, Berlim."
+ },
+ "linha": [
+  [
+   1774,
+   "Nasce em Greifswald",
+   "vida"
+  ],
+  [
+   1789,
+   "Revolução Francesa",
+   "mundo"
+  ],
+  [
+   1798,
+   "Muda-se para Dresden",
+   "vida"
+  ],
+  [
+   1806,
+   "Napoleão ocupa Berlim",
+   "mundo"
+  ],
+  [
+   1808,
+   "A corte portuguesa chega ao Brasil",
+   "mundo"
+  ],
+  [
+   1810,
+   "Expõe O monge à beira-mar",
+   "vida"
+  ],
+  [
+   1818,
+   "Casa-se com Caroline Bommer",
+   "vida"
+  ],
+  [
+   1822,
+   "Independência do Brasil",
+   "mundo"
+  ],
+  [
+   1839,
+   "A fotografia é apresentada em Paris",
+   "mundo"
+  ],
+  [
+   1840,
+   "Morre em Dresden",
+   "vida"
+  ]
+ ],
+ "foco": {
+  "img": "friedrich/monge.jpg",
+  "titulo": "O monge à beira-mar",
+  "dados": "1808–1810 · óleo sobre tela · 110 × 171,5 cm · Alte Nationalgalerie, Berlim",
+  "intro": "Um monge pequeno, de costas, está numa duna diante de um mar quase negro. Quase todo o quadro é céu. Ninguém tinha pintado uma paisagem tão vazia, e o público de Berlim, em 1810, não sabia o que pensar.",
+  "marcas": [
+   [
+    30,
+    88,
+    "O monge",
+    "Uma figura minúscula, de costas, logo à direita deste número. Olhamos o mar junto com ele, sem ver seu rosto."
+   ],
+   [
+    72,
+    85,
+    "O mar escuro",
+    "Uma faixa estreita, verde quase preta, sem barcos, que se mistura com a névoa no horizonte."
+   ],
+   [
+    50,
+    28,
+    "O céu",
+    "Ocupa quase quatro quintos da tela e clareia de baixo para cima, da névoa escura ao azul."
+   ],
+   [
+    86,
+    92,
+    "A duna",
+    "Uma faixa de areia clara e curva, sem árvore nem casa: o único chão do quadro."
+   ]
+  ]
+ },
+ "sabia": [
+  "Exames feitos na restauração terminada em 2016 confirmaram que Friedrich tinha pintado dois barcos no mar e depois os cobriu.",
+  "O escritor Heinrich von Kleist publicou em 1810 que, diante deste quadro, era como se tivessem cortado as pálpebras de quem olha.",
+  "O monge e A abadia no carvalhal foram expostos juntos como par e continuam lado a lado no mesmo museu de Berlim."
+ ],
+ "tecnica": {
+  "titulo": "Paisagens montadas no ateliê",
+  "intro": "Friedrich não pintava diante da natureza. Desenhava ao ar livre e, no ateliê, montava as paisagens com peças de lugares diferentes, pensando no que o quadro devia fazer sentir.",
+  "passos": [
+   [
+    "Desenho ao ar livre",
+    "A lápis, desenhava uma árvore, uma rocha, um barco, com a data e às vezes o lugar anotados."
+   ],
+   [
+    "Montagem",
+    "No ateliê, juntava desenhos de anos e lugares diferentes, como montanhas da Boêmia atrás de rochas da Saxônia."
+   ],
+   [
+    "Linhas na tela",
+    "Passava a composição para a tela a lápis, com régua, marcando o horizonte e as linhas principais."
+   ],
+   [
+    "Véus de tinta",
+    "Pintava com tinta rala, em camadas finas e lisas, sem pincelada aparente."
+   ]
+  ],
+  "box_t": "Um ateliê vazio",
+  "box": "O amigo Georg Friedrich Kersting pintou Friedrich trabalhando num quarto quase vazio: o cavalete, uma cadeira, uma mesa, réguas na parede e uma única janela de onde vem a luz. Visitantes da época também contaram que o ateliê era assim, sem nada que distraísse o pintor.",
+  "paleta": [
+   [
+    "#1E2A33",
+    "Mar"
+   ],
+   [
+    "#9DB1BE",
+    "Céu"
+   ],
+   [
+    "#6E7378",
+    "Névoa"
+   ],
+   [
+    "#C9BFA6",
+    "Areia"
+   ],
+   [
+    "#3B3328",
+    "Terra"
+   ]
+  ]
+ },
+ "obras": [
+  {
+   "img": "friedrich/mar-de-gelo.jpg",
+   "titulo": "O mar de gelo",
+   "ano": "1823–1824",
+   "nota": "Placas de gelo empilhadas engolem um navio. Não foi vendido em vida."
+  },
+  {
+   "img": "friedrich/abadia.jpg",
+   "titulo": "A abadia no carvalhal",
+   "ano": "1809–1810",
+   "nota": "Monges levam um caixão entre ruínas e carvalhos sem folhas; par do Monge."
+  },
+  {
+   "img": "friedrich/lua.jpg",
+   "titulo": "Dois homens contemplando a lua",
+   "ano": "1819–1820",
+   "nota": "Dois amigos, de costas, olham a lua nascer entre as árvores."
+  }
+ ],
+ "influenciou": [
+  [
+   "Carl Gustav Carus",
+   null
+  ],
+  [
+   "Ernst Ferdinand Oehme",
+   null
+  ]
+ ],
+ "rival": [
+  "Eugène Delacroix",
+  25,
+  "Romântico também, mas francês: trocou o silêncio pela ação e pela cor."
+ ],
+ "pensar": "Desenhe uma paisagem grande com uma pessoa pequena, de costas, olhando para ela. Não mostre o rosto. Como quem olha o desenho sabe o que ela sente? Depois desenhe a mesma cena sem ninguém.",
+ "palavras": [
+  [
+   "Romantismo",
+   "Movimento do começo do século XIX que dava mais valor ao sentimento e à natureza do que às regras."
+  ],
+  [
+   "Figura de costas",
+   "Personagem visto por trás, que olha a paisagem junto com a gente; marca de Friedrich."
+  ],
+  [
+   "Sublime",
+   "Mistura de admiração e medo diante de algo enorme, como uma tempestade ou o mar aberto."
+  ]
+ ],
+ "imagens": {
+  "retrato.jpg": "File:Friedrich, Caspar David - Self-portrait - ca. 1810 SMB.jpg",
+  "viajante.jpg": "File:Caspar David Friedrich - Wanderer above the Sea of Fog.jpeg",
+  "monge.jpg": "File:Caspar David Friedrich - Der Mönch am Meer - Google Art Project.jpg",
+  "atelie.jpg": "File:Georg Friedrich Kersting - Caspar David Friedrich in seinem Atelier (um 1812).jpg",
+  "mar-de-gelo.jpg": "File:Caspar David Friedrich - Das Eismeer - Hamburger Kunsthalle - 02.jpg",
+  "abadia.jpg": "File:Caspar David Friedrich - Abtei im Eichwald - Google Art Project.jpg",
+  "lua.jpg": "File:Caspar David Friedrich - Two Men Contemplating the Moon - Google Art Project.jpg"
+ },
+ "pron": "por ele"
+}

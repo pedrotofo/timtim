@@ -1,0 +1,272 @@
+{
+ "pos": 30,
+ "chave": "munch",
+ "nome": "Edvard Munch",
+ "nome_original": "",
+ "vida": "1863–1944",
+ "origem": "Noruega",
+ "cor": "#34506E",
+ "pron": "por ele",
+ "frase": "Pintou o medo, a doença, o amor e a solidão, e transformou um grito numa das imagens mais conhecidas do mundo.",
+ "retrato": {
+  "img": "munch/retrato.jpg",
+  "legenda": "Autorretrato com cigarro, 1895. Óleo sobre tela. Museu Nacional, Oslo.",
+  "pos": "center 25%"
+ },
+ "abertura": {
+  "img": "munch/sol.jpg",
+  "legenda": "O Sol, 1911–1916. Óleo sobre tela. Aula da Universidade de Oslo.",
+  "pos": "center 45%"
+ },
+ "ficha": [
+  [
+   "Nasceu",
+   "1863, em Løten, na Noruega"
+  ],
+  [
+   "Morreu",
+   "1944, em Ekely, perto de Oslo, aos 80 anos"
+  ],
+  [
+   "Movimento",
+   "Simbolismo; precursor do expressionismo"
+  ],
+  [
+   "Técnica",
+   "Óleo, têmpera, pastel, litografia e xilogravura"
+  ],
+  [
+   "Obra",
+   "Deixou a Oslo cerca de 1.100 pinturas e 18 mil gravuras"
+  ],
+  [
+   "Onde ver",
+   "Museu Munch (Oslo), Museu Nacional (Oslo), Museu KODE (Bergen)"
+  ]
+ ],
+ "vida_titulo": "Pintar o que se sente",
+ "vida_txt": [
+  {
+   "t": "Uma casa de doentes",
+   "p": "Edvard Munch nasceu em 1863 em Løten, na Noruega, e cresceu em Kristiania, a atual Oslo. O pai era médico do exército. A mãe morreu de tuberculose quando ele tinha cinco anos; a irmã Sophie, da mesma doença, quando ele tinha treze. Munch também foi um menino doente. Anotou mais tarde que a doença, a loucura e a morte foram os anjos negros do seu berço."
+  },
+  {
+   "t": "Paris e Berlim",
+   "p": "Em 1880 largou a escola de engenharia para ser pintor. Em 1886 expôs A criança doente, lembrança da irmã, e os críticos acharam o quadro malfeito e inacabado. Uma bolsa do governo o levou a Paris em 1889, onde conheceu de perto a pintura nova dos impressionistas e dos simbolistas. Em 1892, uma exposição sua em Berlim causou tanto escândalo que foi fechada em uma semana."
+  },
+  {
+   "t": "O Friso da Vida",
+   "p": "O escândalo o deixou famoso na Alemanha, onde viveu boa parte dos anos seguintes. Munch começou então uma série de quadros sobre o amor, a angústia e a morte, que chamou de Friso da Vida. O Grito, de 1893, faz parte dela. Para espalhar suas imagens, aprendeu litografia e xilogravura e repetiu os mesmos temas muitas vezes, em versões diferentes."
+  },
+  {
+   "t": "Ekely, o refúgio",
+   "p": "Em 1908, depois de anos de bebida e brigas, teve uma crise nervosa e passou oito meses numa clínica em Copenhague. Voltou à Noruega mais calmo e pintou grandes murais para a Universidade de Oslo. Em 1916 comprou a propriedade de Ekely, perto da cidade, onde viveu sozinho, pintando, até morrer, em 1944. Deixou toda a sua obra para a cidade de Oslo."
+  }
+ ],
+ "citacao": {
+  "texto": "Eu ia pela estrada com dois amigos. O sol se pôs, e o céu de repente ficou vermelho como sangue. Parei, apoiei-me na cerca, morto de cansaço. Meus amigos seguiram; eu fiquei ali, tremendo de angústia, e senti um grito enorme e infinito atravessar a natureza.",
+  "fonte": "Anotação no diário, Nice, 22 de janeiro de 1892"
+ },
+ "vida_fig": {
+  "img": "munch/autorretrato-lito.jpg",
+  "legenda": "Autorretrato, 1895. Litografia. Embaixo, um braço de esqueleto lembra a morte."
+ },
+ "linha": [
+  [
+   1863,
+   "Nasce em Løten",
+   "vida"
+  ],
+  [
+   1886,
+   "Expõe A criança doente",
+   "vida"
+  ],
+  [
+   1888,
+   "Lei Áurea abole a escravidão",
+   "mundo"
+  ],
+  [
+   1889,
+   "Proclamação da República no Brasil",
+   "mundo"
+  ],
+  [
+   1893,
+   "Pinta O Grito",
+   "vida"
+  ],
+  [
+   1905,
+   "Noruega se separa da Suécia",
+   "mundo"
+  ],
+  [
+   1908,
+   "Internado numa clínica em Copenhague",
+   "vida"
+  ],
+  [
+   1914,
+   "Começa a Primeira Guerra Mundial",
+   "mundo"
+  ],
+  [
+   1940,
+   "Alemanha invade a Noruega",
+   "mundo"
+  ],
+  [
+   1944,
+   "Morre em Ekely, aos 80 anos",
+   "vida"
+  ]
+ ],
+ "foco": {
+  "img": "munch/grito.jpg",
+  "titulo": "O Grito",
+  "dados": "1893 · têmpera e giz de cera sobre papelão · 91 × 73,5 cm · Museu Nacional, Oslo",
+  "intro": "Uma figura para numa estrada sobre o fiorde de Kristiania, ao pôr do sol, e tapa os ouvidos. Munch não pintou uma paisagem, mas a lembrança de uma crise de angústia. Fez várias versões, em pintura, pastel e litografia.",
+  "marcas": [
+   [
+    45,
+    70,
+    "A figura",
+    "Sem cabelo, sem nariz, quase uma caveira: o corpo todo se torce com o grito."
+   ],
+   [
+    50,
+    15,
+    "O céu",
+    "Faixas de laranja e vermelho ondulam como se o próprio ar gritasse."
+   ],
+   [
+    20,
+    45,
+    "Os amigos",
+    "Dois homens seguem pela ponte, sem perceber nada."
+   ],
+   [
+    8,
+    8,
+    "Frase a lápis",
+    "Escrita no céu: \"Só pode ter sido pintado por um louco!\"."
+   ]
+  ]
+ },
+ "sabia": [
+  "Na frase a lápis do Grito de 1893, muitos viram a provocação de um visitante. Em 2021 o Museu Nacional confirmou que a letra é do próprio Munch.",
+  "Duas versões de O Grito foram roubadas em Oslo, uma em 1994 e outra em 2004. As duas foram recuperadas.",
+  "Em 1937 os nazistas tiraram 82 obras de Munch dos museus alemães, chamando-as de \"arte degenerada\"."
+ ],
+ "tecnica": {
+  "titulo": "Imagens que voltam",
+  "intro": "Munch não pintava uma ideia uma vez só. Voltava aos mesmos temas durante décadas, em pintura, desenho e gravura, como quem repete uma lembrança até entendê-la.",
+  "passos": [
+   [
+    "Tinta escorrida",
+    "Usava tinta muito diluída, que escorria, e deixava partes da tela ou do papelão à mostra."
+   ],
+   [
+    "Têmpera e giz",
+    "No Grito de 1893, misturou têmpera e giz de cera sobre papelão, com riscos visíveis."
+   ],
+   [
+    "Litografia",
+    "Em 1895 desenhou O Grito numa pedra litográfica, e a imagem passou a circular em preto e branco."
+   ],
+   [
+    "Madeira em pedaços",
+    "Nas xilogravuras, serrava o bloco em partes, pintava cada uma de uma cor e as montava como quebra-cabeça."
+   ]
+  ],
+  "box_t": "A cura do cavalo",
+  "box": "Em Ekely, Munch deixava muitas telas ao ar livre, no sol, na chuva e na neve, às vezes por meses. Chamava isso de \"cura do cavalo\": o quadro que sobrevivesse ficava mais forte. Por isso algumas obras têm manchas, rachaduras e marcas do tempo.",
+  "paleta": [
+   [
+    "#D9822B",
+    "Laranja"
+   ],
+   [
+    "#B5452A",
+    "Vermelho"
+   ],
+   [
+    "#E3B94A",
+    "Amarelo"
+   ],
+   [
+    "#3D5A7A",
+    "Fiorde"
+   ],
+   [
+    "#56603E",
+    "Verde"
+   ]
+  ]
+ },
+ "obras": [
+  {
+   "img": "munch/crianca.jpg",
+   "titulo": "A criança doente",
+   "ano": "1885–1886",
+   "nota": "A irmã Sophie lembrada anos depois, com a tinta raspada e arranhada."
+  },
+  {
+   "img": "munch/danca.jpg",
+   "titulo": "A dança da vida",
+   "ano": "1899–1900",
+   "nota": "Casais dançam na praia numa noite clara de verão norueguês."
+  },
+  {
+   "img": "munch/ponte.jpg",
+   "titulo": "Moças na ponte",
+   "ano": "1901",
+   "nota": "Três moças no cais de Åsgårdstrand, a cidade de veraneio do pintor."
+  }
+ ],
+ "influenciou": [
+  [
+   "Ernst Ludwig Kirchner",
+   null
+  ],
+  [
+   "Emil Nolde",
+   null
+  ],
+  [
+   "Andy Warhol",
+   null
+  ]
+ ],
+ "rival": [
+  "Paul Gauguin",
+  17,
+  "Suas xilogravuras, com os veios da madeira à mostra, inspiraram as de Munch."
+ ],
+ "pensar": "Pense num momento em que você sentiu muito medo, raiva ou alegria. Desenhe o lugar onde aconteceu, mas troque as cores verdadeiras pelas cores do sentimento. Como ficou o céu?",
+ "palavras": [
+  [
+   "Expressionismo",
+   "Arte que deforma formas e cores para mostrar sentimentos, mais do que a aparência das coisas."
+  ],
+  [
+   "Têmpera",
+   "Tinta de pigmento misturado a um aglutinante como ovo ou cola; seca rápido e fica fosca."
+  ],
+  [
+   "Xilogravura",
+   "Gravura impressa com um bloco de madeira entalhado."
+  ]
+ ],
+ "imagens": {
+  "retrato.jpg": "File:Edvard Munch - Self-Portrait with Cigarette - NG.M.00470 - National Museum of Art, Architecture and Design.jpg",
+  "sol.jpg": "File:Solen av Edvard Munch.jpg",
+  "grito.jpg": "File:Edvard Munch - The Scream - NG.M.00939 - National Museum of Art, Architecture and Design.jpg",
+  "autorretrato-lito.jpg": "File:Edvard Munch - Self-Portrait with Skeleton Arm - Google Art Project.jpg",
+  "crianca.jpg": "File:Edvard Munch - The Sick Child - NG.M.00839 - National Museum of Art, Architecture and Design.jpg",
+  "danca.jpg": "File:Edvard Munch - The Dance of Life - NG.M.00941 - National Museum of Art, Architecture and Design.jpg",
+  "ponte.jpg": "File:Edvard Munch - The Girls on the Bridge - NG.M.00844 - National Museum of Art, Architecture and Design.jpg"
+ }
+}

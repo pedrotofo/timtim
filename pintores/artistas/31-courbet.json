@@ -1,0 +1,276 @@
+{
+ "pos": 31,
+ "chave": "courbet",
+ "nome": "Gustave Courbet",
+ "nome_original": "",
+ "vida": "1819–1877",
+ "origem": "França",
+ "cor": "#4D3B2C",
+ "pron": "por ele",
+ "frase": "Pintou gente comum do tamanho dos heróis e disse que só pintaria o que pudesse ver: foi o chefe do realismo.",
+ "retrato": {
+  "img": "courbet/retrato.jpg",
+  "legenda": "Autorretrato com cachimbo, c. 1849. Óleo sobre tela. Museu Fabre, Montpellier.",
+  "pos": "center 30%"
+ },
+ "abertura": {
+  "img": "courbet/onda.jpg",
+  "legenda": "O mar tempestuoso (A onda), 1870. Óleo sobre tela. Museu d'Orsay, Paris.",
+  "pos": "center 50%"
+ },
+ "ficha": [
+  [
+   "Nasceu",
+   "1819, em Ornans, no leste da França"
+  ],
+  [
+   "Morreu",
+   "1877, exilado em La Tour-de-Peilz, Suíça, aos 58 anos"
+  ],
+  [
+   "Movimento",
+   "Realismo"
+  ],
+  [
+   "Técnica",
+   "Óleo sobre fundo escuro, com pincel e faca de paleta"
+  ],
+  [
+   "Obra",
+   "Mais de mil pinturas, segundo os catálogos, além de desenhos"
+  ],
+  [
+   "Onde ver",
+   "Museu d'Orsay (Paris), Museu Courbet (Ornans), Metropolitan (Nova York)"
+  ]
+ ],
+ "vida_titulo": "Pintar só o que se vê",
+ "vida_txt": [
+  {
+   "t": "Um rapaz do interior",
+   "p": "Gustave Courbet nasceu em 1819 em Ornans, uma cidadezinha entre montanhas e rios no leste da França, filho de fazendeiros ricos. Em 1839 foi para Paris estudar direito, como queria o pai, mas passava os dias pintando. Aprendeu quase sem mestre, copiando no Museu do Louvre os pintores espanhóis e holandeses. Em 1844 o Salão de Paris aceitou um autorretrato seu com um cão preto."
+  },
+  {
+   "t": "O escândalo do enterro",
+   "p": "No Salão de 1850, Courbet mostrou Um enterro em Ornans e Os quebradores de pedra: cenas da vida comum em telas enormes, tamanho reservado até então a heróis, reis e santos. Os críticos acharam tudo feio e grosseiro. Courbet gostou da briga. Em 1855, quando o júri da Exposição Universal recusou duas telas suas, ele construiu um pavilhão próprio ao lado, com a placa: O Realismo."
+  },
+  {
+   "t": "Fama e polêmica",
+   "p": "Nos anos seguintes pintou caçadas, florestas, ondas do mar e retratos de amigos, e passou a vender bem. Gostava de provocar: em 1870 recusou a Legião de Honra oferecida pelo governo do imperador Napoleão III. Durante a Comuna de Paris, em 1871, presidiu a federação dos artistas da cidade. Naqueles dias, os revoltosos derrubaram a Coluna Vendôme, monumento às vitórias do primeiro Napoleão."
+  },
+  {
+   "t": "Exílio na Suíça",
+   "p": "Com o fim da Comuna, Courbet ficou seis meses preso. Em 1873 a justiça o condenou a pagar a reconstrução da coluna, uma fortuna impossível. Ele fugiu para a Suíça e se instalou em La Tour-de-Peilz, à beira do lago Léman. Continuou pintando paisagens, com a ajuda de assistentes. Morreu ali em 31 de dezembro de 1877, aos 58 anos, sem ter pago a dívida."
+  }
+ ],
+ "citacao": {
+  "texto": "Saber para poder, essa foi a minha ideia. Ser capaz de traduzir os costumes, as ideias, o aspecto da minha época, segundo o meu modo de ver; em uma palavra, fazer arte viva: esse é o meu objetivo.",
+  "fonte": "Prefácio do catálogo da exposição O Realismo, Paris, 1855"
+ },
+ "vida_fig": {
+  "img": "courbet/vendome.jpg",
+  "legenda": "A Coluna Vendôme derrubada durante a Comuna de Paris, maio de 1871. Fotografia da época."
+ },
+ "linha": [
+  [
+   1819,
+   "Nasce em Ornans",
+   "vida"
+  ],
+  [
+   1822,
+   "Independência do Brasil",
+   "mundo"
+  ],
+  [
+   1840,
+   "Dom Pedro II assume o trono",
+   "mundo"
+  ],
+  [
+   1848,
+   "Revolução de 1848 na França",
+   "mundo"
+  ],
+  [
+   1850,
+   "Um enterro em Ornans no Salão",
+   "vida"
+  ],
+  [
+   1855,
+   "Monta o Pavilhão do Realismo",
+   "vida"
+  ],
+  [
+   1864,
+   "Começa a Guerra do Paraguai",
+   "mundo"
+  ],
+  [
+   1870,
+   "Guerra entre França e Prússia",
+   "mundo"
+  ],
+  [
+   1871,
+   "Participa da Comuna de Paris",
+   "vida"
+  ],
+  [
+   1877,
+   "Morre exilado na Suíça",
+   "vida"
+  ]
+ ],
+ "foco": {
+  "img": "courbet/enterro.jpg",
+  "titulo": "Um enterro em Ornans",
+  "dados": "1849–1850 · óleo sobre tela · 315 × 668 cm · Museu d'Orsay, Paris",
+  "intro": "Um enterro numa cidadezinha do interior, pintado do tamanho de uma batalha histórica: mais de seis metros de largura. Mais de quarenta moradores de Ornans posaram para Courbet, entre eles a mãe e as irmãs do pintor.",
+  "marcas": [
+   [
+    45,
+    85,
+    "A cova",
+    "O coveiro ajoelhado espera ao lado do buraco aberto, no centro do quadro."
+   ],
+   [
+    55,
+    88,
+    "O cão",
+    "Distraído, olha para o outro lado, como qualquer cachorro num enterro."
+   ],
+   [
+    16,
+    12,
+    "O crucifixo",
+    "Erguido contra o céu cinzento e os paredões de pedra de Ornans."
+   ],
+   [
+    82,
+    55,
+    "As mulheres",
+    "De preto, com lenços no rosto: parentes e vizinhas do pintor."
+   ]
+  ]
+ },
+ "sabia": [
+  "Os quebradores de pedra, um dos quadros mais famosos de Courbet, foi destruído em 1945, no bombardeio de Dresden, na Alemanha. Só restam fotografias.",
+  "Courbet pintou dezenas de ondas em Étretat, na Normandia, onde passou o verão de 1869 olhando o mar.",
+  "Em 1919, centenário de seu nascimento, os restos de Courbet voltaram da Suíça e foram enterrados em Ornans, sua cidade."
+ ],
+ "tecnica": {
+  "titulo": "Do escuro para a luz",
+  "intro": "Courbet aprendeu com os velhos mestres espanhóis e holandeses a pintar sobre fundo escuro. Nas paisagens, gostava de trabalhar com a faca de paleta, como um pedreiro com a colher.",
+  "passos": [
+   [
+    "Fundo escuro",
+    "Cobria a tela com uma camada escura, marrom ou quase preta, antes de começar."
+   ],
+   [
+    "Sombra, depois luz",
+    "Pintava primeiro as massas de sombra e depois acendia as partes claras, por cima."
+   ],
+   [
+    "A faca",
+    "Com a faca de paleta, espalhava tinta grossa em placas, como rocha, neve ou espuma de onda."
+   ],
+   [
+    "Gente de verdade",
+    "Usava vizinhos e parentes como modelos, sem embelezar rostos, roupas nem mãos."
+   ]
+  ],
+  "box_t": "Faca em vez de pincel",
+  "box": "A faca de paleta é uma espátula fina e flexível, feita para misturar tintas. Courbet a usava para pintar: raspava, alisava e deixava marcas que imitavam a textura da pedra e da água. A técnica impressionou os jovens; Cézanne, no começo da carreira, pintou vários quadros com a faca.",
+  "paleta": [
+   [
+    "#1C1A18",
+    "Preto"
+   ],
+   [
+    "#E6E0D2",
+    "Branco"
+   ],
+   [
+    "#9A2B22",
+    "Vermelho"
+   ],
+   [
+    "#9AA3A2",
+    "Céu cinza"
+   ],
+   [
+    "#7A6248",
+    "Terra"
+   ]
+  ]
+ },
+ "obras": [
+  {
+   "img": "courbet/quebradores.jpg",
+   "titulo": "Os quebradores de pedra",
+   "ano": "1849",
+   "nota": "Um velho e um menino quebram pedras na estrada; destruído em 1945."
+  },
+  {
+   "img": "courbet/bom-dia.jpg",
+   "titulo": "Bom dia, senhor Courbet",
+   "ano": "1854",
+   "nota": "O pintor, de mochila nas costas, encontra seu colecionador na estrada."
+  },
+  {
+   "img": "courbet/desesperado.jpg",
+   "titulo": "O homem desesperado",
+   "ano": "c. 1843–1845",
+   "nota": "Autorretrato jovem, com os olhos arregalados e as mãos no cabelo."
+  }
+ ],
+ "influenciou": [
+  [
+   "Édouard Manet",
+   20
+  ],
+  [
+   "Claude Monet",
+   7
+  ],
+  [
+   "Paul Cézanne",
+   9
+  ],
+  [
+   "James McNeill Whistler",
+   null
+  ]
+ ],
+ "rival": [
+  "Eugène Delacroix",
+  25,
+  "Em 1855, o romântico mais velho elogiou no diário O ateliê, recusado pelo júri."
+ ],
+ "pensar": "Desenhe uma cena comum da sua rua ou da sua família (uma fila, um almoço, uma conversa) como se fosse um acontecimento importante, com as pessoas em tamanho grande. O que muda quando o assunto é gente comum?",
+ "palavras": [
+  [
+   "Realismo",
+   "Movimento que, a partir de 1850, pintava a vida de pessoas comuns como ela é, sem embelezar."
+  ],
+  [
+   "Faca de paleta",
+   "Espátula fina de metal usada para misturar tintas; também serve para espalhar tinta grossa na tela."
+  ],
+  [
+   "Comuna de Paris",
+   "Governo revolucionário que tomou Paris de março a maio de 1871 e foi esmagado pelo exército."
+  ]
+ ],
+ "imagens": {
+  "retrato.jpg": "File:Courbet - L'Homme à la pipe, Vers 1849, 868.1.18.jpg",
+  "onda.jpg": "File:La Mer orageuse - Gustave Courbet.jpg",
+  "enterro.jpg": "File:Gustave Courbet - A Burial at Ornans - Google Art Project.jpg",
+  "vendome.jpg": "File:Destruction de la colonne Vendôme, 1871, PH3076.jpg",
+  "quebradores.jpg": "File:Gustave Courbet 018.jpg",
+  "bom-dia.jpg": "File:Courbet - La Rencontre ou Bonjour M.Courbet, 1854, 868.1.23.jpg",
+  "desesperado.jpg": "File:Gustave Courbet - Le Désespéré (1843).jpg"
+ }
+}

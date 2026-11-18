@@ -1,0 +1,276 @@
+{
+ "pos": 36,
+ "chave": "poussin",
+ "nome": "Nicolas Poussin",
+ "nome_original": "",
+ "vida": "1594–1665",
+ "origem": "França",
+ "cor": "#2E4A7A",
+ "pron": "por ele",
+ "frase": "Francês que viveu quase toda a vida em Roma e virou o modelo da pintura clássica: cada figura no lugar exato.",
+ "retrato": {
+  "img": "poussin/retrato.jpg",
+  "legenda": "Autorretrato, 1650. Óleo sobre tela. Museu do Louvre, Paris.",
+  "pos": "center 25%"
+ },
+ "abertura": {
+  "img": "poussin/patmos.jpg",
+  "legenda": "Paisagem com São João em Patmos, 1640. Óleo sobre tela. Art Institute of Chicago.",
+  "pos": "center 45%"
+ },
+ "ficha": [
+  [
+   "Nasceu",
+   "1594, perto de Les Andelys, na Normandia, França"
+  ],
+  [
+   "Morreu",
+   "1665, em Roma, Itália, aos 71 anos"
+  ],
+  [
+   "Movimento",
+   "Classicismo francês, dentro da época barroca"
+  ],
+  [
+   "Técnica",
+   "Óleo sobre tela, com estudos a tinta e figurinhas de cera"
+  ],
+  [
+   "Obra",
+   "Cerca de 200 pinturas e centenas de desenhos, pelas estimativas"
+  ],
+  [
+   "Onde ver",
+   "Louvre (Paris), National Gallery (Londres), Metropolitan (Nova York)"
+  ]
+ ],
+ "vida_titulo": "O francês que escolheu Roma",
+ "vida_txt": [
+  {
+   "t": "Da Normandia a Paris",
+   "p": "Nicolas Poussin nasceu em 1594 perto de Les Andelys, na Normandia, numa família modesta. Por volta de 1612 conheceu o pintor Quentin Varin, que trabalhava numa igreja da cidade, e decidiu seguir o mesmo ofício. Foi para Paris quase sem dinheiro. Lá aprendeu com mestres pouco conhecidos e estudou gravuras de Rafael e esculturas antigas. Em 1622 conheceu o poeta italiano Giambattista Marino, que o animou a ir para a Itália."
+  },
+  {
+   "t": "Roma, a cidade das ruínas",
+   "p": "Chegou a Roma em 1624 e quase não saiu mais de lá. Media estátuas, desenhava ruínas e lia os autores antigos. O colecionador Cassiano dal Pozzo virou seu protetor e amigo. Em 1630 casou com Anne-Marie Dughet, filha de um confeiteiro francês que cuidara dele numa doença. O irmão dela, Gaspard Dughet, foi seu aluno. Poussin preferia quadros de tamanho médio, para colecionadores que olhavam devagar, a grandes altares de igreja."
+  },
+  {
+   "t": "Uma visita infeliz",
+   "p": "Em 1640, o rei Luís XIII e o cardeal Richelieu o chamaram a Paris, com o título de primeiro pintor do rei. Lá recebeu encomendas demais: altares, ilustrações de livros, a decoração da Grande Galeria do Louvre. Os pintores da corte não gostaram do recém-chegado. Em 1642, Poussin voltou a Roma dizendo que ia buscar a esposa, e nunca mais voltou. De longe, seguiu pintando para colecionadores franceses."
+  },
+  {
+   "t": "As mãos que tremiam",
+   "p": "Nos últimos anos as mãos de Poussin tremiam, e o tremor aparece nas pinceladas. Mesmo assim, entre 1660 e 1664 pintou As quatro estações, paisagens com histórias da Bíblia, para o duque de Richelieu. A esposa morreu em 1664. Ele morreu em Roma em 19 de novembro de 1665. Dois anos depois, a Academia Real de Pintura, em Paris, já discutia seus quadros nas conferências para os alunos."
+  }
+ ],
+ "citacao": {
+  "texto": "[A pintura] é uma imitação, feita com linhas e cores sobre uma superfície, de tudo o que se vê debaixo do sol. Sua finalidade é o deleite.",
+  "fonte": "Carta a Roland Fréart de Chambray, 1665"
+ },
+ "vida_fig": {
+  "img": "poussin/desenho.jpg",
+  "legenda": "Duas bétulas, a da frente caída, c. 1629. Desenho de Poussin."
+ },
+ "linha": [
+  [
+   1594,
+   "Nasce perto de Les Andelys",
+   "vida"
+  ],
+  [
+   1618,
+   "Começa a Guerra dos Trinta Anos",
+   "mundo"
+  ],
+  [
+   1624,
+   "Chega a Roma",
+   "vida"
+  ],
+  [
+   1630,
+   "Holandeses invadem Pernambuco",
+   "mundo"
+  ],
+  [
+   1637,
+   "Maurício de Nassau chega ao Recife",
+   "mundo"
+  ],
+  [
+   1640,
+   "Chamado a Paris pelo rei",
+   "vida"
+  ],
+  [
+   1648,
+   "Paz de Vestfália",
+   "mundo"
+  ],
+  [
+   1654,
+   "Holandeses deixam o Brasil",
+   "mundo"
+  ],
+  [
+   1660,
+   "Começa As quatro estações",
+   "vida"
+  ],
+  [
+   1665,
+   "Morre em Roma, aos 71 anos",
+   "vida"
+  ]
+ ],
+ "foco": {
+  "img": "poussin/arcadia.jpg",
+  "titulo": "Os pastores da Arcádia",
+  "dados": "c. 1637–1638 · óleo sobre tela · 85 × 121 cm · Museu do Louvre, Paris",
+  "intro": "Na Arcádia, a terra feliz dos poetas antigos, três pastores e uma mulher encontram um túmulo. Um deles soletra a inscrição, \"Et in Arcadia ego\": \"Também na Arcádia eu estou\". Quem fala é a morte.",
+  "marcas": [
+   [
+    40,
+    55,
+    "A inscrição",
+    "O pastor ajoelhado segue as letras com o dedo, como quem aprende a ler."
+   ],
+   [
+    50,
+    50,
+    "A sombra",
+    "A sombra do braço do pastor se projeta na pedra, bem ao lado das palavras."
+   ],
+   [
+    80,
+    40,
+    "A mulher",
+    "Calma, de perfil, ela parece já saber o que a inscrição quer dizer."
+   ],
+   [
+    20,
+    20,
+    "A paisagem",
+    "Árvores, céu e montanhas suaves: o cenário tranquilo torna o aviso mais forte."
+   ]
+  ]
+ },
+ "sabia": [
+  "O rei Luís XIV comprou Os pastores da Arcádia em 1685. Desde então o quadro pertence à coleção que virou o Museu do Louvre.",
+  "Poussin pintou duas vezes a série dos Sete Sacramentos: primeiro para Cassiano dal Pozzo, depois para Chantelou. A segunda série está em Edimburgo, na Escócia.",
+  "Segundo amigos que anotaram suas conversas, Cézanne dizia que queria \"refazer Poussin diante da natureza\"."
+ ],
+ "tecnica": {
+  "titulo": "Um teatro em miniatura",
+  "intro": "Poussin quase não pintava com modelo vivo na frente. Antes de pegar o pincel, montava a cena em tamanho pequeno, como um diretor de teatro, e só depois passava para o óleo.",
+  "passos": [
+   [
+    "Desenho a tinta",
+    "Esboços rápidos a pena, com sombras de aguada marrom, para achar os grupos de figuras."
+   ],
+   [
+    "Figuras de cera",
+    "Modelava bonecos de cera de poucos centímetros e os vestia com papel ou pano molhado."
+   ],
+   [
+    "A caixa",
+    "Punha os bonecos numa caixa com uma abertura, para ver de onde vinha a luz e onde caíam as sombras."
+   ],
+   [
+    "Óleo em camadas",
+    "Pintava sobre tela com fundo avermelhado, em camadas finas, sem pressa, figura por figura."
+   ]
+  ],
+  "box_t": "Os modos, como na música",
+  "box": "Numa carta de 1647 a Chantelou, Poussin explicou que cada assunto pede um \"modo\", como na música grega: um modo grave e severo para temas sérios, outro veemente para guerras, outro suave para cenas alegres. Cores, gestos e composição deviam seguir o tom da história.",
+  "paleta": [
+   [
+    "#2F4C80",
+    "Azul ultramar"
+   ],
+   [
+    "#C69A3A",
+    "Amarelo dourado"
+   ],
+   [
+    "#9A3A26",
+    "Vermelho"
+   ],
+   [
+    "#5E5C3C",
+    "Verde-oliva"
+   ],
+   [
+    "#CFC3A6",
+    "Pedra"
+   ]
+  ]
+ },
+ "obras": [
+  {
+   "img": "poussin/germanico.jpg",
+   "titulo": "A morte de Germânico",
+   "ano": "1627",
+   "nota": "O quadro que o tornou conhecido em Roma, feito para o cardeal Barberini."
+  },
+  {
+   "img": "poussin/serpente.jpg",
+   "titulo": "Paisagem com homem morto por serpente",
+   "ano": "c. 1648",
+   "nota": "O susto passa de uma figura a outra, através da paisagem."
+  },
+  {
+   "img": "poussin/inverno.jpg",
+   "titulo": "O inverno (O Dilúvio)",
+   "ano": "1660–1664",
+   "nota": "Da série As quatro estações, pintada com as mãos já trêmulas."
+  }
+ ],
+ "influenciou": [
+  [
+   "Charles Le Brun",
+   null
+  ],
+  [
+   "Jacques-Louis David",
+   34
+  ],
+  [
+   "Jean-Auguste-Dominique Ingres",
+   22
+  ],
+  [
+   "Paul Cézanne",
+   9
+  ]
+ ],
+ "rival": [
+  "Peter Paul Rubens",
+  14,
+  "Depois de sua morte, \"poussinistas\" (desenho) e \"rubenistas\" (cor) brigaram na Academia francesa."
+ ],
+ "pensar": "Faça três ou quatro bonequinhos de massinha, ponha numa caixa de sapato e ilumine com uma lanterna por um furo na lateral. Desenhe a cena. Depois mude o furo de lugar: o que acontece com as sombras?",
+ "palavras": [
+  [
+   "Classicismo",
+   "Arte que segue os modelos da Grécia e de Roma antigas: ordem, clareza, equilíbrio e gestos contidos."
+  ],
+  [
+   "Arcádia",
+   "Região da Grécia que os poetas antigos imaginaram como terra de pastores felizes."
+  ],
+  [
+   "Aguada",
+   "Tinta diluída em água e passada com pincel sobre o desenho, para fazer as sombras."
+  ]
+ ],
+ "imagens": {
+  "retrato.jpg": "File:Poussin - Autoportrait, 1650, INV 7302 ; MR 2329.jpg",
+  "patmos.jpg": "File:Nicolas Poussin - Landscape with Saint John on Patmos - Google Art Project.jpg",
+  "arcadia.jpg": "File:Nicolas Poussin - Et in Arcadia ego (deuxième version).jpg",
+  "germanico.jpg": "File:Nicolas Poussin - The Death of Germanicus - Google Art Project.jpg",
+  "serpente.jpg": "File:Landscape-with-a-man-killed-by-a-snake-Poussin.jpg",
+  "inverno.jpg": "File:Nicolas Poussin - L'Hiver ou Le Déluge.jpg",
+  "desenho.jpg": "File:Nicolas Poussin - Two Silver Birches, the Front One Fallen, c. 1629 - Google Art Project.jpg"
+ }
+}

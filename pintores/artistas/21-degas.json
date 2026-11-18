@@ -1,0 +1,276 @@
+{
+ "pos": 21,
+ "chave": "degas",
+ "nome": "Edgar Degas",
+ "nome_original": "",
+ "vida": "1834–1917",
+ "origem": "França",
+ "cor": "#2E4A5C",
+ "frase": "Pintou Paris por dentro, dos bastidores da Ópera às corridas de cavalos, e deu ao pastel a força da pintura a óleo.",
+ "retrato": {
+  "img": "degas/retrato.jpg",
+  "legenda": "Autorretrato, c. 1857–1858. Óleo sobre papel. Clark Art Institute, Williamstown, EUA.",
+  "pos": "center 22%"
+ },
+ "abertura": {
+  "img": "degas/foyer.jpg",
+  "legenda": "O salão de dança da Ópera da rua Le Peletier, 1872. Óleo sobre tela. Museu d'Orsay, Paris.",
+  "pos": "center 60%"
+ },
+ "ficha": [
+  [
+   "Nasceu",
+   "1834, em Paris, França"
+  ],
+  [
+   "Morreu",
+   "1917, em Paris, aos 83 anos"
+  ],
+  [
+   "Movimento",
+   "Impressionismo (ele preferia dizer realismo)"
+  ],
+  [
+   "Técnica",
+   "Óleo, pastel, monotipia e escultura em cera"
+  ],
+  [
+   "Obra",
+   "Milhares de pinturas, pastéis, desenhos e esculturas"
+  ],
+  [
+   "Onde ver",
+   "Museu d'Orsay (Paris), Metropolitan (Nova York), National Gallery of Art (Washington)"
+  ]
+ ],
+ "vida_titulo": "Nos bastidores da Ópera",
+ "vida_txt": [
+  {
+   "t": "Filho de banqueiro",
+   "p": "Edgar Degas nasceu em Paris em 1834, filho de um banqueiro. A mãe tinha nascido em Nova Orleans, nos Estados Unidos, numa família de origem francesa. Ele começou a estudar direito, desistiu e entrou na Escola de Belas-Artes em 1855. No mesmo ano conheceu Ingres, seu ídolo. Passou três anos na Itália copiando os mestres antigos e começou em Florença o retrato dos tios, A família Bellelli."
+  },
+  {
+   "t": "A vida moderna",
+   "p": "De volta a Paris, trocou as cenas de história pela cidade do seu tempo: cafés, corridas de cavalos, lavadeiras, a Ópera. Em 1872 visitou os irmãos em Nova Orleans e pintou O escritório de algodão. Ajudou a organizar a primeira exposição dos impressionistas, em 1874, e participou de sete das oito. Mas não pintava ao ar livre e preferia ser chamado de realista."
+  },
+  {
+   "t": "Bailarinas e pastel",
+   "p": "A partir dos anos 1870 desenhou bailarinas sem parar: no ensaio, nos bastidores, ajeitando a sapatilha. Pelas estimativas, mais da metade da sua obra trata delas. Com a vista cada vez mais fraca, trocou o óleo pelo pastel e pela escultura. Em 1881 expôs a Pequena bailarina de catorze anos, de cera, com saia e fita de verdade, e parte da crítica se escandalizou."
+  },
+  {
+   "t": "Sozinho em Paris",
+   "p": "Degas nunca se casou e tinha fama de difícil. Colecionava quadros de Ingres, Delacroix e Manet, e também gravuras japonesas. No caso Dreyfus, nos anos 1890, ficou contra o capitão judeu acusado injustamente e rompeu com amigos antigos. Quase cego, parou de trabalhar por volta de 1912. Morreu em Paris em 1917, aos 83 anos, no meio da Primeira Guerra Mundial."
+  }
+ ],
+ "citacao": {
+  "texto": "Nenhuma arte é menos espontânea que a minha. O que faço é resultado da reflexão e do estudo dos grandes mestres; de inspiração, espontaneidade, temperamento, não sei nada.",
+  "fonte": "Dito ao escritor George Moore, que o publicou em 1890"
+ },
+ "vida_fig": {
+  "img": "degas/bailarina.jpg",
+  "legenda": "Pequena bailarina de catorze anos, 1878–1881. Cera, tecido e cabelo. National Gallery of Art, Washington."
+ },
+ "linha": [
+  [
+   1834,
+   "Nasce em Paris",
+   "vida"
+  ],
+  [
+   1865,
+   "Fim da escravidão nos Estados Unidos",
+   "mundo"
+  ],
+  [
+   1870,
+   "Guerra Franco-Prussiana",
+   "mundo"
+  ],
+  [
+   1872,
+   "Viagem a Nova Orleans",
+   "vida"
+  ],
+  [
+   1874,
+   "Primeira exposição impressionista",
+   "vida"
+  ],
+  [
+   1881,
+   "Expõe a Pequena bailarina",
+   "vida"
+  ],
+  [
+   1888,
+   "Abolição da escravidão no Brasil",
+   "mundo"
+  ],
+  [
+   1889,
+   "Proclamação da República no Brasil",
+   "mundo"
+  ],
+  [
+   1914,
+   "Começa a Primeira Guerra Mundial",
+   "mundo"
+  ],
+  [
+   1917,
+   "Morre em Paris, aos 83 anos",
+   "vida"
+  ]
+ ],
+ "foco": {
+  "img": "degas/ensaio.jpg",
+  "titulo": "O ensaio no palco",
+  "dados": "c. 1874 · pastel sobre desenho a pincel e tinta · 53,3 × 72,4 cm · Metropolitan Museum, Nova York",
+  "intro": "Um ensaio de balé no palco da Ópera de Paris, visto do alto. Degas fez três versões desta cena; esta é a pastel.",
+  "marcas": [
+   [
+    36,
+    47,
+    "O mestre",
+    "O mestre de balé, de casaca escura, marca o ritmo com as mãos."
+   ],
+   [
+    26,
+    39,
+    "O bocejo",
+    "Uma bailarina se espreguiça e boceja: o ensaio é trabalho, e cansa."
+   ],
+   [
+    87,
+    47,
+    "Os senhores",
+    "Dois assinantes da Ópera assistem largados em cadeiras, nas coxias."
+   ],
+   [
+    16,
+    86,
+    "O contrabaixo",
+    "A ponta de um instrumento da orquestra entra pelo canto, cortada, como numa foto."
+   ]
+  ]
+ },
+ "sabia": [
+  "O Museu de Belas-Artes de Pau comprou O escritório de algodão em 1878: foi o primeiro museu a ter um Degas.",
+  "A Pequena bailarina foi a única escultura que Degas expôs em vida. As cópias de bronze foram feitas depois da morte dele.",
+  "Degas desenhou a partir das fotos de cavalos a galope de Eadweard Muybridge, publicadas em 1878."
+ ],
+ "tecnica": {
+  "titulo": "O pastel de Degas",
+  "intro": "O pastel é pó de pigmento quase puro, preso num bastão. Degas o usou como ninguém antes: em camadas grossas, cruzadas, que o olho mistura de longe.",
+  "passos": [
+   [
+    "O desenho",
+    "Bailarinas posavam no ateliê dele. Desenhava cada pose em várias folhas e depois montava a cena."
+   ],
+   [
+    "A base",
+    "Começava com carvão, tinta ou uma monotipia sobre o papel, que dava as sombras."
+   ],
+   [
+    "As camadas",
+    "Riscava cores puras, umas sobre as outras, em traços cruzados, sem esfumar."
+   ],
+   [
+    "O fixador",
+    "Borrifava um fixador entre as camadas para poder cobrir de novo sem sujar a cor de baixo."
+   ]
+  ],
+  "box_t": "O corte japonês",
+  "box": "Degas colecionava gravuras japonesas, como as de Hokusai e Hiroshige. Delas tirou o ponto de vista do alto, o chão vazio, a cena fora do centro e as figuras cortadas pela borda do quadro. Parece instantâneo, mas era tudo calculado.",
+  "paleta": [
+   [
+    "#2E4A5C",
+    "Azul-cinza"
+   ],
+   [
+    "#D9CDB4",
+    "Tule"
+   ],
+   [
+    "#C98F5B",
+    "Ocre"
+   ],
+   [
+    "#6E7A4E",
+    "Verde"
+   ],
+   [
+    "#2A2622",
+    "Preto"
+   ]
+  ]
+ },
+ "obras": [
+  {
+   "img": "degas/bellelli.jpg",
+   "titulo": "A família Bellelli",
+   "ano": "1858–1867",
+   "nota": "Os tios e as primas em Florença: uma família tensa, em silêncio."
+  },
+  {
+   "img": "degas/absinto.jpg",
+   "titulo": "O absinto",
+   "ano": "1875–1876",
+   "nota": "Dois amigos posaram como bebedores solitários num café de Paris."
+  },
+  {
+   "img": "degas/bailarinas-azuis.jpg",
+   "titulo": "Bailarinas azuis",
+   "ano": "c. 1897",
+   "nota": "Pastel dos últimos anos: cor forte, formas largas, quase sem detalhe."
+  }
+ ],
+ "influenciou": [
+  [
+   "Henri de Toulouse-Lautrec",
+   35
+  ],
+  [
+   "Mary Cassatt",
+   null
+  ],
+  [
+   "Walter Sickert",
+   null
+  ],
+  [
+   "Pablo Picasso",
+   null
+  ]
+ ],
+ "rival": [
+  "Jean-Auguste-Dominique Ingres",
+  22,
+  "O ídolo da juventude: Degas o conheceu em 1855 e colecionou seus quadros."
+ ],
+ "pensar": "Desenhe alguém da sua casa de um ângulo estranho: de cima, de costas, cortado pela borda do papel, como Degas fazia. A cena parece mais viva ou mais posada?",
+ "palavras": [
+  [
+   "Pastel",
+   "Bastão de pigmento em pó com pouquíssima cola. Risca como giz e dá cor pura."
+  ],
+  [
+   "Monotipia",
+   "Desenho feito com tinta numa placa e passado ao papel numa prensa: dá uma só cópia."
+  ],
+  [
+   "Impressionismo",
+   "Grupo de pintores de Paris que, a partir de 1874, expôs fora do Salão oficial cenas da vida moderna e da luz."
+  ]
+ ],
+ "imagens": {
+  "retrato.jpg": "File:Edgar Degas - Self-Portrait - Google Art Project.jpg",
+  "foyer.jpg": "File:Edgar Degas - The Dance Foyer at the Opera on the rue Le Peletier.jpg",
+  "ensaio.jpg": "File:The Rehearsal Onstage MET DT1006.jpg",
+  "bellelli.jpg": "File:Edgar Degas - The Bellelli Family - Google Art Project.jpg",
+  "absinto.jpg": "File:Edgar Degas - In a Café - Google Art Project.jpg",
+  "bailarinas-azuis.jpg": "File:Edgar Degas - Blue Dancers (1898 Pushkin Museum).jpg",
+  "bailarina.jpg": "File:Edgar Degas, Little Dancer Aged Fourteen, 1878-1881, NGA 110292.jpg"
+ },
+ "pron": "por ele"
+}

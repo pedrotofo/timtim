@@ -1,0 +1,272 @@
+{
+ "pos": 29,
+ "chave": "renoir",
+ "nome": "Pierre-Auguste Renoir",
+ "nome_original": "",
+ "vida": "1841–1919",
+ "origem": "França",
+ "cor": "#263A5C",
+ "frase": "Impressionista que pintou bailes, almoços e passeios de gente comum em Paris, com a luz do sol filtrada pelas folhas.",
+ "retrato": {
+  "img": "renoir/retrato.jpg",
+  "legenda": "Autorretrato, 1876, aos 35 anos. Óleo sobre tela. Harvard Art Museums.",
+  "pos": "center 30%"
+ },
+ "abertura": {
+  "img": "renoir/almoco.jpg",
+  "legenda": "O almoço dos barqueiros, 1880–1881. Óleo sobre tela. Phillips Collection, Washington.",
+  "pos": "center 45%"
+ },
+ "ficha": [
+  [
+   "Nasceu",
+   "1841, em Limoges, França"
+  ],
+  [
+   "Morreu",
+   "1919, em Cagnes-sur-Mer, França, aos 78 anos"
+  ],
+  [
+   "Movimento",
+   "Impressionismo"
+  ],
+  [
+   "Técnica",
+   "Óleo sobre tela, em camadas finas e cores claras"
+  ],
+  [
+   "Obra",
+   "Cerca de 4 mil pinturas, pelas estimativas"
+  ],
+  [
+   "Onde ver",
+   "Museu d'Orsay (Paris), Fundação Barnes (Filadélfia), Phillips Collection (Washington)"
+  ]
+ ],
+ "vida_titulo": "Do prato de porcelana à tela",
+ "vida_txt": [
+  {
+   "t": "Aprendiz de porcelana",
+   "p": "Renoir nasceu em 1841 em Limoges, a cidade da porcelana, filho de um alfaiate e de uma costureira. A família se mudou para Paris quando ele tinha três anos. Aos 13, virou aprendiz numa oficina onde pintava flores e figuras em pratos e xícaras. Quando as máquinas de estampar tomaram o lugar dos pintores, passou a decorar leques e cortinas. Juntou dinheiro e, em 1862, entrou na Escola de Belas-Artes de Paris."
+  },
+  {
+   "t": "Amigos à beira do rio",
+   "p": "No ateliê do professor Charles Gleyre conheceu Claude Monet, Alfred Sisley e Frédéric Bazille. Os quatro saíam para pintar na floresta de Fontainebleau e à beira do Sena. Em 1869, Renoir e Monet pintaram juntos o balneário de La Grenouillère, com pinceladas curtas para pegar o brilho da água. Em 1874, o grupo fez sua própria exposição, longe do Salão oficial. Um crítico zombou de um quadro de Monet, e o nome \"impressionistas\" pegou."
+  },
+  {
+   "t": "Gente feliz em Paris",
+   "p": "Renoir gostava de pintar gente: bailes, almoços, passeios, crianças. Em 1876 pintou o Baile no Moulin de la Galette, um salão de dança ao ar livre em Montmartre. Em 1881 terminou O almoço dos barqueiros, onde aparece Aline Charigot, com quem se casaria em 1890. Naquele ano foi à Itália, viu os afrescos de Rafael e mudou: por alguns anos desenhou contornos firmes e usou cores mais secas."
+  },
+  {
+   "t": "As mãos doentes",
+   "p": "A partir dos anos 1890, Renoir sofreu de artrite reumatoide, que deformou suas mãos e, mais tarde, o prendeu a uma cadeira de rodas. Em 1907 comprou uma casa em Cagnes-sur-Mer, no sul da França, atrás do sol e do calor. Continuou pintando com o pincel encaixado entre os dedos enfaixados. Teve três filhos: Pierre, ator; Jean, cineasta; e Claude, ceramista. Morreu em Cagnes em 1919, aos 78 anos."
+  }
+ ],
+ "citacao": {
+  "texto": "Fui ver os Rafaéis em Roma. É muito bonito, e eu devia ter visto isso antes. É cheio de saber e de sabedoria. Ele não procurava, como eu, as coisas impossíveis. Mas é bonito.",
+  "fonte": "Carta a Marguerite Charpentier, escrita em Nápoles, 1881 (trecho)"
+ },
+ "vida_fig": {
+  "img": "renoir/bazille.jpg",
+  "legenda": "Renoir aos 26 anos, pintado pelo amigo Frédéric Bazille em 1867. Cleveland Museum of Art."
+ },
+ "linha": [
+  [
+   1841,
+   "Nasce em Limoges",
+   "vida"
+  ],
+  [
+   1850,
+   "Fim do tráfico negreiro no Brasil",
+   "mundo"
+  ],
+  [
+   1862,
+   "Conhece Monet no ateliê de Gleyre",
+   "vida"
+  ],
+  [
+   1870,
+   "Guerra Franco-Prussiana",
+   "mundo"
+  ],
+  [
+   1874,
+   "Primeira exposição impressionista",
+   "vida"
+  ],
+  [
+   1888,
+   "Abolição da escravidão no Brasil",
+   "mundo"
+  ],
+  [
+   1890,
+   "Casa-se com Aline Charigot",
+   "vida"
+  ],
+  [
+   1895,
+   "Primeira sessão de cinema em Paris",
+   "mundo"
+  ],
+  [
+   1914,
+   "Começa a Primeira Guerra Mundial",
+   "mundo"
+  ],
+  [
+   1919,
+   "Morre em Cagnes-sur-Mer",
+   "vida"
+  ]
+ ],
+ "foco": {
+  "img": "renoir/moulin.jpg",
+  "titulo": "Baile no Moulin de la Galette",
+  "dados": "1876 · óleo sobre tela · 131 × 175 cm · Museu d'Orsay, Paris",
+  "intro": "Aos domingos, o povo de Montmartre dançava ao ar livre no Moulin de la Galette, um salão de baile ao pé de um velho moinho. Renoir levou a tela grande até lá e pôs amigos para posar entre os dançarinos.",
+  "marcas": [
+   [
+    8,
+    44,
+    "Manchas de sol",
+    "A luz passa pelas folhas e cai em manchas claras e azuladas no chão, nos chapéus e nos ombros."
+   ],
+   [
+    17,
+    57,
+    "O casal",
+    "Um casal dança à esquerda; ela de vestido rosa, ele de chapéu escuro."
+   ],
+   [
+    90,
+    50,
+    "A mesa dos amigos",
+    "Ali estão amigos de Renoir, como o escritor Georges Rivière, que depois contou como o quadro foi feito."
+   ],
+   [
+    43,
+    9,
+    "Os lampiões",
+    "Os globos de luz pendurados nas árvores lembram que o baile ia até a noite."
+   ]
+  ]
+ },
+ "sabia": [
+  "Em 1990, uma versão menor deste quadro foi leiloada em Nova York por 78 milhões de dólares, um recorde na época.",
+  "O filho Jean Renoir virou cineasta e dirigiu A grande ilusão (1937). Também escreveu um livro de lembranças do pai.",
+  "No Almoço dos barqueiros, o rapaz de chapéu de palha sentado ao contrário na cadeira, à direita, é o pintor Gustave Caillebotte."
+ ],
+ "tecnica": {
+  "titulo": "Camadas finas, cor molhada",
+  "intro": "Renoir quase não traçava contornos: construía as figuras com camadas finas de tinta, uma por cima da outra ainda úmida, para que a pele e o ar parecessem macios.",
+  "passos": [
+   [
+    "Fundo claro",
+    "Começava sobre tela preparada com branco, que brilha através das camadas de cor."
+   ],
+   [
+    "Tinta rala",
+    "Marcava as formas com tinta bem diluída, quase como aquarela, e ia ajustando aos poucos."
+   ],
+   [
+    "Molhado no molhado",
+    "Pousava uma cor sobre outra ainda fresca, e as bordas se misturavam sem linha dura."
+   ],
+   [
+    "Toques de luz",
+    "No fim, pinceladas pequenas de cor pura: o brilho de um copo, o reflexo de um cabelo."
+   ]
+  ],
+  "box_t": "Da porcelana para a tela",
+  "box": "Na oficina de porcelana, ainda menino, Renoir aprendeu a pintar com pincel fino, cores transparentes e o fundo branco brilhando por baixo. Os biógrafos ligam esse treino à pele luminosa e aos tons de pêssego e rosa dos seus quadros.",
+  "paleta": [
+   [
+    "#263A5C",
+    "Azul escuro"
+   ],
+   [
+    "#E4C4BF",
+    "Rosa"
+   ],
+   [
+    "#E9E3CF",
+    "Luz"
+   ],
+   [
+    "#4E6B3E",
+    "Folhagem"
+   ],
+   [
+    "#D9B45A",
+    "Palha"
+   ]
+  ]
+ },
+ "obras": [
+  {
+   "img": "renoir/grenouillere.jpg",
+   "titulo": "La Grenouillère",
+   "ano": "1869",
+   "nota": "Pintado lado a lado com Monet, no mesmo balneário do Sena."
+  },
+  {
+   "img": "renoir/camarote.jpg",
+   "titulo": "O camarote",
+   "ano": "1874",
+   "nota": "Exposto na primeira mostra impressionista; posaram o irmão Edmond e a modelo Nini."
+  },
+  {
+   "img": "renoir/guarda-chuvas.jpg",
+   "titulo": "Os guarda-chuvas",
+   "ano": "c. 1881–1886",
+   "nota": "Começado macio e terminado com contornos firmes: duas fases no mesmo quadro."
+  }
+ ],
+ "influenciou": [
+  [
+   "Henri Matisse",
+   12
+  ],
+  [
+   "Pablo Picasso",
+   null
+  ],
+  [
+   "Pierre Bonnard",
+   null
+  ]
+ ],
+ "rival": [
+  "Claude Monet",
+  7,
+  "Amigo de juventude: pintaram lado a lado em La Grenouillère, em 1869."
+ ],
+ "pensar": "Num dia de sol, observe pessoas debaixo de uma árvore e veja as manchas de luz no chão e nas roupas. Desenhe as figuras a lápis e depois abra as manchas de luz com a borracha.",
+ "palavras": [
+  [
+   "Impressionismo",
+   "Movimento francês do fim do século XIX que pintava ao ar livre, com pinceladas soltas, a luz de um instante."
+  ],
+  [
+   "Salão",
+   "A exposição oficial de Paris, com júri, que decidia quais quadros o público veria."
+  ],
+  [
+   "Ao ar livre",
+   "Pintura feita fora do ateliê, diante da paisagem ou da cena, como os impressionistas faziam."
+  ]
+ ],
+ "imagens": {
+  "retrato.jpg": "File:Renoir, Pierre-Auguste - Self-portrait - Harvard Art Museums.Fogg Museum.jpg",
+  "almoco.jpg": "File:Pierre-Auguste Renoir - Luncheon of the Boating Party - Google Art Project.jpg",
+  "moulin.jpg": "File:Auguste Renoir - Dance at Le Moulin de la Galette - Google Art Project.jpg",
+  "grenouillere.jpg": "File:Auguste Renoir - La Grenouillère - Google Art Project.jpg",
+  "camarote.jpg": "File:La Loge Pierre-Auguste Renoir 1874.jpg",
+  "guarda-chuvas.jpg": "File:Pierre-Auguste Renoir, The Umbrellas, ca. 1881-86.jpg",
+  "bazille.jpg": "File:Portrait of Renoir by Frédéric Bazille.jpg"
+ },
+ "pron": "por ele"
+}

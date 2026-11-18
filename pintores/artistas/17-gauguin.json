@@ -1,0 +1,146 @@
+{
+ "pos": 17,
+ "chave": "gauguin",
+ "nome": "Paul Gauguin",
+ "nome_original": "",
+ "vida": "1848–1903",
+ "origem": "França",
+ "cor": "#9E3324",
+ "frase": "Trocou a Bolsa pela pintura e usou cores puras e chapadas para pintar o que sonhava, não só o que via.",
+ "retrato": {
+  "img": "gauguin/retrato.jpg",
+  "legenda": "Autorretrato com o Cristo amarelo, 1890–1891. Óleo sobre tela. Museu d'Orsay, Paris.",
+  "pos": "20% 30%"
+ },
+ "abertura": {
+  "img": "gauguin/arearea.jpg",
+  "legenda": "Arearea (Alegria), 1892. Óleo sobre tela. Museu d'Orsay, Paris.",
+  "pos": "center 50%"
+ },
+ "ficha": [
+  ["Nasceu", "1848, em Paris, França"],
+  ["Morreu", "1903, em Atuona, ilhas Marquesas, aos 54 anos"],
+  ["Movimento", "Pós-impressionismo e sintetismo"],
+  ["Técnica", "Óleo sobre tela, xilogravura, cerâmica e escultura em madeira"],
+  ["Obra", "Centenas de pinturas, gravuras, cerâmicas e esculturas"],
+  ["Onde ver", "Museu d'Orsay (Paris), Museu de Belas-Artes de Boston, Galeria Nacional da Escócia (Edimburgo)"]
+ ],
+ "vida_titulo": "Longe da Europa",
+ "vida_txt": [
+  {
+   "t": "Uma infância no Peru",
+   "p": "Paul Gauguin nasceu em Paris em 1848. No ano seguinte a família partiu para o Peru, e o pai morreu na viagem. Paul passou a primeira infância em Lima, na casa de parentes da mãe, até 1854. Aos 17 anos entrou para a marinha mercante e correu o mundo. Depois virou corretor da Bolsa em Paris, casou-se com a dinamarquesa Mette Gad e teve cinco filhos."
+  },
+  {
+   "t": "Da Bolsa à pintura",
+   "p": "Pintava nas horas vagas e comprava quadros impressionistas. Camille Pissarro virou seu mestre, e Gauguin participou das exposições do grupo nos anos 1880. Em 1882 a Bolsa quebrou; no ano seguinte ele largou o emprego para pintar. A família foi morar em Copenhague, e ele ficou cada vez mais longe dela. Na Bretanha, em Pont-Aven, achou o que procurava: cor forte e formas simples."
+  },
+  {
+   "t": "Dois meses em Arles",
+   "p": "Em outubro de 1888 foi morar com Van Gogh na Casa Amarela, em Arles, no sul da França. Pintavam lado a lado e discutiam sem parar. Em dezembro, depois de uma briga, Van Gogh cortou parte da própria orelha, e Gauguin voltou a Paris. Nunca mais se viram, mas trocaram cartas. Gauguin passou a sonhar com um lugar longe da Europa."
+  },
+  {
+   "t": "Taiti, o sonho e o problema",
+   "p": "Em 1891 partiu para o Taiti, colônia francesa. Pintou a ilha como um paraíso antigo que já não existia: missionários e governo colonial tinham mudado tudo. Lá viveu com moças taitianas muito jovens, o que hoje se critica com razão. Voltou a Paris em 1893 e partiu de novo em 1895. Doente e endividado, morreu nas ilhas Marquesas em 1903, brigado com as autoridades."
+  }
+ ],
+ "citacao": {
+  "texto": "Um conselho: não copie demais a natureza. A arte é uma abstração; tire-a da natureza sonhando diante dela, e pense mais na criação do que no resultado.",
+  "fonte": "Carta a Émile Schuffenecker, 14 de agosto de 1888"
+ },
+ "vida_fig": {
+  "img": "gauguin/pissarro.jpg",
+  "legenda": "Pissarro e Gauguin desenham um ao outro na mesma folha, c. 1880. Museu do Louvre, Paris."
+ },
+ "linha": [
+  [1848, "Nasce em Paris", "vida"],
+  [1850, "Brasil proíbe o tráfico de escravizados", "mundo"],
+  [1870, "Guerra Franco-Prussiana", "mundo"],
+  [1883, "Larga a Bolsa para pintar", "vida"],
+  [1888, "Dois meses com Van Gogh", "vida"],
+  [1888, "Abolição da escravidão no Brasil", "mundo"],
+  [1889, "Proclamação da República no Brasil", "mundo"],
+  [1891, "Parte para o Taiti", "vida"],
+  [1895, "Os irmãos Lumière mostram o cinema", "mundo"],
+  [1903, "Morre nas ilhas Marquesas", "vida"]
+ ],
+ "foco": {
+  "img": "gauguin/visao.jpg",
+  "titulo": "A visão depois do sermão",
+  "dados": "1888 · óleo sobre tela · 72,2 × 91 cm · Galeria Nacional da Escócia, Edimburgo",
+  "intro": "Camponesas bretãs saem da missa e veem a história do sermão: Jacó lutando com um anjo.",
+  "marcas": [
+   [50, 55, "O chão vermelho", "Vermelho puro, sem sombra: não é um chão real."],
+   [75, 35, "A luta", "Jacó e o anjo, pequenos, como numa estampa japonesa."],
+   [50, 30, "O tronco", "A árvore corta o quadro e separa o real da visão."],
+   [20, 80, "As toucas", "Formas brancas simples, de contorno escuro."]
+  ]
+ },
+ "sabia": [
+  "A avó de Gauguin, Flora Tristan, foi escritora e lutou pelos direitos das mulheres e dos operários.",
+  "Gauguin quis dar A visão depois do sermão a uma igreja da Bretanha. O padre recusou.",
+  "Segundo Gauguin, Van Gogh viu o retrato que ele lhe fez e disse: \"Sou eu, mas eu louco\"."
+ ],
+ "tecnica": {
+  "titulo": "Cor chapada e contorno",
+  "intro": "Em Pont-Aven, em 1888, Gauguin e o jovem Émile Bernard criaram o sintetismo: em vez de copiar a natureza, resumir a cena de memória em poucas formas e cores puras.",
+  "passos": [
+   ["De memória", "Desenhava do natural, mas pintava depois, lembrando. O que não importava sumia."],
+   ["Contorno escuro", "Cercava as formas com uma linha escura, como nos vitrais e nos esmaltes."],
+   ["Cor chapada", "Áreas grandes de uma cor só, quase sem sombra. A cor não precisa ser a real: o chão pode ser vermelho."],
+   ["Cor que fala", "Escolhia a cor pelo efeito, como numa música: o amarelo do Cristo, o vermelho da visão."]
+  ],
+  "box_t": "A arte dos outros",
+  "box": "Gauguin estudava gravuras japonesas, vitrais góticos, arte egípcia e fotos dos relevos do templo de Borobudur, em Java. Achava a arte desses povos mais verdadeira que a das academias. Hoje se discute quanto disso era admiração e quanto era fantasia colonial.",
+  "paleta": [
+   ["#C0392B", "Vermelho"],
+   ["#1F3A5A", "Azul-escuro"],
+   ["#EDE6D6", "Touca"],
+   ["#4F6B3A", "Verde"],
+   ["#D9A53A", "Amarelo"]
+  ]
+ },
+ "obras": [
+  {
+   "img": "gauguin/cristo-amarelo.jpg",
+   "titulo": "O Cristo amarelo",
+   "ano": "1889",
+   "nota": "O crucifixo de uma capela bretã, em amarelo puro, num campo de outono."
+  },
+  {
+   "img": "gauguin/van-gogh.jpg",
+   "titulo": "Van Gogh pintando girassóis",
+   "ano": "1888",
+   "nota": "Feito em Arles, semanas antes da briga que separou os dois."
+  },
+  {
+   "img": "gauguin/mulheres-taiti.jpg",
+   "titulo": "Mulheres do Taiti",
+   "ano": "1891",
+   "nota": "Duas mulheres na praia, em blocos de cor quase sem sombra."
+  }
+ ],
+ "influenciou": [
+  ["Henri Matisse", 12],
+  ["Edvard Munch", 30],
+  ["Pablo Picasso", null],
+  ["Paul Sérusier e os nabis", null]
+ ],
+ "rival": ["Camille Pissarro", 32, "Seu mestre: pintaram juntos em Pontoise no começo dos anos 1880."],
+ "pensar": "Pinte uma paisagem de memória, sem olhar, com no máximo cinco cores puras e um contorno escuro em volta de cada forma. Use uma cor \"errada\" para o chão. O que muda?",
+ "palavras": [
+  ["Sintetismo", "Estilo criado em Pont-Aven em 1888: formas simples, cor chapada e contorno, para resumir a cena e a ideia."],
+  ["Pós-impressionismo", "Nome dado aos pintores que vieram depois dos impressionistas e foram além: Cézanne, Van Gogh, Gauguin, Seurat."],
+  ["Colonialismo", "Domínio de um país sobre terras e povos distantes, como o da França no Taiti."]
+ ],
+ "imagens": {
+  "retrato.jpg": "File:Paul Gauguin - Portrait of the Artist with the Yellow Christ (1890-91).jpg",
+  "arearea.jpg": "File:Paul Gauguin - Arearea - Google Art Project.jpg",
+  "visao.jpg": "File:Gauguin - Vision after the Sermon (1888).jpg",
+  "pissarro.jpg": "File:Pissarro - Double portrait de Paul Gauguin et de Camille Pissarro, RF 29538, Recto.jpg",
+  "cristo-amarelo.jpg": "File:Paul Gauguin - Le Christ jaune (1889).jpg",
+  "van-gogh.jpg": "File:Vincent van Gogh zonnebloemen schilderend - s0225V1962 - Van Gogh Museum.jpg",
+  "mulheres-taiti.jpg": "File:Paul Gauguin 056.jpg"
+ },
+ "pron": "por ele"
+}

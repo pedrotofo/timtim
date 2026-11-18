@@ -1,0 +1,267 @@
+{
+ "pos": 27,
+ "chave": "kandinsky",
+ "nome": "Wassily Kandinsky",
+ "nome_original": "Василий Кандинский",
+ "vida": "1866–1944",
+ "origem": "Rússia",
+ "cor": "#2D4C8C",
+ "frase": "Jurista russo que virou pintor aos 30 anos e foi um dos primeiros a pintar quadros sem figuras, com cor, linha e forma.",
+ "retrato": {
+  "img": "kandinsky/retrato.jpg",
+  "legenda": "Kandinsky em fotografia de c. 1913.",
+  "pos": "center 25%"
+ },
+ "abertura": {
+  "img": "kandinsky/composicao-7.jpg",
+  "legenda": "Composição VII, 1913. Óleo sobre tela. Galeria Tretiakov, Moscou.",
+  "pos": "center 50%"
+ },
+ "ficha": [
+  [
+   "Nasceu",
+   "1866, em Moscou, Rússia"
+  ],
+  [
+   "Morreu",
+   "1944, em Neuilly-sur-Seine, França, aos 77 anos"
+  ],
+  [
+   "Movimento",
+   "Expressionismo e arte abstrata"
+  ],
+  [
+   "Técnica",
+   "Óleo sobre tela, aquarela e xilogravura"
+  ],
+  [
+   "Obra",
+   "Centenas de pinturas e aquarelas, além de livros de teoria"
+  ],
+  [
+   "Onde ver",
+   "Lenbachhaus (Munique), Guggenheim (Nova York), Centre Pompidou (Paris)"
+  ]
+ ],
+ "vida_titulo": "Do direito à pintura sem figuras",
+ "vida_txt": [
+  {
+   "t": "Um jurista em Moscou",
+   "p": "Kandinsky nasceu em 1866 em Moscou e cresceu em Odessa, à beira do mar Negro. Estudou direito e economia e deu aula na Universidade de Moscou. Ele contou que duas experiências mudaram sua vida: ver um dos Montes de feno de Claude Monet, cujo assunto no começo nem reconheceu, e ouvir a ópera Lohengrin, de Wagner, durante a qual diz ter visto cores."
+  },
+  {
+   "t": "Munique e o Cavaleiro Azul",
+   "p": "Em 1896, aos 30 anos, recusou um cargo de professor e se mudou para Munique para estudar pintura. Viajou pela Europa e pelo norte da África com a pintora Gabriele Münter e passou verões em Murnau, nos Alpes da Baviera, pintando paisagens de cores cada vez mais fortes. Em 1911, com Franz Marc, criou o grupo O Cavaleiro Azul."
+  },
+  {
+   "t": "Pintura como música",
+   "p": "No livro Do espiritual na arte, publicado no fim de 1911, defendeu que a cor age direto sobre a alma, como os sons da música. Deu a seus quadros nomes musicais: Impressões, Improvisações, Composições. Aos poucos, cavalos, igrejas e montanhas viraram manchas e linhas, até sumirem de vez. Estava nascendo a pintura abstrata, sem nada para reconhecer."
+  },
+  {
+   "t": "Bauhaus e exílio",
+   "p": "Com a Primeira Guerra, voltou à Rússia e se casou com Nina Andreevskaia. Em 1922 foi dar aula na Bauhaus, escola alemã de arte e design, e suas formas ficaram geométricas: círculos, triângulos, retas. Quando os nazistas forçaram o fechamento da escola, em 1933, mudou-se para perto de Paris. Morreu em Neuilly-sur-Seine em 1944, poucos meses antes do fim da guerra."
+  }
+ ],
+ "citacao": {
+  "texto": "A cor é a tecla. O olho é o martelo. A alma é o piano de muitas cordas. O artista é a mão que, tocando esta ou aquela tecla, faz a alma vibrar.",
+  "fonte": "Do espiritual na arte, 1911"
+ },
+ "vida_fig": {
+  "img": "kandinsky/almanaque.jpg",
+  "legenda": "Capa do almanaque O Cavaleiro Azul, 1912, com xilogravura de Kandinsky."
+ },
+ "linha": [
+  [
+   1866,
+   "Nasce em Moscou",
+   "vida"
+  ],
+  [
+   1889,
+   "Proclamação da República no Brasil",
+   "mundo"
+  ],
+  [
+   1896,
+   "Muda-se para Munique",
+   "vida"
+  ],
+  [
+   1911,
+   "Cria O Cavaleiro Azul com Marc",
+   "vida"
+  ],
+  [
+   1914,
+   "Começa a Primeira Guerra Mundial",
+   "mundo"
+  ],
+  [
+   1917,
+   "Revolução Russa",
+   "mundo"
+  ],
+  [
+   1922,
+   "Semana de Arte Moderna em São Paulo",
+   "mundo"
+  ],
+  [
+   1922,
+   "Começa a ensinar na Bauhaus",
+   "vida"
+  ],
+  [
+   1939,
+   "Começa a Segunda Guerra Mundial",
+   "mundo"
+  ],
+  [
+   1944,
+   "Morre perto de Paris",
+   "vida"
+  ]
+ ],
+ "foco": {
+  "img": "kandinsky/composicao-8.jpg",
+  "titulo": "Composição VIII",
+  "dados": "1923 · óleo sobre tela · 140 × 201 cm · Museu Guggenheim, Nova York",
+  "intro": "Pintada em 1923, quando Kandinsky ensinava na Bauhaus, não mostra nenhum objeto. Círculos, triângulos, retas e curvas se equilibram sobre um fundo claro, como os instrumentos de uma orquestra.",
+  "marcas": [
+   [
+    15,
+    20,
+    "O grande círculo",
+    "Preto, com uma auréola vermelha e violeta, pesa no alto à esquerda e equilibra o resto do quadro."
+   ],
+   [
+    50,
+    50,
+    "Retas e ângulos",
+    "Linhas finas se cruzam como um desenho técnico, feitas com régua e compasso."
+   ],
+   [
+    70,
+    70,
+    "Semicírculos",
+    "Meias-luas e arcos parecem girar e dão movimento à composição."
+   ],
+   [
+    85,
+    30,
+    "A grade",
+    "Um pequeno tabuleiro de quadrados coloridos, como um acorde de notas juntas."
+   ]
+  ]
+ },
+ "sabia": [
+  "Kandinsky descrevia cores que ouvia e sons que via. Muitos estudiosos acham que ele tinha sinestesia, uma mistura dos sentidos.",
+  "Ele contou que, ao voltar ao ateliê ao anoitecer, viu um quadro belíssimo que não reconheceu: era um quadro seu, virado de lado.",
+  "Em 1937, os nazistas tiraram dezenas de obras dele de museus alemães e mostraram algumas na exposição Arte Degenerada, para ridicularizá-las."
+ ],
+ "tecnica": {
+  "titulo": "Uma gramática das formas",
+  "intro": "Na Bauhaus, Kandinsky ensinava a ver formas e cores como palavras de uma língua. No livro Ponto e linha sobre plano, de 1926, explicou como cada elemento age sobre quem olha.",
+  "passos": [
+   [
+    "O ponto",
+    "O elemento mais simples: parado, concentra o olhar num lugar só."
+   ],
+   [
+    "A linha",
+    "Para ele, um ponto em movimento. Reta, curva ou quebrada, cada linha tem uma força diferente."
+   ],
+   [
+    "Forma e cor",
+    "Num questionário para os alunos, ligou o triângulo ao amarelo, o quadrado ao vermelho e o círculo ao azul."
+   ],
+   [
+    "O plano",
+    "Por fim, distribuía tudo na tela como notas numa partitura, buscando tensão e equilíbrio."
+   ]
+  ],
+  "box_t": "Cores que soam",
+  "box": "Em Do espiritual na arte, Kandinsky comparou as cores a instrumentos. O amarelo soaria como um trompete, o azul-claro como uma flauta, o azul-escuro como um violoncelo e, mais fundo ainda, como um órgão. Para ele, pintar era compor, e o quadro devia ser ouvido com os olhos.",
+  "paleta": [
+   [
+    "#E6DCC2",
+    "Fundo creme"
+   ],
+   [
+    "#1B1B1B",
+    "Preto"
+   ],
+   [
+    "#3C5FA8",
+    "Azul"
+   ],
+   [
+    "#C8463A",
+    "Vermelho"
+   ],
+   [
+    "#E5C14A",
+    "Amarelo"
+   ]
+  ]
+ },
+ "obras": [
+  {
+   "img": "kandinsky/cavaleiro-azul.jpg",
+   "titulo": "O cavaleiro azul",
+   "ano": "1903",
+   "nota": "Um cavaleiro passa a galope; o tema voltaria no nome do grupo."
+  },
+  {
+   "img": "kandinsky/murnau.jpg",
+   "titulo": "Ferrovia perto de Murnau",
+   "ano": "1909",
+   "nota": "Um trem corta a paisagem de Murnau; as cores já se soltam das coisas."
+  },
+  {
+   "img": "kandinsky/amarelo-vermelho-azul.jpg",
+   "titulo": "Amarelo-vermelho-azul",
+   "ano": "1925",
+   "nota": "As três cores e as formas geométricas da Bauhaus num só quadro."
+  }
+ ],
+ "influenciou": [
+  [
+   "Arshile Gorky",
+   null
+  ],
+  [
+   "Jackson Pollock",
+   null
+  ]
+ ],
+ "rival": [
+  "Piet Mondrian",
+  37,
+  "Outro pioneiro da abstração, que chegou a ela por outro caminho: a reta."
+ ],
+ "pensar": "Ouça uma música de que você goste e desenhe, sem pensar em objetos, as linhas e formas que ela sugere: pontos para notas curtas, curvas para melodias, retas para batidas fortes.",
+ "palavras": [
+  [
+   "Arte abstrata",
+   "Arte que não representa pessoas, coisas ou lugares, só cores, linhas e formas."
+  ],
+  [
+   "Bauhaus",
+   "Escola alemã de arte, arquitetura e design (1919–1933) que juntava artistas e artesãos."
+  ],
+  [
+   "Sinestesia",
+   "Mistura de sentidos: ouvir uma cor, ver um som."
+  ]
+ ],
+ "imagens": {
+  "composicao-7.jpg": "File:Composition VII - Wassily Kandinsky, GAC.jpg",
+  "composicao-8.jpg": "File:Kandinsky - Composition 8, July 1923.jpg",
+  "cavaleiro-azul.jpg": "File:Wassily Kandinsky, 1903, The Blue Rider (Der Blaue Reiter), oil on canvas, 52.1 x 54.6 cm, Stiftung Sammlung E.G. Bührle, Zurich.jpg",
+  "murnau.jpg": "File:Wassily Kandinsky - Eisenbahn bei Murnau - GMS 49 - Lenbachhaus.jpg",
+  "amarelo-vermelho-azul.jpg": "File:Gelb-Rot-Blau, by Wassily Kandinsky.jpg",
+  "almanaque.jpg": "File:Franz Marc and Wassily Kandinsky, published by R. Piper & Co. - Der Blaue Reiter (The Blue Rider) - Google Art Project.jpg"
+ },
+ "pron": "por ele"
+}

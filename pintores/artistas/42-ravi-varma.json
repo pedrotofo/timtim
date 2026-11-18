@@ -1,0 +1,267 @@
+{
+ "pos": 42,
+ "chave": "ravi-varma",
+ "nome": "Raja Ravi Varma",
+ "nome_original": "",
+ "vida": "1848–1906",
+ "origem": "Índia",
+ "cor": "#8A3A1E",
+ "frase": "Pintou deuses e heroínas da Índia com a técnica europeia do óleo e, com uma prensa, levou essas imagens a casas do país inteiro.",
+ "retrato": {
+  "img": "ravi-varma/retrato.jpg",
+  "legenda": "Autorretrato, com a medalha Kaisar-i-Hind que recebeu em 1904. Óleo sobre tela.",
+  "pos": "center 25%"
+ },
+ "abertura": {
+  "img": "ravi-varma/papai.jpg",
+  "legenda": "Lá vem o papai, 1893. Óleo sobre tela. A modelo é a filha do pintor, Mahaprabha, com o filho dela.",
+  "pos": "center 18%"
+ },
+ "ficha": [
+  [
+   "Nasceu",
+   "1848, em Kilimanoor, reino de Travancore (hoje Kerala), Índia"
+  ],
+  [
+   "Morreu",
+   "1906, em Travancore, aos 58 anos"
+  ],
+  [
+   "Movimento",
+   "Pintura acadêmica; precursor da arte moderna indiana"
+  ],
+  [
+   "Técnica",
+   "Óleo sobre tela e oleografias (litografias coloridas)"
+  ],
+  [
+   "Obra",
+   "Algumas centenas de quadros, pelas estimativas"
+  ],
+  [
+   "Onde ver",
+   "Galeria Sree Chitra (Thiruvananthapuram), Palácio Laxmi Vilas (Vadodara), Palácio Jaganmohan (Mysore)"
+  ]
+ ],
+ "vida_titulo": "O pintor que imprimiu os deuses",
+ "vida_txt": [
+  {
+   "t": "Um menino de Kilimanoor",
+   "p": "Ravi Varma nasceu em 1848 em Kilimanoor, no reino de Travancore, no sul da Índia, hoje estado de Kerala. Sua família era aparentada com a casa real. Conta-se que, criança, desenhava com carvão nas paredes de casa. Um tio pintor, Raja Raja Varma, passou a ensiná-lo. Aos 14 anos foi levado à corte do marajá Ayilyam Thirunal, em Thiruvananthapuram, onde viu quadros a óleo europeus."
+  },
+  {
+   "t": "O segredo do óleo",
+   "p": "Na Índia daquele tempo, quase ninguém pintava a óleo. Em 1868, o retratista europeu Theodore Jensen passou pela corte, e Ravi Varma pôde vê-lo trabalhar. O resto aprendeu sozinho, copiando e testando tintas. Em 1873 já ganhava prêmios em exposições, e logo vieram encomendas de marajás e de funcionários ingleses, que queriam retratos no estilo europeu."
+  },
+  {
+   "t": "Deuses e heroínas",
+   "p": "Nos anos 1880 e 1890 viajou pelo país pintando para as cortes. Para o marajá de Baroda fez uma série de cenas de mitos hindus; para o de Mysore, a Galáxia de musicistas. Pintava deusas e heroínas dos épicos Mahabharata e Ramayana como mulheres de carne e osso, com sáris e joias de verdade. Em 1893 mandou quadros para a Exposição Universal de Chicago."
+  },
+  {
+   "t": "A prensa de Bombaim",
+   "p": "Em 1894, com o irmão Raja Raja Varma, abriu uma gráfica de litografia em Bombaim. Em 1899 ela foi para Malavli, perto de Lonavala, e em 1901 foi vendida ao técnico alemão Fritz Schleicher, que seguiu imprimindo as imagens. Em 1904 o vice-rei britânico lhe deu a medalha Kaisar-i-Hind. Abalado pela morte do irmão, em 1905, morreu no ano seguinte."
+  }
+ ],
+ "citacao": {
+  "texto": "De repente, a moça esguia disse: \"Um broto de capim feriu meu pé\", e parou depois de poucos passos. E virou o rosto para trás, fingindo soltar dos galhos a roupa de casca de árvore, que nem estava presa.",
+  "fonte": "Kalidasa, Shakuntala, ato 2: a cena que Ravi Varma pintou em 1898"
+ },
+ "vida_fig": {
+  "img": "ravi-varma/duque.jpg",
+  "legenda": "O marajá de Travancore recebe o duque de Buckingham, governador de Madras, em 1880. Óleo de 1881."
+ },
+ "linha": [
+  [
+   1848,
+   "Nasce em Kilimanoor",
+   "vida"
+  ],
+  [
+   1857,
+   "Grande revolta contra os ingleses",
+   "mundo"
+  ],
+  [
+   1868,
+   "Vê Theodore Jensen pintar",
+   "vida"
+  ],
+  [
+   1873,
+   "Primeiros prêmios em exposições",
+   "vida"
+  ],
+  [
+   1877,
+   "Vitória vira imperatriz da Índia",
+   "mundo"
+  ],
+  [
+   1885,
+   "Fundado o Congresso Nacional Indiano",
+   "mundo"
+  ],
+  [
+   1888,
+   "Abolição da escravatura no Brasil",
+   "mundo"
+  ],
+  [
+   1894,
+   "Abre a gráfica em Bombaim",
+   "vida"
+  ],
+  [
+   1896,
+   "Primeira sessão de cinema na Índia",
+   "mundo"
+  ],
+  [
+   1906,
+   "Morre em Travancore",
+   "vida"
+  ]
+ ],
+ "foco": {
+  "img": "ravi-varma/shakuntala.jpg",
+  "titulo": "Shakuntala olha para trás",
+  "dados": "1898 · óleo sobre tela · Galeria de Arte Sree Chitra, Thiruvananthapuram",
+  "intro": "Na peça de Kalidasa, a jovem Shakuntala se apaixona pelo rei Dushyanta. Quando as amigas a levam embora, ela inventa uma desculpa para parar e olhar o rei mais uma vez.",
+  "marcas": [
+   [
+    82,
+    30,
+    "O olhar",
+    "Shakuntala vira o rosto para o rei, que não aparece no quadro: quem olha a pintura está no lugar dele."
+   ],
+   [
+    79,
+    65,
+    "O pé",
+    "Ela segura o pé como se algo o tivesse ferido. É só a desculpa para parar."
+   ],
+   [
+    47,
+    45,
+    "A amiga",
+    "A companheira sorri, como quem percebeu o fingimento."
+   ],
+   [
+    12,
+    50,
+    "O eremita",
+    "Um velho do eremitério segue na frente, de costas, sem ver nada."
+   ]
+  ]
+ },
+ "sabia": [
+  "Os títulos das gravuras vinham em inglês e em devanágari, a escrita do híndi e do marati, para vender em várias regiões.",
+  "Muitas imagens de deusas como Lakshmi e Saraswati que aparecem até hoje em calendários e altares domésticos vêm das gravuras da gráfica dele.",
+  "A Índia lançou um selo com o rosto de Ravi Varma em 1971."
+ ],
+ "tecnica": {
+  "titulo": "Do quadro à oleografia",
+  "intro": "Ravi Varma juntou duas coisas que pareciam não combinar: a pintura a óleo europeia e os mitos da Índia. Depois, com uma prensa, levou esses quadros a quem nunca poderia comprar um.",
+  "passos": [
+   [
+    "O quadro a óleo",
+    "Ele pintava com tintas e telas europeias, a partir de modelos que posavam com sáris, joias e potes de verdade."
+   ],
+   [
+    "A pedra",
+    "Na gráfica, um desenhista copiava o quadro em pedras calcárias lisas, com lápis gorduroso: uma pedra para cada cor."
+   ],
+   [
+    "Cor sobre cor",
+    "A mesma folha passava várias vezes pela prensa, uma por pedra. As cores se somavam até formar a imagem."
+   ],
+   [
+    "Cara de pintura",
+    "No fim, verniz e um leve relevo imitavam a textura da tela e da tinta a óleo. Daí o nome oleografia."
+   ]
+  ],
+  "box_t": "Deuses em todas as casas",
+  "box": "Um quadro a óleo ficava num palácio. Uma oleografia custava pouco e ia para casas, lojas e templos. Pela primeira vez muita gente pôde ter em casa uma imagem colorida de um deus ou de uma heroína dos épicos. Os calendários e o cinema indiano herdaram esse jeito de mostrá-los.",
+  "paleta": [
+   [
+    "#C0673A",
+    "Sári laranja"
+   ],
+   [
+    "#9DB1C8",
+    "Céu"
+   ],
+   [
+    "#556B3A",
+    "Verde mata"
+   ],
+   [
+    "#A86A43",
+    "Pele"
+   ],
+   [
+    "#D8C7A0",
+    "Pano cru"
+   ]
+  ]
+ },
+ "obras": [
+  {
+   "img": "ravi-varma/carta.jpg",
+   "titulo": "Shakuntala escreve a carta de amor",
+   "ano": "começo do séc. XX",
+   "nota": "Cópia impressa pela gráfica dele: a carta ao rei, escrita numa folha de lótus."
+  },
+  {
+   "img": "ravi-varma/damayanti.jpg",
+   "titulo": "Damayanti e o cisne",
+   "ano": "1899",
+   "nota": "Um cisne traz à princesa notícias do rei Nala, por quem ela se apaixona."
+  },
+  {
+   "img": "ravi-varma/musicas.jpg",
+   "titulo": "Galáxia de musicistas",
+   "ano": "1889",
+   "nota": "Onze mulheres de várias regiões da Índia, cada uma com sua roupa e instrumento."
+  }
+ ],
+ "influenciou": [
+  [
+   "M. V. Dhurandhar",
+   null
+  ],
+  [
+   "Dadasaheb Phalke",
+   null
+  ],
+  [
+   "Arte de calendário da Índia",
+   null
+  ]
+ ],
+ "pensar": "Escolha uma história que todo mundo conhece (um conto, uma lenda, uma novela) e desenhe a personagem principal como se fosse alguém da sua cidade hoje: que roupa ela usaria? Onde estaria?",
+ "palavras": [
+  [
+   "Oleografia",
+   "Litografia colorida envernizada e com relevo, feita para parecer uma pintura a óleo."
+  ],
+  [
+   "Litografia",
+   "Gravura impressa a partir de um desenho feito com material gorduroso sobre uma pedra lisa."
+  ],
+  [
+   "Mahabharata",
+   "Grande poema épico da Índia antiga, com a guerra entre primos e muitas histórias paralelas."
+  ]
+ ],
+ "imagens": {
+  "retrato.jpg": "File:Self portrait by Raja Ravi Varma.jpg",
+  "papai.jpg": "File:Raja Ravi Varma, There Comes Papa (1893).jpg",
+  "carta.jpg": "File:Raja Ravi Varma, Sakunthala Pathralekhan.jpg",
+  "shakuntala.jpg": "File:Raja Ravi Varma - Mahabharata - Shakuntala.jpg",
+  "damayanti.jpg": "File:Ravi Varma-Princess Damayanthi talking with Royal Swan about Nala.jpg",
+  "musicas.jpg": "File:Raja Ravi Varma, Galaxy of Musicians.jpg",
+  "duque.jpg": "File:Raja ravivarma painting 50 historic meeting.jpg"
+ },
+ "pron": "por ele"
+}

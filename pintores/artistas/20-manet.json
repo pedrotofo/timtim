@@ -1,0 +1,276 @@
+{
+ "pos": 20,
+ "chave": "manet",
+ "nome": "Édouard Manet",
+ "nome_original": "",
+ "vida": "1832–1883",
+ "origem": "França",
+ "cor": "#2C3A33",
+ "frase": "Pintou a Paris do seu tempo sem disfarce, com cores chapadas e pretos fortes, e abriu caminho para os impressionistas.",
+ "retrato": {
+  "img": "manet/retrato.jpg",
+  "legenda": "Manet pintado pelo amigo Henri Fantin-Latour, 1867. Art Institute of Chicago.",
+  "pos": "center 8%"
+ },
+ "abertura": {
+  "img": "manet/tulherias.jpg",
+  "legenda": "Música nas Tulherias, 1862. Óleo sobre tela. National Gallery, Londres.",
+  "pos": "center 45%"
+ },
+ "ficha": [
+  [
+   "Nasceu",
+   "1832, em Paris, França"
+  ],
+  [
+   "Morreu",
+   "1883, em Paris, aos 51 anos"
+  ],
+  [
+   "Movimento",
+   "Realismo e Impressionismo"
+  ],
+  [
+   "Técnica",
+   "Óleo sobre tela, pastel e gravura"
+  ],
+  [
+   "Obra",
+   "Cerca de 400 pinturas, pelas estimativas, além de pastéis e gravuras"
+  ],
+  [
+   "Onde ver",
+   "Museu d'Orsay (Paris), Courtauld (Londres), National Gallery of Art (Washington)"
+  ]
+ ],
+ "vida_titulo": "O escândalo de pintar o presente",
+ "vida_txt": [
+  {
+   "t": "Um aprendiz no Rio",
+   "p": "Édouard Manet nasceu em Paris em 1832, numa família rica. O pai era juiz e queria um filho advogado, mas o menino só queria desenhar. Para fugir do direito, tentou a Escola Naval, foi reprovado e embarcou como aprendiz num navio-escola. No começo de 1849 passou semanas no Rio de Janeiro e escreveu à família sobre o carnaval e o mercado de escravos."
+  },
+  {
+   "t": "Os escândalos",
+   "p": "De volta, o pai cedeu. Manet estudou seis anos com o pintor Thomas Couture e copiou os mestres no Louvre. Em 1863, O almoço na relva foi recusado pelo júri e exposto no Salão dos Recusados, entre risos. Em 1865, Olympia causou escândalo ainda maior. Não era só o nu: eram mulheres de Paris, de verdade, pintadas com cores chapadas, sem disfarce de deusa."
+  },
+  {
+   "t": "Pintar o próprio tempo",
+   "p": "Manet pintava o que via: cafés, cantores de rua, corridas, a estação de trem, os amigos. O escritor Émile Zola o defendeu nos jornais, e os jovens impressionistas, como Monet e Renoir, viam nele um líder. Mas ele nunca expôs com o grupo: queria vencer no Salão oficial. Em 1874 pintou ao ar livre com Monet em Argenteuil, e sua cor clareou."
+  },
+  {
+   "t": "O último bar",
+   "p": "No fim dos anos 1870, uma doença começou a tirar-lhe os movimentos das pernas. Pintava sentado, muitas vezes a pastel. Em 1881 recebeu a Legião de Honra, e em 1882 expôs Um bar no Folies-Bergère, sua última grande tela. Em abril de 1883 os médicos amputaram sua perna esquerda. Morreu dez dias depois, em Paris, aos 51 anos."
+  }
+ ],
+ "citacao": {
+  "texto": "Velázquez, sozinho, já vale a viagem. É o pintor dos pintores. Não me espantou: me encantou.",
+  "fonte": "Carta a Henri Fantin-Latour, Madri, 1865"
+ },
+ "vida_fig": {
+  "img": "manet/zola.jpg",
+  "legenda": "Retrato de Émile Zola, 1868, pintado em agradecimento à defesa do escritor. Museu d'Orsay."
+ },
+ "linha": [
+  [
+   1832,
+   "Nasce em Paris",
+   "vida"
+  ],
+  [
+   1849,
+   "Passa semanas no Rio de Janeiro",
+   "vida"
+  ],
+  [
+   1850,
+   "Brasil proíbe o tráfico de escravizados",
+   "mundo"
+  ],
+  [
+   1863,
+   "Salão dos Recusados",
+   "vida"
+  ],
+  [
+   1864,
+   "Começa a Guerra do Paraguai",
+   "mundo"
+  ],
+  [
+   1870,
+   "Guerra Franco-Prussiana",
+   "mundo"
+  ],
+  [
+   1871,
+   "Lei do Ventre Livre no Brasil",
+   "mundo"
+  ],
+  [
+   1874,
+   "Primeira exposição impressionista",
+   "mundo"
+  ],
+  [
+   1882,
+   "Um bar no Folies-Bergère",
+   "vida"
+  ],
+  [
+   1883,
+   "Morre em Paris, aos 51 anos",
+   "vida"
+  ]
+ ],
+ "foco": {
+  "img": "manet/bar.jpg",
+  "titulo": "Um bar no Folies-Bergère",
+  "dados": "1882 · óleo sobre tela · 96 × 130 cm · Courtauld Gallery, Londres",
+  "intro": "Uma garçonete atrás do balcão de um café-concerto de Paris. Tudo o que se vê atrás dela é reflexo num espelho enorme. A modelo, Suzon, trabalhava de verdade no Folies-Bergère.",
+  "marcas": [
+   [
+    57,
+    29,
+    "O olhar",
+    "Ela nos encara, cansada ou distante, no meio da festa."
+   ],
+   [
+    80,
+    40,
+    "O reflexo",
+    "No espelho, ela aparece deslocada, atendendo um cliente de cartola que deveria estar à nossa frente."
+   ],
+   [
+    7,
+    6,
+    "O trapezista",
+    "No canto de cima, só as pernas e as botinas verdes de um acrobata."
+   ],
+   [
+    74,
+    73,
+    "O balcão",
+    "Laranjas, flores e garrafas: uma natureza-morta em pinceladas rápidas."
+   ]
+  ]
+ },
+ "sabia": [
+  "As garrafas de cerveja têm o triângulo vermelho da Bass, uma das primeiras marcas registradas do mundo.",
+  "Manet assinou o quadro no rótulo de uma garrafa, no canto de baixo, à esquerda: \"Manet 1882\".",
+  "Em 1867, fora da Exposição Universal de Paris, Manet ergueu um pavilhão só seu para mostrar cerca de cinquenta quadros."
+ ],
+ "tecnica": {
+  "titulo": "Pintar direto, sem esconder",
+  "intro": "A pintura de escola preparava tudo em camadas e passava devagar da luz à sombra. Manet pintava direto, com a tinta à vista, e deixava as pinceladas aparecerem.",
+  "passos": [
+   [
+    "Sem meio-tom",
+    "Saltava do claro para o escuro quase sem passagem. As figuras ficam chapadas, como numa foto com flash."
+   ],
+   [
+    "Tinta molhada",
+    "Pintava camada sobre camada ainda fresca. Se não gostava, raspava a área inteira e recomeçava."
+   ],
+   [
+    "O preto",
+    "Usava o preto puro como cor, em roupas, chapéus e contornos, onde outros usavam marrom."
+   ],
+   [
+    "A pincelada",
+    "Nos fundos e nas flores, poucos toques largos. De perto, manchas; de longe, a coisa inteira."
+   ]
+  ],
+  "box_t": "Lições da Espanha",
+  "box": "Antes mesmo de ir a Madri, em 1865, Manet pintava cantores, toureiros e mendigos espanhóis. De Velázquez e de Goya tirou o fundo liso, sem paisagem, onde a figura parece flutuar, como no Pífaro, e o gosto pelo preto.",
+  "paleta": [
+   [
+    "#1E2A2A",
+    "Preto"
+   ],
+   [
+    "#E8E3D6",
+    "Branco"
+   ],
+   [
+    "#3E5E52",
+    "Verde"
+   ],
+   [
+    "#C89A55",
+    "Dourado"
+   ],
+   [
+    "#9C3B30",
+    "Vermelho"
+   ]
+  ]
+ },
+ "obras": [
+  {
+   "img": "manet/pifaro.jpg",
+   "titulo": "O tocador de pífaro",
+   "ano": "1866",
+   "nota": "Um menino da banda militar sobre um fundo cinza, sem chão nem paisagem."
+  },
+  {
+   "img": "manet/morisot.jpg",
+   "titulo": "Berthe Morisot com buquê de violetas",
+   "ano": "1872",
+   "nota": "A amiga pintora, de preto, num dos seus retratos mais livres."
+  },
+  {
+   "img": "manet/ferrovia.jpg",
+   "titulo": "A ferrovia",
+   "ano": "1873",
+   "nota": "Uma menina olha o vapor do trem; a mãe olha para nós."
+  }
+ ],
+ "influenciou": [
+  [
+   "Claude Monet",
+   7
+  ],
+  [
+   "Pierre-Auguste Renoir",
+   29
+  ],
+  [
+   "Paul Cézanne",
+   9
+  ],
+  [
+   "Berthe Morisot",
+   null
+  ]
+ ],
+ "rival": [
+  "Edgar Degas",
+  21,
+  "Amigos e rivais: brigavam e se reconciliavam. Degas colecionou quadros de Manet."
+ ],
+ "pensar": "Desenhe alguém na frente de um espelho, com o reflexo. Depois mude o reflexo de lugar, como Manet fez no bar. O desenho fica errado ou mais interessante?",
+ "palavras": [
+  [
+   "Realismo",
+   "Arte que mostra a vida comum do seu tempo, sem embelezar e sem temas mitológicos."
+  ],
+  [
+   "Café-concerto",
+   "Casa de espetáculos da Paris do século XIX onde se bebia vendo cantores e acrobatas."
+  ],
+  [
+   "Salão dos Recusados",
+   "Exposição de 1863, autorizada por Napoleão III, com as obras recusadas pelo júri do Salão oficial."
+  ]
+ ],
+ "imagens": {
+  "retrato.jpg": "File:Henri Fantin-Latour - Édouard Manet - 1905.207 - Art Institute of Chicago.jpg",
+  "tulherias.jpg": "File:MANET - Música en las Tullerías (National Gallery, Londres, 1862).jpg",
+  "bar.jpg": "File:Edouard Manet, A Bar at the Folies-Bergère.jpg",
+  "pifaro.jpg": "File:Manet, Edouard - Young Flautist, or The Fifer, 1866 (2).jpg",
+  "morisot.jpg": "File:Edouard Manet - Berthe Morisot With a Bouquet of Violets - Google Art Project.jpg",
+  "ferrovia.jpg": "File:Edouard Manet, The Railway, 1873, NGA 43624.jpg",
+  "zola.jpg": "File:Manet, Edouard - Portrait of Emile Zola.jpg"
+ },
+ "pron": "por ele"
+}

@@ -1,0 +1,137 @@
+{
+ "pos": 24,
+ "chave": "el-greco",
+ "nome": "El Greco",
+ "nome_original": "Δομήνικος Θεοτοκόπουλος",
+ "vida": "1541–1614",
+ "origem": "Creta (Grécia) e Espanha",
+ "cor": "#7A2E22",
+ "frase": "Pintor grego formado em Veneza que, em Toledo, alongou as figuras e juntou o céu e a terra no mesmo quadro.",
+ "retrato": {
+  "img": "el-greco/retrato.jpg",
+  "legenda": "Retrato de um homem velho, c. 1595–1600, talvez um autorretrato. Metropolitan Museum, Nova York.",
+  "pos": "center 30%"
+ },
+ "abertura": {
+  "img": "el-greco/vista-de-toledo.jpg",
+  "legenda": "Vista de Toledo, c. 1599–1600. Óleo sobre tela. Metropolitan Museum, Nova York.",
+  "pos": "center 50%"
+ },
+ "ficha": [
+  ["Nasceu", "1541, em Cândia (hoje Heraklion), na ilha de Creta"],
+  ["Morreu", "1614, em Toledo, Espanha, aos 73 anos"],
+  ["Movimento", "Maneirismo"],
+  ["Técnica", "Óleo sobre tela; em Creta, têmpera sobre madeira"],
+  ["Obra", "Centenas de pinturas, muitas repetidas com ajuda do ateliê"],
+  ["Onde ver", "Museu do Prado (Madri), Museu do Greco (Toledo), Metropolitan (Nova York)"]
+ ],
+ "vida_titulo": "De Creta a Toledo",
+ "vida_txt": [
+  {
+   "t": "Pintor de ícones",
+   "p": "Doménikos Theotokópoulos nasceu em 1541 em Cândia, na ilha de Creta, que então pertencia a Veneza. Aprendeu a pintar ícones, as imagens sagradas da Igreja ortodoxa, com fundo de ouro. Aos 22 anos os documentos da cidade já o chamavam de mestre. Um ícone assinado por ele, A Dormição da Virgem, está até hoje numa igreja da ilha grega de Siros."
+  },
+  {
+   "t": "Veneza e Roma",
+   "p": "Por volta de 1567 mudou-se para Veneza, onde estudou Ticiano e Tintoretto e aprendeu a cor e a pincelada solta. Em 1570 foi para Roma; uma carta do pintor Giulio Clovio o apresentou como \"discípulo de Ticiano\". Segundo o escritor Giulio Mancini, ele disse que, se derrubassem o Juízo Final de Michelangelo, faria outro mais decente e tão bom quanto. Os pintores de Roma não gostaram."
+  },
+  {
+   "t": "Toledo para sempre",
+   "p": "Em 1577 chegou à Espanha. Esperava trabalhar para o rei Filipe II, que construía o mosteiro do Escorial, mas o rei não gostou do quadro que encomendou. El Greco ficou em Toledo, cidade de igrejas e conventos, e ali passou o resto da vida. Com Jerónima de las Cuevas, com quem não se casou, teve em 1578 o filho Jorge Manuel, que trabalhou com ele no ateliê."
+  },
+  {
+   "t": "Música no jantar",
+   "p": "Alugou salas num palácio de Toledo e, segundo o pintor Jusepe Martínez, pagava músicos para tocar enquanto comia. Tinha livros em grego, latim, italiano e espanhol e escrevia comentários nas margens. Morreu em 1614, com dívidas. Depois foi quase esquecido por dois séculos, até que pintores e críticos do fim do século XIX e do século XX, como Picasso, o redescobriram."
+  }
+ ],
+ "citacao": {
+  "texto": "Quem acreditará que Domenico Greco pegava suas pinturas muitas vezes e as retocava uma e outra vez, para deixar as cores separadas e soltas e dar aquelas manchas cruéis, para mostrar ousadia? A isso chamo trabalhar para ser pobre.",
+  "fonte": "Francisco Pacheco, sogro e mestre de Velázquez, em Arte da pintura, 1649"
+ },
+ "vida_fig": {
+  "img": "el-greco/dormicao.jpg",
+  "legenda": "A Dormição da Virgem, antes de 1567, ícone pintado ainda em Creta. Catedral da Dormição, Ermoupoli, ilha de Siros."
+ },
+ "linha": [
+  [1541, "Nasce em Cândia, Creta", "vida"],
+  [1549, "Tomé de Sousa funda Salvador", "mundo"],
+  [1567, "Muda-se para Veneza", "vida"],
+  [1571, "Batalha naval de Lepanto", "mundo"],
+  [1577, "Chega a Toledo", "vida"],
+  [1580, "Portugal e Espanha sob o mesmo rei", "mundo"],
+  [1586, "Começa O enterro do conde de Orgaz", "vida"],
+  [1588, "Derrota da Invencível Armada", "mundo"],
+  [1605, "Sai a primeira parte de Dom Quixote", "mundo"],
+  [1614, "Morre em Toledo", "vida"]
+ ],
+ "foco": {
+  "img": "el-greco/orgaz.jpg",
+  "titulo": "O enterro do conde de Orgaz",
+  "dados": "1586–1588 · óleo sobre tela · 480 × 360 cm · Igreja de Santo Tomé, Toledo",
+  "intro": "Conta uma lenda de Toledo que, em 1323, Santo Estêvão e Santo Agostinho desceram do céu para enterrar o conde de Orgaz, homem caridoso. Embaixo, o enterro; em cima, a alma do conde chega ao céu.",
+  "marcas": [
+   [50, 70, "Os dois santos", "Santo Estêvão, jovem, e Santo Agostinho, de barba branca, seguram o corpo de armadura do conde."],
+   [20, 80, "O menino", "É Jorge Manuel, filho do pintor. No lenço do bolso, El Greco escreveu seu nome e 1578, ano em que o filho nasceu."],
+   [50, 50, "Os fidalgos", "Uma fileira de homens de Toledo, de golas brancas, vestidos como na época do pintor, não como em 1323."],
+   [50, 20, "O céu", "A alma do conde, levada por um anjo, sobe até Cristo, a Virgem e São João Batista."]
+  ]
+ },
+ "sabia": [
+  "Por trás da cabeça de Santo Estêvão, um homem olha para fora do quadro. Segundo a tradição, é o próprio El Greco.",
+  "Ele assinava sempre com o nome completo em letras gregas, mesmo depois de quase quarenta anos na Espanha.",
+  "O apelido veio da Itália: \"il Greco\", o grego. Na Espanha virou El Greco, misturando o artigo espanhol com a palavra italiana."
+ ],
+ "tecnica": {
+  "titulo": "Figuras que sobem como chamas",
+  "intro": "El Greco juntou o que aprendeu em três lugares: o desenho e o ouro dos ícones de Creta, a cor e a pincelada solta de Veneza e as figuras torcidas do maneirismo de Roma.",
+  "passos": [
+   ["Modelos de barro", "Pacheco viu no ateliê pequenas figuras de barro que ele modelava para estudar poses e luz."],
+   ["Fundo colorido", "Cobria a tela com uma camada de cor, em geral avermelhada ou acinzentada, que dava o tom geral."],
+   ["Pincelada solta", "Pintava com manchas e pinceladas visíveis, que de perto parecem soltas e de longe formam a figura."],
+   ["Luz por cima", "No fim, toques de branco e de cor clara fazem tecidos e rostos brilharem como sob um relâmpago."]
+  ],
+  "box_t": "Por que tão compridas?",
+  "box": "Já se disse que El Greco tinha astigmatismo e por isso via tudo esticado. A ideia foi descartada: um defeito de visão deformaria também o modelo que ele olhava, e o quadro sairia normal. As figuras longas foram uma escolha, como no maneirismo italiano, para os santos parecerem subir ao céu.",
+  "paleta": [
+   ["#1C1A18", "Preto"],
+   ["#B8893A", "Ouro"],
+   ["#E3DCCB", "Golas"],
+   ["#8E3B2A", "Vermelho"],
+   ["#7A8796", "Cinza-azul"]
+  ]
+ },
+ "obras": [
+  {
+   "img": "el-greco/cavaleiro.jpg",
+   "titulo": "O cavaleiro com a mão no peito",
+   "ano": "c. 1580",
+   "nota": "Um fidalgo de Toledo, de preto, jura com a mão sobre o coração."
+  },
+  {
+   "img": "el-greco/espolio.jpg",
+   "titulo": "O Espólio",
+   "ano": "1577–1579",
+   "nota": "Cristo de vermelho no meio da multidão, antes da crucificação. Primeira encomenda em Toledo."
+  },
+  {
+   "img": "el-greco/pastores.jpg",
+   "titulo": "A adoração dos pastores",
+   "ano": "c. 1612–1614",
+   "nota": "Feito no fim da vida para a capela onde seria enterrado."
+  }
+ ],
+ "influenciou": [
+  ["Pablo Picasso", null],
+  ["Jackson Pollock", null],
+  ["Expressionistas alemães", null]
+ ],
+ "rival": ["Michelangelo", 3, "Admirava o desenho dele, mas dizia que Michelangelo não sabia pintar."],
+ "pensar": "Desenhe a mesma pessoa em pé duas vezes: uma com proporções normais e outra esticada, com cabeça pequena e corpo longo, como os santos de El Greco. Qual parece mais leve? Qual parece mais real?",
+ "palavras": [
+  ["Ícone", "Imagem sagrada da Igreja ortodoxa, pintada sobre madeira, muitas vezes com fundo de ouro."],
+  ["Maneirismo", "Estilo do fim do Renascimento, com figuras alongadas, poses torcidas e cores fora do comum."],
+  ["Retábulo", "Quadro ou conjunto de quadros e esculturas que fica atrás do altar de uma igreja."]
+ ],
+ "imagens": {},
+ "pron": "por ele"
+}

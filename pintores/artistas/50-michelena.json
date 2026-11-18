@@ -1,0 +1,142 @@
+{
+ "pos": 50,
+ "chave": "michelena",
+ "nome": "Arturo Michelena",
+ "nome_original": "",
+ "vida": "1863–1898",
+ "origem": "Venezuela",
+ "cor": "#5A3B26",
+ "frase": "Morreu aos 35 anos e deixou à Venezuela as imagens mais conhecidas da sua história, como Miranda preso na cela.",
+ "pron": "por ele",
+ "retrato": {
+  "img": "michelena/retrato.jpg",
+  "legenda": "Autorretrato de cartola, estudo para A vara quebrada, 1892. Óleo sobre tela.",
+  "pos": "center 30%"
+ },
+ "abertura": {
+  "img": "michelena/vuelvan-caras.jpg",
+  "legenda": "Vuelvan caras!, 1890: o general Páez manda seus cavaleiros darem meia-volta e atacar. Óleo sobre tela.",
+  "pos": "center 45%"
+ },
+ "ficha": [
+  ["Nasceu", "1863, em Valencia, Venezuela"],
+  ["Morreu", "1898, em Caracas, aos 35 anos, de tuberculose"],
+  ["Movimento", "Realismo acadêmico e pintura de história"],
+  ["Técnica", "Óleo sobre tela: retratos, cenas de história e de costumes"],
+  ["Obra", "Centenas de telas, estudos e desenhos em menos de vinte anos"],
+  ["Onde ver", "Galería de Arte Nacional e Casa Museo Arturo Michelena, ambas em Caracas"]
+ ],
+ "vida_titulo": "Uma vida curta e premiada",
+ "vida_txt": [
+  {
+   "t": "Filho de pintor",
+   "p": "Arturo Michelena nasceu em 1863 em Valencia, cidade do centro da Venezuela. O pai, Juan Antonio Michelena, era pintor e foi seu primeiro professor; os dois chegaram a abrir juntos uma academia de arte na cidade. A Venezuela não tinha, então, uma escola capaz de ensinar a pintar quadros grandes de história. Quem queria aprender isso precisava atravessar o oceano, e o destino de quase todos era Paris."
+  },
+  {
+   "t": "Paris, 1885",
+   "p": "Em 1885 Michelena partiu para Paris com o pintor Martín Tovar y Tovar. O governo prometeu uma bolsa que, segundo os biógrafos, nunca chegou. Ele entrou na Academia Julian, no ateliê de Jean-Paul Laurens, e lá ficou amigo de outro venezuelano, Cristóbal Rojas. Em 1887, aos 24 anos, mostrou O menino doente no Salão de Paris e ganhou uma medalha de segunda classe."
+  },
+  {
+   "t": "A medalha de 1889",
+   "p": "Em 1889, na Exposição Universal de Paris, a da Torre Eiffel, recebeu medalha de ouro com Carlota Corday a caminho do cadafalso. Voltou à Venezuela festejado, casou-se em Caracas com Lastenia Tello e retornou à França. Pintou cenas da independência venezuelana, como Vuelvan caras!, retratos de Simón Bolívar e temas antigos, como Pentesileia, a rainha das amazonas."
+  },
+  {
+   "t": "Pintar contra o tempo",
+   "p": "Doente de tuberculose, fixou-se em Caracas e continuou a pintar. Em 1896, nos oitenta anos da morte de Francisco de Miranda, mostrou o herói da independência sozinho numa cela em Cádis, na Espanha. Michelena morreu em 1898, aos 35 anos, com telas inacabadas no ateliê. Com Rojas, Tovar y Tovar e Antonio Herrera Toro, forma o quarteto dos grandes pintores venezuelanos do século XIX."
+  }
+ ],
+ "citacao": {
+  "texto": "O quadro mais célebre de toda a história da pintura na Venezuela é Miranda em La Carraca.",
+  "fonte": "Juan Carlos Palenzuela, crítico de arte, no Boletim da Academia Nacional da História, Caracas, 2000"
+ },
+ "vida_fig": {
+  "img": "michelena/joven-madre.jpg",
+  "legenda": "A jovem mãe, 1889, exposta em Paris no ano da medalha de ouro."
+ },
+ "linha": [
+  [1863, "Nasce em Valencia, Venezuela", "vida"],
+  [1870, "Termina a Guerra do Paraguai", "mundo"],
+  [1876, "Bell patenteia o telefone", "mundo"],
+  [1885, "Parte para estudar em Paris", "vida"],
+  [1887, "Medalha no Salão de Paris", "vida"],
+  [1888, "Lei Áurea abole a escravidão no Brasil", "mundo"],
+  [1889, "Proclamação da República no Brasil", "mundo"],
+  [1895, "Os irmãos Lumière mostram o cinema", "mundo"],
+  [1896, "Pinta Miranda em La Carraca", "vida"],
+  [1898, "Morre em Caracas, aos 35", "vida"]
+ ],
+ "foco": {
+  "img": "michelena/miranda.jpg",
+  "titulo": "Miranda em La Carraca",
+  "dados": "1896 · óleo sobre tela · 196,6 × 245,5 cm · Galería de Arte Nacional, Caracas",
+  "intro": "Francisco de Miranda lutou pela independência dos Estados Unidos, pela Revolução Francesa e pela Venezuela. Preso pelos espanhóis, morreu em 1816 no presídio de La Carraca, em Cádis. Michelena o pintou ali, velho e calado, à espera.",
+  "marcas": [
+   [50, 30, "O rosto", "Miranda olha para o nada. Não há gesto heroico: o herói é mostrado no momento da derrota."],
+   [40, 62, "A camisa aberta", "A luz bate na camisa branca e no peito: é a parte mais clara do quadro."],
+   [80, 75, "A cama de presídio", "Um catre simples e um cobertor. Michelena pinta a pobreza da cela com cuidado de naturalista."],
+   [12, 20, "A parede nua", "O fundo escuro e vazio fecha o espaço e aumenta a solidão do preso."]
+  ]
+ },
+ "sabia": [
+  "Carlota Corday matou o revolucionário Marat em 1793. A morte de Marat virou quadro famoso de Jacques-Louis David (nº 34); Michelena pintou a assassina a caminho da guilhotina.",
+  "O nome de Francisco de Miranda está gravado no Arco do Triunfo, em Paris, entre os generais da Revolução Francesa.",
+  "O Salão Arturo Michelena, criado em Valencia em 1943, é um dos concursos de arte mais antigos da Venezuela."
+ ],
+ "tecnica": {
+  "titulo": "O método da Academia Julian",
+  "intro": "Em Paris, Michelena aprendeu o método que os pintores de história usavam havia dois séculos: nada de improviso. Um quadro grande nascia de dezenas de desenhos e estudos, até cada figura estar resolvida.",
+  "passos": [
+   ["O croqui", "Um esboço pequeno e rápido decidia a composição: onde fica a figura principal e de onde vem a luz."],
+   ["Modelo vivo", "Cada figura era desenhada a partir de um modelo posando no ateliê, para acertar o peso do corpo e as dobras da roupa."],
+   ["Estudos a óleo", "Cabeças e mãos ganhavam estudos pintados à parte, como o autorretrato de cartola feito para A vara quebrada."],
+   ["A tela grande", "Por fim, tudo era passado para a tela em camadas: primeiro o fundo e as sombras, depois as cores e os brilhos."]
+  ],
+  "box_t": "Luz de cela",
+  "box": "Em Miranda em La Carraca quase tudo é penumbra. A luz entra de um lado, acende o rosto, a camisa e as mãos, e deixa o resto no escuro. É o claro-escuro de Caravaggio (nº 18) e Rembrandt (nº 4), usado aqui para dar peso a um herói vencido.",
+  "paleta": [
+   ["#2E2119", "Penumbra"],
+   ["#6B4A32", "Terra"],
+   ["#B89A72", "Pele"],
+   ["#E3DCCB", "Camisa"],
+   ["#8E8676", "Pedra"]
+  ]
+ },
+ "obras": [
+  {
+   "img": "michelena/nino-enfermo.jpg",
+   "titulo": "O menino doente",
+   "ano": "1886",
+   "nota": "A tela que lhe deu a medalha do Salão de Paris, em 1887."
+  },
+  {
+   "img": "michelena/carlota-corday.jpg",
+   "titulo": "Carlota Corday a caminho do cadafalso",
+   "ano": "1889",
+   "nota": "Medalha de ouro na Exposição Universal de Paris."
+  },
+  {
+   "img": "michelena/bolivar.jpg",
+   "titulo": "Retrato de Simón Bolívar",
+   "ano": "1895",
+   "nota": "Um dos retratos do libertador que fixaram sua imagem na Venezuela."
+  }
+ ],
+ "influenciou": [
+  ["Tito Salas", null]
+ ],
+ "pensar": "Michelena pôs Miranda sozinho numa cela, olhando para o nada. Desenhe alguém esperando num lugar pequeno, com uma só fonte de luz. O que a luz mostra e o que ela esconde?",
+ "palavras": [
+  ["Pintura de história", "Quadro grande que conta um fato histórico, mitológico ou bíblico; era o gênero mais prestigiado das academias."],
+  ["Salão de Paris", "Exposição oficial de arte em Paris, com júri e medalhas; um prêmio ali abria portas no mundo inteiro."],
+  ["Academia Julian", "Escola particular de arte em Paris, aberta em 1868, que aceitava estrangeiros e mulheres."]
+ ],
+ "imagens": {
+  "retrato.jpg": "File:Estudio de personaje para la vara rota. (Autorretrato con sombrero de copa).jpg",
+  "vuelvan-caras.jpg": "File:Vuelvan Caras, Arturo Michelena.jpg",
+  "miranda.jpg": "File:Miranda en la Carraca by Arturo Michelena.jpg",
+  "nino-enfermo.jpg": "File:El niño enfermo. Paris 1886..jpg",
+  "carlota-corday.jpg": "File:Carlota Corday 1889, Arturo Michelena.jpg",
+  "bolivar.jpg": "File:Portrait of Simón Bolívar by Arturo Michelena.jpg",
+  "joven-madre.jpg": "File:La Joven Madre 1889 by Arturo Michelena.jpg"
+ }
+}

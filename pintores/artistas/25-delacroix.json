@@ -1,0 +1,276 @@
+{
+ "pos": 25,
+ "chave": "delacroix",
+ "nome": "Eugène Delacroix",
+ "nome_original": "",
+ "vida": "1798–1863",
+ "origem": "França",
+ "cor": "#8C2A24",
+ "frase": "Pintou revoluções, leões e o Marrocos com cores fortes e pinceladas agitadas, e virou a bandeira do Romantismo na França.",
+ "retrato": {
+  "img": "delacroix/retrato.jpg",
+  "legenda": "Autorretrato, c. 1837. Óleo sobre tela. Museu do Louvre, Paris.",
+  "pos": "center 25%"
+ },
+ "abertura": {
+  "img": "delacroix/mulheres-de-argel.jpg",
+  "legenda": "Mulheres de Argel em seu apartamento, 1834. Óleo sobre tela. Museu do Louvre, Paris.",
+  "pos": "center 45%"
+ },
+ "ficha": [
+  [
+   "Nasceu",
+   "1798, em Charenton-Saint-Maurice, perto de Paris"
+  ],
+  [
+   "Morreu",
+   "1863, em Paris, aos 65 anos"
+  ],
+  [
+   "Movimento",
+   "Romantismo"
+  ],
+  [
+   "Técnica",
+   "Óleo sobre tela, pintura mural, aquarela e litografia"
+  ],
+  [
+   "Obra",
+   "Centenas de pinturas e milhares de desenhos e aquarelas"
+  ],
+  [
+   "Onde ver",
+   "Louvre e Museu Eugène Delacroix (Paris), National Gallery (Londres)"
+  ]
+ ],
+ "vida_titulo": "Cor, revolução e viagem ao Marrocos",
+ "vida_txt": [
+  {
+   "t": "Filho de ministro",
+   "p": "Delacroix nasceu em 1798 perto de Paris, filho de Charles Delacroix, que tinha sido ministro das Relações Exteriores da Revolução. Desde o século XIX corre o boato de que o pai verdadeiro seria o diplomata Talleyrand, mas nunca se provou nada. Perdeu o pai aos sete anos e a mãe aos dezesseis. Estudou com o pintor Pierre Guérin, copiava Rubens no Louvre e ficou amigo de Théodore Géricault."
+  },
+  {
+   "t": "Escândalos no Salão",
+   "p": "Em 1822, aos 24 anos, estreou no Salão com A barca de Dante, que o governo comprou. Em 1824, O massacre de Quios mostrou gregos mortos pelos turcos na guerra de independência da Grécia; segundo a tradição, o pintor Antoine-Jean Gros o chamou de \"massacre da pintura\". Em 1830, quando Paris derrubou o rei Carlos X em três dias de barricadas, Delacroix pintou A Liberdade guiando o povo."
+  },
+  {
+   "t": "Seis meses no Marrocos",
+   "p": "Em 1832 viajou ao Marrocos com uma missão diplomática francesa enviada ao sultão. Durante cerca de seis meses encheu cadernos de desenhos e aquarelas: cavaleiros, roupas, casas brancas, luz forte. Na volta passou por Argel, onde, conta-se, conseguiu visitar o interior de uma casa muçulmana. Daí saiu Mulheres de Argel, de 1834. Ele usaria essas anotações pelo resto da vida."
+  },
+  {
+   "t": "Paredes, diário e amigos",
+   "p": "Delacroix também pintou grandes paredes e tetos: na biblioteca da Câmara dos Deputados, na galeria de Apolo do Louvre, na igreja de Saint-Sulpice. Escreveu um diário que hoje é um clássico sobre pintura. Era amigo do compositor Frédéric Chopin e da escritora George Sand. Nunca se casou. Morreu em 1863 no apartamento-ateliê que hoje é o Museu Nacional Eugène Delacroix."
+  }
+ ],
+ "citacao": {
+  "texto": "Comecei um assunto moderno, uma barricada, e, se não venci pela pátria, ao menos pintarei para ela. Isso me devolveu o bom humor.",
+  "fonte": "Carta ao irmão Charles, 28 de outubro de 1830"
+ },
+ "vida_fig": {
+  "img": "delacroix/nadar.jpg",
+  "legenda": "Delacroix fotografado por Nadar, por volta de 1858."
+ },
+ "linha": [
+  [
+   1798,
+   "Nasce perto de Paris",
+   "vida"
+  ],
+  [
+   1815,
+   "Napoleão é derrotado em Waterloo",
+   "mundo"
+  ],
+  [
+   1822,
+   "Independência do Brasil",
+   "mundo"
+  ],
+  [
+   1824,
+   "Expõe O massacre de Quios",
+   "vida"
+  ],
+  [
+   1830,
+   "Revolução de Julho em Paris",
+   "mundo"
+  ],
+  [
+   1832,
+   "Viagem ao Marrocos",
+   "vida"
+  ],
+  [
+   1839,
+   "A fotografia é apresentada em Paris",
+   "mundo"
+  ],
+  [
+   1850,
+   "Fim do tráfico negreiro no Brasil",
+   "mundo"
+  ],
+  [
+   1861,
+   "Conclui os murais de Saint-Sulpice",
+   "vida"
+  ],
+  [
+   1863,
+   "Morre em Paris",
+   "vida"
+  ]
+ ],
+ "foco": {
+  "img": "delacroix/liberdade.jpg",
+  "titulo": "A Liberdade guiando o povo",
+  "dados": "1830 · óleo sobre tela · 260 × 325 cm · Museu do Louvre, Paris",
+  "intro": "Julho de 1830: Paris derruba o rei Carlos X. Delacroix não lutou nas barricadas, mas pintou uma.",
+  "marcas": [
+   [
+    67,
+    15,
+    "A Liberdade",
+    "Mulher do povo e ideia ao mesmo tempo: usa o barrete frígio da Revolução e ergue a bandeira tricolor."
+   ],
+   [
+    24,
+    27,
+    "O homem de cartola",
+    "Um burguês armado. Por muito tempo se disse que era o próprio Delacroix, mas não há prova."
+   ],
+   [
+    78,
+    45,
+    "O menino",
+    "Um garoto com duas pistolas. Muita gente vê nele o Gavroche que Victor Hugo criaria em Os miseráveis."
+   ],
+   [
+    87,
+    37,
+    "Notre-Dame",
+    "Ao fundo, entre a fumaça, as torres da catedral mostram que a cena se passa em Paris."
+   ]
+  ]
+ },
+ "sabia": [
+  "Comprado pelo governo em 1831, o quadro logo saiu de vista, por ser revolucionário. Só entrou no Louvre em 1874.",
+  "De 1979 aos anos 1990, a Liberdade e o rosto de Delacroix estamparam a nota de 100 francos.",
+  "Uma restauração terminada em 2024 tirou o verniz amarelado e devolveu as cores da bandeira."
+ ],
+ "tecnica": {
+  "titulo": "Cores lado a lado",
+  "intro": "Delacroix estudou como uma cor muda a outra. Em vez de misturar tudo na paleta, muitas vezes punha cores opostas lado a lado, para que uma acendesse a outra quando vistas de longe.",
+  "passos": [
+   [
+    "Esboço rápido",
+    "Começava com desenhos e pequenos esboços a óleo, para achar o movimento e as grandes manchas."
+   ],
+   [
+    "Paleta preparada",
+    "Antes de pintar, organizava na paleta fileiras de tons já misturados, para trabalhar depressa."
+   ],
+   [
+    "Complementares",
+    "Vermelho perto de verde, laranja perto de azul: cada cor deixa a vizinha mais forte."
+   ],
+   [
+    "Hachuras de cor",
+    "Na pele e nas sombras, deixava pinceladas cruzadas de cores diferentes, que o olho junta a distância."
+   ]
+  ],
+  "box_t": "O céu de Constable",
+  "box": "Em 1824, o inglês John Constable expôs em Paris A carroça de feno. Conta-se que Delacroix, ao ver as manchas de cor pura do inglês, repintou partes do Massacre de Quios. Décadas depois, Van Gogh e os neoimpressionistas estudariam os quadros de Delacroix para entender o contraste de cores.",
+  "paleta": [
+   [
+    "#9E2B25",
+    "Vermelho"
+   ],
+   [
+    "#2F4E7A",
+    "Azul"
+   ],
+   [
+    "#E6DCC3",
+    "Branco sujo"
+   ],
+   [
+    "#B49A6A",
+    "Fumaça"
+   ],
+   [
+    "#4A3A2A",
+    "Terra"
+   ]
+  ]
+ },
+ "obras": [
+  {
+   "img": "delacroix/chopin.jpg",
+   "titulo": "Frédéric Chopin",
+   "ano": "1838",
+   "nota": "Era um retrato duplo com George Sand; a tela foi cortada depois."
+  },
+  {
+   "img": "delacroix/leoes.jpg",
+   "titulo": "Caça aos leões",
+   "ano": "1861",
+   "nota": "Cavalos, leões e caçadores num redemoinho de cor, lembrança do Marrocos."
+  },
+  {
+   "img": "delacroix/galileia.jpg",
+   "titulo": "Cristo no mar da Galileia",
+   "ano": "1854",
+   "nota": "Cristo dorme no barco enquanto a tempestade assusta os apóstolos."
+  }
+ ],
+ "influenciou": [
+  [
+   "Vincent van Gogh",
+   1
+  ],
+  [
+   "Paul Cézanne",
+   9
+  ],
+  [
+   "Pierre-Auguste Renoir",
+   29
+  ],
+  [
+   "Paul Signac",
+   null
+  ]
+ ],
+ "rival": [
+  "Jean-Auguste-Dominique Ingres",
+  22,
+  "O rival clássico: Ingres defendia a linha; Delacroix, a cor."
+ ],
+ "pensar": "Pinte duas manchas iguais de laranja: uma cercada de cinza, outra cercada de azul. Qual parece mais forte? Depois faça um desenho colorido usando só uma cor e a sua complementar.",
+ "palavras": [
+  [
+   "Romantismo",
+   "Movimento do começo do século XIX que valorizava a emoção, a imaginação, a natureza selvagem e os lugares distantes."
+  ],
+  [
+   "Cores complementares",
+   "Pares opostos no círculo das cores, como vermelho e verde ou azul e laranja."
+  ],
+  [
+   "Alegoria",
+   "Figura que representa uma ideia; aqui, uma mulher que é a Liberdade."
+  ]
+ ],
+ "imagens": {
+  "retrato.jpg": "File:Autoportrait - Eugène Delacroix - Musée du Louvre Peintures RF 25.jpg",
+  "mulheres-de-argel.jpg": "File:Femmes d'Alger dans leur appartement, Eugène Delacroix - Musée du Louvre Peintures INV 3824.jpg",
+  "liberdade.jpg": "File:La Liberté guidant le peuple - Eugène Delacroix - Musée du Louvre Peintures RF 129 - après restauration 2024.jpg",
+  "chopin.jpg": "File:Frédéric Chopin - Eugène Delacroix - Musée du Louvre Peintures RF 1717.jpg",
+  "leoes.jpg": "File:Eugène Delacroix - Lion Hunt - 1922.404 - Art Institute of Chicago.jpg",
+  "galileia.jpg": "File:Eugène Delacroix - Christ on the Sea of Galilee - Walters 37186.jpg",
+  "nadar.jpg": "File:Félix Nadar 1820-1910 portraits Eugène Delacroix.jpg"
+ },
+ "pron": "por ele"
+}

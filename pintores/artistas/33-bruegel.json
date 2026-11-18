@@ -1,0 +1,272 @@
+{
+ "pos": 33,
+ "chave": "bruegel",
+ "nome": "Pieter Bruegel, o Velho",
+ "nome_original": "",
+ "vida": "c. 1525–1569",
+ "origem": "Flandres",
+ "cor": "#3F5B57",
+ "pron": "por ele",
+ "frase": "Pintou camponeses, festas, provérbios e as estações do ano, olhando a vida comum de Flandres de cima e de perto.",
+ "retrato": {
+  "img": "bruegel/retrato.jpg",
+  "legenda": "Retrato de Bruegel gravado por Johannes Wierix, publicado por Dominicus Lampsonius em 1572.",
+  "pos": "center 30%"
+ },
+ "abertura": {
+  "img": "bruegel/ceifeiros.jpg",
+  "legenda": "Os ceifeiros, 1565. Óleo sobre madeira. Metropolitan Museum, Nova York.",
+  "pos": "center 45%"
+ },
+ "ficha": [
+  [
+   "Nasceu",
+   "c. 1525, provavelmente perto de Breda, no Brabante"
+  ],
+  [
+   "Morreu",
+   "1569, em Bruxelas (hoje Bélgica)"
+  ],
+  [
+   "Movimento",
+   "Renascimento do Norte (Flandres)"
+  ],
+  [
+   "Técnica",
+   "Óleo sobre madeira de carvalho; desenhos para gravuras"
+  ],
+  [
+   "Obra",
+   "Cerca de 40 pinturas conhecidas e dezenas de desenhos para gravuras"
+  ],
+  [
+   "Onde ver",
+   "Kunsthistorisches (Viena), Museus Reais (Bruxelas), Metropolitan (Nova York)"
+  ]
+ ],
+ "vida_titulo": "O pintor dos camponeses",
+ "vida_txt": [
+  {
+   "t": "Uma origem pouco conhecida",
+   "p": "Quase tudo o que se sabe da vida de Pieter Bruegel vem de poucos documentos e do pintor Karel van Mander, que escreveu sobre ele trinta e cinco anos depois de sua morte. Nasceu por volta de 1525, talvez perto de Breda, no Brabante. Aprendeu o ofício em Antuérpia, segundo Van Mander com Pieter Coecke van Aelst, e entrou para a guilda dos pintores da cidade em 1551."
+  },
+  {
+   "t": "Viagem pelos Alpes",
+   "p": "Logo depois, viajou para a Itália. Passou por Roma e desceu até o sul, perto da Sicília. Na ida e na volta atravessou os Alpes e encheu folhas de desenhos de montanhas e vales. De volta a Antuérpia, trabalhou para Hieronymus Cock, dono de uma grande editora de gravuras. Desenhava paisagens e cenas cheias de figuras estranhas, no estilo de Hieronymus Bosch, que vendia muito."
+  },
+  {
+   "t": "Disfarçado entre camponeses",
+   "p": "Van Mander conta que Bruegel e um amigo comerciante se vestiam de camponeses para ir a festas e casamentos nas aldeias, levando presentes como se fossem parentes dos noivos. Assim ele observava como as pessoas comiam, dançavam e brigavam. Por isso ficou conhecido como \"Bruegel dos camponeses\". Em 1563 casou com Mayken, filha de seu antigo mestre, e foi morar em Bruxelas."
+  },
+  {
+   "t": "Poucos anos, muitas obras",
+   "p": "Os anos de Bruxelas foram os mais produtivos. Em 1565 pintou para o banqueiro Niclaes Jongelinck uma série sobre as épocas do ano, da qual restam cinco quadros. Bruegel morreu em 1569, ainda jovem. Deixou dois filhos pequenos, Pieter e Jan, que aprenderam o ofício com a avó, também pintora. Os dois foram pintores famosos e copiaram muitas vezes as obras do pai."
+  }
+ ],
+ "citacao": {
+  "texto": "Dizia-se que, quando ele esteve nos Alpes, engoliu todas aquelas montanhas e rochas e, ao voltar para casa, cuspiu-as de novo em telas e painéis, tão fielmente ele conseguia seguir a natureza.",
+  "fonte": "Karel van Mander, O livro dos pintores, 1604"
+ },
+ "vida_fig": {
+  "img": "bruegel/peixes.jpg",
+  "legenda": "Os peixes grandes comem os pequenos, gravura de 1557 feita a partir de um desenho de Bruegel."
+ },
+ "linha": [
+  [
+   1525,
+   "Nasce, por volta deste ano",
+   "vida"
+  ],
+  [
+   1532,
+   "Fundação da vila de São Vicente",
+   "mundo"
+  ],
+  [
+   1549,
+   "Tomé de Sousa funda Salvador",
+   "mundo"
+  ],
+  [
+   1551,
+   "Entra na guilda de Antuérpia",
+   "vida"
+  ],
+  [
+   1554,
+   "Fundação de São Paulo",
+   "mundo"
+  ],
+  [
+   1559,
+   "Pinta os Provérbios flamengos",
+   "vida"
+  ],
+  [
+   1563,
+   "Casa e se muda para Bruxelas",
+   "vida"
+  ],
+  [
+   1565,
+   "Fundação do Rio de Janeiro",
+   "mundo"
+  ],
+  [
+   1566,
+   "Iconoclastas quebram imagens em Flandres",
+   "mundo"
+  ],
+  [
+   1569,
+   "Morre em Bruxelas",
+   "vida"
+  ]
+ ],
+ "foco": {
+  "img": "bruegel/cacadores.jpg",
+  "titulo": "Caçadores na neve",
+  "dados": "1565 · óleo sobre madeira · 117 × 162 cm · Kunsthistorisches Museum, Viena",
+  "intro": "Um dia de inverno: caçadores voltam cansados para a aldeia, com os cães e uma única raposa. Lá embaixo, gente patina nos lagos gelados. O quadro fazia parte da série sobre as épocas do ano.",
+  "marcas": [
+   [
+    27,
+    62,
+    "Os caçadores",
+    "De costas, curvados, afundando na neve: a caçada rendeu pouco."
+   ],
+   [
+    12,
+    57,
+    "A fogueira",
+    "Na porta da estalagem, uma família chamusca um porco no fogo."
+   ],
+   [
+    66,
+    68,
+    "Os patinadores",
+    "Dezenas de figurinhas patinam, jogam e caem no gelo."
+   ],
+   [
+    87,
+    14,
+    "As montanhas",
+    "Picos pontudos que não existem em Flandres: lembranças da viagem pelos Alpes."
+   ]
+  ]
+ },
+ "sabia": [
+  "Até 1559 ele assinava Brueghel, com h. Depois tirou a letra. Os filhos voltaram a usar o h.",
+  "Segundo Van Mander, antes de morrer Bruegel pediu à mulher que queimasse alguns desenhos com legendas muito ácidas, para que ela não tivesse problemas.",
+  "O Kunsthistorisches Museum, em Viena, tem doze quadros de Bruegel: a maior coleção do mundo, quase um terço de tudo o que sobrou."
+ ],
+ "tecnica": {
+  "titulo": "Pintar sobre carvalho",
+  "intro": "Bruegel pintava quase sempre sobre painéis de carvalho, como os mestres flamengos antes dele. Usava camadas tão finas que, em muitos quadros, ainda se vê o desenho por baixo da tinta.",
+  "passos": [
+   [
+    "O painel",
+    "Tábuas de carvalho coladas lado a lado, aplainadas e cobertas com uma camada branca de giz e cola."
+   ],
+   [
+    "O desenho",
+    "Sobre o branco, desenhava a cena com pincel fino e tinta escura, às vezes mudando de ideia no caminho."
+   ],
+   [
+    "Camadas finas",
+    "Pintava com pouca tinta, deixando o branco do fundo brilhar através das cores, como luz."
+   ],
+   [
+    "Os detalhes",
+    "Por último, centenas de figurinhas feitas com poucas pinceladas certeiras, cada uma ocupada com alguma coisa."
+   ]
+  ],
+  "box_t": "Visto de cima",
+  "box": "Bruegel gostava de pôr quem olha no alto de um morro. Dali se vê uma aldeia inteira, com dezenas de pessoas ocupadas ao mesmo tempo, cada uma na sua história. Nos Provérbios flamengos, mais de cem ditados populares aparecem encenados num único povoado.",
+  "paleta": [
+   [
+    "#DCE0D8",
+    "Neve"
+   ],
+   [
+    "#6F8A84",
+    "Gelo"
+   ],
+   [
+    "#3B3029",
+    "Troncos"
+   ],
+   [
+    "#8A5A3A",
+    "Terra"
+   ],
+   [
+    "#C24A2A",
+    "Fogo"
+   ]
+  ]
+ },
+ "obras": [
+  {
+   "img": "bruegel/proverbios.jpg",
+   "titulo": "Provérbios flamengos",
+   "ano": "1559",
+   "nota": "Mais de cem ditados encenados ao pé da letra numa só aldeia."
+  },
+  {
+   "img": "bruegel/babel.jpg",
+   "titulo": "A Torre de Babel",
+   "ano": "1563",
+   "nota": "A torre bíblica construída como um Coliseu romano em obras."
+  },
+  {
+   "img": "bruegel/casamento.jpg",
+   "titulo": "Casamento camponês",
+   "ano": "c. 1567",
+   "nota": "A noiva sob a coroa de papel; a comida chega sobre uma porta."
+  }
+ ],
+ "influenciou": [
+  [
+   "Pieter Brueghel, o Jovem",
+   null
+  ],
+  [
+   "Jan Brueghel, o Velho",
+   null
+  ],
+  [
+   "Peter Paul Rubens",
+   14
+  ]
+ ],
+ "rival": [
+  "Hieronymus Bosch",
+  28,
+  "Seu modelo na juventude: Bruegel começou desenhando gravuras no estilo dele."
+ ],
+ "pensar": "Suba num lugar alto (uma janela, uma escada, um morro) e desenhe o que vê lá embaixo: pelo menos dez pessoas pequenas, cada uma fazendo uma coisa diferente. Que história aparece quando você junta todas?",
+ "palavras": [
+  [
+   "Painel",
+   "Tábua de madeira preparada para receber pintura, usada antes de a tela se espalhar."
+  ],
+  [
+   "Guilda",
+   "Associação de artesãos de um mesmo ofício; só os membros podiam ter ateliê e vender obras na cidade."
+  ],
+  [
+   "Pintura de gênero",
+   "Pintura de cenas do dia a dia de gente comum, sem heróis nem santos."
+  ]
+ ],
+ "imagens": {
+  "retrato.jpg": "File:Portret van de schilder Pieter Brueghel (I) Portretten van schilders (serietitel) Pictorum Aliquot Celebrium Praecipuae Germaniae Inferioris Effigies (serietitel), RP-P-1907-593.jpg",
+  "ceifeiros.jpg": "File:Pieter Bruegel the Elder- The Harvesters - Google Art Project.jpg",
+  "cacadores.jpg": "File:Pieter Bruegel the Elder - Hunters in the Snow (Winter) - Google Art Project.jpg",
+  "peixes.jpg": "File:Big Fish Eat Little Fish MET DP825754.jpg",
+  "proverbios.jpg": "File:Pieter Brueghel the Elder - The Dutch Proverbs - Google Art Project.jpg",
+  "babel.jpg": "File:Pieter Bruegel the Elder - The Tower of Babel (Vienna) - Google Art Project.jpg",
+  "casamento.jpg": "File:Pieter Bruegel the Elder - Peasant Wedding - Google Art Project.jpg"
+ }
+}

@@ -1,0 +1,263 @@
+{
+ "pos": 28,
+ "chave": "bosch",
+ "nome": "Hieronymus Bosch",
+ "nome_original": "",
+ "vida": "c. 1450–1516",
+ "origem": "Países Baixos",
+ "cor": "#4F6B3A",
+ "frase": "Encheu quadros de monstros, castigos e paraísos estranhos para falar de pecado e salvação, e até hoje ninguém decifrou tudo.",
+ "retrato": {
+  "img": "bosch/retrato.jpg",
+  "legenda": "Retrato tido como de Bosch, desenho do Recueil d'Arras, c. 1550, feito décadas depois da morte dele.",
+  "pos": "center 25%"
+ },
+ "abertura": {
+  "img": "bosch/carro-de-feno.jpg",
+  "legenda": "O carro de feno, painel central do tríptico, c. 1512–1515. Óleo sobre madeira. Museu do Prado, Madri.",
+  "pos": "center 40%"
+ },
+ "ficha": [
+  [
+   "Nasceu",
+   "c. 1450, em 's-Hertogenbosch, no atual sul dos Países Baixos"
+  ],
+  [
+   "Morreu",
+   "1516, em 's-Hertogenbosch, com cerca de 66 anos"
+  ],
+  [
+   "Movimento",
+   "Pintura dos Países Baixos no fim da Idade Média"
+  ],
+  [
+   "Técnica",
+   "Óleo sobre madeira de carvalho e desenho a pena"
+  ],
+  [
+   "Obra",
+   "Entre 20 e 25 pinturas e cerca de 20 desenhos atribuídos"
+  ],
+  [
+   "Onde ver",
+   "Museu do Prado (Madri), Museu Nacional de Arte Antiga (Lisboa), Louvre (Paris)"
+  ]
+ ],
+ "vida_titulo": "O homem que pintava por dentro",
+ "vida_txt": [
+  {
+   "t": "Uma família de pintores",
+   "p": "Jheronimus van Aken nasceu por volta de 1450 em 's-Hertogenbosch, cidade de comércio do Ducado de Brabante, no atual sul dos Países Baixos. O avô, o pai, os tios e os irmãos eram pintores, e ele deve ter aprendido na oficina da família, junto à praça do mercado. Mais tarde passou a assinar com o nome da cidade, que os moradores chamam de Den Bosch: Jheronimus Bosch."
+  },
+  {
+   "t": "Um burguês sem diário",
+   "p": "Por volta de 1481 casou-se com Aleid van de Meervenne, de família rica, e passou a viver com folga. Entrou para a Ilustre Irmandade de Nossa Senhora, associação religiosa da elite da cidade, para a qual fez desenhos e encomendas. Quase nada mais se sabe: ele não deixou cartas nem diários, e os documentos falam só de dinheiro, casas e da irmandade."
+  },
+  {
+   "t": "Clientes poderosos",
+   "p": "Sem sair da sua região, até onde se sabe, ficou famoso em boa parte da Europa. Em 1504, Filipe, o Belo, duque da Borgonha, encomendou a ele um grande Juízo Final. Bosch morreu em 1516; a missa fúnebre foi rezada em agosto, na capela da irmandade. Décadas depois, o rei Filipe II da Espanha reuniu vários quadros dele. Por isso tantos estão hoje em Madri."
+  },
+  {
+   "t": "Monstros e imitadores",
+   "p": "O sucesso foi tanto que logo surgiram imitadores e falsificadores, e até hoje os especialistas discutem quais quadros são mesmo dele. Os monstros de Bosch, misturas de bicho, gente e objeto, falavam a um público cristão sobre pecado, loucura e castigo. Quatro séculos depois, os surrealistas, como Salvador Dalí, viram nele um antepassado."
+  }
+ ],
+ "citacao": {
+  "texto": "A diferença que, a meu ver, há entre as pinturas deste homem e as dos outros é que os outros procuram pintar o homem como ele parece por fora; só este se atreve a pintá-lo como ele é por dentro.",
+  "fonte": "Frei José de Sigüenza, História da Ordem de São Jerônimo, 1605"
+ },
+ "vida_fig": {
+  "img": "bosch/homem-arvore.jpg",
+  "legenda": "O homem-árvore, c. 1505. Desenho a pena e tinta. Albertina, Viena."
+ },
+ "linha": [
+  [
+   1450,
+   "Nasce em 's-Hertogenbosch",
+   "vida"
+  ],
+  [
+   1453,
+   "Queda de Constantinopla",
+   "mundo"
+  ],
+  [
+   1481,
+   "Casa-se com Aleid van de Meervenne",
+   "vida"
+  ],
+  [
+   1486,
+   "Entra na Irmandade de Nossa Senhora",
+   "vida"
+  ],
+  [
+   1492,
+   "Colombo chega à América",
+   "mundo"
+  ],
+  [
+   1498,
+   "Vasco da Gama chega à Índia",
+   "mundo"
+  ],
+  [
+   1500,
+   "Cabral chega ao Brasil",
+   "mundo"
+  ],
+  [
+   1504,
+   "Encomenda de Filipe, o Belo",
+   "vida"
+  ],
+  [
+   1516,
+   "Morre em 's-Hertogenbosch",
+   "vida"
+  ],
+  [
+   1517,
+   "Lutero divulga as 95 teses",
+   "mundo"
+  ]
+ ],
+ "foco": {
+  "img": "bosch/fonte.jpg",
+  "titulo": "O jardim das delícias (detalhe)",
+  "dados": "c. 1490–1500 · óleo sobre madeira · tríptico aberto: 205,5 × 384,9 cm · Museu do Prado, Madri",
+  "intro": "Aberto, o tríptico mostra o Paraíso à esquerda, um jardim cheio de gente no centro e o Inferno à direita. Aqui está um detalhe ampliado do Paraíso: a base da Fonte da Vida, de onde sai a água do jardim.",
+  "marcas": [
+   [
+    36,
+    30,
+    "A Fonte da Vida",
+    "A base da fonte é uma esfera cor-de-rosa, meio planta, meio joia, com espinhos e folhas recortadas."
+   ],
+   [
+    52,
+    46,
+    "A coruja",
+    "Escondida no buraco, ela olha para fora. Para muitos estudiosos, é sinal de que o mal já espreita no Paraíso."
+   ],
+   [
+    92,
+    40,
+    "Pássaros",
+    "Aves de cores vivas e caudas longas pousam e voam em volta, umas reais, outras inventadas."
+   ],
+   [
+    33,
+    88,
+    "Pedras e pérolas",
+    "O chão escuro em volta da fonte brilha com pedras preciosas e pérolas, como um tesouro."
+   ]
+  ]
+ },
+ "sabia": [
+  "Ninguém sabe o nome que Bosch deu ao quadro. Nos inventários do Escorial ele aparece como \"a pintura do medronho\", por causa das frutas vermelhas.",
+  "Fechadas, as portas do tríptico mostram o mundo no terceiro dia da criação, dentro de uma esfera de vidro, só em tons de cinza.",
+  "Em 2016, quinhentos anos após sua morte, 's-Hertogenbosch reuniu quase todas as obras dele numa exposição. O Jardim não saiu de Madri."
+ ],
+ "tecnica": {
+  "titulo": "Pincel fino sobre carvalho",
+  "intro": "Bosch pintava a óleo sobre painéis de carvalho, como os mestres flamengos. Mas trabalhava mais depressa do que eles, em camadas finas, e muitas vezes deixava o desenho de baixo aparecer.",
+  "passos": [
+   [
+    "O painel",
+    "Tábuas de carvalho do mar Báltico eram coladas e cobertas com uma base branca de giz e cola."
+   ],
+   [
+    "O desenho",
+    "Desenhava a composição a pincel sobre a base. O infravermelho mostra que ele mudava muita coisa no caminho."
+   ],
+   [
+    "Poucas camadas",
+    "Pintava com camadas finas, às vezes uma só, e a base clara brilha através da tinta."
+   ],
+   [
+    "Os detalhes",
+    "Com pincéis finíssimos, acrescentava frutas, bichos, rostos pequenos e reflexos de luz."
+   ]
+  ],
+  "box_t": "Detetives de madeira",
+  "box": "Para datar os quadros, os cientistas contam os anéis das tábuas de carvalho: é a dendrocronologia. Os anéis dizem quando a árvore foi cortada e, assim, a data mais antiga possível da pintura. O método ajudou a separar quadros de Bosch de cópias feitas depois da morte dele.",
+  "paleta": [
+   [
+    "#D9A9A2",
+    "Rosa"
+   ],
+   [
+    "#4F6B3A",
+    "Verde"
+   ],
+   [
+    "#9DB3BF",
+    "Azul claro"
+   ],
+   [
+    "#C9A86A",
+    "Ocre"
+   ],
+   [
+    "#3A2E24",
+    "Sombra"
+   ]
+  ]
+ },
+ "obras": [
+  {
+   "img": "bosch/nau.jpg",
+   "titulo": "A nau dos loucos",
+   "ano": "c. 1500–1510",
+   "nota": "Frades, freiras e bêbados num barco à deriva: a loucura humana."
+  },
+  {
+   "img": "bosch/avarento.jpg",
+   "titulo": "A morte e o avarento",
+   "ano": "c. 1485–1490",
+   "nota": "No leito de morte, o avarento ainda estica a mão para o dinheiro."
+  },
+  {
+   "img": "bosch/patmos.jpg",
+   "titulo": "São João em Patmos",
+   "ano": "c. 1490",
+   "nota": "O evangelista escreve o Apocalipse; num canto, um pequeno demônio tenta roubar a tinta."
+  }
+ ],
+ "influenciou": [
+  [
+   "Pieter Bruegel, o Velho",
+   33
+  ],
+  [
+   "Salvador Dalí",
+   null
+  ]
+ ],
+ "pensar": "Invente um monstro juntando três coisas que não combinam: um bicho, um objeto da sua casa e uma parte do corpo humano. Desenhe com muitos detalhes, como Bosch. O que ele faz? O que ele representa?",
+ "palavras": [
+  [
+   "Tríptico",
+   "Pintura em três painéis; os dois laterais se fecham como portas sobre o do meio."
+  ],
+  [
+   "Painel",
+   "Tábua de madeira usada como suporte da pintura antes de a tela se tornar comum."
+  ],
+  [
+   "Juízo Final",
+   "Na fé cristã, o fim dos tempos, quando todos seriam julgados e mandados ao céu ou ao inferno."
+  ]
+ ],
+ "imagens": {
+  "retrato.jpg": "File:Jheronimus Bosch.jpg",
+  "carro-de-feno.jpg": "File:Bosch - Haywain Triptych central panel ('The Hay Wagon').jpg",
+  "fonte.jpg": "File:Bosch, Hieronymus - The Garden of Earthly Delights, left panel - Detail Fountain Of Life with owl (center).jpg",
+  "nau.jpg": "File:Jheronimus Bosch 011.jpg",
+  "avarento.jpg": "File:Hieronymus Bosch - Death and the Miser - Google Art Project.jpg",
+  "patmos.jpg": "File:Johannes op Patmos Saint John on Patmos Berlin, Staatlichen Museen zu Berlin, Gemaldegalerie HR.jpg",
+  "homem-arvore.jpg": "File:Hieronymus Bosch - The Tree-Man, c. 1505 - Google Art Project.jpg"
+ },
+ "pron": "por ele"
+}
