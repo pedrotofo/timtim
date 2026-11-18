@@ -154,6 +154,73 @@ Só 3 dos 50 nasceram fora da Europa e dos EUA (Frida Kahlo, Hokusai, Diego Rive
 
 As 10 vagas vão para o pintor mais bem colocado de cada região ou tradição que não entrou nos 40: México, Japão, China, Índia, Filipinas, Brasil, Turquia, Pérsia, África do Sul e Austrália aborígene. No livro, cada um entra na sua posição real do ranking geral, indicada na página.
 
+## Lista final (decisão do autor, 18/11/2026)
+
+Regras escolhidas: 40 do ranking + 10 vagas "volta ao mundo"; **só pintores com obra em domínio público** (o prefácio explica quem ficou de fora e por quê); ordem em **contagem regressiva**, do 50º ao 1º; formato 21 × 28 cm, 4 páginas por pintor.
+
+As 10 vagas do mundo vão ao pintor livre com mais Wikipédias em cada região que não entrou nos 40, e ficam nas posições 41 a 50, ordenadas pelo mesmo número.
+
+| Posição | Pintor | Origem | Vida | Grupo | Cuidado |
+|---|---|---|---|---|---|
+| 50 | Arturo Michelena | Venezuela | 1863–1898 | volta ao mundo: América hispânica (Venezuela) |  |
+| 49 | Kim Hong-do | Coreia | 1745–1806 | volta ao mundo: Coreia |  |
+| 48 | Tom Roberts | Austrália | 1856–1931 | volta ao mundo: Oceania (Austrália) |  |
+| 47 | Juan Luna | Filipinas | 1857–1899 | volta ao mundo: Sudeste Asiático (Filipinas) |  |
+| 46 | Gu Kaizhi | China | 345–406 | volta ao mundo: China |  |
+| 45 | Pedro Américo | Brasil | 1843–1905 | volta ao mundo: Brasil |  |
+| 44 | Osman Hamdi Bey | Império Otomano | 1842–1910 | volta ao mundo: Império Otomano (Turquia) |  |
+| 43 | Kamāl ud-Dīn Behzād | Pérsia | 1450–1535 | volta ao mundo: Pérsia (Irã e Afeganistão) |  |
+| 42 | Raja Ravi Varma | Índia | 1848–1906 | volta ao mundo: Índia |  |
+| 41 | Hiroshige | Japão | 1797–1858 | volta ao mundo: Japão (o segundo japonês, mestre da paisagem que Van Gogh copiou) |  |
+| 40 | Ilya Repin | Rússia/Ucrânia | 1844–1930 | ranking |  |
+| 39 | Artemisia Gentileschi | Itália | 1593–1653 | ranking |  |
+| 38 | Amedeo Modigliani | Itália | 1884–1920 | ranking |  |
+| 37 | Piet Mondrian | Holanda | 1872–1944 | ranking | EUA: usar só obras até 1930 |
+| 36 | Nicolas Poussin | França | 1594–1665 | ranking |  |
+| 35 | Henri de Toulouse-Lautrec | França | 1864–1901 | ranking |  |
+| 34 | Jacques-Louis David | França | 1748–1825 | ranking |  |
+| 33 | Pieter Bruegel, o Velho | Flandres | 1525–1569 | ranking |  |
+| 32 | Camille Pissarro | França | 1830–1903 | ranking |  |
+| 31 | Gustave Courbet | França | 1819–1877 | ranking |  |
+| 30 | Edvard Munch | Noruega | 1863–1944 | ranking | EUA: usar só obras até 1930 |
+| 29 | Pierre-Auguste Renoir | França | 1841–1919 | ranking |  |
+| 28 | Hieronymus Bosch | Holanda | 1450–1516 | ranking |  |
+| 27 | Wassily Kandinsky | Rússia | 1866–1944 | ranking | EUA: usar só obras até 1930 |
+| 26 | Caspar David Friedrich | Alemanha | 1774–1840 | ranking |  |
+| 25 | Eugène Delacroix | França | 1798–1863 | ranking |  |
+| 24 | El Greco | Grécia/Espanha | 1541–1614 | ranking |  |
+| 23 | Sandro Botticelli | Itália | 1445–1510 | ranking |  |
+| 22 | Jean-Auguste-Dominique Ingres | França | 1780–1867 | ranking |  |
+| 21 | Edgar Degas | França | 1834–1917 | ranking |  |
+| 20 | Édouard Manet | França | 1832–1883 | ranking |  |
+| 19 | Katsushika Hokusai | Japão | 1760–1849 | ranking |  |
+| 18 | Caravaggio | Itália | 1571–1610 | ranking |  |
+| 17 | Paul Gauguin | França | 1848–1903 | ranking |  |
+| 16 | Giotto | Itália | 1267–1337 | ranking |  |
+| 15 | Gustav Klimt | Áustria | 1862–1918 | ranking |  |
+| 14 | Peter Paul Rubens | Flandres | 1577–1640 | ranking |  |
+| 13 | Johannes Vermeer | Holanda | 1632–1675 | ranking |  |
+| 12 | Henri Matisse | França | 1869–1954 | ranking | EUA: usar só obras até 1930 |
+| 11 | Francisco de Goya | Espanha | 1746–1828 | ranking |  |
+| 10 | Ticiano | Itália | 1488–1576 | ranking |  |
+| 9 | Paul Cézanne | França | 1839–1906 | ranking |  |
+| 8 | Diego Velázquez | Espanha | 1599–1660 | ranking |  |
+| 7 | Claude Monet | França | 1840–1926 | ranking |  |
+| 6 | Albrecht Dürer | Alemanha | 1471–1528 | ranking |  |
+| 5 | Rafael | Itália | 1483–1520 | ranking |  |
+| 4 | Rembrandt | Holanda | 1606–1669 | ranking |  |
+| 3 | Michelangelo | Itália | 1475–1564 | ranking |  |
+| 2 | Leonardo da Vinci | Itália | 1452–1519 | ranking |  |
+| 1 | Vincent van Gogh | Holanda | 1853–1890 | ranking |  |
+
+**Ficaram fora por direito autoral** (estariam entre os 50 pela conta): Pablo Picasso (1º da conta), Andy Warhol, Frida Kahlo, Marc Chagall, Salvador Dalí, Joan Miró, Jackson Pollock, René Magritte e Diego Rivera. Nas vagas do mundo, também Tarsila do Amaral, Qi Baishi, Irma Stern e Albert Namatjira. O prefácio diz isso com todas as letras.
+
+**Reservas**, na ordem, se algum nome sair: Kazimir Malevich, Jan van Eyck, J. M. W. Turner, Georges Seurat, Paul Klee, Antoon van Dyck, Mary Cassatt (a única dos EUA perto da lista), Tintoretto.
+
+**África:** nenhum pintor africano conhecido morreu até 1955; os grandes nomes da pintura moderna africana (Aina Onabolu, Ben Enwonwu, Irma Stern, Gerard Sekoto) ainda têm direito autoral. O prefácio deve dizer isso também.
+
+**Candidatos livres pesquisados para as vagas do mundo** (número de Wikipédias): Utamaro 49, Sesshū 44 (Japão); Castiglione 28, Gu Kaizhi 27, Zhao Mengfu 25, Tang Yin 25, Dong Qichang 24, Zhang Zeduan 23, Shen Zhou 23 (China); Kim Hong-do 20, Shin Yun-bok 17 (Coreia); Raja Ravi Varma 61, Abanindranath Tagore 28, Ustad Mansur 13 (Índia; Amrita Sher-Gil 57 pintou quase tudo depois de 1930); Juan Luna 26, Raden Saleh 25 (Sudeste Asiático); Behzad 33, Osman Hamdi Bey 33, Reza Abbasi 30, Kamal-ol-molk 23 (Oriente Médio); Pedro Américo 32, Almeida Júnior 22, Victor Meirelles 19 (Brasil); Arturo Michelena 16, Prilidiano Pueyrredón 14, José María Velasco 11 (América hispânica); Tom Roberts 22, Arthur Streeton 19 (Oceania).
+
 ## Todos os 108 candidatos
 
 | # | Pintor | Região | Vida | Wikipédias | Influenciou | Mídia | Nota |
