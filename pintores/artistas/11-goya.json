@@ -126,38 +126,38 @@
   "img": "goya/tres-de-maio.jpg",
   "titulo": "O três de maio de 1808",
   "dados": "1814 · óleo sobre tela · 268 × 347 cm · Museu do Prado, Madri",
-  "intro": "Na madrugada de 3 de maio de 1808, soldados franceses fuzilam madrilenos presos depois da revolta do dia anterior. Goya pintou a cena seis anos depois, quando a guerra já tinha acabado, com apoio do novo governo.",
+  "intro": "Na madrugada de 3 de maio de 1808, soldados franceses fuzilam madrilenos presos na revolta da véspera. Goya pintou a cena em 1814, com a guerra já terminada.",
   "marcas": [
    [
-    47,
-    45,
+    33,
+    57,
     "A camisa branca",
     "O homem de braços abertos recebe toda a luz. Na mão direita, uma marca como a das chagas de Cristo."
    ],
    [
-    57,
-    75,
+    59,
+    73,
     "A lanterna",
     "Uma lanterna no chão é a única luz da cena e ilumina as vítimas, não os soldados."
    ],
    [
-    78,
-    50,
+    77,
+    52,
     "Os soldados",
     "Em fila, de costas, sem rosto: parecem uma máquina, não pessoas."
    ],
    [
-    30,
-    15,
+    64,
+    32,
     "A cidade",
-    "Ao fundo, a torre e as casas de Madri, escuras, como se a cidade não pudesse ver."
+    "Ao fundo, a torre de uma igreja e as casas de Madri, no escuro, longe de tudo."
    ]
   ]
  },
  "sabia": [
-  "Manet se inspirou em O três de maio para pintar A execução de Maximiliano (1867–1869), outro fuzilamento.",
-  "As pinturas negras foram tiradas das paredes da Quinta do Surdo e passadas para tela a partir de 1874. Hoje estão no Prado.",
-  "Em 1888, quando abriram o túmulo de Goya em Bordeaux para levá-lo à Espanha, o crânio não estava lá. Nunca foi achado."
+  "Manet se inspirou em O três de maio para pintar A execução de Maximiliano (1867–1869).",
+  "As pinturas negras foram passadas das paredes para telas a partir de 1874. Hoje estão no Prado.",
+  "Em 1888, ao abrirem o túmulo de Goya em Bordeaux, o crânio não estava lá. Nunca foi achado."
  ],
  "tecnica": {
   "titulo": "Desenhar com ácido",
@@ -267,7 +267,7 @@
   "retrato.jpg": "File:Autorretrato Goya 1815.jpg",
   "familia.jpg": "File:La familia de Carlos IV, Francisco de Goya.jpg",
   "tres-de-maio.jpg": "File:El Tres de Mayo, by Francisco de Goya, from Prado in Google Earth.jpg",
-  "capricho.jpg": "File:Plate 43 from 'Los Caprichos'- The sleep of reason produces monsters (El sueño de la razon produce monstruos) MET DP816991.jpg",
+  "capricho.jpg": "File:Museo del Prado - Goya - Caprichos - No. 43 - El sueño de la razon produce monstruos.jpg",
   "guarda-sol.jpg": "File:El Quitasol (Goya).jpg",
   "san-isidro.jpg": "File:La pradera de San Isidro, Francisco de Goya.jpg",
   "cao.jpg": "File:Goya Dog.jpg"

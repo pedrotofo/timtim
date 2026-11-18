@@ -11,7 +11,8 @@
  "retrato": {
   "img": "toulouse-lautrec/retrato.jpg",
   "legenda": "Toulouse-Lautrec fotografado por seu amigo Paul Sescau, c. 1894.",
-  "pos": "center 25%"
+  "pos": "48% 5%",
+  "zoom": "260% auto"
  },
  "abertura": {
   "img": "toulouse-lautrec/moulin-rouge.jpg",

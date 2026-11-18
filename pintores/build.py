@@ -86,7 +86,7 @@ p{margin:0}
 .ab .num small{display:block;font:700 9pt LivroSans;letter-spacing:.24em;margin:0 0 .12in .06in}
 .ab .serie{position:absolute;top:.38in;right:.6in;z-index:2;font:700 7.6pt LivroSans;letter-spacing:.2em;text-transform:uppercase;color:#fff;background:rgba(0,0,0,.55);padding:.05in .12in;border-radius:.2in}
 .ab .hcap{position:absolute;left:.6in;top:4.62in;width:4.2in;font:400 6.8pt/1.3 LivroSans;color:#7A6F60}
-.ab .ret{position:absolute;right:.75in;top:3.55in;z-index:3;width:1.85in;height:1.85in;border-radius:50%;border:.07in solid #FBF8F2;background-size:cover;background-position:center 20%;box-shadow:0 .03in .1in rgba(0,0,0,.25)}
+.ab .ret{position:absolute;right:.75in;top:3.55in;z-index:3;width:1.85in;height:1.85in;border-radius:50%;border:.07in solid #FBF8F2;background-size:cover;background-position:center 20%}
 .ab .corpo{padding:.42in .8in 0 .6in}
 .ab h1{font:400 33pt/1 LivroDisp;margin:0;width:4.6in}
 .ab .orig{font:400 15pt LivroSerif;color:var(--c);margin:.05in 0 0}
@@ -94,10 +94,10 @@ p{margin:0}
 .ab .frase{font:italic 400 15.5pt/1.3 LivroSerif;margin:.24in 0 .26in;padding-left:.18in;border-left:.05in solid var(--c);width:6.6in}
 .ab .retcap{position:absolute;right:.6in;top:5.64in;width:2.15in;text-align:center;font:400 6.6pt/1.3 LivroSans;color:#7A6F60}
 .duas{display:flex;gap:.3in}
-.ficha{flex:1.05;border-collapse:collapse;font:400 8.6pt/1.3 LivroSans}
+.ficha{flex:none;width:4.15in;table-layout:fixed;border-collapse:collapse;font:400 8.6pt/1.3 LivroSans}
 .ficha td{padding:.055in 0;border-bottom:.6pt solid #DDD3C2;vertical-align:top}
 .ficha td.k{width:.85in;font-weight:700;font-size:7pt;letter-spacing:.1em;text-transform:uppercase;color:var(--c);padding-top:.07in}
-.porque{flex:.95;background:#EFE8DA;border-radius:.1in;padding:.16in .18in}
+.porque{flex:1;background:#EFE8DA;border-radius:.1in;padding:.16in .18in}
 .porque h4{font:700 7.6pt LivroSans;letter-spacing:.14em;text-transform:uppercase;margin:0 0 .1in;color:var(--c)}
 .barra{margin:0 0 .12in;font:400 7.6pt/1.3 LivroSans}
 .barra .t{height:.09in;background:#DDD3C2;border-radius:.05in;margin:.04in 0 .03in}
@@ -111,7 +111,7 @@ p{margin:0}
 .vida h3:first-child{margin-top:0}
 .cit{break-inside:avoid;background:var(--c);color:#fff;border-radius:.1in;padding:.16in .18in;margin:.16in 0 .05in;font:italic 400 11pt/1.35 LivroSerif;text-align:left}
 .cit small{display:block;margin-top:.08in;font:400 6.8pt/1.3 LivroSans;font-style:normal;opacity:.85}
-.vfig{margin:.1in 0 .02in;break-inside:avoid;text-align:center}.vfig img{max-width:100%;max-height:1.95in;display:inline-block;box-shadow:0 .02in .06in rgba(0,0,0,.15)}
+.vfig{margin:.1in 0 .02in;break-inside:avoid;text-align:center}.vfig img{max-width:100%;max-height:1.95in;display:inline-block}
 .vfig figcaption{font:400 6.8pt/1.3 LivroSans;color:#7A6F60;margin-top:.04in;text-align:left}
 .linha{position:absolute;left:.8in;right:.6in;bottom:.85in;height:2.2in}
 .linha h4{font:700 7.6pt LivroSans;letter-spacing:.14em;text-transform:uppercase;margin:0;color:#7A6F60}
@@ -129,8 +129,8 @@ p{margin:0}
 .foco .dados{font:400 7.8pt LivroSans;color:#7A6F60;margin:.0in 0 .1in}
 .foco .intro{font:400 10.6pt/1.4 LivroSerif;margin:0 0 .16in;width:6.4in}
 .quadro{position:relative;margin:0 0 .16in}
-.quadro img{width:100%;display:block;box-shadow:0 .02in .08in rgba(0,0,0,.18)}
-.mk{position:absolute;width:.3in;height:.3in;margin:-.15in 0 0 -.15in;border-radius:50%;background:var(--c);border:.03in solid #fff;color:#fff;font:400 10pt/.25in LivroDisp;text-align:center;box-shadow:0 .01in .05in rgba(0,0,0,.4)}
+.quadro img{width:100%;display:block;outline:.5pt solid rgba(0,0,0,.15)}
+.mk{position:absolute;width:.3in;height:.3in;margin:-.15in 0 0 -.15in;border-radius:50%;background:var(--c);border:.03in solid #fff;color:#fff;font:400 10pt/.25in LivroDisp;text-align:center}
 .leg{display:flex;flex-wrap:wrap;gap:.1in .3in;margin:0 0 .18in}
 .leg div{width:3.4in;display:flex;gap:.1in;font:400 8.6pt/1.32 LivroSans}
 .leg i{flex:none;width:.24in;height:.24in;border-radius:50%;background:var(--c);color:#fff;font:400 8.5pt/.24in LivroDisp;text-align:center;font-style:normal}
@@ -141,6 +141,10 @@ p{margin:0}
 .vert .lado{flex:1}
 .vert .leg{flex-direction:column;gap:.14in}
 .vert .leg div{width:auto}
+.dets{display:flex;gap:.16in;align-items:flex-end;margin:-.04in 0 .16in}
+.dets b{font:700 7.4pt LivroSans;letter-spacing:.14em;text-transform:uppercase;color:var(--c);width:.8in;align-self:center}
+.det{background-size:cover;border-radius:50%;position:relative;border:.04in solid #fff}
+.det i{position:absolute;right:-.02in;top:-.02in;width:.26in;height:.26in;border-radius:50%;background:var(--c);color:#fff;font:400 9pt/.26in LivroDisp;text-align:center;font-style:normal;border:.02in solid #fff}
 .sabia{background:#F6D86B;border-radius:.1in;padding:.15in .2in .14in;position:relative}
 .sabia h4{font:400 13pt LivroDisp;margin:0 0 .06in}
 .sabia ul{margin:0;padding-left:.16in;font:400 8.8pt/1.38 LivroSans}
@@ -159,7 +163,7 @@ p{margin:0}
 .obras{display:flex;gap:.2in;align-items:flex-start;margin:.12in 0 .2in}
 .obra{flex:1;font:400 7.6pt/1.3 LivroSans}
 .obra .th{height:1.62in;display:flex;align-items:flex-end;justify-content:flex-start;margin-bottom:.06in}
-.obra .th img{max-width:100%;max-height:1.62in;display:block;box-shadow:0 .02in .06in rgba(0,0,0,.15)}
+.obra .th img{max-width:100%;max-height:1.62in;display:block}
 .obra b{display:block;font-size:8pt}
 .obra em{font-style:normal;color:#7A6F60}
 .fim{display:flex;gap:.18in}
@@ -188,22 +192,43 @@ def folio_txt(a, n, lado):
     nome = f'Nº {a["pos"]} · {esc(a["nome"])}'
     return f'{num}{nome}' if lado == 'esq' else f'{nome}{num}'
 
+def detalhe(rel, x, y, k):
+    """Recorte quadrado em volta de uma marca (para obras muito largas): img/<chave>/det-k.jpg."""
+    src = os.path.join(ROOT, 'obras', rel); dst = os.path.join(ROOT, 'img', os.path.dirname(rel), f'det-{k}.jpg')
+    if not os.path.exists(dst) or os.path.getmtime(dst) < os.path.getmtime(src):
+        im = Image.open(src).convert('RGB'); w, h = im.size; s = int(min(w, h) * .42)
+        cx, cy = int(w * x / 100), int(h * y / 100)
+        x0 = max(0, min(w - s, cx - s // 2)); y0 = max(0, min(h - s, cy - s // 2))
+        im.crop((x0, y0, x0 + s, y0 + s)).resize((700, 700), Image.LANCZOS).save(dst, quality=90)
+    return 'file://' + dst
+
 def foco_corpo(f, mks, leg, sabia):
-    """Obra horizontal: imagem na largura toda. Obra vertical (altura maior que 0,85 da largura): imagem à esquerda."""
+    """Encaixa a obra em foco pelo formato, sem deformar e sem deixar buraco na página:
+    larga: largura toda, e se sobra espaço entram recortes das marcas ("Olhe de perto");
+    quase quadrada: centralizada com 5,4 pol. de altura; alta: imagem à esquerda, legendas à direita."""
     s = f'<div class="sabia"><h4>Você sabia?</h4><ul>{sabia}</ul></div>'
-    r = razao(f['img'])
-    if r > .85:
-        # caixa do tamanho exato da imagem (sem distorcer, marcas em % no lugar): até 6,55 pol. de altura e 4,3 de largura
+    r = razao(f['img']); src = img(f['img'], 2400); alt = esc(f['titulo'])
+    if r >= 1.3:
         h = min(6.55, 4.3 * r); w = h / r
-        q = f'<div class="quadro" style="width:{w:.3f}in"><img src="{img(f["img"], 2400)}" alt="{esc(f["titulo"])}"/>{mks}</div>'
+        q = f'<div class="quadro" style="width:{w:.3f}in"><img src="{src}" alt="{alt}"/>{mks}</div>'
         return f'<div class="vert">{q}<div class="lado"><div class="leg">{leg}</div>{s}</div></div>'
-    q = f'<div class="quadro"><img src="{img(f["img"], 2400)}" alt="{esc(f["titulo"])}"/>{mks}</div>'
+    if r > .76:
+        h = 5.4 if r < 1 else 5.05; w = h / r
+        q = f'<div class="quadro" style="width:{w:.3f}in;margin-left:auto;margin-right:auto"><img src="{src}" alt="{alt}"/>{mks}</div>'
+        return f'{q}<div class="leg">{leg}</div>{s}'
+    q = f'<div class="quadro"><img src="{src}" alt="{alt}"/>{mks}</div>'
+    sobra = 5.4 - 7.1 * r
+    if sobra >= 2.0:
+        lado = min(sobra - .5, 1.9); n = 3
+        dets = ''.join(f'<div class="det" style="width:{lado:.2f}in;height:{lado:.2f}in;background-image:url(\'{detalhe(f["img"], x, y, i)}\')"><i>{i}</i></div>'
+                       for i, (x, y, t, d) in enumerate(f['marcas'][:n], 1))
+        q += f'<div class="dets"><b>Olhe de perto</b>{dets}</div>'
     return f'{q}<div class="leg">{leg}</div>{s}'
 
 def retrato(a):
     rt = a.get('retrato')
     if not rt: return ''
-    return (f'<div class="ret" style="background-image:url(\'{img(rt["img"], 900)}\');background-position:{rt.get("pos", "center 20%")}"></div>'
+    return (f'<div class="ret" style="background-image:url(\'{img(rt["img"], 1400)}\');background-position:{rt.get("pos", "center 20%")};background-size:{rt.get("zoom", "cover")}"></div>'
             f'<div class="retcap">{esc(rt["legenda"])}</div>')
 
 def artista(a, p0):
@@ -340,6 +365,8 @@ if __name__ == '__main__':
         arts = [x for n in (args[1:] or [None]) for x in carrega(n)]
         doc = HTML(string=documento(arts), base_url=ROOT).render()
         es = verifica(doc, arts)
+        if len(doc.pages) != 4 * len(arts):
+            es.append(f'{len(doc.pages)} páginas para {len(arts)} pintores: algum bloco empurrou uma página a mais (rode um número por vez)')
         for e in es: print('ERRO', e)
         print('páginas', len(doc.pages), '·', 'sem estouro' if not es else f'{len(es)} linhas fora')
         sys.exit(1 if es else 0)

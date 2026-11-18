@@ -1,0 +1,243 @@
+{
+ "pos": 39,
+ "chave": "artemisia",
+ "nome": "Artemisia Gentileschi",
+ "nome_original": "",
+ "vida": "1593–c. 1656",
+ "origem": "Itália",
+ "cor": "#2F5A3A",
+ "frase": "Primeira mulher aceita na Academia de Desenho de Florença, pintou heroínas fortes com a luz dramática de Caravaggio.",
+ "retrato": {
+  "img": "artemisia/retrato.jpg",
+  "legenda": "Autorretrato como tocadora de alaúde, c. 1615–1618. Óleo sobre tela.",
+  "pos": "center 22%"
+ },
+ "abertura": {
+  "img": "artemisia/judite.jpg",
+  "legenda": "Judite e sua serva, c. 1623–1625. Óleo sobre tela. Instituto de Artes de Detroit.",
+  "pos": "center 22%"
+ },
+ "ficha": [
+  [
+   "Nasceu",
+   "1593, em Roma"
+  ],
+  [
+   "Morreu",
+   "c. 1656, em Nápoles"
+  ],
+  [
+   "Movimento",
+   "Barroco; seguidora de Caravaggio"
+  ],
+  [
+   "Técnica",
+   "Óleo sobre tela, com luz e sombra fortes"
+  ],
+  [
+   "Obra",
+   "Cerca de 60 quadros atribuídos a ela"
+  ],
+  [
+   "Onde ver",
+   "Uffizi e Palácio Pitti (Florença), Capodimonte (Nápoles), Coleção Real (Londres)"
+  ]
+ ],
+ "vida_titulo": "Uma mulher entre os mestres",
+ "vida_txt": [
+  {
+   "t": "A filha do pintor",
+   "p": "Artemisia nasceu em Roma em 1593, filha mais velha do pintor Orazio Gentileschi, seguidor de Caravaggio. A mãe morreu quando ela tinha 12 anos. Mulheres não podiam estudar em academias, e ela aprendeu tudo no ateliê do pai: moer pigmentos, preparar telas, desenhar e pintar. Aos 17 anos assinou seu primeiro quadro datado, Susana e os velhos."
+  },
+  {
+   "t": "O processo de 1612",
+   "p": "Em 1611 ela foi violentada por Agostino Tassi, pintor que o pai havia contratado para ensiná-la perspectiva. Orazio levou Tassi à justiça. No processo, em 1612, Artemisia depôs e foi interrogada sob tortura, prática da justiça da época para testar testemunhas. Manteve o que tinha dito. Tassi foi condenado ao exílio de Roma, mas a pena quase não foi cumprida."
+  },
+  {
+   "t": "Florença e os Médici",
+   "p": "Logo depois do processo, ela se casou com o pintor Pierantonio Stiattesi e se mudou para Florença. Ali trabalhou para o grão-duque Cosimo II de Médici, ficou amiga do cientista Galileu Galilei e, em 1616, foi a primeira mulher aceita na Academia das Artes do Desenho. Nessa época pintou Judite decapitando Holofernes, hoje na Galeria Uffizi."
+  },
+  {
+   "t": "Uma carreira pela Europa",
+   "p": "Nos anos 1620 trabalhou em Roma e em Veneza. Por volta de 1630 se fixou em Nápoles, onde manteve um ateliê com ajudantes. Em 1638 foi a Londres, à corte do rei Carlos I, onde o pai trabalhava; Orazio morreu lá no ano seguinte. Ela voltou a Nápoles e pintou para colecionadores de toda a Europa. Morreu ali, por volta de 1656."
+  }
+ ],
+ "citacao": {
+  "texto": "Mostrarei a Vossa Senhoria Ilustríssima o que uma mulher sabe fazer. [...] Encontrará o ânimo de César na alma de uma mulher.",
+  "fonte": "Cartas ao colecionador Antonio Ruffo, 1649"
+ },
+ "vida_fig": {
+  "img": "artemisia/catarina.jpg",
+  "legenda": "Autorretrato como santa Catarina de Alexandria, c. 1615–1617. National Gallery, Londres."
+ },
+ "linha": [
+  [
+   1593,
+   "Nasce em Roma",
+   "vida"
+  ],
+  [
+   1610,
+   "Galileu vê as luas de Júpiter",
+   "mundo"
+  ],
+  [
+   1616,
+   "Entra na Academia do Desenho",
+   "vida"
+  ],
+  [
+   1620,
+   "O Mayflower chega à América",
+   "mundo"
+  ],
+  [
+   1624,
+   "Holandeses tomam Salvador",
+   "mundo"
+  ],
+  [
+   1630,
+   "Muda-se para Nápoles",
+   "vida"
+  ],
+  [
+   1638,
+   "Vai à corte de Londres",
+   "vida"
+  ],
+  [
+   1640,
+   "Portugal se separa da Espanha",
+   "mundo"
+  ],
+  [
+   1654,
+   "Holandeses deixam o Brasil",
+   "mundo"
+  ],
+  [
+   1656,
+   "Morre em Nápoles, por volta desse ano",
+   "vida"
+  ]
+ ],
+ "foco": {
+  "img": "artemisia/pittura.jpg",
+  "titulo": "Autorretrato como Alegoria da Pintura",
+  "dados": "c. 1638–1639 · óleo sobre tela · 98,6 × 75,2 cm · Coleção Real, Londres",
+  "intro": "Artemisia se pintou trabalhando, de lado, com o braço erguido para a tela. Não é só um retrato: ela se apresenta como a própria Pintura, a mulher que os livros da época usavam para representar essa arte.",
+  "marcas": []
+ },
+ "sabia": [
+  "Numa Maria Madalena hoje no Palácio Pitti, ela assinou \"Artimisia Lomi\", o sobrenome de origem da família do pai.",
+  "Por séculos, vários quadros dela foram atribuídos ao pai, Orazio. Só no século XX os estudiosos devolveram muitos a ela.",
+  "Ela trocou cartas com Galileu Galilei, que conheceu em Florença."
+ ],
+ "tecnica": {
+  "titulo": "A luz que vem do escuro",
+  "intro": "Artemisia aprendeu com o pai o jeito de Caravaggio: figuras de gente real, um fundo quase preto e uma luz forte que escolhe o que mostrar.",
+  "passos": [
+   [
+    "Fundo escuro",
+    "A tela recebia uma camada castanha ou avermelhada. As figuras eram construídas a partir da sombra."
+   ],
+   [
+    "Uma só luz",
+    "Uma luz forte, vinda de um lado, bate nos rostos, braços e tecidos; o resto mergulha no escuro."
+   ],
+   [
+    "Modelo e espelho",
+    "Pintava a partir de modelos vivos. Para se pintar de lado, como na Alegoria da Pintura, precisou de espelhos."
+   ],
+   [
+    "Tecidos que brilham",
+    "Sedas em amarelo-ouro, azul e verde, com dobras largas e reflexos pintados em camadas."
+   ]
+  ],
+  "box_t": "A mordaça que ela tirou",
+  "box": "Num livro de 1593, Cesare Ripa ensinou como representar a Pintura: uma mulher de cabelos negros despenteados, com corrente de ouro e uma máscara pendurada, vestido de cor cambiante e uma faixa sobre a boca, porque a pintura é muda. Artemisia seguiu quase tudo, menos a mordaça. E usou o próprio rosto.",
+  "paleta": [
+   [
+    "#3E6B4A",
+    "Verde cambiante"
+   ],
+   [
+    "#C99A3B",
+    "Ouro"
+   ],
+   [
+    "#5A3A22",
+    "Castanho"
+   ],
+   [
+    "#E8CDB0",
+    "Pele na luz"
+   ],
+   [
+    "#1E1712",
+    "Fundo"
+   ]
+  ]
+ },
+ "obras": [
+  {
+   "img": "artemisia/ester.jpg",
+   "titulo": "Ester diante de Assuero",
+   "ano": "c. 1628–1635",
+   "nota": "A rainha desmaia diante do rei para salvar seu povo, os judeus."
+  },
+  {
+   "img": "artemisia/madalena.jpg",
+   "titulo": "Maria Madalena convertida",
+   "ano": "c. 1617–1620",
+   "nota": "Seda amarela e um gesto decidido: ela vira as costas ao espelho."
+  },
+  {
+   "img": "artemisia/sao-joao.jpg",
+   "titulo": "O nascimento de São João Batista",
+   "ano": "c. 1635",
+   "nota": "Mulheres cuidam do recém-nascido numa cena doméstica, pintada em Nápoles."
+  }
+ ],
+ "influenciou": [
+  [
+   "Bernardo Cavallino",
+   null
+  ],
+  [
+   "Massimo Stanzione",
+   null
+  ]
+ ],
+ "rival": [
+  "Caravaggio",
+  18,
+  "Amigo do pai; a luz forte dele guiou a pintura dela."
+ ],
+ "pensar": "Faça um autorretrato desenhando ou pintando, como Artemisia na Alegoria da Pintura. Use um espelho, ilumine o rosto com uma única lâmpada de lado e observe onde começa a sombra.",
+ "palavras": [
+  [
+   "Caravaggismo",
+   "Estilo dos seguidores de Caravaggio: gente comum como modelo, fundo escuro e luz forte."
+  ],
+  [
+   "Claro-escuro",
+   "Contraste forte entre partes iluminadas e escuras, que dá volume e drama às figuras."
+  ],
+  [
+   "Alegoria",
+   "Figura que representa uma ideia: aqui, uma mulher que é a própria Pintura."
+  ]
+ ],
+ "imagens": {
+  "retrato.jpg": "File:Artemisia Gentileschi - Self-Portrait as a Lute Player.JPG",
+  "judite.jpg": "File:Artemisia Gentileschi - Judith and Her Maidservant with the Head of Holofernes - 52.253 - Detroit Institute of Arts.jpg",
+  "pittura.jpg": "File:Self-portrait as the Allegory of Painting (La Pittura) - Artemisia Gentileschi.jpg",
+  "catarina.jpg": "File:Self-Portrait as Saint Catherine of Alexandria (Gentileschi).jpg",
+  "ester.jpg": "File:Esther before Ahasuerus MET DT1440.jpg",
+  "madalena.jpg": "File:Artemisia Gentileschi Mary Magdalene Pitti.jpg",
+  "sao-joao.jpg": "File:Nacimiento de San Juan Bautista (Artemisia Gentileschi).jpg"
+ },
+ "pron": "por ela"
+}
