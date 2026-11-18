@@ -1,0 +1,276 @@
+{
+ "pos": 19,
+ "chave": "hokusai",
+ "nome": "Katsushika Hokusai",
+ "nome_original": "葛飾北斎",
+ "vida": "1760–1849",
+ "origem": "Japão",
+ "cor": "#1F3F66",
+ "frase": "Passou quase noventa anos desenhando tudo o que via e fez de uma onda a imagem japonesa mais famosa do mundo.",
+ "retrato": {
+  "img": "hokusai/retrato.jpg",
+  "legenda": "Autorretrato de velho, entre 1834 e 1846. Tinta sobre papel."
+ },
+ "abertura": {
+  "img": "hokusai/fuji-vermelho.jpg",
+  "legenda": "Vento sul, céu claro, o \"Fuji Vermelho\", c. 1830–1832. Xilogravura colorida."
+ },
+ "ficha": [
+  [
+   "Nasceu",
+   "1760, em Edo (hoje Tóquio), Japão"
+  ],
+  [
+   "Morreu",
+   "1849, em Edo, aos 88 anos"
+  ],
+  [
+   "Movimento",
+   "Ukiyo-e, as \"imagens do mundo flutuante\""
+  ],
+  [
+   "Técnica",
+   "Xilogravura colorida, pintura a tinta e livros de desenho"
+  ],
+  [
+   "Obra",
+   "Mais de 30 mil desenhos, gravuras e pinturas, pelas estimativas"
+  ],
+  [
+   "Onde ver",
+   "Museu Sumida Hokusai (Tóquio), Museu Britânico (Londres), Metropolitan (Nova York)"
+  ]
+ ],
+ "ranking": {
+  "wikis": 166,
+  "wikis_pos": 11,
+  "influencia": 6,
+  "nota": 58.1
+ },
+ "vida_txt": [
+  {
+   "t": "Um menino de Edo",
+   "p": "Hokusai nasceu em 1760 em Edo, a cidade que hoje se chama Tóquio, numa família de artesãos. Ele mesmo contou que desenhava sem parar desde os seis anos. Na adolescência trabalhou numa livraria de aluguel e aprendeu a entalhar blocos de madeira para impressão. Aos 18 anos entrou para o ateliê de Katsukawa Shunshō, famoso pelos retratos de atores do teatro kabuki, e publicou as primeiras gravuras com o nome de Shunrō."
+  },
+  {
+   "t": "Trinta nomes, noventa e três casas",
+   "p": "Hokusai mudava de nome como quem muda de fase: usou mais de trinta ao longo da vida, e cada nome marcava um estilo novo. Os biógrafos contam que mudou de casa 93 vezes. Vivia com pouco dinheiro, trabalhava sem descanso e não se prendia a escola nenhuma. Estudou até as gravuras holandesas que chegavam pelo porto de Nagasaki, de onde tirou a perspectiva com ponto de fuga."
+  },
+  {
+   "t": "O mangá e o monte Fuji",
+   "p": "Em 1814 publicou o primeiro volume do Hokusai Manga, cadernos com milhares de figuras (gente, bichos, plantas, fantasmas) feitos para ensinar a desenhar. A série chegou a 15 volumes. Por volta de 1830, já com setenta anos, começou as Trinta e seis vistas do monte Fuji, onde está a Grande Onda. A série vendeu tanto que ganhou mais dez gravuras."
+  },
+  {
+   "t": "O velho louco por desenho",
+   "p": "Nos últimos anos assinava Gakyō Rōjin, \"o velho louco por desenho\". Passou por um derrame, por um incêndio que queimou o ateliê e por muitos anos de pobreza, sempre com a filha Katsushika Ōi, também pintora, ao lado. Morreu em 1849. Conta-se que suas últimas palavras foram: \"Se o céu me desse mais cinco anos, eu me tornaria um pintor de verdade.\""
+  }
+ ],
+ "citacao": {
+  "texto": "Desde os seis anos tenho mania de desenhar a forma das coisas. Aos setenta e três entendi um pouco a estrutura dos animais e das plantas. Aos noventa verei o fundo das coisas; aos cem talvez chegue ao divino. Aos cento e dez, cada ponto e cada linha terão vida própria.",
+  "fonte": "Posfácio de Cem vistas do monte Fuji, 1834 (trecho)"
+ },
+ "linha": [
+  [
+   1760,
+   "Nasce em Edo",
+   "vida"
+  ],
+  [
+   1776,
+   "Independência dos Estados Unidos",
+   "mundo"
+  ],
+  [
+   1778,
+   "Entra no ateliê de Shunshō",
+   "vida"
+  ],
+  [
+   1789,
+   "Revolução Francesa",
+   "mundo"
+  ],
+  [
+   1808,
+   "A corte portuguesa chega ao Brasil",
+   "mundo"
+  ],
+  [
+   1814,
+   "Primeiro volume do Hokusai Manga",
+   "vida"
+  ],
+  [
+   1822,
+   "Independência do Brasil",
+   "mundo"
+  ],
+  [
+   1831,
+   "Trinta e seis vistas do monte Fuji",
+   "vida"
+  ],
+  [
+   1839,
+   "A fotografia é apresentada em Paris",
+   "mundo"
+  ],
+  [
+   1849,
+   "Morre em Edo, aos 88 anos",
+   "vida"
+  ]
+ ],
+ "tecnica": {
+  "titulo": "Como nascia uma xilogravura",
+  "intro": "Uma gravura como a Onda era trabalho de equipe. O editor encomendava e vendia, o artista só fazia o desenho, e dois artesãos transformavam o desenho em milhares de cópias.",
+  "passos": [
+   [
+    "O desenho",
+    "Hokusai desenhava a tinta numa folha fina de papel."
+   ],
+   [
+    "O entalhe",
+    "O gravador colava a folha de cabeça para baixo num bloco de cerejeira e cortava a madeira em volta das linhas. O desenho original se perdia aí."
+   ],
+   [
+    "Um bloco por cor",
+    "Para cada cor, um bloco novo. Duas marcas no canto, os kentō, faziam o papel cair sempre no mesmo lugar."
+   ],
+   [
+    "A impressão",
+    "O impressor pincelava a tinta no bloco, deitava o papel úmido e esfregava com o baren, um disco de bambu. Cor por cor, bloco por bloco."
+   ]
+  ],
+  "box_t": "O azul que veio de longe",
+  "box": "O azul intenso da Onda é o azul da Prússia, um pigmento inventado em Berlim no começo do século XVIII. Ficou barato no Japão por volta de 1830 e não desbotava como o anil das plantas. A série do Fuji foi vendida como novidade justamente por causa dele.",
+  "paleta": [
+   [
+    "#1E3A5F",
+    "Azul da Prússia"
+   ],
+   [
+    "#4E7A9E",
+    "Azul diluído"
+   ],
+   [
+    "#E9DDC4",
+    "Papel"
+   ],
+   [
+    "#B9AE9A",
+    "Céu"
+   ],
+   [
+    "#2B2622",
+    "Linhas"
+   ]
+  ]
+ },
+ "foco": {
+  "img": "hokusai/onda.jpg",
+  "titulo": "A Grande Onda de Kanagawa",
+  "dados": "c. 1830–1832 · xilogravura colorida · 25,7 × 37,9 cm · esta cópia: Metropolitan Museum, Nova York",
+  "intro": "Três barcos que levavam peixe fresco à cidade enfrentam uma onda gigante no mar de Kanagawa, perto da atual Yokohama. Era uma gravura barata, impressa aos milhares; hoje se conhecem pouco mais de cem cópias.",
+  "marcas": [
+   [
+    27,
+    17,
+    "As garras",
+    "A crista se desfaz em dedos de espuma que parecem agarrar os barcos."
+   ],
+   [
+    68,
+    60,
+    "O Fuji pequeno",
+    "A montanha, assunto da série, fica minúscula ao fundo e repete a forma da onda."
+   ],
+   [
+    82,
+    47,
+    "Os barcos",
+    "Os remadores se encolhem. O medo está nos corpos, não nos rostos."
+   ],
+   [
+    13,
+    6,
+    "Título e assinatura",
+    "A cartela traz o nome da série; ao lado, \"pintado por Iitsu, que antes se chamava Hokusai\"."
+   ]
+  ]
+ },
+ "obras": [
+  {
+   "img": "hokusai/fuji-vermelho.jpg",
+   "titulo": "Vento sul, céu claro (\"Fuji Vermelho\")",
+   "ano": "c. 1830–1832",
+   "nota": "O Fuji tingido pelo sol da manhã de fim de verão."
+  },
+  {
+   "img": "hokusai/ejiri.jpg",
+   "titulo": "Ejiri, na província de Suruga",
+   "ano": "c. 1830–1832",
+   "nota": "Uma rajada leva chapéus e papéis; o Fuji é só um contorno."
+  },
+  {
+   "img": "hokusai/kajikazawa.jpg",
+   "titulo": "Kajikazawa, na província de Kai",
+   "ano": "c. 1830–1832",
+   "nota": "Um pescador e a linha da vara formam um triângulo, como a montanha."
+  },
+  {
+   "img": "hokusai/kirifuri.jpg",
+   "titulo": "A cachoeira Kirifuri",
+   "ano": "c. 1832",
+   "nota": "Da série das cachoeiras: a água vira fios desenhados um a um."
+  }
+ ],
+ "sabia": [
+  "Van Gogh tinha gravuras japonesas na parede e escreveu ao irmão, em 1888, que as ondas de Hokusai são \"garras\": o barco fica preso nelas.",
+  "O compositor Claude Debussy pôs a Grande Onda na capa da partitura de La Mer, em 1905.",
+  "\"Mangá\" já estava no título do Hokusai Manga, mas queria dizer \"desenhos soltos\", não quadrinhos."
+ ],
+ "influenciou": [
+  [
+   "Vincent van Gogh",
+   1
+  ],
+  [
+   "Claude Monet",
+   7
+  ],
+  [
+   "Edgar Degas",
+   21
+  ],
+  [
+   "Henri de Toulouse-Lautrec",
+   35
+  ]
+ ],
+ "rival": [
+  "Hiroshige",
+  41,
+  "Rival mais jovem, também pintou o Fuji e as estradas do Japão."
+ ],
+ "pensar": "Desenhe um lugar que você conhece com algo enorme e próximo na frente e o ponto mais famoso bem pequeno ao fundo, como o Fuji na Onda. O que muda quando o assunto principal fica pequeno?",
+ "palavras": [
+  [
+   "Ukiyo-e",
+   "\"Imagens do mundo flutuante\": gravuras e pinturas da vida nas cidades do Japão entre os séculos XVII e XIX."
+  ],
+  [
+   "Xilogravura",
+   "Gravura impressa com blocos de madeira entalhados."
+  ],
+  [
+   "Japonismo",
+   "A moda da arte japonesa na Europa a partir dos anos 1860."
+  ]
+ ],
+ "vida_titulo": "Um artista com trinta nomes",
+ "vida_fig": {
+  "img": "hokusai/manga.jpg",
+  "legenda": "Uma página do Hokusai Manga, livro de desenhos para estudar (primeiro volume, 1814)."
+ }
+}
