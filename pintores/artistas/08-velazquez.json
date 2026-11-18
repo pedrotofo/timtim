@@ -1,0 +1,276 @@
+{
+ "pos": 8,
+ "chave": "velazquez",
+ "nome": "Diego Velázquez",
+ "nome_original": "",
+ "vida": "1599–1660",
+ "origem": "Espanha",
+ "cor": "#6B2A22",
+ "frase": "Pintor do rei da Espanha, retratou reis, anões e criados com igual atenção e pintou As meninas, um quadro sobre o olhar.",
+ "retrato": {
+  "img": "velazquez/retrato.jpg",
+  "legenda": "Autorretrato, c. 1650. Museu de Belas Artes de Valência.",
+  "pos": "center 30%"
+ },
+ "abertura": {
+  "img": "velazquez/fiandeiras.jpg",
+  "legenda": "As fiandeiras (A fábula de Aracne), c. 1655–1660. Museu do Prado, Madri.",
+  "pos": "center 60%"
+ },
+ "ficha": [
+  [
+   "Nasceu",
+   "1599, em Sevilha, Espanha"
+  ],
+  [
+   "Morreu",
+   "1660, em Madri, aos 61 anos"
+  ],
+  [
+   "Movimento",
+   "Barroco espanhol, no chamado Século de Ouro"
+  ],
+  [
+   "Técnica",
+   "Óleo sobre tela, com pinceladas cada vez mais soltas"
+  ],
+  [
+   "Obra",
+   "Cerca de 120 pinturas aceitas como dele, pelas estimativas"
+  ],
+  [
+   "Onde ver",
+   "Museu do Prado (Madri), National Gallery (Londres), Metropolitan (Nova York)"
+  ]
+ ],
+ "vida_titulo": "O pintor que vivia no palácio",
+ "vida_txt": [
+  {
+   "t": "Aprendiz em Sevilha",
+   "p": "Diego Velázquez foi batizado em Sevilha em 6 de junho de 1599. A cidade era então a mais rica da Espanha, o porto onde chegava a prata da América. Em 1611, aos 12 anos, entrou como aprendiz no ateliê de Francisco Pacheco, pintor e escritor. Em 1618 casou-se com Juana, filha do mestre. Suas primeiras obras são cenas de cozinha e de rua, os bodegones, com gente simples e objetos pintados de perto."
+  },
+  {
+   "t": "Pintor do rei",
+   "p": "Em 1623 foi chamado a Madri para retratar o jovem rei Felipe IV. O retrato agradou tanto que o rei o nomeou pintor da corte e, conta Pacheco, decidiu que só Velázquez o pintaria dali em diante. Ele passou o resto da vida no palácio, pintando a família real, os bobos e os anões da corte. Também recebeu cargos de funcionário, como cuidar das acomodações do rei nas viagens."
+  },
+  {
+   "t": "Duas viagens à Itália",
+   "p": "Em 1629 foi à Itália pela primeira vez e estudou Ticiano e Tintoretto em Veneza e as esculturas antigas em Roma. Voltou em 1649 para comprar obras de arte para o rei. Em Roma, em 1650, retratou o papa Inocêncio X e seu assistente Juan de Pareja, um homem escravizado. Nesse mesmo ano Velázquez assinou a carta de alforria de Pareja, que depois se tornou pintor também."
+  },
+  {
+   "t": "A cruz no peito",
+   "p": "Em 1656 pintou As meninas. Em 1659 realizou o sonho de entrar para a Ordem de Santiago, honra rara para um pintor; a cruz vermelha que ele veste no quadro foi acrescentada depois. Em 1660 cuidou da decoração do encontro, na fronteira com a França, em que a infanta Maria Teresa foi entregue ao noivo, Luís XIV. Voltou cansado a Madri, adoeceu e morreu em 6 de agosto."
+  }
+ ],
+ "citacao": {
+  "texto": "Depois de cinco anos de educação e ensino, casei-o com minha filha, movido por sua virtude, limpeza e boas qualidades, e pelas esperanças de seu natural e grande talento.",
+  "fonte": "Francisco Pacheco, mestre e sogro de Velázquez, em Arte da pintura, 1649"
+ },
+ "vida_fig": {
+  "img": "velazquez/velha.jpg",
+  "legenda": "Velha fritando ovos, 1618, um bodegón dos anos de Sevilha. Galerias Nacionais da Escócia, Edimburgo."
+ },
+ "linha": [
+  [
+   1599,
+   "Nasce em Sevilha",
+   "vida"
+  ],
+  [
+   1605,
+   "Sai a primeira parte do Dom Quixote",
+   "mundo"
+  ],
+  [
+   1618,
+   "Começa a Guerra dos Trinta Anos",
+   "mundo"
+  ],
+  [
+   1623,
+   "Vira pintor do rei Felipe IV",
+   "vida"
+  ],
+  [
+   1630,
+   "Holandeses tomam Olinda e Recife",
+   "mundo"
+  ],
+  [
+   1640,
+   "Portugal se separa da Espanha",
+   "mundo"
+  ],
+  [
+   1650,
+   "Retrata o papa Inocêncio X",
+   "vida"
+  ],
+  [
+   1654,
+   "Holandeses deixam o Brasil",
+   "mundo"
+  ],
+  [
+   1656,
+   "Pinta As meninas",
+   "vida"
+  ],
+  [
+   1660,
+   "Morre em Madri, aos 61 anos",
+   "vida"
+  ]
+ ],
+ "foco": {
+  "img": "velazquez/meninas.jpg",
+  "titulo": "As meninas",
+  "dados": "1656 · óleo sobre tela · 320,5 × 281,5 cm · Museu do Prado, Madri",
+  "intro": "No ateliê do pintor, dentro do palácio, a infanta Margarita, de cinco anos, aparece cercada de damas, anões e um cão. Velázquez se pintou à esquerda, diante de uma tela enorme. Para quem todos estão olhando? O espelho do fundo dá a pista.",
+  "marcas": [
+   [
+    24,
+    63,
+    "O pintor",
+    "Velázquez, de pincel na mão, olha para fora do quadro, para nós ou para quem está no nosso lugar."
+   ],
+   [
+    49,
+    77,
+    "A infanta",
+    "Margarita, filha do rei, recebe água de uma das meninas, as damas de companhia que dão nome ao quadro."
+   ],
+   [
+    42,
+    56,
+    "O espelho",
+    "Refletidos ao fundo, o rei Felipe IV e a rainha Mariana. Eles estariam onde está quem olha o quadro."
+   ],
+   [
+    73,
+    90,
+    "O cão e os anões",
+    "Nicolasito Pertusato pisa no mastim, que nem se mexe. Ao lado, Mari Bárbola encara o espectador."
+   ]
+  ]
+ },
+ "sabia": [
+  "Em 1957, Picasso pintou 58 quadros a partir de As meninas. A série está hoje no Museu Picasso de Barcelona.",
+  "Felipe IV, o rei que Velázquez pintou por quase quarenta anos, também foi rei de Portugal até 1640. Ou seja, foi rei do Brasil.",
+  "Manet viu os quadros de Velázquez em Madri em 1865 e escreveu a um amigo que ele era \"o pintor dos pintores\"."
+ ],
+ "tecnica": {
+  "titulo": "De perto, só manchas",
+  "intro": "Velázquez começou pintando cada detalhe com nitidez. Com os anos, a pincelada foi ficando solta: de perto se veem borrões; de longe aparecem a seda, o cabelo e o brilho do metal.",
+  "passos": [
+   [
+    "A base",
+    "Cobria a tela com uma camada de preparação. Em Sevilha ela era castanha; em Madri passou a usar fundos mais claros."
+   ],
+   [
+    "Direto no pincel",
+    "Desenhava pouco antes de pintar. Compunha com o próprio pincel e mudava de ideia no meio do caminho."
+   ],
+   [
+    "As mudanças",
+    "Muitas correções aparecem com o tempo sob a tinta: uma perna, um chapéu, a pata de um cavalo em outra posição."
+   ],
+   [
+    "Os toques finais",
+    "No fim, pinceladas rápidas de branco e de cor pura davam os brilhos: um laço, uma joia, o reflexo num vaso."
+   ]
+  ],
+  "box_t": "Poucas cores, muitos cinzas",
+  "box": "Velázquez trabalhava com poucos pigmentos: branco de chumbo, ocres e terras, vermelhão, azurita e preto. Misturando-os, conseguia uma infinidade de cinzas, quentes e frios, que dão o ar e a luz das salas do palácio. Esses cinzas foram muito estudados pelos pintores do século XIX, como Manet.",
+  "paleta": [
+   [
+    "#E6DDCB",
+    "Branco"
+   ],
+   [
+    "#B48A52",
+    "Ocre"
+   ],
+   [
+    "#A63A2C",
+    "Vermelhão"
+   ],
+   [
+    "#7D8288",
+    "Cinza"
+   ],
+   [
+    "#2B241F",
+    "Preto"
+   ]
+  ]
+ },
+ "obras": [
+  {
+   "img": "velazquez/aguador.jpg",
+   "titulo": "O aguador de Sevilha",
+   "ano": "c. 1620",
+   "nota": "Um vendedor de água, um menino e um copo de vidro; ainda em Sevilha."
+  },
+  {
+   "img": "velazquez/breda.jpg",
+   "titulo": "A rendição de Breda",
+   "ano": "1634–1635",
+   "nota": "O general vencedor consola o vencido; as lanças desenham o céu."
+  },
+  {
+   "img": "velazquez/pareja.jpg",
+   "titulo": "Juan de Pareja",
+   "ano": "1650",
+   "nota": "Seu assistente, pintado em Roma. Segundo Palomino, foi aplaudido numa exposição no Panteão."
+  }
+ ],
+ "influenciou": [
+  [
+   "Francisco de Goya",
+   11
+  ],
+  [
+   "Édouard Manet",
+   20
+  ],
+  [
+   "Pablo Picasso",
+   null
+  ],
+  [
+   "Francis Bacon",
+   null
+  ]
+ ],
+ "rival": [
+  "Peter Paul Rubens",
+  14,
+  "Em Madri, em 1628, conviveu com ele e o animou a ir à Itália."
+ ],
+ "pensar": "Descubra para onde olha cada pessoa de As meninas. Depois desenhe uma cena da sua casa em que alguém olha para fora do papel, direto para quem desenha. Quem está no seu lugar?",
+ "palavras": [
+  [
+   "Bodegón",
+   "Na Espanha, pintura de cozinha ou de taberna, com gente e objetos do dia a dia."
+  ],
+  [
+   "Infanta",
+   "Filha do rei da Espanha ou de Portugal que não é a herdeira do trono."
+  ],
+  [
+   "Pentimento",
+   "Correção do pintor que reaparece sob a tinta com o tempo; em espanhol, arrepentimiento."
+  ]
+ ],
+ "imagens": {
+  "retrato.jpg": "File:Diego Velázquez Autorretrato 45 x 38 cm - Colección Real Academia de Bellas Artes de San Carlos - Museo de Bellas Artes de Valencia.jpg",
+  "fiandeiras.jpg": "File:Velázquez - La Fábula de Aracne o Las Hilanderas (Museo del Prado, 1657-58).jpg",
+  "meninas.jpg": "File:Las Meninas, by Diego Velázquez, from Prado in Google Earth.jpg",
+  "aguador.jpg": "File:Diego Velazquez - The Waterseller of Seville.jpg",
+  "breda.jpg": "File:Velazquez-The Surrender of Breda.jpg",
+  "pareja.jpg": "File:Diego Velázquez (1599–1660), Juan de Pareja (1606–1670), 1650.jpg",
+  "velha.jpg": "File:Diego Velazquez - An Old Woman Cooking Eggs - Google Art Project.jpg"
+ },
+ "pron": "por ele"
+}

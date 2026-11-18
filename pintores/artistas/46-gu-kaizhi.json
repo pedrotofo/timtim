@@ -1,0 +1,258 @@
+{
+ "pos": 46,
+ "chave": "gu-kaizhi",
+ "nome": "Gu Kaizhi",
+ "nome_original": "顧愷之",
+ "vida": "c. 344–406",
+ "origem": "China",
+ "cor": "#7A3B2E",
+ "frase": "Primeiro grande nome da pintura chinesa, ensinou que o retrato vive nos olhos; suas obras só sobrevivem em cópias antigas.",
+ "pron": "por ele",
+ "retrato": null,
+ "abertura": {
+  "img": "gu-kaizhi/ninfa-freer.jpg",
+  "legenda": "A ninfa do rio Luo (detalhe), cópia do século XII de uma obra atribuída a Gu Kaizhi. Tinta e cor sobre seda.",
+  "pos": "center 50%"
+ },
+ "ficha": [
+  [
+   "Nasceu",
+   "Por volta de 344, em Wuxi, no leste da China"
+  ],
+  [
+   "Morreu",
+   "406, com cerca de 60 anos"
+  ],
+  [
+   "Movimento",
+   "Pintura de figuras da dinastia Jin Oriental"
+  ],
+  [
+   "Técnica",
+   "Tinta e cor sobre seda, em rolos e murais"
+  ],
+  [
+   "Obra",
+   "Nenhum original: só cópias antigas e três textos sobre pintura"
+  ],
+  [
+   "Onde ver",
+   "Museu Britânico (Londres), Museu do Palácio (Pequim), Freer Gallery (Washington)"
+  ]
+ ],
+ "vida_titulo": "As três perfeições",
+ "vida_txt": [
+  {
+   "t": "Um letrado que pintava",
+   "p": "Gu Kaizhi nasceu por volta de 344 em Wuxi, no leste da China, numa família de funcionários. Viveu na dinastia Jin Oriental, quando a corte ficava em Jiankang, a atual Nanquim. Como muitos letrados, trabalhou como secretário e conselheiro de generais poderosos, como Huan Wen. Escrevia poemas, era famoso pelas tiradas e pintava retratos, cenas de histórias e figuras budistas."
+  },
+  {
+   "t": "O mural dos olhos",
+   "p": "A história mais famosa vem de um livro do século IX. Para ajudar a construir um templo budista em Jiankang, Gu prometeu um milhão de moedas, que não tinha. Pintou na parede o sábio Vimalakirti e deixou os olhos para o fim. Conta-se que, quando os pintou, a multidão pagou para ver a figura ganhar vida, e a quantia saiu."
+  },
+  {
+   "t": "Talento, pintura e excentricidade",
+   "p": "Dizia-se que Gu tinha três perfeições: no talento, na pintura e na excentricidade. Contam-se dele manias e brincadeiras, como comer cana-de-açúcar a partir da ponta menos doce, para chegar aos poucos ao melhor. Também escreveu sobre pintura: três textos curtos, entre os mais antigos da China sobre o assunto, que sobreviveram porque foram copiados em livros de crítica dos séculos seguintes."
+  },
+  {
+   "t": "Só cópias",
+   "p": "Nenhuma pintura feita pela mão de Gu sobreviveu. O que existe são cópias antigas, feitas por pintores que imitavam seu traço fino e contínuo, comparado ao fio que o bicho-da-seda tece na primavera. A mais antiga é o rolo das Admoestações, do Museu Britânico, copiado entre os séculos V e VII. Outras cópias, da dinastia Song, estão hoje em Pequim, Liaoning e Washington."
+  }
+ ],
+ "citacao": {
+  "texto": "A beleza ou a feiura dos membros não tem nada a ver com o essencial. Transmitir o espírito e captar a semelhança está todo nisto aqui.",
+  "fonte": "Gu Kaizhi, ao explicar por que demorava anos a pintar os olhos. Shishuo xinyu (Novos relatos do mundo), século V"
+ },
+ "vida_fig": {
+  "img": "gu-kaizhi/toalete.jpg",
+  "legenda": "Outra cena do rolo das Admoestações, no Museu Britânico. Cópia dos séculos V a VII."
+ },
+ "linha": [
+  [
+   292,
+   "Zhang Hua escreve as Admoestações",
+   "mundo"
+  ],
+  [
+   330,
+   "Constantinopla vira capital romana",
+   "mundo"
+  ],
+  [
+   344,
+   "Nasce em Wuxi",
+   "vida"
+  ],
+  [
+   364,
+   "Mural de Vimalakirti, segundo a tradição",
+   "vida"
+  ],
+  [
+   373,
+   "Morre Huan Wen, seu patrono",
+   "vida"
+  ],
+  [
+   376,
+   "Os godos atravessam o Danúbio",
+   "mundo"
+  ],
+  [
+   380,
+   "Cristianismo vira religião oficial romana",
+   "mundo"
+  ],
+  [
+   392,
+   "Assessor de Yin Zhongkan, em Jingzhou",
+   "vida"
+  ],
+  [
+   406,
+   "Morre, com cerca de 60 anos",
+   "vida"
+  ],
+  [
+   410,
+   "Os visigodos saqueiam Roma",
+   "mundo"
+  ]
+ ],
+ "foco": {
+  "img": "gu-kaizhi/admoestacoes.jpg",
+  "titulo": "Admoestações da instrutora às damas da corte",
+  "dados": "Cópia dos séculos V a VII · tinta e cor sobre seda · rolo de 24,4 × 343,8 cm · Museu Britânico, Londres",
+  "intro": "O rolo ilustra conselhos escritos por Zhang Hua por volta de 292 para as mulheres do palácio. Nesta cena, a dama Feng se põe entre um urso fugido e o imperador Yuan, da dinastia Han, e salva a vida dele.",
+  "marcas": [
+   [
+    30,
+    50,
+    "O urso",
+    "O urso escapou da jaula durante uma luta de feras e avança para o trono."
+   ],
+   [
+    40,
+    50,
+    "A dama Feng",
+    "Ela anda em direção ao urso, sem armas, para proteger o imperador."
+   ],
+   [
+    60,
+    50,
+    "Os guardas",
+    "Dois guardas chegam com lanças, atrasados em relação à dama."
+   ],
+   [
+    80,
+    50,
+    "O imperador",
+    "Sentado, o imperador assiste assustado. As outras damas fogem."
+   ]
+  ]
+ },
+ "sabia": [
+  "O rolo das Admoestações saiu de Pequim em 1900, durante a Revolta dos Boxers, levado por um oficial britânico. O Museu Britânico o comprou em 1903.",
+  "Por ser frágil, o rolo do Museu Britânico só é mostrado ao público por poucas semanas de cada vez.",
+  "No século XVIII, o imperador Qianlong guardava o rolo entre seus tesouros e escreveu nele; seus selos ainda estão lá."
+ ],
+ "tecnica": {
+  "titulo": "O rolo de seda",
+  "intro": "A pintura chinesa do tempo de Gu era feita para ser vista de perto, por poucas pessoas, aos poucos. O rolo horizontal se abria da direita para a esquerda, um trecho de cada vez, como um livro.",
+  "passos": [
+   [
+    "A seda",
+    "A seda era esticada e preparada para que a tinta não se espalhasse no tecido."
+   ],
+   [
+    "O traço",
+    "Com pincel fino, linhas longas e contínuas, de espessura quase igual, como fios: o desenho é a pintura."
+   ],
+   [
+    "Cor por cima",
+    "Depois vinham cores minerais em áreas pequenas: vermelho nas fitas e nos lábios, toques de ocre e preto."
+   ],
+   [
+    "Texto e imagem",
+    "Trechos do texto em caligrafia separam as cenas. O leitor lê, olha, desenrola mais um palmo e continua."
+   ]
+  ],
+  "box_t": "Copiar era aprender",
+  "box": "Na China, copiar um mestre não era fraude: era o jeito de aprender e de preservar. Pintores de cada época refaziam as obras antigas, traço por traço. É por isso que conhecemos Gu Kaizhi: sem os copistas, seu nome seria só uma lenda nos livros.",
+  "paleta": [
+   [
+    "#C9B38E",
+    "Seda antiga"
+   ],
+   [
+    "#2A2420",
+    "Tinta"
+   ],
+   [
+    "#A33A2A",
+    "Vermelho"
+   ],
+   [
+    "#6E5A44",
+    "Ocre escuro"
+   ],
+   [
+    "#8C8F86",
+    "Cinza"
+   ]
+  ]
+ },
+ "obras": [
+  {
+   "img": "gu-kaizhi/admo-song.jpg",
+   "titulo": "A mesma cena, na cópia Song",
+   "ano": "séculos XII–XIII",
+   "nota": "Cópia em papel do Museu do Palácio, Pequim. Compare os traços."
+  },
+  {
+   "img": "gu-kaizhi/mulheres-sabias.jpg",
+   "titulo": "Mulheres sábias e benevolentes",
+   "ano": "cópia Song",
+   "nota": "Histórias de mulheres exemplares, em cópia do Museu do Palácio, Pequim."
+  },
+  {
+   "img": "gu-kaizhi/ninfa-pequim.jpg",
+   "titulo": "A ninfa do rio Luo",
+   "ano": "cópia Song",
+   "nota": "A deusa do rio flutua sobre a água; versão do Museu do Palácio."
+  }
+ ],
+ "influenciou": [
+  [
+   "Lu Tanwei",
+   null
+  ],
+  [
+   "Li Gonglin",
+   null
+  ]
+ ],
+ "pensar": "No rolo, a história se desenrola aos poucos. Dobre uma tira comprida de papel em quatro partes e desenhe uma pequena história, uma cena em cada parte, para ser lida da direita para a esquerda.",
+ "palavras": [
+  [
+   "Rolo horizontal",
+   "Pintura numa longa faixa de seda ou papel, guardada enrolada e vista aos poucos, da direita para a esquerda."
+  ],
+  [
+   "Cópia",
+   "Reprodução feita à mão de uma obra antiga; na China, forma respeitada de estudo e preservação."
+  ],
+  [
+   "Caligrafia",
+   "A arte de escrever com pincel; na China, tão valorizada quanto a pintura."
+  ]
+ ],
+ "imagens": {
+  "ninfa-freer.jpg": "File:Gu Kaizhi 345.jpg",
+  "admoestacoes.jpg": "File:Admonitions Scroll Scene 4.jpg",
+  "toalete.jpg": "File:Admonitions Scroll Scene 7.jpg",
+  "admo-song.jpg": "File:Admonitions Scroll Scene 4 (Song copy).jpg",
+  "mulheres-sabias.jpg": "File:Gu Kaizhi women 4.jpg",
+  "ninfa-pequim.jpg": "File:Гу Кайчжи. Фея реки Ло. Деталь - Фея. Гугун, Пекин..jpg"
+ }
+}

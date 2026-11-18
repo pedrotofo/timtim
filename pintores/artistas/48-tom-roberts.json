@@ -1,0 +1,145 @@
+{
+ "pos": 48,
+ "chave": "tom-roberts",
+ "nome": "Tom Roberts",
+ "nome_original": "",
+ "vida": "1856–1931",
+ "origem": "Austrália",
+ "cor": "#7A5A3A",
+ "frase": "Levou a pintura ao ar livre para a Austrália e fez do trabalho no campo a imagem de um país novo.",
+ "pron": "por ele",
+ "retrato": {
+  "img": "tom-roberts/retrato.jpg",
+  "legenda": "Autorretrato, 1924. Óleo sobre tela.",
+  "pos": "center 30%"
+ },
+ "abertura": {
+  "img": "tom-roberts/break-away.jpg",
+  "legenda": "A break away! (O estouro), 1891: ovelhas sedentas disparam rumo à água. Óleo sobre tela.",
+  "pos": "center 50%"
+ },
+ "ficha": [
+  ["Nasceu", "1856, em Dorchester, Inglaterra"],
+  ["Morreu", "1931, em Kallista, Austrália, aos 75 anos"],
+  ["Movimento", "Escola de Heidelberg, o impressionismo australiano"],
+  ["Técnica", "Óleo ao ar livre: esboços rápidos, retratos e grandes cenas do campo"],
+  ["Obra", "Centenas de pinturas, de tampas de caixa de charuto a telas enormes"],
+  ["Onde ver", "Galeria de Victoria (Melbourne), Galeria de NSW (Sydney), Galeria Nacional (Camberra)"]
+ ],
+ "vida_titulo": "Pintar a Austrália ao ar livre",
+ "vida_txt": [
+  {
+   "t": "De Dorchester a Melbourne",
+   "p": "Thomas William Roberts nasceu em 1856 em Dorchester, no sul da Inglaterra. O pai, editor de jornal, morreu cedo, e em 1869 a mãe levou os filhos para Melbourne, na Austrália. Tom trabalhou de dia como assistente de fotógrafo e à noite estudava desenho e pintura na escola da galeria nacional. Em 1881 juntou dinheiro e voltou à Europa para estudar na Real Academia, em Londres."
+  },
+  {
+   "t": "A lição da Espanha",
+   "p": "Em 1883 viajou pela Espanha com o pintor australiano John Peter Russell, que depois seria amigo de Van Gogh (nº 1) e apresentaria o impressionismo a Matisse (nº 12). Em Granada, Roberts conheceu dois pintores catalães, Laureano Barrau e Ramon Casas, que o animaram a pintar direto da natureza, ao ar livre. Voltou a Melbourne em 1885 com essa ideia na bagagem."
+  },
+  {
+   "t": "Acampamentos e charutos",
+   "p": "Nos arredores de Melbourne, em Box Hill e depois em Heidelberg, montou acampamentos de pintura com Frederick McCubbin, Arthur Streeton e Charles Conder. Em 1889 o grupo fez a Exposição de Impressões 9 por 5: pinturas rápidas em tampas de caixa de charuto de 9 por 5 polegadas. O crítico James Smith atacou a mostra, e os pintores responderam com uma carta pública no jornal."
+  },
+  {
+   "t": "O pintor da nação",
+   "p": "Roberts quis pintar o trabalho no campo: tosquiadores, pastores, boiadeiros, bandoleiros. Em 1901 recebeu a encomenda de registrar a abertura do primeiro Parlamento da Austrália, que acabava de se tornar um só país. O quadro, com centenas de retratos, foi terminado em Londres em 1903. Roberts viveu na Inglaterra até 1923. Depois voltou de vez à Austrália, onde morreu em 1931."
+  }
+ ],
+ "citacao": {
+  "texto": "Assim aconteceu que, estando no mato e sentindo o encanto e o fascínio da grande vida pastoril e do seu trabalho, tentei expressá-lo.",
+  "fonte": "Carta ao jornal The Argus, Melbourne, 4 de julho de 1890"
+ },
+ "vida_fig": {
+  "img": "tom-roberts/camp.jpg",
+  "legenda": "O acampamento dos artistas, 1886: Box Hill, onde o grupo pintava ao ar livre nos fins de semana."
+ },
+ "linha": [
+  [1856, "Nasce em Dorchester, Inglaterra", "vida"],
+  [1869, "Muda-se para Melbourne", "vida"],
+  [1888, "Lei Áurea abole a escravidão", "mundo"],
+  [1889, "Exposição de Impressões 9 por 5", "vida"],
+  [1889, "Proclamação da República no Brasil", "mundo"],
+  [1890, "Termina A tosquia dos carneiros", "vida"],
+  [1901, "A Austrália vira um só país", "mundo"],
+  [1914, "Começa a Primeira Guerra Mundial", "mundo"],
+  [1922, "Semana de Arte Moderna, São Paulo", "mundo"],
+  [1931, "Morre em Kallista, aos 75", "vida"]
+ ],
+ "foco": {
+  "img": "tom-roberts/tosquia.jpg",
+  "titulo": "A tosquia dos carneiros",
+  "dados": "1890 · óleo sobre tela sobre aglomerado · 122,4 × 183,3 cm · National Gallery of Victoria, Melbourne",
+  "intro": "No galpão da fazenda Brocklesby, em Nova Gales do Sul, tosquiadores cortam a lã dos carneiros. Roberts passou duas temporadas de tosquia ali e pintou boa parte do quadro no próprio galpão. A lã era a maior riqueza da Austrália.",
+  "marcas": [
+   [50, 50, "O tosquiador", "Curvado sobre o carneiro, ele segura o animal com as pernas e corta com tesoura de mão."],
+   [60, 40, "A menina", "A tar boy sorridente que traz o pote de alcatrão para os cortes era uma menina, Susan Bourne."],
+   [20, 30, "A luz", "O sol entra pelo fundo aberto e pelas frestas das tábuas e acende a poeira no ar."],
+   [85, 60, "A lã", "Um rapaz leva o velo inteiro, a lã que sai do carneiro numa peça só."]
+  ]
+ },
+ "sabia": [
+  "Os pintores de Heidelberg tinham apelidos: Roberts era Bulldog e Streeton era Smike.",
+  "O quadro da abertura do Parlamento, de 1903, pertence à coroa britânica e fica emprestado ao Parlamento da Austrália, em Camberra.",
+  "As 9 por 5 polegadas das tampas de charuto dão cerca de 23 por 13 centímetros: menos que uma folha de caderno."
+ ],
+ "tecnica": {
+  "titulo": "Pintar ao ar livre",
+  "intro": "Roberts e os amigos levavam as tintas para fora do ateliê. Queriam pegar a luz forte da Austrália, que muda em minutos, deixa as sombras azuladas e o céu quase branco.",
+  "passos": [
+   ["Tinta em tubo", "Os tubos de metal, inventados nos anos 1840, deixavam levar a tinta pronta para o campo, sem moer pigmento."],
+   ["A tampa", "Para esboços rápidos, a tampa de madeira de uma caixa de charutos servia de tela, leve e fácil de carregar."],
+   ["Contra o relógio", "Cada esboço era feito antes que a luz mudasse, com pinceladas soltas que não escondem o gesto."],
+   ["A tela grande", "Os quadros grandes, como A tosquia, partiam de muitos estudos e levavam meses, parte no local, parte no ateliê."]
+  ],
+  "box_t": "Poeira de encomenda",
+  "box": "Em A tosquia dos carneiros, a luz do sol entra pelo galpão e acende a lã, os braços dos tosquiadores e a poeira no ar. Segundo o museu, Roberts pagou Susan Bourne e a irmã para levantar poeira no galpão enquanto pintava, para ver como a luz atravessava o ar.",
+  "paleta": [
+   ["#C9A979", "Lã"],
+   ["#8A6440", "Madeira"],
+   ["#4A3524", "Sombra"],
+   ["#D9CFB8", "Luz"],
+   ["#7D7F86", "Cinza azulado"]
+  ]
+ },
+ "obras": [
+  {
+   "img": "tom-roberts/coogee.jpg",
+   "titulo": "Esboço de feriado em Coogee",
+   "ano": "1888",
+   "nota": "Praia perto de Sydney, pintada ao ar livre com pinceladas rápidas."
+  },
+  {
+   "img": "tom-roberts/golden-fleece.jpg",
+   "titulo": "O velo de ouro",
+   "ano": "1894",
+   "nota": "Outro galpão de tosquia, em Newstead, quatro anos depois."
+  },
+  {
+   "img": "tom-roberts/bailed-up.jpg",
+   "titulo": "Bailed up (O assalto)",
+   "ano": "1895, retocado em 1927",
+   "nota": "Bandoleiros param uma diligência numa estrada de terra, sob o sol."
+  }
+ ],
+ "influenciou": [
+  ["Arthur Streeton", null],
+  ["Charles Conder", null],
+  ["Frederick McCubbin", null]
+ ],
+ "rival": ["Vincent van Gogh", 1, "Contemporâneo; Russell, companheiro de viagem de Roberts, pintou seu retrato em 1886."],
+ "pensar": "Escolha uma vista perto de casa e desenhe ou pinte a mesma cena em duas horas diferentes do dia, em no máximo meia hora cada vez. O que mudou: as cores, as sombras ou o assunto?",
+ "palavras": [
+  ["Ao ar livre", "Pintura feita fora do ateliê, diante do motivo, para captar a luz do momento; em francês, plein air."],
+  ["Escola de Heidelberg", "Grupo de pintores de Melbourne dos anos 1880 e 1890 que pintava a paisagem australiana ao ar livre."],
+  ["Tosquia", "Corte da lã de ovelhas e carneiros, feito uma vez por ano."]
+ ],
+ "imagens": {
+  "retrato.jpg": "File:Tom Roberts - Self-portrait, 1924.jpg",
+  "break-away.jpg": "File:Tom Roberts - A break away! - Google Art Project.jpg",
+  "tosquia.jpg": "File:Tom Roberts - Shearing the rams - Google Art Project.jpg",
+  "coogee.jpg": "File:Tom Roberts - Holiday sketch at Coogee - Google Art Project.jpg",
+  "golden-fleece.jpg": "File:Tom Roberts - The Golden Fleece - Google Art Project.jpg",
+  "bailed-up.jpg": "File:Tom Roberts - Bailed up - Google Art Project.jpg",
+  "camp.jpg": "File:Tom Roberts - The artists' camp, 1886.jpg"
+ }
+}

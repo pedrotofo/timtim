@@ -1,0 +1,263 @@
+{
+ "pos": 49,
+ "chave": "kim-hong-do",
+ "nome": "Kim Hong-do",
+ "nome_original": "김홍도 · 金弘道",
+ "vida": "1745–c. 1806",
+ "origem": "Coreia",
+ "cor": "#5C4630",
+ "frase": "Pintor da corte coreana que pôs o povo comum no centro da pintura e retratou como ninguém a Coreia do século XVIII.",
+ "pron": "por ele",
+ "retrato": null,
+ "abertura": {
+  "img": "kim-hong-do/jangteogil.jpg",
+  "legenda": "A caminho da feira, folha do Álbum de costumes de Danwon, fim do século XVIII. Tinta e cor leve sobre papel.",
+  "pos": "center 70%"
+ },
+ "ficha": [
+  [
+   "Nasceu",
+   "1745, na Coreia da dinastia Joseon"
+  ],
+  [
+   "Morreu",
+   "Por volta de 1806, em data e lugar incertos"
+  ],
+  [
+   "Movimento",
+   "Pintura de costumes (pungsokhwa) da corte Joseon"
+  ],
+  [
+   "Técnica",
+   "Tinta e cor leve sobre papel e seda: álbuns, rolos, biombos"
+  ],
+  [
+   "Obra",
+   "Centenas de pinturas; o álbum de costumes tem 25 folhas"
+  ],
+  [
+   "Onde ver",
+   "Museu Nacional da Coreia, Museu Leeum e Museu Kansong, em Seul"
+  ]
+ ],
+ "vida_titulo": "O pintor preferido do rei",
+ "vida_txt": [
+  {
+   "t": "Aluno de um letrado",
+   "p": "Kim Hong-do nasceu em 1745, na Coreia governada pela dinastia Joseon, numa família sem tradição na corte. Ainda menino começou a estudar com Kang Se-hwang, pintor, calígrafo e crítico respeitado, que vivia retirado em Ansan, perto da atual Seul. Kang ensinou o garoto a desenhar e a pensar a pintura. Foi ele quem abriu ao aluno o caminho para o Dohwaseo, o departamento de pintores oficiais do palácio."
+  },
+  {
+   "t": "Pintor da corte",
+   "p": "No Dohwaseo, os pintores faziam retratos do rei, mapas, registros de cerimônias e biombos para os palácios. Kim se destacou cedo: em 1771 pintou o retrato do príncipe herdeiro, o futuro rei Jeongjo. Quando Jeongjo subiu ao trono, em 1776, Kim virou o pintor de confiança do rei. Em 1781 fez um novo retrato oficial do soberano e recebeu em troca um cargo no governo."
+  },
+  {
+   "t": "Montanhas e gente comum",
+   "p": "Em 1788, Jeongjo mandou Kim às montanhas Geumgang, no leste do país, para pintar as paisagens que o rei não podia visitar. Na mesma época, Kim pintava o oposto da corte: lavradores, ferreiros, lavadeiras, lutadores, crianças na escola. Essas cenas do cotidiano, chamadas pungsokhwa, tinham humor e gente de verdade, e se tornaram a parte mais famosa da sua obra."
+  },
+  {
+   "t": "Os últimos anos",
+   "p": "De 1791 a 1795, Kim governou o distrito de Yeonpung, recompensa por mais um retrato do rei. Depois voltou a pintar para o palácio. Em 1800 o rei Jeongjo morreu, e Kim perdeu o protetor. Doente e com pouco dinheiro, pintou em 1805 a Canção do outono, uma paisagem noturna e triste. Morreu por volta de 1806; a data exata não se conhece."
+  }
+ ],
+ "citacao": {
+  "texto": "Ele é ainda melhor nas cenas de costumes. Tudo o que as pessoas fazem no dia a dia, as estradas, as balsas, as lojas, os exames, os espetáculos: basta ele pintar uma vez e todos gritam de espanto.",
+  "fonte": "Kang Se-hwang, mestre do pintor, em Notas sobre Danwon (Danwon-gi)"
+ },
+ "vida_fig": {
+  "img": "kim-hong-do/chongseokjeong.jpg",
+  "legenda": "Chongseokjeong, colunas de pedra na costa leste, do álbum atribuído à viagem de 1788 às montanhas Geumgang."
+ },
+ "linha": [
+  [
+   1745,
+   "Nasce na Coreia Joseon",
+   "vida"
+  ],
+  [
+   1750,
+   "Tratado de Madri redesenha o Brasil",
+   "mundo"
+  ],
+  [
+   1776,
+   "Pinta Os imortais taoístas",
+   "vida"
+  ],
+  [
+   1776,
+   "Independência dos Estados Unidos",
+   "mundo"
+  ],
+  [
+   1788,
+   "Viaja às montanhas Geumgang",
+   "vida"
+  ],
+  [
+   1789,
+   "Revolução Francesa",
+   "mundo"
+  ],
+  [
+   1791,
+   "Governa o distrito de Yeonpung",
+   "vida"
+  ],
+  [
+   1792,
+   "Tiradentes é executado no Rio",
+   "mundo"
+  ],
+  [
+   1800,
+   "Morre o rei Jeongjo",
+   "mundo"
+  ],
+  [
+   1806,
+   "Morre por volta desta data",
+   "vida"
+  ]
+ ],
+ "foco": {
+  "img": "kim-hong-do/ssireum.jpg",
+  "titulo": "A luta (Ssireum)",
+  "dados": "Fim do século XVIII · tinta e cor leve sobre papel · 27 × 22,7 cm · Museu Nacional da Coreia, Seul",
+  "intro": "Uma folha do Álbum de costumes de Danwon, com 25 cenas da vida comum. A plateia faz uma roda em volta de dois lutadores de ssireum, a luta tradicional coreana. Não há chão nem paisagem: só gente.",
+  "marcas": [
+   [
+    57,
+    52,
+    "Os lutadores",
+    "Um ergue o outro pela cintura. A luta está para acabar, e a plateia sabe disso."
+   ],
+   [
+    80,
+    86,
+    "Para que lado?",
+    "Os dois homens de baixo recuam de boca aberta: o lutador vai cair para o lado deles."
+   ],
+   [
+    18,
+    62,
+    "O vendedor",
+    "Um menino com uma bandeja vende doces e olha para outro lado, alheio à luta."
+   ],
+   [
+    93,
+    61,
+    "Os sapatos",
+    "Os sapatos dos lutadores ficam fora da roda; os chapéus pretos esperam no chão, à esquerda."
+   ]
+  ]
+ },
+ "sabia": [
+  "O nome artístico Danwon virou nome de bairro: Danwon-gu, na cidade de Ansan, onde ele estudou com Kang Se-hwang.",
+  "Em Ssireum, um dos espectadores tem as mãos trocadas: a direita está no lugar da esquerda. Ninguém sabe se foi descuido ou brincadeira do pintor.",
+  "Uma cratera do planeta Mercúrio tem o nome de Kim Hong-do."
+ ],
+ "tecnica": {
+  "titulo": "O pincel e o vazio",
+  "intro": "Kim Hong-do pintava com as ferramentas de todo pintor do Leste da Ásia: pincel de pelo, bastão de tinta, pedra de moer e papel. A arte estava em decidir o que deixar sem pintar.",
+  "passos": [
+   [
+    "Moer a tinta",
+    "O pintor esfregava um bastão de tinta seca, feito de fuligem e cola, numa pedra com um pouco de água."
+   ],
+   [
+    "A linha",
+    "Contornos com pincel fino, num só gesto. Na pintura a tinta não há borracha: cada linha errada fica."
+   ],
+   [
+    "Cor leve",
+    "Por cima, aguadas de cor bem diluída, só em rostos, roupas e objetos, deixando o papel aparecer."
+   ],
+   [
+    "O selo",
+    "No fim, o pintor carimbava seu selo com pasta vermelha. Às vezes acrescentava uma data ou um poema."
+   ]
+  ],
+  "box_t": "Cenas sem cenário",
+  "box": "Nas folhas do álbum de costumes quase não há paisagem. Kim põe as pessoas em roda ou em diagonal e deixa o fundo vazio, e o olho vai direto para os gestos. Em Ssireum, a plateia forma um círculo, e os dois lutadores no meio viram o centro de tudo.",
+  "paleta": [
+   [
+    "#D8C7A6",
+    "Papel"
+   ],
+   [
+    "#2B2622",
+    "Tinta"
+   ],
+   [
+    "#9EA39B",
+    "Cinza"
+   ],
+   [
+    "#B9825C",
+    "Pele"
+   ],
+   [
+    "#A0412E",
+    "Vermelho"
+   ]
+  ]
+ },
+ "obras": [
+  {
+   "img": "kim-hong-do/seodang.jpg",
+   "titulo": "A escola da aldeia (Seodang)",
+   "ano": "fim do século XVIII",
+   "nota": "Um menino chora depois da bronca do mestre; os colegas riem."
+  },
+  {
+   "img": "kim-hong-do/mudong.jpg",
+   "titulo": "O menino dançarino (Mudong)",
+   "ano": "fim do século XVIII",
+   "nota": "Músicos sentados tocam, e um menino dança no meio da roda."
+  },
+  {
+   "img": "kim-hong-do/gunseondo.jpg",
+   "titulo": "Os imortais taoístas (Gunseondo)",
+   "ano": "1776",
+   "nota": "Biombo da juventude: imortais a pé, de burro e de boi."
+  }
+ ],
+ "influenciou": [
+  [
+   "Kim Deuk-sin",
+   null
+  ],
+  [
+   "Shin Yun-bok",
+   null
+  ]
+ ],
+ "rival": [
+  "Katsushika Hokusai",
+  19,
+  "Contemporâneo no Japão, também desenhou o povo trabalhando."
+ ],
+ "pensar": "Em Ssireum, a plateia forma uma roda em volta da luta. Desenhe uma cena da sua rua com as pessoas em roda, sem desenhar chão nem casas. Só os gestos bastam para contar o que acontece?",
+ "palavras": [
+  [
+   "Pungsokhwa",
+   "Pintura de costumes: cenas do dia a dia do povo coreano, comuns no fim da dinastia Joseon."
+  ],
+  [
+   "Dohwaseo",
+   "Departamento de pintores oficiais da corte Joseon, que fazia retratos do rei, mapas e registros de cerimônias."
+  ],
+  [
+   "Joseon",
+   "Dinastia que governou a Coreia de 1392 a 1897."
+  ]
+ ],
+ "imagens": {
+  "jangteogil.jpg": "File:Danwon Jangteogil.jpg",
+  "ssireum.jpg": "File:Danwon Ssireum.jpg",
+  "seodang.jpg": "File:Danwon Seodang.jpg",
+  "mudong.jpg": "File:Danwon Mudong.jpg",
+  "gunseondo.jpg": "File:Gunseondo.jpg",
+  "chongseokjeong.jpg": "File:김홍도 금강사군첩 - 총석정.jpg"
+ }
+}

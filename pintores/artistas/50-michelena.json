@@ -19,12 +19,30 @@
   "pos": "center 45%"
  },
  "ficha": [
-  ["Nasceu", "1863, em Valencia, Venezuela"],
-  ["Morreu", "1898, em Caracas, aos 35 anos, de tuberculose"],
-  ["Movimento", "Realismo acadêmico e pintura de história"],
-  ["Técnica", "Óleo sobre tela: retratos, cenas de história e de costumes"],
-  ["Obra", "Centenas de telas, estudos e desenhos em menos de vinte anos"],
-  ["Onde ver", "Galería de Arte Nacional e Casa Museo Arturo Michelena, ambas em Caracas"]
+  [
+   "Nasceu",
+   "1863, em Valencia, Venezuela"
+  ],
+  [
+   "Morreu",
+   "1898, em Caracas, aos 35 anos, de tuberculose"
+  ],
+  [
+   "Movimento",
+   "Realismo acadêmico e pintura de história"
+  ],
+  [
+   "Técnica",
+   "Óleo sobre tela: retratos, cenas de história e de costumes"
+  ],
+  [
+   "Obra",
+   "Centenas de telas, estudos e desenhos em menos de vinte anos"
+  ],
+  [
+   "Onde ver",
+   "Galería de Arte Nacional e Casa Museo Arturo Michelena, ambas em Caracas"
+  ]
  ],
  "vida_titulo": "Uma vida curta e premiada",
  "vida_txt": [
@@ -38,7 +56,7 @@
   },
   {
    "t": "A medalha de 1889",
-   "p": "Em 1889, na Exposição Universal de Paris, a da Torre Eiffel, recebeu medalha de ouro com Carlota Corday a caminho do cadafalso. Voltou à Venezuela festejado, casou-se em Caracas com Lastenia Tello e retornou à França. Pintou cenas da independência venezuelana, como Vuelvan caras!, retratos de Simón Bolívar e temas antigos, como Pentesileia, a rainha das amazonas."
+   "p": "Em 1889, na Exposição Universal de Paris, a da Torre Eiffel, recebeu medalha de ouro com Carlota Corday a caminho do cadafalso. Voltou à Venezuela festejado como herói, casou-se em Caracas com Lastenia Tello e retornou à França. Pintou cenas da independência venezuelana, como Vuelvan caras!, retratos de Simón Bolívar e temas da Antiguidade, como Pentesileia, a rainha guerreira das amazonas."
   },
   {
    "t": "Pintar contra o tempo",
@@ -54,51 +72,138 @@
   "legenda": "A jovem mãe, 1889, exposta em Paris no ano da medalha de ouro."
  },
  "linha": [
-  [1863, "Nasce em Valencia, Venezuela", "vida"],
-  [1870, "Termina a Guerra do Paraguai", "mundo"],
-  [1876, "Bell patenteia o telefone", "mundo"],
-  [1885, "Parte para estudar em Paris", "vida"],
-  [1887, "Medalha no Salão de Paris", "vida"],
-  [1888, "Lei Áurea abole a escravidão no Brasil", "mundo"],
-  [1889, "Proclamação da República no Brasil", "mundo"],
-  [1895, "Os irmãos Lumière mostram o cinema", "mundo"],
-  [1896, "Pinta Miranda em La Carraca", "vida"],
-  [1898, "Morre em Caracas, aos 35", "vida"]
+  [
+   1863,
+   "Nasce em Valencia, Venezuela",
+   "vida"
+  ],
+  [
+   1870,
+   "Termina a Guerra do Paraguai",
+   "mundo"
+  ],
+  [
+   1876,
+   "Bell patenteia o telefone",
+   "mundo"
+  ],
+  [
+   1885,
+   "Parte para estudar em Paris",
+   "vida"
+  ],
+  [
+   1887,
+   "Medalha no Salão de Paris",
+   "vida"
+  ],
+  [
+   1888,
+   "Lei Áurea abole a escravidão",
+   "mundo"
+  ],
+  [
+   1889,
+   "Proclamação da República no Brasil",
+   "mundo"
+  ],
+  [
+   1895,
+   "Os irmãos Lumière mostram o cinema",
+   "mundo"
+  ],
+  [
+   1896,
+   "Pinta Miranda em La Carraca",
+   "vida"
+  ],
+  [
+   1898,
+   "Morre em Caracas, aos 35",
+   "vida"
+  ]
  ],
  "foco": {
   "img": "michelena/miranda.jpg",
   "titulo": "Miranda em La Carraca",
   "dados": "1896 · óleo sobre tela · 196,6 × 245,5 cm · Galería de Arte Nacional, Caracas",
-  "intro": "Francisco de Miranda lutou pela independência dos Estados Unidos, pela Revolução Francesa e pela Venezuela. Preso pelos espanhóis, morreu em 1816 no presídio de La Carraca, em Cádis. Michelena o pintou ali, velho e calado, à espera.",
+  "intro": "Francisco de Miranda lutou pela independência dos Estados Unidos, na Revolução Francesa e pela Venezuela. Preso pelos espanhóis, morreu em 1816 no presídio de La Carraca, em Cádis.",
   "marcas": [
-   [50, 30, "O rosto", "Miranda olha para o nada. Não há gesto heroico: o herói é mostrado no momento da derrota."],
-   [40, 62, "A camisa aberta", "A luz bate na camisa branca e no peito: é a parte mais clara do quadro."],
-   [80, 75, "A cama de presídio", "Um catre simples e um cobertor. Michelena pinta a pobreza da cela com cuidado de naturalista."],
-   [12, 20, "A parede nua", "O fundo escuro e vazio fecha o espaço e aumenta a solidão do preso."]
+   [
+    31,
+    24,
+    "O rosto",
+    "Miranda olha para o nada. Nada de gesto heroico: o herói aparece vencido."
+   ],
+   [
+    86,
+    26,
+    "A corrente",
+    "Uma argola e uma corrente na parede lembram que aquilo é uma prisão."
+   ],
+   [
+    42,
+    63,
+    "A cama",
+    "Um catre de madeira com colchão de palha e um cobertor xadrez."
+   ],
+   [
+    62,
+    13,
+    "A parede nua",
+    "Reboco gasto e pedra: a luz fraca mostra só o necessário."
+   ]
   ]
  },
  "sabia": [
-  "Carlota Corday matou o revolucionário Marat em 1793. A morte de Marat virou quadro famoso de Jacques-Louis David (nº 34); Michelena pintou a assassina a caminho da guilhotina.",
-  "O nome de Francisco de Miranda está gravado no Arco do Triunfo, em Paris, entre os generais da Revolução Francesa.",
-  "O Salão Arturo Michelena, criado em Valencia em 1943, é um dos concursos de arte mais antigos da Venezuela."
+  "Carlota Corday matou Marat em 1793, cena que Jacques-Louis David (nº 34) pintou; Michelena a mostrou a caminho da guilhotina.",
+  "O nome de Francisco de Miranda está gravado no Arco do Triunfo, em Paris.",
+  "O Salão Arturo Michelena, criado em 1943 em Valencia, é um dos concursos de arte mais antigos da Venezuela."
  ],
  "tecnica": {
   "titulo": "O método da Academia Julian",
   "intro": "Em Paris, Michelena aprendeu o método que os pintores de história usavam havia dois séculos: nada de improviso. Um quadro grande nascia de dezenas de desenhos e estudos, até cada figura estar resolvida.",
   "passos": [
-   ["O croqui", "Um esboço pequeno e rápido decidia a composição: onde fica a figura principal e de onde vem a luz."],
-   ["Modelo vivo", "Cada figura era desenhada a partir de um modelo posando no ateliê, para acertar o peso do corpo e as dobras da roupa."],
-   ["Estudos a óleo", "Cabeças e mãos ganhavam estudos pintados à parte, como o autorretrato de cartola feito para A vara quebrada."],
-   ["A tela grande", "Por fim, tudo era passado para a tela em camadas: primeiro o fundo e as sombras, depois as cores e os brilhos."]
+   [
+    "O croqui",
+    "Um esboço pequeno e rápido decidia a composição: onde fica a figura principal e de onde vem a luz."
+   ],
+   [
+    "Modelo vivo",
+    "Cada figura era desenhada a partir de um modelo posando no ateliê, para acertar o peso do corpo e as dobras da roupa."
+   ],
+   [
+    "Estudos a óleo",
+    "Cabeças e mãos ganhavam estudos pintados à parte, como o autorretrato de cartola feito para A vara quebrada."
+   ],
+   [
+    "A tela grande",
+    "Por fim, tudo era passado para a tela em camadas: primeiro o fundo e as sombras, depois as cores e os brilhos."
+   ]
   ],
   "box_t": "Luz de cela",
   "box": "Em Miranda em La Carraca quase tudo é penumbra. A luz entra de um lado, acende o rosto, a camisa e as mãos, e deixa o resto no escuro. É o claro-escuro de Caravaggio (nº 18) e Rembrandt (nº 4), usado aqui para dar peso a um herói vencido.",
   "paleta": [
-   ["#2E2119", "Penumbra"],
-   ["#6B4A32", "Terra"],
-   ["#B89A72", "Pele"],
-   ["#E3DCCB", "Camisa"],
-   ["#8E8676", "Pedra"]
+   [
+    "#2E2119",
+    "Penumbra"
+   ],
+   [
+    "#6B4A32",
+    "Terra"
+   ],
+   [
+    "#B89A72",
+    "Pele"
+   ],
+   [
+    "#E3DCCB",
+    "Camisa"
+   ],
+   [
+    "#8E8676",
+    "Pedra"
+   ]
   ]
  },
  "obras": [
@@ -122,13 +227,25 @@
   }
  ],
  "influenciou": [
-  ["Tito Salas", null]
+  [
+   "Tito Salas",
+   null
+  ]
  ],
  "pensar": "Michelena pôs Miranda sozinho numa cela, olhando para o nada. Desenhe alguém esperando num lugar pequeno, com uma só fonte de luz. O que a luz mostra e o que ela esconde?",
  "palavras": [
-  ["Pintura de história", "Quadro grande que conta um fato histórico, mitológico ou bíblico; era o gênero mais prestigiado das academias."],
-  ["Salão de Paris", "Exposição oficial de arte em Paris, com júri e medalhas; um prêmio ali abria portas no mundo inteiro."],
-  ["Academia Julian", "Escola particular de arte em Paris, aberta em 1868, que aceitava estrangeiros e mulheres."]
+  [
+   "Pintura de história",
+   "Quadro grande que conta um fato histórico, mitológico ou bíblico; era o gênero mais prestigiado das academias."
+  ],
+  [
+   "Salão de Paris",
+   "Exposição oficial de arte em Paris, com júri e medalhas; um prêmio ali abria portas no mundo inteiro."
+  ],
+  [
+   "Academia Julian",
+   "Escola particular de arte em Paris, aberta em 1868, que aceitava estrangeiros e mulheres."
+  ]
  ],
  "imagens": {
   "retrato.jpg": "File:Estudio de personaje para la vara rota. (Autorretrato con sombrero de copa).jpg",

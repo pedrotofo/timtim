@@ -1,0 +1,144 @@
+{
+ "pos": 13,
+ "chave": "vermeer",
+ "nome": "Johannes Vermeer",
+ "nome_original": "",
+ "vida": "1632–1675",
+ "origem": "Holanda",
+ "cor": "#2C4F8C",
+ "frase": "Pintou pouco mais de trinta quadros, quase todos de salas silenciosas com uma janela, e fez da luz do dia seu assunto.",
+ "retrato": {
+  "img": "vermeer/pintor.jpg",
+  "legenda": "O pintor de costas em A arte da pintura, c. 1666–1668. Não se sabe se é o próprio Vermeer: não há retrato seguro dele.",
+  "pos": "center 30%"
+ },
+ "abertura": {
+  "img": "vermeer/delft.jpg",
+  "legenda": "Vista de Delft, c. 1660–1661. Mauritshuis, Haia.",
+  "pos": "center 72%"
+ },
+ "ficha": [
+  ["Nasceu", "1632, em Delft, Holanda"],
+  ["Morreu", "1675, em Delft, aos 43 anos"],
+  ["Movimento", "Século de Ouro holandês, pintura de cenas do cotidiano"],
+  ["Técnica", "Óleo sobre tela, em camadas finas, com pontos de luz"],
+  ["Obra", "Cerca de 35 pinturas conhecidas, muito poucas para a época"],
+  ["Onde ver", "Rijksmuseum (Amsterdã), Mauritshuis (Haia), Metropolitan (Nova York)"]
+ ],
+ "vida_titulo": "Uma vida quase sem registros",
+ "vida_txt": [
+  {
+   "t": "Filho de um negociante",
+   "p": "Johannes Vermeer foi batizado em Delft em 31 de outubro de 1632. O pai tecia seda, tinha uma estalagem na praça do mercado e negociava quadros. Não se sabe com quem Vermeer aprendeu a pintar: não há registro de mestre. Em 1653 casou-se com Catharina Bolnes, de família católica, e no fim do mesmo ano entrou para a Guilda de São Lucas, a associação dos pintores da cidade."
+  },
+  {
+   "t": "Uma casa cheia",
+   "p": "O casal foi morar com a mãe de Catharina, Maria Thins, numa casa perto da Igreja Velha. Tiveram 15 filhos; 11 estavam vivos quando o pintor morreu. Vermeer pintava devagar e vendia pouco, em geral para alguns colecionadores da cidade. Foi eleito duas vezes chefe da guilda, sinal de que era respeitado pelos colegas. Mesmo assim, a família dependia em parte do dinheiro da sogra."
+  },
+  {
+   "t": "O ano do desastre",
+   "p": "Em 1672 a França invadiu a Holanda. Foi o \"ano do desastre\": o comércio parou e ninguém comprava quadros. Vermeer, que também negociava arte, afundou em dívidas. Morreu em dezembro de 1675, aos 43 anos, e foi enterrado na Igreja Velha de Delft. A viúva pediu falência e entregou quadros para pagar credores; dois deles foram para o padeiro, a quem a família devia o pão."
+  },
+  {
+   "t": "A esfinge de Delft",
+   "p": "Depois de morto, Vermeer ficou quase esquecido por dois séculos, e vários quadros seus eram vendidos com o nome de outros pintores. Em 1866 o crítico francês Théophile Thoré-Bürger publicou artigos que o trouxeram de volta e o chamou de \"esfinge de Delft\", pelo pouco que se sabia dele. Hoje cerca de 35 quadros são aceitos como seus, e cada um é tesouro de museu."
+  }
+ ],
+ "citacao": {
+  "texto": "Durante a longa e ruinosa guerra com a França, ele não só não conseguiu vender nenhuma de suas obras como ficou com os quadros de outros mestres que negociava. [...] Em um dia e meio, passou de saudável a morto.",
+  "fonte": "Catharina Bolnes, viúva do pintor, em petição à justiça, 1677"
+ },
+ "vida_fig": {
+  "img": "vermeer/balanca.jpg",
+  "legenda": "Mulher segurando uma balança, c. 1664: a janela à esquerda e a luz suave de quase todos os seus quadros."
+ },
+ "linha": [
+  [1632, "Nasce em Delft", "vida"],
+  [1637, "Maurício de Nassau chega ao Recife", "mundo"],
+  [1648, "Espanha reconhece a independência holandesa", "mundo"],
+  [1653, "Casa-se e entra na guilda", "vida"],
+  [1654, "Explosão de pólvora arrasa Delft", "mundo"],
+  [1660, "Pinta a Vista de Delft", "vida"],
+  [1664, "Ingleses tomam Nova Amsterdã (Nova York)", "mundo"],
+  [1665, "Moça com brinco de pérola", "vida"],
+  [1672, "A França invade a Holanda", "mundo"],
+  [1675, "Morre em Delft, aos 43 anos", "vida"]
+ ],
+ "foco": {
+  "img": "vermeer/moca.jpg",
+  "titulo": "Moça com brinco de pérola",
+  "dados": "c. 1665 · óleo sobre tela · 44,5 × 39 cm · Mauritshuis, Haia",
+  "intro": "Não é o retrato de uma pessoa conhecida: é uma tronie, estudo de rosto com roupa exótica. A moça vira a cabeça por cima do ombro e nos olha de boca entreaberta, como se fosse falar.",
+  "marcas": [
+   [45, 20, "O turbante", "Pano azul e amarelo, coisa que nenhuma moça holandesa usava. O azul é ultramar, o pigmento mais caro da época."],
+   [47, 45, "O olhar", "Olhos e lábios têm pequenos brilhos brancos. Um estudo de 2018 achou até cílios finíssimos."],
+   [63, 62, "A pérola", "Não tem contorno nem gancho: é só um brilho claro no alto e o reflexo da gola embaixo."],
+   [85, 25, "O fundo", "Hoje é quase preto, mas era uma cortina verde, pintada em camadas finas que perderam a cor."]
+  ]
+ },
+ "sabia": [
+  "Em 1881, a Moça com brinco de pérola foi comprada num leilão em Haia por 2 florins e 30 centavos. Hoje é a estrela do Mauritshuis.",
+  "Em 2023, o Rijksmuseum reuniu 28 quadros de Vermeer. A exposição vendeu 650 mil ingressos, recorde do museu.",
+  "No romance Em busca do tempo perdido, de Marcel Proust, um escritor morre diante da Vista de Delft, admirando \"um pedacinho de muro amarelo\"."
+ ],
+ "tecnica": {
+  "titulo": "A luz em pequenos pontos",
+  "intro": "Vermeer pintava devagar, poucos quadros por ano. Quase sempre o mesmo canto de sala, uma janela à esquerda e uma ou duas figuras ocupadas com algo simples: ler, servir, escrever.",
+  "passos": [
+   ["A base", "Sobre uma preparação cinza ou castanha, marcava as formas principais em tons claros e escuros, sem detalhe."],
+   ["A janela", "A luz vem quase sempre da esquerda. Ele observava como ela muda a cor de cada parede, pano e pele."],
+   ["Veladuras", "Por cima, camadas finas e transparentes de tinta, como vidros coloridos, davam profundidade e brilho às cores."],
+   ["Pontos de luz", "No fim, pingos de tinta clara faziam brilhar pão, metal e madeira. Em A leiteira eles são fáceis de ver."]
+  ],
+  "box_t": "O azul que vinha da Ásia",
+  "box": "O azul do turbante e do avental da leiteira é ultramar natural, feito de lápis-lazúli moído, uma pedra que vinha das montanhas do atual Afeganistão. Era um dos pigmentos mais caros que um pintor podia comprar. Vermeer o usava muito, até misturado nas sombras, mesmo quando a família estava endividada.",
+  "paleta": [
+   ["#2C4F8C", "Ultramar"],
+   ["#E3C04A", "Amarelo"],
+   ["#ECE4D2", "Branco"],
+   ["#8A5A3A", "Terra"],
+   ["#1F2421", "Fundo"]
+  ]
+ },
+ "obras": [
+  {
+   "img": "vermeer/leiteira.jpg",
+   "titulo": "A leiteira",
+   "ano": "c. 1660",
+   "nota": "Uma criada despeja leite; pontos de luz fazem o pão parecer crocante."
+  },
+  {
+   "img": "vermeer/ruela.jpg",
+   "titulo": "A ruela",
+   "ano": "c. 1658",
+   "nota": "Casas de Delft vistas de frente, com mulheres trabalhando nas portas."
+  },
+  {
+   "img": "vermeer/arte.jpg",
+   "titulo": "A arte da pintura",
+   "ano": "c. 1666–1668",
+   "nota": "Um pintor de costas pinta uma moça vestida de Clio, a musa da história."
+  }
+ ],
+ "influenciou": [
+  ["Vilhelm Hammershøi", null],
+  ["Salvador Dalí", null]
+ ],
+ "rival": ["Rembrandt", 4, "Mais velho, pintou em Amsterdã uma luz bem diferente, saindo do escuro."],
+ "pensar": "Sente perto de uma janela e desenhe um objeto simples, como um copo ou um pão, com a luz vindo de um lado só. Depois marque com pontinhos os lugares onde a luz bate mais forte.",
+ "palavras": [
+  ["Tronie", "Estudo de rosto, com roupa ou expressão marcante, que não retrata uma pessoa específica."],
+  ["Ultramar", "Azul feito de lápis-lazúli moído, pedra trazida da Ásia; um dos pigmentos mais caros da época."],
+  ["Câmara escura", "Caixa escura com um furo ou lente que projeta a imagem de fora. Há quem pense que Vermeer a usou."]
+ ],
+ "imagens": {
+  "pintor.jpg": "File:Johannes Vermeer - The Art of Painting (detail) - WGA24674.jpg",
+  "delft.jpg": "File:Johannes Vermeer - View of Delft - 92 - Mauritshuis.jpg",
+  "moca.jpg": "File:Meisje met de parel.jpg",
+  "balanca.jpg": "File:Johannes Vermeer, Woman Holding a Balance, c. 1664, NGA 1236.jpg",
+  "leiteira.jpg": "File:Johannes Vermeer - Het melkmeisje - Google Art Project.jpg",
+  "ruela.jpg": "File:Johannes Vermeer - Gezicht op huizen in Delft, bekend als 'Het straatje' - Google Art Project.jpg",
+  "arte.jpg": "File:Jan Vermeer - The Art of Painting - Google Art Project.jpg"
+ },
+ "pron": "por ele"
+}

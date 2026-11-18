@@ -1,0 +1,139 @@
+{
+ "pos": 16,
+ "chave": "giotto",
+ "nome": "Giotto di Bondone",
+ "nome_original": "",
+ "vida": "c. 1267–1337",
+ "origem": "Itália",
+ "cor": "#24507A",
+ "frase": "Pintou pessoas com volume e emoção onde antes havia figuras chapadas em fundo de ouro, e abriu caminho ao Renascimento.",
+ "retrato": null,
+ "abertura": {
+  "img": "giotto/beijo-judas.jpg",
+  "legenda": "O beijo de Judas, c. 1305. Afresco. Capela Scrovegni, Pádua.",
+  "pos": "center 45%"
+ },
+ "ficha": [
+  ["Nasceu", "c. 1267, no Mugello, perto de Florença, Itália"],
+  ["Morreu", "1337, em Florença, com cerca de 70 anos"],
+  ["Movimento", "Gótico; precursor do Renascimento"],
+  ["Técnica", "Afresco e têmpera sobre madeira"],
+  ["Obra", "Poucas dezenas de obras atribuídas, muitas ainda discutidas"],
+  ["Onde ver", "Capela Scrovegni (Pádua), Uffizi (Florença), igreja de Santa Croce (Florença)"]
+ ],
+ "vida_titulo": "Figuras de carne e osso",
+ "vida_txt": [
+  {
+   "t": "O pastor que desenhava",
+   "p": "Giotto di Bondone nasceu por volta de 1267 no Mugello, um vale perto de Florença, filho de camponeses. O biógrafo Giorgio Vasari conta que o pintor Cimabue o encontrou, ainda menino, desenhando uma ovelha numa pedra, e o levou como aprendiz. A história é lenda, escrita mais de duzentos anos depois, mas é provável que Giotto tenha se formado perto de Cimabue, em Florença."
+  },
+  {
+   "t": "Uma capela inteira",
+   "p": "Por volta de 1303, o banqueiro Enrico Scrovegni encomendou a Giotto a pintura da capela da família, em Pádua. Em cerca de dois anos ele cobriu as paredes com quase quarenta cenas da vida da Virgem e de Cristo, sob um teto azul cheio de estrelas. A capela foi consagrada em 1305. É o conjunto mais completo que restou dele."
+  },
+  {
+   "t": "Pintor de papas e reis",
+   "p": "A fama correu a Itália. Giotto trabalhou em Roma para o papa e para cardeais, em Florença para famílias de banqueiros, como os Bardi e os Peruzzi, e de 1328 a 1333 em Nápoles, para o rei Roberto de Anjou, que o fez pintor da corte. Tinha uma grande oficina, com muitos ajudantes, e fez bons negócios: chegou a alugar teares a tecelões."
+  },
+  {
+   "t": "O campanário de Florença",
+   "p": "Em 1334, Florença o nomeou mestre das obras da catedral e arquiteto da cidade. Giotto desenhou o campanário ao lado da catedral, que ainda hoje leva seu nome, e viu começar a construção. Morreu em janeiro de 1337, com cerca de setenta anos, e foi enterrado na catedral. O campanário só foi terminado depois da sua morte, com mudanças no projeto."
+  }
+ ],
+ "citacao": {
+  "texto": "Cimabue pensou que dominava o campo da pintura, e agora é Giotto quem tem a fama, e a glória do outro se apagou.",
+  "fonte": "Dante Alighieri, Divina Comédia, Purgatório, canto XI (c. 1315)"
+ },
+ "vida_fig": {
+  "img": "giotto/cimabue.jpg",
+  "legenda": "Maestà de Cimabue, c. 1290. Têmpera sobre madeira. Uffizi, Florença. Segundo Vasari, Cimabue foi o mestre de Giotto."
+ },
+ "linha": [
+  ["c. 1267", "Nasce no Mugello", "vida"],
+  [1271, "Marco Polo parte rumo à China", "mundo"],
+  [1300, "Primeiro Ano Santo em Roma", "mundo"],
+  [1302, "Dante é exilado de Florença", "mundo"],
+  [1305, "Capela Scrovegni é consagrada", "vida"],
+  [1309, "O papa se muda para Avignon", "mundo"],
+  [1321, "Dante morre em Ravena", "mundo"],
+  [1328, "Vai trabalhar em Nápoles", "vida"],
+  [1334, "Começa o campanário de Florença", "vida"],
+  [1337, "Morre em Florença", "vida"]
+ ],
+ "foco": {
+  "img": "giotto/lamento.jpg",
+  "titulo": "O lamento sobre o Cristo morto",
+  "dados": "c. 1305 · afresco · 200 × 185 cm · Capela Scrovegni, Pádua",
+  "intro": "Maria segura o corpo do filho morto, cercada por discípulos e mulheres. No céu, anjos se contorcem de dor. Quase toda a emoção está nos gestos.",
+  "marcas": [
+   [20, 70, "Maria", "A mãe aproxima o rosto do rosto do filho, quase tocando."],
+   [15, 85, "De costas", "Duas figuras sentadas de costas para nós: o espaço continua à nossa frente."],
+   [55, 45, "A rocha", "Uma diagonal de pedra leva o olho de cima até a cabeça de Cristo."],
+   [40, 15, "Os anjos", "No céu, anjos choram, gritam, abrem os braços."]
+  ]
+ },
+ "sabia": [
+  "Vasari conta que, quando o papa pediu uma prova do seu talento, Giotto desenhou à mão livre um círculo perfeito, e só.",
+  "A sonda europeia que passou pelo cometa Halley em 1986 se chamou Giotto, por causa do cometa que ele pintou na Adoração dos Magos.",
+  "Hoje, para proteger os afrescos, os visitantes da Capela Scrovegni passam antes por uma sala que controla a umidade do ar."
+ ],
+ "tecnica": {
+  "titulo": "O afresco, dia a dia",
+  "intro": "Afresco é pintar sobre o reboco ainda molhado. Ao secar, a cal prende o pigmento na parede, e a pintura dura séculos. Mas é preciso ser rápido: só se pinta enquanto o reboco está fresco.",
+  "passos": [
+   ["A primeira camada", "Um reboco grosso cobria a parede. Sobre ele se marcava a composição de cada cena."],
+   ["A jornada", "A cada manhã, o pintor estendia só o reboco fino que conseguia pintar naquele dia: a giornata, ou jornada."],
+   ["Pintar no úmido", "Pigmentos moídos em água, pincelados no reboco fresco. De perto ainda se veem as emendas de cada dia."],
+   ["Retoques a seco", "Alguns azuis e detalhes iam depois, a seco, com cola ou ovo. São os que mais se perderam com o tempo."]
+  ],
+  "box_t": "O livro de Cennino",
+  "box": "Por volta de 1400, o pintor Cennino Cennini, formado na tradição da oficina de Giotto, escreveu um manual de pintura. Ali explica o afresco passo a passo e diz que Giotto mudou a arte de pintar do grego para o latino e a tornou moderna.",
+  "paleta": [
+   ["#24507A", "Azul do céu"],
+   ["#C9A27A", "Rocha"],
+   ["#B8473A", "Vermelho"],
+   ["#E3D2B4", "Pele"],
+   ["#6E7F5A", "Verde"]
+  ]
+ },
+ "obras": [
+  {
+   "img": "giotto/magos.jpg",
+   "titulo": "A adoração dos Magos",
+   "ano": "c. 1305",
+   "nota": "Na estrela de Belém, Giotto pintou um cometa com cauda."
+  },
+  {
+   "img": "giotto/ognissanti.jpg",
+   "titulo": "Madona de Ognissanti",
+   "ano": "c. 1310",
+   "nota": "Uma Virgem com corpo de verdade sob o manto, num trono gótico."
+  },
+  {
+   "img": "giotto/dormicao.jpg",
+   "titulo": "A dormição da Virgem",
+   "ano": "c. 1310",
+   "nota": "Em madeira: os apóstolos velam Maria; Cristo segura a alma dela."
+  }
+ ],
+ "influenciou": [
+  ["Taddeo Gaddi", null],
+  ["Masaccio", null],
+  ["Michelangelo", 3]
+ ],
+ "pensar": "Desenhe uma cena triste ou alegre sem mostrar nenhum rosto: só gestos, costas, mãos e posturas, como as figuras de costas do Lamento. Alguém consegue adivinhar o que elas sentem?",
+ "palavras": [
+  ["Afresco", "Pintura feita sobre reboco fresco de cal: o pigmento seca preso à parede."],
+  ["Têmpera", "Tinta de pigmento com gema de ovo, usada sobre madeira antes da pintura a óleo."],
+  ["Giornata", "Em italiano, \"jornada\": a parte do afresco pintada em um só dia, sobre o reboco fresco."]
+ ],
+ "imagens": {
+  "beijo-judas.jpg": "File:Giotto - Scrovegni - -31- - Kiss of Judas.jpg",
+  "lamento.jpg": "File:Compianto sul Cristo morto.jpg",
+  "cimabue.jpg": "File:Cimabue - Maestà di Santa Trinita - Google Art Project.jpg",
+  "magos.jpg": "File:Giotto di Bondone - No. 18 Scenes from the Life of Christ - 2. Adoration of the Magi - WGA09195.jpg",
+  "ognissanti.jpg": "File:Madonna di Ognissanti by Giotto.jpg",
+  "dormicao.jpg": "File:Giotto - The Entombment of Mary - Google Art Project.jpg"
+ },
+ "pron": "por ele"
+}

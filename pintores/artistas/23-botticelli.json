@@ -18,12 +18,30 @@
   "pos": "center 30%"
  },
  "ficha": [
-  ["Nasceu", "c. 1445, em Florença, Itália"],
-  ["Morreu", "1510, em Florença, com cerca de 65 anos"],
-  ["Movimento", "Renascimento"],
-  ["Técnica", "Têmpera sobre madeira e sobre tela, afresco e desenho"],
-  ["Obra", "Algumas dezenas de pinturas e quase cem desenhos para Dante"],
-  ["Onde ver", "Galeria Uffizi (Florença), Capela Sistina (Vaticano), National Gallery (Londres)"]
+  [
+   "Nasceu",
+   "c. 1445, em Florença, Itália"
+  ],
+  [
+   "Morreu",
+   "1510, em Florença, com cerca de 65 anos"
+  ],
+  [
+   "Movimento",
+   "Renascimento"
+  ],
+  [
+   "Técnica",
+   "Têmpera sobre madeira e sobre tela, afresco e desenho"
+  ],
+  [
+   "Obra",
+   "Algumas dezenas de pinturas e quase cem desenhos para Dante"
+  ],
+  [
+   "Onde ver",
+   "Galeria Uffizi (Florença), Capela Sistina (Vaticano), National Gallery (Londres)"
+  ]
  ],
  "vida_titulo": "Um florentino entre os Médici",
  "vida_txt": [
@@ -53,16 +71,56 @@
   "legenda": "Desenho para o Paraíso, da Divina comédia: Dante e Beatriz, c. 1490. Pena sobre pergaminho."
  },
  "linha": [
-  [1445, "Nasce em Florença (data aproximada)", "vida"],
-  [1453, "Queda de Constantinopla", "mundo"],
-  [1470, "Abre o próprio ateliê", "vida"],
-  [1478, "Conspiração dos Pazzi contra os Médici", "mundo"],
-  [1481, "Pinta na Capela Sistina", "vida"],
-  [1485, "O nascimento de Vênus", "vida"],
-  [1492, "Colombo chega à América", "mundo"],
-  [1498, "Savonarola é executado em Florença", "mundo"],
-  [1500, "Cabral chega ao Brasil", "mundo"],
-  [1510, "Morre em Florença", "vida"]
+  [
+   1445,
+   "Nasce em Florença (data aproximada)",
+   "vida"
+  ],
+  [
+   1453,
+   "Queda de Constantinopla",
+   "mundo"
+  ],
+  [
+   1470,
+   "Abre o próprio ateliê",
+   "vida"
+  ],
+  [
+   1478,
+   "Conspiração dos Pazzi contra os Médici",
+   "mundo"
+  ],
+  [
+   1481,
+   "Pinta na Capela Sistina",
+   "vida"
+  ],
+  [
+   1485,
+   "O nascimento de Vênus",
+   "vida"
+  ],
+  [
+   1492,
+   "Colombo chega à América",
+   "mundo"
+  ],
+  [
+   1498,
+   "Savonarola é executado em Florença",
+   "mundo"
+  ],
+  [
+   1500,
+   "Cabral chega ao Brasil",
+   "mundo"
+  ],
+  [
+   1510,
+   "Morre em Florença",
+   "vida"
+  ]
  ],
  "foco": {
   "img": "botticelli/venus.jpg",
@@ -70,10 +128,30 @@
   "dados": "c. 1485 · têmpera sobre tela · 172,5 × 278,5 cm · Galeria Uffizi, Florença",
   "intro": "Segundo o mito, a deusa do amor nasceu adulta da espuma do mar. Botticelli mostra a chegada dela à praia, de pé numa concha, empurrada pelo vento. Vasari viu o quadro numa casa de campo dos Médici.",
   "marcas": [
-   [20, 30, "Os ventos", "Zéfiro, o vento oeste, sopra abraçado a uma figura feminina, talvez a brisa Aura ou a ninfa Clóris."],
-   [30, 20, "As rosas", "Rosas caem pelo ar; no mito, elas nasceram junto com a deusa."],
-   [50, 85, "A concha", "Vênus chega de pé numa concha de vieira, com o peso do corpo numa perna só, como as estátuas antigas."],
-   [80, 40, "A Hora", "Uma das Horas, deusas das estações, corre com um manto bordado de flores para cobrir a deusa."]
+   [
+    20,
+    30,
+    "Os ventos",
+    "Zéfiro, o vento oeste, sopra abraçado a uma figura feminina, talvez a brisa Aura ou a ninfa Clóris."
+   ],
+   [
+    30,
+    20,
+    "As rosas",
+    "Rosas caem pelo ar; no mito, elas nasceram junto com a deusa."
+   ],
+   [
+    50,
+    85,
+    "A concha",
+    "Vênus chega de pé numa concha de vieira, com o peso do corpo numa perna só, como as estátuas antigas."
+   ],
+   [
+    80,
+    40,
+    "A Hora",
+    "Uma das Horas, deusas das estações, corre com um manto bordado de flores para cobrir a deusa."
+   ]
   ]
  },
  "sabia": [
@@ -85,19 +163,46 @@
   "titulo": "Têmpera, ouro e linha",
   "intro": "Botticelli pintava com têmpera, tinta de pigmento em pó misturado com gema de ovo. Ela seca em minutos e não deixa as cores se fundirem como o óleo: tudo depende do desenho e de camadas finas.",
   "passos": [
-   ["Desenho primeiro", "Traçava a composição sobre a base branca de gesso; o contorno firme guia todo o quadro."],
-   ["Gema e pigmento", "Misturava os pigmentos com gema de ovo e um pouco de água, aos poucos, enquanto pintava."],
-   ["Tracinhos", "Como a têmpera seca depressa, fazia as sombras com tracinhos finos, camada sobre camada."],
-   ["Toques de ouro", "No fim, realçava cabelos, folhas e asas com ouro, que brilha com a luz."]
+   [
+    "Desenho primeiro",
+    "Traçava a composição sobre a base branca de gesso; o contorno firme guia todo o quadro."
+   ],
+   [
+    "Gema e pigmento",
+    "Misturava os pigmentos com gema de ovo e um pouco de água, aos poucos, enquanto pintava."
+   ],
+   [
+    "Tracinhos",
+    "Como a têmpera seca depressa, fazia as sombras com tracinhos finos, camada sobre camada."
+   ],
+   [
+    "Toques de ouro",
+    "No fim, realçava cabelos, folhas e asas com ouro, que brilha com a luz."
+   ]
   ],
   "box_t": "Uma tela, não uma tábua",
   "box": "Na Florença do século XV, quase tudo se pintava em painéis de madeira. A Primavera é uma pintura em madeira, mas O nascimento de Vênus foi feito sobre tela de linho, mais leve e mais barata, coisa ainda rara. A têmpera sobre tela é frágil, e o quadro já passou por várias restaurações.",
   "paleta": [
-   ["#7FA39A", "Verde-mar"],
-   ["#E9D3BC", "Pele"],
-   ["#B8924A", "Ouro"],
-   ["#C98E8A", "Rosa"],
-   ["#3F6B66", "Verde escuro"]
+   [
+    "#7FA39A",
+    "Verde-mar"
+   ],
+   [
+    "#E9D3BC",
+    "Pele"
+   ],
+   [
+    "#B8924A",
+    "Ouro"
+   ],
+   [
+    "#C98E8A",
+    "Rosa"
+   ],
+   [
+    "#3F6B66",
+    "Verde escuro"
+   ]
   ]
  },
  "obras": [
@@ -121,17 +226,47 @@
   }
  ],
  "influenciou": [
-  ["Filippino Lippi", null],
-  ["Edward Burne-Jones", null],
-  ["Dante Gabriel Rossetti", null]
+  [
+   "Filippino Lippi",
+   null
+  ],
+  [
+   "Edward Burne-Jones",
+   null
+  ],
+  [
+   "Dante Gabriel Rossetti",
+   null
+  ]
  ],
- "rival": ["Leonardo da Vinci", 2, "Contemporâneo em Florença; criticou por escrito as paisagens de Botticelli."],
+ "rival": [
+  "Leonardo da Vinci",
+  2,
+  "Contemporâneo em Florença; criticou por escrito as paisagens de Botticelli."
+ ],
  "pensar": "Desenhe uma figura só com linhas, sem sombras: cabelo, roupa e mãos com contornos que fluem. Depois mostre o vento apenas pela direção dos cabelos e dos tecidos, como em O nascimento de Vênus.",
  "palavras": [
-  ["Têmpera", "Tinta de pigmento em pó com gema de ovo; seca rápido e foi a mais usada antes do óleo."],
-  ["Mitologia", "As histórias dos deuses e heróis da Grécia e da Roma antigas."],
-  ["Tondo", "Quadro redondo, comum nas casas de Florença no século XV."]
+  [
+   "Têmpera",
+   "Tinta de pigmento em pó com gema de ovo; seca rápido e foi a mais usada antes do óleo."
+  ],
+  [
+   "Mitologia",
+   "As histórias dos deuses e heróis da Grécia e da Roma antigas."
+  ],
+  [
+   "Tondo",
+   "Quadro redondo, comum nas casas de Florença no século XV."
+  ]
  ],
- "imagens": {},
+ "imagens": {
+  "retrato.jpg": "File:Sandro Botticelli Self-portrait ca 1475.jpg",
+  "primavera.jpg": "File:Sandro Botticelli - La Primavera - Google Art Project.jpg",
+  "venus.jpg": "File:Sandro Botticelli - La nascita di Venere - Google Art Project - edited.jpg",
+  "adoracao.jpg": "File:Sandro Botticelli - Adorazione dei Magi - Google Art Project.jpg",
+  "magnificat.jpg": "File:Magnificat Madonna - Botticelli (uffici) b.jpg",
+  "agostinho.jpg": "File:Sandro Botticelli - Saint Augustin.jpg",
+  "dante.jpg": "File:Sandro Botticelli - Paradiso, Canto IX.jpg"
+ },
  "pron": "por ele"
 }

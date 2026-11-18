@@ -1,0 +1,141 @@
+{
+ "pos": 47,
+ "chave": "juan-luna",
+ "nome": "Juan Luna",
+ "nome_original": "",
+ "vida": "1857–1899",
+ "origem": "Filipinas",
+ "cor": "#5B2A1E",
+ "frase": "Filipino que ganhou a medalha de ouro em Madri com o Spoliarium e virou símbolo do orgulho das Filipinas sob domínio espanhol.",
+ "pron": "por ele",
+ "retrato": {
+  "img": "juan-luna/retrato.jpg",
+  "legenda": "Juan Luna na capa da revista Ilustración Artística, Barcelona, 20 de outubro de 1884. Gravura.",
+  "pos": "center 25%"
+ },
+ "abertura": {
+  "img": "juan-luna/lepanto.jpg",
+  "legenda": "A batalha de Lepanto, 1887, encomenda do Senado espanhol. Óleo sobre tela.",
+  "pos": "center 50%"
+ },
+ "ficha": [
+  ["Nasceu", "1857, em Badoc, Ilocos Norte, Filipinas"],
+  ["Morreu", "1899, em Hong Kong, aos 42 anos"],
+  ["Movimento", "Academicismo romântico, depois realismo e luz impressionista"],
+  ["Técnica", "Óleo sobre tela, de quadros gigantes a pequenos retratos"],
+  ["Obra", "Algumas centenas de pinturas e esboços"],
+  ["Onde ver", "Museu Nacional de Belas Artes (Manila), Senado e Museu do Prado (Madri)"]
+ ],
+ "vida_titulo": "De Badoc ao Salão de Madri",
+ "vida_txt": [
+  {
+   "t": "Marinheiro antes de pintor",
+   "p": "Juan Luna nasceu em 1857 em Badoc, no norte das Filipinas, então colônia da Espanha. A família se mudou para Manila, onde ele estudou na Escola Náutica e chegou a navegar como piloto de navio. Ao mesmo tempo, fazia aulas de desenho e pintura. Em 1877 foi para a Espanha e entrou na Academia de San Fernando, em Madri, mas logo seguiu o pintor Alejo Vera até Roma."
+  },
+  {
+   "t": "Ouro em Madri",
+   "p": "Em Madri, Luna estudava os mestres do Museu do Prado, como Velázquez (nº 8) e Goya (nº 11). Em Roma pintou A morte de Cleópatra, medalha de prata na Exposição Nacional de 1881. Três anos depois veio o Spoliarium, com mais de sete metros: medalha de ouro em 1884. No mesmo ano, o filipino Félix Resurrección Hidalgo ganhou a prata."
+  },
+  {
+   "t": "Paris e a tragédia",
+   "p": "Em 1885 Luna se mudou para Paris. Casou-se com María de la Paz Pardo de Tavera, de uma família filipina rica, e passou a pintar cenas da vida moderna com cores mais claras. Em 1892, num acesso de ciúme, matou a tiros a mulher e a sogra. Um tribunal francês o absolveu, alegando crime passional. Em 1894 ele voltou às Filipinas."
+  },
+  {
+   "t": "Pintor e revolucionário",
+   "p": "Em 1896 estourou a revolução filipina contra a Espanha. Luna foi preso, acusado de apoiar os rebeldes, e solto no ano seguinte. Seu irmão Antonio virou general do exército revolucionário. Juan serviu ao novo governo filipino como diplomata na Europa. Em dezembro de 1899, a caminho de casa, morreu de ataque cardíaco em Hong Kong, aos 42 anos, enquanto o país enfrentava uma nova guerra, agora contra os Estados Unidos."
+  }
+ ],
+ "citacao": {
+  "texto": "O gênio não tem pátria; o gênio brota em toda parte; o gênio é como a luz e o ar, patrimônio de todos.",
+  "fonte": "José Rizal, discurso no banquete em honra de Luna e Hidalgo, Madri, 25 de junho de 1884"
+ },
+ "vida_fig": {
+  "img": "juan-luna/exposicao-1884.jpg",
+  "legenda": "O salão central da Exposição Nacional de Belas Artes, Madri, 1884, com o Spoliarium. Fotografia."
+ },
+ "linha": [
+  [1857, "Nasce em Badoc, Filipinas", "vida"],
+  [1869, "Abre o canal de Suez", "mundo"],
+  [1877, "Vai estudar em Madri", "vida"],
+  [1884, "Medalha de ouro com o Spoliarium", "vida"],
+  [1886, "Pinta O pacto de sangue", "vida"],
+  [1888, "Lei Áurea abole a escravidão", "mundo"],
+  [1889, "Proclamação da República no Brasil", "mundo"],
+  [1896, "Começa a Revolução Filipina", "mundo"],
+  [1898, "Filipinas declaram independência", "mundo"],
+  [1899, "Morre em Hong Kong", "vida"]
+ ],
+ "foco": {
+  "img": "juan-luna/spoliarium.jpg",
+  "titulo": "Spoliarium",
+  "dados": "1884 · óleo sobre tela · 422 × 767,5 cm · Museu Nacional de Belas Artes, Manila",
+  "intro": "Sob a arena do Coliseu de Roma, soldados arrastam gladiadores mortos para o spoliarium, onde lhes tiravam armas e roupas. É considerado o maior quadro das Filipinas.",
+  "marcas": [
+   [50, 50, "Os arrastados", "Os corpos dos gladiadores são puxados pelo chão como coisas."],
+   [20, 40, "A multidão", "Espectadores espiam e disputam os despojos à esquerda."],
+   [75, 60, "A mulher", "Uma mulher ajoelhada no escuro procura o seu morto entre os corpos."],
+   [85, 30, "A arena", "Pelo alto entra a luz da arena, onde o espetáculo continua."]
+  ]
+ },
+ "sabia": [
+  "O Spoliarium ficou mais de setenta anos na Espanha. Só chegou às Filipinas em 1958.",
+  "José Rizal, que saudou Luna no banquete de 1884, publicou em 1887 o romance Noli me tangere, que ajudou a acender a revolução.",
+  "O filho de Luna, Andrés, aparece em quadros do pai e virou um dos arquitetos mais importantes de Manila."
+ ],
+ "tecnica": {
+  "titulo": "Pintar um quadro gigante",
+  "intro": "O Spoliarium tem mais de 4 metros de altura e 7 de largura. Um quadro desse tamanho era feito para a parede de uma exposição oficial: precisava ser lido de longe, como um palco.",
+  "passos": [
+   ["O esboço", "Um esboço pequeno a óleo fixava a composição e as manchas de luz e sombra. O do Spoliarium sobreviveu."],
+   ["Os modelos", "Modelos posavam como gladiadores e soldados; o pintor estudava corpos, braços pendurados e o peso de quem é arrastado."],
+   ["A grade", "Para passar o esboço à tela enorme, os pintores costumavam traçar uma grade e copiar quadrado por quadrado."],
+   ["Luz de palco", "A luz cai sobre os corpos no centro e deixa o fundo no escuro, como um refletor sobre a cena."]
+  ],
+  "box_t": "Um quadro com mensagem",
+  "box": "Para os espanhóis, o Spoliarium era uma cena da Roma antiga. Para os filipinos, virou outra coisa: corpos explorados e arrastados por um poder estrangeiro. Rizal e os jovens reformistas filipinos usaram a vitória de Luna como prova de que podiam ser iguais aos espanhóis.",
+  "paleta": [
+   ["#2E1A13", "Sombra"],
+   ["#8C3B2A", "Vermelho"],
+   ["#C9A27E", "Pele"],
+   ["#6B5A48", "Pedra"],
+   ["#E6D3B1", "Luz"]
+  ]
+ },
+ "obras": [
+  {
+   "img": "juan-luna/pacto.jpg",
+   "titulo": "O pacto de sangue",
+   "ano": "1886",
+   "nota": "Encomenda de Manila: o pacto de 1565 entre Legazpi e o chefe Sikatuna."
+  },
+  {
+   "img": "juan-luna/vida-parisiense.jpg",
+   "titulo": "A vida parisiense",
+   "ano": "1892",
+   "nota": "Uma mulher sozinha num café de Paris; ao fundo, três homens conversam."
+  },
+  {
+   "img": "juan-luna/bulaquena.jpg",
+   "titulo": "A bulaquenha",
+   "ano": "1895",
+   "nota": "Retrato de uma mulher de Bulacan com o traje filipino de festa."
+  }
+ ],
+ "influenciou": [],
+ "rival": ["Diego Velázquez", 8, "Um dos mestres espanhóis que Luna estudou no Prado, com Goya."],
+ "pensar": "No Spoliarium, a luz escolhe o que vemos primeiro. Desenhe uma cena com muita gente e escureça tudo, menos uma figura. Para onde vai o olho? Que história a luz conta sozinha?",
+ "palavras": [
+  ["Spoliarium", "Em latim, o lugar sob a arena romana onde se tiravam as armas e roupas dos gladiadores mortos."],
+  ["Exposição Nacional", "Mostra oficial de belas artes de Madri, com júri e medalhas, a mais importante da Espanha."],
+  ["Ilustrados", "Jovens filipinos educados na Europa que pediam reformas à Espanha, como Rizal e Luna."]
+ ],
+ "imagens": {
+  "retrato.jpg": "File:Juan Luna-Ilustracion-artistica-20-10-1884-recortado.jpg",
+  "lepanto.jpg": "File:La Batalla de Lepanto de 1571 versión completa de Juan Luna.jpg",
+  "spoliarium.jpg": "File:Spoliarium.jpg",
+  "exposicao-1884.jpg": "File:Salón Central de la Exposición de Bellas Artes de Madrid de 1884.jpg",
+  "pacto.jpg": "File:The Blood Compact by Juan Luna.jpg",
+  "vida-parisiense.jpg": "File:The Parisian Life by Juan Luna.jpg",
+  "bulaquena.jpg": "File:La Bulaquena by Juan Luna.jpg"
+ }
+}

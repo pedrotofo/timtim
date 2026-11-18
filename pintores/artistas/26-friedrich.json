@@ -13,9 +13,9 @@
   "pos": "center 30%"
  },
  "abertura": {
-  "img": "friedrich/viajante.jpg",
-  "legenda": "Viajante sobre o mar de névoa, c. 1817. Óleo sobre tela. Hamburger Kunsthalle, Hamburgo.",
-  "pos": "center 30%"
+  "img": "friedrich/monge.jpg",
+  "legenda": "O monge à beira-mar, 1808–1810. Óleo sobre tela. Alte Nationalgalerie, Berlim.",
+  "pos": "center 75%"
  },
  "ficha": [
   [
@@ -123,41 +123,41 @@
   ]
  ],
  "foco": {
-  "img": "friedrich/monge.jpg",
-  "titulo": "O monge à beira-mar",
-  "dados": "1808–1810 · óleo sobre tela · 110 × 171,5 cm · Alte Nationalgalerie, Berlim",
-  "intro": "Um monge pequeno, de costas, está numa duna diante de um mar quase negro. Quase todo o quadro é céu. Ninguém tinha pintado uma paisagem tão vazia, e o público de Berlim, em 1810, não sabia o que pensar.",
+  "img": "friedrich/viajante.jpg",
+  "titulo": "Viajante sobre o mar de névoa",
+  "dados": "c. 1817 · óleo sobre tela · 94,8 × 74,8 cm · Hamburger Kunsthalle, Hamburgo",
+  "intro": "Um homem de casaco escuro, de costas, está no alto de um rochedo diante de um mar de névoa, de onde saem pontas de pedra e montanhas. Friedrich montou a paisagem no ateliê com desenhos feitos nas montanhas de arenito do vale do Elba.",
   "marcas": [
    [
-    30,
-    88,
-    "O monge",
-    "Uma figura minúscula, de costas, logo à direita deste número. Olhamos o mar junto com ele, sem ver seu rosto."
+    50,
+    25,
+    "O viajante",
+    "Vemos só as costas e o cabelo ao vento. Sem rosto, ele pode ser qualquer um, até quem olha o quadro."
    ],
    [
-    72,
-    85,
-    "O mar escuro",
-    "Uma faixa estreita, verde quase preta, sem barcos, que se mistura com a névoa no horizonte."
+    20,
+    55,
+    "O mar de névoa",
+    "A névoa cobre os vales e deixa aparecer só pontas de rochas e árvores."
+   ],
+   [
+    75,
+    30,
+    "O rochedo ao fundo",
+    "À direita, uma montanha de topo reto, como as das montanhas de arenito do Elba, perto de Dresden."
    ],
    [
     50,
-    28,
-    "O céu",
-    "Ocupa quase quatro quintos da tela e clareia de baixo para cima, da névoa escura ao azul."
-   ],
-   [
-    86,
-    92,
-    "A duna",
-    "Uma faixa de areia clara e curva, sem árvore nem casa: o único chão do quadro."
+    85,
+    "As rochas da frente",
+    "Escuras e firmes, contrastam com tudo o que está atrás, claro e sem peso."
    ]
   ]
  },
  "sabia": [
-  "Exames feitos na restauração terminada em 2016 confirmaram que Friedrich tinha pintado dois barcos no mar e depois os cobriu.",
-  "O escritor Heinrich von Kleist publicou em 1810 que, diante deste quadro, era como se tivessem cortado as pálpebras de quem olha.",
-  "O monge e A abadia no carvalhal foram expostos juntos como par e continuam lado a lado no mesmo museu de Berlim."
+  "O quadro passou décadas quase desconhecido. A Kunsthalle de Hamburgo só o comprou em 1970.",
+  "A figura de costas, que nos faz olhar junto com ela, aparece em muitos quadros de Friedrich e virou sua marca.",
+  "Em 1810, o escritor Heinrich von Kleist disse do Monge à beira-mar que, diante dele, era como se cortassem as pálpebras de quem olha."
  ],
  "tecnica": {
   "titulo": "Paisagens montadas no ateliê",
@@ -184,24 +184,24 @@
   "box": "O amigo Georg Friedrich Kersting pintou Friedrich trabalhando num quarto quase vazio: o cavalete, uma cadeira, uma mesa, réguas na parede e uma única janela de onde vem a luz. Visitantes da época também contaram que o ateliê era assim, sem nada que distraísse o pintor.",
   "paleta": [
    [
-    "#1E2A33",
-    "Mar"
+    "#2B2F2A",
+    "Casaco"
    ],
    [
-    "#9DB1BE",
-    "Céu"
-   ],
-   [
-    "#6E7378",
+    "#A9B4BE",
     "Névoa"
    ],
    [
-    "#C9BFA6",
-    "Areia"
+    "#D8D4CC",
+    "Céu claro"
    ],
    [
-    "#3B3328",
-    "Terra"
+    "#7C8A95",
+    "Montanhas"
+   ],
+   [
+    "#4A3D30",
+    "Rocha"
    ]
   ]
  },
