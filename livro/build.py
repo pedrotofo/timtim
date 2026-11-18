@@ -831,8 +831,109 @@ def pdf_html(S):
     extra = ''.join(f'@page :nth(1 of pg{i}){{@bottom-left{{content:none}}@bottom-right{{content:none}}}}' for i in range(1, n[0] + 1))
     return html_.replace('</style>', extra + '</style>', 1)
 
+# ---------------------------------------------------------------- impresso (KDP Paperback)
+# Miolo 6 × 9 pol. com sangria: o WeasyPrint gera 6,25 × 9,25 (0,125 pol. em volta) e depois se corta
+# o lado da lombada de cada página, chegando aos 6,125 × 9,25 que a KDP pede. Sem capa nem contracapa,
+# sem o fundo bege (o papel creme faz esse papel) e com as obras de página inteira em alta resolução (img/hd).
+SANGRIA = .125
+PAPEL_ESPESSURA = {'branco': 0.002252, 'creme': 0.0025}
+PRINT_CSS = """
+@page{bleed:.125in;background:none}
+@page mapa{margin:0;background:#E8E2D4;@bottom-left{content:none}@bottom-right{content:none}}
+.mapa{page:mapa}
+.bleed{overflow:visible}
+.bleed img{left:-.125in;top:-.125in;width:6.25in;height:9.25in}
+.bleed::after,.bleed.dark::after{left:-.125in;right:-.125in;bottom:-.125in}
+"""
+CREDITO_HD = ('<p>A reprodução do <i>Autorretrato como pintor</i> nesta edição impressa é uma fotografia do Van Gogh Museum, '
+              'Amsterdã (Vincent van Gogh Foundation), publicada no Wikimedia Commons sob a licença CC BY 4.0.</p>')
+
+def print_html(S):
+    h = pdf_html(S)
+    h = re.sub(r'<div class="cover">.*?</div></div>', '', h, count=1, flags=re.S)
+    h = re.sub(r'<section class="contra">.*?</section>', '', h, count=1, flags=re.S)
+    # sem a capa, todas as páginas trocariam de lado (aberturas de parte deixariam de ser páginas espelhadas):
+    # uma prancha com o desenho da capa na p. 3 devolve a ordem do PDF de leitura
+    prancha = ('<section class="partimg"><img src="img/cover-roulin.jpg" alt="Retrato de Joseph Roulin, desenho de Van Gogh"/>'
+               '<p class="pcap"><i>Retrato de Joseph Roulin</i>. Arles, agosto de 1888. Pena de junco e pena de ave, tinta e giz preto. '
+               'J. Paul Getty Museum, Los Angeles.</p></section>')
+    h = re.sub(r'(<div class="copy">.*?</div>)', lambda m: m.group(1) + prancha, h, count=1, flags=re.S)
+    for f in glob.glob('img/hd/*.jpg'):
+        h = h.replace(f'img/{os.path.basename(f)}"', f'img/hd/{os.path.basename(f)}"')
+    if os.path.exists('img/hd/sp_painter-sem-moldura.jpg'):
+        h = re.sub(r'(<section class="chap" id="creditos"[^>]*>.*?)(</section>)', lambda m: m.group(1) + CREDITO_HD + m.group(2), h, count=1, flags=re.S)
+    return h.replace('</style>', PRINT_CSS + '</style>', 1)
+
+def corta_lombada(src, dst):
+    """Tira a sangria do lado da lombada: página ímpar (direita) perde a faixa da esquerda, a par perde a da direita."""
+    from pypdf import PdfReader, PdfWriter
+    from pypdf.generic import RectangleObject
+    r = PdfReader(src); w = PdfWriter(); s = SANGRIA * 72
+    for i, p in enumerate(r.pages):
+        x0, y0, x1, y1 = [float(v) for v in p.mediabox]
+        box = RectangleObject([x0 + s, y0, x1, y1] if i % 2 == 0 else [x0, y0, x1 - s, y1])
+        p.mediabox = box; p.cropbox = box; p.bleedbox = box
+        p.trimbox = RectangleObject([x0 + s, y0 + s, x1 - s, y1 - s])
+        w.add_page(p)
+    w.add_metadata({'/Title': 'Van Gogh a Lápis', '/Author': 'Pedro Torres'})
+    w.write(dst)
+
+SINOPSE = ('<p>Van Gogh desenhou muito mais do que pintou. Foi no papel, com lápis de carpinteiro e caneta de junco, que ele inventou '
+           'o jeito de ver que depois levou para a tela: pontos, tracinhos, vírgulas e redemoinhos, cada um com uma função.</p>'
+           '<p>Este livro ensina essa linguagem. Conta os dez anos de desenho de Vincent, desmonta o método em oito capítulos '
+           '(as marcas, o fluxo, o rosto, os autorretratos, o corpo, a construção de uma folha, a cópia de mestre) e propõe '
+           f'{NEX} exercícios em quatro níveis, cada um com desenho-modelo, tempo, material e um critério para saber quando está pronto.</p>'
+           '<p>Para quem nunca desenhou e quer um caminho claro, e para quem já desenha e quer aprender a olhar como Vincent olhava.</p>')
+
+CAPA_IMPRESSA = """<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><style>{fonts}
+@page{{size:{W}in {H}in;margin:0}}*{{margin:0;padding:0}}body{{width:{W}in;height:{H}in;position:relative;background:#2A2119;overflow:hidden}}
+.back{{position:absolute;left:0;top:0;width:{BW}in;height:{H}in;background:#2A2119;color:#EFE8DA}}
+.back .in{{position:absolute;left:{BX}in;top:{BY}in;width:{BTW}in}}
+.back .k{{font:500 8pt LivroSans;letter-spacing:.2em;color:#BDB09A;margin-bottom:.32in}}
+.back .q{{font:italic 400 15.5pt/1.32 LivroSerif;margin-bottom:.35in}}
+.back .q span{{display:block;font:500 7.2pt/1.4 LivroSans;font-style:normal;color:#BDB09A;margin-top:.12in}}
+.back p.s{{font:400 10.4pt/1.45 LivroSerif;margin:0 0 .13in;text-align:left;hyphens:auto}}
+.back .n{{font:500 8pt LivroSans;letter-spacing:.12em;color:#BDB09A;margin-top:.25in}}
+.spine{{position:absolute;left:{SX}in;top:0;width:{SW}in;height:{H}in;background:#2A2119}}
+.spine .t{{position:absolute;left:50%;top:50%;width:{H}in;transform:translate(-50%,-50%) rotate(90deg);text-align:center;white-space:nowrap;
+  color:#FBF8F1;font:400 {SF}pt/1 LivroSerif}}
+.spine .t b{{font:500 {SF2}pt LivroSans;letter-spacing:.18em;margin-left:.35in;font-weight:500}}
+.front{{position:absolute;left:{FX}in;top:0;width:{FW}in;height:{H}in;overflow:hidden;background:#2A2119;color:#FBF8F1}}
+.front .art{{position:absolute;inset:0;background:url("img/cover-roulin.jpg") {AX}in {AY}in/{AW}in auto no-repeat}}
+.front .tr{{position:absolute;left:0;top:{S}in;width:6in;height:9in}}
+.front .topsh{{position:absolute;left:0;right:0;top:0;height:1.1in;background:linear-gradient(to bottom,rgba(20,15,10,.32),rgba(20,15,10,0))}}
+.front .shade{{position:absolute;left:0;right:-{S}in;bottom:-{S}in;height:5.125in;background:linear-gradient(to bottom,rgba(20,15,10,0),rgba(20,15,10,.55) 45%,rgba(20,15,10,.66))}}
+.front .ed{{position:absolute;top:.38in;left:0;right:0;text-align:center;font:500 10.5pt LivroSans;letter-spacing:.2em}}
+.front .ti{{position:absolute;left:0;right:0;top:5.75in;text-align:center;font:400 50pt/1 LivroSerif;letter-spacing:-.012em;white-space:nowrap}}
+.front .d{{position:absolute;left:0;right:0;top:6.57in;text-align:center;font:italic 400 15pt LivroSerif}}
+.front .coll{{position:absolute;bottom:.42in;left:0;right:0;text-align:center;font:italic 400 10.5pt LivroSerif}}
+</style></head><body>
+<div class="back"><div class="in"><p class="k">PEDRO TORRES</p>
+<p class="q">“O que é desenhar? É abrir caminho através de uma parede de ferro invisível, que parece estar entre o que se sente e o que se consegue fazer.”<span>VINCENT VAN GOGH A THEO, 1882</span></p>
+{sinopse}<p class="n">{nex} EXERCÍCIOS EM QUATRO NÍVEIS</p></div></div>
+<div class="spine"><p class="t">Van Gogh a Lápis<b>PEDRO TORRES</b></p></div>
+<div class="front"><div class="art"></div><div class="tr"><div class="topsh"></div></div><div class="shade"></div><div class="tr">
+<div class="ed">PEDRO TORRES</div><div class="ti">Van Gogh a Lápis</div><div class="d">Teoria e prática para desenhar como Vincent</div>
+<div class="coll">{nex} exercícios em quatro níveis</div></div></div>
+</body></html>"""
+
+def make_print_cover(paginas, papel='creme'):
+    """Capa inteira (contracapa + lombada + capa) com 0,125 pol. de sangria em volta, para a KDP."""
+    from weasyprint import HTML
+    s = SANGRIA; lomb = paginas * PAPEL_ESPESSURA[papel]
+    W, H = 2 * s + 12 + lomb, 9 + 2 * s
+    # a obra da capa mede como na capa do PDF (122 % da largura de 6 pol., deslocada a 37 %), presa ao corte
+    aw = 6 * 1.22; ax = .37 * (6 - aw)
+    html_ = CAPA_IMPRESSA.format(fonts=font_faces(), W=f'{W:.4f}', H=f'{H:.4f}', S=s,
+                                 BW=f'{s + 6:.4f}', BX=s + .55, BY=s + .75, BTW=6 - 1.1,
+                                 SX=f'{s + 6:.4f}', SW=f'{lomb:.4f}', SF=min(13, lomb * 72 * .5), SF2=min(7.5, lomb * 72 * .3),
+                                 FX=f'{s + 6 + lomb:.4f}', FW=f'{6 + s:.4f}', AX=f'{ax:.4f}', AY=0, AW=f'{aw:.4f}',
+                                 sinopse=SINOPSE.replace('<p>', '<p class="s">'), nex=NEX)
+    HTML(string=html_, base_url=ROOT).write_pdf('out/Van-Gogh-a-Lapis-capa-impressa.pdf')
+    return W, H, lomb
+
 # ---------------------------------------------------------------- EPUB
-EPUB_FONTS = [('LivroSerif', 'eb-garamond-latin-400-normal.ttf', 400, 'normal'), ('LivroSerif', 'eb-garamond-latin-400-italic.ttf', 400, 'italic'),
+EPUB_FONTS =[('LivroSerif', 'eb-garamond-latin-400-normal.ttf', 400, 'normal'), ('LivroSerif', 'eb-garamond-latin-400-italic.ttf', 400, 'italic'),
               ('LivroSerif', 'eb-garamond-latin-600-normal.ttf', 600, 'normal'), ('LivroDisp', 'archivo-black-latin-400-normal.woff', 400, 'normal'),
               ('LivroSans', 'archivo-latin-400-normal.woff', 400, 'normal'), ('LivroSans', 'archivo-latin-700-normal.woff', 700, 'normal')]
 EPUB_CSS = """
@@ -1096,6 +1197,21 @@ if __name__ == '__main__':
         doc = HTML('out/livro.html', base_url=ROOT).render()
         print('páginas', len(doc.pages))
         doc.write_pdf('out/Van-Gogh-a-Lapis.pdf')
+    if 'impresso' in args:  # KDP Paperback: miolo com sangria e capa inteira (papel creme, miolo preto e branco)
+        import tempfile
+        from weasyprint import HTML
+        subprocess.run(['python3', 'tools/flow.py', '--impresso', 'roulin', 'starry'], check=True)
+        open('out/livro-impresso.html', 'w').write(print_html(S))
+        doc = HTML('out/livro-impresso.html', base_url=ROOT).render()
+        if len(doc.pages) % 2:  # número par de páginas: a KDP acrescentaria uma branca no fim e a lombada sairia diferente
+            h = open('out/livro-impresso.html').read().replace('</body>', '<div class="titlepage"></div></body>')
+            open('out/livro-impresso.html', 'w').write(h)
+            doc = HTML('out/livro-impresso.html', base_url=ROOT).render()
+        with tempfile.TemporaryDirectory() as td:
+            doc.write_pdf(f'{td}/m.pdf')
+            corta_lombada(f'{td}/m.pdf', 'out/Van-Gogh-a-Lapis-miolo-impresso.pdf')
+        W, H, lomb = make_print_cover(len(doc.pages), 'creme')
+        print('impresso: páginas', len(doc.pages), f'· capa {W:.3f} × {H:.3f} pol. · lombada {lomb:.3f} pol.')
     if 'epub' in args:
         epub_assets()
         build_epub(S, 'out/Van-Gogh-a-Lapis.epub')
