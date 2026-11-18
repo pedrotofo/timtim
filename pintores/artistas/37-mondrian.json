@@ -1,0 +1,276 @@
+{
+ "pos": 37,
+ "chave": "mondrian",
+ "nome": "Piet Mondrian",
+ "nome_original": "",
+ "vida": "1872–1944",
+ "origem": "Holanda",
+ "cor": "#B32019",
+ "frase": "Partiu de árvores e moinhos holandeses e chegou a quadros feitos só de linhas retas e três cores.",
+ "retrato": {
+  "img": "mondrian/retrato.jpg",
+  "legenda": "Autorretrato, 1918. Óleo sobre tela. Kunstmuseum, Haia.",
+  "pos": "center 30%"
+ },
+ "abertura": {
+  "img": "mondrian/arvore-vermelha.jpg",
+  "legenda": "Noite: a árvore vermelha, 1908–1910. Óleo sobre tela. Kunstmuseum, Haia.",
+  "pos": "center 72%"
+ },
+ "ficha": [
+  [
+   "Nasceu",
+   "1872, em Amersfoort, Holanda"
+  ],
+  [
+   "Morreu",
+   "1944, em Nova York, aos 71 anos"
+  ],
+  [
+   "Movimento",
+   "De Stijl; neoplasticismo"
+  ],
+  [
+   "Técnica",
+   "Óleo sobre tela"
+  ],
+  [
+   "Obra",
+   "Centenas de pinturas e desenhos, das paisagens às composições"
+  ],
+  [
+   "Onde ver",
+   "Kunstmuseum (Haia), Museu Kröller-Müller (Otterlo), MoMA (Nova York)"
+  ]
+ ],
+ "vida_titulo": "Da árvore ao quadrado",
+ "vida_txt": [
+  {
+   "t": "Um menino de Amersfoort",
+   "p": "Pieter Cornelis Mondriaan nasceu em 1872 em Amersfoort, na Holanda, e cresceu em Winterswijk, perto da fronteira com a Alemanha. O pai era diretor de escola e desenhava; um tio, Frits Mondriaan, era pintor de paisagens e o levava para pintar ao ar livre. Antes de estudar arte, tirou diplomas de professor de desenho. Em 1892 entrou na Academia de Belas-Artes de Amsterdã."
+  },
+  {
+   "t": "Moinhos, rios e árvores",
+   "p": "Por quase vinte anos pintou paisagens holandesas: moinhos, rios, campos e árvores, em tons escuros, à maneira dos paisagistas de Haia. Vendia pouco e se sustentava com aulas e cópias de quadros de museu. Por volta de 1908 as cores esquentaram: os azuis e vermelhos fortes da Árvore vermelha mostram a influência de Van Gogh e dos fauvistas. Muitas dessas telas mostram o rio Gein, perto de Amsterdã."
+  },
+  {
+   "t": "Paris e o cubismo",
+   "p": "Em 1911 viu quadros cubistas de Picasso e Braque numa exposição em Amsterdã e, no fim do ano, mudou-se para Paris, onde tirou um \"a\" do sobrenome. Ali as árvores foram virando redes de linhas. Em 1914 foi visitar a Holanda e, com a Primeira Guerra, ficou preso lá até 1919. Em 1917 fundou com Theo van Doesburg a revista De Stijl."
+  },
+  {
+   "t": "De Paris a Nova York",
+   "p": "De volta a Paris, por volta de 1920 chegou ao estilo que o tornou conhecido: linhas pretas retas, branco e cores primárias. Arrumou o próprio ateliê como uma de suas composições, com placas coloridas nas paredes. Fugindo da Segunda Guerra, foi para Londres em 1938 e para Nova York em 1940. Ali pintou Broadway Boogie Woogie e morreu de pneumonia em 1944."
+  }
+ ],
+ "citacao": {
+  "texto": "Construo linhas e combinações de cores sobre uma superfície plana, para expressar a beleza universal com a maior consciência possível.",
+  "fonte": "Carta ao crítico H. P. Bremmer, 1914"
+ },
+ "vida_fig": {
+  "img": "mondrian/gein.jpg",
+  "legenda": "Árvore isolada no rio Gein, c. 1906–1907: o Mondrian das paisagens holandesas, antes da abstração."
+ },
+ "linha": [
+  [
+   1872,
+   "Nasce em Amersfoort",
+   "vida"
+  ],
+  [
+   1888,
+   "Abolição da escravatura no Brasil",
+   "mundo"
+  ],
+  [
+   1889,
+   "Proclamação da República no Brasil",
+   "mundo"
+  ],
+  [
+   1892,
+   "Entra na Academia de Amsterdã",
+   "vida"
+  ],
+  [
+   1911,
+   "Muda-se para Paris",
+   "vida"
+  ],
+  [
+   1914,
+   "Começa a Primeira Guerra Mundial",
+   "mundo"
+  ],
+  [
+   1917,
+   "Funda a revista De Stijl",
+   "vida"
+  ],
+  [
+   1922,
+   "Semana de 22, em São Paulo",
+   "mundo"
+  ],
+  [
+   1939,
+   "Começa a Segunda Guerra Mundial",
+   "mundo"
+  ],
+  [
+   1944,
+   "Morre em Nova York",
+   "vida"
+  ]
+ ],
+ "foco": {
+  "img": "mondrian/composicao.jpg",
+  "titulo": "Composição II em vermelho, azul e amarelo",
+  "dados": "1930 · óleo sobre tela · 46 × 46 cm · Kunsthaus, Zurique",
+  "intro": "Um grande quadrado vermelho, um pouco de azul, um pouco de amarelo e linhas pretas: só isso. Mondrian levou mais de vinte anos para chegar aqui, partindo de árvores e moinhos pintados do natural.",
+  "marcas": [
+   [
+    62,
+    40,
+    "O vermelho",
+    "O maior quadrado não fica no centro: puxa o peso do quadro para cima e para a direita."
+   ],
+   [
+    11,
+    88,
+    "O azul",
+    "Pequeno, no canto oposto, pesa contra o vermelho como numa balança."
+   ],
+   [
+    89,
+    93,
+    "O amarelo",
+    "Um retângulo minúsculo no canto basta para equilibrar o resto."
+   ],
+   [
+    24,
+    58,
+    "As linhas",
+    "Só horizontais e verticais, de espessuras diferentes. Diagonal, nunca."
+   ]
+  ]
+ },
+ "sabia": [
+  "Ao se mudar para Paris, tirou um \"a\" do sobrenome: Mondriaan virou Mondrian.",
+  "Em Broadway Boogie Woogie (1942–1943), as linhas pretas viraram fileiras de quadradinhos coloridos, como as ruas de Nova York.",
+  "Ele também pintou losangos: telas quadradas giradas 45 graus, com as linhas de dentro ainda horizontais e verticais."
+ ],
+ "tecnica": {
+  "titulo": "Da árvore à grade",
+  "intro": "A abstração de Mondrian não veio de uma vez. Dá para acompanhar, quadro a quadro, como uma árvore de verdade virou linhas retas e cores puras.",
+  "passos": [
+   [
+    "Olhar a árvore",
+    "Até cerca de 1908 pintava árvores, moinhos e rios do natural, como os paisagistas holandeses."
+   ],
+   [
+    "Simplificar",
+    "Na Árvore cinzenta (1911), a cor quase some e os galhos viram curvas que se cruzam pela tela."
+   ],
+   [
+    "Linhas retas",
+    "Em Paris, sob o impacto do cubismo, as curvas viram traços curtos, horizontais e verticais."
+   ],
+   [
+    "Só o essencial",
+    "A partir de 1920: linhas pretas retas, branco, cinza e as três cores primárias, em áreas chapadas."
+   ]
+  ],
+  "box_t": "O neoplasticismo",
+  "box": "Mondrian chamou sua pintura de neoplasticismo, a \"nova plástica\". Com Theo van Doesburg, fundou em 1917 a revista De Stijl (O Estilo), que defendia formas puras para tudo: quadros, móveis, casas. Os dois romperam em meados dos anos 1920, entre outros motivos porque Van Doesburg passou a usar diagonais.",
+  "paleta": [
+   [
+    "#D7261E",
+    "Vermelho"
+   ],
+   [
+    "#1F4E9A",
+    "Azul"
+   ],
+   [
+    "#F2C230",
+    "Amarelo"
+   ],
+   [
+    "#F1EFE8",
+    "Branco"
+   ],
+   [
+    "#151515",
+    "Preto"
+   ]
+  ]
+ },
+ "obras": [
+  {
+   "img": "mondrian/arvore-cinzenta.jpg",
+   "titulo": "A árvore cinzenta",
+   "ano": "1911",
+   "nota": "Uma árvore quase sem cor: os galhos viram curvas e ritmo."
+  },
+  {
+   "img": "mondrian/macieira.jpg",
+   "titulo": "Macieira em flor",
+   "ano": "1912",
+   "nota": "Tronco e galhos se desfazem em curvas soltas; a árvore quase some."
+  },
+  {
+   "img": "mondrian/composicao-10.jpg",
+   "titulo": "Composição 10 em preto e branco",
+   "ano": "1915",
+   "nota": "Traços curtos, verticais e horizontais, vindos de estudos do mar e de um píer."
+  }
+ ],
+ "influenciou": [
+  [
+   "Max Bill",
+   null
+  ],
+  [
+   "Lygia Clark",
+   null
+  ],
+  [
+   "Hélio Oiticica",
+   null
+  ],
+  [
+   "Design gráfico moderno",
+   null
+  ]
+ ],
+ "rival": [
+  "Vincent van Gogh",
+  1,
+  "Holandês como ele; as cores fortes de Van Gogh estão na Árvore vermelha."
+ ],
+ "pensar": "Escolha uma árvore de verdade e faça quatro desenhos dela, cada um mais simples que o anterior, até sobrarem só linhas retas. Em qual desenho a árvore deixa de ser reconhecível?",
+ "palavras": [
+  [
+   "Abstração",
+   "Arte que não imita a aparência das coisas: trabalha só com linhas, formas e cores."
+  ],
+  [
+   "Cores primárias",
+   "Vermelho, azul e amarelo, que Mondrian usou ao lado do branco, do cinza e do preto."
+  ],
+  [
+   "De Stijl",
+   "\"O Estilo\": grupo e revista holandeses de 1917 que defendiam uma arte de formas puras."
+  ]
+ ],
+ "imagens": {
+  "retrato.jpg": "File:Mondrian Zelfportret 1918.jpg",
+  "arvore-vermelha.jpg": "File:Piet Mondrian, 1908-10, Evening; Red Tree (Avond; De rode boom), oil on canvas, 70 x 99 cm, Gemeentemuseum Den Haag.jpg",
+  "composicao.jpg": "File:Piet Mondriaan, 1930 - Mondrian Composition II in Red, Blue, and Yellow.jpg",
+  "gein.jpg": "File:Piet Mondriaan - Isolated tree on the Gein with gray sky - A457 - Piet Mondrian, catalogue raisonné.jpg",
+  "arvore-cinzenta.jpg": "File:Gray Tree 1911.jpg",
+  "macieira.jpg": "File:Blossoming apple tree, by Piet Mondriaan.jpg",
+  "composicao-10.jpg": "File:Mondrian - Composition 10 in Black and White (1915).jpg"
+ },
+ "pron": "por ele"
+}

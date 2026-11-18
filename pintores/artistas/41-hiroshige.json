@@ -43,7 +43,7 @@
    "Museu Ota (Tóquio), Museu do Brooklyn (Nova York), Museu Britânico (Londres)"
   ]
  ],
- "vida_titulo": "O gravador das estradas e da chuva",
+ "vida_titulo": "Gravador de estradas e chuvas",
  "vida_txt": [
   {
    "t": "Filho de bombeiro",
@@ -55,11 +55,11 @@
   },
   {
    "t": "A estrada Tōkaidō",
-   "p": "Segundo a tradição, em 1832 ele percorreu a Tōkaidō, a estrada de quase 500 km entre Edo e Kyoto, com uma comitiva que levava cavalos de presente à corte do imperador. Dessa viagem nasceram As cinquenta e três estações do Tōkaidō, publicadas entre 1833 e 1834. A série vendeu muito e fez dele o paisagista mais popular do Japão."
+   "p": "Segundo a tradição, em 1832 ele percorreu a Tōkaidō, a estrada de quase 500 km entre Edo e Kyoto, com uma comitiva que levava cavalos de presente à corte do imperador. Dessa viagem nasceram As cinquenta e três estações do Tōkaidō, publicadas entre 1833 e 1834. A série vendeu muito e fez dele o paisagista mais popular do Japão. Cada estação virou uma cena com tempo e hora próprios: chuva, neve, névoa, luar."
   },
   {
    "t": "Cem vistas de Edo",
-   "p": "Em 1856 raspou a cabeça e se tornou monge budista, sem parar de trabalhar. No mesmo ano começou as Cem vistas célebres de Edo, gravuras em pé que não viu terminadas: morreu em 1858, provavelmente na epidemia de cólera que atingiu a cidade. O discípulo Hiroshige II completou a série, que chegou a 118 vistas."
+   "p": "Em 1856 raspou a cabeça e se tornou monge budista, sem parar de trabalhar. No mesmo ano começou as Cem vistas célebres de Edo, gravuras em pé que não viu terminadas: morreu em 1858, provavelmente na epidemia de cólera que atingiu a cidade. O discípulo Hiroshige II completou a série, que chegou a 118 vistas. Foi dessa série que Van Gogh copiou duas gravuras, trinta anos depois."
   }
  ],
  "citacao": {
@@ -68,7 +68,7 @@
  },
  "vida_fig": {
   "img": "hiroshige/van-gogh.jpg",
-  "legenda": "Ponte na chuva, a cópia a óleo que Van Gogh fez em 1887 de uma gravura das Cem vistas de Edo."
+  "legenda": "Ponte na chuva: cópia a óleo que Van Gogh fez em 1887 de uma gravura das Cem vistas."
  },
  "linha": [
   [

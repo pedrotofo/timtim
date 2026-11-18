@@ -28,10 +28,12 @@ def font_faces():
 
 def img(rel, larg=1800):
     """Copia a obra de obras/ para img/ no tamanho de uso (o PDF não precisa do original)."""
-    src = os.path.join(ROOT, 'obras', rel); dst = os.path.join(ROOT, 'img', rel)
+    leve = os.environ.get('LEVE')   # LEVE=1: versão leve para ler na tela (imagens menores, em img-leve/)
+    src = os.path.join(ROOT, 'obras', rel); dst = os.path.join(ROOT, 'img-leve' if leve else 'img', rel)
+    if leve: larg = min(larg, 1000)
     if not os.path.exists(dst) or os.path.getmtime(dst) < os.path.getmtime(src):
         os.makedirs(os.path.dirname(dst), exist_ok=True)
-        im = Image.open(src).convert('RGB'); im.thumbnail((larg, larg), Image.LANCZOS); im.save(dst, quality=90)
+        im = Image.open(src).convert('RGB'); im.thumbnail((larg, larg), Image.LANCZOS); im.save(dst, quality=72 if leve else 90)
     return 'file://' + dst
 
 PESQ = os.path.join(ROOT, 'pesquisa')
@@ -387,7 +389,7 @@ if __name__ == '__main__':
         arts = carrega()
         doc = HTML(string=livro(arts), base_url=ROOT).render()
         print('páginas', len(doc.pages))
-        doc.write_pdf(os.path.join(ROOT, 'out', 'Os-50-Maiores-Pintores.pdf'))
+        doc.write_pdf(os.path.join(ROOT, 'out', 'Os-50-Maiores-Pintores' + ('-leitura' if os.environ.get('LEVE') else '') + '.pdf'))
         if 'previa' in args:
             subprocess.run(['pdftoppm', '-r', '40', '-png', os.path.join(ROOT, 'out', 'Os-50-Maiores-Pintores.pdf'), os.path.join(ROOT, 'out', 'prev')], check=True)
         print('ok')

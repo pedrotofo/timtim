@@ -51,11 +51,11 @@
   },
   {
    "t": "Paris e a pedra",
-   "p": "Em 1906 mudou-se para Paris. Morou em Montmartre e depois em Montparnasse, entre artistas pobres de vários países. Em 1909 conheceu o escultor Constantin Brâncuși e passou anos esculpindo cabeças diretamente na pedra, inspiradas em máscaras africanas e na arte antiga. Por volta de 1914 largou a escultura, por falta de dinheiro e de saúde, e voltou à pintura."
+   "p": "Em 1906 mudou-se para Paris. Morou em Montmartre e depois em Montparnasse, entre artistas pobres de vários países. Em 1909 conheceu o escultor Constantin Brâncuși e passou anos esculpindo cabeças diretamente na pedra, inspiradas em máscaras africanas e na arte antiga. Por volta de 1914 largou a escultura, por falta de dinheiro e de saúde, e voltou à pintura. Mostrou algumas delas no Salão de Outono de 1912."
   },
   {
    "t": "Retratos de amigos",
-   "p": "Desenhava sem parar nos cafés e pintava quase só retratos: amigos artistas, poetas, marchands, vizinhos. Seus vendedores foram Paul Guillaume e, a partir de 1916, o poeta polonês Léopold Zborowski. Em 1917 fez sua única exposição individual, na galeria de Berthe Weill. No mesmo ano conheceu Jeanne Hébuterne, estudante de arte, que virou sua companheira e modelo."
+   "p": "Desenhava sem parar nos cafés e pintava quase só retratos: amigos artistas, poetas, marchands, vizinhos. Seus vendedores foram Paul Guillaume e, a partir de 1916, o poeta polonês Léopold Zborowski. Em 1917 fez sua única exposição individual, na galeria de Berthe Weill. No mesmo ano conheceu Jeanne Hébuterne, estudante de arte, que virou sua companheira e modelo. Entre os retratados estavam os pintores Chaim Soutine e Diego Rivera."
   },
   {
    "t": "Os últimos anos",
@@ -127,7 +127,32 @@
   "titulo": "Jeanne Hébuterne",
   "dados": "1919 · óleo sobre tela · 91,4 × 73 cm · Metropolitan Museum, Nova York",
   "intro": "Jeanne Hébuterne, estudante de arte, foi companheira de Modigliani nos últimos anos de vida dele e mãe de sua filha. Ele a pintou mais de vinte vezes. Aqui ela apoia o rosto na mão, alongada como uma escultura.",
-  "marcas": []
+  "marcas": [
+   [
+    45,
+    12,
+    "Os olhos",
+    "Duas amêndoas azul-claras, sem pupila. O olhar parece ir para dentro, não para nós."
+   ],
+   [
+    44,
+    33,
+    "O pescoço",
+    "Comprido como uma coluna, sustenta a cabeça inclinada, como nas cabeças de pedra que ele esculpia."
+   ],
+   [
+    64,
+    27,
+    "A mão",
+    "Os dedos apoiam o queixo num gesto calmo, que liga o rosto ao braço dobrado."
+   ],
+   [
+    72,
+    4,
+    "A assinatura",
+    "\"modigliani\", em letra de mão, no canto de cima, como em quase todos os seus retratos."
+   ]
+  ]
  },
  "sabia": [
   "O único autorretrato a óleo de Modigliani, pintado em 1919, está no Brasil, no Museu de Arte Contemporânea da USP, em São Paulo.",
@@ -147,7 +172,7 @@
     "Pescoço, rosto e nariz esticados; ombros caídos; a cabeça levemente inclinada para um lado."
    ],
    [
-    "Olhos de uma cor",
+    "Olhos sem pupila",
     "Muitas vezes os olhos são amêndoas pintadas de azul ou cinza, sem pupila, como numa máscara."
    ],
    [

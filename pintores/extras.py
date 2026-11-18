@@ -11,9 +11,9 @@ FRENTE = 11              # páginas antes do nº 50 (o nº 50 começa na página
 CSS = """
 .fr{--c:#9E2B25}
 .capa{padding:0;background:#16110D;color:#fff}
-.capa .mos{position:absolute;inset:0;display:flex;flex-wrap:wrap;align-content:flex-start}
-.capa .mos div{width:20%;height:9.0909%;background-size:cover;background-position:center}
-.capa .veu{position:absolute;inset:0;background:linear-gradient(180deg,rgba(22,17,13,.0) 0%,rgba(22,17,13,.0) 38%,rgba(22,17,13,.92) 58%,rgba(22,17,13,.97) 100%)}
+.capa .mos{position:absolute;top:0;left:0;width:8.5in;height:11in}
+.capa .mos div{position:absolute;width:1.7in;height:1.1in;background-size:cover;background-position:center}
+.capa .veu{position:absolute;top:0;left:0;width:8.5in;height:11in;background:linear-gradient(180deg,rgba(22,17,13,.0) 0%,rgba(22,17,13,.0) 38%,rgba(22,17,13,.92) 58%,rgba(22,17,13,.97) 100%)}
 .capa .tit{position:absolute;left:.7in;right:.7in;bottom:1.05in}
 .capa .tit .n{font:400 150pt/.78 LivroDisp;color:#E9B44C;letter-spacing:-.05em;margin:0}
 .capa .tit h1{font:400 44pt/.98 LivroDisp;margin:.08in 0 .18in;color:#fff}
@@ -35,6 +35,11 @@ CSS = """
 .fora table{border-collapse:collapse;width:100%;margin:.08in 0}
 .fora td{padding:.03in .06in .03in 0;border-bottom:.5pt solid #D9CFBE;vertical-align:top}
 .fora td.a{font-weight:700;width:1.5in;color:var(--c)}
+.nums{margin-top:.35in;border-top:1.5pt solid var(--c);padding-top:.14in}
+.nums h4{font:700 7.6pt LivroSans;letter-spacing:.16em;text-transform:uppercase;color:var(--c);margin:0 0 .12in}
+.nums .nl{display:flex;flex-wrap:wrap;gap:.18in 0}
+.nums p{width:33.3%;margin:0;font:400 8.4pt/1.25 LivroSans;color:#5A5045}
+.nums p b{display:block;font:400 30pt/1 LivroDisp;color:#1E1913;margin-bottom:.03in}
 .assina{font:italic 400 13pt LivroSerif;text-align:right;margin-top:.15in}
 .comoler .pn{display:flex;gap:.22in;margin:0 0 .22in;align-items:flex-start}
 .comoler .mini{flex:none;width:1.45in;height:1.88in;border:1pt solid #CFC4B2;border-radius:.05in;background:#fff;position:relative;overflow:hidden}
@@ -105,8 +110,13 @@ def frente(arts, img, esc, pagina_fixa, ranking):
     por_pos = {a['pos']: a for a in arts}
     H = []
     # 1 capa: mosaico das 50 aberturas, número grande
-    cel = ''.join(f'<div style="background-image:url(\'{img(por_pos[p]["abertura"]["img"], 700)}\');background-position:{por_pos[p]["abertura"].get("pos", "center")}"></div>' if p in por_pos else '<div></div>'
-                  for p in list(range(1, 51)) + list(range(1, 6)))
+    ordem = list(range(1, 51))
+    cel = ''
+    for i, p in enumerate(ordem):
+        a = por_pos.get(p)
+        if not a: continue
+        x, y = (i % 5) * 1.7, (i // 5) * 1.1
+        cel += f'<div style="left:{x:.2f}in;top:{y:.2f}in;background-image:url(\'{img(a["abertura"]["img"], 700)}\');background-position:{a["abertura"].get("pos", "center")}"></div>'
     H.append(f'''<section class="pg capa fr"><div class="mos">{cel}</div><div class="veu"></div>
       <div class="tit"><p class="n">50</p><h1>Os 50 Maiores<br/>Pintores</h1>
       <p>História, técnica e obras dos mestres da pintura no mundo, em contagem regressiva</p></div>
@@ -121,12 +131,11 @@ def frente(arts, img, esc, pagina_fixa, ranking):
       <p>História, técnica e obras dos mestres da pintura no mundo, em contagem regressiva</p><div class="aut">PEDRO TORRES</div>''', ''))
     # 4 e 5 prefácio
     H.append(pagina_fixa('esq', 'pref fr', f'''<span class="chip">Prefácio</span><h2>Antes de começar</h2><div class="tx">
-      <p class="ab">Todo mundo já parou diante de um quadro famoso e se perguntou: por que este, e não outro? Este livro tenta responder a uma pergunta parecida, só que maior. Quem são os pintores mais importantes da história, e por quê?</p>
+      <p>Todo mundo já parou diante de um quadro famoso e se perguntou: por que este, e não outro? Este livro tenta responder a uma pergunta parecida, só que maior. Quem são os pintores mais importantes da história, e por quê?</p>
       <p>Em vez de dar a minha opinião, fui atrás de números. Medi em quantas línguas cada pintor tem artigo na Wikipédia, que é um bom retrato do quanto o mundo inteiro o conhece. Consultei o que dizem a mídia especializada e as grandes histórias da arte: as buscas no banco de preços da Artnet, o índice de Charles Murray, o projeto Pantheon, do MIT, os recordes de público dos museus. E contei quantos artistas cada um influenciou. Juntei tudo numa nota de 0 a 100. A conta inteira, com as fontes, está no fim do livro.</p>
       <p>Os números têm um defeito: enxergam melhor a Europa do que o resto do mundo. Se eu seguisse só a nota, quase todos os 50 seriam europeus. Por isso as dez primeiras vagas do livro são de uma volta ao mundo: o pintor de mais alcance de cada região, da Venezuela à Coreia, do Brasil à Pérsia.</p>
       <p>O livro conta de trás para frente, do 50º ao 1º, como uma parada de sucessos. Cada pintor tem quatro páginas: quem foi, como viveu, uma obra olhada de perto e o jeito como ele trabalhava. O número de cada um aparece sempre que outro pintor do livro o cita, para você ir e voltar.</p>
-      </div>''', esc('Prefácio'), COR))
-    H.append(pagina_fixa('dir', 'pref fr', '''<div class="fora"><h4>Quem ficou de fora, e por quê</h4>
+      </div><div class="fora"><h4>Quem ficou de fora, e por quê</h4>
       <p>Pela lei brasileira, a obra de um artista fica protegida por 70 anos depois da morte, contados a partir de 1º de janeiro do ano seguinte. Até lá, reproduzir os quadros depende de licença dos herdeiros. Decidi que este livro mostraria todas as obras de que fala, e por isso só entram pintores cuja obra já é livre. Pela nota, estes estariam entre os 50:</p>
       <table>
       <tr><td class="a">Pablo Picasso</td><td>seria o número 1 da conta; obra livre no Brasil em 2044</td></tr>
@@ -140,9 +149,16 @@ def frente(arts, img, esc, pagina_fixa, ranking):
       <tr><td class="a">Diego Rivera</td><td>livre no Brasil em 2028; no México, só em 2058</td></tr>
       </table>
       <p>Nas vagas da volta ao mundo ficaram de fora, pelo mesmo motivo, Tarsila do Amaral (livre em 2044), o chinês Qi Baishi (2028), a sul-africana Irma Stern (2037) e o australiano Albert Namatjira (2030). Todos eles aparecem no livro quando um pintor daqui os influenciou.</p></div>
-      <div class="tx"><p><b>E a África?</b> Nenhum pintor africano de obra já livre tem hoje o alcance dos outros 50. A pintura moderna da África, de Aina Onabolu, Ben Enwonwu e Gerard Sekoto, é do século XX e ainda tem direito autoral. A arte africana mais antiga, das pinturas nas rochas às igrejas da Etiópia, é quase toda anônima: não cabe numa lista de nomes, e merecia um livro só dela.</p>
+''', esc('Prefácio'), COR))
+    paises = sorted({a['origem'].split('/')[0].strip() for a in arts})
+    anos = [int(re.findall(r'\d{3,4}', a['vida'])[0]) for a in arts] + [int(re.findall(r'\d{3,4}', a['vida'])[-1]) for a in arts]
+    nobras = sum(1 + len(a.get('obras', [])) + 1 for a in arts)
+    nums = f'''<div class="nums"><h4>Este livro em números</h4><div class="nl">
+      <p><b>50</b>pintores</p><p><b>{len(paises)}</b>países e regiões de origem</p><p><b>{max(anos) - min(anos)}</b>anos, de {min(anos)} a {max(anos)}</p>
+      <p><b>{nobras}</b>obras reproduzidas</p><p><b>{len(arts) * 4}</b>páginas de pintores</p><p><b>1</b>regra: só obra livre</p></div></div>'''
+    H.append(pagina_fixa('dir', 'pref fr', f'''      <div class="tx"><p><b>E a África?</b> Nenhum pintor africano de obra já livre tem hoje o alcance dos outros 50. A pintura moderna da África, de Aina Onabolu, Ben Enwonwu e Gerard Sekoto, é do século XX e ainda tem direito autoral. A arte africana mais antiga, das pinturas nas rochas às igrejas da Etiópia, é quase toda anônima: não cabe numa lista de nomes, e merecia um livro só dela.</p>
       <p>Use este livro como quiser: de trás para frente, do 1 para o 50, aos pulos. Quando um quadro chamar sua atenção, procure o original. Nenhuma página substitui ficar de pé diante de uma pintura.</p>
-      <p class="assina">Pedro Torres</p></div>''', esc('Prefácio'), COR))
+      <p class="assina">Pedro Torres</p></div>{nums}''', esc('Prefácio'), COR))
     # 6 como ler
     def mini(blocos):
         return '<div class="mini">' + ''.join(f'<i style="left:{x}%;top:{y}%;width:{w}%;height:{h}%;background:{c}"></i>' for x, y, w, h, c in blocos) + '</div>'
@@ -193,8 +209,14 @@ def frente(arts, img, esc, pagina_fixa, ranking):
         W = 7.1; rows = len(lista); dy = min(.3, 7.6 / max(rows, 1)); out = ''
         for y in range(a0, a1 + 1, passo):
             out += f'<div class="ano" style="left:{(y - a0) / (a1 - a0) * W:.3f}in"><span>{y}</span></div>'
+        antigos = [a for a in lista if vida(a)[1] < a0]
+        lista = [a for a in lista if vida(a)[1] >= a0]
+        for a in antigos:
+            n, m = vida(a)
+            out += f'<div class="lab" style="left:0;top:-.02in"><b>{a["pos"]}</b>{esc(a["nome"])} viveu muito antes: c. {n}–{m}</div>'
         for i, a in enumerate(lista):
-            n, m = vida(a); x0 = (max(n, a0) - a0) / (a1 - a0) * W; x1 = (m - a0) / (a1 - a0) * W; top = .12 + i * dy
+            i += len(antigos)
+            n, m = vida(a); x0 = (max(n, a0) - a0) / (a1 - a0) * W; x1 = min(W, (m - a0) / (a1 - a0) * W); top = .12 + i * dy
             out += f'<div class="bar" style="left:{x0:.3f}in;width:{max(x1 - x0, .05):.3f}in;top:{top:.3f}in;background:{REG[regiao(a)]}"></div>'
             lab = f'<b>{a["pos"]}</b>{esc(a["nome"])}' + (f' ({n}–{m})' if n < a0 else '')
             if x1 + 1.7 < W: out += f'<div class="lab" style="left:{x1 + .06:.3f}in;top:{top:.3f}in">{lab}</div>'
@@ -205,7 +227,7 @@ def frente(arts, img, esc, pagina_fixa, ranking):
     antes = [a for a in ordem if vida(a)[0] < 1760]; depois = [a for a in ordem if vida(a)[0] >= 1760]
     H.append(pagina_fixa('esq', 'tl fr', f'''<span class="chip">Linha do tempo</span><h2>Quando viveram</h2>
       <p class="sub">Cada barra vai do nascimento à morte. Nesta página, os nascidos antes de 1760; na seguinte, os outros.</p>
-      <div class="graf">{tl(antes, 1250, 1780, 50)}</div><p class="leg">{leg}</p>''', esc('Linha do tempo'), COR))
+      <div class="graf">{tl(antes, 1250, 1850, 50)}</div><p class="leg">{leg}</p>''', esc('Linha do tempo'), COR))
     H.append(pagina_fixa('dir', 'tl fr', f'''<span class="chip">Linha do tempo</span><h2>Quando viveram</h2>
       <p class="sub">Os nascidos de 1760 em diante. Repare como muitos se cruzaram: Hokusai ainda vivia quando Manet nasceu.</p>
       <div class="graf">{tl(depois, 1740, 1960, 20)}</div><p class="leg">{leg}</p>''', esc('Linha do tempo'), COR))

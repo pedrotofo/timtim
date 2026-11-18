@@ -47,7 +47,7 @@
  "vida_txt": [
   {
    "t": "A filha do pintor",
-   "p": "Artemisia nasceu em Roma em 1593, filha mais velha do pintor Orazio Gentileschi, seguidor de Caravaggio. A mãe morreu quando ela tinha 12 anos. Mulheres não podiam estudar em academias, e ela aprendeu tudo no ateliê do pai: moer pigmentos, preparar telas, desenhar e pintar. Aos 17 anos assinou seu primeiro quadro datado, Susana e os velhos."
+   "p": "Artemisia nasceu em Roma em 1593, filha mais velha do pintor Orazio Gentileschi, seguidor de Caravaggio. A mãe morreu quando ela tinha 12 anos. Mulheres não podiam estudar em academias, e ela aprendeu tudo no ateliê do pai: moer pigmentos, preparar telas, desenhar e pintar. Aos 17 anos assinou seu primeiro quadro datado, Susana e os velhos. O quadro, hoje num castelo da Alemanha, já mostra seu domínio do corpo humano."
   },
   {
    "t": "O processo de 1612",
@@ -55,7 +55,7 @@
   },
   {
    "t": "Florença e os Médici",
-   "p": "Logo depois do processo, ela se casou com o pintor Pierantonio Stiattesi e se mudou para Florença. Ali trabalhou para o grão-duque Cosimo II de Médici, ficou amiga do cientista Galileu Galilei e, em 1616, foi a primeira mulher aceita na Academia das Artes do Desenho. Nessa época pintou Judite decapitando Holofernes, hoje na Galeria Uffizi."
+   "p": "Logo depois do processo, ela se casou com o pintor Pierantonio Stiattesi e se mudou para Florença. Ali trabalhou para o grão-duque Cosimo II de Médici, ficou amiga do cientista Galileu Galilei e, em 1616, foi a primeira mulher aceita na Academia das Artes do Desenho. Nessa época pintou Judite decapitando Holofernes, hoje na Galeria Uffizi. Do casamento nasceram vários filhos; só uma filha, Prudenzia, chegou à idade adulta."
   },
   {
    "t": "Uma carreira pela Europa",
@@ -118,7 +118,7 @@
   ],
   [
    1656,
-   "Morre em Nápoles, por volta desse ano",
+   "Morre em Nápoles (data aproximada)",
    "vida"
   ]
  ],
@@ -160,7 +160,7 @@
   "Ela trocou cartas com Galileu Galilei, que conheceu em Florença."
  ],
  "tecnica": {
-  "titulo": "A luz que vem do escuro",
+  "titulo": "Luz que vem do escuro",
   "intro": "Artemisia aprendeu com o pai o jeito de Caravaggio: figuras de gente real, um fundo quase preto e uma luz forte que escolhe o que mostrar.",
   "passos": [
    [
