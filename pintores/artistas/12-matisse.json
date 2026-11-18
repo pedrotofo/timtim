@@ -1,0 +1,272 @@
+{
+ "pos": 12,
+ "chave": "matisse",
+ "nome": "Henri Matisse",
+ "nome_original": "",
+ "vida": "1869–1954",
+ "origem": "França",
+ "cor": "#A3262A",
+ "frase": "Libertou a cor da obrigação de imitar a natureza: com verde no rosto e paredes vermelhas, fez da pintura uma alegria.",
+ "retrato": {
+  "img": "matisse/retrato.jpg",
+  "legenda": "Autorretrato, 1906. Galeria Nacional da Dinamarca (SMK), Copenhague.",
+  "pos": "center 25%"
+ },
+ "abertura": {
+  "img": "matisse/harmonia.jpg",
+  "legenda": "A sobremesa: harmonia em vermelho, 1908. Museu Hermitage, São Petersburgo.",
+  "pos": "center 40%"
+ },
+ "ficha": [
+  [
+   "Nasceu",
+   "1869, em Le Cateau-Cambrésis, norte da França"
+  ],
+  [
+   "Morreu",
+   "1954, em Nice, França, aos 84 anos"
+  ],
+  [
+   "Movimento",
+   "Fauvismo; depois, um caminho próprio"
+  ],
+  [
+   "Técnica",
+   "Óleo, desenho, escultura e, no fim, recortes de papel pintado"
+  ],
+  [
+   "Obra",
+   "Pinturas, desenhos, gravuras, esculturas e recortes em mais de 60 anos"
+  ],
+  [
+   "Onde ver",
+   "Hermitage (São Petersburgo), MoMA (Nova York), Museu Matisse (Nice)"
+  ]
+ ],
+ "vida_titulo": "Uma vida inteira pela cor",
+ "vida_txt": [
+  {
+   "t": "Uma caixa de tintas",
+   "p": "Henri Matisse nasceu em 1869 no norte da França, filho de um comerciante de grãos. Estudou direito e trabalhava num escritório de advocacia quando, aos 20 anos, passou meses de cama por causa de uma apendicite. Para distraí-lo, a mãe lhe deu uma caixa de tintas. Ele contaria depois que ali soube qual seria sua vida. Largou o direito e foi estudar arte em Paris."
+  },
+  {
+   "t": "As feras",
+   "p": "Em Paris estudou no ateliê de Gustave Moreau, que deixava os alunos seguirem o próprio caminho. Em 1898 casou-se com Amélie Parayre. No verão de 1905 pintou em Collioure, no sul, com André Derain, usando cores puras e fortes. Expostos naquele outono, os quadros fizeram um crítico chamar o grupo de fauves, \"feras\". O escândalo trouxe também compradores, como os irmãos americanos Leo e Gertrude Stein."
+  },
+  {
+   "t": "Viagens e encomendas",
+   "p": "O colecionador russo Serguei Chtchukin comprou dezenas de quadros dele e encomendou grandes painéis, como A dança, de 1909–1910. Matisse viajou ao Marrocos em 1912 e 1913 e voltou cheio de luz e dos padrões de tecidos e azulejos. A partir de 1917 passou a viver em Nice, no sul da França, onde pintou por décadas interiores com janelas, tecidos estampados e modelos em trajes orientais."
+  },
+  {
+   "t": "Desenhar com a tesoura",
+   "p": "Em 1941 passou por uma cirurgia grave e ficou muito tempo de cama ou em cadeira de rodas. Sem forças para pintar de pé, inventou outro jeito: recortava formas de papel pintado a guache, que assistentes prendiam nas paredes. Assim fez o livro Jazz e projetou os vitrais e a decoração de uma capela em Vence. Morreu em Nice em 1954, aos 84 anos."
+  }
+ ],
+ "citacao": {
+  "texto": "O que eu sonho é uma arte de equilíbrio, de pureza e de tranquilidade, sem assunto inquietante ou deprimente, [...] algo como uma boa poltrona que descanse o homem de suas fadigas físicas.",
+  "fonte": "Notas de um pintor, 1908"
+ },
+ "vida_fig": {
+  "img": "matisse/risca.jpg",
+  "legenda": "A risca verde, retrato de Amélie Matisse, 1905: uma linha verde divide o rosto em quente e frio."
+ },
+ "linha": [
+  [
+   1869,
+   "Nasce no norte da França",
+   "vida"
+  ],
+  [
+   1888,
+   "Lei Áurea abole a escravidão",
+   "mundo"
+  ],
+  [
+   1890,
+   "Ganha uma caixa de tintas",
+   "vida"
+  ],
+  [
+   1905,
+   "O escândalo dos fauves",
+   "vida"
+  ],
+  [
+   1914,
+   "Começa a Primeira Guerra Mundial",
+   "mundo"
+  ],
+  [
+   1917,
+   "Passa a viver em Nice",
+   "vida"
+  ],
+  [
+   1922,
+   "Semana de 22 em São Paulo",
+   "mundo"
+  ],
+  [
+   1939,
+   "Começa a Segunda Guerra Mundial",
+   "mundo"
+  ],
+  [
+   1950,
+   "O Brasil sedia a Copa",
+   "mundo"
+  ],
+  [
+   1954,
+   "Morre em Nice, aos 84 anos",
+   "vida"
+  ]
+ ],
+ "foco": {
+  "img": "matisse/chapeu.jpg",
+  "titulo": "Mulher com chapéu",
+  "dados": "1905 · óleo sobre tela · 80,7 × 59,7 cm · Museu de Arte Moderna de São Francisco",
+  "intro": "Amélie, mulher do pintor, posou com um chapéu enorme, moda da época. Exposto no Salão de Outono de 1905, o quadro escandalizou o público e ajudou a dar nome aos fauves.",
+  "marcas": [
+   [
+    42,
+    22,
+    "O chapéu",
+    "Flores, frutas e plumas viram manchas soltas de cor, quase sem desenho."
+   ],
+   [
+    57,
+    47,
+    "O rosto",
+    "Verde na testa e no nariz, laranja e rosa nas faces: a cor não imita a pele."
+   ],
+   [
+    85,
+    40,
+    "O fundo",
+    "Manchas largas de verde, rosa e lilás, sem parede nem objeto reconhecível."
+   ],
+   [
+    42,
+    70,
+    "O leque",
+    "O leque aberto no colo é só um punhado de pinceladas rápidas e coloridas."
+   ]
+  ]
+ },
+ "sabia": [
+  "A sobremesa: harmonia em vermelho começou azul. Pouco antes de enviar o quadro ao colecionador, Matisse repintou tudo de vermelho.",
+  "Picasso e Matisse se conheceram por volta de 1906 na casa de Gertrude Stein e trocaram quadros. Foram rivais e amigos a vida inteira.",
+  "Em 1961, O barco, um recorte de Matisse, ficou 47 dias pendurado de cabeça para baixo no MoMA, em Nova York, até alguém notar."
+ ],
+ "tecnica": {
+  "titulo": "A sombra também é cor",
+  "intro": "Os fauves usavam a cor quase como sai do tubo, sem misturar para imitar a natureza. A cor servia para mostrar o que o pintor sentia, não para copiar o que via.",
+  "passos": [
+   [
+    "Cor pura",
+    "Pintava com cores fortes, pouco misturadas, lado a lado, e às vezes deixava a tela aparecer entre elas."
+   ],
+   [
+    "Sombra colorida",
+    "Em vez de escurecer com marrom ou preto, fazia a sombra com outra cor: verde, violeta, azul."
+   ],
+   [
+    "Equilíbrio",
+    "Cada cor muda conforme as vizinhas. Ele ajustava o quadro inteiro até tudo se equilibrar, como numa música."
+   ],
+   [
+    "Simplificar",
+    "Com os anos, tirou detalhes e sombras até chegar a formas planas e contornos limpos."
+   ]
+  ],
+  "box_t": "Da tela à tesoura",
+  "box": "Nos últimos anos, assistentes pintavam folhas de papel a guache nas cores que ele escolhia. Matisse recortava as formas direto na cor, sem desenhar antes, e indicava onde prender cada peça. No livro Jazz, de 1947, escreveu que recortar na cor viva lembrava o escultor que talha direto na pedra.",
+  "paleta": [
+   [
+    "#B3262A",
+    "Vermelho"
+   ],
+   [
+    "#2F4C9A",
+    "Azul"
+   ],
+   [
+    "#3F8F5A",
+    "Verde"
+   ],
+   [
+    "#E8B53A",
+    "Amarelo"
+   ],
+   [
+    "#E3A7B4",
+    "Rosa"
+   ]
+  ]
+ },
+ "obras": [
+  {
+   "img": "matisse/janela.jpg",
+   "titulo": "Janela aberta, Collioure",
+   "ano": "1905",
+   "nota": "O verão com Derain: barcos, mar e vasos em cores puras."
+  },
+  {
+   "img": "matisse/conversa.jpg",
+   "titulo": "A conversa",
+   "ano": "1908–1912",
+   "nota": "O pintor de pijama e Amélie, separados por uma janela para o jardim."
+  },
+  {
+   "img": "matisse/marroquinos.jpg",
+   "titulo": "Os marroquinos",
+   "ano": "1915–1916",
+   "nota": "Lembranças do Marrocos em blocos de cor sobre um fundo preto."
+  }
+ ],
+ "influenciou": [
+  [
+   "Pablo Picasso",
+   null
+  ],
+  [
+   "Mark Rothko",
+   null
+  ],
+  [
+   "Ellsworth Kelly",
+   null
+  ]
+ ],
+ "rival": [
+  "Paul Cézanne",
+  9,
+  "Comprou um quadro dele em 1899 e o tinha como mestre."
+ ],
+ "pensar": "Faça um retrato de alguém sem usar cor de pele: escolha três cores fortes, como verde, laranja e violeta, uma para a luz, uma para a sombra e uma para o fundo. O rosto continua parecido?",
+ "palavras": [
+  [
+   "Fauvismo",
+   "Movimento de 1905 a 1908 que usou cores puras e fortes, sem imitar a natureza; fauve quer dizer \"fera\"."
+  ],
+  [
+   "Cor complementar",
+   "Par de cores opostas, como vermelho e verde ou azul e laranja, que se reforçam lado a lado."
+  ],
+  [
+   "Guache",
+   "Tinta à base de água, opaca e de cor intensa, que Matisse usava para pintar o papel dos recortes."
+  ]
+ ],
+ "imagens": {
+  "retrato.jpg": "File:Autoportrait, par Henri Matisse.jpg",
+  "harmonia.jpg": "File:Henri Matisse - The Dessert, Harmony in Red (The Red Room) 1908.jpg",
+  "chapeu.jpg": "File:Matisse-Woman-with-a-Hat.jpg",
+  "risca.jpg": "File:La Raie verte, par Henri Matisse.jpg",
+  "janela.jpg": "File:Fenêtre ouverte, Collioure, par Henri Matisse.jpg",
+  "conversa.jpg": "File:La Conversation, par Henri Matisse (Ermitage).jpg",
+  "marroquinos.jpg": "File:Marocains, par Henri Matisse.jpg"
+ },
+ "pron": "por ele"
+}

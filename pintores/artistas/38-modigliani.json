@@ -1,0 +1,234 @@
+{
+ "pos": 38,
+ "chave": "modigliani",
+ "nome": "Amedeo Modigliani",
+ "nome_original": "",
+ "vida": "1884–1920",
+ "origem": "Itália",
+ "cor": "#B5652E",
+ "frase": "Pintou rostos alongados, de pescoço comprido e olhos sem pupila, num estilo que se reconhece de longe.",
+ "retrato": {
+  "img": "modigliani/retrato.jpg",
+  "legenda": "Autorretrato, 1919, o único que ele pintou a óleo. Museu de Arte Contemporânea da USP, São Paulo.",
+  "pos": "center 18%"
+ },
+ "abertura": {
+  "img": "modigliani/guillaume.jpg",
+  "legenda": "Paul Guillaume, Novo Pilota, 1915. Óleo sobre cartão. Museu da Orangerie, Paris.",
+  "pos": "center 22%"
+ },
+ "ficha": [
+  [
+   "Nasceu",
+   "1884, em Livorno, Itália"
+  ],
+  [
+   "Morreu",
+   "1920, em Paris, aos 35 anos"
+  ],
+  [
+   "Movimento",
+   "Escola de Paris"
+  ],
+  [
+   "Técnica",
+   "Óleo sobre tela, desenho e escultura em pedra"
+  ],
+  [
+   "Obra",
+   "Cerca de 340 quadros e centenas de desenhos, pelas estimativas"
+  ],
+  [
+   "Onde ver",
+   "MASP e MAC USP (São Paulo), Metropolitan (Nova York), Orangerie (Paris)"
+  ]
+ ],
+ "vida_titulo": "Retratos de pescoço comprido",
+ "vida_txt": [
+  {
+   "t": "Um menino doente em Livorno",
+   "p": "Amedeo Modigliani nasceu em 1884 em Livorno, cidade portuária da Itália, numa família judia que tinha acabado de falir. Teve pleurisia aos 11 anos e tifo aos 14; pouco depois, sinais de tuberculose. A mãe o tirou da escola e o pôs para estudar pintura com Guglielmo Micheli. Depois estudou em Florença e em Veneza, olhando os mestres antigos nos museus."
+  },
+  {
+   "t": "Paris e a pedra",
+   "p": "Em 1906 mudou-se para Paris. Morou em Montmartre e depois em Montparnasse, entre artistas pobres de vários países. Em 1909 conheceu o escultor Constantin Brâncuși e passou anos esculpindo cabeças diretamente na pedra, inspiradas em máscaras africanas e na arte antiga. Por volta de 1914 largou a escultura, por falta de dinheiro e de saúde, e voltou à pintura."
+  },
+  {
+   "t": "Retratos de amigos",
+   "p": "Desenhava sem parar nos cafés e pintava quase só retratos: amigos artistas, poetas, marchands, vizinhos. Seus vendedores foram Paul Guillaume e, a partir de 1916, o poeta polonês Léopold Zborowski. Em 1917 fez sua única exposição individual, na galeria de Berthe Weill. No mesmo ano conheceu Jeanne Hébuterne, estudante de arte, que virou sua companheira e modelo."
+  },
+  {
+   "t": "Os últimos anos",
+   "p": "Em 1918, para fugir dos bombardeios e cuidar da saúde, foi com Jeanne para o sul da França, onde nasceu a filha deles, também Jeanne. Voltaram a Paris em 1919. Ele pintava muito, vendia pouco e estava cada vez mais doente. Morreu em janeiro de 1920, aos 35 anos, de meningite causada pela tuberculose. Jeanne, grávida, morreu dois dias depois."
+  }
+ ],
+ "citacao": {
+  "texto": "O teu verdadeiro dever é salvar o teu sonho.",
+  "fonte": "Carta ao amigo pintor Oscar Ghiglia, 1901"
+ },
+ "vida_fig": {
+  "img": "modigliani/rivera.jpg",
+  "legenda": "Retrato do pintor mexicano Diego Rivera, amigo de Montparnasse, 1914."
+ },
+ "linha": [
+  [
+   1884,
+   "Nasce em Livorno",
+   "vida"
+  ],
+  [
+   1888,
+   "Abolição da escravatura no Brasil",
+   "mundo"
+  ],
+  [
+   1889,
+   "Proclamação da República no Brasil",
+   "mundo"
+  ],
+  [
+   1906,
+   "Muda-se para Paris",
+   "vida"
+  ],
+  [
+   1908,
+   "Ford lança o Modelo T",
+   "mundo"
+  ],
+  [
+   1909,
+   "Conhece Brâncuși e esculpe",
+   "vida"
+  ],
+  [
+   1914,
+   "Começa a Primeira Guerra Mundial",
+   "mundo"
+  ],
+  [
+   1917,
+   "Única exposição individual",
+   "vida"
+  ],
+  [
+   1918,
+   "A gripe espanhola chega ao Brasil",
+   "mundo"
+  ],
+  [
+   1920,
+   "Morre em Paris, aos 35 anos",
+   "vida"
+  ]
+ ],
+ "foco": {
+  "img": "modigliani/jeanne.jpg",
+  "titulo": "Jeanne Hébuterne",
+  "dados": "1919 · óleo sobre tela · 91,4 × 73 cm · Metropolitan Museum, Nova York",
+  "intro": "Jeanne Hébuterne, estudante de arte, foi companheira de Modigliani nos últimos anos de vida dele e mãe de sua filha. Ele a pintou mais de vinte vezes. Aqui ela apoia o rosto na mão, alongada como uma escultura.",
+  "marcas": []
+ },
+ "sabia": [
+  "O único autorretrato a óleo de Modigliani, pintado em 1919, está no Brasil, no Museu de Arte Contemporânea da USP, em São Paulo.",
+  "Em vida, ele fez uma única exposição individual, em 1917, na galeria de Berthe Weill, em Paris.",
+  "Seu primeiro professor, Guglielmo Micheli, tinha sido aluno de Giovanni Fattori, pintor dos macchiaioli, os \"impressionistas\" italianos."
+ ],
+ "tecnica": {
+  "titulo": "O rosto que vira escultura",
+  "intro": "Modigliani partia de uma pessoa real, sentada à sua frente, e a transformava seguindo sempre as mesmas regras. Por isso um retrato dele se reconhece de longe.",
+  "passos": [
+   [
+    "O desenho",
+    "Começava pelo contorno, num traço contínuo e seguro, treinado em milhares de desenhos feitos nos cafés."
+   ],
+   [
+    "Tudo alongado",
+    "Pescoço, rosto e nariz esticados; ombros caídos; a cabeça levemente inclinada para um lado."
+   ],
+   [
+    "Olhos de uma cor",
+    "Muitas vezes os olhos são amêndoas pintadas de azul ou cinza, sem pupila, como numa máscara."
+   ],
+   [
+    "Fundo simples",
+    "Uma parede, uma porta, uma cadeira. Poucas cores, contorno escuro e pinceladas que aparecem."
+   ]
+  ],
+  "box_t": "O escultor de pedra",
+  "box": "Entre 1909 e 1914, incentivado por Brâncuși, Modigliani esculpiu cabeças diretamente em blocos de pedra. O pescoço longo, o nariz fino e os olhos amendoados vinham das máscaras africanas e da arte antiga. A poeira fazia mal aos pulmões e a pedra custava caro: ele voltou à tela, mas levou essas formas para os retratos.",
+  "paleta": [
+   [
+    "#C88A4E",
+    "Pele ocre"
+   ],
+   [
+    "#8FA6B8",
+    "Azul-cinza"
+   ],
+   [
+    "#C9A23A",
+    "Amarelo"
+   ],
+   [
+    "#F1EEE6",
+    "Branco"
+   ],
+   [
+    "#3B2E28",
+    "Contorno"
+   ]
+  ]
+ },
+ "obras": [
+  {
+   "img": "modigliani/soutine.jpg",
+   "titulo": "Chaim Soutine",
+   "ano": "1917",
+   "nota": "O amigo pintor, sentado, com as mãos juntas e um olho diferente do outro."
+  },
+  {
+   "img": "modigliani/zborowski.jpg",
+   "titulo": "Léopold Zborowski",
+   "ano": "1916",
+   "nota": "O poeta que virou seu vendedor e o sustentou nos últimos anos."
+  },
+  {
+   "img": "modigliani/cigana.jpg",
+   "titulo": "Cigana com bebê",
+   "ano": "1919",
+   "nota": "Pintada no sul da França: rosto oval, olhos azuis, roupa de festa."
+  }
+ ],
+ "influenciou": [],
+ "rival": [
+  "Paul Cézanne",
+  9,
+  "Mestre que ele admirava; a grande mostra de Cézanne em 1907 o marcou."
+ ],
+ "pensar": "Desenhe o retrato de alguém da sua família como Modigliani faria: pescoço e rosto mais compridos, nariz fino, olhos de uma cor só. O que continua parecido com a pessoa?",
+ "palavras": [
+  [
+   "Escola de Paris",
+   "Artistas de vários países que trabalharam em Paris no começo do século XX."
+  ],
+  [
+   "Estilização",
+   "Simplificar e exagerar as formas reais seguindo um padrão próprio do artista."
+  ],
+  [
+   "Montparnasse",
+   "Bairro de Paris onde viviam e se encontravam muitos artistas pobres nos anos 1910 e 1920."
+  ]
+ ],
+ "imagens": {
+  "retrato.jpg": "File:Amedeo Modigliani 053.jpg",
+  "guillaume.jpg": "File:Amedeo Modigliani - Paul Guillaume, Novo Pilota - Google Art Project.jpg",
+  "jeanne.jpg": "File:Jeanne Hébuterne (1898–1920) MET DT2180.jpg",
+  "rivera.jpg": "File:1914 Modigliani Bildnis Diego Rivera anagoria.jpg",
+  "soutine.jpg": "File:Amedeo Modigliani, Chaim Soutine, 1917, NGA 46522.jpg",
+  "zborowski.jpg": "File:Amedeo Modigliani - Léopold Zborowski - 98.292 - Museum of Fine Arts.jpg",
+  "cigana.jpg": "File:Amedeo Modigliani, Gypsy Woman with Baby, 1919, NGA 46649.jpg"
+ },
+ "pron": "por ele"
+}

@@ -127,7 +127,32 @@
   "titulo": "Autorretrato como Alegoria da Pintura",
   "dados": "c. 1638–1639 · óleo sobre tela · 98,6 × 75,2 cm · Coleção Real, Londres",
   "intro": "Artemisia se pintou trabalhando, de lado, com o braço erguido para a tela. Não é só um retrato: ela se apresenta como a própria Pintura, a mulher que os livros da época usavam para representar essa arte.",
-  "marcas": []
+  "marcas": [
+   [
+    16,
+    16,
+    "O pincel",
+    "O braço sobe até a tela ainda vazia: vemos o instante antes da primeira pincelada."
+   ],
+   [
+    70,
+    22,
+    "Os cabelos",
+    "Soltos e despenteados, como pedia o livro de Ripa: sinal do entusiasmo de quem cria."
+   ],
+   [
+    44,
+    67,
+    "A máscara",
+    "Na ponta da corrente de ouro pende uma pequena máscara, símbolo da imitação."
+   ],
+   [
+    44,
+    93,
+    "As iniciais",
+    "Na mesa, ao lado, as letras A.G.F.: \"Artemisia Gentileschi fez\"."
+   ]
+  ]
  },
  "sabia": [
   "Numa Maria Madalena hoje no Palácio Pitti, ela assinou \"Artimisia Lomi\", o sobrenome de origem da família do pai.",
@@ -191,7 +216,7 @@
    "img": "artemisia/madalena.jpg",
    "titulo": "Maria Madalena convertida",
    "ano": "c. 1617–1620",
-   "nota": "Seda amarela e um gesto decidido: ela vira as costas ao espelho."
+   "nota": "Seda amarela e um gesto decidido: ela afasta o espelho, símbolo da vaidade."
   },
   {
    "img": "artemisia/sao-joao.jpg",
