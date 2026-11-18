@@ -5,7 +5,7 @@
  "nome_original": "",
  "vida": "1780–1867",
  "origem": "França",
- "cor": "#5B2333",
+ "cor": "#7A3424",
  "frase": "Defendeu o desenho acima de tudo e fez, a óleo e a lápis, alguns dos retratos mais exatos do século XIX.",
  "retrato": {
   "img": "ingres/retrato.jpg",
@@ -184,24 +184,24 @@
   "box": "Depois de 1815, sem encomendas, Ingres desenhava turistas ingleses e franceses em Roma com grafite sobre papel liso. Rosto acabado com cuidado, roupa em poucas linhas. Fez centenas desses retratos, e hoje eles estão entre os desenhos mais admirados do século XIX.",
   "paleta": [
    [
-    "#5B2333",
-    "Vinho"
+    "#B04A2A",
+    "Ilíada"
    ],
    [
-    "#E8D9C0",
-    "Pele clara"
+    "#1F674A",
+    "Odisseia"
    ],
    [
-    "#2F3A56",
-    "Azul escuro"
+    "#427069",
+    "Céu"
    ],
    [
-    "#B08A4A",
-    "Ouro"
+    "#D2C18D",
+    "Mármore"
    ],
    [
-    "#1E1A18",
-    "Preto"
+    "#1D1E25",
+    "Sombra"
    ]
   ]
  },

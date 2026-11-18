@@ -19,5 +19,26 @@
   "artista": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Cimabue\" class=\"extiw\" title=\"w:en:Cimabue\"><span title=\"Italian artist (1240–1302)\">Cimabue</span></a></bdi>",
   "credito": "<a href=\"https://en.wikipedia.org/wiki/en:Google_Arts_%26_Culture\" class=\"extiw\" title=\"w:en:Google Arts &amp; Culture\"><span title=\"app and website exploring partner museums\">Google Arts &amp; Culture</span></a>  — <a rel=\"nofollow\" class=\"external text\" href=\"//www.google.com/culturalinstitute/asset-viewer/uQHfVH5CnUNhxA\">uQHfVH5CnUNhxA</a>",
   "pagina": "https://commons.wikimedia.org/wiki/File:Cimabue_-_Maestà_di_Santa_Trinita_-_Google_Art_Project.jpg"
+ },
+ "giotto/magos.jpg": {
+  "arquivo": "File:Giotto di Bondone - No. 18 Scenes from the Life of Christ - 2. Adoration of the Magi - WGA09195.jpg",
+  "licenca": "Public domain",
+  "artista": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Giotto\" class=\"extiw\" title=\"w:en:Giotto\"><span title=\"Italian painter and architect (c. 1267–1337)\">Giotto</span></a></bdi>",
+  "credito": "<a href=\"https://en.wikipedia.org/wiki/en:Web_Gallery_of_Art\" class=\"extiw\" title=\"w:en:Web Gallery of Art\"><span title=\"virtual art gallery for European fine art created before 1900\">Web Gallery of Art</span></a>:  <span typeof=\"mw:File\"><a href=\"http://www.wga.hu/art/g/giotto/padova/3christ/scenes_1/chris02.jpg\" rel=\"nofollow\"><img src=\"https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6f/Inkscape.svg/20px-Inkscape.svg.png?utm_source=commons.wikimedia.org&amp;utm_campaign=parser&amp;utm_content=thumbnail\" decoding=\"async\" loading=\"lazy\" width=\"20\" height=\"20\" class=\"mw-file-element\" srcset=\"https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6f/Inkscape.svg/40px-Inkscape.svg.png?utm_source=commons.wikimedia.org&amp;utm_campaign=parser&amp;utm_content=thumbnail 2x\" data-file-width=\"60\" data-file-height=\"60\"></a></span> <a rel=\"nofollow\" class=\"external text\" href=\"http://www.wga.hu/art/g/giotto/padova/3christ/scenes_1/chris02.jpg\">Image</a> <span typeof=\"mw:File\"><a href=\"https://www.wga.hu/html_m/g/giotto/padova/3christ/chris02.html\" rel=\"nofollow\"><img src=\"https://thumb.wikimedia.org/wikipedia/commons/thumb/3/35/Information_icon.svg/20px-Information_icon.svg.png?utm_source=commons.wikimedia.org&amp;utm_campaign=parser&amp;utm_content=thumbnail\" decoding=\"async\" loading=\"lazy\" width=\"20\" height=\"20\" class=\"mw-file-element\" srcset=\"https://thumb.wikimedia.org/wikipedia/commons/thumb/3/35/Information_icon.svg/40px-Information_icon.svg.png?utm_source=commons.wikimedia.org&amp;utm_campaign=parser&amp;utm_content=thumbnail 2x\" data-file-width=\"620\" data-file-height=\"620\"></a></span> <a rel=\"nofollow\" class=\"external text\" href=\"https://www.wga.hu/html_m/g/giotto/padova/3christ/chris02.html\">Info about artwork</a><div style=\"display: none;\">wga QS:P11807,\"_m/g/giotto/padova/3christ/chris02\"</div>",
+  "pagina": "https://commons.wikimedia.org/wiki/File:Giotto_di_Bondone_-_No._18_Scenes_from_the_Life_of_Christ_-_2._Adoration_of_the_Magi_-_WGA09195.jpg"
+ },
+ "giotto/ognissanti.jpg": {
+  "arquivo": "File:Madonna di Ognissanti by Giotto.jpg",
+  "licenca": "Public domain",
+  "artista": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Giotto\" class=\"extiw\" title=\"w:en:Giotto\"><span title=\"Italian painter and architect (c. 1267–1337)\">Giotto</span></a></bdi>",
+  "credito": "<span class=\"int-own-work\" lang=\"en\">Own work</span> by <a href=\"//commons.wikimedia.org/w/index.php?title=User:Campocorvino&amp;action=edit&amp;redlink=1\" class=\"new\" title=\"User:Campocorvino (page does not exist)\">Campocorvino</a>",
+  "pagina": "https://commons.wikimedia.org/wiki/File:Madonna_di_Ognissanti_by_Giotto.jpg"
+ },
+ "giotto/dormicao.jpg": {
+  "arquivo": "File:Giotto - The Entombment of Mary - Google Art Project.jpg",
+  "licenca": "Public domain",
+  "artista": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Giotto\" class=\"extiw\" title=\"w:en:Giotto\"><span title=\"Italian painter and architect (c. 1267–1337)\">Giotto</span></a></bdi>",
+  "credito": "<a href=\"https://en.wikipedia.org/wiki/en:Google_Arts_%26_Culture\" class=\"extiw\" title=\"w:en:Google Arts &amp; Culture\"><span title=\"app and website exploring partner museums\">Google Arts &amp; Culture</span></a>  — <a rel=\"nofollow\" class=\"external text\" href=\"//www.google.com/culturalinstitute/asset-viewer/NgGQydDS633PNA\">NgGQydDS633PNA</a>",
+  "pagina": "https://commons.wikimedia.org/wiki/File:Giotto_-_The_Entombment_of_Mary_-_Google_Art_Project.jpg"
  }
 }

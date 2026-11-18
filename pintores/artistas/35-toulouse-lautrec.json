@@ -14,9 +14,9 @@
   "pos": "center 25%"
  },
  "abertura": {
-  "img": "toulouse-lautrec/circo.jpg",
-  "legenda": "No Circo Fernando: a amazona, 1887–1888. Óleo sobre tela. Art Institute of Chicago.",
-  "pos": "center 50%"
+  "img": "toulouse-lautrec/moulin-rouge.jpg",
+  "legenda": "No Moulin Rouge, 1892–1895. Óleo sobre tela. Art Institute of Chicago.",
+  "pos": "center 30%"
  },
  "ficha": [
   [
@@ -64,7 +64,7 @@
   }
  ],
  "citacao": {
-  "texto": "Talvez você queira saber que incentivo Bonnat me dá. Ele me diz: \"Sua pintura não é ruim, tem estilo, mas enfim não é ruim. Mas o seu desenho é simplesmente atroz.\"",
+  "texto": "Talvez você queira saber que incentivo Bonnat me dá. Ele me diz: ‘Sua pintura não é ruim, tem estilo, mas enfim não é ruim. Mas o seu desenho é simplesmente atroz.’",
   "fonte": "Carta ao tio Charles, 1882"
  },
  "vida_fig": {
@@ -124,40 +124,40 @@
   ]
  ],
  "foco": {
-  "img": "toulouse-lautrec/moulin-rouge.jpg",
-  "titulo": "No Moulin Rouge",
-  "dados": "1892–1895 · óleo sobre tela · 123 × 141 cm · Art Institute of Chicago",
-  "intro": "Uma noite no cabaré. Amigos do pintor conversam à mesa, a dançarina La Goulue arruma o cabelo diante do espelho e, ao fundo, passa o próprio Lautrec. A faixa da direita foi cortada do quadro e, anos depois, devolvida.",
+  "img": "toulouse-lautrec/circo.jpg",
+  "titulo": "No Circo Fernando: a amazona",
+  "dados": "1887–1888 · óleo sobre tela · 100,3 × 161,3 cm · Art Institute of Chicago",
+  "intro": "O picadeiro do Circo Fernando, em Montmartre. O mestre de pista estala o chicote e a amazona se equilibra no cavalo. A pista corta o quadro em curva, e as figuras saem pela borda, como nas gravuras japonesas.",
   "marcas": [
    [
-    30,
+    24,
     45,
-    "A mesa",
-    "Amigos de Lautrec, entre eles o escritor Édouard Dujardin, de barba, sentados à luz do gás."
+    "O chicote",
+    "Inclinado para a frente, o mestre de pista parece empurrar o cavalo com o corpo."
    ],
    [
-    55,
-    30,
-    "O pintor",
-    "Lautrec, de chapéu-coco, passa ao fundo ao lado do primo alto, Gabriel Tapié de Céleyran."
+    69,
+    25,
+    "A amazona",
+    "Cabelo ruivo e saia de tule: ela se equilibra sentada no cavalo a galope."
    ],
    [
-    70,
-    30,
-    "La Goulue",
-    "A dançarina do cartaz, de costas, ajeita o coque ruivo."
+    4,
+    42,
+    "Palhaço cortado",
+    "Só metade dele aparece na borda, um corte aprendido nas gravuras japonesas."
    ],
    [
-    90,
-    70,
-    "O rosto verde",
-    "A luz artificial deixa verde o rosto da mulher cortada pela borda, como numa foto."
+    42,
+    14,
+    "A pista curva",
+    "A barreira vermelha da arena atravessa a cena em diagonal e dá velocidade."
    ]
   ]
  },
  "sabia": [
   "Lautrec assinava com um monograma, as iniciais HTL dentro de um círculo, à moda dos selos das gravuras japonesas.",
-  "O quadro No Circo Fernando foi comprado pelos donos do Moulin Rouge e ficou exposto na entrada do cabaré.",
+  "Este quadro foi comprado pelos donos do Moulin Rouge e ficou exposto na entrada do cabaré, que abriu em 1889.",
   "Depois da morte do pintor, a mãe e o amigo Maurice Joyant doaram as obras que formaram o museu de Albi, aberto em 1922."
  ],
  "tecnica": {

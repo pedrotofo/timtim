@@ -5,7 +5,7 @@
  "nome_original": "",
  "vida": "1832–1883",
  "origem": "França",
- "cor": "#2C3A33",
+ "cor": "#252E33",
  "frase": "Pintou a Paris do seu tempo sem disfarce, com cores chapadas e pretos fortes, e abriu caminho para os impressionistas.",
  "retrato": {
   "img": "manet/retrato.jpg",
@@ -59,7 +59,7 @@
   },
   {
    "t": "O último bar",
-   "p": "No fim dos anos 1870, uma doença começou a tirar-lhe os movimentos das pernas. Pintava sentado, muitas vezes a pastel. Em 1881 recebeu a Legião de Honra, e em 1882 expôs Um bar no Folies-Bergère, sua última grande tela. Em abril de 1883 os médicos amputaram sua perna esquerda. Morreu dez dias depois, em Paris, aos 51 anos."
+   "p": "No fim dos anos 1870, uma doença começou a tirar-lhe os movimentos das pernas. Pintava sentado, muitas vezes a pastel: amigas, flores, frutas. Em 1881 recebeu a Legião de Honra, e em 1882 expôs Um bar no Folies-Bergère, sua última grande tela. Em abril de 1883 os médicos amputaram sua perna esquerda. Morreu dez dias depois, em Paris, aos 51 anos."
   }
  ],
  "citacao": {
@@ -184,24 +184,24 @@
   "box": "Antes mesmo de ir a Madri, em 1865, Manet pintava cantores, toureiros e mendigos espanhóis. De Velázquez e de Goya tirou o fundo liso, sem paisagem, onde a figura parece flutuar, como no Pífaro, e o gosto pelo preto.",
   "paleta": [
    [
-    "#1E2A2A",
-    "Preto"
+    "#252E33",
+    "Veludo preto"
    ],
    [
-    "#E8E3D6",
-    "Branco"
+    "#F0D3C2",
+    "Pele"
    ],
    [
-    "#3E5E52",
-    "Verde"
+    "#CF642E",
+    "Laranjas"
    ],
    [
-    "#C89A55",
-    "Dourado"
+    "#BFBCA8",
+    "Mármore"
    ],
    [
-    "#9C3B30",
-    "Vermelho"
+    "#959388",
+    "Espelho"
    ]
   ]
  },

@@ -15,15 +15,33 @@
  "abertura": {
   "img": "klimt/adele.jpg",
   "legenda": "Retrato de Adele Bloch-Bauer I, 1907. Óleo, prata e ouro sobre tela. Neue Galerie, Nova York.",
-  "pos": "center 30%"
+  "pos": "center 4%"
  },
  "ficha": [
-  ["Nasceu", "1862, em Baumgarten, perto de Viena, Áustria"],
-  ["Morreu", "1918, em Viena, aos 55 anos"],
-  ["Movimento", "Simbolismo e Art Nouveau (Secessão de Viena)"],
-  ["Técnica", "Óleo com ouro e prata em folha; desenho a lápis"],
-  ["Obra", "Mais de 200 pinturas e milhares de desenhos, pelas estimativas"],
-  ["Onde ver", "Belvedere (Viena), Museu Leopold (Viena), Neue Galerie (Nova York)"]
+  [
+   "Nasceu",
+   "1862, em Baumgarten, perto de Viena, Áustria"
+  ],
+  [
+   "Morreu",
+   "1918, em Viena, aos 55 anos"
+  ],
+  [
+   "Movimento",
+   "Simbolismo e Art Nouveau (Secessão de Viena)"
+  ],
+  [
+   "Técnica",
+   "Óleo com ouro e prata em folha; desenho a lápis"
+  ],
+  [
+   "Obra",
+   "Mais de 200 pinturas e milhares de desenhos, pelas estimativas"
+  ],
+  [
+   "Onde ver",
+   "Belvedere (Viena), Museu Leopold (Viena), Neue Galerie (Nova York)"
+  ]
  ],
  "vida_titulo": "Ouro, Viena e liberdade",
  "vida_txt": [
@@ -37,7 +55,7 @@
   },
   {
    "t": "A fase de ouro",
-   "p": "Os painéis que pintou para a Universidade de Viena foram atacados como indecentes, e Klimt devolveu o dinheiro da encomenda. Em 1903 viu em Ravena, na Itália, os mosaicos bizantinos de fundo dourado e passou a usar ouro em folha. Dessa fase são o retrato de Adele Bloch-Bauer e O beijo, comprado pelo governo austríaco em 1908."
+   "p": "Os painéis que pintou para a Universidade de Viena foram atacados como indecentes, e Klimt devolveu o dinheiro da encomenda. Em 1903 viu em Ravena, na Itália, os mosaicos bizantinos de fundo dourado e passou a usar ouro em folha. Em 1905 deixou a Secessão com um grupo de amigos. Dessa fase são o retrato de Adele Bloch-Bauer e O beijo, comprado pelo governo austríaco em 1908."
   },
   {
    "t": "Verões no lago",
@@ -53,16 +71,56 @@
   "legenda": "O auditório do velho Burgtheater, 1888: mais de cem espectadores reconhecíveis. Guache. Wien Museum."
  },
  "linha": [
-  [1862, "Nasce perto de Viena", "vida"],
-  [1867, "Nasce o Império Austro-Húngaro", "mundo"],
-  [1888, "Medalha pelo Burgtheater", "vida"],
-  [1888, "Abolição da escravidão no Brasil", "mundo"],
-  [1889, "Proclamação da República no Brasil", "mundo"],
-  [1897, "Funda a Secessão de Viena", "vida"],
-  [1900, "Freud publica A interpretação dos sonhos", "mundo"],
-  [1908, "O Estado compra O beijo", "vida"],
-  [1914, "Começa a Primeira Guerra Mundial", "mundo"],
-  [1918, "Morre em Viena", "vida"]
+  [
+   1862,
+   "Nasce perto de Viena",
+   "vida"
+  ],
+  [
+   1867,
+   "Nasce o Império Austro-Húngaro",
+   "mundo"
+  ],
+  [
+   1888,
+   "Medalha pelo Burgtheater",
+   "vida"
+  ],
+  [
+   1888,
+   "Abolição da escravidão no Brasil",
+   "mundo"
+  ],
+  [
+   1889,
+   "Proclamação da República no Brasil",
+   "mundo"
+  ],
+  [
+   1897,
+   "Funda a Secessão de Viena",
+   "vida"
+  ],
+  [
+   1900,
+   "Freud publica A interpretação dos sonhos",
+   "mundo"
+  ],
+  [
+   1908,
+   "O Estado compra O beijo",
+   "vida"
+  ],
+  [
+   1914,
+   "Começa a Primeira Guerra Mundial",
+   "mundo"
+  ],
+  [
+   1918,
+   "Morre em Viena",
+   "vida"
+  ]
  ],
  "foco": {
   "img": "klimt/beijo.jpg",
@@ -70,10 +128,30 @@
   "dados": "1907–1908 · óleo, ouro e prata em folha sobre tela · 180 × 180 cm · Belvedere, Viena",
   "intro": "Um casal se abraça na beira de um prado florido, envolvido por um só manto de ouro. O governo austríaco comprou o quadro em 1908, assim que foi exposto.",
   "marcas": [
-   [50, 30, "Os rostos", "Ele se curva; ela vira o rosto e fecha os olhos."],
-   [40, 50, "Retângulos", "No manto dele, retângulos pretos, brancos e dourados."],
-   [60, 60, "Círculos", "No vestido dela, círculos e flores coloridas."],
-   [50, 90, "A beira", "Os pés dela, descalços, na borda do prado, sobre o vazio dourado."]
+   [
+    64,
+    8,
+    "Os rostos",
+    "Ele se curva sobre ela; ela vira o rosto e fecha os olhos."
+   ],
+   [
+    38,
+    20,
+    "Retângulos",
+    "No manto dele, retângulos pretos, brancos e prateados."
+   ],
+   [
+    60,
+    35,
+    "Círculos",
+    "No vestido dela, círculos e flores coloridas."
+   ],
+   [
+    79,
+    69,
+    "A beira",
+    "Os pés dela, descalços, agarram a borda do prado florido."
+   ]
   ]
  },
  "sabia": [
@@ -85,19 +163,46 @@
   "titulo": "Óleo e ouro em folha",
   "intro": "Na fase de ouro, Klimt juntou duas técnicas: a pintura a óleo, nos rostos e nas mãos, e o douramento, nos mantos e no fundo, como faziam os ourives e os pintores de ícones.",
   "passos": [
-   ["O desenho", "Estudava as figuras em muitos desenhos a lápis, com modelos vivos, antes de passar à tela."],
-   ["A cola", "Pincelava uma cola especial, o mordente, só nas áreas que iam receber metal."],
-   ["A folha", "Pousava folhas de ouro mais finas que papel e as assentava com pincel macio. Fazia o mesmo com a prata."],
-   ["Os padrões", "Por cima, pintava espirais, círculos e retângulos, que brilham de modo diferente conforme a luz."]
+   [
+    "O desenho",
+    "Estudava as figuras em muitos desenhos a lápis, com modelos vivos, antes de passar à tela."
+   ],
+   [
+    "A cola",
+    "Pincelava uma cola especial, o mordente, só nas áreas que iam receber metal."
+   ],
+   [
+    "A folha",
+    "Pousava folhas de ouro mais finas que papel e as assentava com pincel macio. Fazia o mesmo com a prata."
+   ],
+   [
+    "Os padrões",
+    "Por cima, pintava espirais, círculos e retângulos, que brilham de modo diferente conforme a luz."
+   ]
   ],
   "box_t": "Os mosaicos de Ravena",
   "box": "Em 1903 Klimt foi duas vezes a Ravena, na Itália, ver os mosaicos bizantinos do século VI, com fundo de ouro e figuras chapadas. Juntou essa lição ao ofício do pai, gravador de ouro, e aos padrões das gravuras japonesas que colecionava.",
   "paleta": [
-   ["#B8913A", "Ouro"],
-   ["#7A5A1E", "Ouro escuro"],
-   ["#4F6B3A", "Verde do prado"],
-   ["#D9A07A", "Pele"],
-   ["#1E1A16", "Preto"]
+   [
+    "#C4AC54",
+    "Ouro"
+   ],
+   [
+    "#857043",
+    "Ouro velho"
+   ],
+   [
+    "#2F281F",
+    "Preto"
+   ],
+   [
+    "#9E7D90",
+    "Lilás"
+   ],
+   [
+    "#5E7F3E",
+    "Prado"
+   ]
   ]
  },
  "obras": [
@@ -121,14 +226,29 @@
   }
  ],
  "influenciou": [
-  ["Egon Schiele", null],
-  ["Oskar Kokoschka", null]
+  [
+   "Egon Schiele",
+   null
+  ],
+  [
+   "Oskar Kokoschka",
+   null
+  ]
  ],
  "pensar": "Desenhe duas pessoas abraçadas e cubra a roupa de cada uma com um padrão: só quadrados numa, só círculos na outra. Deixe rostos e mãos em lápis bem leve. O que o padrão diz sobre cada pessoa?",
  "palavras": [
-  ["Secessão", "\"Separação\": grupo de artistas de Viena que, em 1897, rompeu com a academia e passou a expor por conta própria."],
-  ["Art Nouveau", "Estilo de 1890 a 1910 com linhas curvas, flores e ornamentos, na pintura, na arquitetura e nos objetos."],
-  ["Ouro em folha", "Ouro batido até ficar mais fino que papel, colado sobre a pintura ou a moldura."]
+  [
+   "Secessão",
+   "\"Separação\": grupo de artistas de Viena que, em 1897, rompeu com a academia e passou a expor por conta própria."
+  ],
+  [
+   "Art Nouveau",
+   "Estilo de 1890 a 1910 com linhas curvas, flores e ornamentos, na pintura, na arquitetura e nos objetos."
+  ],
+  [
+   "Ouro em folha",
+   "Ouro batido até ficar mais fino que papel, colado sobre a pintura ou a moldura."
+  ]
  ],
  "imagens": {
   "retrato.jpg": "File:Moriz Nähr Gustav Klimt mit Katze 1911.jpg",

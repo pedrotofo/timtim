@@ -130,26 +130,26 @@
   "intro": "Um enterro numa cidadezinha do interior, pintado do tamanho de uma batalha histórica: mais de seis metros de largura. Mais de quarenta moradores de Ornans posaram para Courbet, entre eles a mãe e as irmãs do pintor.",
   "marcas": [
    [
-    45,
-    85,
+    43,
+    86,
     "A cova",
     "O coveiro ajoelhado espera ao lado do buraco aberto, no centro do quadro."
    ],
    [
-    55,
-    88,
+    72,
+    78,
     "O cão",
     "Distraído, olha para o outro lado, como qualquer cachorro num enterro."
    ],
    [
-    16,
+    28,
     12,
     "O crucifixo",
     "Erguido contra o céu cinzento e os paredões de pedra de Ornans."
    ],
    [
-    82,
-    55,
+    88,
+    48,
     "As mulheres",
     "De preto, com lenços no rosto: parentes e vizinhas do pintor."
    ]
@@ -265,12 +265,12 @@
   ]
  ],
  "imagens": {
-  "retrato.jpg": "File:Courbet - L'Homme à la pipe, Vers 1849, 868.1.18.jpg",
+  "retrato.jpg": "File:Gustave Courbet - Self-Portrait (Man with Pipe) - WGA05491.jpg",
   "onda.jpg": "File:La Mer orageuse - Gustave Courbet.jpg",
   "enterro.jpg": "File:Gustave Courbet - A Burial at Ornans - Google Art Project.jpg",
   "vendome.jpg": "File:Destruction de la colonne Vendôme, 1871, PH3076.jpg",
   "quebradores.jpg": "File:Gustave Courbet 018.jpg",
-  "bom-dia.jpg": "File:Courbet - La Rencontre ou Bonjour M.Courbet, 1854, 868.1.23.jpg",
+  "bom-dia.jpg": "File:Gustave Courbet - Bonjour Monsieur Courbet - Musée Fabre.jpg",
   "desesperado.jpg": "File:Gustave Courbet - Le Désespéré (1843).jpg"
  }
 }

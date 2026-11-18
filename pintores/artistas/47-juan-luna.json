@@ -14,17 +14,35 @@
   "pos": "center 25%"
  },
  "abertura": {
-  "img": "juan-luna/lepanto.jpg",
-  "legenda": "A batalha de Lepanto, 1887, encomenda do Senado espanhol. Óleo sobre tela.",
-  "pos": "center 50%"
+  "img": "juan-luna/himeneu.jpg",
+  "legenda": "Hymen, oh Hyménée!, 1886–1887: um cortejo de casamento na Roma antiga. Óleo sobre tela.",
+  "pos": "center 60%"
  },
  "ficha": [
-  ["Nasceu", "1857, em Badoc, Ilocos Norte, Filipinas"],
-  ["Morreu", "1899, em Hong Kong, aos 42 anos"],
-  ["Movimento", "Academicismo romântico, depois realismo e luz impressionista"],
-  ["Técnica", "Óleo sobre tela, de quadros gigantes a pequenos retratos"],
-  ["Obra", "Algumas centenas de pinturas e esboços"],
-  ["Onde ver", "Museu Nacional de Belas Artes (Manila), Senado e Museu do Prado (Madri)"]
+  [
+   "Nasceu",
+   "1857, em Badoc, Ilocos Norte, Filipinas"
+  ],
+  [
+   "Morreu",
+   "1899, em Hong Kong, aos 42 anos"
+  ],
+  [
+   "Movimento",
+   "Academicismo romântico, depois realismo e luz impressionista"
+  ],
+  [
+   "Técnica",
+   "Óleo sobre tela, de quadros gigantes a pequenos retratos"
+  ],
+  [
+   "Obra",
+   "Algumas centenas de pinturas e esboços"
+  ],
+  [
+   "Onde ver",
+   "Museu Nacional de Belas Artes (Manila), Senado e Museu do Prado (Madri)"
+  ]
  ],
  "vida_titulo": "De Badoc ao Salão de Madri",
  "vida_txt": [
@@ -54,16 +72,56 @@
   "legenda": "O salão central da Exposição Nacional de Belas Artes, Madri, 1884, com o Spoliarium. Fotografia."
  },
  "linha": [
-  [1857, "Nasce em Badoc, Filipinas", "vida"],
-  [1869, "Abre o canal de Suez", "mundo"],
-  [1877, "Vai estudar em Madri", "vida"],
-  [1884, "Medalha de ouro com o Spoliarium", "vida"],
-  [1886, "Pinta O pacto de sangue", "vida"],
-  [1888, "Lei Áurea abole a escravidão", "mundo"],
-  [1889, "Proclamação da República no Brasil", "mundo"],
-  [1896, "Começa a Revolução Filipina", "mundo"],
-  [1898, "Filipinas declaram independência", "mundo"],
-  [1899, "Morre em Hong Kong", "vida"]
+  [
+   1857,
+   "Nasce em Badoc, Filipinas",
+   "vida"
+  ],
+  [
+   1869,
+   "Abre o canal de Suez",
+   "mundo"
+  ],
+  [
+   1877,
+   "Vai estudar em Madri",
+   "vida"
+  ],
+  [
+   1884,
+   "Medalha de ouro com o Spoliarium",
+   "vida"
+  ],
+  [
+   1886,
+   "Pinta O pacto de sangue",
+   "vida"
+  ],
+  [
+   1888,
+   "Lei Áurea abole a escravidão",
+   "mundo"
+  ],
+  [
+   1889,
+   "Proclamação da República no Brasil",
+   "mundo"
+  ],
+  [
+   1896,
+   "Começa a Revolução Filipina",
+   "mundo"
+  ],
+  [
+   1898,
+   "Filipinas declaram independência",
+   "mundo"
+  ],
+  [
+   1899,
+   "Morre em Hong Kong",
+   "vida"
+  ]
  ],
  "foco": {
   "img": "juan-luna/spoliarium.jpg",
@@ -71,10 +129,30 @@
   "dados": "1884 · óleo sobre tela · 422 × 767,5 cm · Museu Nacional de Belas Artes, Manila",
   "intro": "Sob a arena do Coliseu de Roma, soldados arrastam gladiadores mortos para o spoliarium, onde lhes tiravam armas e roupas. É considerado o maior quadro das Filipinas.",
   "marcas": [
-   [50, 50, "Os arrastados", "Os corpos dos gladiadores são puxados pelo chão como coisas."],
-   [20, 40, "A multidão", "Espectadores espiam e disputam os despojos à esquerda."],
-   [75, 60, "A mulher", "Uma mulher ajoelhada no escuro procura o seu morto entre os corpos."],
-   [85, 30, "A arena", "Pelo alto entra a luz da arena, onde o espetáculo continua."]
+   [
+    36,
+    76,
+    "O gladiador",
+    "Arrastado pelos pés, o corpo atravessa o quadro em diagonal, em plena luz."
+   ],
+   [
+    45,
+    42,
+    "Os soldados",
+    "Homens de tanga vermelha puxam os mortos pelo chão, como quem arrasta carga."
+   ],
+   [
+    14,
+    58,
+    "A multidão",
+    "À esquerda, espectadores se espremem para ver os corpos de perto."
+   ],
+   [
+    82,
+    64,
+    "A mulher",
+    "Ajoelhada no escuro, uma mulher procura o seu morto entre os corpos."
+   ]
   ]
  },
  "sabia": [
@@ -86,19 +164,46 @@
   "titulo": "Pintar um quadro gigante",
   "intro": "O Spoliarium tem mais de 4 metros de altura e 7 de largura. Um quadro desse tamanho era feito para a parede de uma exposição oficial: precisava ser lido de longe, como um palco.",
   "passos": [
-   ["O esboço", "Um esboço pequeno a óleo fixava a composição e as manchas de luz e sombra. O do Spoliarium sobreviveu."],
-   ["Os modelos", "Modelos posavam como gladiadores e soldados; o pintor estudava corpos, braços pendurados e o peso de quem é arrastado."],
-   ["A grade", "Para passar o esboço à tela enorme, os pintores costumavam traçar uma grade e copiar quadrado por quadrado."],
-   ["Luz de palco", "A luz cai sobre os corpos no centro e deixa o fundo no escuro, como um refletor sobre a cena."]
+   [
+    "O esboço",
+    "Um esboço pequeno a óleo fixava a composição e as manchas de luz e sombra. O do Spoliarium sobreviveu."
+   ],
+   [
+    "Os modelos",
+    "Modelos posavam como gladiadores e soldados; o pintor estudava corpos, braços pendurados e o peso de quem é arrastado."
+   ],
+   [
+    "A grade",
+    "Para passar o esboço à tela enorme, os pintores costumavam traçar uma grade e copiar quadrado por quadrado."
+   ],
+   [
+    "Luz de palco",
+    "A luz cai sobre os corpos no centro e deixa o fundo no escuro, como um refletor sobre a cena."
+   ]
   ],
   "box_t": "Um quadro com mensagem",
   "box": "Para os espanhóis, o Spoliarium era uma cena da Roma antiga. Para os filipinos, virou outra coisa: corpos explorados e arrastados por um poder estrangeiro. Rizal e os jovens reformistas filipinos usaram a vitória de Luna como prova de que podiam ser iguais aos espanhóis.",
   "paleta": [
-   ["#2E1A13", "Sombra"],
-   ["#8C3B2A", "Vermelho"],
-   ["#C9A27E", "Pele"],
-   ["#6B5A48", "Pedra"],
-   ["#E6D3B1", "Luz"]
+   [
+    "#2E1A13",
+    "Sombra"
+   ],
+   [
+    "#8C3B2A",
+    "Vermelho"
+   ],
+   [
+    "#C9A27E",
+    "Pele"
+   ],
+   [
+    "#6B5A48",
+    "Pedra"
+   ],
+   [
+    "#E6D3B1",
+    "Luz"
+   ]
   ]
  },
  "obras": [
@@ -122,20 +227,33 @@
   }
  ],
  "influenciou": [],
- "rival": ["Diego Velázquez", 8, "Um dos mestres espanhóis que Luna estudou no Prado, com Goya."],
+ "rival": [
+  "Diego Velázquez",
+  8,
+  "Um dos mestres espanhóis que Luna estudou no Prado, com Goya."
+ ],
  "pensar": "No Spoliarium, a luz escolhe o que vemos primeiro. Desenhe uma cena com muita gente e escureça tudo, menos uma figura. Para onde vai o olho? Que história a luz conta sozinha?",
  "palavras": [
-  ["Spoliarium", "Em latim, o lugar sob a arena romana onde se tiravam as armas e roupas dos gladiadores mortos."],
-  ["Exposição Nacional", "Mostra oficial de belas artes de Madri, com júri e medalhas, a mais importante da Espanha."],
-  ["Ilustrados", "Jovens filipinos educados na Europa que pediam reformas à Espanha, como Rizal e Luna."]
+  [
+   "Spoliarium",
+   "Em latim, o lugar sob a arena romana onde se tiravam as armas e roupas dos gladiadores mortos."
+  ],
+  [
+   "Exposição Nacional",
+   "Mostra oficial de belas artes de Madri, com júri e medalhas, a mais importante da Espanha."
+  ],
+  [
+   "Ilustrados",
+   "Jovens filipinos educados na Europa que pediam reformas à Espanha, como Rizal e Luna."
+  ]
  ],
  "imagens": {
   "retrato.jpg": "File:Juan Luna-Ilustracion-artistica-20-10-1884-recortado.jpg",
-  "lepanto.jpg": "File:La Batalla de Lepanto de 1571 versión completa de Juan Luna.jpg",
-  "spoliarium.jpg": "File:Spoliarium.jpg",
+  "spoliarium.jpg": "File:Juan Luna Spoliarium.jpg",
   "exposicao-1884.jpg": "File:Salón Central de la Exposición de Bellas Artes de Madrid de 1884.jpg",
   "pacto.jpg": "File:The Blood Compact by Juan Luna.jpg",
   "vida-parisiense.jpg": "File:The Parisian Life by Juan Luna.jpg",
-  "bulaquena.jpg": "File:La Bulaquena by Juan Luna.jpg"
+  "bulaquena.jpg": "File:La Bulaquena by Juan Luna.jpg",
+  "himeneu.jpg": "File:Hymen, oh Hyménée! Juan Luna y Novicio.jpg"
  }
 }

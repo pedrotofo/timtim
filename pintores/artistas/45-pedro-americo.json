@@ -1,0 +1,268 @@
+{
+ "pos": 45,
+ "chave": "pedro-americo",
+ "nome": "Pedro Américo",
+ "nome_original": "",
+ "vida": "1843–1905",
+ "origem": "Brasil",
+ "cor": "#4A5A36",
+ "frase": "Paraibano que pintou o Grito do Ipiranga: a imagem da Independência que quase todo brasileiro já viu num livro de escola.",
+ "pron": "por ele",
+ "retrato": {
+  "img": "pedro-americo/retrato.jpg",
+  "legenda": "Pedro Américo fotografado por G. Brogi, Florença, publicado em 1899.",
+  "pos": "center 25%"
+ },
+ "abertura": {
+  "img": "pedro-americo/avai.jpg",
+  "legenda": "Batalha do Avaí, 1872–1877, episódio da Guerra do Paraguai. Óleo sobre tela, 6 × 11 m.",
+  "pos": "center 45%"
+ },
+ "ficha": [
+  [
+   "Nasceu",
+   "1843, em Areia, na Paraíba"
+  ],
+  [
+   "Morreu",
+   "1905, em Florença, Itália, aos 62 anos"
+  ],
+  [
+   "Movimento",
+   "Academicismo; pintura de história do Segundo Reinado"
+  ],
+  [
+   "Técnica",
+   "Óleo sobre tela, de batalhas gigantes a cenas bíblicas"
+  ],
+  [
+   "Obra",
+   "Centenas de pinturas e desenhos, além de romances e ensaios"
+  ],
+  [
+   "Onde ver",
+   "Museu Nacional de Belas Artes (Rio), Museu do Ipiranga, Pinacoteca (SP)"
+  ]
+ ],
+ "vida_titulo": "Pintor, cientista e deputado",
+ "vida_txt": [
+  {
+   "t": "O menino da expedição",
+   "p": "Pedro Américo de Figueiredo e Melo nasceu em 1843 em Areia, no interior da Paraíba. Aos nove anos já desenhava tão bem que foi contratado como desenhista por uma expedição do naturalista francês Louis Jacques Brunet pelo Nordeste. Aos onze foi para o Rio de Janeiro, onde estudou no Colégio Pedro II e na Academia Imperial de Belas Artes, a escola de arte do Império."
+  },
+  {
+   "t": "Bolsa do imperador",
+   "p": "Em 1859, com uma bolsa paga por Dom Pedro II, partiu para Paris. Entrou na Escola de Belas-Artes e estudou com Hippolyte Flandrin, o principal aluno de Ingres (nº 22). Também estudou física e filosofia e, anos depois, doutorou-se em ciências naturais pela Universidade de Bruxelas. Voltou ao Rio em 1864 para ensinar na Academia, onde deu aulas de desenho e de história da arte."
+  },
+  {
+   "t": "As batalhas",
+   "p": "Durante a Guerra do Paraguai, pintou a Batalha de Campo Grande, de 1871, e depois, em Florença, a Batalha do Avaí, com 11 metros de largura. Exposta no Rio em 1879 ao lado da Batalha dos Guararapes, de Victor Meirelles, a tela provocou a maior polêmica artística do Império: jornais e críticos discutiram durante meses qual dos dois era o maior pintor."
+  },
+  {
+   "t": "O Grito e a República",
+   "p": "Em 1886 recebeu a encomenda do quadro da Independência para o monumento que São Paulo construía às margens do Ipiranga. Pintou-o em Florença e o terminou em 1888. Com a República, foi eleito deputado pela Paraíba para a Assembleia Constituinte. Passou os últimos anos em Florença, pintando temas religiosos e alegorias, e escrevendo romances e ensaios. Morreu lá em 1905, aos 62 anos."
+  }
+ ],
+ "citacao": {
+  "texto": "A realidade inspira, e não escraviza o pintor.",
+  "fonte": "O Brado do Ypiranga, folheto em que explicou o quadro da Independência, Florença, 1888"
+ },
+ "vida_fig": {
+  "img": "pedro-americo/expedicao.jpg",
+  "legenda": "Cena do pintor na missão do naturalista: o artista lembra a expedição de Brunet, da qual participou menino."
+ },
+ "linha": [
+  [
+   1843,
+   "Nasce em Areia, Paraíba",
+   "vida"
+  ],
+  [
+   1850,
+   "Fim do tráfico de escravos africanos",
+   "mundo"
+  ],
+  [
+   1859,
+   "Parte para estudar em Paris",
+   "vida"
+  ],
+  [
+   1864,
+   "Começa a Guerra do Paraguai",
+   "mundo"
+  ],
+  [
+   1870,
+   "Termina a Guerra do Paraguai",
+   "mundo"
+  ],
+  [
+   1877,
+   "Termina a Batalha do Avaí",
+   "vida"
+  ],
+  [
+   1888,
+   "Termina Independência ou Morte!",
+   "vida"
+  ],
+  [
+   1888,
+   "Lei Áurea abole a escravidão",
+   "mundo"
+  ],
+  [
+   1889,
+   "Proclamação da República",
+   "mundo"
+  ],
+  [
+   1905,
+   "Morre em Florença",
+   "vida"
+  ]
+ ],
+ "foco": {
+  "img": "pedro-americo/independencia.jpg",
+  "titulo": "Independência ou Morte!",
+  "dados": "1888 · óleo sobre tela · 415 × 760 cm · Museu do Ipiranga (Museu Paulista da USP), São Paulo",
+  "intro": "Dom Pedro, no alto da colina às margens do riacho Ipiranga, ergue a espada e proclama a independência, em 7 de setembro de 1822. O quadro foi pintado em Florença 66 anos depois, para o museu construído no lugar do grito.",
+  "marcas": [
+   [
+    55,
+    30,
+    "Dom Pedro",
+    "No alto, no centro da luz, o príncipe ergue a espada sobre o cavalo."
+   ],
+   [
+    75,
+    40,
+    "A guarda",
+    "Os dragões da guarda de honra respondem erguendo as espadas, em semicírculo."
+   ],
+   [
+    12,
+    80,
+    "O carreiro",
+    "Um homem do campo com seu carro de bois para e olha, sem entender."
+   ],
+   [
+    42,
+    94,
+    "O riacho",
+    "O Ipiranga corre na frente, e os cavalos o atravessam."
+   ]
+  ]
+ },
+ "sabia": [
+  "Os historiadores contam que Dom Pedro viajava numa besta de carga, mais resistente para a serra, e não num cavalo de parada.",
+  "Pedro Américo foi acusado de copiar o quadro 1807, Friedland, do francês Ernest Meissonier. Ele respondia que citar outros pintores era sinal de cultura.",
+  "A Batalha do Avaí mede cerca de 6 por 11 metros: é uma das maiores telas já pintadas por um brasileiro."
+ ],
+ "tecnica": {
+  "titulo": "Montar uma cena histórica",
+  "intro": "Ninguém pintou o 7 de Setembro na hora. Pedro Américo reconstruiu a cena 66 anos depois, como um diretor de cinema: pesquisou, escolheu o elenco e decidiu o que mostrar e onde.",
+  "passos": [
+   [
+    "Pesquisa",
+    "Leu relatos de testemunhas e estudou uniformes, armas, arreios e a paisagem do Ipiranga."
+   ],
+   [
+    "Estudos",
+    "Fez muitos desenhos e esboços de cavalos, soldados e gestos. O Museu Paulista guarda vários deles."
+   ],
+   [
+    "Composição",
+    "Pôs Dom Pedro no alto, no centro da luz, e a guarda em semicírculo à sua volta, como num palco."
+   ],
+   [
+    "A tela",
+    "Pintou o quadro de quatro por sete metros e meio em Florença, onde morava, e o mandou para o Brasil."
+   ]
+  ],
+  "box_t": "A realidade inspira",
+  "box": "O próprio pintor admitiu que não fez um registro fiel. Segundo os historiadores, a comitiva era menor e estava suja de estrada, e a guarda não vestia uniforme de gala. Pedro Américo queria uma cena solene, que servisse de símbolo da nação. Por isso o quadro virou a imagem oficial da Independência.",
+  "paleta": [
+   [
+    "#4F5E3A",
+    "Verde"
+   ],
+   [
+    "#C8B98F",
+    "Céu pálido"
+   ],
+   [
+    "#7A2E24",
+    "Vermelho"
+   ],
+   [
+    "#E8E2D2",
+    "Branco"
+   ],
+   [
+    "#5A4632",
+    "Terra"
+   ]
+  ]
+ },
+ "obras": [
+  {
+   "img": "pedro-americo/eduardo.jpg",
+   "titulo": "Os filhos de Eduardo IV",
+   "ano": "1880",
+   "nota": "Os príncipes presos na Torre de Londres; está no Museu Assis Chateaubriand, Campina Grande."
+  },
+  {
+   "img": "pedro-americo/campo-grande.jpg",
+   "titulo": "Batalha de Campo Grande",
+   "ano": "1871",
+   "nota": "O conde d'Eu à frente das tropas, no fim da Guerra do Paraguai."
+  },
+  {
+   "img": "pedro-americo/hamlet.jpg",
+   "titulo": "Visão de Hamlet",
+   "ano": "1893",
+   "nota": "Cena de Shakespeare pintada em Florença; está na Pinacoteca de São Paulo."
+  }
+ ],
+ "influenciou": [
+  [
+   "Aurélio de Figueiredo",
+   null
+  ],
+  [
+   "Décio Villares",
+   null
+  ]
+ ],
+ "rival": [
+  "Jean-Auguste-Dominique Ingres",
+  22,
+  "Estudou em Paris com Flandrin, o principal discípulo de Ingres."
+ ],
+ "pensar": "Escolha um fato da história do Brasil que ninguém fotografou. Desenhe a cena como Pedro Américo: o personagem principal no alto e na luz, os outros em volta. O que você inventou e o que sabe que é verdade?",
+ "palavras": [
+  [
+   "Pintura de história",
+   "Quadro grande que conta um fato histórico, mitológico ou bíblico; era o gênero mais prestigiado das academias."
+  ],
+  [
+   "Academia Imperial",
+   "A Academia Imperial de Belas Artes, no Rio de Janeiro, escola oficial de arte do Brasil no tempo do Império."
+  ],
+  [
+   "Questão Artística",
+   "Polêmica de 1879 nos jornais do Rio sobre quem era o maior pintor do Império: Pedro Américo ou Victor Meirelles."
+  ]
+ ],
+ "imagens": {
+  "retrato.jpg": "File:Pedro Américo, ca, 1899.jpg",
+  "avai.jpg": "File:Pedro Américo - Batalha do Avaí.jpg",
+  "independencia.jpg": "File:Pedro Américo - Independência ou Morte - Google Art Project.jpg",
+  "expedicao.jpg": "File:Cena do pintor na missão do naturalista - Pedro Américo.jpg",
+  "campo-grande.jpg": "File:Batalha de Campo Grande - 1871.jpg",
+  "hamlet.jpg": "File:Pedro Américo - Hamlet’s Vision - Google Art Project.jpg",
+  "eduardo.jpg": "File:Pedro Américo - Os filhos de Eduardo IV da Inglaterra.jpg"
+ }
+}

@@ -13,7 +13,7 @@
   "pos": "center 30%"
  },
  "abertura": {
-  "img": "botticelli/primavera.jpg",
+  "img": "botticelli/primavera-b.jpg",
   "legenda": "A Primavera, c. 1480. Têmpera sobre madeira. Galeria Uffizi, Florença.",
   "pos": "center 30%"
  },
@@ -68,7 +68,7 @@
  },
  "vida_fig": {
   "img": "botticelli/dante.jpg",
-  "legenda": "Desenho para o Paraíso, da Divina comédia: Dante e Beatriz, c. 1490. Pena sobre pergaminho."
+  "legenda": "Dante e Beatriz no Paraíso, desenho para o canto IX da Divina comédia, c. 1480–1495. Pena sobre pergaminho."
  },
  "linha": [
   [
@@ -129,26 +129,26 @@
   "intro": "Segundo o mito, a deusa do amor nasceu adulta da espuma do mar. Botticelli mostra a chegada dela à praia, de pé numa concha, empurrada pelo vento. Vasari viu o quadro numa casa de campo dos Médici.",
   "marcas": [
    [
-    20,
-    30,
+    12,
+    26,
     "Os ventos",
     "Zéfiro, o vento oeste, sopra abraçado a uma figura feminina, talvez a brisa Aura ou a ninfa Clóris."
    ],
    [
-    30,
-    20,
+    34,
+    48,
     "As rosas",
     "Rosas caem pelo ar; no mito, elas nasceram junto com a deusa."
    ],
    [
-    50,
-    85,
+    33,
+    74,
     "A concha",
     "Vênus chega de pé numa concha de vieira, com o peso do corpo numa perna só, como as estátuas antigas."
    ],
    [
-    80,
-    40,
+    84,
+    56,
     "A Hora",
     "Uma das Horas, deusas das estações, corre com um manto bordado de flores para cobrir a deusa."
    ]
@@ -207,7 +207,7 @@
  },
  "obras": [
   {
-   "img": "botticelli/adoracao.jpg",
+   "img": "botticelli/adoracao-magos.jpg",
    "titulo": "A adoração dos magos",
    "ano": "c. 1475",
    "nota": "Os reis têm rostos de Médici; o pintor se pôs na ponta direita."
@@ -261,12 +261,12 @@
  ],
  "imagens": {
   "retrato.jpg": "File:Sandro Botticelli Self-portrait ca 1475.jpg",
-  "primavera.jpg": "File:Sandro Botticelli - La Primavera - Google Art Project.jpg",
   "venus.jpg": "File:Sandro Botticelli - La nascita di Venere - Google Art Project - edited.jpg",
-  "adoracao.jpg": "File:Sandro Botticelli - Adorazione dei Magi - Google Art Project.jpg",
   "magnificat.jpg": "File:Magnificat Madonna - Botticelli (uffici) b.jpg",
   "agostinho.jpg": "File:Sandro Botticelli - Saint Augustin.jpg",
-  "dante.jpg": "File:Sandro Botticelli - Paradiso, Canto IX.jpg"
+  "dante.jpg": "File:Sandro Botticelli - Paradiso, Canto IX.jpg",
+  "adoracao-magos.jpg": "File:Sandro Botticelli 085.jpg",
+  "primavera-b.jpg": "File:Sandro Botticelli 038.jpg"
  },
  "pron": "por ele"
 }

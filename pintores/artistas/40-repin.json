@@ -1,0 +1,271 @@
+{
+ "pos": 40,
+ "chave": "repin",
+ "nome": "Ilya Repin",
+ "nome_original": "Илья Репин",
+ "vida": "1844–1930",
+ "origem": "Império Russo",
+ "cor": "#6B4A2A",
+ "frase": "Pintou barqueiros, peregrinos e cossacos com força de romance e retratou os escritores e músicos russos do seu tempo.",
+ "retrato": {
+  "img": "repin/retrato.jpg",
+  "legenda": "Autorretrato, 1878. Óleo sobre tela.",
+  "pos": "center 30%"
+ },
+ "abertura": {
+  "img": "repin/cossacos.jpg",
+  "legenda": "Os cossacos zaporogos escrevem ao sultão da Turquia, 1880–1891. Óleo sobre tela. Museu Russo, São Petersburgo.",
+  "pos": "center 35%"
+ },
+ "ficha": [
+  [
+   "Nasceu",
+   "1844, em Chuguiv (hoje Ucrânia), no Império Russo"
+  ],
+  [
+   "Morreu",
+   "1930, em Kuokkala, Finlândia (hoje Repino, Rússia)"
+  ],
+  [
+   "Movimento",
+   "Realismo; o grupo dos Ambulantes"
+  ],
+  [
+   "Técnica",
+   "Óleo sobre tela, retrato e desenho"
+  ],
+  [
+   "Obra",
+   "Centenas de quadros e milhares de desenhos"
+  ],
+  [
+   "Onde ver",
+   "Museu Russo (São Petersburgo), Galeria Tretiakov (Moscou), Casa-museu Penaty (Repino)"
+  ]
+ ],
+ "vida_titulo": "O pintor que olhou o povo",
+ "vida_txt": [
+  {
+   "t": "Aprendiz de ícones",
+   "p": "Ilya Repin nasceu em 1844 em Chuguiv, cidade de guarnição perto de Kharkiv, na atual Ucrânia, então parte do Império Russo. O pai era um soldado colono. Menino, aprendeu desenho numa escola de topógrafos militares e depois com pintores de ícones da região. Aos 19 anos já pintava em igrejas e juntou dinheiro para tentar a sorte em São Petersburgo."
+  },
+  {
+   "t": "A Academia e o Volga",
+   "p": "Na capital entrou para a Academia Imperial de Artes. Em 1868 viu homens puxando uma barcaça pela margem do rio Neva e não esqueceu a cena. Em 1870 viajou ao Volga para desenhar os barqueiros de perto. Os barqueiros do Volga, terminado em 1873, o tornou famoso. No mesmo ano partiu com bolsa da Academia para estudar em Paris."
+  },
+  {
+   "t": "Pintor dos Ambulantes",
+   "p": "De volta à Rússia, em 1878 entrou para os Ambulantes, grupo que levava exposições a várias cidades do império. Pintou procissões, revolucionários, a volta de um exilado e retratou amigos como o escritor Liev Tolstói e o compositor Mussorgsky. De 1894 a 1907 ensinou na Academia, onde teve alunos como Boris Kustodiev."
+  },
+  {
+   "t": "Os últimos anos na Finlândia",
+   "p": "Em 1903 foi morar em Kuokkala, perto de São Petersburgo, numa casa que chamou de Penaty. Depois da revolução de 1917 a região ficou com a Finlândia independente, e Repin ficou do lado de lá da fronteira. Com a mão direita enfraquecida, aprendeu a pintar com a esquerda e não parou mais. Morreu em Penaty em 1930, aos 86 anos."
+  }
+ ],
+ "citacao": {
+  "texto": "São barqueiros, barqueiros de verdade, e nada mais. Nenhum deles grita do quadro para quem olha: ‘Veja como sou infeliz e quanto você deve ao povo!’",
+  "fonte": "Fiódor Dostoiévski sobre Os barqueiros do Volga, em Diário de um escritor, 1873"
+ },
+ "vida_fig": {
+  "img": "repin/estudo.jpg",
+  "legenda": "Barqueiros com as correias no peito: estudo a lápis feito em 1870 para Os barqueiros do Volga."
+ },
+ "linha": [
+  [
+   1844,
+   "Nasce em Chuguiv",
+   "vida"
+  ],
+  [
+   1861,
+   "Fim da servidão no Império Russo",
+   "mundo"
+  ],
+  [
+   1863,
+   "Muda-se para São Petersburgo",
+   "vida"
+  ],
+  [
+   1873,
+   "Termina Os barqueiros do Volga",
+   "vida"
+  ],
+  [
+   1881,
+   "O tsar Alexandre II é assassinado",
+   "mundo"
+  ],
+  [
+   1888,
+   "Abolição da escravatura no Brasil",
+   "mundo"
+  ],
+  [
+   1891,
+   "Termina Os cossacos zaporogos",
+   "vida"
+  ],
+  [
+   1914,
+   "Começa a Primeira Guerra Mundial",
+   "mundo"
+  ],
+  [
+   1917,
+   "Revolução Russa",
+   "mundo"
+  ],
+  [
+   1930,
+   "Morre em Kuokkala, aos 86 anos",
+   "vida"
+  ]
+ ],
+ "foco": {
+  "img": "repin/barqueiros.jpg",
+  "titulo": "Os barqueiros do Volga",
+  "dados": "1870–1873 · óleo sobre tela · 131,5 × 281 cm · Museu Russo, São Petersburgo",
+  "intro": "Onze homens arrastam uma barcaça rio acima, presos a ela por correias no peito. Repin conheceu cada um: passou um verão inteiro desenhando os barqueiros no Volga antes de pintar.",
+  "marcas": [
+   [
+    20,
+    56,
+    "O guia",
+    "À frente vai Kanin, que Repin conheceu no Volga e descreveu como um antigo padre."
+   ],
+   [
+    44,
+    46,
+    "O mais jovem",
+    "De camisa rosa, Larka ajeita a correia no peito. Ainda não se acostumou ao peso."
+   ],
+   [
+    78,
+    40,
+    "A barcaça",
+    "Com a vela recolhida, o barco é arrastado contra a corrente, passo a passo."
+   ],
+   [
+    92,
+    46,
+    "O vapor",
+    "No horizonte, um barco a vapor: a máquina que logo tornaria esse trabalho inútil."
+   ]
+  ]
+ },
+ "sabia": [
+  "Os barqueiros do Volga foi comprado pelo grão-duque Vladimir, irmão do futuro tsar Alexandre III.",
+  "Repin levou mais de dez anos, de 1880 a 1891, para terminar Os cossacos zaporogos escrevem ao sultão.",
+  "Kuokkala, onde ele viveu os últimos anos, hoje se chama Repino, em homenagem ao pintor."
+ ],
+ "tecnica": {
+  "titulo": "Do caderno à tela grande",
+  "intro": "Repin não inventava seus personagens. Antes de um quadro grande, passava meses desenhando gente de verdade no lugar onde a cena acontecia.",
+  "passos": [
+   [
+    "Caderno no bolso",
+    "No Volga, desenhava barqueiros, barcos e margens em cadernos e pequenas telas, ao ar livre."
+   ],
+   [
+    "Um modelo por figura",
+    "Cada personagem nascia de uma pessoa real, estudada em vários esboços de rosto, corpo e roupa."
+   ],
+   [
+    "A composição",
+    "Em versões menores, testava a ordem das figuras e a direção da luz até achar o ritmo da fila."
+   ],
+   [
+    "A tela grande",
+    "Só então pintava o quadro final, em camadas de óleo, com a pincelada solta nas roupas e na areia."
+   ]
+  ],
+  "box_t": "Os Ambulantes",
+  "box": "Em 1870, um grupo de pintores russos fundou a Sociedade de Exposições Ambulantes. Eles queriam sair dos salões da Academia, pintar a vida russa de verdade e mostrar os quadros em várias cidades, não só na capital. Repin entrou em 1878 e virou o nome mais conhecido do grupo.",
+  "paleta": [
+   [
+    "#C9A46A",
+    "Areia"
+   ],
+   [
+    "#9FB0B8",
+    "Céu do Volga"
+   ],
+   [
+    "#6B4A2A",
+    "Marrom"
+   ],
+   [
+    "#B5574A",
+    "Camisa rosa"
+   ],
+   [
+    "#3E3A33",
+    "Sombra"
+   ]
+  ]
+ },
+ "obras": [
+  {
+   "img": "repin/procissao.jpg",
+   "titulo": "Procissão na província de Kursk",
+   "ano": "1880–1883",
+   "nota": "Ricos, pobres, mendigos e policiais numa estrada poeirenta, todos atrás de um ícone."
+  },
+  {
+   "img": "repin/nao-esperavam.jpg",
+   "titulo": "Não esperavam",
+   "ano": "1884–1888",
+   "nota": "Um preso político volta do exílio, e a família o encara sem acreditar."
+  },
+  {
+   "img": "repin/mussorgsky.jpg",
+   "titulo": "Retrato de Modest Mussorgsky",
+   "ano": "1881",
+   "nota": "Pintado no hospital poucos dias antes da morte do compositor."
+  }
+ ],
+ "influenciou": [
+  [
+   "Valentin Serov",
+   null
+  ],
+  [
+   "Boris Kustodiev",
+   null
+  ],
+  [
+   "Igor Grabar",
+   null
+  ],
+  [
+   "Ivan Bilibin",
+   null
+  ]
+ ],
+ "pensar": "Desenhe uma fila de pessoas fazendo força juntas: puxando, empurrando ou carregando algo. Dê a cada uma um jeito diferente de cansaço (cabeça baixa, olhar para cima, braço solto).",
+ "palavras": [
+  [
+   "Burlak",
+   "Barqueiro russo que puxava barcaças rio acima pela margem, preso a elas por cordas e correias."
+  ],
+  [
+   "Realismo",
+   "Arte que mostra a vida comum como ela é, sem enfeitar nem idealizar."
+  ],
+  [
+   "Ambulantes",
+   "Os Peredvíjniki: pintores russos que levavam exposições itinerantes a várias cidades do império."
+  ]
+ ],
+ "imagens": {
+  "retrato.jpg": "File:REPIN portret REPIN.jpg",
+  "cossacos.jpg": "File:Ilja Jefimowitsch Repin - Reply of the Zaporozhian Cossacks - Yorck.jpg",
+  "barqueiros.jpg": "File:Ilya Repin - Barge Haulers on the Volga - Google Art Project.jpg",
+  "estudo.jpg": "File:Repin Barge haulers with straps pencil study gtg.jpg",
+  "procissao.jpg": "File:Ilya Repin - Крестный ход в Курской губернии - Google Art Project.jpg",
+  "nao-esperavam.jpg": "File:Ilya Repin Unexpected visitors.jpg",
+  "mussorgsky.jpg": "File:Ilya Repin - Портрет композитора М.П.Мусоргского - Google Art Project.jpg"
+ },
+ "pron": "por ele"
+}

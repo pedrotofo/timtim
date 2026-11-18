@@ -65,7 +65,7 @@
  },
  "vida_fig": {
   "img": "gu-kaizhi/toalete.jpg",
-  "legenda": "Outra cena do rolo das Admoestações, no Museu Britânico. Cópia dos séculos V a VII."
+  "legenda": "A cena da toalete, no rolo das Admoestações: uma dama penteia outra diante do espelho."
  },
  "linha": [
   [
@@ -126,28 +126,28 @@
   "intro": "O rolo ilustra conselhos escritos por Zhang Hua por volta de 292 para as mulheres do palácio. Nesta cena, a dama Feng se põe entre um urso fugido e o imperador Yuan, da dinastia Han, e salva a vida dele.",
   "marcas": [
    [
-    30,
-    50,
+    31,
+    77,
     "O urso",
-    "O urso escapou da jaula durante uma luta de feras e avança para o trono."
+    "O urso escapou durante uma luta de feras e avança na direção do trono."
    ],
    [
-    40,
+    9,
     50,
     "A dama Feng",
-    "Ela anda em direção ao urso, sem armas, para proteger o imperador."
+    "Ela se põe entre o urso e o imperador, sem armas e sem pressa."
    ],
    [
-    60,
-    50,
+    48,
+    33,
     "Os guardas",
-    "Dois guardas chegam com lanças, atrasados em relação à dama."
+    "Dois guardas atacam o urso com lanças, depois da dama."
    ],
    [
     80,
-    50,
+    53,
     "O imperador",
-    "Sentado, o imperador assiste assustado. As outras damas fogem."
+    "Sentado, o imperador Yuan assiste à cena, assustado."
    ]
   ]
  },
@@ -252,7 +252,7 @@
   "admoestacoes.jpg": "File:Admonitions Scroll Scene 4.jpg",
   "toalete.jpg": "File:Admonitions Scroll Scene 7.jpg",
   "admo-song.jpg": "File:Admonitions Scroll Scene 4 (Song copy).jpg",
-  "mulheres-sabias.jpg": "File:Gu Kaizhi women 4.jpg",
+  "mulheres-sabias.jpg": "File:Mujeres Sabias y Benevolentes (detalle) por Ku K'ai-chih - Duque Ling de Wey.jpg",
   "ninfa-pequim.jpg": "File:Гу Кайчжи. Фея реки Ло. Деталь - Фея. Гугун, Пекин..jpg"
  }
 }

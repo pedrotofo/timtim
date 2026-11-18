@@ -1,0 +1,276 @@
+{
+ "pos": 14,
+ "chave": "rubens",
+ "nome": "Peter Paul Rubens",
+ "nome_original": "",
+ "vida": "1577–1640",
+ "origem": "Flandres",
+ "cor": "#8E2A20",
+ "frase": "O pintor mais requisitado da Europa barroca encheu igrejas e palácios de movimento e cor e ainda negociou a paz entre reis.",
+ "retrato": {
+  "img": "rubens/retrato.jpg",
+  "legenda": "Autorretrato, c. 1623–1630. Casa de Rubens, Antuérpia.",
+  "pos": "center 22%"
+ },
+ "abertura": {
+  "img": "rubens/caca.jpg",
+  "legenda": "A caçada ao hipopótamo e ao crocodilo, c. 1615–1616. Alte Pinakothek, Munique.",
+  "pos": "center 4%"
+ },
+ "ficha": [
+  [
+   "Nasceu",
+   "1577, em Siegen, Alemanha, filho de pais flamengos"
+  ],
+  [
+   "Morreu",
+   "1640, em Antuérpia, aos 62 anos"
+  ],
+  [
+   "Movimento",
+   "Barroco flamengo"
+  ],
+  [
+   "Técnica",
+   "Óleo sobre madeira e tela, a partir de esboços a óleo"
+  ],
+  [
+   "Obra",
+   "Mais de 1.400 pinturas, muitas com o ateliê, pelas estimativas"
+  ],
+  [
+   "Onde ver",
+   "Museu do Prado (Madri), Alte Pinakothek (Munique), Catedral de Antuérpia"
+  ]
+ ],
+ "vida_titulo": "Pintor, empresário e diplomata",
+ "vida_txt": [
+  {
+   "t": "Nascido no exílio",
+   "p": "Peter Paul Rubens nasceu em 1577 em Siegen, na Alemanha, onde o pai, advogado protestante, vivia exilado de Antuérpia. Depois da morte do pai, a mãe voltou com os filhos para Antuérpia, cidade católica sob o domínio da Espanha. O menino estudou latim, foi pajem de uma condessa e aprendeu pintura com três mestres da cidade. Em 1598 entrou para a guilda dos pintores."
+  },
+  {
+   "t": "Oito anos na Itália",
+   "p": "Em 1600 partiu para a Itália e virou pintor da corte do duque de Mântua. Copiou Ticiano, Michelangelo e as estátuas antigas de Roma, e em 1603 levou presentes do duque ao rei da Espanha. Voltou em 1608 ao saber que a mãe estava doente; ela morreu antes de ele chegar. No ano seguinte foi nomeado pintor dos governantes de Flandres e casou-se com Isabella Brant."
+  },
+  {
+   "t": "Uma fábrica de quadros",
+   "p": "Em Antuérpia montou uma casa-ateliê enorme, que existe até hoje e é museu. Rubens criava as composições em esboços pequenos; os assistentes, entre eles o jovem Anthony van Dyck, as ampliavam, e ele dava o acabamento. Assim produziu altares, tapeçarias, tetos e retratos para igrejas e reis de toda a Europa. Falava várias línguas, o que o levou a uma segunda profissão."
+  },
+  {
+   "t": "Pintor e diplomata",
+   "p": "A serviço da Espanha, esteve em Madri em 1628 e em Londres em 1629, ajudando a negociar a paz entre os dois reinos. Carlos I da Inglaterra o fez cavaleiro. Viúvo desde 1626, casou-se em 1630 com Helena Fourment, de 16 anos, e mais tarde comprou o castelo de Het Steen, onde pintou paisagens. Sofria de gota e morreu em Antuérpia em 1640."
+  }
+ ],
+ "citacao": {
+  "texto": "Confesso que, por instinto natural, sou mais apto a fazer obras muito grandes do que pequenas curiosidades. Meu talento é tal que nenhum empreendimento, por maior que fosse em tamanho ou variedade de assuntos, jamais superou minha coragem.",
+  "fonte": "Carta a William Trumbull, 1621"
+ },
+ "vida_fig": {
+  "img": "rubens/isabella.jpg",
+  "legenda": "Rubens e Isabella Brant no caramanchão de madressilva, c. 1609, pintado logo após o casamento. Alte Pinakothek, Munique."
+ },
+ "linha": [
+  [
+   1577,
+   "Nasce em Siegen, na Alemanha",
+   "vida"
+  ],
+  [
+   1580,
+   "Felipe II vira rei de Portugal",
+   "mundo"
+  ],
+  [
+   1585,
+   "A Espanha retoma Antuérpia",
+   "mundo"
+  ],
+  [
+   1600,
+   "Parte para a Itália",
+   "vida"
+  ],
+  [
+   1611,
+   "Começa A descida da cruz",
+   "vida"
+  ],
+  [
+   1618,
+   "Começa a Guerra dos Trinta Anos",
+   "mundo"
+  ],
+  [
+   1624,
+   "Holandeses tomam Salvador, na Bahia",
+   "mundo"
+  ],
+  [
+   1630,
+   "Casa-se com Helena Fourment",
+   "vida"
+  ],
+  [
+   1637,
+   "Maurício de Nassau chega ao Recife",
+   "mundo"
+  ],
+  [
+   1640,
+   "Morre em Antuérpia, aos 62 anos",
+   "vida"
+  ]
+ ],
+ "foco": {
+  "img": "rubens/descida.jpg",
+  "titulo": "A descida da cruz",
+  "dados": "1611–1614 · óleo sobre madeira · painel central 421 × 311 cm · Catedral de Nossa Senhora, Antuérpia",
+  "intro": "Um tríptico feito para o altar da guilda dos arcabuzeiros, cujo padroeiro é São Cristóvão, \"o que carrega Cristo\". Por isso os três painéis mostram Cristo sendo carregado: no ventre de Maria, nos braços de Simeão e descido da cruz.",
+  "marcas": [
+   [
+    8,
+    40,
+    "A visitação",
+    "Maria, grávida de Jesus, visita a prima Isabel. É a primeira vez que Cristo é carregado."
+   ],
+   [
+    60,
+    25,
+    "O lençol",
+    "Lá no alto, um homem segura o pano com os dentes. A faixa branca leva o olho de cima a baixo."
+   ],
+   [
+    45,
+    64,
+    "Os pés de Cristo",
+    "Maria Madalena, ajoelhada, recebe os pés no ombro; João, de vermelho, ampara o corpo."
+   ],
+   [
+    86,
+    44,
+    "A apresentação",
+    "No templo, o velho Simeão segura o menino Jesus: a terceira vez que Cristo é carregado."
+   ]
+  ]
+ },
+ "sabia": [
+  "Em 1794 os franceses levaram A descida da cruz e A elevação da cruz para Paris. Os dois quadros só voltaram a Antuérpia em 1815.",
+  "No livro O cão de Flandres (1872), da inglesa Ouida, o menino Nello morre na catedral diante dos quadros de Rubens. A história é famosa no Japão.",
+  "Em inglês existe o adjetivo rubenesque, \"à moda de Rubens\", para corpos cheios e arredondados como os que ele pintava."
+ ],
+ "tecnica": {
+  "titulo": "Do esboço ao altar",
+  "intro": "Rubens tinha encomendas demais para pintar tudo sozinho. Organizou o ateliê como uma oficina: ele inventava, os assistentes executavam e ele terminava. O preço dependia de quanto saía da mão do mestre.",
+  "passos": [
+   [
+    "O esboço a óleo",
+    "Rubens pintava uma versão pequena e rápida da cena, em madeira, para mostrar ao cliente e guiar a equipe."
+   ],
+   [
+    "A preparação",
+    "Os painéis de carvalho recebiam uma base branca e, por cima, uma camada clara e listrada que às vezes aparece."
+   ],
+   [
+    "A equipe",
+    "Assistentes ampliavam o esboço no tamanho final. Colegas especialistas pintavam animais, flores ou paisagens."
+   ],
+   [
+    "A mão do mestre",
+    "Por fim, Rubens repassava tudo: acertava rostos e mãos e dava vida à pele com toques rosados e brilhos."
+   ]
+  ],
+  "box_t": "Uma lista de preços",
+  "box": "Em 1618, numa carta ao colecionador inglês Dudley Carleton, Rubens ofereceu quadros em troca de esculturas antigas e explicou quais eram todos seus e quais tinham sido feitos por discípulos e retocados por ele. Os primeiros valiam mais. É um registro raro de como funcionava um grande ateliê.",
+  "paleta": [
+   [
+    "#B23A2B",
+    "Manto vermelho"
+   ],
+   [
+    "#ECE4D3",
+    "Lençol"
+   ],
+   [
+    "#D9A684",
+    "Pele"
+   ],
+   [
+    "#2F4A68",
+    "Azul"
+   ],
+   [
+    "#29211B",
+    "Fundo"
+   ]
+  ]
+ },
+ "obras": [
+  {
+   "img": "rubens/chapeu.jpg",
+   "titulo": "O chapéu de palha",
+   "ano": "c. 1622–1625",
+   "nota": "Provavelmente Susanna Lunden, irmã da segunda mulher; o rosto na sombra da aba."
+  },
+  {
+   "img": "rubens/het-steen.jpg",
+   "titulo": "Vista de Het Steen de manhã cedo",
+   "ano": "c. 1636",
+   "nota": "O castelo que comprou em 1635, com o campo de Flandres ao amanhecer."
+  },
+  {
+   "img": "rubens/elevacao.jpg",
+   "titulo": "A elevação da cruz",
+   "ano": "1610–1611",
+   "nota": "Seu primeiro grande altar em Antuérpia: homens fazem força para erguer a cruz."
+  }
+ ],
+ "influenciou": [
+  [
+   "Anthony van Dyck",
+   null
+  ],
+  [
+   "Antoine Watteau",
+   null
+  ],
+  [
+   "Eugène Delacroix",
+   25
+  ],
+  [
+   "Pierre-Auguste Renoir",
+   29
+  ]
+ ],
+ "rival": [
+  "Ticiano",
+  10,
+  "O mestre que mais copiou, na Itália e depois em Madri."
+ ],
+ "pensar": "Rubens começava por um esboço pequeno e rápido. Escolha uma cena de movimento, como um jogo ou cachorros brincando, e faça três esboços de cinco minutos, procurando a diagonal mais forte. Depois amplie o melhor.",
+ "palavras": [
+  [
+   "Tríptico",
+   "Pintura em três painéis ligados por dobradiças; os laterais fecham sobre o central como portas."
+  ],
+  [
+   "Esboço a óleo",
+   "Versão pequena e rápida de uma composição, pintada a óleo para estudar e mostrar ao cliente."
+  ],
+  [
+   "Barroco",
+   "Estilo europeu do século XVII, cheio de movimento, contraste de luz e emoção."
+  ]
+ ],
+ "imagens": {
+  "retrato.jpg": "File:Peter Paul Rubens - Self-portrait - RH.S.180 - Rubenshuis (after restoration).jpg",
+  "caca.jpg": "File:Peter Paul Rubens - Hippopotamus and Crocodile Hunt (Alte Pinakothek).jpg",
+  "descida.jpg": "File:Peter Paul Rubens - Descent from the Cross - WGA20212.jpg",
+  "chapeu.jpg": "File:Le Chapeau de Paille by Peter Paul Rubens.jpg",
+  "het-steen.jpg": "File:Peter Paul Rubens - A View of Het Steen in the Early Morning.jpg",
+  "elevacao.jpg": "File:Peter Paul Rubens - Raising of the Cross Tryptich.jpg",
+  "isabella.jpg": "File:Peter Paul Rubens Peter Paul Rubens - The Artist and His First Wife, Isabella Brant, in the Honeysuckle Bower.jpg"
+ },
+ "pron": "por ele"
+}

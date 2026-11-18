@@ -6,13 +6,6 @@
   "credito": "<a rel=\"nofollow\" class=\"external free\" href=\"https://www.chicagocatholic.com/chicagoland/-/article/2017/08/09/art-institute-exhibit-illustrates-gauguin-s-eclectic-spirituality\">https://www.chicagocatholic.com/chicagoland/-/article/2017/08/09/art-institute-exhibit-illustrates-gauguin-s-eclectic-spirituality</a>",
   "pagina": "https://commons.wikimedia.org/wiki/File:Paul_Gauguin_-_Portrait_of_the_Artist_with_the_Yellow_Christ_(1890-91).jpg"
  },
- "gauguin/arearea.jpg": {
-  "arquivo": "File:Paul Gauguin - Arearea - Google Art Project.jpg",
-  "licenca": "Public domain",
-  "artista": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Paul_Gauguin\" class=\"extiw\" title=\"w:en:Paul Gauguin\"><span title=\"French painter and printmaker (1848–1903)\">Paul Gauguin</span></a></bdi>",
-  "credito": "<a rel=\"nofollow\" class=\"external text\" href=\"//www.google.com/culturalinstitute/asset-viewer/nAHq1cbXN_aFlg\">nAHq1cbXN_aFlg at Google Cultural Institute</a> maximum zoom level",
-  "pagina": "https://commons.wikimedia.org/wiki/File:Paul_Gauguin_-_Arearea_-_Google_Art_Project.jpg"
- },
  "gauguin/visao.jpg": {
   "arquivo": "File:Gauguin - Vision after the Sermon (1888).jpg",
   "licenca": "Public domain",
@@ -47,5 +40,12 @@
   "artista": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Paul_Gauguin\" class=\"extiw\" title=\"w:en:Paul Gauguin\"><span title=\"French painter and printmaker (1848–1903)\">Paul Gauguin</span></a></bdi>",
   "credito": "<cite class=\"book\" style=\"font-style:normal\">The Yorck Project (2002)      <i> 10.000 Meisterwerke der Malerei</i> (DVD-ROM), distributed by <a href=\"//commons.wikimedia.org/wiki/Commons:10,000_paintings_from_Directmedia\" title=\"Commons:10,000 paintings from Directmedia\">DIRECTMEDIA</a> Publishing GmbH.  <small><span lang=\"en\" dir=\"ltr\"><a href=\"https://en.wikipedia.org/wiki/ISBN\" class=\"extiw\" title=\"en:ISBN\"><span lang=\"en\" dir=\"ltr\">ISBN</span></a></span>:  <a href=\"//commons.wikimedia.org/wiki/Special:BookSources/3936122202\" title=\"Special:BookSources/3936122202\">3936122202</a>. </small></cite>",
   "pagina": "https://commons.wikimedia.org/wiki/File:Paul_Gauguin_056.jpg"
+ },
+ "gauguin/bretas.jpg": {
+  "arquivo": "File:Paul Gauguin, Breton Girls Dancing, Pont-Aven, 1888, NGA 61369.jpg",
+  "licenca": "CC0",
+  "artista": "<div class=\"fn value\">\nPaul Gauguin</div>",
+  "credito": "This file was donated to Wikimedia Commons as part of a project by the <a href=\"//commons.wikimedia.org/wiki/Commons:NGA\" title=\"Commons:NGA\">National Gallery of Art</a>. Please see the Gallery's <a rel=\"nofollow\" class=\"external text\" href=\"https://images.nga.gov/en/page/openaccess.html\">Open Access Policy</a>.",
+  "pagina": "https://commons.wikimedia.org/wiki/File:Paul_Gauguin,_Breton_Girls_Dancing,_Pont-Aven,_1888,_NGA_61369.jpg"
  }
 }

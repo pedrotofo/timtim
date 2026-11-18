@@ -19,12 +19,30 @@
   "pos": "center 50%"
  },
  "ficha": [
-  ["Nasceu", "1856, em Dorchester, Inglaterra"],
-  ["Morreu", "1931, em Kallista, Austrália, aos 75 anos"],
-  ["Movimento", "Escola de Heidelberg, o impressionismo australiano"],
-  ["Técnica", "Óleo ao ar livre: esboços rápidos, retratos e grandes cenas do campo"],
-  ["Obra", "Centenas de pinturas, de tampas de caixa de charuto a telas enormes"],
-  ["Onde ver", "Galeria de Victoria (Melbourne), Galeria de NSW (Sydney), Galeria Nacional (Camberra)"]
+  [
+   "Nasceu",
+   "1856, em Dorchester, Inglaterra"
+  ],
+  [
+   "Morreu",
+   "1931, em Kallista, Austrália, aos 75 anos"
+  ],
+  [
+   "Movimento",
+   "Escola de Heidelberg, o impressionismo australiano"
+  ],
+  [
+   "Técnica",
+   "Óleo ao ar livre: esboços rápidos, retratos e grandes cenas do campo"
+  ],
+  [
+   "Obra",
+   "Centenas de pinturas, de tampas de caixa de charuto a telas enormes"
+  ],
+  [
+   "Onde ver",
+   "Galeria de Victoria (Melbourne), Galeria de NSW (Sydney), Galeria Nacional (Camberra)"
+  ]
  ],
  "vida_titulo": "Pintar a Austrália ao ar livre",
  "vida_txt": [
@@ -54,16 +72,56 @@
   "legenda": "O acampamento dos artistas, 1886: Box Hill, onde o grupo pintava ao ar livre nos fins de semana."
  },
  "linha": [
-  [1856, "Nasce em Dorchester, Inglaterra", "vida"],
-  [1869, "Muda-se para Melbourne", "vida"],
-  [1888, "Lei Áurea abole a escravidão", "mundo"],
-  [1889, "Exposição de Impressões 9 por 5", "vida"],
-  [1889, "Proclamação da República no Brasil", "mundo"],
-  [1890, "Termina A tosquia dos carneiros", "vida"],
-  [1901, "A Austrália vira um só país", "mundo"],
-  [1914, "Começa a Primeira Guerra Mundial", "mundo"],
-  [1922, "Semana de Arte Moderna, São Paulo", "mundo"],
-  [1931, "Morre em Kallista, aos 75", "vida"]
+  [
+   1856,
+   "Nasce em Dorchester, Inglaterra",
+   "vida"
+  ],
+  [
+   1869,
+   "Muda-se para Melbourne",
+   "vida"
+  ],
+  [
+   1888,
+   "Lei Áurea abole a escravidão",
+   "mundo"
+  ],
+  [
+   1889,
+   "Exposição de Impressões 9 por 5",
+   "vida"
+  ],
+  [
+   1889,
+   "Proclamação da República no Brasil",
+   "mundo"
+  ],
+  [
+   1890,
+   "Termina A tosquia dos carneiros",
+   "vida"
+  ],
+  [
+   1901,
+   "A Austrália vira um só país",
+   "mundo"
+  ],
+  [
+   1914,
+   "Começa a Primeira Guerra Mundial",
+   "mundo"
+  ],
+  [
+   1922,
+   "Semana de Arte Moderna, São Paulo",
+   "mundo"
+  ],
+  [
+   1931,
+   "Morre em Kallista, aos 75",
+   "vida"
+  ]
  ],
  "foco": {
   "img": "tom-roberts/tosquia.jpg",
@@ -71,10 +129,30 @@
   "dados": "1890 · óleo sobre tela sobre aglomerado · 122,4 × 183,3 cm · National Gallery of Victoria, Melbourne",
   "intro": "No galpão da fazenda Brocklesby, em Nova Gales do Sul, tosquiadores cortam a lã dos carneiros. Roberts passou duas temporadas de tosquia ali e pintou boa parte do quadro no próprio galpão. A lã era a maior riqueza da Austrália.",
   "marcas": [
-   [50, 50, "O tosquiador", "Curvado sobre o carneiro, ele segura o animal com as pernas e corta com tesoura de mão."],
-   [60, 40, "A menina", "A tar boy sorridente que traz o pote de alcatrão para os cortes era uma menina, Susan Bourne."],
-   [20, 30, "A luz", "O sol entra pelo fundo aberto e pelas frestas das tábuas e acende a poeira no ar."],
-   [85, 60, "A lã", "Um rapaz leva o velo inteiro, a lã que sai do carneiro numa peça só."]
+   [
+    44,
+    55,
+    "O tosquiador",
+    "Curvado sobre o carneiro, ele segura o animal com as pernas e corta com tesoura de mão."
+   ],
+   [
+    59,
+    35,
+    "A menina",
+    "A tar boy sorridente que traz o pote de alcatrão para os cortes era uma menina, Susan Bourne."
+   ],
+   [
+    11,
+    48,
+    "O velo",
+    "Um menino leva o velo, a lã que sai do carneiro numa peça só."
+   ],
+   [
+    90,
+    52,
+    "O velho",
+    "Do menino ao velho de barba branca, o quadro reúne todas as idades do trabalho."
+   ]
   ]
  },
  "sabia": [
@@ -86,19 +164,46 @@
   "titulo": "Pintar ao ar livre",
   "intro": "Roberts e os amigos levavam as tintas para fora do ateliê. Queriam pegar a luz forte da Austrália, que muda em minutos, deixa as sombras azuladas e o céu quase branco.",
   "passos": [
-   ["Tinta em tubo", "Os tubos de metal, inventados nos anos 1840, deixavam levar a tinta pronta para o campo, sem moer pigmento."],
-   ["A tampa", "Para esboços rápidos, a tampa de madeira de uma caixa de charutos servia de tela, leve e fácil de carregar."],
-   ["Contra o relógio", "Cada esboço era feito antes que a luz mudasse, com pinceladas soltas que não escondem o gesto."],
-   ["A tela grande", "Os quadros grandes, como A tosquia, partiam de muitos estudos e levavam meses, parte no local, parte no ateliê."]
+   [
+    "Tinta em tubo",
+    "Os tubos de metal, inventados nos anos 1840, deixavam levar a tinta pronta para o campo, sem moer pigmento."
+   ],
+   [
+    "A tampa",
+    "Para esboços rápidos, a tampa de madeira de uma caixa de charutos servia de tela, leve e fácil de carregar."
+   ],
+   [
+    "Contra o relógio",
+    "Cada esboço era feito antes que a luz mudasse, com pinceladas soltas que não escondem o gesto."
+   ],
+   [
+    "A tela grande",
+    "Os quadros grandes, como A tosquia, partiam de muitos estudos e levavam meses, parte no local, parte no ateliê."
+   ]
   ],
   "box_t": "Poeira de encomenda",
   "box": "Em A tosquia dos carneiros, a luz do sol entra pelo galpão e acende a lã, os braços dos tosquiadores e a poeira no ar. Segundo o museu, Roberts pagou Susan Bourne e a irmã para levantar poeira no galpão enquanto pintava, para ver como a luz atravessava o ar.",
   "paleta": [
-   ["#C9A979", "Lã"],
-   ["#8A6440", "Madeira"],
-   ["#4A3524", "Sombra"],
-   ["#D9CFB8", "Luz"],
-   ["#7D7F86", "Cinza azulado"]
+   [
+    "#C9A979",
+    "Lã"
+   ],
+   [
+    "#8A6440",
+    "Madeira"
+   ],
+   [
+    "#4A3524",
+    "Sombra"
+   ],
+   [
+    "#D9CFB8",
+    "Luz"
+   ],
+   [
+    "#7D7F86",
+    "Cinza azulado"
+   ]
   ]
  },
  "obras": [
@@ -122,16 +227,38 @@
   }
  ],
  "influenciou": [
-  ["Arthur Streeton", null],
-  ["Charles Conder", null],
-  ["Frederick McCubbin", null]
+  [
+   "Arthur Streeton",
+   null
+  ],
+  [
+   "Charles Conder",
+   null
+  ],
+  [
+   "Frederick McCubbin",
+   null
+  ]
  ],
- "rival": ["Vincent van Gogh", 1, "Contemporâneo; Russell, companheiro de viagem de Roberts, pintou seu retrato em 1886."],
+ "rival": [
+  "Vincent van Gogh",
+  1,
+  "Contemporâneo; Russell, companheiro de viagem de Roberts, pintou seu retrato em 1886."
+ ],
  "pensar": "Escolha uma vista perto de casa e desenhe ou pinte a mesma cena em duas horas diferentes do dia, em no máximo meia hora cada vez. O que mudou: as cores, as sombras ou o assunto?",
  "palavras": [
-  ["Ao ar livre", "Pintura feita fora do ateliê, diante do motivo, para captar a luz do momento; em francês, plein air."],
-  ["Escola de Heidelberg", "Grupo de pintores de Melbourne dos anos 1880 e 1890 que pintava a paisagem australiana ao ar livre."],
-  ["Tosquia", "Corte da lã de ovelhas e carneiros, feito uma vez por ano."]
+  [
+   "Ao ar livre",
+   "Pintura feita fora do ateliê, diante do motivo, para captar a luz do momento; em francês, plein air."
+  ],
+  [
+   "Escola de Heidelberg",
+   "Grupo de pintores de Melbourne dos anos 1880 e 1890 que pintava a paisagem australiana ao ar livre."
+  ],
+  [
+   "Tosquia",
+   "Corte da lã de ovelhas e carneiros, feito uma vez por ano."
+  ]
  ],
  "imagens": {
   "retrato.jpg": "File:Tom Roberts - Self-portrait, 1924.jpg",

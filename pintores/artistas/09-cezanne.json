@@ -1,0 +1,276 @@
+{
+ "pos": 9,
+ "chave": "cezanne",
+ "nome": "Paul Cézanne",
+ "nome_original": "",
+ "vida": "1839–1906",
+ "origem": "França",
+ "cor": "#3F5F7A",
+ "frase": "Pintou maçãs e montanhas como se fossem feitas de blocos de cor e abriu caminho para o cubismo.",
+ "retrato": {
+  "img": "cezanne/retrato.jpg",
+  "legenda": "Autorretrato, 1878–1880. Coleção Phillips, Washington.",
+  "pos": "center 25%"
+ },
+ "abertura": {
+  "img": "cezanne/jogadores.jpg",
+  "legenda": "Os jogadores de cartas, 1890–1895. Museu d'Orsay, Paris.",
+  "pos": "center 40%"
+ },
+ "ficha": [
+  [
+   "Nasceu",
+   "1839, em Aix-en-Provence, França"
+  ],
+  [
+   "Morreu",
+   "1906, em Aix-en-Provence, aos 67 anos"
+  ],
+  [
+   "Movimento",
+   "Pós-impressionismo"
+  ],
+  [
+   "Técnica",
+   "Óleo e aquarela, com pinceladas em blocos paralelos"
+  ],
+  [
+   "Obra",
+   "Cerca de 950 pinturas e 650 aquarelas, segundo os catálogos"
+  ],
+  [
+   "Onde ver",
+   "Museu d'Orsay (Paris), Fundação Barnes (Filadélfia), Courtauld (Londres)"
+  ]
+ ],
+ "vida_titulo": "Um pintor contra a pressa",
+ "vida_txt": [
+  {
+   "t": "Amigo de Zola",
+   "p": "Paul Cézanne nasceu em 1839 em Aix-en-Provence, no sul da França. O pai começou vendendo chapéus e ficou rico como banqueiro. No colégio, Cézanne fez amizade com Émile Zola, que viria a ser um grande escritor. O pai queria um filho advogado, e ele chegou a estudar direito. Mas Zola insistia que ele fosse pintar em Paris e, em 1861, o pai cedeu."
+  },
+  {
+   "t": "Recusado em Paris",
+   "p": "Em Paris, Cézanne estudou numa academia livre, onde conheceu Camille Pissarro. O Salão, a grande exposição oficial, recusou seus quadros ano após ano. Nos anos 1870 foi pintar ao ar livre ao lado de Pissarro, em Pontoise e Auvers, e clareou as cores. Em 1874 participou da primeira exposição dos impressionistas, onde foi um dos mais atacados pela crítica."
+  },
+  {
+   "t": "Longe de Paris",
+   "p": "Cézanne passou a viver quase sempre na Provença. Com Hortense Fiquet teve um filho, Paul, em 1872, e casou-se com ela em 1886, ano em que o pai morreu e lhe deixou uma herança. Também em 1886 Zola publicou o romance A obra, sobre um pintor fracassado. Cézanne pareceu se reconhecer no personagem, e a amizade de trinta anos esfriou."
+  },
+  {
+   "t": "O mestre dos jovens",
+   "p": "Em 1895 o marchand Ambroise Vollard fez a primeira exposição individual de Cézanne, em Paris, e os pintores jovens descobriram sua obra. Ele seguiu pintando maçãs, banhistas e a montanha Sainte-Victoire até o fim. Em outubro de 1906 pegou uma tempestade enquanto pintava ao ar livre e morreu dias depois. Em 1907, uma grande retrospectiva em Paris impressionou Picasso e Braque."
+  }
+ ],
+ "citacao": {
+  "texto": "Trate a natureza pelo cilindro, pela esfera e pelo cone, tudo posto em perspectiva, de modo que cada lado de um objeto ou de um plano se dirija para um ponto central.",
+  "fonte": "Carta ao pintor Émile Bernard, 1904"
+ },
+ "linha": [
+  [
+   1839,
+   "Nasce em Aix-en-Provence",
+   "vida"
+  ],
+  [
+   1861,
+   "Vai a Paris estudar pintura",
+   "vida"
+  ],
+  [
+   1863,
+   "Salão dos Recusados, em Paris",
+   "mundo"
+  ],
+  [
+   1870,
+   "Guerra Franco-Prussiana",
+   "mundo"
+  ],
+  [
+   1874,
+   "Expõe com os impressionistas",
+   "vida"
+  ],
+  [
+   1888,
+   "Lei Áurea abole a escravidão",
+   "mundo"
+  ],
+  [
+   1889,
+   "Proclamação da República no Brasil",
+   "mundo"
+  ],
+  [
+   1895,
+   "Primeira exposição individual",
+   "vida"
+  ],
+  [
+   1901,
+   "Santos-Dumont contorna a Torre Eiffel",
+   "mundo"
+  ],
+  [
+   1906,
+   "Morre em Aix, aos 67 anos",
+   "vida"
+  ]
+ ],
+ "foco": {
+  "img": "cezanne/montanha.jpg",
+  "titulo": "A montanha Sainte-Victoire",
+  "dados": "c. 1887 · óleo sobre tela · 66,8 × 92,3 cm · Galeria Courtauld, Londres · também chamada A montanha Sainte-Victoire com grande pinheiro",
+  "intro": "Do alto de uma colina perto de Aix, Cézanne olha o vale do rio Arc e a montanha Sainte-Victoire, que pintou dezenas de vezes. A cena é real, mas tudo foi simplificado em planos de cor.",
+  "marcas": [
+   [
+    46,
+    40,
+    "A montanha",
+    "Azul e rosa, quase transparente, ela parece longe e perto ao mesmo tempo."
+   ],
+   [
+    42,
+    16,
+    "O pinheiro",
+    "Os galhos repetem o desenho do contorno da montanha e emolduram o céu."
+   ],
+   [
+    86,
+    62,
+    "O viaduto",
+    "A ponte da ferrovia corta o vale: uma linha reta entre campos e casas."
+   ],
+   [
+    55,
+    80,
+    "Os campos",
+    "Retalhos de verde, ocre e laranja, feitos de pinceladas paralelas, como um mosaico."
+   ]
+  ]
+ },
+ "sabia": [
+  "Segundo o crítico Gustave Geffroy, Cézanne disse que queria \"espantar Paris com uma maçã\".",
+  "Matisse comprou um pequeno quadro de banhistas de Cézanne em 1899 e o guardou por 37 anos, mesmo nos tempos de pobreza.",
+  "Em 2011, uma versão de Os jogadores de cartas foi vendida ao Catar por mais de 250 milhões de dólares, segundo a imprensa."
+ ],
+ "tecnica": {
+  "titulo": "Construir com a cor",
+  "intro": "Cézanne não queria copiar a luz de um instante, como os impressionistas, e sim a estrutura das coisas: o peso de uma maçã, o volume de uma montanha. Para isso pintava devagar.",
+  "passos": [
+   [
+    "Olhar muito",
+    "Olhava longamente antes de cada pincelada. O marchand Vollard contou ter posado 115 vezes para um retrato."
+   ],
+   [
+    "Pinceladas em bloco",
+    "Aplicava a tinta em traços curtos e paralelos, na mesma direção, que formam planos como tijolos de cor."
+   ],
+   [
+    "Cor que avança",
+    "Cores quentes, laranja e vermelho, trazem as formas para a frente; azuis e verdes as fazem recuar."
+   ],
+   [
+    "Vários pontos de vista",
+    "Numa natureza-morta, a mesa e a fruteira podem ser vistas de alturas diferentes. O equilíbrio vale mais que a régua."
+   ]
+  ],
+  "box_t": "Por que maçãs?",
+  "box": "Para estudar formas com calma, Cézanne precisava de modelos que não se mexessem e durassem semanas. Maçãs, jarras e toalhas eram ideais. Segundo um jovem pintor que o viu trabalhar, ele levava muito tempo arrumando a mesa e calçava as frutas com moedas para conseguir a inclinação certa.",
+  "paleta": [
+   [
+    "#7D97B8",
+    "Azul montanha"
+   ],
+   [
+    "#4E7448",
+    "Verde pinho"
+   ],
+   [
+    "#D6A45E",
+    "Ocre"
+   ],
+   [
+    "#C2744A",
+    "Laranja"
+   ],
+   [
+    "#E6E1CC",
+    "Céu claro"
+   ]
+  ]
+ },
+ "obras": [
+  {
+   "img": "cezanne/enforcado.jpg",
+   "titulo": "A casa do enforcado, Auvers",
+   "ano": "1873",
+   "nota": "Mostrada em 1874, na primeira exposição dos impressionistas."
+  },
+  {
+   "img": "cezanne/hortense.jpg",
+   "titulo": "Madame Cézanne numa poltrona vermelha",
+   "ano": "c. 1877",
+   "nota": "Hortense, sua companheira, foi pintada por ele mais de 25 vezes."
+  },
+  {
+   "img": "cezanne/macas.jpg",
+   "titulo": "A cesta de maçãs",
+   "ano": "c. 1893",
+   "nota": "A mesa torta e a garrafa inclinada: o equilíbrio vale mais que a perspectiva."
+  }
+ ],
+ "influenciou": [
+  [
+   "Pablo Picasso",
+   null
+  ],
+  [
+   "Georges Braque",
+   null
+  ],
+  [
+   "Henri Matisse",
+   12
+  ],
+  [
+   "Paul Gauguin",
+   17
+  ]
+ ],
+ "rival": [
+  "Camille Pissarro",
+  32,
+  "Seu mestre: pintaram lado a lado em Pontoise e Auvers nos anos 1870."
+ ],
+ "pensar": "Arrume três frutas e uma caneca numa mesa. Desenhe só com traços curtos e paralelos, como tijolos, e tente mostrar o volume de cada fruta sem contorno, só com a direção e o escuro dos traços.",
+ "palavras": [
+  [
+   "Pós-impressionismo",
+   "Pintores que, depois dos impressionistas, buscaram mais estrutura, cor ou emoção, como Cézanne, Gauguin e Van Gogh."
+  ],
+  [
+   "Natureza-morta",
+   "Pintura de objetos parados: frutas, vasos, flores, pratos."
+  ],
+  [
+   "Cubismo",
+   "Movimento de Picasso e Braque, a partir de 1907, que mostra os objetos em planos e de vários pontos de vista."
+  ]
+ ],
+ "imagens": {
+  "retrato.jpg": "File:Paul Cézanne - Self-Portrait - Google Art Project.jpg",
+  "jogadores.jpg": "File:Les Joueurs de cartes, par Paul Cézanne.jpg",
+  "montanha.jpg": "File:Mont Sainte-Victoire with Large Pine, by Paul Cézanne.jpg",
+  "enforcado.jpg": "File:La Maison du pendu, Auvers-sur-Oise, par Paul Cézanne, FWN 81.jpg",
+  "hortense.jpg": "File:Paul Cézanne - Madame Cézanne in a Red Armchair - Google Art Project.jpg",
+  "macas.jpg": "File:Paul Cézanne - The Basket of Apples - 1926.252 - Art Institute of Chicago.jpg",
+  "foto.jpg": "File:Paul cezanne 1861.jpg"
+ },
+ "pron": "por ele",
+ "vida_fig": {
+  "img": "cezanne/foto.jpg",
+  "legenda": "Cézanne por volta de 1861, aos 22 anos, quando foi estudar pintura em Paris. Fotografia."
+ }
+}

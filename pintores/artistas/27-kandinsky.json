@@ -67,8 +67,8 @@
   "fonte": "Do espiritual na arte, 1911"
  },
  "vida_fig": {
-  "img": "kandinsky/almanaque.jpg",
-  "legenda": "Capa do almanaque O Cavaleiro Azul, 1912, com xilogravura de Kandinsky."
+  "img": "kandinsky/munter.jpg",
+  "legenda": "A pintora Gabriele Münter, retratada por Kandinsky em 1905. Lenbachhaus, Munique."
  },
  "linha": [
   [
@@ -123,40 +123,40 @@
   ]
  ],
  "foco": {
-  "img": "kandinsky/composicao-8.jpg",
+  "img": "kandinsky/comp8.jpg",
   "titulo": "Composição VIII",
   "dados": "1923 · óleo sobre tela · 140 × 201 cm · Museu Guggenheim, Nova York",
   "intro": "Pintada em 1923, quando Kandinsky ensinava na Bauhaus, não mostra nenhum objeto. Círculos, triângulos, retas e curvas se equilibram sobre um fundo claro, como os instrumentos de uma orquestra.",
   "marcas": [
    [
-    15,
+    13,
     20,
     "O grande círculo",
-    "Preto, com uma auréola vermelha e violeta, pesa no alto à esquerda e equilibra o resto do quadro."
+    "Preto, com miolo violeta e uma auréola rosada, pesa no alto à esquerda e equilibra o resto do quadro."
    ],
    [
-    50,
-    50,
+    60,
+    17,
     "Retas e ângulos",
-    "Linhas finas se cruzam como um desenho técnico, feitas com régua e compasso."
+    "Linhas finas se cruzam e formam triângulos, como num desenho técnico feito com régua e compasso."
    ],
    [
-    70,
-    70,
+    64,
+    66,
     "Semicírculos",
-    "Meias-luas e arcos parecem girar e dão movimento à composição."
+    "Uma fileira de meias-luas, umas cheias, outras só contorno, como notas repetidas."
    ],
    [
-    85,
-    30,
-    "A grade",
-    "Um pequeno tabuleiro de quadrados coloridos, como um acorde de notas juntas."
+    27,
+    57,
+    "Os tabuleiros",
+    "Faixas de quadradinhos pretos, brancos e coloridos cortam o quadro na diagonal, como teclas."
    ]
   ]
  },
  "sabia": [
   "Kandinsky descrevia cores que ouvia e sons que via. Muitos estudiosos acham que ele tinha sinestesia, uma mistura dos sentidos.",
-  "Ele contou que, ao voltar ao ateliê ao anoitecer, viu um quadro belíssimo que não reconheceu: era um quadro seu, virado de lado.",
+  "Ele contou que, ao voltar ao ateliê ao anoitecer, viu um quadro que o encantou e que não reconheceu: era um quadro seu, virado de lado.",
   "Em 1937, os nazistas tiraram dezenas de obras dele de museus alemães e mostraram algumas na exposição Arte Degenerada, para ridicularizá-las."
  ],
  "tecnica": {
@@ -219,7 +219,7 @@
    "nota": "Um trem corta a paisagem de Murnau; as cores já se soltam das coisas."
   },
   {
-   "img": "kandinsky/amarelo-vermelho-azul.jpg",
+   "img": "kandinsky/avr.jpg",
    "titulo": "Amarelo-vermelho-azul",
    "ano": "1925",
    "nota": "As três cores e as formas geométricas da Bauhaus num só quadro."
@@ -257,12 +257,12 @@
  ],
  "imagens": {
   "composicao-7.jpg": "File:Composition VII - Wassily Kandinsky, GAC.jpg",
-  "composicao-8.jpg": "File:Kandinsky - Composition 8, July 1923.jpg",
   "cavaleiro-azul.jpg": "File:Wassily Kandinsky, 1903, The Blue Rider (Der Blaue Reiter), oil on canvas, 52.1 x 54.6 cm, Stiftung Sammlung E.G. Bührle, Zurich.jpg",
   "murnau.jpg": "File:Wassily Kandinsky - Eisenbahn bei Murnau - GMS 49 - Lenbachhaus.jpg",
-  "amarelo-vermelho-azul.jpg": "File:Gelb-Rot-Blau, by Wassily Kandinsky.jpg",
-  "almanaque.jpg": "File:Franz Marc and Wassily Kandinsky, published by R. Piper & Co. - Der Blaue Reiter (The Blue Rider) - Google Art Project.jpg",
-  "retrato.jpg": "File:Kandinsky by Hugo Erfurth, 1923 (cropped).png"
+  "retrato.jpg": "File:Kandinsky by Hugo Erfurth, 1923 (cropped).png",
+  "munter.jpg": "File:Kandinsky Bildnis Gabriele Münter PA291004.jpg",
+  "comp8.jpg": "File:Wassily Kandinsky Composition VIII.jpg",
+  "avr.jpg": "File:Kandinsky - Jaune Rouge Bleu.jpg"
  },
  "pron": "por ele"
 }

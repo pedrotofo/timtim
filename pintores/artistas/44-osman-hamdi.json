@@ -1,0 +1,260 @@
+{
+ "pos": 44,
+ "chave": "osman-hamdi",
+ "nome": "Osman Hamdi Bey",
+ "nome_original": "",
+ "vida": "1842–1910",
+ "origem": "Império Otomano",
+ "cor": "#8E2F22",
+ "frase": "Pintor, arqueólogo e diretor de museu, mostrou o mundo otomano visto de dentro, quando a Europa só o pintava de fora.",
+ "pron": "por ele",
+ "retrato": {
+  "img": "osman-hamdi/retrato.jpg",
+  "legenda": "Osman Hamdi Bey pintado pelo colega Emmanuel de Dieudonné, 1884. Óleo sobre tela.",
+  "pos": "center 25%"
+ },
+ "abertura": {
+  "img": "osman-hamdi/estudioso.jpg",
+  "legenda": "O estudioso, 1878. Óleo sobre tela.",
+  "pos": "center 50%"
+ },
+ "ficha": [
+  [
+   "Nasceu",
+   "1842, em Istambul, Império Otomano"
+  ],
+  [
+   "Morreu",
+   "1910, em Istambul, aos 67 anos"
+  ],
+  [
+   "Movimento",
+   "Realismo acadêmico; um orientalismo visto de dentro"
+  ],
+  [
+   "Técnica",
+   "Óleo sobre tela, com fotografias como estudo"
+  ],
+  [
+   "Obra",
+   "Algumas dezenas de telas, além de escavações, um museu e uma escola"
+  ],
+  [
+   "Onde ver",
+   "Museu Pera, Museus de Arqueologia, Museu de Pintura e Escultura (Istambul)"
+  ]
+ ],
+ "vida_titulo": "Entre a pintura e a arqueologia",
+ "vida_txt": [
+  {
+   "t": "Filho de grão-vizir",
+   "p": "Osman Hamdi nasceu em 1842 em Istambul, capital do Império Otomano. O pai, Ibrahim Edhem Paxá, era um alto funcionário que mais tarde chegaria a grão-vizir, o chefe do governo do sultão. Em 1860 o pai o mandou a Paris para estudar direito. Lá, Osman Hamdi trocou as leis pela pintura e frequentou ateliês, entre eles o de Jean-Léon Gérôme, o pintor mais famoso do orientalismo."
+  },
+  {
+   "t": "De volta ao império",
+   "p": "Ficou quase dez anos na França e participou da Exposição Universal de Paris de 1867. Em 1869 voltou ao Império Otomano e trabalhou no governo, inclusive em Bagdá, sob o governador reformista Midhat Paxá. Em Istambul continuou pintando nas horas livres. Em 1881 foi nomeado diretor do Museu Imperial, e a partir daí sua vida se dividiu entre a arte e a arqueologia."
+  },
+  {
+   "t": "Museu, escola e lei",
+   "p": "Em 1883 abriu a Escola de Belas-Artes de Istambul, a primeira do império a ensinar pintura e escultura à maneira europeia. Em 1884 redigiu uma lei que proibia levar antiguidades para fora do país, contra o saque feito por estrangeiros. Escavou o monte Nemrut e, em 1887, em Sídon, no atual Líbano, achou o sarcófago de Alexandre, hoje em Istambul."
+  },
+  {
+   "t": "O Oriente visto de dentro",
+   "p": "Os pintores europeus mostravam o Oriente como um lugar exótico e parado no tempo. Osman Hamdi pintou o mesmo mundo como quem vivia nele: estudiosos, leitores, mulheres que conversam e tocam música, interiores de mesquitas com detalhes reais. Usava fotografias como estudo, muitas vezes posando ele mesmo para as figuras. Dirigiu o museu por quase trinta anos, até morrer em 1910, em Istambul."
+  }
+ ],
+ "vida_fig": {
+  "img": "osman-hamdi/nemrut.jpg",
+  "legenda": "Osman Hamdi na escavação do monte Nemrut, no leste da atual Turquia, em 1883. Fotografia."
+ },
+ "linha": [
+  [
+   1842,
+   "Nasce em Istambul",
+   "vida"
+  ],
+  [
+   1853,
+   "Começa a Guerra da Crimeia",
+   "mundo"
+  ],
+  [
+   1860,
+   "Vai estudar direito em Paris",
+   "vida"
+  ],
+  [
+   1869,
+   "Abre o canal de Suez",
+   "mundo"
+  ],
+  [
+   1876,
+   "Primeira Constituição otomana",
+   "mundo"
+  ],
+  [
+   1881,
+   "Diretor do Museu Imperial",
+   "vida"
+  ],
+  [
+   1888,
+   "Lei Áurea abole a escravidão",
+   "mundo"
+  ],
+  [
+   1906,
+   "Pinta O treinador de tartarugas",
+   "vida"
+  ],
+  [
+   1908,
+   "Revolução dos Jovens Turcos",
+   "mundo"
+  ],
+  [
+   1910,
+   "Morre em Istambul",
+   "vida"
+  ]
+ ],
+ "foco": {
+  "img": "osman-hamdi/tartarugas.jpg",
+  "titulo": "O treinador de tartarugas",
+  "dados": "1906 · óleo sobre tela · 221,5 × 120 cm · Museu Pera, Istambul",
+  "intro": "Num salão antigo, um velho de túnica vermelha e turbante tenta ensinar tartarugas, os bichos mais lentos que existem, ao som de uma flauta e de um pequeno tambor.",
+  "marcas": [
+   [
+    50,
+    30,
+    "O velho",
+    "Curvado, paciente, ele observa as tartarugas. Muitos veem nele o rosto do próprio pintor."
+   ],
+   [
+    69,
+    41,
+    "Os instrumentos",
+    "Um pequeno tambor nas costas e a flauta ney na mão, para chamar bichos que não obedecem."
+   ],
+   [
+    30,
+    85,
+    "As tartarugas",
+    "Cinco tartarugas comem folhas no chão, sem pressa nenhuma."
+   ],
+   [
+    56,
+    9,
+    "A parede",
+    "Azulejos azuis e uma inscrição em caligrafia árabe cobrem a sala antiga."
+   ]
+  ]
+ },
+ "sabia": [
+  "Segundo o historiador Edhem Eldem, a cena veio de uma gravura de um treinador de tartarugas do Extremo Oriente publicada em 1869 numa revista francesa de viagens.",
+  "Em 1887, em Sídon, Osman Hamdi encontrou o sarcófago de Alexandre, hoje uma das peças mais famosas dos Museus de Arqueologia de Istambul.",
+  "Em 2004, O treinador de tartarugas foi vendido num leilão em Istambul por cerca de 3,5 milhões de dólares, recorde para um quadro turco na época."
+ ],
+ "tecnica": {
+  "titulo": "Pintar a partir de fotos",
+  "intro": "Osman Hamdi também era fotógrafo de museu. Para os quadros, montava a cena, fotografava a si mesmo ou parentes vestidos a caráter e pintava a partir das fotos, com detalhes de arquitetura reais.",
+  "passos": [
+   [
+    "A pose",
+    "Vestia roupas antigas e posava diante da câmera, ele mesmo ou alguém da família, no gesto que queria pintar."
+   ],
+   [
+    "O cenário",
+    "Copiava azulejos, inscrições e portas de mesquitas reais, como as de Bursa, com precisão de arqueólogo."
+   ],
+   [
+    "O desenho",
+    "Passava a figura para a tela, ajustando proporções e luz: a foto dava a postura, não o quadro pronto."
+   ],
+   [
+    "A cor",
+    "Pintava em camadas finas e lisas, com pincelada quase invisível, como aprendera nos ateliês de Paris."
+   ]
+  ],
+  "box_t": "Bichos lentos, reformas lentas",
+  "box": "Muitos leem O treinador de tartarugas como ironia sobre as reformas do Império Otomano, que andavam devagar apesar do esforço de quem as conduzia. O próprio pintor, diretor de museu e de escola, conhecia bem esse esforço. Ele nunca explicou o quadro, e a leitura continua aberta.",
+  "paleta": [
+   [
+    "#B23A2A",
+    "Vermelho"
+   ],
+   [
+    "#C9BFA8",
+    "Parede"
+   ],
+   [
+    "#6B5A3E",
+    "Casco"
+   ],
+   [
+    "#3E5560",
+    "Azulejo"
+   ],
+   [
+    "#2E2620",
+    "Sombra"
+   ]
+  ]
+ },
+ "obras": [
+  {
+   "img": "osman-hamdi/musicistas.jpg",
+   "titulo": "Duas jovens musicistas",
+   "ano": "c. 1880",
+   "nota": "Duas moças tocam instrumentos tradicionais num interior otomano."
+  },
+  {
+   "img": "osman-hamdi/mihrap.jpg",
+   "titulo": "Mihrab",
+   "ano": "1901",
+   "nota": "Uma mulher sentada num suporte de Corão diante do nicho de oração."
+  },
+  {
+   "img": "osman-hamdi/dervixe.jpg",
+   "titulo": "Dervixe no túmulo das crianças",
+   "ano": "1903",
+   "nota": "Um velho diante de pequenos túmulos, num mausoléu de azulejos."
+  }
+ ],
+ "influenciou": [
+  [
+   "Escola de Belas-Artes de Istambul",
+   null
+  ]
+ ],
+ "rival": [
+  "Eugène Delacroix",
+  25,
+  "Pintou o Oriente como europeu; Osman Hamdi o pintou de dentro."
+ ],
+ "pensar": "Osman Hamdi posava para as próprias figuras. Peça a alguém que tire uma foto sua fazendo um gesto e desenhe a partir dela, trocando a roupa e o cenário. O que muda na história?",
+ "palavras": [
+  [
+   "Orientalismo",
+   "Pintura europeia do século XIX com cenas do Oriente Médio e do Norte da África, muitas vezes imaginadas."
+  ],
+  [
+   "Grão-vizir",
+   "Chefe do governo do Império Otomano, abaixo apenas do sultão."
+  ],
+  [
+   "Arqueologia",
+   "Ciência que estuda o passado pelos objetos e construções que ficaram, escavando e registrando."
+  ]
+ ],
+ "imagens": {
+  "retrato.jpg": "File:Osman Hamdi Bey by Emmanuel de Dieudonné.jpg",
+  "estudioso.jpg": "File:OSMAN HAMDY BEY TURKISH 1842-1910 THE SCHOLAR.jpg",
+  "tartarugas.jpg": "File:Osman Hamdi Bey - The Tortoise Trainer - Google Art Project.jpg",
+  "nemrut.jpg": "File:Photograph of Osman Hamdi Bey at Nemrut excavation 1883.jpg",
+  "musicistas.jpg": "File:Osman Hamdi Bey - Two Musician Girls - Google Art Project.jpg",
+  "mihrap.jpg": "File:Osman Hamdi Bey - Mihrap.png",
+  "dervixe.jpg": "File:Osman hamdy bey, vecchio davanti alle tombe di bambini, 1903.JPG"
+ }
+}

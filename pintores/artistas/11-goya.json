@@ -1,0 +1,276 @@
+{
+ "pos": 11,
+ "chave": "goya",
+ "nome": "Francisco de Goya",
+ "nome_original": "",
+ "vida": "1746–1828",
+ "origem": "Espanha",
+ "cor": "#6E4E1A",
+ "frase": "Pintou reis, festas e guerras, ficou surdo, cobriu as paredes de casa de pesadelos e abriu caminho para a arte moderna.",
+ "retrato": {
+  "img": "goya/retrato.jpg",
+  "legenda": "Autorretrato, 1815. Museu do Prado, Madri.",
+  "pos": "center 30%"
+ },
+ "abertura": {
+  "img": "goya/familia.jpg",
+  "legenda": "A família de Carlos IV, 1800–1801. Goya se pintou à esquerda, no escuro, diante da tela. Museu do Prado, Madri.",
+  "pos": "center 25%"
+ },
+ "ficha": [
+  [
+   "Nasceu",
+   "1746, em Fuendetodos, Aragão, Espanha"
+  ],
+  [
+   "Morreu",
+   "1828, em Bordeaux, França, aos 82 anos"
+  ],
+  [
+   "Movimento",
+   "Do Rococó ao Romantismo"
+  ],
+  [
+   "Técnica",
+   "Óleo, afresco, gravura em água-forte e água-tinta, litografia"
+  ],
+  [
+   "Obra",
+   "Cerca de 700 pinturas e centenas de desenhos e gravuras"
+  ],
+  [
+   "Onde ver",
+   "Museu do Prado (Madri), Academia de San Fernando (Madri), Louvre (Paris)"
+  ]
+ ],
+ "vida_titulo": "Da corte às pinturas negras",
+ "vida_txt": [
+  {
+   "t": "De Fuendetodos a Madri",
+   "p": "Francisco de Goya nasceu em 1746 em Fuendetodos, aldeia de Aragão, filho de um dourador de altares. Aprendeu a pintar em Saragoça e foi à Itália por conta própria. Em 1773 casou-se com Josefa Bayeu, irmã de um pintor influente da corte. Com a ajuda dele, foi chamado a Madri para pintar cartões, os modelos das tapeçarias dos palácios reais: festas, jogos e piqueniques."
+  },
+  {
+   "t": "Pintor do rei, e surdo",
+   "p": "Nos anos 1780 virou o retratista da moda entre os nobres e, em 1789, pintor de câmara do novo rei, Carlos IV. Entre 1792 e 1793 uma doença grave o deixou surdo para sempre. Goya continuou a pintar, mas passou a fazer também obras só para si. Em 1799 publicou Os caprichos, 80 gravuras que zombam da superstição, da ignorância e dos abusos de nobres e padres."
+  },
+  {
+   "t": "A guerra",
+   "p": "Em 1808 as tropas de Napoleão ocuparam a Espanha. Em 2 de maio o povo de Madri se revoltou; na madrugada seguinte, os franceses fuzilaram dezenas de prisioneiros. Durante os anos de guerra Goya desenhou e gravou o que via e ouvia: são os Desastres da guerra, mais de 80 gravuras. Em 1814, com a Espanha livre, pintou dois grandes quadros sobre o 2 e o 3 de maio."
+  },
+  {
+   "t": "As pinturas negras",
+   "p": "Em 1819 comprou uma casa no campo, perto de Madri, que já tinha o apelido de Quinta do Surdo. Nas paredes de duas salas pintou, só para si, 14 cenas escuras e assustadoras: as pinturas negras. Em 1824, com medo da perseguição aos liberais, mudou-se para Bordeaux, na França, onde ainda fez litografias, uma técnica nova. Morreu lá em 1828, aos 82 anos."
+  }
+ ],
+ "citacao": {
+  "texto": "Não há regras na pintura. A opressão ou a obrigação servil de fazer todos estudarem ou seguirem pelo mesmo caminho é um grande impedimento para os jovens que praticam esta arte tão difícil.",
+  "fonte": "Relatório à Academia de San Fernando sobre o ensino da arte, 1792"
+ },
+ "vida_fig": {
+  "img": "goya/capricho.jpg",
+  "legenda": "O sono da razão produz monstros, gravura nº 43 de Os caprichos, 1799."
+ },
+ "linha": [
+  [
+   1746,
+   "Nasce em Fuendetodos, Aragão",
+   "vida"
+  ],
+  [
+   1776,
+   "Independência dos Estados Unidos",
+   "mundo"
+  ],
+  [
+   1789,
+   "Revolução Francesa",
+   "mundo"
+  ],
+  [
+   1792,
+   "Tiradentes é executado no Rio",
+   "mundo"
+  ],
+  [
+   1793,
+   "Fica surdo depois de doença grave",
+   "vida"
+  ],
+  [
+   1799,
+   "Publica Os caprichos",
+   "vida"
+  ],
+  [
+   1808,
+   "A corte portuguesa chega ao Brasil",
+   "mundo"
+  ],
+  [
+   1814,
+   "Pinta O três de maio",
+   "vida"
+  ],
+  [
+   1822,
+   "Independência do Brasil",
+   "mundo"
+  ],
+  [
+   1828,
+   "Morre em Bordeaux, aos 82 anos",
+   "vida"
+  ]
+ ],
+ "foco": {
+  "img": "goya/tres-de-maio.jpg",
+  "titulo": "O três de maio de 1808",
+  "dados": "1814 · óleo sobre tela · 268 × 347 cm · Museu do Prado, Madri",
+  "intro": "Na madrugada de 3 de maio de 1808, soldados franceses fuzilam madrilenos presos depois da revolta do dia anterior. Goya pintou a cena seis anos depois, quando a guerra já tinha acabado, com apoio do novo governo.",
+  "marcas": [
+   [
+    47,
+    45,
+    "A camisa branca",
+    "O homem de braços abertos recebe toda a luz. Na mão direita, uma marca como a das chagas de Cristo."
+   ],
+   [
+    57,
+    75,
+    "A lanterna",
+    "Uma lanterna no chão é a única luz da cena e ilumina as vítimas, não os soldados."
+   ],
+   [
+    78,
+    50,
+    "Os soldados",
+    "Em fila, de costas, sem rosto: parecem uma máquina, não pessoas."
+   ],
+   [
+    30,
+    15,
+    "A cidade",
+    "Ao fundo, a torre e as casas de Madri, escuras, como se a cidade não pudesse ver."
+   ]
+  ]
+ },
+ "sabia": [
+  "Manet se inspirou em O três de maio para pintar A execução de Maximiliano (1867–1869), outro fuzilamento.",
+  "As pinturas negras foram tiradas das paredes da Quinta do Surdo e passadas para tela a partir de 1874. Hoje estão no Prado.",
+  "Em 1888, quando abriram o túmulo de Goya em Bordeaux para levá-lo à Espanha, o crânio não estava lá. Nunca foi achado."
+ ],
+ "tecnica": {
+  "titulo": "Desenhar com ácido",
+  "intro": "Goya foi também um dos maiores gravadores da história. Nos Caprichos e nos Desastres da guerra, juntou duas técnicas que usam ácido para morder uma placa de cobre: a água-forte e a água-tinta.",
+  "passos": [
+   [
+    "O verniz",
+    "A placa de cobre era coberta com um verniz que o ácido não atravessa. Com uma ponta de metal, Goya desenhava raspando o verniz."
+   ],
+   [
+    "A água-forte",
+    "Mergulhada em ácido, a placa era corroída só onde o metal ficou exposto. Mais tempo no ácido, linha mais funda e escura."
+   ],
+   [
+    "A água-tinta",
+    "Pó de resina derretido sobre a placa formava um granulado. O ácido mordia em volta dos grãos e criava manchas de cinza."
+   ],
+   [
+    "A impressão",
+    "Tinta espalhada, superfície limpa: a tinta ficava só nos sulcos. Uma prensa apertava o papel úmido contra a placa."
+   ]
+  ],
+  "box_t": "Impressos 35 anos depois",
+  "box": "Goya nunca publicou os Desastres da guerra: imagens tão duras contra soldados e governos eram perigosas. As placas ficaram guardadas e só foram impressas em 1863, pela Academia de San Fernando, 35 anos depois da morte dele. Hoje são vistas como uma das primeiras grandes denúncias da guerra feitas por um artista.",
+  "paleta": [
+   [
+    "#E8C66A",
+    "Lanterna"
+   ],
+   [
+    "#EFE9D8",
+    "Camisa"
+   ],
+   [
+    "#7A2A1E",
+    "Sangue"
+   ],
+   [
+    "#4B4A42",
+    "Soldados"
+   ],
+   [
+    "#1C1A17",
+    "Noite"
+   ]
+  ]
+ },
+ "obras": [
+  {
+   "img": "goya/guarda-sol.jpg",
+   "titulo": "O guarda-sol",
+   "ano": "1777",
+   "nota": "Cartão para tapeçaria: uma moça, seu acompanhante e a luz do verão."
+  },
+  {
+   "img": "goya/san-isidro.jpg",
+   "titulo": "A pradaria de San Isidro",
+   "ano": "1788",
+   "nota": "Madri em festa vista do outro lado do rio, em pinceladas rápidas."
+  },
+  {
+   "img": "goya/cao.jpg",
+   "titulo": "O cão",
+   "ano": "c. 1820–1823",
+   "nota": "Uma das pinturas negras: só a cabeça de um cão e um vazio enorme."
+  }
+ ],
+ "influenciou": [
+  [
+   "Eugène Delacroix",
+   25
+  ],
+  [
+   "Édouard Manet",
+   20
+  ],
+  [
+   "Pablo Picasso",
+   null
+  ],
+  [
+   "Otto Dix",
+   null
+  ]
+ ],
+ "rival": [
+  "Diego Velázquez",
+  8,
+  "Mestre que estudou no palácio; em 1778 fez gravuras copiando seus quadros."
+ ],
+ "pensar": "Desenhe uma cena com uma única luz no chão, como a lanterna de O três de maio. Repare como a luz forte separa quem está iluminado de quem fica no escuro, e o que isso muda na história.",
+ "palavras": [
+  [
+   "Água-forte",
+   "Gravura em que o desenho é corroído por ácido numa placa de metal e depois impresso."
+  ],
+  [
+   "Cartão",
+   "Modelo pintado em tamanho real que os tecelões copiavam para fazer uma tapeçaria."
+  ],
+  [
+   "Pinturas negras",
+   "As 14 cenas sombrias que Goya pintou nas paredes da própria casa, entre 1819 e 1823."
+  ]
+ ],
+ "imagens": {
+  "retrato.jpg": "File:Autorretrato Goya 1815.jpg",
+  "familia.jpg": "File:La familia de Carlos IV, Francisco de Goya.jpg",
+  "tres-de-maio.jpg": "File:El Tres de Mayo, by Francisco de Goya, from Prado in Google Earth.jpg",
+  "capricho.jpg": "File:Plate 43 from 'Los Caprichos'- The sleep of reason produces monsters (El sueño de la razon produce monstruos) MET DP816991.jpg",
+  "guarda-sol.jpg": "File:El Quitasol (Goya).jpg",
+  "san-isidro.jpg": "File:La pradera de San Isidro, Francisco de Goya.jpg",
+  "cao.jpg": "File:Goya Dog.jpg"
+ },
+ "pron": "por ele"
+}

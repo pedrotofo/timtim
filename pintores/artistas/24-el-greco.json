@@ -13,7 +13,7 @@
   "pos": "center 30%"
  },
  "abertura": {
-  "img": "el-greco/vista-de-toledo.jpg",
+  "img": "el-greco/toledo.jpg",
   "legenda": "Vista de Toledo, c. 1599–1600. Óleo sobre tela. Metropolitan Museum, Nova York.",
   "pos": "center 50%"
  },
@@ -129,28 +129,28 @@
   "intro": "Conta uma lenda de Toledo que, em 1323, Santo Estêvão e Santo Agostinho desceram do céu para enterrar o conde de Orgaz, homem caridoso. Embaixo, o enterro; em cima, a alma do conde chega ao céu.",
   "marcas": [
    [
-    50,
-    70,
+    36,
+    72,
     "Os dois santos",
-    "Santo Estêvão, jovem, e Santo Agostinho, de barba branca, seguram o corpo de armadura do conde."
+    "Santo Estêvão, jovem, e Santo Agostinho, de mitra de bispo, seguram o corpo de armadura do conde."
    ],
    [
-    20,
-    80,
+    8,
+    83,
     "O menino",
-    "É Jorge Manuel, filho do pintor. No lenço do bolso, El Greco escreveu seu nome e 1578, ano em que o filho nasceu."
+    "É Jorge Manuel, filho do pintor. No lenço do bolso, El Greco escreveu seu nome e 1578, ano em que o menino nasceu."
    ],
    [
-    50,
-    50,
+    57,
+    66,
     "Os fidalgos",
     "Uma fileira de homens de Toledo, de golas brancas, vestidos como na época do pintor, não como em 1323."
    ],
    [
-    50,
-    20,
-    "O céu",
-    "A alma do conde, levada por um anjo, sobe até Cristo, a Virgem e São João Batista."
+    46,
+    45,
+    "A alma sobe",
+    "Um anjo leva a alma do conde, como um pequeno corpo sem forma, até Cristo, a Virgem e São João Batista."
    ]
   ]
  },
@@ -213,7 +213,7 @@
    "nota": "Um fidalgo de Toledo, de preto, jura com a mão sobre o coração."
   },
   {
-   "img": "el-greco/espolio.jpg",
+   "img": "el-greco/expolio.jpg",
    "titulo": "O Espólio",
    "ano": "1577–1579",
    "nota": "Cristo de vermelho no meio da multidão, antes da crucificação. Primeira encomenda em Toledo."
@@ -261,12 +261,12 @@
  ],
  "imagens": {
   "retrato.jpg": "File:El Greco - Portrait of a Man - WGA10554.jpg",
-  "vista-de-toledo.jpg": "File:El Greco - View of Toledo - Google Art Project.jpg",
   "orgaz.jpg": "File:El entierro del señor de Orgaz - El Greco.jpg",
   "cavaleiro.jpg": "File:The Nobleman with his hand on his chest, by El Greco (Museo del Prado, Madrid).jpg",
-  "espolio.jpg": "File:The Disrobing of Christ - El Greco.jpg",
   "pastores.jpg": "File:La adoración de los pastores (El Greco).jpg",
-  "dormicao.jpg": "File:Dormition El Greco.jpg"
+  "dormicao.jpg": "File:Dormition El Greco.jpg",
+  "expolio.jpg": "File:El Expolio del Greco Catedral de Toledo.jpg",
+  "toledo.jpg": "File:View of Toledo MET DP349564.jpg"
  },
  "pron": "por ele"
 }

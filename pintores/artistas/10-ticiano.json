@@ -1,0 +1,276 @@
+{
+ "pos": 10,
+ "chave": "ticiano",
+ "nome": "Ticiano",
+ "nome_original": "Tiziano Vecellio",
+ "vida": "c. 1488–1576",
+ "origem": "Itália",
+ "cor": "#9E2B20",
+ "frase": "Mestre da cor em Veneza, pintou papas e imperadores e soltou a pincelada de um jeito que os pintores imitam até hoje.",
+ "retrato": {
+  "img": "ticiano/retrato.jpg",
+  "legenda": "Autorretrato, c. 1562. Museu do Prado, Madri.",
+  "pos": "center 25%"
+ },
+ "abertura": {
+  "img": "ticiano/carlos-v.jpg",
+  "legenda": "Carlos V em Mühlberg, 1548. Museu do Prado, Madri.",
+  "pos": "center 12%"
+ },
+ "ficha": [
+  [
+   "Nasceu",
+   "c. 1488, em Pieve di Cadore, República de Veneza"
+  ],
+  [
+   "Morreu",
+   "1576, em Veneza, com quase noventa anos"
+  ],
+  [
+   "Movimento",
+   "Renascimento veneziano"
+  ],
+  [
+   "Técnica",
+   "Óleo sobre tela, em muitas camadas de cor e veladuras"
+  ],
+  [
+   "Obra",
+   "Centenas de pinturas: altares, retratos e cenas mitológicas"
+  ],
+  [
+   "Onde ver",
+   "Museu do Prado (Madri), Frari e Accademia (Veneza), Louvre (Paris)"
+  ]
+ ],
+ "vida_titulo": "Pintor de papas e imperadores",
+ "vida_txt": [
+  {
+   "t": "Das montanhas a Veneza",
+   "p": "Tiziano Vecellio nasceu em Pieve di Cadore, nas montanhas ao norte de Veneza, por volta de 1488; a data exata é incerta. Ainda menino foi mandado para Veneza com o irmão. Aprendeu com um mosaicista e depois no ateliê dos irmãos Bellini. Trabalhou ao lado de Giorgione, um pouco mais velho, e por alguns anos os estilos dos dois ficaram tão parecidos que há quadros disputados até hoje."
+  },
+  {
+   "t": "O pintor de Veneza",
+   "p": "Com a morte de Giovanni Bellini, em 1516, Ticiano passou a ser o principal pintor da República de Veneza. No mesmo ano começou a Assunção para o altar da igreja dos Frari: quase sete metros de altura, com a Virgem subindo ao céu num manto vermelho. Revelada em 1518, fez dele o pintor mais disputado da cidade. Os duques de Ferrara e de Mântua logo encomendaram seus quadros."
+  },
+  {
+   "t": "O retratista do imperador",
+   "p": "Em 1533 o imperador Carlos V o nomeou conde e cavaleiro, honra rara para um pintor. Conta-se que um dia o imperador se abaixou para pegar um pincel que Ticiano deixara cair. Pintou o papa Paulo III em Roma, em 1545, e Carlos V a cavalo em Augsburgo, em 1548. Depois trabalhou mais de vinte anos para o filho do imperador, Felipe II da Espanha."
+  },
+  {
+   "t": "Pintando com os dedos",
+   "p": "Na velhice pintava devagar, voltando aos quadros durante anos. As pinceladas ficaram largas, quase manchas, e, segundo o relato de um aluno, nos retoques finais ele usava mais os dedos que os pincéis. Morreu em Veneza em 27 de agosto de 1576, durante uma epidemia de peste. Mesmo assim, foi enterrado na igreja dos Frari, perto da sua Assunção."
+  }
+ ],
+ "citacao": {
+  "texto": "Estas últimas obras são feitas com pinceladas largas e manchas, de modo que de perto não se pode vê-las, mas de longe parecem perfeitas.",
+  "fonte": "Giorgio Vasari, Vidas dos artistas, 1568"
+ },
+ "vida_fig": {
+  "img": "ticiano/pesaro.jpg",
+  "legenda": "Madona da família Pesaro, 1519–1526, outro altar de Ticiano na igreja dos Frari, em Veneza."
+ },
+ "linha": [
+  [
+   1488,
+   "Nasce em Cadore, data incerta",
+   "vida"
+  ],
+  [
+   1492,
+   "Colombo chega à América",
+   "mundo"
+  ],
+  [
+   1500,
+   "Cabral chega ao Brasil",
+   "mundo"
+  ],
+  [
+   1517,
+   "Lutero publica suas 95 teses",
+   "mundo"
+  ],
+  [
+   1518,
+   "Revela a Assunção nos Frari",
+   "vida"
+  ],
+  [
+   1533,
+   "Carlos V o faz conde",
+   "vida"
+  ],
+  [
+   1548,
+   "Pinta Carlos V a cavalo",
+   "vida"
+  ],
+  [
+   1549,
+   "Tomé de Sousa funda Salvador",
+   "mundo"
+  ],
+  [
+   1565,
+   "Estácio de Sá funda o Rio",
+   "mundo"
+  ],
+  [
+   1576,
+   "Morre em Veneza, na peste",
+   "vida"
+  ]
+ ],
+ "foco": {
+  "img": "ticiano/sepultamento.jpg",
+  "titulo": "O sepultamento de Cristo",
+  "dados": "c. 1520 · óleo sobre tela · 148 × 212 cm · Museu do Louvre, Paris",
+  "intro": "José de Arimateia, Nicodemos e João levam o corpo de Cristo ao túmulo, ao entardecer. À esquerda, Maria e Maria Madalena. Ticiano deixou o rosto de Cristo na sombra e pôs a luz no corpo e no lençol.",
+  "marcas": [
+   [
+    12,
+    25,
+    "As duas Marias",
+    "A Virgem, de azul, junta as mãos; Maria Madalena a ampara e olha para o corpo."
+   ],
+   [
+    61,
+    40,
+    "O rosto na sombra",
+    "A cabeça de Cristo cai para trás, quase invisível. A luz fica no corpo e no lençol."
+   ],
+   [
+    72,
+    80,
+    "O braço solto",
+    "O braço pendurado, pesado, mostra o peso do corpo que os três homens carregam."
+   ],
+   [
+    80,
+    30,
+    "O manto vermelho",
+    "O pano vermelho de quem segura os ombros equilibra, do outro lado, o azul da Virgem."
+   ]
+  ]
+ },
+ "sabia": [
+  "Ninguém sabe ao certo quando Ticiano nasceu. Numa carta de 1571 a Felipe II, ele disse ter 95 anos; hoje se acha que exagerou.",
+  "Em Veneza, a umidade do ar estragava os afrescos. Por isso os pintores da cidade adotaram cedo a pintura a óleo sobre tela.",
+  "O sepultamento de Cristo pertenceu ao duque de Mântua, depois a Carlos I da Inglaterra e a Luís XIV da França."
+ ],
+ "tecnica": {
+  "titulo": "Cor sobre cor",
+  "intro": "Em Veneza, os pintores trocaram a madeira pela tela e o desenho exato pela cor. Ticiano construía os quadros em muitas camadas, ao longo de meses ou anos.",
+  "passos": [
+   [
+    "A base",
+    "Sobre a tela preparada, marcava as figuras com pinceladas largas, sem desenho detalhado."
+   ],
+   [
+    "O descanso",
+    "Segundo um aluno, virava o quadro para a parede por meses e depois o olhava como a um inimigo, procurando defeitos."
+   ],
+   [
+    "As camadas",
+    "Aos poucos acrescentava pele, panos e céu, alternando tinta grossa e veladuras transparentes."
+   ],
+   [
+    "Os dedos",
+    "No fim retocava com os dedos: suavizava passagens de luz e punha manchas de cor que, de longe, viram brilho."
+   ]
+  ],
+  "box_t": "O vermelho de Ticiano",
+  "box": "Ticiano usava muito vermelho: o manto da Virgem na Assunção, os chapéus de cardeal, as roupas dos papas. Os pigmentos chegavam pelo porto de Veneza, onde os vendedores de cores formavam um ofício próprio. Até hoje \"ruivo ticiano\" é nome de cor de cabelo, por causa dos cabelos acobreados que ele pintava.",
+  "paleta": [
+   [
+    "#9E2B20",
+    "Vermelho"
+   ],
+   [
+    "#C9A15A",
+    "Ouro"
+   ],
+   [
+    "#2D4E7A",
+    "Azul"
+   ],
+   [
+    "#D8AE8C",
+    "Pele"
+   ],
+   [
+    "#2A2420",
+    "Sombra"
+   ]
+  ]
+ },
+ "obras": [
+  {
+   "img": "ticiano/assuncao.jpg",
+   "titulo": "Assunção da Virgem",
+   "ano": "1516–1518",
+   "nota": "Quase sete metros de altar na igreja dos Frari, em Veneza."
+  },
+  {
+   "img": "ticiano/luva.jpg",
+   "titulo": "Homem com luva",
+   "ano": "c. 1520",
+   "nota": "Um jovem de preto, de nome desconhecido, com uma luva clara na mão."
+  },
+  {
+   "img": "ticiano/paulo-iii.jpg",
+   "titulo": "Paulo III e seus netos",
+   "ano": "1545–1546",
+   "nota": "O velho papa e dois netos, numa cena tensa que ficou inacabada."
+  }
+ ],
+ "influenciou": [
+  [
+   "Peter Paul Rubens",
+   14
+  ],
+  [
+   "Diego Velázquez",
+   8
+  ],
+  [
+   "El Greco",
+   24
+  ],
+  [
+   "Nicolas Poussin",
+   36
+  ]
+ ],
+ "rival": [
+  "Michelangelo",
+  3,
+  "Segundo Vasari, elogiou a cor de Ticiano e criticou seu desenho."
+ ],
+ "pensar": "Pegue um desenho seu de semanas atrás, que você não vê há tempos, e olhe para ele como Ticiano olhava os quadros guardados: como um inimigo. Ache três coisas para corrigir e corrija.",
+ "palavras": [
+  [
+   "Veladura",
+   "Camada fina e transparente de tinta sobre outra já seca, que muda a cor de baixo como um vidro."
+  ],
+  [
+   "Retábulo",
+   "Pintura grande feita para ficar atrás do altar de uma igreja."
+  ],
+  [
+   "Poesia",
+   "Nome que Ticiano deu às cenas mitológicas pintadas para Felipe II, inspiradas em poemas antigos."
+  ]
+ ],
+ "imagens": {
+  "retrato.jpg": "File:Titian - Self-portrait (Museo del Prado).jpg",
+  "carlos-v.jpg": "File:Carlos V en Mühlberg, by Titian, from Prado in Google Earth.jpg",
+  "sepultamento.jpg": "File:Le Transport du Christ vers le tombeau - Titien - Musée du Louvre Peintures INV 749.jpg",
+  "assuncao.jpg": "File:Tizian 041.jpg",
+  "luva.jpg": "File:Tizian 079.jpg",
+  "paulo-iii.jpg": "File:Titian – Portrait of Pope Paul III with his Grandsons – Google Art Project.jpg",
+  "pesaro.jpg": "File:Tizian 039 (2).jpg"
+ },
+ "pron": "por ele"
+}

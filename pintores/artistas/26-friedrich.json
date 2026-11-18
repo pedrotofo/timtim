@@ -13,9 +13,9 @@
   "pos": "center 30%"
  },
  "abertura": {
-  "img": "friedrich/monge.jpg",
-  "legenda": "O monge à beira-mar, 1808–1810. Óleo sobre tela. Alte Nationalgalerie, Berlim.",
-  "pos": "center 75%"
+  "img": "friedrich/mar-de-gelo.jpg",
+  "legenda": "O mar de gelo, 1823–1824. Óleo sobre tela. Hamburger Kunsthalle, Hamburgo.",
+  "pos": "center 45%"
  },
  "ficha": [
   [
@@ -129,26 +129,26 @@
   "intro": "Um homem de casaco escuro, de costas, está no alto de um rochedo diante de um mar de névoa, de onde saem pontas de pedra e montanhas. Friedrich montou a paisagem no ateliê com desenhos feitos nas montanhas de arenito do vale do Elba.",
   "marcas": [
    [
-    50,
-    25,
+    53,
+    47,
     "O viajante",
     "Vemos só as costas e o cabelo ao vento. Sem rosto, ele pode ser qualquer um, até quem olha o quadro."
    ],
    [
-    20,
-    55,
+    10,
+    64,
     "O mar de névoa",
     "A névoa cobre os vales e deixa aparecer só pontas de rochas e árvores."
    ],
    [
-    75,
-    30,
+    84,
+    36,
     "O rochedo ao fundo",
     "À direita, uma montanha de topo reto, como as das montanhas de arenito do Elba, perto de Dresden."
    ],
    [
-    50,
-    85,
+    32,
+    88,
     "As rochas da frente",
     "Escuras e firmes, contrastam com tudo o que está atrás, claro e sem peso."
    ]
@@ -207,10 +207,10 @@
  },
  "obras": [
   {
-   "img": "friedrich/mar-de-gelo.jpg",
-   "titulo": "O mar de gelo",
-   "ano": "1823–1824",
-   "nota": "Placas de gelo empilhadas engolem um navio. Não foi vendido em vida."
+   "img": "friedrich/monge.jpg",
+   "titulo": "O monge à beira-mar",
+   "ano": "1808–1810",
+   "nota": "Um monge minúsculo diante do mar escuro; quase todo o quadro é céu."
   },
   {
    "img": "friedrich/abadia.jpg",

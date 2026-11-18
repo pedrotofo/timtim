@@ -47,6 +47,12 @@ def ranking(a):
     return {'wikis': w, 'wikis_pos': 1 + sum(x > w for x in _wk), 'influencia': v.get('influenciou'), 'nota': v.get('nota'),
             'mundo': LISTA[a['pos']]['grupo'] == 'volta ao mundo', 'regiao': LISTA[a['pos']].get('regiao', '')}
 
+def regiao_com(reg):
+    """'Coreia' -> 'na Coreia', 'Japão' -> 'no Japão'."""
+    r = reg.split(' (')[0]
+    masc = ('Japão', 'Brasil', 'Império Otomano', 'Sudeste Asiático', 'México')
+    return ('no ' if r in masc else 'na ') + r
+
 def cor_ok(c):
     """Escurece a cor do pintor até o texto branco ficar legível (contraste 4,5:1)."""
     def lum(rgb):
@@ -206,7 +212,7 @@ def artista(a, p0):
     r = ranking(a)
     barras = f'<div class="barra">Alcance mundial: artigo em <b>{r["wikis"]} idiomas</b> da Wikipédia<div class="t"><i style="width:{min(100, r["wikis"] / 244 * 100):.0f}%"></i></div></div>'
     if r['mundo']:
-        barras += (f'<div class="barra">Vaga da <b>volta ao mundo</b>: o pintor de obra livre com mais alcance em {esc(r["regiao"].split(" (")[0])}.</div>'
+        barras += (f'<div class="barra">Vaga da <b>volta ao mundo</b>: o pintor de obra livre com mais alcance {regiao_com(r["regiao"])}.</div>'
                    f'<div class="barra">A conta completa está no fim do livro, em “Como fizemos o ranking”.</div>')
     else:
         barras += (f'<div class="barra">Influência: <b>{r["influencia"]} artistas e movimentos</b> registrados como influenciados {esc(a.get("pron", "por ele"))}<div class="t"><i style="width:{min(100, (r["influencia"] or 0) / 59 * 100):.0f}%"></i></div></div>'
@@ -230,7 +236,7 @@ def artista(a, p0):
     # 2 a vida
     fig = a.get('vida_fig')
     figura = f'<figure class="vfig"><img src="{img(fig["img"], 1000)}" alt="{esc(fig["legenda"])}"/><figcaption>{esc(fig["legenda"])}</figcaption></figure>' if fig else ''
-    blocos = ''.join(f'<h3>{esc(b["t"])}</h3><p>{esc(b["p"])}</p>' + (f'<div class="cit">“{esc(a["citacao"]["texto"])}”<small>{esc(a["citacao"]["fonte"])}</small></div>' if i == 1 else '') + (figura if i == 2 else '')
+    blocos = ''.join(f'<h3>{esc(b["t"])}</h3><p>{esc(b["p"])}</p>' + (f'<div class="cit">“{esc(a["citacao"]["texto"])}”<small>{esc(a["citacao"]["fonte"])}</small></div>' if i == 1 and a.get("citacao") else '') + (figura if i == 2 else '')
                      for i, b in enumerate(a['vida_txt']))
     n = len(a['linha']); evs = ''
     for i, (ano, t, tipo) in enumerate(a['linha']):

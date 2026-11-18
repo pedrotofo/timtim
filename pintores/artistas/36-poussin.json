@@ -130,26 +130,26 @@
   "intro": "Na Arcádia, a terra feliz dos poetas antigos, três pastores e uma mulher encontram um túmulo. Um deles soletra a inscrição, \"Et in Arcadia ego\": \"Também na Arcádia eu estou\". Quem fala é a morte.",
   "marcas": [
    [
-    40,
-    55,
+    52,
+    59,
     "A inscrição",
     "O pastor ajoelhado segue as letras com o dedo, como quem aprende a ler."
    ],
    [
-    50,
-    50,
+    45,
+    61,
     "A sombra",
     "A sombra do braço do pastor se projeta na pedra, bem ao lado das palavras."
    ],
    [
-    80,
-    40,
+    68,
+    45,
     "A mulher",
     "Calma, de perfil, ela parece já saber o que a inscrição quer dizer."
    ],
    [
-    20,
-    20,
+    22,
+    22,
     "A paisagem",
     "Árvores, céu e montanhas suaves: o cenário tranquilo torna o aviso mais forte."
    ]
@@ -267,7 +267,7 @@
  "imagens": {
   "retrato.jpg": "File:Poussin - Autoportrait, 1650, INV 7302 ; MR 2329.jpg",
   "patmos.jpg": "File:Nicolas Poussin - Landscape with Saint John on Patmos - Google Art Project.jpg",
-  "arcadia.jpg": "File:Nicolas Poussin - Et in Arcadia ego (deuxième version).jpg",
+  "arcadia.jpg": "File:Nicolas Poussin - Et in Arcadia ego (deuxième version) (cropped).jpg",
   "germanico.jpg": "File:Nicolas Poussin - The Death of Germanicus - Google Art Project.jpg",
   "serpente.jpg": "File:Landscape-with-a-man-killed-by-a-snake-Poussin.jpg",
   "inverno.jpg": "File:Nicolas Poussin - L'Hiver ou Le Déluge.jpg",

@@ -14,12 +14,30 @@
   "pos": "center 45%"
  },
  "ficha": [
-  ["Nasceu", "c. 1267, no Mugello, perto de Florença, Itália"],
-  ["Morreu", "1337, em Florença, com cerca de 70 anos"],
-  ["Movimento", "Gótico; precursor do Renascimento"],
-  ["Técnica", "Afresco e têmpera sobre madeira"],
-  ["Obra", "Poucas dezenas de obras atribuídas, muitas ainda discutidas"],
-  ["Onde ver", "Capela Scrovegni (Pádua), Uffizi (Florença), igreja de Santa Croce (Florença)"]
+  [
+   "Nasceu",
+   "c. 1267, no Mugello, perto de Florença, Itália"
+  ],
+  [
+   "Morreu",
+   "1337, em Florença, com cerca de 70 anos"
+  ],
+  [
+   "Movimento",
+   "Gótico; precursor do Renascimento"
+  ],
+  [
+   "Técnica",
+   "Afresco e têmpera sobre madeira"
+  ],
+  [
+   "Obra",
+   "Poucas dezenas de obras atribuídas, muitas ainda discutidas"
+  ],
+  [
+   "Onde ver",
+   "Capela Scrovegni (Pádua), Uffizi (Florença), igreja de Santa Croce (Florença)"
+  ]
  ],
  "vida_titulo": "Figuras de carne e osso",
  "vida_txt": [
@@ -49,16 +67,56 @@
   "legenda": "Maestà de Cimabue, c. 1290. Têmpera sobre madeira. Uffizi, Florença. Segundo Vasari, Cimabue foi o mestre de Giotto."
  },
  "linha": [
-  ["c. 1267", "Nasce no Mugello", "vida"],
-  [1271, "Marco Polo parte rumo à China", "mundo"],
-  [1300, "Primeiro Ano Santo em Roma", "mundo"],
-  [1302, "Dante é exilado de Florença", "mundo"],
-  [1305, "Capela Scrovegni é consagrada", "vida"],
-  [1309, "O papa se muda para Avignon", "mundo"],
-  [1321, "Dante morre em Ravena", "mundo"],
-  [1328, "Vai trabalhar em Nápoles", "vida"],
-  [1334, "Começa o campanário de Florença", "vida"],
-  [1337, "Morre em Florença", "vida"]
+  [
+   "c. 1267",
+   "Nasce no Mugello",
+   "vida"
+  ],
+  [
+   1271,
+   "Marco Polo parte rumo à China",
+   "mundo"
+  ],
+  [
+   1300,
+   "Primeiro Ano Santo em Roma",
+   "mundo"
+  ],
+  [
+   1302,
+   "Dante é exilado de Florença",
+   "mundo"
+  ],
+  [
+   1305,
+   "Capela Scrovegni é consagrada",
+   "vida"
+  ],
+  [
+   1309,
+   "O papa se muda para Avignon",
+   "mundo"
+  ],
+  [
+   1321,
+   "Dante morre em Ravena",
+   "mundo"
+  ],
+  [
+   1328,
+   "Vai trabalhar em Nápoles",
+   "vida"
+  ],
+  [
+   1334,
+   "Começa o campanário de Florença",
+   "vida"
+  ],
+  [
+   1337,
+   "Morre em Florença",
+   "vida"
+  ]
  ],
  "foco": {
   "img": "giotto/lamento.jpg",
@@ -66,10 +124,30 @@
   "dados": "c. 1305 · afresco · 200 × 185 cm · Capela Scrovegni, Pádua",
   "intro": "Maria segura o corpo do filho morto, cercada por discípulos e mulheres. No céu, anjos se contorcem de dor. Quase toda a emoção está nos gestos.",
   "marcas": [
-   [20, 70, "Maria", "A mãe aproxima o rosto do rosto do filho, quase tocando."],
-   [15, 85, "De costas", "Duas figuras sentadas de costas para nós: o espaço continua à nossa frente."],
-   [55, 45, "A rocha", "Uma diagonal de pedra leva o olho de cima até a cabeça de Cristo."],
-   [40, 15, "Os anjos", "No céu, anjos choram, gritam, abrem os braços."]
+   [
+    31,
+    66,
+    "Maria",
+    "A mãe segura a cabeça do filho e aproxima o rosto, quase tocando."
+   ],
+   [
+    13,
+    86,
+    "De costas",
+    "Duas mulheres sentadas de costas para nós: o espaço continua do nosso lado."
+   ],
+   [
+    74,
+    40,
+    "A rocha",
+    "Uma diagonal de pedra desce da direita e leva o olho até a cabeça de Cristo."
+   ],
+   [
+    45,
+    14,
+    "Os anjos",
+    "No céu, anjos choram, gritam, cobrem o rosto, abrem os braços."
+   ]
   ]
  },
  "sabia": [
@@ -81,19 +159,46 @@
   "titulo": "O afresco, dia a dia",
   "intro": "Afresco é pintar sobre o reboco ainda molhado. Ao secar, a cal prende o pigmento na parede, e a pintura dura séculos. Mas é preciso ser rápido: só se pinta enquanto o reboco está fresco.",
   "passos": [
-   ["A primeira camada", "Um reboco grosso cobria a parede. Sobre ele se marcava a composição de cada cena."],
-   ["A jornada", "A cada manhã, o pintor estendia só o reboco fino que conseguia pintar naquele dia: a giornata, ou jornada."],
-   ["Pintar no úmido", "Pigmentos moídos em água, pincelados no reboco fresco. De perto ainda se veem as emendas de cada dia."],
-   ["Retoques a seco", "Alguns azuis e detalhes iam depois, a seco, com cola ou ovo. São os que mais se perderam com o tempo."]
+   [
+    "A primeira camada",
+    "Um reboco grosso cobria a parede. Sobre ele se marcava a composição de cada cena."
+   ],
+   [
+    "A jornada",
+    "A cada manhã, o pintor estendia só o reboco fino que conseguia pintar naquele dia: a giornata, ou jornada."
+   ],
+   [
+    "Pintar no úmido",
+    "Pigmentos moídos em água, pincelados no reboco fresco. De perto ainda se veem as emendas de cada dia."
+   ],
+   [
+    "Retoques a seco",
+    "Alguns azuis e detalhes iam depois, a seco, com cola ou ovo. São os que mais se perderam com o tempo."
+   ]
   ],
   "box_t": "O livro de Cennino",
   "box": "Por volta de 1400, o pintor Cennino Cennini, formado na tradição da oficina de Giotto, escreveu um manual de pintura. Ali explica o afresco passo a passo e diz que Giotto mudou a arte de pintar do grego para o latino e a tornou moderna.",
   "paleta": [
-   ["#24507A", "Azul do céu"],
-   ["#C9A27A", "Rocha"],
-   ["#B8473A", "Vermelho"],
-   ["#E3D2B4", "Pele"],
-   ["#6E7F5A", "Verde"]
+   [
+    "#6F86A3",
+    "Céu"
+   ],
+   [
+    "#DBCAB7",
+    "Rocha"
+   ],
+   [
+    "#E7A88F",
+    "Rosa"
+   ],
+   [
+    "#B5B8A3",
+    "Verde-claro"
+   ],
+   [
+    "#8E583F",
+    "Moldura"
+   ]
   ]
  },
  "obras": [
@@ -117,15 +222,33 @@
   }
  ],
  "influenciou": [
-  ["Taddeo Gaddi", null],
-  ["Masaccio", null],
-  ["Michelangelo", 3]
+  [
+   "Taddeo Gaddi",
+   null
+  ],
+  [
+   "Masaccio",
+   null
+  ],
+  [
+   "Michelangelo",
+   3
+  ]
  ],
  "pensar": "Desenhe uma cena triste ou alegre sem mostrar nenhum rosto: só gestos, costas, mãos e posturas, como as figuras de costas do Lamento. Alguém consegue adivinhar o que elas sentem?",
  "palavras": [
-  ["Afresco", "Pintura feita sobre reboco fresco de cal: o pigmento seca preso à parede."],
-  ["Têmpera", "Tinta de pigmento com gema de ovo, usada sobre madeira antes da pintura a óleo."],
-  ["Giornata", "Em italiano, \"jornada\": a parte do afresco pintada em um só dia, sobre o reboco fresco."]
+  [
+   "Afresco",
+   "Pintura feita sobre reboco fresco de cal: o pigmento seca preso à parede."
+  ],
+  [
+   "Têmpera",
+   "Tinta de pigmento com gema de ovo, usada sobre madeira antes da pintura a óleo."
+  ],
+  [
+   "Giornata",
+   "Em italiano, \"jornada\": a parte do afresco pintada em um só dia, sobre o reboco fresco."
+  ]
  ],
  "imagens": {
   "beijo-judas.jpg": "File:Giotto - Scrovegni - -31- - Kiss of Judas.jpg",

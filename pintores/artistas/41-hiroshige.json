@@ -1,0 +1,272 @@
+{
+ "pos": 41,
+ "chave": "hiroshige",
+ "nome": "Utagawa Hiroshige",
+ "nome_original": "歌川広重",
+ "vida": "1797–1858",
+ "origem": "Japão",
+ "cor": "#2C4A6B",
+ "frase": "Viajou pelas estradas do Japão e as transformou em gravuras de chuva, neve e luar que Van Gogh copiou a óleo.",
+ "retrato": {
+  "img": "hiroshige/retrato.jpg",
+  "legenda": "Retrato póstumo feito por Utagawa Kunisada em 1858, com o poema de despedida de Hiroshige.",
+  "pos": "center 42%"
+ },
+ "abertura": {
+  "img": "hiroshige/kanbara.jpg",
+  "legenda": "Kanbara: neve à noite, da série As cinquenta e três estações do Tōkaidō, 1833–1834. Xilogravura colorida.",
+  "pos": "center 50%"
+ },
+ "ficha": [
+  [
+   "Nasceu",
+   "1797, em Edo (hoje Tóquio), Japão"
+  ],
+  [
+   "Morreu",
+   "1858, em Edo, aos 61 anos"
+  ],
+  [
+   "Movimento",
+   "Ukiyo-e, as \"imagens do mundo flutuante\""
+  ],
+  [
+   "Técnica",
+   "Xilogravura colorida, sobretudo de paisagens"
+  ],
+  [
+   "Obra",
+   "Mais de 5 mil gravuras, pelas estimativas"
+  ],
+  [
+   "Onde ver",
+   "Museu Ota (Tóquio), Museu do Brooklyn (Nova York), Museu Britânico (Londres)"
+  ]
+ ],
+ "vida_titulo": "O gravador das estradas e da chuva",
+ "vida_txt": [
+  {
+   "t": "Filho de bombeiro",
+   "p": "Hiroshige nasceu em 1797 em Edo, a atual Tóquio, numa família de samurais de baixa patente. O pai, Andō Gen'emon, era oficial de uma brigada de bombeiros ligada ao castelo. Em 1809, aos 12 anos, perdeu a mãe e o pai e herdou o posto. Por volta de 1811 entrou para o ateliê do gravador Utagawa Toyohiro e, no ano seguinte, recebeu dele o nome Hiroshige."
+  },
+  {
+   "t": "Atores, moças e paisagens",
+   "p": "Nos primeiros anos fez o que todo gravador fazia: retratos de atores do kabuki, de moças elegantes e ilustrações de livros. Em 1823 passou o posto de bombeiro a um parente e ficou livre para a arte. Por volta de 1831 publicou suas primeiras séries de paisagens, com vistas famosas de Edo. Na mesma época, Hokusai lançava as Trinta e seis vistas do monte Fuji."
+  },
+  {
+   "t": "A estrada Tōkaidō",
+   "p": "Segundo a tradição, em 1832 ele percorreu a Tōkaidō, a estrada de quase 500 km entre Edo e Kyoto, com uma comitiva que levava cavalos de presente à corte do imperador. Dessa viagem nasceram As cinquenta e três estações do Tōkaidō, publicadas entre 1833 e 1834. A série vendeu muito e fez dele o paisagista mais popular do Japão."
+  },
+  {
+   "t": "Cem vistas de Edo",
+   "p": "Em 1856 raspou a cabeça e se tornou monge budista, sem parar de trabalhar. No mesmo ano começou as Cem vistas célebres de Edo, gravuras em pé que não viu terminadas: morreu em 1858, provavelmente na epidemia de cólera que atingiu a cidade. O discípulo Hiroshige II completou a série, que chegou a 118 vistas."
+  }
+ ],
+ "citacao": {
+  "texto": "Deixo meu pincel na terra do Leste e parto, pelo céu das viagens, para ver as paisagens famosas da Terra do Oeste.",
+  "fonte": "Poema de despedida de Hiroshige, 1858, escrito no seu retrato póstumo"
+ },
+ "vida_fig": {
+  "img": "hiroshige/van-gogh.jpg",
+  "legenda": "Ponte na chuva, a cópia a óleo que Van Gogh fez em 1887 de uma gravura das Cem vistas de Edo."
+ },
+ "linha": [
+  [
+   1797,
+   "Nasce em Edo",
+   "vida"
+  ],
+  [
+   1808,
+   "A corte portuguesa chega ao Brasil",
+   "mundo"
+  ],
+  [
+   1812,
+   "Recebe o nome Hiroshige",
+   "vida"
+  ],
+  [
+   1822,
+   "Independência do Brasil",
+   "mundo"
+  ],
+  [
+   1833,
+   "As estações do Tōkaidō",
+   "vida"
+  ],
+  [
+   1839,
+   "A fotografia é apresentada em Paris",
+   "mundo"
+  ],
+  [
+   1850,
+   "Brasil proíbe o tráfico de escravizados",
+   "mundo"
+  ],
+  [
+   1853,
+   "Navios americanos chegam ao Japão",
+   "mundo"
+  ],
+  [
+   1856,
+   "Começa as Cem vistas de Edo",
+   "vida"
+  ],
+  [
+   1858,
+   "Morre em Edo, aos 61 anos",
+   "vida"
+  ]
+ ],
+ "foco": {
+  "img": "hiroshige/shono.jpg",
+  "titulo": "Chuva repentina em Shōno",
+  "dados": "1833–1834 · xilogravura colorida · As cinquenta e três estações do Tōkaidō · esta cópia: Metropolitan Museum, Nova York",
+  "intro": "Um aguaceiro de verão desaba sobre a estação de Shōno. Carregadores e viajantes correm pela ladeira, e as árvores, curvadas pelo vento, viram silhuetas cinzentas, cada vez mais claras ao fundo.",
+  "marcas": [
+   [
+    28,
+    22,
+    "A chuva",
+    "Centenas de linhas finas e inclinadas, entalhadas uma a uma no bloco."
+   ],
+   [
+    62,
+    30,
+    "As árvores",
+    "Silhuetas em tons de cinza: quanto mais longe, mais claras e apagadas."
+   ],
+   [
+    38,
+    56,
+    "A liteira",
+    "Dois carregadores correm com um kago, a cadeirinha coberta por uma esteira."
+   ],
+   [
+    66,
+    61,
+    "A sombrinha",
+    "Nela vêm o nome do editor e o título da série, como propaganda."
+   ]
+  ]
+ },
+ "sabia": [
+  "Em 1887, Van Gogh copiou a óleo duas gravuras das Cem vistas de Edo: a ponte na chuva e a ameixeira de Kameido.",
+  "O \"Hiro\" de Hiroshige veio do nome do mestre, Toyohiro, como era costume nos ateliês de gravura.",
+  "As cinquenta e três estações do Tōkaidō têm 55 gravuras: as 53 paradas, mais a partida em Edo e a chegada em Kyoto."
+ ],
+ "tecnica": {
+  "titulo": "Degradê e primeiro plano",
+  "intro": "Hiroshige trabalhava com os mesmos blocos de madeira de Hokusai, mas pedia aos impressores efeitos novos. Dois deles mudaram a paisagem: o céu em degradê e o objeto gigante na frente.",
+  "passos": [
+   [
+    "O bokashi",
+    "Antes de deitar o papel, o impressor molhava o bloco e espalhava a tinta com um pano, forte num lado e sumindo no outro."
+   ],
+   [
+    "Faixa no céu",
+    "No alto, uma faixa escura que clareia para baixo, o ichimonji bokashi, faz o céu parecer fundo e luminoso."
+   ],
+   [
+    "Formato em pé",
+    "As Cem vistas de Edo são verticais, como um rolo pendurado. O olho desce do céu ao chão."
+   ],
+   [
+    "Perto e longe",
+    "Um galho, uma pata de cavalo ou uma águia enormes na frente, cortados pela borda; a paisagem pequena atrás."
+   ]
+  ],
+  "box_t": "Cada tiragem, um céu",
+  "box": "Como o degradê era feito à mão a cada folha, nenhuma cópia saía igual à outra. As primeiras tiragens costumam ter passagens de cor mais suaves; nas reimpressões, o céu às vezes muda de tom ou a faixa escura some. Os colecionadores comparam as tiragens de uma mesma gravura até hoje.",
+  "paleta": [
+   [
+    "#2C4A6B",
+    "Azul da Prússia"
+   ],
+   [
+    "#7E8584",
+    "Cinza de chuva"
+   ],
+   [
+    "#C9A66B",
+    "Palha"
+   ],
+   [
+    "#2F3B2C",
+    "Verde-escuro"
+   ],
+   [
+    "#E6DCC6",
+    "Papel"
+   ]
+  ]
+ },
+ "obras": [
+  {
+   "img": "hiroshige/ohashi.jpg",
+   "titulo": "Chuva repentina na ponte Ōhashi",
+   "ano": "1857",
+   "nota": "Linhas de chuva e gente correndo na ponte. Van Gogh copiou esta."
+  },
+  {
+   "img": "hiroshige/kameido.jpg",
+   "titulo": "O jardim de ameixeiras em Kameido",
+   "ano": "1857",
+   "nota": "Um tronco enorme cortado pela borda, na frente; os visitantes, pequenos, atrás."
+  },
+  {
+   "img": "hiroshige/aguia.jpg",
+   "titulo": "Fukagawa Susaki e Jūmantsubo",
+   "ano": "1857",
+   "nota": "Uma águia mergulha sobre a planície coberta de neve, vista do alto."
+  }
+ ],
+ "influenciou": [
+  [
+   "Vincent van Gogh",
+   1
+  ],
+  [
+   "Claude Monet",
+   7
+  ],
+  [
+   "James McNeill Whistler",
+   null
+  ]
+ ],
+ "rival": [
+  "Hokusai",
+  19,
+  "Mestre mais velho; os dois disputaram o público das gravuras de paisagem."
+ ],
+ "pensar": "Desenhe sua rua em formato vertical, com uma coisa bem grande na frente (um poste, um galho, uma grade) cortada pela borda do papel e a rua pequena atrás. O que muda na profundidade?",
+ "palavras": [
+  [
+   "Bokashi",
+   "Degradê de cor feito à mão pelo impressor, sobre o bloco de madeira molhado."
+  ],
+  [
+   "Tōkaidō",
+   "A estrada da costa leste do Japão, entre Edo e Kyoto, com 53 estações de parada."
+  ],
+  [
+   "Meisho",
+   "\"Lugares célebres\": paisagens famosas que os viajantes queriam ver e levar para casa em gravura."
+  ]
+ ],
+ "imagens": {
+  "retrato.jpg": "File:Utagawa Kunisada - Memorial Portrait of Hiroshige.jpg",
+  "kanbara.jpg": "File:Hiroshige-53-Stations-Hoeido-16-Kanbara-MFA-01.jpg",
+  "shono.jpg": "File:Shōno Hakuu-東海道五十三次之内 庄野 白雨-White Rain at Shōno MET DP123230.jpg",
+  "ohashi.jpg": "File:Ōhashi Atake no yūdachi-名所江戸百景 大はしあたけの夕立-Sudden Shower over Shin-Ōhashi Bridge and Atake (Ōhashi Atake no yūdachi), from the series One Hundred Famous Views of Edo (Meisho Edo hyakkei) MET DP123602.jpg",
+  "kameido.jpg": "File:De pruimenboomgaard te Kameido-Rijksmuseum RP-P-1956-743.jpeg",
+  "aguia.jpg": "File:De Jumantsubo vlakte te Susaki bij Fukagawa.jpeg",
+  "van-gogh.jpg": "File:Vincent van Gogh - Brug in de regen- naar Hiroshige - Google Art Project.jpg"
+ },
+ "pron": "por ele"
+}
