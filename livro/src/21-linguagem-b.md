@@ -148,10 +148,10 @@ Os desenhos a pena de Arles não nasciam direto na tinta. Primeiro vinha um esbo
 ## Uma paisagem
 
 <div class="steps4">
-<figure><img src="img/st-r13-1.jpg" alt=""><figcaption>1. Esboço de grafite: horizonte, faixas, a casa.</figcaption></figure>
-<figure><img src="img/st-r13-2.jpg" alt=""><figcaption>2. A tinta começa pelo longe, com a caneta mais fina.</figcaption></figure>
-<figure><img src="img/st-r13-3.jpg" alt=""><figcaption>3. As faixas do meio, com marcas maiores.</figcaption></figure>
-<figure><img src="img/r13.jpg" alt=""><figcaption>4. O primeiro plano e os acentos.</figcaption></figure>
+<figure><img src="img/st-r13-1.jpg" alt="Etapa 1 do exercício R13. Esboço de grafite: horizonte, faixas, a casa"><figcaption>1. Esboço de grafite: horizonte, faixas, a casa.</figcaption></figure>
+<figure><img src="img/st-r13-2.jpg" alt="Etapa 2 do exercício R13. A tinta começa pelo longe, com a caneta mais fina"><figcaption>2. A tinta começa pelo longe, com a caneta mais fina.</figcaption></figure>
+<figure><img src="img/st-r13-3.jpg" alt="Etapa 3 do exercício R13. As faixas do meio, com marcas maiores"><figcaption>3. As faixas do meio, com marcas maiores.</figcaption></figure>
+<figure><img src="img/r13.jpg" alt="Etapa 4 do exercício R13. O primeiro plano e os acentos"><figcaption>4. O primeiro plano e os acentos.</figcaption></figure>
 </div>
 
 O esboço só marca as grandes divisões e nunca é apagado com cuidado: a tinta passa por cima. A caneta engrossa conforme o desenho desce para o primeiro plano. As rochas e a relva da frente, as marcas maiores da folha, ficam para o fim.
@@ -159,10 +159,10 @@ O esboço só marca as grandes divisões e nunca é apagado com cuidado: a tinta
 ## Um retrato
 
 <div class="steps4">
-<figure><img src="img/st-c12-1.jpg" alt=""><figcaption>1. Esboço: cabeça, eixo, linhas dos olhos, do nariz e da boca.</figcaption></figure>
-<figure><img src="img/st-c12-2.jpg" alt=""><figcaption>2. Olhos, nariz e boca em tinta.</figcaption></figure>
-<figure><img src="img/st-c12-3.jpg" alt=""><figcaption>3. Cabelo, barba e pele.</figcaption></figure>
-<figure><img src="img/c12.jpg" alt=""><figcaption>4. O casaco, por último.</figcaption></figure>
+<figure><img src="img/st-c12-1.jpg" alt="Etapa 1 do exercício C12. Esboço: cabeça, eixo, linhas dos olhos, do nariz e da boca"><figcaption>1. Esboço: cabeça, eixo, linhas dos olhos, do nariz e da boca.</figcaption></figure>
+<figure><img src="img/st-c12-2.jpg" alt="Etapa 2 do exercício C12. Olhos, nariz e boca em tinta"><figcaption>2. Olhos, nariz e boca em tinta.</figcaption></figure>
+<figure><img src="img/st-c12-3.jpg" alt="Etapa 3 do exercício C12. Cabelo, barba e pele"><figcaption>3. Cabelo, barba e pele.</figcaption></figure>
+<figure><img src="img/c12.jpg" alt="Etapa 4 do exercício C12. O casaco, por último"><figcaption>4. O casaco, por último.</figcaption></figure>
 </div>
 
 No retrato a ordem muda: as feições mais escuras e nítidas entram primeiro, porque são elas que fixam a semelhança. A zona mais grossa, o casaco, fica para o fim, para não pesar sobre o rosto antes da hora.
@@ -170,10 +170,10 @@ No retrato a ordem muda: as feições mais escuras e nítidas entram primeiro, p
 ## Um autorretrato com halo
 
 <div class="steps4">
-<figure><img src="img/st-a01-1.jpg" alt=""><figcaption>1. Esboço com os anéis do halo bem leves.</figcaption></figure>
-<figure><img src="img/st-a01-2.jpg" alt=""><figcaption>2. O halo em tinta: a cabeça aparece como um vazio.</figcaption></figure>
-<figure><img src="img/st-a01-3.jpg" alt=""><figcaption>3. Chapéu e rosto.</figcaption></figure>
-<figure><img src="img/a01.jpg" alt=""><figcaption>4. O casaco.</figcaption></figure>
+<figure><img src="img/st-a01-1.jpg" alt="Etapa 1 do exercício A01. Esboço com os anéis do halo bem leves"><figcaption>1. Esboço com os anéis do halo bem leves.</figcaption></figure>
+<figure><img src="img/st-a01-2.jpg" alt="Etapa 2 do exercício A01. O halo em tinta: a cabeça aparece como um vazio"><figcaption>2. O halo em tinta: a cabeça aparece como um vazio.</figcaption></figure>
+<figure><img src="img/st-a01-3.jpg" alt="Etapa 3 do exercício A01. Chapéu e rosto"><figcaption>3. Chapéu e rosto.</figcaption></figure>
+<figure><img src="img/a01.jpg" alt="Etapa 4 do exercício A01. O casaco"><figcaption>4. O casaco.</figcaption></figure>
 </div>
 
 Quando o fundo é ativo, ele pode vir antes da figura. Os anéis do halo desenham a cabeça por exclusão, e o rosto entra depois num espaço já definido.
