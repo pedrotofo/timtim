@@ -425,3 +425,8 @@ neon 6ca1a8e7 · rua vista de cima 8fef10b9 · barcos ao luar 987ca079. O que el
 
 Testes: `filme2_REC/aprovacao/teste_look_gameplay_T10_T17.jpg` (jobs T10 82119e0e-a16d-4f66-a8b8-a8837cdd9469,
 T17 e05042d0-d2f9-4ebe-af3f-60feefe683af).
+
+## 9. Geração final no Google Flow (decidido)
+As imagens finais serão geradas no **Google Flow (Nano Banana)** por uma sessão local do Claude no computador
+do Pedro, onde há mais créditos. Os prompts prontos, as referências de cada take e a lista de conferência
+estão em `filme2_REC/flow-prompts.md`. Os frames em `filme2_REC/frames/` ficam só como guia de encenação.
