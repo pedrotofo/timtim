@@ -8,6 +8,15 @@ filme 1).
 recebe uma maleta prata num iate no Mucuripe. A luz vermelha do REC o entrega. Ele foge na garupa da moto da
 parceira **sem parar de gravar**, despista o SUV dos bandidos na areia da Praia de Iracema e entrega o vídeo.
 
+**Decisões travadas (v3):** Pedro aparece de verdade (rosto fiel) · Piloto anônima, capacete fechado até o
+fim · câmera **Sony A7 V** · tom de ação **com humor** (sátira de jogo de mundo aberto) · **Reels 9:16** ·
+assinatura **@pedrotofo** (sem logo) · música Tame Impala e som montados pelo Pedro · entrega **só imagens**,
+sem versões extras.
+
+**Momentos de humor (sem quebrar a clareza):** T4 dica de tutorial para desligar a luz de gravação (que ele
+ignora) · T14 o foco automático "detecta o rosto" do vilão no meio da fuga · T17 no ar, ele enquadra o plano
+calmamente enquanto a Piloto se desespera · T20 a "nova missão" é um casamento no sábado.
+
 ---
 
 ## 0. O que mudou da v1 e por quê (problema de clareza)
@@ -41,13 +50,15 @@ objeto ou personagem que vai ser importante aparece **antes** de ser usado.
 Copiar estes blocos sem mudar nenhuma palavra. A IA só mantém a continuidade se a descrição for idêntica
 em todos os takes.
 
-> **Figurino:** o figurino abaixo é provisório. Quando as fotos chegarem, ajusto para a roupa real e travo.
+> **Figurino:** vem da imagem que o Pedro vai mandar. Quando ela chegar, troco `[FIGURINO]` pela descrição
+> exata da roupa e travo o bloco.
 
 **[CHAR_FILMMAKER]**
-`the filmmaker: the man from the face reference images (keep his exact face, hair and beard), wearing a black
-zip-up bomber jacket, plain dark grey t-shirt, black cargo trousers, black sneakers with white soles; he
-carries a black Sony full-frame mirrorless camera with a 24-70mm lens on a black neck strap, with a small red
-recording tally light on the front of the camera`
+`the filmmaker: the man from the face reference images, keep his exact real face, hair and beard so he is
+instantly recognizable (game-cutscene finish but true likeness), wearing EXACTLY the outfit from the outfit
+reference image [FIGURINO]; he carries a black Sony Alpha 7 V (a7 V) compact full-frame mirrorless camera
+body with a 24-70mm zoom lens on a black neck strap, with the small red recording lamp on the front of the
+camera body`
 
 **[CHAR_PILOTA]**
 `the rider: a slim woman whose face is never visible, matte black full-face motorcycle helmet with one thin
@@ -160,10 +171,12 @@ branco e brilhante.
 **T4 · 5,0–6,5 s · O REC acende** (plantio)
 - Entender: a câmera tem uma luz vermelha que acende quando grava.
 - Refs: REF_FILMMAKER
-- Imagem: `Extreme close-up of [CHAR_FILMMAKER]'s hands holding the black Sony mirrorless camera, thumb pressing
-  the record button, the small red tally light on the front of the camera just turning on, glowing in the
-  dark; shallow depth, harbour lights in bokeh.`
+- Imagem: `Extreme close-up of [CHAR_FILMMAKER]'s hands holding the black Sony Alpha 7 V camera, thumb pressing
+  the record button, the small red recording lamp on the front of the camera body just turning on, glowing in
+  the dark; shallow depth, harbour lights in bokeh.`
 - Movimento: `Thumb presses the button, the red light turns on and stays glowing.`
+- HUD (edição, **humor**): caixa de tutorial de jogo **"DICA: desligue a luz de gravação no menu."** Ele
+  ignora (a caixa some). O público ri e já sabe que essa luz vai dar problema.
 
 **T5 · 6,5–8,0 s · O esconderijo**
 - Entender: ele se esconde e vê o iate, os dois homens e o SUV parado.
@@ -247,7 +260,8 @@ branco e brilhante.
   LED headlight bar blooming, [CHAR_HOMEM_B] visible in the passenger seat through the windshield, Beira-Mar
   neon behind.`
 - Movimento: `Shaky handheld; the SUV lunges closer; headlights flare.`
-- Edição: moldura de visor **● REC**
+- Edição: moldura de visor **● REC** + **(humor)** quadradinho verde de foco automático travando no rosto do
+  Homem B, com o aviso **"Rosto detectado"**. Mesmo fugindo, a câmera faz o trabalho dela.
 
 **T15 · 21,0–23,0 s · A decisão**
 - Entender: a Piloto tem um plano e aponta para a praia.
@@ -272,8 +286,10 @@ branco e brilhante.
 - Refs: REF_PILOTA_MOTO, REF_FILMMAKER, REF_LOCAL_IRACEMA
 - Imagem: `Dramatic low-angle side shot at Praia de Iracema: [MOTO] airborne for a moment as it drops off the edge
   of the concrete promenade onto the sand, travelling left to right, [CHAR_PILOTA] riding and [CHAR_FILMMAKER]
-  holding on with one hand and the camera in the other (red light on); Ponte dos Ingleses lit blue in the
-  background, neon bar signs on the left.`
+  holding on with one hand and with the other calmly holding the camera to his eye, still framing the shot,
+  completely focused (red light on); Ponte dos Ingleses lit blue in the background, neon bar signs on the
+  left.`
+- Humor: no ar, ele não se segura direito porque está **enquadrando o plano**. A Piloto, desesperada; ele, sereno.
 - Movimento: `Slow motion: the bike leaves the promenade edge, floats, and lands in the sand, spraying it.`
 - HUD (edição): **●●●●●**
 
@@ -299,37 +315,33 @@ branco e brilhante.
 - Telas (edição): celular **"Enviando vídeo… 100%"**, depois a resposta **"Recebido. Pagamento feito."**
 - HUD (edição): **MISSÃO CUMPRIDA**
 
-**T20 · 34,5–37,5 s · O gancho**
-- Entender: já tem outra missão chegando.
+**T20 · 34,5–37,5 s · O gancho (punchline)**
+- Entender: chega a próxima missão, e é a vida real de filmmaker.
 - Refs: REF_FILMMAKER, REF_PILOTA_MOTO
-- Imagem: `Close two-shot: [CHAR_FILMMAKER] looking down at the phone with a slight smile; beside him [CHAR_PILOTA]
-  turning her helmet toward him; the phone lights up both of them, sea and city lights behind.`
-- Movimento: `The phone vibrates again; he raises an eyebrow; she starts the bike.`
-- Tela (edição): **"Nova missão disponível"**
+- Imagem: `Close two-shot: [CHAR_FILMMAKER] looking down at the phone in his hand with a deadpan, slightly
+  defeated expression, eyebrows raised; beside him [CHAR_PILOTA] turning her helmet toward him and shrugging;
+  the phone screen lights up both of them, sea and city lights behind.`
+- Movimento: `The phone vibrates; he reads it, slowly looks up at the rider; she shrugs.`
+- Tela (edição): **"NOVA MISSÃO DISPONÍVEL: Casamento. Sábado, 14h. Duas câmeras."**
 
 **T21 · 37,5–40,0 s · Assinatura**
-- Tela preta com **seu logo/assinatura** minimalista em branco e um slam grave.
+- Tela preta com **@pedrotofo** em branco, tipografia limpa e minimalista (sem logo).
 
 ---
 
-## 4. Som (resumo, conforme playbook seção 4)
-- Ato 1: ambiência de cais (água, cordas, gerador de barco), foley da câmera (clique do REC bem audível no T4).
-- Ato 2: corte para silêncio no T7, **bip** da luz, sucção reversa no T8, **braam** no T9.
-- Ato 3: moto forte, SUV V8 grave, pass-bys na Beira-Mar, perspectiva abafada no POV da câmera (T14), corte
-  para só sub + respiração no ar (T17) e impacto na areia.
-- Ato 4: mar calmo, notificação do celular, sub-drop no MISSÃO CUMPRIDA e slam na assinatura.
-- Música: synthwave/eletrônica noturna do Artlist. Se vier uma faixa sua, aplicar a seção 5 do playbook.
+## 4. Som e música
+O Pedro monta o som na edição. Música: a faixa do Tame Impala da trilha do jogo. Dica: no Reels, colocar a
+música **pela biblioteca de áudio do Instagram** (e não embutida no arquivo) reduz o risco de o vídeo ser
+silenciado por direitos autorais. Para isso, exportar o vídeo **sem a música** e com os efeitos.
 
-## 5. Fotos que preciso de você
-- 3 a 5 de rosto (frente e 3/4 dos dois lados), luz uniforme, sem óculos escuros
-- 2 de corpo inteiro com a roupa do filme (aí travo o figurino da bíblia)
-- 2 a 3 **segurando sua Sony** do jeito que você segura (no olho e na cintura)
-- 1 da câmera sozinha com a lente que você usa
-- Seu logo/assinatura para a tela final (PNG, se tiver)
+## 5. O que falta do Pedro
+- Foto/imagem com o **rosto** (de frente e 3/4, se possível) e com o **figurino** do filme
+- Se tiver: foto segurando a A7 V do jeito que segura
 
 ## 6. Cuidados
 - Nada de logo, fonte, nome ou "estrelas de procurado" do jogo: o HUD de bolinhas REC substitui.
 - Hashtags e menção ao lançamento ficam na legenda do post.
 - Conferir se a IA não deforma o logo da Sony e cobrir logos de montadora inventados no SUV ou na moto.
 - Sem violência: ninguém atira; a ameaça é a lanterna e o SUV.
-- Créditos estimados: 6 referências mestre + ~22 frames high + 20 vídeos Kling 3.0 pro.
+- Entrega deste filme: **só as imagens** (6 referências mestre + 20 frames, GPT Image 2.6 high, 9:16). Os
+  prompts de movimento ficam como guia para a animação.
