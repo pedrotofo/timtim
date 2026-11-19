@@ -50,13 +50,16 @@ objeto ou personagem que vai ser importante aparece **antes** de ser usado.
 Copiar estes blocos sem mudar nenhuma palavra. A IA só mantém a continuidade se a descrição for idêntica
 em todos os takes.
 
-> **Figurino:** vem da imagem que o Pedro vai mandar. Quando ela chegar, troco `[FIGURINO]` pela descrição
-> exata da roupa e travo o bloco.
+> **Figurino travado** a partir da folha de personagem do Pedro (recortada sem o logo do jogo para usar como
+> referência). Referências enviadas: corpo inteiro (giro 360°), rostos, retrato e câmera.
 
 **[CHAR_FILMMAKER]**
-`the filmmaker: the man from the face reference images, keep his exact real face, hair and beard so he is
-instantly recognizable (game-cutscene finish but true likeness), wearing EXACTLY the outfit from the outfit
-reference image [FIGURINO]; he carries a black Sony Alpha 7 V (a7 V) compact full-frame mirrorless camera
+`the filmmaker: the man from the face reference images, keep his exact real face, curly dark hair with
+receding hairline and full short beard so he is instantly recognizable (game-cutscene finish but true
+likeness), wearing EXACTLY the outfit from the reference: ochre-brown canvas trucker jacket with two chest
+flap pockets and dark buttons, sleeves slightly rolled, black collared short-sleeve polo shirt, black slim
+jeans with black leather belt, black analog wristwatch on left wrist, off-white chunky leather sneakers,
+black backpack; he carries a black Sony Alpha 7 V (a7 V) compact full-frame mirrorless camera
 body with a 24-70mm zoom lens on a black neck strap, with the small red recording lamp on the front of the
 camera body`
 
@@ -345,3 +348,30 @@ silenciado por direitos autorais. Para isso, exportar o vídeo **sem a música**
 - Sem violência: ninguém atira; a ameaça é a lanterna e o SUV.
 - Entrega deste filme: **só as imagens** (6 referências mestre + 20 frames, GPT Image 2.6 high, 9:16). Os
   prompts de movimento ficam como guia para a animação.
+
+---
+
+## 7. Imagens geradas (v1 para aprovação)
+Arquivos em `filme2_REC/`: `storyboard_REC.jpg` (os 20 takes numerados), `frames/T01..T20.jpg` e
+`referencias/REF_*.jpg`. A folha de personagem foi recortada **sem o logo do jogo** antes de virar referência.
+
+IDs dos jobs no Higgsfield (usar como frame inicial na animação):
+
+| Take | Job | Take | Job |
+|---|---|---|---|
+| T01 | bc41185c-3d20-4018-a682-4b87bbc1cb96 | T11 | 6652c85a-aa41-4cca-baed-8a453fbc9bd1 |
+| T02 | 6b301289-c58c-4d02-9ab2-7da4af16f1b9 | T12 | deebf200-d47a-4299-bb99-27d616f79c82 |
+| T03 | 61afa382-8dcd-4b23-989d-9e3651f3c7ad | T13 | 3323e6ae-e6c8-4127-8297-7ef83ac1e4c3 |
+| T04 | adadd0b6-2629-4b7a-9bb8-ab335618df79 | T14 | aa808424-2d2e-46a4-ac61-1397948c565d |
+| T05 | 6b9b444d-12b5-4a6a-810a-1f0f39bd5c3b | T15 | a35679d9-3200-413c-869e-b4f5a9ee10a5 |
+| T06 | 76ffd308-92dc-4e9e-bcc6-84771ce00662 | T16 | d7a7918c-f718-4655-9b34-dc6d3021d6d4 |
+| T07 | 76c645b7-0b71-422c-9e05-26695b038cad | T17 | b6e5d180-7da5-44c2-9e4e-a48add8dfd13 |
+| T08 | 84bb2faf-72a3-47e3-b380-0e91ead03baf | T18 | e8794070-601b-4758-ba7a-31fcf3e22720 |
+| T09 | 6b1c0da1-d53f-41dd-9400-9fb7809307c2 | T19 | 0f382962-bee8-4f73-a37f-3a1dfa491a42 |
+| T10 | 6644ddc1-4924-43e7-a356-194fd97224c2 | T20 | ea01c386-a5c1-4efb-adfd-c88eac127e39 |
+
+Referências mestre: Pedro 519d52a3 · Piloto/moto bf43df83 · Vilões/SUV d24f6f97 · Mucuripe 00c46c6a ·
+Beira-Mar 81b6d151 · Iracema 943415a5.
+
+Refeitos na revisão: T07 e T08 (o ponto vermelho não aparecia), T13 (ele estava virado para a frente),
+T15 (calçadão com mosaico de ondas de Copacabana).
