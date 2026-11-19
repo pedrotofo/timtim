@@ -388,3 +388,28 @@ IDs dos jobs no Higgsfield (usar como frame inicial na animação):
 
 Referências mestre: Pedro 519d52a3 · Piloto/moto bf43df83 · Vilões/SUV d24f6f97 · Mucuripe 00c46c6a ·
 Beira-Mar 81b6d151 · Iracema 943415a5 · **Câmera A7 V 057d9e76**.
+
+---
+
+## 8. Direção de arte v3: quase realista (em aprovação)
+Feedback do Pedro: os frames da v2 pareciam desenho e a cabeça saía grande demais para o corpo. A referência
+é o jogo real, que é cinematográfico e quase fotográfico: iluminação e reflexos com ray tracing, pele com
+poros, cabelo fio a fio, mas com as cores vivas da série.
+
+Mudanças nos prompts:
+- Sai `slightly stylized AAA character shading (not a photograph)`, que puxava para ilustração.
+- Entra o bloco **[ESTILO_V3]**: `Near-photorealistic in-engine cinematic frame from a 2026 flagship
+  open-world crime game, almost indistinguishable from live-action film: physically based rendering, fully
+  ray-traced global illumination and reflections, realistic skin with subsurface scattering, visible pores and
+  fine stubble, strand-based hair, real fabric weave, natural film-like contrast, restrained saturation, subtle
+  film grain, 35mm anamorphic lens look with gentle bokeh. NOT a painting, NOT an illustration, NOT a cartoon.`
+- Proporção: `CORRECT REALISTIC ADULT ANATOMY: head size in true proportion to the body, about one seventh and
+  a half of his height, no big head, no caricature, normal lens without wide-angle distortion.`
+- Cabelo do Pedro: `SHORT low-volume dark hair, only slightly wavy, cropped close on the sides, receding at the
+  temples` (não usar "curly").
+- Identidade: usar os rostos da folha original (retrato + três ângulos), não a folha gerada; avisar que a
+  referência é estilizada e pedir a mesma pessoa em versão fotorrealista.
+- O frame antigo entra só como referência de encenação (`ONLY for staging, do not copy its rendering style`).
+
+Testes: `filme2_REC/aprovacao/teste_realista_T10_T17.jpg` (jobs T10 bb6561ba-50ad-47a0-a724-7e127494472c,
+T17 2c8cdd5b-7b1c-49c3-aa31-52c94c538485).
