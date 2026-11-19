@@ -119,6 +119,17 @@ unless specified.`
 
 ## 2. Referências mestre (gerar e aprovar ANTES dos takes)
 Gerar estas imagens primeiro e usá-las como referência em todos os takes. É o que garante a continuidade.
+
+> **Regras de nitidez (aprendidas na v1):**
+> - Gerar **sempre com `resolution: 2k`** (GPT Image 2.6). O padrão é 1K (752x1344): pequeno demais para
+>   1080x1920, e a marca da câmera sai borrada, denunciando a IA.
+> - Usar como referência da câmera a **REF_CAMERA** (A7 V + 24-70 GM II gerada em 2K com a marca nítida),
+>   nunca um recorte pequeno. Em todo take com a câmera, adicionar: `the white SONY wordmark is crisp,
+>   razor-sharp, in focus, perfectly legible and correctly spelled in its classic serif typeface`.
+> - Se ainda assim a marca sair mole em algum frame, corrigir na edição com o logo vetorial por cima
+>   (rastreado no vídeo).
+>
+> 7. **REF_CAMERA:** Sony A7 V + FE 24-70 F2.8 GM II, 3/4 frente, frente e traseira, marca nítida.
 1. **REF_FILMMAKER:** folha de personagem (frente, 3/4, costas, com a câmera no olho), a partir das suas fotos.
 2. **REF_PILOTA_MOTO:** a Piloto montada na moto, de lado, com a moto inteira em quadro.
 3. **REF_VILOES_SUV:** Homem A e Homem B lado a lado com a maleta, e o SUV atrás.
@@ -351,27 +362,29 @@ silenciado por direitos autorais. Para isso, exportar o vídeo **sem a música**
 
 ---
 
-## 7. Imagens geradas (v1 para aprovação)
-Arquivos em `filme2_REC/`: `storyboard_REC.jpg` (os 20 takes numerados), `frames/T01..T20.jpg` e
-`referencias/REF_*.jpg`. A folha de personagem foi recortada **sem o logo do jogo** antes de virar referência.
+## 7. Imagens geradas (v2, 2K, para aprovação)
+Arquivos em `filme2_REC/`: `storyboard_REC.jpg` (os 20 takes numerados), `frames/T01..T20.jpg` (1520x2688)
+e `referencias/REF_*.jpg`. A folha de personagem foi recortada **sem o logo do jogo** antes de virar referência.
+
+**v2:** todos os takes refeitos em **2K** a partir dos frames aprovados da v1 (mesma composição), com a marca
+da câmera nítida graças à nova REF_CAMERA. Também foram corrigidos: T08 (ponto vermelho mais forte), T18 (SUV
+parado na beira do calçadão, com os rastros da moto na areia) e T19 (traseira da A7 V sem marca, como na
+câmera real).
 
 IDs dos jobs no Higgsfield (usar como frame inicial na animação):
 
 | Take | Job | Take | Job |
 |---|---|---|---|
-| T01 | bc41185c-3d20-4018-a682-4b87bbc1cb96 | T11 | 6652c85a-aa41-4cca-baed-8a453fbc9bd1 |
-| T02 | 6b301289-c58c-4d02-9ab2-7da4af16f1b9 | T12 | deebf200-d47a-4299-bb99-27d616f79c82 |
-| T03 | 61afa382-8dcd-4b23-989d-9e3651f3c7ad | T13 | 3323e6ae-e6c8-4127-8297-7ef83ac1e4c3 |
-| T04 | adadd0b6-2629-4b7a-9bb8-ab335618df79 | T14 | aa808424-2d2e-46a4-ac61-1397948c565d |
-| T05 | 6b9b444d-12b5-4a6a-810a-1f0f39bd5c3b | T15 | a35679d9-3200-413c-869e-b4f5a9ee10a5 |
-| T06 | 76ffd308-92dc-4e9e-bcc6-84771ce00662 | T16 | d7a7918c-f718-4655-9b34-dc6d3021d6d4 |
-| T07 | 76c645b7-0b71-422c-9e05-26695b038cad | T17 | b6e5d180-7da5-44c2-9e4e-a48add8dfd13 |
-| T08 | 84bb2faf-72a3-47e3-b380-0e91ead03baf | T18 | e8794070-601b-4758-ba7a-31fcf3e22720 |
-| T09 | 6b1c0da1-d53f-41dd-9400-9fb7809307c2 | T19 | 0f382962-bee8-4f73-a37f-3a1dfa491a42 |
-| T10 | 6644ddc1-4924-43e7-a356-194fd97224c2 | T20 | ea01c386-a5c1-4efb-adfd-c88eac127e39 |
+| T01 | 5647245d-9df0-482a-bf17-a63199520ea0 | T11 | 6ef48a0e-b9e6-4012-a6dc-bddf874d8940 |
+| T02 | 6b34a5e2-558c-4a77-88d1-df8c00c35bb5 | T12 | b4daaea5-633e-4258-952c-b6568acb686c |
+| T03 | 4c7e427e-0f61-4a69-9f0e-dcc1f1e22df2 | T13 | f6262d65-6944-4766-a78e-b91e76f09cea |
+| T04 | 9bf9d837-c341-4b8f-a662-0f2a01ae122d | T14 | 3d416af1-226b-4d63-8cef-6c2b389dba2e |
+| T05 | f359e655-a84b-48af-97a4-1c53912183e9 | T15 | b5a48c9d-9a88-4920-aef8-0f9c03a49e27 |
+| T06 | fab0ebd3-0be3-46d0-b4ec-024853b7175b | T16 | 58e675ec-a337-4bae-98bf-7a55e4c5b595 |
+| T07 | 61687b32-f5c4-445f-9764-d504e390f993 | T17 | e3b000db-4843-4083-8ac1-d5a798b70710 |
+| T08 | afc03aa8-97cc-4bfb-bd9f-2f07293873f7 | T18 | fdbc962b-fbce-4e5e-afbf-67959a0b5901 |
+| T09 | 8a55eb7d-3b72-4e44-b729-b583e71d191c | T19 | 3e1fc50f-8abe-47fe-bbef-ed39582c0040 |
+| T10 | d3f86b0e-d133-4b10-9c1d-7473ef19cc89 | T20 | a4f86902-e51d-4e53-b0e9-fb0602c8690f |
 
 Referências mestre: Pedro 519d52a3 · Piloto/moto bf43df83 · Vilões/SUV d24f6f97 · Mucuripe 00c46c6a ·
-Beira-Mar 81b6d151 · Iracema 943415a5.
-
-Refeitos na revisão: T07 e T08 (o ponto vermelho não aparecia), T13 (ele estava virado para a frente),
-T15 (calçadão com mosaico de ondas de Copacabana).
+Beira-Mar 81b6d151 · Iracema 943415a5 · **Câmera A7 V 057d9e76**.
