@@ -413,3 +413,15 @@ Mudanças nos prompts:
 
 Testes: `filme2_REC/aprovacao/teste_realista_T10_T17.jpg` (jobs T10 bb6561ba-50ad-47a0-a724-7e127494472c,
 T17 2c8cdd5b-7b1c-49c3-aa31-52c94c538485).
+
+### 8.1 Look de gameplay (referências enviadas pelo Pedro)
+Três capturas do jogo entram como **referência só de luz e cor** (nunca de conteúdo, placas ou logos):
+neon 6ca1a8e7 · rua vista de cima 8fef10b9 · barcos ao luar 987ca079. O que elas ensinam e vai no prompt:
+- noite escura de verdade: pretos profundos, grandes áreas em sombra, céu quase preto;
+- luz só de fontes práticas (poste, neon, farol, underglow), com brilho estourado e halo suave;
+- névoa/umidade no ar pegando a luz; luz colorida derramando nos corpos e no chão molhado;
+- cor naturalista e um pouco apagada longe das luzes; imagem levemente macia, com grão, sem cara de HDR;
+- rostos nem sempre iluminados por igual: contraluz e sombra parcial são bem-vindos.
+
+Testes: `filme2_REC/aprovacao/teste_look_gameplay_T10_T17.jpg` (jobs T10 82119e0e-a16d-4f66-a8b8-a8837cdd9469,
+T17 e05042d0-d2f9-4ebe-af3f-60feefe683af).
