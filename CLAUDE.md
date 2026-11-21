@@ -11,8 +11,8 @@ Para qualquer vídeo, siga o fluxo em [`docs/workflow-video-ia.md`](docs/workflo
 - **Imagens = Nano Banana Pro no Google Flow.** É a ferramenta principal e **não gasta créditos**.
   Toda imagem (ficha de personagem, teste de estilo, primeiro/último quadro) sai de lá.
   **Nunca gaste crédito pago (OpenArt, Higgsfield, ArtList etc.) para gerar imagem** sem o usuário pedir.
-- O MCP do Flow está **instalado no PC do usuário**:
-  - Sessão rodando no PC (Claude Desktop ou `claude remote-control`): use o MCP do Flow direto.
+- O Flow é operado **pelo Chrome do PC do usuário** (extensão Claude in Chrome, em flow.google.com):
+  - Sessão rodando no PC (Claude Desktop ou `claude remote-control`): gere direto no Flow pelo Chrome.
   - Sessão na nuvem / celular: escreva os prompts; o usuário gera no Flow e salva numa pasta do
     **Google Drive**; leia as imagens pelo conector do Drive e revise.
 - **Vídeo** (gasta crédito): Higgsfield, ArtList ou OpenArt, conforme o que estiver conectado.

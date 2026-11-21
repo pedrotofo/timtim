@@ -53,6 +53,9 @@ Uma linha por cena com: tempo no filme, segundos a gerar (arredondar para cima e
 - Testar o estilo com imagem de referência.
 - Ficha de cada personagem: frente, perfil e expressões. **Fixar a posição** de detalhes (tatuagem no braço esquerdo, boné, corrente).
 - **Quando o personagem é o usuário**: usar 2 a 4 fotos reais dele como referência (frente, perfil, boa luz) e gerar a ficha antes de qualquer cena.
+  - As **fotos reais vêm primeiro e mandam no rosto**. Nunca usar uma ficha estilizada como referência principal: ela já distorce cabelo e traços, e cada imagem gerada a partir dela distorce mais.
+  - Só seguir para as cenas depois que o usuário aprovar a ficha dizendo "sou eu".
+  - Usar a **mesma ferramenta de imagem** (Nano Banana Pro) em todas as cenas. Misturar geradores muda o rosto.
 
 ### 4. Primeiro e último quadro (Flow)
 - Antes de desenhar, descrever por escrito o primeiro quadro, o último e o que acontece no meio, e passar pelo revisor.
@@ -118,3 +121,10 @@ Erros comuns e como escrever:
 ### 8. Revisão final
 - **Revisor novo** recebe só o vídeo pronto: conta a história que entendeu, lista o que ficou confuso e, cena a cena, aponta repetições, objetos que mudam, saltos, mudança de cor e rosto deformado, separando "grave" de "menor". Também diz o que não conseguiu verificar (movimento, som).
 - Registrar as lições aprendidas (estilo, prompts que funcionaram, erros) em `docs/licoes/`.
+
+## Lições do filme 1 (estilo jogo de crime, 40 s, nov/2026)
+
+O que deu errado e a regra que evita:
+- **Rosto estranho**: a referência principal foi uma ficha estilizada, e as fotos reais entraram tarde. As imagens também saíram de mais de um gerador. → Ficha a partir de fotos reais, aprovada antes de tudo, e um único gerador.
+- **Roteiro ruim e sem continuidade**: 20 cenas para 40 s (cerca de 2 s cada), sem roteiro aprovado nem storyboard, e partindo direto para as imagens. → Seguir as etapas 1 e 2 com revisor novo; de 8 a 10 cenas em episódios.
+- **Imagens estranhas**: ação complexa (moto, SUV, perseguição noturna) descrita só em texto e sem checklist. → Primeiro e último quadro, 1 ou 2 ações por cena e checklist da etapa 4.
