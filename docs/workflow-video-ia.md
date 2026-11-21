@@ -122,9 +122,16 @@ Erros comuns e como escrever:
 - **Revisor novo** recebe só o vídeo pronto: conta a história que entendeu, lista o que ficou confuso e, cena a cena, aponta repetições, objetos que mudam, saltos, mudança de cor e rosto deformado, separando "grave" de "menor". Também diz o que não conseguiu verificar (movimento, som).
 - Registrar as lições aprendidas (estilo, prompts que funcionaram, erros) em `docs/licoes/`.
 
-## Lições do filme 1 (estilo jogo de crime, 40 s, nov/2026)
+## Lições dos filmes anteriores (nov/2026)
 
-O que deu errado e a regra que evita:
-- **Rosto estranho**: a referência principal foi uma ficha estilizada, e as fotos reais entraram tarde. As imagens também saíram de mais de um gerador. → Ficha a partir de fotos reais, aprovada antes de tudo, e um único gerador.
-- **Roteiro ruim e sem continuidade**: 20 cenas para 40 s (cerca de 2 s cada), sem roteiro aprovado nem storyboard, e partindo direto para as imagens. → Seguir as etapas 1 e 2 com revisor novo; de 8 a 10 cenas em episódios.
-- **Imagens estranhas**: ação complexa (moto, SUV, perseguição noturna) descrita só em texto e sem checklist. → Primeiro e último quadro, 1 ou 2 ações por cena e checklist da etapa 4.
+### TLF (ficou ótimo): receita que funcionou
+- Imagens: GPT Image 2.6 no Higgsfield, qualidade high, 9:16, com as fotos reais dos looks e os quadros já aprovados como referência de personagem e roupa.
+- Animação: Kling 3.0 Pro no Higgsfield, 3 a 4 s por cena, **sempre partindo de um quadro aprovado**.
+- Som e edição: Artlist (efeitos em WAV) e montagem com cor, textos e som feito do zero.
+- Custo aproximado: cerca de 35 imagens (1,5 crédito cada) e 22 vídeos (6 a 8 créditos cada).
+
+### Tofo GTA (ficou ruim): o que deu errado
+- **Rosto estranho**: a referência principal foi uma ficha estilizada, e as fotos reais entraram tarde. → Ficha a partir de fotos reais, aprovada antes de tudo.
+- **Roteiro sem continuidade**: cerca de 20 cenas para 40 s, partindo direto para as imagens, sem roteiro aprovado nem storyboard. → Seguir as etapas 1 e 2 com revisor novo; de 8 a 10 cenas em episódios.
+- **Imagens estranhas**: ação complexa (moto, SUV, perseguição noturna) descrita só em texto, sem checklist. → Primeiro e último quadro, 1 ou 2 ações por cena e checklist da etapa 4.
+- Imagens geradas no Flow (Nano Banana Pro). Ainda não sabemos se a ferramenta pesou no resultado ou se foi só o processo. → Testar a ficha do rosto nas duas ferramentas e comparar antes de produzir.
