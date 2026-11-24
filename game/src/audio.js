@@ -114,6 +114,8 @@ const SAMPLES = {
   bossWoof: { v: 0.8, vary: 0.04 }, bigBark: { v: 0.85 }, stomp: { v: 0.65 }, final: { v: 0.8 }, boss: { v: 0.55 },
   thud: { v: 0.5, vary: 0.08 }, pigeon: { v: 0.38, vary: 0.06 }, boing: { v: 0.45 }, pound: { v: 0.9 }, bonk: { v: 0.7 },
   throwBall: { v: 0.45 }, squeak: { v: 0.5, vary: 0.08 }, laugh: { v: 0.8 }, choco: { v: 0.6 }, win: { v: 0.6 }, lose: { v: 0.55 },
+  // galinhas do Arraial (Artlist): cacarejo de susto (dois, alternados), disparada, bater de asas e o galinheiro em alvoroço
+  cluck1: { v: 0.5, vary: 0.08, gap: 0.3 }, cluck2: { v: 0.5, vary: 0.08, gap: 0.3 }, henPanic: { v: 0.6 }, henFlap: { v: 0.5, vary: 0.08, gap: 0.15 }, henCoop: { v: 0.65 },
 };
 const sbufs = {}, lastAt = {};
 function loadSamples() {

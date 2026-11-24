@@ -20,7 +20,7 @@ Legenda: ✅ corrigido · ➖ mantido de propósito (com o motivo) · ⏳ depend
 7. ✅ **Bug depois da frase da fase 2.** O cartão "O ARRAIAL" aparecia exatamente em cima do Timtim e o escondia. Agora fica no alto da tela. O carregador também avisava "tudo pronto" mais de uma vez, o que podia apertar "Jogar" de novo e cortar a história; agora só avisa uma vez.
 
 ## Fase 2 — Arraial
-8. ✅ O título da fase 2 mostrava a floresta azul e o Furtão (vilão da fase 1). Agora mostra a arte do arraial, escurecida para o título ler bem.
+8. ✅ O título da fase 2 mostrava a floresta azul e o Furtão (vilão da fase 1). Agora mostra o fundo pintado do próprio arraial, sem personagens.
 9. ✅ O cartão do Arraial repetia a mesma frase da história. Agora diz o que fazer: "Siga as galinhas assustadas até o galinheiro."
 10. ✅ As galinhas da patrulha morriam de cabeça para baixo quando pisadas, numa fase sobre *salvar* galinhas. Agora o Timtim quica e ela foge assustada.
 11. ✅ A galinha encurralada disparava para cima do Timtim e tirava coração. Disparando, ela passa sem bicar.
@@ -75,6 +75,6 @@ Legenda: ✅ corrigido · ➖ mantido de propósito (com o motivo) · ⏳ depend
 52. ✅ O comentário do código dizia que a chama machuca; não machuca. O código morto da caixa de fogo saiu.
 
 ## O que ficou de fora (precisa de algo seu)
-53. ⏳ A galinha cacareja com o som do pombo. Precisa de um cacarejo do Artlist (busco e mostro, só baixo com o seu ok).
+53. ✅ A galinha cacarejava com o som do pombo. Agora tem sons do Artlist (aprovados): dois cacarejos de susto alternados, galinhas em disparada no aviso da debandada, bater de asas quando o Timtim quica nelas e o galinheiro em alvoroço quando expulsam o lobo.
 54. ⏳ O Arraial ainda toca a música do Parque. Falta o arquivo da trilha do Suno (`assets/music/arraial.mp3`).
-55. ⏳ A narração da tela da história da fase 2 (mesma voz da fase 1), se você quiser.
+55. ⏳ A tela da história da fase 2 foi retirada: a imagem gerada no Artlist mostrava um cachorro que não é o Timtim (parecia um border collie). Ela volta só com uma arte nova, com o Timtim fiel ao personagem e aprovada antes.

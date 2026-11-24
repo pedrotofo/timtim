@@ -62,8 +62,6 @@ function begin(fn) { TT.audioInit(); TT.sfx('ui'); irisTo(true, { x: 0.5, y: 0.5
 // de cada um e a voz do narrador lendo. Cada toque (ou Enter/Espaço) avança uma tela; depois da terceira, começa o jogo.
 const titleEl = $('title'), STORY = ['Timtim, Zara e Elvis brincavam com o amado Macaco Fedido em paz na Vila de Reserva…',
   'Até que o Furtão, o valentão da vila, apareceu e roubou o macaco!', 'Agora Timtim, Zara e Elvis partem para resgatar o Macaco Fedido, custe o que custar!'];
-// no Arraial a história é um quadro só (ainda sem narração)
-if (TT.FASE === 2) STORY.splice(0, STORY.length, 'Um estranho está espantando as galinhas do arraial! Ajude o Timtim a salvar o galinheiro!');
 const DUR = (TT.intro && TT.intro.durations) || [3.1, 3.1, 3.1];
 let storyTimer = null, storyAt = 0, storyI = 0;
 // a frase vai desenhada no pergaminho (canvas); #storyLine guarda o mesmo texto para leitores de tela
@@ -83,12 +81,12 @@ if (/-jogar/.test(location.hash)) { try { history.replaceState(null, '', locatio
 document.querySelectorAll('#fases .chip').forEach(b => { const f = +b.dataset.f; b.classList.toggle('cur', f === FASE); b.disabled = f > 1 && !done[f - 1];
   b.onclick = () => { if (f !== FASE) goFase(f); }; });
 $('fases').classList.remove('on'); // a fase 2 chega sozinha ao vencer o Parque; o título não oferece atalho
-if (FASE === 2) { document.querySelector('.logo i').textContent = 'E O MISTÉRIO DO GALINHEIRO'; { const tb = document.querySelector('#title .tbg'); tb.style.backgroundImage = 'url(assets/title-arraial.jpg)'; tb.style.filter = 'brightness(.66) saturate(.9)'; } // escurece para o título ler bem
+if (FASE === 2) { document.querySelector('.logo i').textContent = 'E O MISTÉRIO DO GALINHEIRO'; { const tb = document.querySelector('#title .tbg'); tb.style.backgroundImage = 'url(assets/bg/arraial-mata.jpg)'; tb.style.filter = 'brightness(.8)'; } // escurece para o título ler bem
   $('hint').textContent = isTouch ? '◀ ▶ andar · ▲ pula · segure ▲ no ar: planar · 👃 fareja' : '← → andar · Espaço pula · segure Espaço no ar: planar · ↓ fareja'; $('msg').textContent = 'Um estranho está espantando as galinhas do arraial…'; }
 if (FASE > 1) { $('faseTag').textContent = 'FASE ' + FASE + ' · ' + FASES[FASE - 1].toUpperCase(); $('pauseText').textContent = 'O Timtim parou para comer uma pipoca.'; $('progEnd').textContent = '🎉'; }
 let nextT = 0; $('btnNext').onclick = () => { clearInterval(nextT); goFase(FASE + 1, true); };
 $('btnAgain').addEventListener('click', () => clearInterval(nextT), true);
-$('btnStart').onclick = () => {
+$('btnStart').onclick = () => { if (FASE > 1) { if (titleEl.classList.contains('leaving')) return; titleEl.classList.add('leaving'); return begin(TT.start); } // a fase 2 ainda não tem tela de história
   if (titleEl.classList.contains('story')) return nextStory(); TT.audioInit(); TT.sfx('ui'); TT.music('title'); titleEl.classList.add('story'); storyAt = performance.now(); storyLine(0); };
 titleEl.addEventListener('pointerdown', () => { if (titleEl.classList.contains('story')) nextStory(); });
 const firstTouch = () => { if (S.mode === 'title') { TT.audioInit(); TT.music('title'); } removeEventListener('pointerdown', firstTouch); removeEventListener('keydown', firstTouch); };
@@ -100,7 +98,7 @@ const TUT = { glide: isTouch ? 'Segure ▲ no ar para planar' : 'Segure Espaço 
   glideHold: HOLD[0].toUpperCase() + HOLD.slice(1) + '!', glideRetry: `Quase! Pule e ${HOLD} para planar`, glideOk: 'Isso! Agora o Timtim sabe planar', fire: 'O ar quente da fogueira levanta quem plana!', dance: 'As peneiras dançam a quadrilha: pule na hora certa!' };
 TT.on('tutorial', e => TT.emit('banner', { text: TUT[e.kind] }));
 // a primeira debandada é anunciada: sem isso, as galinhas atropelavam o jogador sem aviso nenhum
-TT.on('stampedeWarn', e => { TT.sfx('pigeon'); if (e.first) TT.emit('banner', { text: 'Galinhas em disparada! Pule por cima delas!' }); });
+TT.on('stampedeWarn', e => { TT.sfx('henPanic'); if (e.first) TT.emit('banner', { text: 'Galinhas em disparada! Pule por cima delas!' }); });
 TT.on('egg', () => TT.emit('banner', { text: 'Ovo cozido: planar turbinado!' }));
 // cartão de abertura do Arraial (o mesmo cartão da apresentação do chefão, com outro texto)
 TT.on('arraialIntro', () => { stage.classList.add('cine'); const c = $('bossCard'); c.classList.add('top'); c.querySelector('small').textContent = 'FASE 2'; c.querySelector('h2').textContent = 'O ARRAIAL';
