@@ -28,7 +28,7 @@ THREE.DefaultLoadingManager.onLoad = () => { warmUp(); R.ready = true; TT.emit('
 const TL = new THREE.TextureLoader();
 const load = p => { const t = TL.load('assets/' + p); t.anisotropy = 4; return t; };
 const AR = { 'tintim-idle': 232 / 220, 'tintim-run': 1.2143, 'tintim-jump': 270 / 200, 'tintim-fall': 240 / 220, 'tintim-hurt': 218 / 220,
-  'tintim-win': 189 / 240, 'tintim-sniff': 282 / 220, 'tintim-glide': 420 / 220, galinha: 176 / 230, 'brute-walk': 362 / 320, 'brute-charge': 454 / 253, 'brute-bark': 341 / 322, 'brute-ball': 413 / 265, 'brute-dizzy': 374 / 345, 'brute-down': 432 / 209, pigeon: 1.1381, 'monkey-front': 217 / 235, 'monkey-joy': 286 / 260,
+  'tintim-win': 189 / 240, 'tintim-sniff': 282 / 220, 'tintim-glide': 420 / 220, galinha: 176 / 230, ovo: 223 / 160, 'brute-walk': 362 / 320, 'brute-charge': 454 / 253, 'brute-bark': 341 / 322, 'brute-ball': 413 / 265, 'brute-dizzy': 374 / 345, 'brute-down': 432 / 209, pigeon: 1.1381, 'monkey-front': 217 / 235, 'monkey-joy': 286 / 260,
   cookie: 129 / 90, 'chi-pb': 245 / 300, 'chi-br': 223 / 300 };
 const TEX = {};
 AR.choco = 1.25;
@@ -594,7 +594,7 @@ const itemM = S.items.map(it => { const m = sprite(it.type === 'gold' ? 'cookie'
   return m; });
 const friendM = S.friends.map(f => { const m = sprite(f.kind, 5, true, 0xfff6ec); m.geometry = legGeo();
   m.userData.glow = add(new THREE.Mesh(planeGeoC, glowMat(0xffd9a0, 0.3)), 4); return m; });
-const giftM = [0, 1].map(() => { const m = sprite('cookie', 7, false); m.geometry = planeGeoC; m.visible = false;
+const giftM = [0, 1].map(() => { const m = sprite(C.GIFT_ITEM, 7, false); m.geometry = planeGeoC; m.visible = false;
   m.userData.glow = add(new THREE.Mesh(planeGeoC, glowMat(0xffd27a, 0.8)), 6); m.userData.glow.visible = false; return m; });
 // cena do roubo: um segundo Furtão (o chefão real só aparece na arena) com o Macaco Fedido pendurado na boca
 const thiefM = sprite('brute-charge', 6, true, 0xf2e2d2); thiefM.geometry = legGeo(); thiefM.userData.ph = 0; thiefM.visible = false;
@@ -638,6 +638,7 @@ TT.on('laugh', e => burst(e.x - 40, e.y, [0xfff2c8, 0xffffff], 6, 120, -40));
 TT.on('finalBlow', e => { R.flash = 0.85; burst(e.x, e.y, [0x8fe9ff, 0xffd98a, 0xffffff, 0xa98bff], 40, 520); });
 TT.on('checkpoint', e => { flags[e.index].on = true; burst(e.x, GROUND - 122, [0xffd98a, 0xffb866, 0xffffff], 18, 240, 200); });
 TT.on('friend', e => burst(e.x, e.y, [0xffd98a, 0xff9fc0, 0xffffff], 10, 150, 100));
+TT.on('egg', e => burst(e.x, e.y, [0xfff4c8, 0xffd23f, 0xffffff], 26, 300, 200));
 TT.on('gift', e => burst(e.x, e.y, [0xffd98a, 0xff7d9c, 0xffffff, 0x8fe9ff], 22, 260, 200));
 TT.on('sniff', e => { for (let i = 0; i < 5; i++) spawn({ x: e.x, y: e.y, vx: (Math.random() - 0.5) * 60, vy: -30 - Math.random() * 40, g: -20, life: 0.5, r: 2.5, grow: 4, color: 0x9dff7a }); });
 TT.on('reveal', e => { R.flash = 0.25; const t = C.trails.find(q => q.id === e.id); t.plats.forEach(([x, y, w]) => burst(x + w / 2, y, [0x7dff6a, 0xd8ffb0, 0xffffff], 14, 220, 120)); });
@@ -760,7 +761,8 @@ R.frame = (rdt) => {
   tintim.visible = !(p.inv > 0 && Math.floor(time * 20) % 2);
   rim.geometry = tintim.geometry; rim.material.map = tintim.material.map; rim.visible = tintim.visible && S.mode !== 'lose';
   rim.position.set(tintim.position.x, tintim.position.y - 2, tintim.position.z - 0.6); rim.rotation.z = tintim.rotation.z; rim.scale.set(tintim.scale.x * 1.07, tintim.scale.y * 1.06, 1);
-  rim.material.opacity = (ARR ? 0.5 : 0.6) + Math.sin(time * 3.1) * 0.06;
+  rim.material.opacity = (ARR ? 0.5 : 0.6) + Math.sin(time * 3.1) * 0.06 + (p.egg > 0 ? 0.25 : 0);
+  if (p.egg > 0 && Math.random() < live * (p.gliding ? 40 : 12)) spawn({ x: tx - p.face * 30 + (Math.random() - 0.5) * 30, y: p.y + 10 + Math.random() * 20, vx: -p.face * 40, vy: 20 + Math.random() * 40, g: 30, life: 0.7, r: 2 + Math.random() * 2, color: Math.random() < 0.5 ? 0xffe08a : 0xfff4c8, hard: true });
   // dor de barriga: fica esverdeado, anda encolhido e solta bolhinhas
   tintim.material.color.set(p.slow > 0 ? 0xbfe8a0 : 0xfffaf2); if (p.slow > 0) { tintim.scale.y *= 0.93;
     if (Math.random() < live * 9) spawn({ x: tx - p.face * 14, y: p.y + 18, vx: (Math.random() - 0.5) * 30, vy: -50 - Math.random() * 40, g: -30, life: 0.9, r: 2.5 + Math.random() * 2.5, grow: 2, color: 0x9dff4a }); }
@@ -796,7 +798,7 @@ R.frame = (rdt) => {
     const g = m.userData.glow; g.position.set(f.x, 30 + hop, -38); const s = 120 + Math.sin(f.t * 2.2) * 8; g.scale.set(s, s, 1); g.material.opacity = f.given ? 0.2 : 0.34;
   });
   giftM.forEach((m, i) => { const g = S.gifts[i], gl = m.userData.glow; m.visible = gl.visible = !!g; if (!g) return;
-    m.scale.set(30 * AR.cookie, 30, 1); m.position.set(g.x, Y(g.y), 5); m.rotation.z = g.t * 9; gl.position.set(g.x, Y(g.y), 4); gl.scale.set(86, 86, 1);
+    const gs = C.GIFT_ITEM === 'ovo' ? 46 : 30; m.scale.set(gs * AR[C.GIFT_ITEM], gs, 1); m.position.set(g.x, Y(g.y), 5); m.rotation.z = g.t * (C.GIFT_ITEM === 'ovo' ? 5 : 9); gl.position.set(g.x, Y(g.y), 4); gl.scale.set(86, 86, 1);
     if (Math.random() < 0.6) spawn({ x: g.x, y: g.y, vx: (Math.random() - 0.5) * 40, vy: (Math.random() - 0.5) * 40, g: 60, life: 0.45, r: 3, color: 0xffd98a }); });
 
   // Brutão

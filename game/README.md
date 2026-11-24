@@ -7,6 +7,7 @@ Jogo de plataforma 2.5D curtinho: o Furtão, o valentão da vila, roubou o Macac
 - Celular: botões na tela (👃 fareja). Controle (gamepad): direcional + botão A; direcional para baixo fareja.
 - **Fases:** o jogo tem duas fases. A 1, o Parque, abre com a história; vencer o Parque libera a 2, o Arraial (botão "Próxima fase" na vitória e os botões de fase no título). A fase vem do endereço: `index.html?fase=2`.
 - 🪁 Planar (fase 2): no ar, segure o pulo depois do topo e a bandana abre como asa-delta; a queda fica lenta. Em cima de uma fogueira, o ar quente levanta quem está planando. Encostar na chama tira um coração.
+- 🥚 Ovo cozido (fase 2): a comida preferida do Timtim. No Arraial, a Zara e o Elvis jogam ovo cozido em vez de biscoito: o primeiro dá o planar turbinado por 12 s (queda bem mais lenta e o ar quente sobe mais), o segundo deixa invencível.
 - 🐔 Galinhas caipiras (fase 2): no Arraial, o lugar dos pombos é delas. Mesma regra: pise por cima.
 - 💃 Quadrilha (fase 2): as tábuas com bandeirinhas vão e voltam no ritmo da dança e levam o Timtim junto.
 - 👃 Faro: segurando ↓, o Timtim para e fareja, e um rastro verde aponta o segredo mais próximo (biscoito dourado, moita falsa, caminho de cheiro). Sem segredo por perto, o rastro segue o cheiro do Macaco Fedido.

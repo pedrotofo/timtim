@@ -33,7 +33,7 @@ const W0 = C.W;
 // palco + primeiro vão (só planando) → vão maior → fogueiras (o ar quente levanta quem plana) → quadrilha
 // (tábuas de bandeirinhas que dançam no ritmo) → tudo junto, com o brinquedo perdido no alto de uma fogueira → mastro de São João.
 const FASE = TT.FASE = C.FASE = new URLSearchParams(location.search).get('fase') === '2' ? 2 : 1;
-Object.assign(C, { BOSS: true, GLIDE: false, fires: [], movers: [], GOAL_X: C.ARENA_X, MASTRO_X: 0 });
+Object.assign(C, { BOSS: true, GLIDE: false, fires: [], movers: [], GOAL_X: C.ARENA_X, MASTRO_X: 0, GIFT_ITEM: 'cookie', EGG: { time: 12, fall: 70, lift: -470 } });
 if (FASE === 2) Object.assign(C, {
   BOSS: false, GLIDE: true, LEVEL_END: 7900, ARENA_X: 7900 - W0, GOAL_X: 7480, MASTRO_X: 7580, START_X: 200,
   grounds: [[0, 1150], [1670, 700], [3000, 1500], [5880, 280], [6300, 1600]],
@@ -43,7 +43,9 @@ if (FASE === 2) Object.assign(C, {
            { x: 5280, y: 320, w: 150, ax: 110, ay: 0, per: 2.4, ph: Math.PI / 2 }, { x: 5600, y: 280, w: 140, ax: 0, ay: 80, per: 2.4, ph: 0 }],
   fires: [{ x: 3410 }, { x: 4040 }, { x: 6610 }, { x: 7250 }],
   checkpoints: [1720, 3060, 6340],
-  friends: [{ x: 4380, kind: 'chi-pb', power: 'none' }, { x: 5960, kind: 'chi-br', power: 'mega' }],
+  // a Zara e o Elvis ajudam jogando ovo cozido, a comida preferida do Timtim: o primeiro, antes da quadrilha, dá o planar
+  // turbinado (cai bem devagar e o ar quente sobe mais); o segundo, antes do trecho final, deixa invencível
+  friends: [{ x: 4380, kind: 'chi-pb', power: 'egg' }, { x: 5960, kind: 'chi-br', power: 'mega' }], GIFT_ITEM: 'ovo',
   hedges: [],
   trails: [{ id: 'sanfona', at: 6610, plats: [[6690, 120, 130], [6555, 10, 120]] }],
   TOY: { id: 'sanfoninha', x: 6615, y: -40 },
@@ -145,7 +147,7 @@ function makeBoss() {
 }
 function makePlayer(x) {
   return { x, y: GROUND - 60, w: 54, h: 50, vx: 0, vy: 0, onGround: false, face: 1, hp: 3, inv: 0, fast: 0, mega: 0, slow: 0,
-    safeX: x, coyote: 0, buffer: 0, landT: 0, won: false, hurtT: 0, dj: true, djT: 0, sniff: 0 };
+    safeX: x, coyote: 0, buffer: 0, landT: 0, won: false, hurtT: 0, dj: true, djT: 0, sniff: 0, egg: 0 };
 }
 
 const SOLIDS = [];
@@ -244,7 +246,7 @@ TT.update = (rdt) => {
   const p = S.player, I = TT.input;
   if (MOVERS.length) { moveMovers(S.clock); if (p.on && p.on.mover && p.onGround) { p.x += p.on.dx; p.y += p.on.dy; } }
   p.inv = Math.max(0, p.inv - dt); p.fast = Math.max(0, p.fast - dt); p.mega = Math.max(0, p.mega - dt); p.slow = Math.max(0, p.slow - dt);
-  p.hurtT = Math.max(0, p.hurtT - dt); p.shrugT = Math.max(0, (p.shrugT || 0) - dt);
+  p.hurtT = Math.max(0, p.hurtT - dt); p.shrugT = Math.max(0, (p.shrugT || 0) - dt); p.egg = Math.max(0, (p.egg || 0) - dt);
 
   const speed = p.fast > 0 || p.mega > 0 ? FAST : p.slow > 0 ? C.SLOW : RUN;
   // faro: no chão, segurando ↓, ele para e fareja; o rastro aparece e, com um instante de faro, o caminho de cheiro se revela
@@ -284,10 +286,12 @@ TT.update = (rdt) => {
   const gl = C.GLIDE && !p.onGround && !locked && I.jump && p.djT <= 0 && (p.vy > -40 || (lifted && p.gliding));
   if (gl && !p.gliding) emit('glide', { x: p.x + p.w / 2, y: p.y });
   p.gliding = gl;
-  if (gl && lifted) p.vy += (C.FIRE.lift - p.vy) * Math.min(1, dt * 2.6);
+  // com o ovo cozido (planar turbinado) a queda é mais lenta e o ar quente levanta mais forte
+  const fall = p.egg > 0 ? C.EGG.fall : 135, lift = p.egg > 0 ? C.EGG.lift : C.FIRE.lift;
+  if (gl && lifted) p.vy += (lift - p.vy) * Math.min(1, dt * 2.6);
   // planando a queda chega a 135 px/s e para aí (antes a conta deixava ~190 e mudava com a taxa de quadros);
   // vindo de uma queda rápida, ele freia suave até 135
-  else if (gl) { if (p.vy < 135) p.vy = Math.min(135, p.vy + GRAV * 0.3 * dt); else p.vy += (135 - p.vy) * Math.min(1, dt * 9); }
+  else if (gl) { if (p.vy < fall) p.vy = Math.min(fall, p.vy + GRAV * 0.3 * dt); else p.vy += (fall - p.vy) * Math.min(1, dt * 9); }
   else p.vy = Math.min(p.vy + GRAV * hang * dt, 1200);
   if (gl && lifted && p.y < C.FIRE.top + 20) p.vy = Math.max(p.vy, -60); // no alto da coluna ele fica pairando
 
@@ -366,7 +370,8 @@ TT.update = (rdt) => {
     if (k >= 1) {
       S.gifts.splice(i, 1); S.cookies += C.GIFT; p.hp = Math.min(3, p.hp + 1);
       const pw = S.friends[g.kind] && S.friends[g.kind].power;
-      p.slow = 0; if (pw === 'none') { /* só o biscoito e o coração */ } else if (pw === 'fast' || (!pw && g.kind === 0)) p.fast = 8; else p.mega = 9;
+      p.slow = 0; if (pw === 'none') { /* só o biscoito e o coração */ } else if (pw === 'egg') { p.egg = C.EGG.time; emit('egg', { x: g.x, y: g.y }); }
+      else if (pw === 'fast' || (!pw && g.kind === 0)) p.fast = 8; else p.mega = 9;
       emit('gift', { x: g.x, y: g.y }); emit('power', g);
     }
   }

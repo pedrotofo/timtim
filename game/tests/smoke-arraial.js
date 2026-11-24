@@ -57,6 +57,15 @@ const { chromium } = require('playwright');
   check(await until(() => __tintim.S.toy, 3000), 'pega a sanfoninha');
   check(await ev(() => JSON.parse(localStorage.getItem('tintim-toys') || '{}').sanfoninha === true), 'a sanfoninha fica salva na estante');
 
+  // a Zara e o Elvis jogam ovo cozido: o primeiro dá o planar turbinado (queda bem mais lenta)
+  check(await ev(() => TT.C.GIFT_ITEM === 'ovo' && TT.C.friends[0].power === 'egg'), 'no Arraial os amigos jogam ovo cozido');
+  const fr = await ev(() => TT.C.friends[0].x);
+  await put(fr - 260, 452 - 50, { onGround: true, inv: 9 }); await pg.keyboard.down('ArrowRight');
+  check(await until(() => __tintim.player.egg > 0, 6000), 'pegar o ovo cozido dá o planar turbinado'); await pg.keyboard.up('ArrowRight');
+  await put(fr, 60, { inv: 9 }); await pg.keyboard.down('Space'); await pg.waitForTimeout(700);
+  const ge = await ev(() => ({ vy: __tintim.player.vy, gl: __tintim.player.gliding })); await pg.keyboard.up('Space');
+  check(ge.gl && ge.vy > 0 && ge.vy <= 75, `com o ovo, a queda planando fica bem mais lenta (vy=${ge.vy.toFixed(0)})`);
+
   // chegada ao mastro
   await put(7300, 452 - 50, { onGround: true, inv: 9 }); await pg.keyboard.down('ArrowRight');
   check(await until(() => __tintim.state === 'winning' || __tintim.state === 'win', 6000), 'chegar ao mastro de São João vence a fase'); await pg.keyboard.up('ArrowRight');

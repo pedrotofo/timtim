@@ -84,6 +84,7 @@ TT.on('start', () => setTimeout(() => { titleEl.classList.remove('story', 'leavi
 // dicas do Arraial, na hora em que cada coisa aparece
 const TUT = { glide: isTouch ? 'Segure ▲ no ar para planar' : 'Segure Espaço no ar para planar', fire: 'O ar quente da fogueira levanta quem plana!', dance: 'As tábuas dançam a quadrilha: pule no ritmo!' };
 TT.on('tutorial', e => TT.emit('banner', { text: TUT[e.kind] }));
+TT.on('egg', () => TT.emit('banner', { text: 'Ovo cozido: planar turbinado!' }));
 // cartão de abertura do Arraial (o mesmo cartão da apresentação do chefão, com outro texto)
 TT.on('arraialIntro', () => { stage.classList.add('cine'); const c = $('bossCard'); c.querySelector('small').textContent = 'FASE 2'; c.querySelector('h2').textContent = 'O ARRAIAL';
   c.querySelector('p').textContent = 'Plane com a bandana até o mastro de São João'; setTimeout(() => c.classList.add('show'), 350); });
@@ -142,7 +143,7 @@ TT.on('banner', e => { banner.textContent = e.text; banner.classList.remove('sho
 TT.on('hurt', () => { const h = hearts[Math.max(0, S.player.hp)]; if (h) { h.classList.remove('hit'); void h.offsetWidth; h.classList.add('hit'); } });
 TT.on('start', () => { show(null); $('hud').classList.add('on'); stage.classList.remove('cine'); $('bossCard').classList.remove('show'); $('cookieT').textContent = '/' + S.totalCookies; irisOpenFromBlack(); });
 // balão dos amigos
-const say = $('say'), LINES = ['Toma um turbo, Timtim!', 'Fica invencível, Timtim!']; let sayF = null, sayEnd = 0;
+const say = $('say'), LINES = TT.FASE === 2 ? ['Toma um ovo cozido, Timtim! Dá força pra planar!', 'Mais um ovinho: agora nada te machuca!'] : ['Toma um turbo, Timtim!', 'Fica invencível, Timtim!']; let sayF = null, sayEnd = 0;
 TT.on('friend', e => { sayF = S.friends.reduce((a, f) => Math.abs(f.x - e.x) < Math.abs(a.x - e.x) ? f : a); say.textContent = LINES[S.friends.indexOf(sayF) % 2]; sayEnd = performance.now() + 2600; say.classList.add('on'); });
 const uiFrame0 = TT.uiFrame;
 TT.uiFrame = () => { uiFrame0(); if (!sayF) return;
