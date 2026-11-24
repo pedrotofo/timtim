@@ -8,12 +8,18 @@
 3. **Impacto.** Cada pisão congela o jogo por um instante (hitstop), treme a câmera e solta faíscas de luz. O golpe final é em câmera lenta.
 4. **Piada interna.** Os chefões são "os pugs da vizinha", com cena de apresentação própria. Os dois amigos chihuahuas esperam no caminho e dão biscoito.
 
-## Direção de arte: o parque ao entardecer
-Referência de clima: plataformas atmosféricos de floresta luminosa. A identidade é nossa: um parque de bairro, com postes, bancos, caminho de pedra e parquinho.
-- **Profundidade por valor.** Céu de pôr do sol (dourado, laranja, rosa). Quanto mais longe, mais claro e rosado; quanto mais perto, mais escuro e roxo. O primeiro plano é quase preto e desfocado.
+## Direção de arte: a praça da Vila de Reserva, do entardecer à noite
+Referência de clima: plataformas atmosféricos de floresta luminosa. A identidade é nossa: a praça de uma vila do interior do Brasil, com figueiras, postes, bancos, caminho de pedra e parquinho.
+- **A hora passa durante a fase.** O Timtim sai atrás do Furtão com o sol se pondo atrás da vila (casario colonial e capelinha, `bg/vila-tarde.jpg`) e chega ao parquinho à noite, com lua cheia (`bg/vila-noite.jpg`, a mesma vista). As duas pinturas se misturam conforme a câmera avança, e a névoa, os fachos de luz, a luz ambiente, as figueiras e o tom das sombras acompanham (`dayLight` em `render3d.js`).
+- **Marcos da praça**, um por trecho: o chafariz logo no começo, o coreto ao lado do caminho de cheiro e o carrinho de pipoca perto do parquinho (arte do Google Flow, recortada).
+- **Plataformas são tábuas de balanço** penduradas nas figueiras por duas cordas, com hera caindo da borda. Nada flutua sem motivo.
+- **Festa junina**: bandeirinhas nas cores da bandana do Timtim balançam ao fundo, entre os varais de luzes.
+- **Profundidade por valor.** Quanto mais longe, mais claro (rosado no entardecer, azulado à noite); quanto mais perto, mais escuro. O primeiro plano é quase preto e desfocado.
 - **A luz conta a história.** Luz quente e baixa, sombras roxas. O que importa para jogar brilha: o Timtim tem um halo suave, os biscoitos são luzes douradas, os postes fazem poças de luz âmbar.
 - **O mundo respira.** Fachos de sol, névoa, flores e cogumelos que pulsam, vaga-lumes, capim na frente dos pés.
 - **Movimento elástico.** O corpo do Timtim estica e achata com uma mola, inclina com a velocidade, e deixa um rastro de silhuetas de luz na pirueta e no turbo.
+- **O Timtim tem o mesmo tamanho em todas as poses.** As alturas em `R.frame` (parado 80, correndo 82, pulo 77, queda 82, farejando 69) foram acertadas para a cabeça dele não mudar de tamanho ao trocar de pose; antes ele encolhia uns 20% no pulo.
+- **O Furtão é marrom**, como na abertura pintada (antes o jogo o deixava cinza-azulado).
 - **Interface discreta.** Vidro escuro, contornos finos de luz, letras serifadas que brilham. Nada de contorno grosso.
 
 ## 2.5D
@@ -29,6 +35,7 @@ Início seguro com biscoitos no chão → primeiras lajes → primeiro buraco �
 
 ## Qualidade adaptativa
 Três níveis. Se a média cair abaixo de 45 quadros por segundo: nível 1 desliga o desfoque e reduz a resolução; nível 0 desliga sombras, pós-processamento, névoa, parte dos fachos e dos halos.
+Todas as imagens vão para a placa de vídeo ainda no carregamento (`warmUp`), para o primeiro segundo da fase não engasgar.
 
 ## Fora do escopo (por enquanto)
 Mais fases, mais quadros de animação (a corrida tem 4), animações próprias para os chihuahuas, sprites dos pugs reais, placar online.

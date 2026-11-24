@@ -115,7 +115,8 @@
   #storyLine { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; } /* só para leitores de tela: a frase aparece desenhada no pergaminho */
   #introC { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 1s; pointer-events: none; }
   #title.story #introC { opacity: 1; }
-  #skip { position: absolute; right: 2.4cqw; bottom: 2.4cqw; font-size: 1.3cqw; letter-spacing: .2cqw; color: var(--dim); opacity: 0; transition: opacity .6s .8s; }
+  #skip { position: absolute; right: 2.4cqw; bottom: 2.4cqw; font-size: 1.3cqw; letter-spacing: .2cqw; color: rgba(255, 244, 228, .92); padding: .4cqw 1.2cqw; border-radius: 99cqw; background: rgba(40, 18, 8, .55); opacity: 0; transition: opacity .6s .8s; animation: nudge 2.4s ease-in-out infinite; }
+  @keyframes nudge { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(.4cqw); } }
   #title.story #skip { opacity: 1; }
   @keyframes float { 50% { transform: translateY(-.8cqw); } }
   .logo { margin: 0; font-family: var(--display); font-weight: 400; line-height: .9; }
@@ -129,7 +130,7 @@
   .how span { display: flex; align-items: center; gap: .6cqw; background: var(--glass); color: var(--text); border-radius: 9cqw; padding: .35cqw 1.3cqw .35cqw .7cqw; font-size: 1.45cqw; font-weight: 600; border: .1cqw solid var(--line); }
   .how img { height: 2.1cqw; filter: drop-shadow(0 0 .5cqw rgba(255, 210, 120, .7)); }
   .how .key { color: var(--glow); font-weight: 800; padding: 0 .3cqw; }
-  .hint { font-size: 1.4cqw; font-weight: 600; color: rgba(255, 246, 234, .82); margin: 1.6cqw 0 0; text-shadow: 0 .1cqw .6cqw rgba(0, 4, 14, .9); }
+  .hint { font-size: 1.3cqw; font-weight: 600; color: rgba(255, 246, 234, .9); margin: 1.4cqw 0 0; padding: .5cqw 1.6cqw; border-radius: 99cqw; background: rgba(6, 10, 24, .62); border: .1cqw solid rgba(255, 220, 190, .14); text-shadow: 0 .1cqw .6cqw rgba(0, 4, 14, .9); }
   #best { font-size: 1.5cqw; font-weight: 700; color: var(--gold); margin: 1cqw 0 0; min-height: 2cqw; }
 
   .card { background: rgba(40, 16, 36, .72); color: var(--text); border: .12cqw solid var(--line); border-radius: 2.4cqw; padding: 3cqw 5cqw 3.2cqw; text-align: center;
@@ -219,9 +220,9 @@
       <h1 class="logo"><b>TIMTIM</b><i>E O RESGATE DO MACACO FEDIDO</i></h1>
       <div class="gap"></div>
       <button class="btn" id="btnStart">Jogar</button>
-      <p class="hint" id="hint">← → andar · Espaço pula · no ar, de novo: pirueta · ↓ fareja</p>
       <p id="best"></p>
       <button class="btn ghost" id="btnShelf">Brinquedos perdidos</button>
+      <p class="hint" id="hint">← → andar · Espaço pula · no ar, de novo: pirueta · ↓ fareja</p>
     </div>
     <canvas id="introC" width="1600" height="900"></canvas><p id="storyLine" aria-live="polite"></p><span id="skip">toque para avançar</span>
   </section>

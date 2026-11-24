@@ -23,7 +23,7 @@ const PAL = { far: '#14506a', mid: '#0b3447', near: '#06202d', back: '#04151d', 
   cyan: 0x6fe9ff, violet: 0xa98bff, warm: 0xffb866, mint: 0x7dffd0 };
 
 // ---------------- texturas ----------------
-THREE.DefaultLoadingManager.onLoad = () => { R.ready = true; TT.emit('assetsReady'); };
+THREE.DefaultLoadingManager.onLoad = () => { warmUp(); R.ready = true; TT.emit('assetsReady'); };
 const TL = new THREE.TextureLoader();
 const load = p => { const t = TL.load('assets/' + p); t.anisotropy = 4; return t; };
 const AR = { 'tintim-idle': 232 / 220, 'tintim-run': 1.2143, 'tintim-jump': 270 / 200, 'tintim-fall': 240 / 220, 'tintim-hurt': 218 / 220,
@@ -89,7 +89,9 @@ function treeLayer(seed, col, n, size, rim) {
       g.addColorStop(0, rim); g.addColorStop(0.55, 'rgba(0,0,0,0)'); x.fillStyle = g; x.fillRect(0, 0, w, h); x.globalCompositeOperation = 'source-over'; }
   });
 }
-const texFar = load('bg/far.jpg'); texFar.wrapS = THREE.MirroredRepeatWrapping;
+// a Vila de Reserva ao fundo, pintada no Google Flow: a mesma vista ao entardecer e à noite, que se misturam ao longo da fase
+const texVilaT = load('bg/vila-tarde.jpg'), texVilaN = load('bg/vila-noite.jpg'); [texVilaT, texVilaN].forEach(t => { t.wrapS = THREE.MirroredRepeatWrapping; });
+const texChafariz = load('bg/chafariz.png'), texCoreto = load('bg/coreto.png'), texPipoca = load('bg/pipoca.png');
 const texFigs = load('bg/figs.png');
 
 // arbustos atrás do caminho, com florzinhas acesas
@@ -137,8 +139,9 @@ const texSand = canvasTex(512, 512, (x, w, h) => { // areia do parquinho sob o l
   speckle(x, w, h, 5000, ['#0f2a36', '#6fb3c4', '#2d5f70'], 1.1);
 }, true);
 const texRock = canvasTex(256, 256, (x, w, h) => {
-  const g = x.createLinearGradient(0, 0, 0, h); g.addColorStop(0, '#1b3f4a'); g.addColorStop(1, '#07161d'); x.fillStyle = g; x.fillRect(0, 0, w, h);
-  speckle(x, w, h, 1500, ['#0a1c24', '#3d7482']);
+  const g = x.createLinearGradient(0, 0, 0, h); g.addColorStop(0, '#4a3a2a'); g.addColorStop(0.5, '#2e241a'); g.addColorStop(1, '#16110c'); x.fillStyle = g; x.fillRect(0, 0, w, h);
+  speckle(x, w, h, 1500, ['#1a130c', '#6a5640']);
+  for (let i = 0; i < 26; i++) { x.fillStyle = i % 3 ? '#5c4c3a' : '#3a3026'; x.beginPath(); x.ellipse(Math.random() * w, Math.random() * h, 5 + Math.random() * 9, 3 + Math.random() * 6, Math.random() * 3, 0, 7); x.fill(); } // pedrinhas
   x.strokeStyle = 'rgba(2,10,14,.5)'; x.lineWidth = 2; for (let i = 0; i < 9; i++) { let px = Math.random() * w, py = Math.random() * h; x.beginPath(); x.moveTo(px, py); for (let k = 0; k < 4; k++) { px += (Math.random() - 0.5) * 60; py += Math.random() * 40; x.lineTo(px, py); } x.stroke(); }
 }, true);
 const texMoss = canvasTex(256, 256, (x, w, h) => {
@@ -152,6 +155,40 @@ const texRoots = canvasTex(256, 128, (x, w, h) => { // raízes e cipós pendurad
     x.strokeStyle = i % 3 ? '#072029' : '#0d4a44'; x.lineWidth = 1.5 + r() * 3; x.beginPath(); x.moveTo(bx, 0); x.quadraticCurveTo(bx + sway, len * 0.6, bx + sway * 0.4, len); x.stroke();
     if (i % 5 === 0) { const g = x.createRadialGradient(bx + sway * 0.4, len, 0, bx + sway * 0.4, len, 7); g.addColorStop(0, 'rgba(140,255,230,.9)'); g.addColorStop(1, 'rgba(140,255,230,0)'); x.fillStyle = g; x.fillRect(bx + sway * 0.4 - 7, len - 7, 14, 14); } }
 });
+// tábuas de balanço: madeira quente, tábuas no sentido do comprimento, com frestas escuras e borda gasta clara
+const texPlankTop = canvasTex(256, 256, (x, w, h) => { const r = rng(31);
+  for (let j = 0; j < 4; j++) { const y0 = j * 64, l = 30 + r() * 8;
+    x.fillStyle = `hsl(${24 + r() * 8}, 45%, ${l}%)`; x.fillRect(0, y0, w, 64);
+    for (let k = 0; k < 14; k++) { x.strokeStyle = `rgba(40,20,8,${0.12 + r() * 0.18})`; x.lineWidth = 1 + r() * 1.5; const yy = y0 + 6 + r() * 52;
+      x.beginPath(); x.moveTo(0, yy); x.bezierCurveTo(w * 0.3, yy + (r() - 0.5) * 6, w * 0.7, yy + (r() - 0.5) * 6, w, yy); x.stroke(); }
+    x.fillStyle = 'rgba(255,220,170,.16)'; x.fillRect(0, y0 + 2, w, 5);               // quina gasta pela luz
+    x.fillStyle = '#1e0f06'; x.fillRect(0, y0 + 61, w, 3);                               // fresta entre tábuas
+    const nx = r() * w; x.fillStyle = 'rgba(30,14,4,.55)'; x.beginPath(); x.ellipse(nx, y0 + 32, 7, 4, 0, 0, 7); x.fill(); } // nó da madeira
+  speckle(x, w, h, 500, ['#2a1408', '#a87448'], 1.1, r); }, true);
+const texPlankSide = canvasTex(256, 256, (x, w, h) => { const r = rng(37);
+  const g = x.createLinearGradient(0, 0, 0, h); g.addColorStop(0, '#7a4e2c'); g.addColorStop(1, '#4a2c16'); x.fillStyle = g; x.fillRect(0, 0, w, h);
+  for (let k = 0; k < 40; k++) { x.strokeStyle = `rgba(30,14,4,${0.15 + r() * 0.2})`; x.lineWidth = 1; const yy = r() * h; x.beginPath(); x.moveTo(0, yy); x.lineTo(w, yy + (r() - 0.5) * 4); x.stroke(); }
+  [0, 96, 180].forEach(px => { x.fillStyle = '#1e0f06'; x.fillRect(px, 0, 3, h); x.fillStyle = 'rgba(255,220,170,.12)'; x.fillRect(px + 3, 0, 2, h); });
+  speckle(x, w, h, 400, ['#2a1408', '#c08a58'], 1.1, r); }, true);
+const texRope = canvasTex(16, 256, (x, w, h) => { x.fillStyle = '#8a6a44'; x.fillRect(3, 0, 10, h);
+  for (let y = -8; y < h; y += 8) { x.strokeStyle = '#4a3420'; x.lineWidth = 2; x.beginPath(); x.moveTo(3, y); x.lineTo(13, y + 7); x.stroke(); }
+  x.fillStyle = 'rgba(255,230,190,.25)'; x.fillRect(5, 0, 2, h); }, true);
+const texIvy = canvasTex(256, 64, (x, w, h) => { const r = rng(41); // hera e capim pendurados na borda da tábua
+  for (let i = 0; i < 46; i++) { const bx = r() * w, len = 8 + r() * (h - 12), lean = (r() - 0.5) * 10;
+    x.strokeStyle = i % 4 ? '#1f5a2c' : '#2f7a3a'; x.lineWidth = 1.4; x.beginPath(); x.moveTo(bx, 0); x.quadraticCurveTo(bx + lean, len * 0.5, bx + lean * 0.6, len); x.stroke();
+    for (let k = 6; k < len; k += 7) { x.fillStyle = (i + k) % 3 ? '#2d7a3c' : '#4f9e4a'; x.beginPath(); x.ellipse(bx + lean * (k / len) * 0.8 + (k % 2 ? 3 : -3), k, 3.2, 2, k % 2 ? 0.6 : -0.6, 0, 7); x.fill(); } } });
+// franja de capim e raízes caindo na borda dos buracos (antes a borda era uma cunha preta)
+const texFringe = canvasTex(512, 64, (x, w, h) => { const r = rng(43);
+  x.fillStyle = '#0f3a30'; x.fillRect(0, 0, w, 6);
+  for (let i = 0; i < 120; i++) { const bx = r() * w, len = 10 + r() * (h - 10), lean = (r() - 0.5) * 12;
+    x.strokeStyle = i % 5 ? '#14503f' : i % 2 ? '#2a8a6a' : '#3a2a18'; x.lineWidth = 1.2 + r() * 2; x.beginPath(); x.moveTo(bx, 0); x.quadraticCurveTo(bx + lean, len * 0.5, bx + lean * 0.4, len); x.stroke(); } }, true);
+// bandeirinhas de festa junina nas cores da bandana do Timtim, num barbante que faz barriga
+const texBunting = canvasTex(1024, 160, (x, w, h) => {
+  const cols = ['#ff7a2a', '#ffd23f', '#35d68f', '#ff5a6e', '#5aa2ff', '#fff0d6'], cy = t => 18 + Math.sin(t * Math.PI) * 58;
+  x.strokeStyle = '#3a2a1c'; x.lineWidth = 3; x.beginPath(); for (let i = 0; i <= 40; i++) { const t = i / 40; i ? x.lineTo(t * w, cy(t)) : x.moveTo(0, cy(0)); } x.stroke();
+  for (let i = 0; i < 17; i++) { const t = (i + 0.5) / 17, px = t * w, py = cy(t) + 1, fw = 40, fh = 54;
+    x.fillStyle = cols[i % cols.length]; x.beginPath(); x.moveTo(px - fw / 2, py); x.lineTo(px + fw / 2, py); x.lineTo(px + fw / 2, py + fh); x.lineTo(px, py + fh - 14); x.lineTo(px - fw / 2, py + fh); x.closePath(); x.fill();
+    x.fillStyle = 'rgba(255,255,255,.22)'; x.fillRect(px - fw / 2, py, fw, 6); x.fillStyle = 'rgba(0,0,0,.18)'; x.fillRect(px + fw / 2 - 6, py, 6, fh - 4); } });
 const texSoft = canvasTex(64, 64, x => { const g = x.createRadialGradient(32, 32, 0, 32, 32, 32);
   g.addColorStop(0, 'rgba(255,255,255,1)'); g.addColorStop(0.35, 'rgba(255,255,255,.45)'); g.addColorStop(1, 'rgba(255,255,255,0)'); x.fillStyle = g; x.fillRect(0, 0, 64, 64); });
 const texStar = canvasTex(64, 64, x => { x.fillStyle = '#ffe9a8'; x.beginPath();
@@ -248,7 +285,10 @@ const addMat = (map, c, op) => new THREE.MeshBasicMaterial({ map, color: c, opac
 
 // ---------------- mundo estático ----------------
 const FLOOR_Z0 = -104, FLOOR_Z1 = 470, FD = FLOOR_Z1 - FLOOR_Z0, FZ = (FLOOR_Z0 + FLOOR_Z1) / 2;
-const pulses = [], shafts = [], mists = [];
+const pulses = [], shafts = [], mists = [], ropes = [], buntings = [], figMats = [], landmarks = [];
+const vilaMat = new THREE.ShaderMaterial({ uniforms: { a: { value: texVilaT }, b: { value: texVilaN }, k: { value: 0 }, rep: { value: 1 }, tint: { value: new THREE.Color(1, 1, 1) } },
+  vertexShader: 'varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.); }',
+  fragmentShader: 'uniform sampler2D a, b; uniform float k, rep; uniform vec3 tint; varying vec2 vUv; void main(){ vec2 u = vec2(vUv.x * rep, vUv.y); gl_FragColor = vec4(mix(texture2D(a, u).rgb, texture2D(b, u).rgb, k) * tint, 1.); }' });
 const sky = add(new THREE.Mesh(planeGeoC, new THREE.MeshBasicMaterial({ map: texSky, fog: false })), 1); // por último entre os opacos
 sky.scale.set(4700, 2700, 1); sky.position.set(0, 300, -3000);
 (function buildWorld() {
@@ -257,19 +297,20 @@ sky.scale.set(4700, 2700, 1); sky.position.set(0, 300, -3000);
   const layer = (tex, z, y0, w, hgt) => { const m = flatMat(tex);
     for (let x = -3400; x < 13400; x += w) { const q = new THREE.Mesh(planeGeo, m); q.scale.set(w + 2, hgt, 1); q.position.set(x + w / 2, y0, z); add(q); } };
   // fundo pintado: a floresta distante cobre o céu e se repete espelhada, sem emenda
-  { const w = 18000, hgt = 1900; texFar.repeat.set(w / (hgt * 1584 / 672), 1);
-    const q = new THREE.Mesh(planeGeo, new THREE.MeshBasicMaterial({ map: texFar, fog: false })); q.scale.set(w, hgt, 1); q.position.set(5000, -700, -2200); add(q); }
+  { const w = 18000, hgt = 1900;
+    vilaMat.uniforms.rep.value = w / (hgt * 1376 / 768);
+    const q = new THREE.Mesh(planeGeo, vilaMat); q.scale.set(w, hgt, 1); q.position.set(5000, -560, -2200); add(q); }
   // figueiras pintadas com varais de lanternas, em dois planos: o de trás menor e azulado pela distância
-  const figs = (z, y0, hgt, tint, x0) => { const m = flatMat(texFigs, { color: tint, alphaTest: 0.4, side: THREE.DoubleSide }), w = hgt * 2.1053;
+  const figs = (z, y0, hgt, tint, x0) => { const m = flatMat(texFigs, { color: tint, alphaTest: 0.4, side: THREE.DoubleSide }), w = hgt * 2.1053; figMats.push(m);
     for (let x = -3400 + x0, i = 0; x < 13400; x += w, i++) { const q = new THREE.Mesh(planeGeo, m); q.scale.set((i % 2 ? -1 : 1) * w, hgt, 1); q.position.set(x + w / 2, y0, z); add(q); } };
   figs(-1250, -330, 1450, 0x4c7896, 0); figs(-520, -150, 1020, 0xa9c4d6, 900);
   layer(texHedge, -98, -6, 760, 190, -8);
   // névoa entre as camadas e fachos de luar
   [[-1750, -360, 900, 0x2aa7c0, 0.11, -22], [-900, -230, 620, 0x1c8fa8, 0.1, -18], [-300, -70, 330, 0x167d92, 0.1, -12]].forEach(([z, y, hgt, c, op, order], i) => {
-    const m = add(new THREE.Mesh(planeGeo, addMat(texMist, c, op)), order); m.scale.set(20000, hgt, 1); m.position.set(5000, y, z); mists.push({ m, op, i }); });
+    const m = add(new THREE.Mesh(planeGeo, addMat(texMist, c, op)), order); m.scale.set(20000, hgt, 1); m.position.set(5000, y, z); mists.push({ m, op, i, night: new THREE.Color(c) }); });
   for (let i = 0; i < 22; i++) { const near = i % 3 === 0, z = near ? -260 : -1050, k = near ? 1 : 1.9;
     const m = add(new THREE.Mesh(planeGeoTop, addMat(texShaft, i % 4 === 1 ? 0xa9a0ff : 0x8fe6ff, 0.2)), near ? -11 : -19);
-    m.scale.set((150 + r() * 190) * k, 1150 * k, 1); m.position.set(-400 + i * 560 + r() * 300, 760 * (near ? 1 : 1.25), z); m.rotation.z = -0.34 - r() * 0.1; shafts.push({ m, ph: r() * 6, op: near ? 0.12 : 0.2 }); }
+    m.scale.set((150 + r() * 190) * k, 1150 * k, 1); m.position.set(-400 + i * 560 + r() * 300, 760 * (near ? 1 : 1.25), z); m.rotation.z = -0.34 - r() * 0.1; shafts.push({ m, ph: r() * 6, op: near ? 0.12 : 0.2, night: m.material.color.clone() }); }
   // abismo e fundação
   const dark = new THREE.MeshBasicMaterial({ color: 0x010910, fog: false });
   const pit = new THREE.Mesh(planeGeoC, dark); pit.scale.set(16000, 700, 1); pit.rotation.x = -Math.PI / 2; pit.position.set(5000, -300, 180); add(pit);
@@ -294,15 +335,25 @@ sky.scale.set(4700, 2700, 1); sky.position.set(0, 300, -3000);
     if (x1 > ARENA_X) { mk(x0, ARENA_X, texTurf); mk(ARENA_X, ARENA_X + 2400, texSand, true); spans.push([x0, ARENA_X]); } else { mk(x0, x1, texTurf); spans.push([x0, x1]); }
   });
   const curb = new THREE.Mesh(boxUV(14, 10, FD, 60), side); curb.position.set(ARENA_X, 4, FZ); curb.receiveShadow = true; add(curb);
-  // plataformas: lajes de pedra com musgo luminoso e raízes penduradas
-  const moss = new THREE.MeshLambertMaterial({ map: texMoss, emissive: 0x0d4a40 }), rootM = flatMat(texRoots, { alphaTest: 0.3 });
+  // plataformas: tábuas de balanço penduradas nas figueiras por duas cordas, com hera caindo da borda
+  // (antes eram lajes de pedra flutuando, sem motivo para estar no ar)
+  const plankTop = new THREE.MeshLambertMaterial({ map: texPlankTop, emissive: 0x1a0c04 }), plankSide = new THREE.MeshLambertMaterial({ map: texPlankSide, emissive: 0x1a0c04 });
+  const ropeM = flatMat(texRope, { alphaTest: 0.4 }), ivyM = flatMat(texIvy, { alphaTest: 0.35, side: THREE.DoubleSide });
   for (const [x, y, w] of C.plats) {
-    const m = new THREE.Mesh(boxUV(w, 18, 70, 120), [side, side, moss, side, side, side]);
-    m.position.set(x + w / 2, GROUND - y - 9, 0); m.castShadow = m.receiveShadow = true; add(m);
-    const rt = add(new THREE.Mesh(planeGeoTop, rootM)); rt.scale.set(w * 0.96, 54 + (x % 40), 1); rt.position.set(x + w / 2, GROUND - y - 16, 30);
-    const gl = add(new THREE.Mesh(planeGeoC, glowMat(PAL.mint, 0.22)), 3); gl.scale.set(w * 1.5, 46, 1); gl.position.set(x + w / 2, GROUND - y + 2, 34);
-    pulses.push({ m: gl, base: 0.22, ph: x });
+    const top = GROUND - y;
+    const m = new THREE.Mesh(boxUV(w, 16, 64, 128), [plankSide, plankSide, plankTop, plankSide, plankSide, plankSide]);
+    m.position.set(x + w / 2, top - 8, 0); m.castShadow = m.receiveShadow = true; add(m);
+    [x + 10, x + w - 10].forEach(rx => { const r = add(new THREE.Mesh(planeGeo, ropeM)); r.scale.set(6, 1100, 1); r.position.set(rx, top - 2, -24); ropes.push({ m: r, ph: x * 0.01 }); });
+    const iv = add(new THREE.Mesh(planeGeoTop, ivyM)); iv.scale.set(w * 0.92, 26 + (x % 20), 1); iv.position.set(x + w / 2, top - 14, 33);
+    const gl = add(new THREE.Mesh(planeGeoC, glowMat(PAL.warm, 0.12)), 3); gl.scale.set(w * 1.4, 40, 1); gl.position.set(x + w / 2, top + 2, 34);
+    pulses.push({ m: gl, base: 0.12, ph: x });
   }
+  // franja de capim e raízes nas bordas dos buracos
+  { const fr = new THREE.MeshLambertMaterial({ map: texFringe, transparent: true, alphaTest: 0.3, side: THREE.DoubleSide });
+    const sorted = spans.slice().sort((a, b) => a[0] - b[0]), edges = [];
+    sorted.forEach(([a, b], i) => { if (i > 0 && a > sorted[i - 1][1] + 1) edges.push(a + 1); if (i < sorted.length - 1 && sorted[i + 1][0] > b + 1) edges.push(b - 1); });
+    for (const ex of edges) { const g = new THREE.PlaneGeometry(FD, 54).translate(0, -27, 0); const uv = g.attributes.uv; for (let i = 0; i < uv.count; i++) uv.setX(i, uv.getX(i) * FD / 220);
+      const m = new THREE.Mesh(g, fr); m.rotation.y = Math.PI / 2; m.position.set(ex, 0.5, FZ); add(m); } }
   // flora luminosa atrás e à frente do caminho
   const plantM = PLANTS.map(p => flatMat(p.tex, { transparent: true, alphaTest: 0.08, depthWrite: false, side: THREE.DoubleSide }));
   for (const [x0, x1] of spans.concat([[ARENA_X + 20, ARENA_X + 1000]])) for (let x = Math.max(-300, x0 + 50); x < x1 - 50; x += 120 + r() * 170) {
@@ -319,6 +370,13 @@ sky.scale.set(4700, 2700, 1); sky.position.set(0, 300, -3000);
     const pool = add(new THREE.Mesh(planeGeoC, glowMat(PAL.warm, 0.2)), 0); pool.rotation.x = -Math.PI / 2; pool.scale.set(420, 230, 1); pool.position.set(x, 1.2, -10);
     if (i % 2 === 0 && spans.some(([a, b]) => x + 150 > a + 60 && x + 150 < b - 60)) { const b = add(new THREE.Mesh(planeGeo, benchM)); b.scale.set(112, 56, 1); b.position.set(x + 150, 0, -78); }
   }
+  // marcos da praça da Vila de Reserva: o chafariz logo no começo, o coreto ao lado do caminho de cheiro e o carrinho de pipoca perto do parquinho
+  const mark = (tex, ar, x, hgt, z, seat) => { const m = add(new THREE.Mesh(planeGeo, flatMat(tex, { alphaTest: 0.4 }))); m.scale.set(hgt * ar, hgt, 1); m.position.set(x, -3, z); landmarks.push(m);
+    if (seat) { const sh = add(new THREE.Mesh(planeGeoC, new THREE.MeshBasicMaterial({ map: texSoft, color: 0x000000, transparent: true, opacity: 0.5, depthWrite: false, fog: false })), 0);
+      sh.rotation.x = -Math.PI / 2; sh.scale.set(hgt * ar * 1.15, hgt * 0.3, 1); sh.position.set(x, 1, z + 8); } return m; };
+  mark(texChafariz, 343 / 300, 2470, 150, -84, true);
+  mark(texCoreto, 451 / 560, 5000, 440, -360, false).position.y = -70;
+  mark(texPipoca, 233 / 300, 7900, 126, -80, true);
   // varal de luzinhas nas cores da bandana do Timtim
   const cols = [0xff7a2a, 0xffd23f, 0x35d68f, 0xff5a6e, 0x5aa2ff, 0xfff0d6].map(c => new THREE.Color(c));
   const pos = [], col = [], line = [];
@@ -330,6 +388,10 @@ sky.scale.set(4700, 2700, 1); sky.position.set(0, 300, -3000);
   }
   const bg = new THREE.BufferGeometry(); bg.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); bg.setAttribute('color', new THREE.Float32BufferAttribute(col, 3));
   add(new THREE.Points(bg, new THREE.PointsMaterial({ map: texSoft, size: 95, vertexColors: true, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, fog: false })), -3);
+  // bandeirinhas de festa junina entre um varal de luz e outro, um pouco mais atrás
+  const buntM = flatMat(texBunting, { alphaTest: 0.4, side: THREE.DoubleSide });
+  for (let x0 = 530, i = 0; x0 < ARENA_X - 300; x0 += 760, i++) { const m = add(new THREE.Mesh(planeGeoTop, buntM)); const bw = 520 + (i % 3) * 50;
+    m.scale.set(bw, bw * 0.13, 1); m.position.set(x0 + 280, 360 + (i % 2) * 30, -330); buntings.push({ m, ph: i * 1.7 }); }
   const lg = new THREE.BufferGeometry(); lg.setAttribute('position', new THREE.Float32BufferAttribute(line, 3));
   add(new THREE.LineSegments(lg, new THREE.LineBasicMaterial({ color: 0x06202b, fog: false })), -4);
   // placa do parquinho, com letras acesas
@@ -384,7 +446,7 @@ const FLY = 70, flies = [];
   flies.push({ m, x: r() * 1500, y: 20 + r() * 400, z: -90 + r() * 400, s: 4 + r() * 9, ph: r() * 6.28, sp: 0.4 + r() * 1.2 }); } }
 
 // ---------------- luz e sombra ----------------
-scene.add(new THREE.AmbientLight(0x6f9cc0, 0.85));
+const amb = new THREE.AmbientLight(0x6f9cc0, 0.85); scene.add(amb);
 const sun = new THREE.DirectionalLight(0xa6dcff, 0.6); sun.castShadow = true; // o luar
 sun.shadow.mapSize.set(2048, 2048); sun.shadow.bias = -0.0006; sun.shadow.normalBias = 1.5;
 Object.assign(sun.shadow.camera, { left: -900, right: 900, top: 620, bottom: -420, near: 100, far: 2200 });
@@ -413,7 +475,7 @@ tintim.geometry = legGeo();
 const tailX = { x: 0, v: 0 }, tailY = { x: 0, v: 0 }, earS = { x: 0, v: 0 }; let faceS = 1;
 const ghosts = []; let ghostT = 0;
 // Brutão: um sprite por pose (andar, investir, latir, morder a bolinha, tonto, derrotado), com patas que se mexem por deformação
-const bruteM = sprite('brute-walk', 5, true, 0xc4cfe6); bruteM.geometry = legGeo(); bruteM.userData.ph = 0;
+const bruteM = sprite('brute-walk', 5, true, 0xf2e2d2); bruteM.geometry = legGeo(); bruteM.userData.ph = 0;
 bruteM.userData.stars = [0, 1, 2].map(() => { const s = add(new THREE.Mesh(planeGeoC, new THREE.MeshBasicMaterial({ map: texStar, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, fog: false })), 7); s.scale.set(20, 20, 1); s.visible = false; return s; });
 const bruteGlow = add(new THREE.Mesh(planeGeoC, glowMat(0xffe14d, 0)), 4); // brilho amarelo na hora certa de pisar
 const bruteWarn = add(new THREE.Mesh(planeGeoC, glowMat(0xff2a55, 0)), 4); // vermelho no aviso de ataque
@@ -449,7 +511,7 @@ const friendM = S.friends.map(f => { const m = sprite(f.kind, 5, true, 0xfff6ec)
 const giftM = [0, 1].map(() => { const m = sprite('cookie', 7, false); m.geometry = planeGeoC; m.visible = false;
   m.userData.glow = add(new THREE.Mesh(planeGeoC, glowMat(0xffd27a, 0.8)), 6); m.userData.glow.visible = false; return m; });
 // cena do roubo: um segundo Furtão (o chefão real só aparece na arena) com o Macaco Fedido pendurado na boca
-const thiefM = sprite('brute-charge', 6, true, 0xd8dcec); thiefM.geometry = legGeo(); thiefM.userData.ph = 0; thiefM.visible = false;
+const thiefM = sprite('brute-charge', 6, true, 0xf2e2d2); thiefM.geometry = legGeo(); thiefM.userData.ph = 0; thiefM.visible = false;
 const carryM = sprite('monkey-front', 7, true, 0xfff4e6); carryM.geometry = planeGeoTop; carryM.visible = false;
 // boca de cada pose do Furtão, em fração da imagem (o desenho olha para a esquerda): [x, y a partir do topo]
 const MOUTH = { 'brute-walk': [0.2, 0.38], 'brute-charge': [0.07, 0.55] };
@@ -518,10 +580,10 @@ const blurMat = new THREE.ShaderMaterial({ uniforms: { t: { value: null }, dir: 
     c += (texture2D(t, vUv + dir * 3.231).rgb + texture2D(t, vUv - dir * 3.231).rgb) * .0703; gl_FragColor = vec4(c, 1.); }` });
 const compMat = new THREE.ShaderMaterial({ depthTest: false, vertexShader: VERT,
   uniforms: { tScene: { value: null }, tDepth: { value: null }, tBloom: { value: null }, res: { value: new THREE.Vector2(W, H) },
-    near: { value: camera.near }, far: { value: camera.far }, focus: { value: CAM_D }, dof: { value: 1 }, time: { value: 0 }, flash: { value: 0 }, gray: { value: 0 } },
+    near: { value: camera.near }, far: { value: camera.far }, focus: { value: CAM_D }, dof: { value: 1 }, time: { value: 0 }, flash: { value: 0 }, gray: { value: 0 }, shade: { value: new THREE.Vector3(.80, 1.02, 1.16) } },
   fragmentShader: `
   precision highp float;
-  uniform sampler2D tScene, tDepth, tBloom; uniform vec2 res; uniform float near, far, focus, dof, time, flash, gray;
+  uniform sampler2D tScene, tDepth, tBloom; uniform vec2 res; uniform float near, far, focus, dof, time, flash, gray; uniform vec3 shade;
   varying vec2 vUv;
   float hash(vec2 p){ return fract(sin(dot(p, vec2(12.9898, 78.233))) * 43758.5453); }
   void main(){
@@ -546,7 +608,7 @@ const compMat = new THREE.ShaderMaterial({ depthTest: false, vertexShader: VERT,
     float l = dot(col, vec3(.299, .587, .114));
     col = mix(vec3(l), col, 1.18 * (1. - gray));                     // saturação
     col = clamp(col, 0., 1.); col = mix(col, col * col * (3. - 2. * col), .5);                // contraste suave
-    col = mix(col * vec3(.80, 1.02, 1.16), col, smoothstep(.25, .9, l)); // sombras puxam para o azul-petróleo; as luzes ficam puras
+    col = mix(col * shade, col, smoothstep(.25, .9, l)); // sombras puxam para o rosado no entardecer e para o azul-petróleo à noite; as luzes ficam puras
     vec2 q = vUv - .5; col *= 1. - dot(q, q) * 1.05;                 // vinheta
     col += (hash(vUv * res + time) - .5) * .014;                     // grão fino
     gl_FragColor = vec4(mix(col, vec3(.85, .97, 1.), flash), 1.);
@@ -583,10 +645,10 @@ R.frame = (rdt) => {
   if (p.won) { name = 'tintim-win'; h = 92; }
   else if (S.thief && S.thief.state === 'laugh' && p.onGround) name = 'tintim-hurt'; // assustado: roubaram o macaco!
   else if (p.hurtT > 0 || S.mode === 'lose') name = 'tintim-hurt';
-  else if (!p.onGround) { if (p.vy < 0 || p.djT > 0) { name = 'tintim-jump'; h = 66; } else { name = 'tintim-fall'; h = 78; } }
-  else if (moving) { name = 'tintim-run'; h = 72; h = 76; nf = 8; fr = Math.floor(runPhase) % 8; }
+  else if (!p.onGround) { if (p.vy < 0 || p.djT > 0) { name = 'tintim-jump'; h = 77; } else { name = 'tintim-fall'; h = 82; } }
+  else if (moving) { name = 'tintim-run'; h = 82; nf = 8; fr = Math.floor(runPhase) % 8; }
   const sniffing = p.sniff > 0 && p.onGround && name === 'tintim-idle'; // farejando: pose própria, focinho no chão, focinho tremendo
-  if (sniffing) { name = 'tintim-sniff'; h = 74; }
+  if (sniffing) { name = 'tintim-sniff'; h = 69; }
   faceS += (p.face - faceS) * Math.min(1, rdt * 20); // vira o corpo num instante, em vez de espelhar de uma vez
   setAnim(tintim, name, h, faceS < 0, fr, nf); tintim.scale.x *= Math.max(0.25, Math.abs(faceS));
   { // rabo, orelhas e pelo seguem o corpo com atraso; parado, ele respira, abana o rabo e olha em volta
@@ -698,13 +760,13 @@ R.frame = (rdt) => {
       const sy = run ? 1 + Math.sin(thiefM.userData.ph * 2) * 0.05 : 1 + giggle * 0.07;
       thiefM.scale.x *= 2 - sy; thiefM.scale.y *= sy;
       const y = Y(GROUND) - 4 + (run ? Math.abs(Math.sin(thiefM.userData.ph)) * 10 : 0);
-      thiefM.position.set(q.x, y, 1); thiefM.rotation.z = run ? 0.06 * -q.dir : Math.sin(lt * 15) * 0.03 * Math.max(0, 1 - lt / 2.4);
+      thiefM.position.set(q.x, y, 48); thiefM.rotation.z = run ? 0.06 * -q.dir : Math.sin(lt * 15) * 0.03 * Math.max(0, 1 - lt / 2.4);
       legs(thiefM, thiefM.userData.ph, run ? 0.07 : 0, { f: -1, tailX: Math.sin(time * 14) * 0.03, tailY: 0, headX: 0, headY: giggle * 0.03, breathe: 0, shear: run ? -0.04 * q.dir : 0 });
       if (run && Math.random() < 0.8) spawn({ x: q.x - q.dir * 60, y: GROUND - 4, vx: -q.dir * (40 + Math.random() * 60), vy: -30 - Math.random() * 60, g: -40, life: 0.6, r: 4 + Math.random() * 3, grow: 8, color: 0xfff2c8 });
       // o macaco pendurado pela boca, balançando com a corrida
       const w = Math.abs(thiefM.scale.x), mo = MOUTH[n], mx = (mo[0] - 0.5) * w * (flip ? -1 : 1), my = (1 - mo[1]) * thiefM.scale.y;
       setAnim(carryM, 'monkey-front', 62, flip);
-      carryM.position.set(q.x + mx, y + my + 12, 2);
+      carryM.position.set(q.x + mx, y + my + 12, 50);
       carryM.rotation.z = (flip ? 0.5 : -0.5) + Math.sin(time * (run ? 16 : 6)) * (run ? 0.25 : 0.12);
     } }
   // Macaco Fedido livre: gira no ar, cai e pula de alegria junto com a turma
@@ -769,6 +831,8 @@ R.frame = (rdt) => {
   flags.forEach((f, i) => { f.up += ((f.on ? 1 : 0) - f.up) * Math.min(1, rdt * 4); const s = 46 + f.up * 150 + (f.on ? Math.sin(time * 3 + i) * 10 : 0);
     f.halo.scale.set(s, s, 1); f.halo.material.color.set(f.on ? 0xffc27a : 0x8fb6c4); f.halo.material.opacity = 0.15 + f.up * 0.6; f.core.scale.set(22 + f.up * 14, 22 + f.up * 14, 1); f.core.material.opacity = 0.3 + f.up * 0.7; });
   for (const q of pulses) q.m.material.opacity = q.base * (0.78 + 0.22 * Math.sin(time * (q.slow ? 0.9 : 1.9) + q.ph));
+  for (const q of buntings) q.m.rotation.x = Math.sin(time * 1.3 + q.ph) * 0.18; // a brisa balança as bandeirinhas
+  for (const q of ropes) q.m.rotation.z = Math.sin(time * 0.9 + q.ph) * 0.004;
   for (const q of shafts) q.m.material.opacity = q.op * (0.55 + 0.45 * Math.sin(time * 0.35 + q.ph));
   for (const q of mists) { q.m.material.opacity = q.op * (0.85 + 0.15 * Math.sin(time * 0.25 + q.i * 2)); q.m.position.x = 5000 + Math.sin(time * 0.05 + q.i) * 120; }
 
@@ -800,6 +864,7 @@ R.frame = (rdt) => {
     f.m.position.set(fxS + fxw + Math.sin(time * f.sp + f.ph) * 26, f.y + Math.sin(time * f.sp * 0.7 + f.ph * 2) * 34, f.z);
     const tw = Math.max(0, Math.sin(time * f.sp * 1.6 + f.ph)); f.m.scale.set(f.s * (0.6 + tw), f.s * (0.6 + tw), 1); f.m.material.opacity = 0.15 + tw * 0.75; }
 
+  dayLight(fxS);
   R.flash = Math.max(0, R.flash - rdt * 2.2);
   if (GL2 && R.quality > 0) {
     renderer.setRenderTarget(rt); renderer.render(scene, camera);
@@ -812,6 +877,38 @@ R.frame = (rdt) => {
     pass(compMat, null);
   } else { renderer.setRenderTarget(null); renderer.render(scene, camera); }
 };
+// ---------------- do entardecer à noite ----------------
+// A fase começa com o sol se pondo atrás da vila e termina à noite, com lua cheia, no parquinho onde está o Furtão.
+// k = 0 é o entardecer e k = 1 é a noite; tudo o que é pintado ou iluminado acompanha.
+const DAY = { x0: 1400, x1: ARENA_X - 700 };
+const DUSK = { bg: new THREE.Color(0x2a1426), figB: new THREE.Color(0x9c7c86), figF: new THREE.Color(0xe6c2b2), mist: new THREE.Color(0x7a4234), shaft: new THREE.Color(0xc0865a),
+  amb: new THREE.Color(0xd2a6a0), sun: new THREE.Color(0xffb27a), mark: new THREE.Color(0xfff0e2), bunt: new THREE.Color(0xffffff), shade: new THREE.Vector3(1.06, .9, .96) };
+const NIGHT_ = { bg: new THREE.Color(0x020a12), figB: new THREE.Color(0x4c7896), figF: new THREE.Color(0xa9c4d6), amb: new THREE.Color(0x6f9cc0), sun: new THREE.Color(0xa6dcff),
+  mark: new THREE.Color(0x9fb4d6), bunt: new THREE.Color(0xa8b8d4), shade: new THREE.Vector3(.80, 1.02, 1.16) };
+const tmpC = new THREE.Color();
+function dayLight(cx) {
+  const t = Math.max(0, Math.min(1, (cx - DAY.x0) / (DAY.x1 - DAY.x0))), k = t * t * (3 - 2 * t);
+  vilaMat.uniforms.k.value = k; vilaMat.uniforms.tint.value.setScalar(0.7 + 0.12 * k);
+  scene.background.copy(DUSK.bg).lerp(NIGHT_.bg, k);
+  if (figMats[0]) figMats[0].color.copy(DUSK.figB).lerp(NIGHT_.figB, k);
+  if (figMats[1]) figMats[1].color.copy(DUSK.figF).lerp(NIGHT_.figF, k);
+  for (const q of mists) q.m.material.color.copy(DUSK.mist).lerp(q.night, k);
+  for (const q of shafts) q.m.material.color.copy(DUSK.shaft).lerp(q.night, k);
+  amb.color.copy(DUSK.amb).lerp(NIGHT_.amb, k); amb.intensity = 0.95 - 0.1 * k;
+  sun.color.copy(DUSK.sun).lerp(NIGHT_.sun, k); sun.intensity = 0.8 - 0.2 * k;
+  tmpC.copy(DUSK.mark).lerp(NIGHT_.mark, k); for (const m of landmarks) m.material.color.copy(tmpC);
+  tmpC.copy(DUSK.bunt).lerp(NIGHT_.bunt, k); for (const q of buntings) q.m.material.color.copy(tmpC);
+  compMat.uniforms.shade.value.copy(DUSK.shade).lerp(NIGHT_.shade, k);
+}
+// Antes, a primeira vez que cada imagem aparecia na tela ela era enviada à placa de vídeo no meio do jogo,
+// e o primeiro segundo da fase engasgava (quadros de até 0,8 s). Agora isso acontece no carregamento.
+function warmUp() {
+  if (!renderer.initTexture) return;
+  const seen = new Set(), up = t => { if (t && t.isTexture && !seen.has(t)) { seen.add(t); renderer.initTexture(t); } };
+  scene.traverse(o => { (Array.isArray(o.material) ? o.material : [o.material]).forEach(m => { if (m) { up(m.map); if (m.uniforms) for (const k in m.uniforms) up(m.uniforms[k].value); } }); });
+  Object.values(TEX).forEach(up);
+  try { renderer.compile(scene, camera); } catch (e) { /* só uma otimização */ }
+}
 // projeta um ponto do mundo na tela (0..1), para efeitos de interface como a íris
 R.toScreen = (x, y) => { const v = new THREE.Vector3(x, Y(y), 0).project(camera); return { x: (v.x + 1) / 2, y: (1 - v.y) / 2 }; };
 })();

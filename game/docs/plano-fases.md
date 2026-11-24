@@ -45,4 +45,6 @@ Geradas no Google Flow (Nano Banana Pro, 24/11/2026) com a folha de personagem e
 - **Feito:** `bg/shelf.jpg`, a casinha de madeira à noite com 5 nichos, varal de luzes e bandeirinhas (fundo da estante).
 - **Feito, ainda sem uso:** `sprites/tintim-glide.png`, o Timtim planando com a bandana aberta como asa-delta, para o Arraial.
 
+- **Feito:** a praça da fase 1 (24/11/2026): `bg/vila-tarde.jpg` e `bg/vila-noite.jpg` (mesma vista, do entardecer à noite), `bg/chafariz.png`, `bg/coreto.png` e `bg/pipoca.png`.
+
 Ainda falta: a arte de abertura do Arraial.
