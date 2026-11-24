@@ -157,7 +157,24 @@
   .tbtn { position: absolute; bottom: 4%; width: 11cqw; height: 11cqw; border-radius: 50%; background: rgba(44, 18, 40, .4); border: .14cqw solid var(--line); color: var(--text);
     font-size: 3.6cqw; pointer-events: auto; touch-action: none; display: grid; place-items: center; padding: 0; }
   .tbtn.down { background: rgba(255, 214, 160, .28); border-color: var(--glow); box-shadow: 0 0 3cqw rgba(255, 214, 160, .6); transform: scale(.94); }
-  #tL { left: 3%; } #tR { left: 16.5%; } #tJ { right: 3%; width: 13cqw; height: 13cqw; }
+  #tL { left: 3%; } #tR { left: 16.5%; } #tJ { right: 3%; width: 13cqw; height: 13cqw; } #tS { right: 19%; width: 9cqw; height: 9cqw; font-size: 3cqw; }
+  /* ---------- estante de brinquedos perdidos ---------- */
+  #shelf { z-index: 5; }
+  #shelf .card { min-width: 0; width: 78cqw; padding: 2.4cqw 3cqw 2.6cqw; }
+  #shelfSlots { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.2cqw; margin: 1.8cqw 0 2cqw; text-align: center; }
+  .slot { background: rgba(255, 220, 190, .06); border: .1cqw solid rgba(255, 220, 190, .14); border-radius: 1.4cqw; padding: 1cqw .8cqw 1.2cqw; display: flex; flex-direction: column; align-items: center; gap: .3cqw; }
+  .slot .pic { height: 8cqw; width: 8cqw; display: grid; place-items: center; border-radius: 50%; background: radial-gradient(circle, rgba(255, 214, 160, .12), transparent 70%); }
+  .slot .pic img { height: 6.4cqw; filter: brightness(0) opacity(.45); }
+  .slot .pic b { font-family: var(--display); font-size: 4cqw; font-weight: 400; color: rgba(255, 246, 234, .25); }
+  .slot small { font-size: 1.1cqw; font-weight: 700; letter-spacing: .12cqw; color: var(--dim); text-transform: uppercase; }
+  .slot strong { font-size: 1.45cqw; color: var(--text); }
+  .slot p { margin: .3cqw 0 0; font-size: 1.1cqw; line-height: 1.35; color: var(--dim); }
+  .slot.got { border-color: rgba(125, 255, 208, .5); box-shadow: 0 0 2cqw rgba(125, 255, 208, .15); }
+  .slot.got .pic img { filter: drop-shadow(0 0 1cqw rgba(255, 220, 120, .8)); animation: float 2.2s ease-in-out infinite; }
+  .slot.got strong { color: var(--mint); }
+  .slot.soon { opacity: .55; }
+  #shelfCount { margin: .4cqw 0 0; color: var(--gold); font-weight: 700; font-size: 1.6cqw; }
+  #btnShelf { margin-top: 1.2cqw; }
   #msg { position: absolute; inset: 0; display: grid; place-items: center; background: #12070f; font-family: var(--display); font-size: 2.2cqw; letter-spacing: .3cqw; color: var(--dim); text-align: center; padding: 6cqw; transition: opacity .8s; }
   #msg.hide { opacity: 0; pointer-events: none; }
   @media (prefers-reduced-motion: reduce) { #banner.show, .star.got, #title .on-anim > *, .polaroid { animation-duration: .01s; } }
@@ -189,6 +206,7 @@
   <div id="touch" class="layer">
     <button class="tbtn" id="tL" data-k="left" aria-label="Esquerda">◀</button>
     <button class="tbtn" id="tR" data-k="right" aria-label="Direita">▶</button>
+    <button class="tbtn" id="tS" data-k="sniff" aria-label="Farejar">👃</button>
     <button class="tbtn" id="tJ" data-k="jump" aria-label="Pular">▲</button>
   </div>
   <div class="bar" id="barT"></div><div class="bar" id="barB"></div>
@@ -201,8 +219,9 @@
       <h1 class="logo"><b>TIMTIM</b><i>E O RESGATE DO MACACO FEDIDO</i></h1>
       <div class="gap"></div>
       <button class="btn" id="btnStart">Jogar</button>
-      <p class="hint" id="hint">← → andar · Espaço pula · no ar, de novo: pirueta</p>
+      <p class="hint" id="hint">← → andar · Espaço pula · no ar, de novo: pirueta · ↓ fareja</p>
       <p id="best"></p>
+      <button class="btn ghost" id="btnShelf">Brinquedos perdidos</button>
     </div>
     <canvas id="introC" width="1600" height="900"></canvas><p id="storyLine" aria-live="polite"></p><span id="skip">toque para avançar</span>
   </section>
@@ -229,11 +248,17 @@
       <div class="stat ok"><b>✓</b>Macaco resgatado</div>
       <div class="stat" id="stCookies"><b>0/36</b>Biscoitos</div>
       <div class="stat" id="stHearts"><b>0/3</b>Biscoitos dourados</div>
+      <div class="stat" id="stToy"><b>?</b>Brinquedo perdido</div>
       <div class="stat" id="stTime"><b>0s</b>Tempo</div>
     </div>
     <div class="row"><button class="btn" id="btnAgain">Jogar de novo</button></div>
   </div></section>
 
+  <section id="shelf" class="screen scrim"><div class="card">
+    <h2>Brinquedos perdidos</h2><p style="margin:.6cqw 0 0">O Furtão roubou um brinquedo de cada cão da vila. Ache um em cada fase.</p>
+    <div id="shelfSlots"></div><p id="shelfCount"></p>
+    <div class="row"><button class="btn" id="btnShelfBack">Voltar</button></div>
+  </div></section>
   <div id="msg">Ajude Timtim a resgatar o Macaco Fedido…</div>
 </div></div>
 

@@ -356,6 +356,28 @@ const flags = C.checkpoints.map(x => {
   const core = add(new THREE.Mesh(planeGeoC, glowMat(0xffffff, 0.3)), 3); core.position.set(x, 122, -37);
   return { halo, core, up: 0, on: false };
 });
+// ---------------- segredos ----------------
+// moita falsa: um arbusto denso na frente do caminho; quando o Timtim entra, ela fica translúcida e mostra o que esconde
+const texFalse = canvasTex(512, 320, (x, w, h) => { const r = rng(21);
+  for (let i = 0; i < 70; i++) { const px = 40 + r() * (w - 80), py = h - 16 - r() * (h * 0.72) * Math.sin(Math.PI * (px / w)), rad = 34 + r() * 40;
+    x.fillStyle = i % 3 ? '#062a2c' : '#0b3a3a'; x.beginPath(); x.ellipse(px, py, rad, rad * 0.75, r() * 3, 0, 7); x.fill(); }
+  x.fillStyle = '#062a2c'; x.fillRect(30, h - 30, w - 60, 30);
+  for (let i = 0; i < 160; i++) { const px = 50 + r() * (w - 100), py = h - 10 - r() * h * 0.7 * Math.sin(Math.PI * (px / w)); // folhinhas com a borda iluminada
+    x.fillStyle = i % 4 ? 'rgba(43,179,154,.55)' : 'rgba(157,255,230,.7)'; x.beginPath(); x.ellipse(px, py, 6, 3, r() * 3, 0, 7); x.fill(); }
+  for (let i = 0; i < 9; i++) { const px = 70 + r() * (w - 140), py = h - 40 - r() * 140, c = i % 3 ? '190,150,255' : '120,235,255';
+    const g = x.createRadialGradient(px, py, 0, px, py, 9); g.addColorStop(0, `rgba(${c},.95)`); g.addColorStop(1, `rgba(${c},0)`); x.fillStyle = g; x.fillRect(px - 9, py - 9, 18, 18); } });
+const hedgeM = C.hedges.map(hd => { const m = add(new THREE.Mesh(planeGeo, new THREE.MeshBasicMaterial({ map: texFalse, transparent: true, depthWrite: false, fog: false })), 9);
+  m.scale.set(hd.w + 70, 168, 1); m.position.set(hd.x + hd.w / 2, -6, 48);
+  m.userData.glow = add(new THREE.Mesh(planeGeoC, glowMat(0x7dff6a, 0)), 9); m.userData.glow.scale.set(hd.w + 120, 190, 1); m.userData.glow.position.set(hd.x + hd.w / 2, 80, 50);
+  return m; });
+// caminho de cheiro: lajes que só aparecem depois de farejadas; crescem do nada com uma luz verde
+const scentMoss = new THREE.MeshLambertMaterial({ map: texMoss, emissive: 0x0e4a2a, color: 0x9fdcc0 });
+const trailM = C.trails.map(t => t.plats.map(([x, y, w], k) => { const m = new THREE.Mesh(boxUV(w, 18, 70, 120), [scentMoss, scentMoss, scentMoss, scentMoss, scentMoss, scentMoss]);
+  m.position.set(x + w / 2, GROUND - y - 9, 0); m.castShadow = true; m.visible = false; add(m);
+  const gl = add(new THREE.Mesh(planeGeoC, glowMat(0x7dff6a, 0)), 3); gl.scale.set(w * 1.7, 60, 1); gl.position.set(x + w / 2, GROUND - y, 34);
+  return { m, gl, x, y, w, k, up: 0 }; }));
+// o rastro de cheiro: uma fita de luzinhas verdes que sai do focinho e serpenteia até o segredo
+const SCENT_N = 34, scentM = []; for (let i = 0; i < SCENT_N; i++) { const m = add(new THREE.Mesh(planeGeoC, glowMat(i % 4 ? 0x7dff6a : 0xd8ffb0, 0)), 10); m.visible = false; scentM.push(m); } // na frente de tudo, até da moita
 // vaga-lumes e esporos de luz flutuando em volta da câmera
 const FLY = 70, flies = [];
 { const r = rng(55); for (let i = 0; i < FLY; i++) { const m = add(new THREE.Mesh(planeGeoC, glowMat(i % 5 === 0 ? 0xfff0a8 : i % 3 === 0 ? PAL.violet : PAL.cyan, 0.8)), 8);
@@ -417,8 +439,19 @@ TEX.choco = canvasTex(160, 128, x => { x.translate(80, 64); x.rotate(-0.18);
     x.fillStyle = '#d08a52'; x.beginPath(); x.roundRect(px + 3, py + 3, 28, 9, 4); x.fill(); x.fillStyle = '#5e2f14'; x.fillRect(px + 3, py + 25, 28, 4); }
   x.fillStyle = '#ff3d5e'; x.beginPath(); x.moveTo(-66, -44); x.lineTo(-8, -44); x.lineTo(-20, 44); x.lineTo(-66, 44); x.closePath(); x.fill();
   x.fillStyle = '#ffd98a'; x.fillRect(-66, -10, 52, 20); x.strokeStyle = '#fff3d6'; x.lineWidth = 3; x.beginPath(); x.moveTo(-8, -44); x.lineTo(-14, -20); x.lineTo(-6, 0); x.lineTo(-16, 22); x.lineTo(-20, 44); x.stroke(); });
+// brinquedo perdido do Parque: um patinho de borracha, desenhado por código (até ganhar arte própria)
+const drawDuck = (x, w, h) => { x.translate(w / 2, h / 2 + 6); const s = w / 128; x.scale(s, s); x.lineJoin = 'round';
+  x.fillStyle = '#ffd23f'; x.strokeStyle = '#fff3c4'; x.lineWidth = 5;
+  x.beginPath(); x.ellipse(-6, 22, 50, 30, 0, 0, 7); x.moveTo(-44, 6); x.quadraticCurveTo(-66, -6, -58, 22); x.fill(); x.stroke();    // corpo e rabinho
+  x.beginPath(); x.arc(18, -18, 28, 0, 7); x.fill(); x.stroke();                                                                         // cabeça
+  x.fillStyle = '#ff8a2a'; x.beginPath(); x.moveTo(40, -16); x.quadraticCurveTo(64, -14, 60, -4); x.quadraticCurveTo(50, 2, 38, -4); x.fill(); // bico
+  x.fillStyle = '#1b1b2a'; x.beginPath(); x.arc(24, -24, 5, 0, 7); x.fill(); x.fillStyle = '#fff'; x.beginPath(); x.arc(26, -26, 1.8, 0, 7); x.fill();
+  x.fillStyle = '#f0b020'; x.beginPath(); x.ellipse(-8, 18, 24, 12, -0.3, 0, 7); x.fill();                                              // asa
+  x.fillStyle = 'rgba(255,255,255,.55)'; x.beginPath(); x.ellipse(8, -30, 9, 5, -0.5, 0, 7); x.fill(); };
+TEX.toy = canvasTex(128, 112, (x, w, h) => drawDuck(x, w, h)); AR.toy = 128 / 112;
+R.toyImage = () => { const c = document.createElement('canvas'); c.width = 256; c.height = 224; drawDuck(c.getContext('2d'), 256, 224); return c.toDataURL(); };
 const itemM = S.items.map(it => { const m = sprite(it.type === 'gold' ? 'cookie' : it.type, 5, false, it.type === 'gold' ? 0xffd640 : 0xfff4e0); m.geometry = planeGeoC;
-  m.userData.glow = add(new THREE.Mesh(planeGeoC, glowMat(it.type === 'choco' ? 0xff3355 : it.type === 'cookie' ? 0xffc76a : 0xffe14d)), 4);
+  m.userData.glow = add(new THREE.Mesh(planeGeoC, glowMat(it.type === 'choco' ? 0xff3355 : it.type === 'cookie' ? 0xffc76a : it.type === 'toy' ? 0x9dff7a : 0xffe14d)), 4);
   return m; });
 const friendM = S.friends.map(f => { const m = sprite(f.kind, 5, true, 0xfff6ec); m.geometry = legGeo();
   m.userData.glow = add(new THREE.Mesh(planeGeoC, glowMat(0xffd9a0, 0.3)), 4); return m; });
@@ -467,7 +500,10 @@ TT.on('finalBlow', e => { R.flash = 0.85; burst(e.x, e.y, [0x8fe9ff, 0xffd98a, 0
 TT.on('checkpoint', e => { flags[e.index].on = true; burst(e.x, GROUND - 122, [0xffd98a, 0xffb866, 0xffffff], 18, 240, 200); });
 TT.on('friend', e => burst(e.x, e.y, [0xffd98a, 0xff9fc0, 0xffffff], 10, 150, 100));
 TT.on('gift', e => burst(e.x, e.y, [0xffd98a, 0xff7d9c, 0xffffff, 0x8fe9ff], 22, 260, 200));
-TT.on('start', e => { parts.length = 0; ghosts.length = 0; R.flash = 0; R.zoom = 1; sq = 1; sqV = 0; if (!e.retry) flags.forEach(f => { f.on = false; f.up = 0; }); });
+TT.on('sniff', e => { for (let i = 0; i < 5; i++) spawn({ x: e.x, y: e.y, vx: (Math.random() - 0.5) * 60, vy: -30 - Math.random() * 40, g: -20, life: 0.5, r: 2.5, grow: 4, color: 0x9dff7a }); });
+TT.on('reveal', e => { R.flash = 0.25; const t = C.trails.find(q => q.id === e.id); t.plats.forEach(([x, y, w]) => burst(x + w / 2, y, [0x7dff6a, 0xd8ffb0, 0xffffff], 14, 220, 120)); });
+TT.on('toy', e => { burst(e.x, e.y, [0x9dff7a, 0xffd23f, 0xffffff, 0x8fe9ff], 36, 360, 200); R.flash = 0.3; });
+TT.on('start', e => { parts.length = 0; if (!e.retry) trailM.flat().forEach(q => { q.up = 0; }); ghosts.length = 0; R.flash = 0; R.zoom = 1; sq = 1; sqV = 0; if (!e.retry) flags.forEach(f => { f.on = false; f.up = 0; }); });
 let confettiT = 0;
 TT.on('win', () => { confettiT = 4; });
 
@@ -558,6 +594,7 @@ R.frame = (rdt) => {
   else if (p.hurtT > 0 || S.mode === 'lose') name = 'tintim-hurt';
   else if (!p.onGround) { if (p.vy < 0 || p.djT > 0) { name = 'tintim-jump'; h = 66; } else { name = 'tintim-fall'; h = 78; } }
   else if (moving) { name = 'tintim-run'; h = 72; h = 76; nf = 8; fr = Math.floor(runPhase) % 8; }
+  const sniffing = p.sniff > 0 && p.onGround; // farejando: cabeça baixa, focinho tremendo, corpo inclinado para a frente
   faceS += (p.face - faceS) * Math.min(1, rdt * 20); // vira o corpo num instante, em vez de espelhar de uma vez
   setAnim(tintim, name, h, faceS < 0, fr, nf); tintim.scale.x *= Math.max(0.25, Math.abs(faceS));
   { // rabo, orelhas e pelo seguem o corpo com atraso; parado, ele respira, abana o rabo e olha em volta
@@ -566,13 +603,13 @@ R.frame = (rdt) => {
     const tX = spring(tailX, -sp * 0.07 + happy + (moving ? Math.sin(stride) * 0.02 : 0), sdtA(live));
     const tY = spring(tailY, (air ? Math.max(-0.1, Math.min(0.1, p.vy / 5000)) : 0) + (moving ? Math.cos(stride) * 0.03 : 0), sdtA(live), 120, 9);
     const eY = spring(earS, (air ? Math.max(-0.05, Math.min(0.05, p.vy / 9000)) : 0) + (moving ? -Math.cos(stride + 0.7) * 0.022 : idle ? Math.sin(time * 1.3) * 0.012 : 0), sdtA(live), 200, 14);
-    legs(tintim, 0, 0, { f: 1, tailX: tX, tailY: tY, headX: idle ? Math.sin(time * 0.9) * 0.012 : sp * 0.015, headY: eY, breathe: idle ? Math.sin(time * 2.6) * 0.022 : 0, shear: air ? -Math.max(-0.05, Math.min(0.05, p.vx / 9000)) : 0 }); }
+    legs(tintim, 0, 0, { f: 1, tailX: tX, tailY: tY, headX: sniffing ? 0.025 + Math.sin(time * 9) * 0.01 : idle ? Math.sin(time * 0.9) * 0.012 : sp * 0.015, headY: sniffing ? -0.07 + Math.sin(time * 26) * 0.012 : eY, breathe: idle ? Math.sin(time * 2.6) * 0.022 : 0, shear: air ? -Math.max(-0.05, Math.min(0.05, p.vx / 9000)) : 0 }); }
   const sdt = Math.min(live, 0.02);
   sqV += (-(sq - 1) * 260 - sqV * 15) * sdt; sq = Math.max(0.72, Math.min(1.3, sq + sqV * sdt));
   const squash = sq * (p.onGround ? 1 + Math.sin(clock * 3) * 0.015 : 1 + Math.min(0.08, Math.abs(p.vy) / 9000));
   tintim.scale.x *= 2 - squash; tintim.scale.y *= squash;
   const tx = p.x + p.w / 2, ty = Y(p.y + p.h) - 2 + (moving ? Math.abs(Math.sin(runPhase * Math.PI / 8)) * 2 : 0);
-  const rotT = p.won ? 0 : p.onGround ? -(p.vx / C.FAST) * 0.07 : -Math.max(-0.32, Math.min(0.32, p.vy / 2400)) * p.face;
+  const rotT = p.won ? 0 : sniffing ? -p.face * 0.09 : p.onGround ? -(p.vx / C.FAST) * 0.07 : -Math.max(-0.32, Math.min(0.32, p.vy / 2400)) * p.face;
   rotS += (rotT - rotS) * Math.min(1, rdt * 16);
   const flip = p.djT > 0 ? -p.face * Math.PI * 2 * ease(1 - p.djT / 0.42) : 0;
   tintim.rotation.z = rotS + flip;
@@ -706,13 +743,36 @@ R.frame = (rdt) => {
   });
   // itens: flutuam, giram devagar e pulsam como pequenas luzes
   S.items.forEach((it, i) => {
-    const m = itemM[i]; m.visible = !it.got; const g = m.userData.glow; g.visible = !it.got;
-    if (it.got) return;
-    const ck = it.type === 'cookie', gd = it.type === 'gold', hh = ck ? 27 : gd ? 36 : it.type === 'choco' ? 54 : 54, bob = Math.sin(clock * 3 + it.x * 0.05) * 5;
+    const hid = it.trail && !S.revealed[it.trail], m = itemM[i]; m.visible = !it.got && !hid; const g = m.userData.glow; g.visible = m.visible;
+    if (!m.visible) return;
+    const ck = it.type === 'cookie', gd = it.type === 'gold', hh = ck ? 27 : gd ? 36 : it.type === 'toy' ? 46 : 54, bob = Math.sin(clock * 3 + it.x * 0.05) * 5;
     m.scale.set(hh * AR[gd ? 'cookie' : it.type], hh, 1); m.position.set(it.x, Y(it.y) + bob, 0);
     m.rotation.y = Math.sin(clock * 2.2 + it.x * 0.01) * (ck ? 0.75 : 0.4); m.rotation.z = Math.sin(clock * 3 + it.x) * 0.12;
-    const s = (ck ? 62 : it.type === 'choco' ? 130 : 104) + Math.sin(clock * 5 + it.x * 0.03) * (ck ? 8 : 12); g.scale.set(s, s, 1); g.position.set(it.x, Y(it.y) + bob, -2); g.material.opacity = ck ? 0.5 : it.type === 'choco' ? 0.7 + 0.25 * Math.sin(clock * 6 + it.x) : 0.6;
+    const s = (ck ? 62 : it.type === 'choco' ? 130 : it.type === 'toy' ? 150 : 104) + Math.sin(clock * 5 + it.x * 0.03) * (ck ? 8 : 12); g.scale.set(s, s, 1); g.position.set(it.x, Y(it.y) + bob, -2); g.material.opacity = ck ? 0.5 : it.type === 'choco' ? 0.7 + 0.25 * Math.sin(clock * 6 + it.x) : 0.6;
   });
+  // segredos: moita falsa, caminho de cheiro e o rastro
+  { const sc = S.scent;
+    hedgeM.forEach((m, i) => { const inside = S.inHedge === i, hd = C.hedges[i];
+      const want = inside ? 0.3 : 1; m.material.opacity += (want - m.material.opacity) * Math.min(1, rdt * 8);
+      m.rotation.z = inside && Math.abs(p.vx) > 20 ? Math.sin(time * 18) * 0.015 : 0; // farfalha quando ele passa
+      const lit = sc && sc.kind === 'hedge' && Math.abs(sc.x - (hd.x + hd.w / 2)) < 5 ? sc.fade * Math.min(1, sc.t * 2) : 0;
+      m.userData.glow.material.opacity = lit * (0.35 + 0.15 * Math.sin(time * 6)); });
+    C.trails.forEach((t, ti) => trailM[ti].forEach(q => { const on = !!S.revealed[t.id];
+      q.up = on ? Math.min(1, q.up + rdt * 2.2 * (q.up > 0 || q.k === 0 || trailM[ti][q.k - 1].up > 0.5 ? 1 : 0)) : 0; // crescem uma depois da outra
+      const e = ease(q.up); q.m.visible = q.up > 0; q.m.scale.set(Math.max(0.01, e), Math.max(0.01, e), 1);
+      q.gl.material.opacity = on ? 0.18 + 0.5 * (1 - q.up) + 0.06 * Math.sin(time * 3 + q.k) : 0;
+      // antes de farejar: de vez em quando um fiapo verde no ar, uma dica de que tem algo ali
+      if (!on && Math.random() < live * 0.8 && Math.abs(q.x - tx) < 700) spawn({ x: q.x + Math.random() * q.w, y: q.y - 6, vx: (Math.random() - 0.5) * 20, vy: -20, g: -10, life: 1.2, r: 2, grow: 1, color: 0x7dff6a }); }));
+    const a = sc ? Math.min(1, sc.t * 3) * Math.max(0, sc.fade) : 0;
+    if (a > 0) {
+      const x0 = tx + p.face * 30, y0 = Y(p.y + p.h - 14); let dx = sc.x - x0, dy = Y(sc.y) - y0; const L = Math.hypot(dx, dy), lim = 760;
+      if (L > lim) { dx *= lim / L; dy *= lim / L; }
+      const cx = x0 + dx * 0.5, cy = y0 + dy * 0.5 + 70 + Math.min(120, Math.abs(dx) * 0.12), flow = (time * 1.4) % 1;
+      scentM.forEach((m, i) => { const u = Math.min(1, ((i + flow) / SCENT_N) * Math.min(1, sc.t * 2.2)), v = 1 - u; // a fita cresce do focinho até o alvo
+        const bx = v * v * x0 + 2 * v * u * cx + u * u * (x0 + dx), by = v * v * y0 + 2 * v * u * cy + u * u * (y0 + dy), wob = Math.sin(u * 14 - time * 6) * 10 * Math.sin(u * Math.PI);
+        m.visible = true; m.position.set(bx, by + wob, 52 * u); const r = (i % 4 ? 16 : 26) * (0.6 + 0.4 * Math.sin(u * Math.PI)); m.scale.set(r, r, 1);
+        m.material.opacity = a * (0.35 + 0.5 * Math.sin(u * Math.PI)); });
+    } else scentM.forEach(m => { m.visible = false; }); }
   // lanternas de checkpoint, flora, fachos e névoa respirando
   flags.forEach((f, i) => { f.up += ((f.on ? 1 : 0) - f.up) * Math.min(1, rdt * 4); const s = 46 + f.up * 150 + (f.on ? Math.sin(time * 3 + i) * 10 : 0);
     f.halo.scale.set(s, s, 1); f.halo.material.color.set(f.on ? 0xffc27a : 0x8fb6c4); f.halo.material.opacity = 0.15 + f.up * 0.6; f.core.scale.set(22 + f.up * 14, 22 + f.up * 14, 1); f.core.material.opacity = 0.3 + f.up * 0.7; });

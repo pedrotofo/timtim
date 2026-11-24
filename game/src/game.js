@@ -27,13 +27,23 @@ C.grounds = C.grounds.map(([x, w], i) => [i === 1 ? x : sx(x), w]);
 C.plats = C.plats.map(([x, y, w]) => [sx(x), y, w]).concat([[1560, 330, 140], [1820, 260, 120]]);
 C.checkpoints = C.checkpoints.map(sx); C.friends.forEach(f => { f.x = sx(f.x); });
 const { W, H, GROUND, GRAV, JUMP_V, RUN, FAST, LEVEL_END, ARENA_X } = C; // (já com o trecho novo)
+// ---- segredos (em coordenadas finais) ----
+// O faro: segurando ↓ o Timtim para e fareja, e um rastro verde de cheiro aponta o segredo mais próximo.
+// - moita falsa: parece um arbusto qualquer, mas dá para entrar nela; esconde biscoitos (a primeira fica logo atrás do
+//   ponto de partida, para quem farejar ou andar para a esquerda no começo).
+// - caminho de cheiro: plataformas invisíveis que o faro revela. Elas levam ao brinquedo perdido da fase.
+C.START_X = 250;
+C.hedges = [{ x: 0, w: 200 }];
+C.trails = [{ id: 'duck', at: 4230, plats: [[4170, 312, 110], [4300, 182, 100], [4150, 62, 130]] }];
+C.TOY = { id: 'patinho', x: 4215, y: 12 }; // o brinquedo perdido do Parque, no alto do caminho de cheiro
+C.SNIFF = { reveal: 0.35, range: 700 }; // farejando por 0,35 s revela o caminho de cheiro a até 700 px
 
 // ---- eventos (o jogo avisa; som, tela e interface reagem) ----
 const handlers = {};
 TT.on = (n, f) => { (handlers[n] = handlers[n] || []).push(f); };
 const emit = TT.emit = (n, d) => { (handlers[n] || []).forEach(f => f(d || {})); };
 
-TT.input = { left: false, right: false, jump: false, jumpPressed: false };
+TT.input = { left: false, right: false, jump: false, jumpPressed: false, sniff: false };
 
 function makeItems() {
   const it = [];
@@ -63,9 +73,13 @@ function makeItems() {
   it.forEach(o => { o.x = sx(o.x); });
   // trecho de aprendizado (já em coordenadas finais): poucos biscoitos e o pombo de treino
   [1600, 1640, 1680].forEach(x => cookie(x, 290)); cookie(1860, 220);
+  // segredos: biscoitos atrás da moita falsa do começo, dois no meio do caminho de cheiro e o brinquedo perdido no topo
+  [45, 95, 145].forEach(x => cookie(x, GROUND - 40));
+  [[4335, 130], [4375, 130]].forEach(([x, y]) => it.push({ type: 'cookie', x, y, got: false, trail: 'duck' }));
+  it.push({ type: 'toy', id: C.TOY.id, x: C.TOY.x, y: C.TOY.y, got: false, trail: 'duck' });
   // nada encosta no tampo de musgo: o que está sobre uma plataforma fica no mínimo 50px acima dela
   // (o tampo é desenhado em perspectiva e o item flutua, então a 40px ele parecia entrar no bloco)
-  for (const o of it) for (const [px, py, pw] of C.plats) if (o.x > px - 20 && o.x < px + pw + 20 && o.y < py && o.y > py - 50) o.y = py - 50;
+  for (const o of it) for (const [px, py, pw] of C.plats.concat(...C.trails.map(t => t.plats))) if (o.x > px - 20 && o.x < px + pw + 20 && o.y < py && o.y > py - 50) o.y = py - 50;
   return it;
 }
 function makeEnemies() {
@@ -84,25 +98,37 @@ function makeBoss() {
 }
 function makePlayer(x) {
   return { x, y: GROUND - 60, w: 54, h: 50, vx: 0, vy: 0, onGround: false, face: 1, hp: 3, inv: 0, fast: 0, mega: 0, slow: 0,
-    safeX: x, coyote: 0, buffer: 0, landT: 0, won: false, hurtT: 0, dj: true, djT: 0 };
+    safeX: x, coyote: 0, buffer: 0, landT: 0, won: false, hurtT: 0, dj: true, djT: 0, sniff: 0 };
 }
 
 const SOLIDS = [];
 for (const [x, w] of C.grounds) SOLIDS.push({ x, y: GROUND, w, h: 200, oneWay: false });
 for (const [x, y, w] of C.plats) SOLIDS.push({ x, y, w, h: 18, oneWay: true });
+for (const t of C.trails) for (const [x, y, w] of t.plats) SOLIDS.push({ x, y, w, h: 18, oneWay: true, trail: t.id }); // só existem depois de farejadas
+const solid = s => !s.trail || S.revealed[s.trail];
 TT.SOLIDS = SOLIDS;
 const overlap = (a, b) => a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y;
 
 const S = TT.S = { mode: 'title' };
 function reset() {
   Object.assign(S, {
-    player: makePlayer(120), items: makeItems(), enemies: makeEnemies(), boss: makeBoss(), ball: null, waves: [],
+    player: makePlayer(C.START_X), items: makeItems(), enemies: makeEnemies(), boss: makeBoss(), ball: null, waves: [],
     cam: { x: 0, y: 0, look: 0 }, time: 0, clock: 0, cookies: 0, arena: false, trauma: 0, hitstop: 0,
     gold: 0, timeScale: 1, slowT: 0, cine: null, checkpoint: -1, bossSeen: false, hpLost: 0, winT: 0, dustT: 0,
-    thief: null, prize: null,
+    thief: null, prize: null, revealed: {}, toy: false, scent: null,
     friends: C.friends.map(f => ({ x: f.x, home: f.x, vx: 0, follow: 0, kind: f.kind, given: false, hop: 0, face: -1, t: 0 })), gifts: [],
   });
   S.totalCookies = S.items.filter(i => i.type === 'cookie').length + C.friends.length * C.GIFT;
+}
+// para onde o faro aponta: o segredo ainda não achado mais perto (biscoito dourado, moita falsa, caminho de cheiro);
+// se não houver nenhum por perto, o rastro segue o cheiro do Macaco Fedido, para a direita.
+function scentTarget(p) {
+  const px = p.x + p.w / 2; let best = null, bd = 1500;
+  const consider = (x, y, kind) => { const d = Math.abs(x - px); if (d < bd) { bd = d; best = { x, y, kind }; } };
+  for (const it of S.items) if (!it.got && (it.type === 'gold' || it.type === 'toy')) consider(it.x, it.y, it.type);
+  for (const h of C.hedges) if (S.items.some(it => !it.got && it.type === 'cookie' && it.x > h.x && it.x < h.x + h.w)) consider(h.x + h.w / 2, GROUND - 50, 'hedge');
+  for (const t of C.trails) if (!S.revealed[t.id]) consider(t.at, t.plats[0][1] - 20, 'trail');
+  return best || { x: Math.min(ARENA_X + 600, px + 700), y: GROUND - 60, kind: 'monkey' };
 }
 reset();
 
@@ -114,7 +140,7 @@ TT.start = () => { reset(); S.mode = 'play'; S.thief = { x: -260, dir: 1, state:
 TT.retry = () => {
   if (S.checkpoint < 0) return TT.start();
   const x = C.checkpoints[S.checkpoint];
-  S.player = makePlayer(x); S.player.inv = 1.6; S.boss = makeBoss(); S.ball = null; S.thief = null; S.prize = null; S.waves = []; S.arena = false; S.cine = null; S.timeScale = 1; S.slowT = 0; S.hitstop = 0; S.gifts = [];
+  S.player = makePlayer(x); S.player.inv = 1.6; S.scent = null; S.boss = makeBoss(); S.ball = null; S.thief = null; S.prize = null; S.waves = []; S.arena = false; S.cine = null; S.timeScale = 1; S.slowT = 0; S.hitstop = 0; S.gifts = [];
   S.cam.x = Math.max(0, x - W * 0.4); S.cam.look = 0; S.mode = 'play';
   emit('start', { retry: true });
 };
@@ -123,7 +149,7 @@ TT.resume = () => { if (S.mode === 'pause') { S.mode = 'play'; emit('resume'); }
 
 function stats() {
   const allCookies = S.cookies >= Math.ceil(S.totalCookies * 0.8), noHit = S.hpLost === 0, allGold = S.gold >= 3;
-  return { cookies: S.cookies, total: S.totalCookies, time: S.time, hpLost: S.hpLost, gold: S.gold, allCookies, noHit, allGold, stars: 1 + (allCookies ? 1 : 0) + (allGold ? 1 : 0) };
+  return { cookies: S.cookies, total: S.totalCookies, time: S.time, hpLost: S.hpLost, gold: S.gold, toy: S.toy, allCookies, noHit, allGold, stars: 1 + (allCookies ? 1 : 0) + (allGold ? 1 : 0) };
 }
 
 // modo demonstração (só o script que grava o vídeo de apresentação liga): o Timtim não leva dano
@@ -160,11 +186,23 @@ TT.update = (rdt) => {
   p.hurtT = Math.max(0, p.hurtT - dt);
 
   const speed = p.fast > 0 || p.mega > 0 ? FAST : p.slow > 0 ? C.SLOW : RUN;
-  const dir = locked ? 0 : (I.right ? 1 : 0) - (I.left ? 1 : 0);
+  // faro: no chão, segurando ↓, ele para e fareja; o rastro aparece e, com um instante de faro, o caminho de cheiro se revela
+  const sniffing = !locked && I.sniff && p.onGround && playing;
+  p.sniff = sniffing ? p.sniff + dt : 0;
+  if (sniffing) {
+    if (!S.scent || p.sniff === dt) emit('sniff', { x: p.x + p.w / 2 + p.face * 26, y: p.y + p.h - 12 });
+    S.scent = Object.assign(scentTarget(p), { t: (S.scent && S.scent.t) || 0, fade: 1 }); S.scent.t += dt;
+    if (S.scent.x !== p.x + p.w / 2) p.face = Math.sign(S.scent.x - (p.x + p.w / 2)) || p.face;
+    if (p.sniff > C.SNIFF.reveal) for (const t of C.trails) if (!S.revealed[t.id] && Math.abs(t.at - (p.x + p.w / 2)) < C.SNIFF.range) {
+      S.revealed[t.id] = true; emit('reveal', { id: t.id, x: t.at, y: t.plats[0][1] }); emit('banner', { text: 'Caminho de cheiro!' }); }
+  } else if (S.scent) { S.scent.fade -= dt / 1.2; if (S.scent.fade <= 0) S.scent = null; } // o rastro some devagar
+  const dir = locked || sniffing ? 0 : (I.right ? 1 : 0) - (I.left ? 1 : 0);
   const target = dir * speed, accel = p.onGround ? 2600 : 1900;
   if (p.vx < target) p.vx = Math.min(target, p.vx + accel * dt);
   else if (p.vx > target) p.vx = Math.max(target, p.vx - accel * dt);
   if (dir) p.face = dir;
+  // dentro de uma moita falsa
+  const pcx0 = p.x + p.w / 2; S.inHedge = C.hedges.findIndex(h => pcx0 > h.x && pcx0 < h.x + h.w && p.y + p.h > GROUND - 140);
 
   p.coyote = p.onGround ? 0.1 : Math.max(0, p.coyote - dt);
   const pressedNow = !locked && I.jumpPressed;
@@ -183,12 +221,12 @@ TT.update = (rdt) => {
 
   p.x += p.vx * dt;
   p.x = Math.max(S.arena ? ARENA_X + 4 : 0, Math.min(LEVEL_END - p.w - 4, p.x));
-  for (const s of SOLIDS) if (!s.oneWay && overlap(p, s)) { if (p.vx > 0) p.x = s.x - p.w; else if (p.vx < 0) p.x = s.x + s.w; }
+  for (const s of SOLIDS) if (!s.oneWay && solid(s) && overlap(p, s)) { if (p.vx > 0) p.x = s.x - p.w; else if (p.vx < 0) p.x = s.x + s.w; }
   const prevBottom = p.y + p.h;
   p.y += p.vy * dt;
   const wasGround = p.onGround; p.onGround = false;
   for (const s of SOLIDS) {
-    if (!overlap(p, s)) continue;
+    if (!solid(s) || !overlap(p, s)) continue;
     if (s.oneWay) { if (p.vy >= 0 && prevBottom <= s.y + 2) { p.y = s.y - p.h; p.vy = 0; p.onGround = true; } }
     else if (p.vy >= 0) { p.y = s.y - p.h; p.vy = 0; p.onGround = true; }
     else { p.y = s.y + s.h; p.vy = 0; }
@@ -214,13 +252,14 @@ TT.update = (rdt) => {
     C.checkpoints.forEach((cx, i) => { if (i > S.checkpoint && p.x > cx) { S.checkpoint = i; emit('checkpoint', { index: i, x: cx }); } });
     // itens
     for (const it of S.items) {
-      if (it.got) continue;
+      if (it.got || (it.trail && !S.revealed[it.trail])) continue;
       const box = { x: it.x - 20, y: it.y - 20, w: 40, h: 40 };
       if (!overlap(p, box)) continue;
       it.got = true;
       if (it.type === 'cookie') { S.cookies++; emit('cookie', it); }
       if (it.type === 'gold') { S.gold++; emit('power', it); emit('gold', it); }
       if (it.type === 'choco') { if (p.mega <= 0) { p.slow = 5; p.fast = 0; emit('choco', it); } }
+      if (it.type === 'toy') { S.toy = true; S.hitstop = 0.1; emit('toy', it); emit('banner', { text: 'Brinquedo perdido: o Patinho!' }); }
     }
   }
 

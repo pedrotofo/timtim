@@ -6,23 +6,24 @@ const $ = id => document.getElementById(id);
 const stage = $('stage');
 
 // ---------------- controles ----------------
-const keyMap = { ArrowLeft: 'left', KeyA: 'left', ArrowRight: 'right', KeyD: 'right', Space: 'jump', ArrowUp: 'jump', KeyW: 'jump' };
+const keyMap = { ArrowLeft: 'left', KeyA: 'left', ArrowRight: 'right', KeyD: 'right', Space: 'jump', ArrowUp: 'jump', KeyW: 'jump', ArrowDown: 'sniff', KeyS: 'sniff' };
 const press = (k, on) => { if (k === 'jump' && on && !I.jump) I.jumpPressed = true; I[k] = on; };
 addEventListener('keydown', e => {
   if (e.code === 'KeyP' || e.code === 'Escape') { S.mode === 'pause' ? TT.resume() : TT.pause(); return; }
   if (e.code === 'KeyM') return toggleMute();
   if (e.code === 'Enter' || e.code === 'Space') {
     const b = { title: 'btnStart', pause: 'btnResume', lose: 'btnRetry', win: 'btnAgain' }[S.mode];
+    if ($('shelf').classList.contains('on')) { e.preventDefault(); $('btnShelfBack').click(); return; }
     if (b && $(S.mode).classList.contains('on')) { e.preventDefault(); $(b).click(); return; }
   }
   const k = keyMap[e.code]; if (!k) return; e.preventDefault(); if (!e.repeat) press(k, true);
 });
 addEventListener('keyup', e => { const k = keyMap[e.code]; if (k) press(k, false); });
-addEventListener('blur', () => { I.left = I.right = I.jump = false; TT.pause(); });
+addEventListener('blur', () => { I.left = I.right = I.jump = I.sniff = false; TT.pause(); });
 document.addEventListener('visibilitychange', () => { if (document.hidden) TT.pause(); });
 
 const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-if (isTouch) { $('touch').classList.add('on'); $('hint').textContent = '◀ ▶ andar · ▲ pula · no ar, de novo: pirueta'; }
+if (isTouch) { $('touch').classList.add('on'); $('hint').textContent = '◀ ▶ andar · ▲ pula · no ar, de novo: pirueta · 👃 fareja'; }
 document.querySelectorAll('.tbtn').forEach(b => {
   const k = b.dataset.k;
   const set = on => { press(k, on); b.classList.toggle('down', on); };
@@ -35,8 +36,8 @@ TT.pollPad = () => {
   const gp = navigator.getGamepads && [...navigator.getGamepads()].find(g => g);
   if (!gp) return;
   const ax = gp.axes[0] || 0, b = i => !!(gp.buttons[i] && gp.buttons[i].pressed);
-  const now = { left: ax < -0.35 || b(14), right: ax > 0.35 || b(15), jump: b(0) || b(1), start: b(9) };
-  for (const k of ['left', 'right', 'jump']) if (now[k] !== !!padPrev[k]) press(k, now[k]);
+  const now = { left: ax < -0.35 || b(14), right: ax > 0.35 || b(15), jump: b(0) || b(1), sniff: (gp.axes[1] || 0) > 0.6 || b(13) || b(2), start: b(9) };
+  for (const k of ['left', 'right', 'jump', 'sniff']) if (now[k] !== !!padPrev[k]) press(k, now[k]);
   if (now.start && !padPrev.start) { if (S.mode === 'play') TT.pause(); else if (S.mode === 'pause') TT.resume(); else if (S.mode === 'title') $('btnStart').click(); }
   padPrev = now;
 };
@@ -77,6 +78,26 @@ $('btnResume').onclick = () => TT.resume();
 $('btnPause').onclick = () => TT.pause();
 const toggleMute = () => { TT.setMuted(!TT.isMuted()); $('btnMute').classList.toggle('muted', TT.isMuted()); };
 $('btnMute').onclick = toggleMute; $('btnMute').classList.toggle('muted', TT.isMuted());
+
+// ---------------- estante de brinquedos perdidos ----------------
+// Um brinquedo por fase: são os brinquedos que o Furtão roubou de outros cães da vila. O que já foi achado fica salvo no navegador.
+const TOYS = [
+  { id: 'patinho', fase: 'O Parque', name: 'Patinho Quá-Quá', joke: 'É do Pipoca, o salsicha da padaria. O Furtão levou porque ele faz "quá" toda vez que é mordido.' },
+  { fase: 'O Arraial' }, { fase: 'O Quintal da Vizinha' }, { fase: 'Dia de Chuva' }, { fase: 'O Covil do Furtão' }];
+let found = {};
+try { found = JSON.parse(localStorage.getItem('tintim-toys') || '{}') || {}; } catch (_) {}
+function drawShelf() {
+  $('shelfSlots').innerHTML = TOYS.map(t => { const got = t.id && found[t.id], soon = !t.id;
+    const img = t.id === 'patinho' && TT.R && TT.R.toyImage ? `<img src="${TT.R.toyImage()}" alt="">` : '<b>?</b>';
+    return `<div class="slot${got ? ' got' : ''}${soon ? ' soon' : ''}"><div class="pic">${img}</div><small>${t.fase}</small>` +
+      `<strong>${got ? t.name : soon ? 'Em breve' : 'Ainda perdido'}</strong>${got ? `<p>${t.joke}</p>` : t.id ? '<p>Dica: o faro (↓) mostra o caminho.</p>' : ''}</div>`; }).join('');
+  $('shelfCount').textContent = `${TOYS.filter(t => t.id && found[t.id]).length} de ${TOYS.length} brinquedos devolvidos`;
+}
+$('btnShelf').onclick = () => { TT.audioInit(); TT.sfx('ui'); drawShelf(); $('shelf').classList.add('on'); };
+$('btnShelfBack').onclick = () => { TT.sfx('ui'); $('shelf').classList.remove('on'); };
+TT.on('toy', e => { found[e.id] = true; try { localStorage.setItem('tintim-toys', JSON.stringify(found)); } catch (_) {} });
+// dica do faro: aparece quando o controle é liberado, enquanto o brinquedo da fase não tiver sido achado
+TT.on('cineEnd', e => { if (e.type === 'steal' && !found.patinho) setTimeout(() => { if (S.mode === 'play') TT.emit('banner', { text: isTouch ? 'Segure 👃 para farejar' : 'Segure ↓ para farejar' }); }, 400); });
 
 let best = null;
 try { best = JSON.parse(localStorage.getItem('tintim-best') || 'null'); } catch (_) {}
@@ -122,6 +143,7 @@ TT.on('win', st => {
   $('stCookies').firstElementChild.textContent = `${st.cookies}/${st.total}`; $('stCookies').classList.toggle('ok', st.allCookies);
   $('stHearts').firstElementChild.textContent = st.gold + '/3'; $('stHearts').classList.toggle('ok', st.allGold);
   $('stTime').firstElementChild.textContent = st.time.toFixed(1) + 's';
+  $('stToy').firstElementChild.textContent = st.toy ? '✓' : '?'; $('stToy').classList.toggle('ok', st.toy);
   const stars = [...document.querySelectorAll('.star')]; stars.forEach(s => s.classList.remove('got'));
   const p = S.player, at = TT.R && TT.R.toScreen ? TT.R.toScreen(p.x + p.w / 2, p.y + 10) : { x: 0.5, y: 0.6 };
   setTimeout(() => irisTo(true, at), 900);

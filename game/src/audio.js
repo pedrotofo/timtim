@@ -94,6 +94,12 @@ const sfx = {
   lose: t => [392, 349, 311, 262].forEach((f, i) => tone(f, t + i * 0.18, 0.35, { vol: 0.16, type: 'sine' })),
   star: t => { tone(1318, t, 0.1, { vol: 0.16 }); tone(1976, t + 0.07, 0.25, { vol: 0.14 }); },
   ui: t => tone(880, t, 0.05, { vol: 0.1 }),
+  // faro: três fungadas curtas e rápidas
+  sniff: t => [0, 0.11, 0.2].forEach((o, i) => noise(t + o, 0.07, { vol: 0.16 - i * 0.03, freq: 2600 + i * 300, q: 1.4 })),
+  // caminho de cheiro revelado: um brilho que sobe
+  reveal: t => [392, 523, 659, 880, 1175].forEach((f, i) => tone(f, t + i * 0.05, 0.3, { type: 'sine', vol: 0.1, attack: 0.01 })),
+  // brinquedo achado: "quá-quá" de patinho de borracha e um acorde
+  toy: t => { [0, 0.16].forEach(o => tone(1250, t + o, 0.12, { type: 'square', vol: 0.06, slide: 0.7 })); [523, 659, 784, 1046].forEach((f, i) => tone(f, t + 0.32 + i * 0.07, 0.4, { type: 'sine', vol: 0.12, attack: 0.01 })); },
   // Furtão rindo com o macaco na boca: "he-he-he" grave, cada vez mais baixo (reserva do arquivo gravado)
   laugh: t => { [0, 0.16, 0.32, 0.5].forEach((o, i) => woof(t + o, { f0: 190 - i * 8, dur: 0.12, f1: 700, f2: 1500, vol: 0.3 - i * 0.05 })); },
   choco: t => { [330, 277, 233, 185].forEach((f, i) => tone(f, t + i * 0.12, 0.22, { type: 'sawtooth', vol: 0.1, slide: 0.85 })); tone(90, t + 0.5, 0.5, { type: 'sine', vol: 0.25, slide: 0.6 }); },
