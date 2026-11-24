@@ -1,5 +1,5 @@
 // Teste de fumaça da fase 2 (o Arraial): planar, ar quente da fogueira, chama que machuca, tábuas da quadrilha,
-// faro revelando o caminho até a sanfoninha, galinhas agitadas, brincadeiras juninas e a luta com a raposa. Mesmo esquema do smoke.js: espera por condições.
+// faro revelando o caminho até a sanfoninha, galinhas agitadas, brincadeiras juninas e a luta com o lobo-guará. Mesmo esquema do smoke.js: espera por condições.
 // Uso: (cd game && python3 -m http.server 8765 &) ; node game/tests/smoke-arraial.js [url]
 const { chromium } = require('playwright');
 (async () => {
@@ -85,21 +85,38 @@ const { chromium } = require('playwright');
   await put(n0.x - 27, n0.y - 25, { inv: 9 });
   check(await until(() => __tintim.S.notes === 1 && document.getElementById('note').classList.contains('on'), 3000), 'pegar o bilhete do correio elegante mostra a piada');
 
-  // a raposa: chegar na arena começa a luta com a apresentação dela
-  const ax = await ev(() => TT.C.ARENA_X);
+  // galinhas em debandada: aviso de poeira, depois o bando corre da direita para a esquerda; encostar de lado machuca
+  const st0 = await ev(() => TT.C.STAMPEDES[2].at);
+  await ev(() => { __tintim.S.runDone = {}; __tintim.S.runners = []; });
+  await put(st0 + 20, 452 - 50, { onGround: true, inv: 9 });
+  check(await until(() => !!__tintim.S.warn, 2000), 'passar do ponto da debandada levanta a poeira de aviso');
+  check(await until(() => __tintim.S.runners.filter(r => r.kind === 'run').length === 4, 3000), 'depois do aviso, um bando de 4 galinhas aparece correndo');
+  const r0 = await ev(() => __tintim.S.runners[0].x); await pg.waitForTimeout(200);
+  check(await ev(x => __tintim.S.runners[0].x < x - 40, r0), 'as galinhas da debandada correm da direita para a esquerda');
+  await ev(() => { const r = __tintim.S.runners[0], p = __tintim.player; Object.assign(p, { x: r.x - 70, y: 452 - p.h, vx: 0, vy: 0, onGround: true, inv: 0, hp: 3, mega: 0 }); });
+  check(await until(() => __tintim.player.hp < 3, 2000), 'encostar de lado numa galinha da debandada tira um coração');
+  await ev(() => { __tintim.player.inv = 9; __tintim.player.hp = 3; });
+
+  // antes da luta, o lobo-guará está caçando galinhas no galinheiro; quando o Timtim chega, elas fogem para a esquerda
+  const ax0 = await ev(() => TT.C.ARENA_X);
+  await ev(() => { __tintim.S.chaseOn = false; __tintim.S.runners = []; }); await put(ax0 - 600, 452 - 50, { onGround: true, inv: 99 });
+  check(await until(() => __tintim.S.chaseOn && __tintim.S.fox.state === 'chase' && __tintim.S.runners.filter(r => r.kind === 'arena').length === 3, 2000), 'chegando perto do fim, o lobo-guará aparece caçando três galinhas');
+  // o lobo-guará: chegar na arena começa a luta com a apresentação dele
+  const ax = ax0;
   await put(ax + 200, 452 - 50, { onGround: true, inv: 99 });
-  check(await until(() => __tintim.S.arena && __tintim.S.cine && __tintim.S.cine.type === 'fox', 3000), 'chegar no fim do Arraial apresenta a raposa');
+  check(await until(() => __tintim.S.arena && __tintim.S.cine && __tintim.S.cine.type === 'fox', 3000), 'chegar no fim do Arraial apresenta o lobo-guará');
+  check(await ev(() => __tintim.S.runners.filter(r => r.kind === 'flee').length === 3 && __tintim.S.runners.every(r => r.kind !== 'flee' || r.vx < 0)), 'na apresentação, as galinhas caçadas fogem para a esquerda');
   check(await until(() => !__tintim.S.cine, 6000), 'depois da apresentação, a luta começa');
   // pulo comum ela esquiva; caindo planando em cima dela, acerta
   const above = () => ev(() => { const f = __tintim.S.fox, p = __tintim.player; f.x = TT.C.ARENA_X + 400; f.y = TT.C.GROUND - f.h; f.vy = 0; f.state = 'idle'; f.t = 0; f.cd = 9; f.vx = 0; Object.assign(p, { x: f.x + f.w / 2 - p.w / 2, y: f.y - p.h - 40, vx: 0, vy: 200, onGround: false, inv: 99, hp: 3, dj: false, buffer: 0, coyote: 0 }); });
   await above();
-  check(await until(() => __tintim.S.fox.state === 'dodge', 2000) && await ev(() => __tintim.S.fox.hp === 3), 'pulo comum em cima da raposa: ela esquiva e não perde vida');
+  check(await until(() => __tintim.S.fox.state === 'dodge', 2000) && await ev(() => __tintim.S.fox.hp === 3), 'pulo comum em cima do lobo-guará: ele esquiva e não perde vida');
   for (let k = 0; k < 3; k++) {
     await until(() => ['idle', 'dodge', 'hurt'].includes(__tintim.S.fox.state) && __tintim.S.fox.state !== 'hurt' && __tintim.player.onGround, 4000);
     await above(); await pg.keyboard.down('Space'); await pg.waitForFunction(n => __tintim.S.fox.hp === n, 2 - k, { timeout: 3000, polling: 50 }).catch(() => {}); await pg.keyboard.up('Space');
   }
-  check(await ev(() => __tintim.S.fox.hp === 0), 'três quedas planando em cima dela derrotam a raposa');
-  check(await until(() => __tintim.state === 'winning' || __tintim.state === 'win', 3000), 'derrotar a raposa vence a fase');
+  check(await ev(() => __tintim.S.fox.hp === 0), 'três quedas planando em cima dele derrotam o lobo-guará');
+  check(await until(() => __tintim.state === 'winning' || __tintim.state === 'win', 3000), 'derrotar o lobo-guará vence a fase');
   check(await until(() => document.getElementById('win').classList.contains('on'), 9000), 'tela de vitória aparece');
   check(await ev(() => document.getElementById('winTitle').textContent.includes('Galinheiro') && document.getElementById('stNotes').textContent.includes('1/4')), 'vitória com o texto do galinheiro e a contagem do correio elegante');
   check(await ev(() => JSON.parse(localStorage.getItem('tintim-fases') || '{}')[2] === true), 'fase 2 fica marcada como vencida');

@@ -5,7 +5,7 @@
 'use strict';
 const TT = window.TT, C = TT.C, S = TT.S;
 const { W, H, GROUND, ARENA_X } = C;
-const ARR = C.FASE === 2, END = C.BOSS ? ARENA_X : C.LEVEL_END; // fase 2: o Arraial (a fase vai até a arena da raposa, no fim)
+const ARR = C.FASE === 2, END = C.BOSS ? ARENA_X : C.LEVEL_END; // fase 2: o Arraial (a fase vai até a arena do lobo-guará, no fim)
 const R = TT.R = { ready: false, quality: 2, flash: 0 };
 const cv = document.getElementById('c');
 let renderer;
@@ -33,8 +33,8 @@ const AR = { 'tintim-idle': 232 / 220, 'tintim-run': 1.2143, 'tintim-jump': 270 
 const TEX = {};
 AR.choco = 1.25;
 for (const k in AR) if (k !== 'choco') TEX[k] = load('sprites/' + k + '.png');
-// a Raposa (chefona do Arraial) e o bilhete do correio elegante: artes do Google Flow, carregadas só na fase 2
-if (C.FASE === 2) { const more = { 'raposa-anda': 482 / 300, 'raposa-agacha': 338 / 300, 'raposa-bote': 456 / 300, 'raposa-corre': 702 / 300, 'raposa-tonta': 397 / 340, bilhete: 180 / 160 };
+// o lobo-guará (chefão do Arraial) e o bilhete do correio elegante: artes do Google Flow, carregadas só na fase 2
+if (C.FASE === 2) { const more = { 'guara-anda': 305 / 320, 'guara-agacha': 596 / 320, 'guara-bote': 466 / 320, 'guara-corre': 565 / 320, 'guara-tonta': 384 / 320, 'guara-uiva': 347 / 320, bilhete: 180 / 160 };
   for (const k in more) { AR[k] = more[k]; TEX[k] = load('sprites/' + k + '.png'); } }
 // tiras de quadros desenhados: corrida do Timtim (8), corrida dos chihuahuas e andar do pombo (4 cada)
 const FRAMES = { 'tintim-run': 8, 'chi-pb-run': 4, 'chi-br-run': 4, pigeon: 4 };
@@ -485,7 +485,7 @@ if (ARR) {
   // mastro de São João no fim, com um clarão em volta
   const ms = add(new THREE.Mesh(planeGeo, flatMat(tMastro, { alphaTest: 0.35 }))); ms.scale.set(440 * 344 / 620, 440, 1); ms.position.set(C.MASTRO_X, -8, -30); landmarks.push(ms);
   const mg = add(new THREE.Mesh(planeGeoC, glowMat(0xffd27a, 0.4)), -4); mg.scale.set(520, 620, 1); mg.position.set(C.MASTRO_X, 260, -40); pulses.push({ m: mg, base: 0.4, ph: 0, slow: true });
-  // galinheiro no fundo da arena da raposa
+  // galinheiro no fundo da arena do lobo-guará
   const gal = add(new THREE.Mesh(planeGeo, flatMat(prop('galinheiro'), { alphaTest: 0.35 }))); gal.scale.set(300 * 590 / 520, 300, 1); gal.position.set(ARENA_X + 300, -6, -70); landmarks.push(gal);
   const galG = add(new THREE.Mesh(planeGeoC, glowMat(0xffc070, 0.3)), -4); galG.scale.set(420, 300, 1); galG.position.set(ARENA_X + 300, 150, -66); pulses.push({ m: galG, base: 0.3, ph: 1, slow: true });
   // tanque da pescaria: tina de madeira com água; pular dentro solta os biscoitos escondidos
@@ -594,11 +594,14 @@ const ballGlow = add(new THREE.Mesh(planeGeoC, glowMat(0xffe14d, 0.7)), 5); ball
 const texWave = canvasTex(64, 128, x => { const g = x.createLinearGradient(0, 0, 64, 0); g.addColorStop(0, 'rgba(255,230,150,0)'); g.addColorStop(0.55, 'rgba(255,230,150,.95)'); g.addColorStop(1, 'rgba(255,255,255,0)');
   x.fillStyle = g; x.beginPath(); x.ellipse(32, 128, 30, 124, 0, Math.PI, 0); x.fill(); });
 const waveM = [0, 1, 2, 3].map(() => { const m = add(new THREE.Mesh(planeGeoC, new THREE.MeshBasicMaterial({ map: texWave, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, fog: false })), 6); m.visible = false; return m; });
-const foxM = sprite(ARR ? 'raposa-anda' : 'cookie', 5, ARR, 0xfff0e4); foxM.geometry = legGeo(); foxM.userData.ph = 0; foxM.visible = false;
+const foxM = sprite(ARR ? 'guara-anda' : 'cookie', 5, ARR, 0xfff0e4); foxM.geometry = legGeo(); foxM.userData.ph = 0; foxM.visible = false;
 const foxGlow = add(new THREE.Mesh(planeGeoC, glowMat(0xffe14d, 0)), 4), foxWarn = add(new THREE.Mesh(planeGeoC, glowMat(0xff2a55, 0)), 4);
 const foxMark = add(new THREE.Mesh(planeGeoC, new THREE.MeshBasicMaterial({ map: texSoft, color: 0xff1f44, transparent: true, opacity: 0, depthWrite: false, fog: false })), 4);
 const foxStars = [0, 1, 2].map(() => { const s = add(new THREE.Mesh(planeGeoC, new THREE.MeshBasicMaterial({ map: texStar, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, fog: false })), 7); s.scale.set(20, 20, 1); s.visible = false; return s; });
 if (!ARR) [foxGlow, foxWarn, foxMark].forEach(q => { q.visible = false; });
+// galinhas em debandada e as que o lobo-guará caça na arena
+const runnerM = ARR ? [0, 1, 2, 3, 4, 5, 6, 7].map(() => { const m = sprite('galinha', 6, true, 0xffffff); m.geometry = legGeo(); m.material.color.setRGB(1.15, 1.08, 1.02); m.visible = false; return m; }) : [];
+
 R.foe = ARR ? 'galinha' : 'pigeon'; const FOE = R.foe; // inimigo da fase: pombo no Parque, galinha caipira de chapéu de palha no Arraial
 const pigeonM = S.enemies.map(() => { const m = sprite(FOE, 5, true, 0xffffff); m.geometry = legGeo(); m.userData.warn = add(new THREE.Mesh(planeGeoC, glowMat(0xff2a55, 0.8)), 6);
   if (ARR) m.material.color.setRGB(1.15, 1.08, 1.02); else { m.material.color.setRGB(1.75, 1.6, 1.85); m.userData.own = { pigeon: ownTex('pigeon') }; m.material.map = m.customDepthMaterial.map = m.userData.own.pigeon; } return m; });
@@ -677,6 +680,7 @@ TT.on('hoop', e => { burst(e.x, e.y, [0xffe14d, 0xff7a2a, 0xffffff], 30, 340, 20
 TT.on('note', e => burst(e.x, e.y, [0xff8fb8, 0xffd0e0, 0xffffff], 18, 220, 150));
 TT.on('cluck', e => burst(e.x, e.y + 20, [0xfff2dc, 0xc8864a, 0xfff2dc], 6, 160, 300));
 TT.on('foxPounce', e => dustPuff(e.x, e.y, 10, 300));
+TT.on('henBounce', e => burst(e.x, e.y, [0xfff2dc, 0xc8864a, 0xffffff], 10, 220));
 TT.on('foxDash', e => dustPuff(e.x, e.y, 12, 360));
 TT.on('foxDodge', e => burst(e.x, e.y + 30, [0xffd9a0, 0xffffff], 10, 220));
 TT.on('foxHit', e => burst(e.x, e.y + 20, [0xff7a2a, 0xfff2dc, 0xffffff], 20, 320));
@@ -913,16 +917,16 @@ R.frame = (rdt) => {
     waveM.forEach((m, i) => { const w = S.waves[i]; m.visible = !!w; if (!w) return; const h = w.small ? 46 : 70;
       m.position.set(w.x, Y(GROUND) + h / 2, 6); m.scale.set(46 * w.dir, h * (0.9 + 0.1 * Math.sin(time * 30)), 1); m.material.opacity = Math.min(1, 0.4 + w.t * 3); }); }
 
-  // a Raposa: uma pose desenhada para cada momento, e as patas andando por deformação
+  // o lobo-guará: uma pose desenhada para cada momento, e as patas andando por deformação
   if (ARR) { const g = S.fox, m = foxM, x = g.x + g.w / 2, st = g.state, air = g.y + g.h < GROUND - 4;
-    let n = 'raposa-anda', h = 150, walking = false, y = Y(g.y + g.h) - 4, sy = 1, rot = 0, dx = 0;
-    if (st === 'hurt' || st === 'bonk') { n = 'raposa-tonta'; h = 160; rot = Math.sin(time * 9) * 0.06; }
-    else if (st === 'wind' || st === 'tired') { n = 'raposa-agacha'; h = 142;
+    let n = 'guara-anda', h = 200, walking = false, y = Y(g.y + g.h) - 4, sy = 1, rot = 0, dx = 0;
+    if (st === 'hurt' || st === 'bonk') { n = 'guara-tonta'; h = 190; rot = Math.sin(time * 9) * 0.06; }
+    else if (st === 'wind' || st === 'tired') { n = 'guara-agacha'; h = 114;
       if (st === 'wind' && g.atk === 'pounce') { rot = Math.sin(time * 24) * 0.04; sy = 1 - 0.08 * Math.min(1, g.t / 0.3); } // rebola antes do bote
       else if (st === 'wind') { dx = Math.sin(time * 60) * 2.5; } // cava o chão antes da corrida
       else sy = 1 + Math.sin(time * 16) * 0.035; } // ofegante depois do bote
-    else if (st === 'air' || st === 'dodge') { n = 'raposa-bote'; h = 150; rot = -g.dir * Math.max(-0.3, Math.min(0.3, g.vy / 2400)) * (st === 'dodge' ? -1 : 1); }
-    else if (st === 'dash' || st === 'flee') { n = 'raposa-corre'; h = 118; m.userData.ph += 26 * rdt; y += Math.abs(Math.sin(m.userData.ph)) * 6; }
+    else if (st === 'air' || st === 'dodge') { n = 'guara-bote'; h = 156; rot = -g.dir * Math.max(-0.3, Math.min(0.3, g.vy / 2400)) * (st === 'dodge' ? -1 : 1); }
+    else if (st === 'dash' || st === 'flee' || st === 'chase') { n = 'guara-corre'; h = 127; m.userData.ph += 26 * rdt; y += Math.abs(Math.sin(m.userData.ph)) * 6; }
     else { walking = Math.abs(g.vx) > 12; if (walking) { m.userData.ph += Math.abs(g.vx) * live / 14; y += Math.abs(Math.sin(m.userData.ph)) * 3; } else sy = 1 + Math.sin(clock * 3) * 0.015; }
     const flip = st === 'dodge' ? g.vx < 0 : g.dir > 0;
     setAnim(m, n, h, flip); m.scale.x *= 2 - sy; m.scale.y *= sy;
@@ -939,7 +943,16 @@ R.frame = (rdt) => {
     foxMark.position.set(g.tx, Y(GROUND) + 22, 6); foxMark.scale.set(200, 56, 1);
     foxStars.forEach((s, k) => { s.visible = (st === 'hurt' || st === 'bonk') && m.visible; if (s.visible) { const a = time * 6 + k * 2.1; s.position.set(x + Math.cos(a) * 34, y + 160 + Math.sin(a) * 8, 4 + Math.sin(a)); s.rotation.z = a; } });
   }
-  // galinheiro: as galinhas espiam pela tela até a raposa fugir
+  // galinheiro: as galinhas espiam pela tela até o lobo-guará fugir
+  // galinhas correndo: pulinhos, asas batendo e penas voando
+  runnerM.forEach((m, i) => { const r = S.runners[i]; m.visible = !!r; if (!r) return;
+    setAnim(m, 'galinha', 72, r.vx > 0); const f = Math.sin(r.t * 32); m.scale.y *= 1 + f * 0.06; m.scale.x *= 1 - f * 0.04;
+    m.position.set(r.x + r.w / 2, Y(r.y + r.h) - 2, 2); m.rotation.z = Math.sin(r.t * 24) * 0.12 + (r.vx < 0 ? -0.08 : 0.08);
+    legs(m, r.t * 24, 0.14, { f: -1, tailX: Math.sin(r.t * 20) * 0.04, tailY: 0, headX: 0.04, headY: 0, breathe: 0, shear: r.vx < 0 ? 0.05 : -0.05 });
+    if (Math.random() < live * 7) spawn({ x: r.x + r.w / 2, y: r.y + 10, vx: -r.vx * 0.2 + (Math.random() - 0.5) * 80, vy: -50 - Math.random() * 70, g: 110, life: 0.9, r: 2.5 + Math.random() * 2, color: Math.random() < 0.6 ? 0xfff2dc : 0xc8864a, hard: true });
+    if (Math.random() < live * 10 && r.y > GROUND - 60) spawn({ x: r.x + r.w / 2, y: GROUND - 3, vx: -r.vx * 0.1, vy: -20, g: -30, life: 0.5, r: 3, grow: 6, color: 0xffd9a0 }); });
+  // aviso da debandada: poeira levantando na beirada direita da tela
+  if (S.warn) for (let k = 0; k < 3; k++) spawn({ x: S.cam.x + W - 10 + Math.random() * 40, y: GROUND - 4 - Math.random() * 20, vx: -60 - Math.random() * 80, vy: -40 - Math.random() * 80, g: -30, life: 0.8, r: 5 + Math.random() * 5, grow: 10, color: 0xffd9a0 });
   // pombos
   S.enemies.forEach((e, i) => {
     const m = pigeonM[i], fr = ARR && e.alive && e.scared; if (ARR) setAnim(m, 'galinha', 72, e.dir > 0); else setAnim(m, 'pigeon', 64, e.dir > 0, e.alive ? Math.floor(e.t * 7) : 1, 4);

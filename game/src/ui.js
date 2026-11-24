@@ -87,13 +87,13 @@ TT.on('tutorial', e => TT.emit('banner', { text: TUT[e.kind] }));
 TT.on('egg', () => TT.emit('banner', { text: 'Ovo cozido: planar turbinado!' }));
 // cartão de abertura do Arraial (o mesmo cartão da apresentação do chefão, com outro texto)
 TT.on('arraialIntro', () => { stage.classList.add('cine'); const c = $('bossCard'); c.querySelector('small').textContent = 'FASE 2'; c.querySelector('h2').textContent = 'O ARRAIAL';
-  c.querySelector('p').textContent = 'Plane com a bandana e salve o galinheiro da raposa'; setTimeout(() => c.classList.add('show'), 350); });
-// a chefona do Arraial
-if (FASE === 2) document.querySelector('.bossRow b').textContent = 'Raposa';
-TT.on('foxIntro', () => { stage.classList.add('cine'); const c = $('bossCard'); c.querySelector('small').textContent = 'CHEFONA'; c.querySelector('h2').textContent = 'A RAPOSA';
+  c.querySelector('p').textContent = 'Plane com a bandana e salve o galinheiro do lobo-guará'; setTimeout(() => c.classList.add('show'), 350); });
+// o chefão do Arraial: o lobo-guará
+if (FASE === 2) document.querySelector('.bossRow b').textContent = 'Lobo-guará';
+TT.on('foxIntro', () => { stage.classList.add('cine'); const c = $('bossCard'); c.querySelector('small').textContent = 'CHEFÃO'; c.querySelector('h2').textContent = 'O LOBO-GUARÁ';
   c.querySelector('p').textContent = 'invadiu o galinheiro do arraial'; setTimeout(() => c.classList.add('show'), 600); });
-TT.on('cineEnd', e => { if (e.type === 'fox') setTimeout(() => { if (S.mode === 'play') TT.emit('banner', { text: 'Caia em cima dela planando!' }); }, 300); });
-let dodgeTip = false; TT.on('foxDodge', () => { if (dodgeTip) return; dodgeTip = true; TT.emit('banner', { text: 'Pulo comum ela esquiva: plane!' }); });
+TT.on('cineEnd', e => { if (e.type === 'fox') setTimeout(() => { if (S.mode === 'play') TT.emit('banner', { text: 'Caia em cima dele planando!' }); }, 300); });
+let dodgeTip = false; TT.on('foxDodge', () => { if (dodgeTip) return; dodgeTip = true; TT.emit('banner', { text: 'Pulo comum ele esquiva: plane!' }); });
 TT.on('start', e => { if (!e.retry) dodgeTip = false; });
 // correio elegante: o bilhete abre na tela com a piada
 let noteT = 0; TT.on('note', e => { const n = $('note'); n.querySelector('small').textContent = `Correio elegante ${e.n}/${e.total}`; n.querySelector('p').textContent = e.text;
@@ -173,7 +173,7 @@ TT.on('win', st => {
   if (!best || st.stars > best.stars || (st.stars === best.stars && st.time < best.time)) { best = { stars: st.stars, time: st.time }; try { localStorage.setItem(BEST_KEY, JSON.stringify(best)); } catch (_) {} }
   done[FASE] = true; try { localStorage.setItem('tintim-fases', JSON.stringify(done)); } catch (_) {}
   $('btnNext').classList.toggle('on', FASE < FASES.length);
-  if (FASE === 2) { document.querySelector('.winMonkey').src = 'assets/sprites/tintim-win.png'; $('winTitle').textContent = 'Galinheiro salvo!'; $('winText').textContent = 'Timtim planou sobre as fogueiras e espantou a raposa de volta para a mata. As galinhas voltaram para casa e a festa continuou até o mastro de São João.'; $('stMain').textContent = 'Galinheiro salvo';
+  if (FASE === 2) { document.querySelector('.winMonkey').src = 'assets/sprites/tintim-win.png'; $('winTitle').textContent = 'Galinheiro salvo!'; $('winText').textContent = 'Timtim planou sobre as fogueiras e espantou o lobo-guará de volta para a mata. As galinhas voltaram para casa e a festa continuou até o mastro de São João.'; $('stMain').textContent = 'Galinheiro salvo';
     $('stNotes').style.display = ''; $('stNotes').firstElementChild.textContent = `${st.notes}/${st.notesTotal}`; $('stNotes').classList.toggle('ok', st.notes >= st.notesTotal); }
   showBest();
   $('stCookies').firstElementChild.textContent = `${st.cookies}/${st.total}`; $('stCookies').classList.toggle('ok', st.allCookies);

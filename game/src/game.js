@@ -33,7 +33,7 @@ const W0 = C.W;
 // palco + primeiro vão (só planando) → vão maior → fogueiras (o ar quente levanta quem plana) → quadrilha
 // (tábuas de bandeirinhas que dançam no ritmo) → tudo junto, com o brinquedo perdido no alto de uma fogueira → mastro de São João.
 const FASE = TT.FASE = C.FASE = new URLSearchParams(location.search).get('fase') === '2' ? 2 : 1;
-Object.assign(C, { BOSS: true, FOX: false, GLIDE: false, fires: [], movers: [], GOAL_X: C.ARENA_X, MASTRO_X: 0, GIFT_ITEM: 'cookie', NOTES: [], TUB: null, HOOP: null, EGG: { time: 12, fall: 70, lift: -470 } });
+Object.assign(C, { BOSS: true, FOX: false, GLIDE: false, fires: [], movers: [], GOAL_X: C.ARENA_X, MASTRO_X: 0, GIFT_ITEM: 'cookie', NOTES: [], TUB: null, HOOP: null, STAMPEDES: [], EGG: { time: 12, fall: 70, lift: -470 } });
 if (FASE === 2) Object.assign(C, {
   BOSS: false, FOX: true, GLIDE: true, LEVEL_END: 7900, ARENA_X: 7900 - W0, GOAL_X: 7900 - W0 + 120, MASTRO_X: 7580, START_X: 200, BPM: 100,
   grounds: [[0, 1150], [1670, 700], [3000, 1500], [5880, 280], [6300, 1600]],
@@ -41,14 +41,16 @@ if (FASE === 2) Object.assign(C, {
   // tábuas da quadrilha: x e y da posição de descanso, ax/ay = quanto vão e voltam, per = período (s), ph = fase do passo
   movers: [{ x: 4580, y: 320, w: 150, ax: 100, ay: 0, per: 2.4, ph: 0 }, { x: 4950, y: 290, w: 140, ax: 0, ay: 70, per: 2.4, ph: Math.PI },
            { x: 5280, y: 320, w: 150, ax: 110, ay: 0, per: 2.4, ph: Math.PI / 2 }, { x: 5600, y: 280, w: 140, ax: 0, ay: 80, per: 2.4, ph: 0 }],
-  fires: [{ x: 3410 }, { x: 4040 }, { x: 6610 }, { x: 7040 }, { x: 7810 }], // as duas últimas ficam nos cantos da arena da raposa
+  fires: [{ x: 3410 }, { x: 4040 }, { x: 6610 }, { x: 7040 }, { x: 7810 }], // as duas últimas ficam nos cantos da arena do lobo-guará
   // brincadeiras juninas: cair dentro do tanque da pescaria solta biscoitos; atravessar a argola revela um biscoito dourado
   TUB: { x: 2120, w: 96 }, HOOP: { x: 5440, y: 130, r: 44 },
+  // galinhas em debandada: quando o Timtim passa de 'at', um bando de n galinhas vem correndo da direita
+  STAMPEDES: [{ at: 620, n: 3 }, { at: 1840, n: 3 }, { at: 3120, n: 4 }, { at: 6360, n: 3 }],
   // correio elegante: bilhetes escondidos, cada um com uma piada dos personagens
   NOTES: [{ x: 640, y: 300, text: 'Para o Timtim: seu faro é o mais charmoso do arraial. Ass.: um admirador secreto (é o Elvis).' },
     { x: 2700, y: 170, text: 'Para o Furtão: devolve os brinquedos ou ninguém dança quadrilha com você. Ass.: a Zara.' },
     { x: 3650, y: 20, text: 'Para a Zara: guardei o último pé de moleque pra você. Ass.: o Elvis (comi metade).' },
-    { x: 6040, y: 300, text: 'Para a Raposa: galinha não é brinquedo! Ass.: todos os cães da vila.' }],
+    { x: 6040, y: 300, text: 'Para o Lobo-guará: galinha não é brinquedo! Vai comer fruta-do-lobo. Ass.: todos os cães da vila.' }],
   checkpoints: [1720, 3060, 6340],
   // a Zara e o Elvis ajudam jogando ovo cozido, a comida preferida do Timtim: o primeiro, antes da quadrilha, dá o planar
   // turbinado (cai bem devagar e o ar quente sobe mais); o segundo, antes do trecho final, deixa invencível
@@ -151,13 +153,13 @@ function makeEnemies() {
 // O ponto fraco é a bolinha: de tempos em tempos a Zara ou o Elvis jogam uma, o Brutão não resiste, vai buscar e fica
 // mordendo. Só nessa hora um pisão na cabeça acerta. Fora disso ele sacode o Timtim para o alto, sem dano para ninguém.
 const BOSS = { ballEvery: [5, 6, 7], chew: [3.0, 2.5, 2.1], charge: [520, 590, 660], wind: { charge: 0.75, bark: 0.6, pound: 0.5 } };
-// ---- a Raposa, chefona do Arraial ----
+// ---- o Lobo-guará, chefão do Arraial (no código ainda "fox") ----
 // Ela invadiu o galinheiro. Ronda o Timtim e ataca de dois jeitos, sempre com aviso: o bote (agacha e pula em cima dele)
 // e a corrida (arranca e só para quando bate na cerca). O jeito de acertar é a ação da fase: cair em cima dela PLANANDO.
 // Pulo comum ela esquiva com um saltinho para trás, a não ser quando está cansada depois do bote ou tonta depois de bater na
 // cerca. As fogueiras dos cantos levantam o Timtim, e a Zara e o Elvis jogam ovo cozido de tempos em tempos. Três acertos e ela foge.
 const FOXC = { prowl: [110, 140, 170], wind: [0.7, 0.58, 0.46], dash: [560, 640, 720], eggEvery: 9 };
-function makeFox() { return { x: ARENA_X + 640, y: GROUND - 86, w: 130, h: 86, vx: 0, vy: 0, dir: -1, hp: 3, state: 'idle', t: 0, cd: 1.6, atk: '', tx: 0, egg: 5, hurt: 0 }; }
+function makeFox() { return { x: ARENA_X + 640, y: GROUND - 110, w: 120, h: 110, vx: 0, vy: 0, dir: -1, hp: 3, state: 'idle', t: 0, cd: 1.6, atk: '', tx: 0, egg: 5, hurt: 0 }; }
 function updateFox(dt, prevBottom, playing) {
   const p = S.player, f = S.fox, ph = Math.max(0, Math.min(2, 3 - f.hp)), cine = S.cine && S.cine.type === 'fox';
   f.t += dt; f.hurt = Math.max(0, f.hurt - dt);
@@ -202,6 +204,46 @@ function updateFox(dt, prevBottom, playing) {
       go('dodge'); f.vy = -420; f.vx = (fx < pcx ? -1 : 1) * 300; p.vy = -600; p.shrugT = 0.45; emit('foxDodge', { x: fx, y: f.y }); }
   } else if (!['hurt', 'tired', 'bonk', 'dodge'].includes(f.state) && p.mega <= 0 && !(p.shrugT > 0)) hurt();
 }
+// ---- galinhas em debandada (Arraial) ----
+// De vez em quando um bando vem correndo da direita para a esquerda, fugindo do lobo-guará: o Timtim tem de pular por
+// cima (ou planar). Antes de elas aparecerem, poeira e cacarejo na beirada direita da tela avisam. Encostar de lado machuca;
+// caindo em cima de uma, ele quica (ela não some, só está fugindo). No fim, na arena, o lobo-guará aparece caçando três delas.
+const groundAt = x => C.grounds.some(([g0, gw]) => x >= g0 && x <= g0 + gw);
+function updateRunners(dt, prevBottom, playing) {
+  const p = S.player, cam = S.cam;
+  for (const st of C.STAMPEDES) {
+    if (!playing || S.runDone[st.at] || p.x < st.at || p.x > st.at + 500) continue;
+    S.runDone[st.at] = true; S.warn = { t: 0, n: st.n };
+    emit('stampedeWarn', { x: cam.x + W, y: GROUND, first: !S.warnedOnce }); S.warnedOnce = true;
+  }
+  if (S.warn) { S.warn.t += dt; if (S.warn.t >= 0.9) { for (let i = 0; i < S.warn.n; i++)
+      S.runners.push({ kind: 'run', x: cam.x + W + 40 + i * 85, y: GROUND - 30, w: 38, h: 30, vx: -(390 + Math.random() * 70), t: Math.random() * 3 });
+    S.warn = null; emit('stampede', { x: cam.x + W, y: GROUND }); } }
+  for (let i = S.runners.length - 1; i >= 0; i--) {
+    const r = S.runners[i]; r.t += dt;
+    if (r.kind === 'arena') { // perseguida pelo lobo-guará dentro da arena, de um lado para o outro
+      r.x += r.vx * dt; if (r.x < ARENA_X + 30) { r.x = ARENA_X + 30; r.vx = Math.abs(r.vx); } if (r.x > ARENA_X + 430) { r.x = ARENA_X + 430; r.vx = -Math.abs(r.vx); } } // fica na parte da arena que já aparece para quem chega
+    else r.x += r.vx * dt;
+    const gap = !groundAt(r.x + r.w / 2); // sobre um buraco ela bate as asas e atravessa voando baixo
+    r.y = GROUND - 30 - Math.abs(Math.sin(r.t * 14)) * (gap ? 26 : 16) - (gap ? 34 : 0);
+    if (r.x < cam.x - 200 && r.kind !== 'arena') { S.runners.splice(i, 1); continue; }
+    if (r.kind !== 'run' || !playing || S.cine || !overlap(p, r)) continue;
+    if (p.vy > 0 && prevBottom <= r.y + 16) { p.vy = -640; p.shrugT = 0.3; emit('cluck', { x: r.x + r.w / 2, y: r.y }); emit('henBounce', { x: r.x + r.w / 2, y: r.y }); }
+    else if (!(p.shrugT > 0)) hurt();
+  }
+}
+// antes da luta: o lobo-guará caça três galinhas na arena; quando o Timtim chega, elas fogem para a esquerda passando por ele
+function preFight(dt) {
+  const p = S.player, f = S.fox;
+  if (S.bossSeen || p.x < ARENA_X - 900) return;
+  if (!S.chaseOn) { S.chaseOn = true; for (let i = 0; i < 3; i++) S.runners.push({ kind: 'arena', x: ARENA_X + 220 + i * 60, y: GROUND - 30, w: 38, h: 30, vx: -270 - i * 25, t: i }); f.state = 'chase'; f.x = ARENA_X + 480; }
+  const hens = S.runners.filter(r => r.kind === 'arena'); if (!hens.length) return;
+  const tx = hens.reduce((a, r) => a + r.x, 0) / hens.length - Math.sign(hens[0].vx) * 140;
+  const d = Math.sign(tx - (f.x + f.w / 2)) || f.dir; f.dir = d; f.vx += (d * 330 - f.vx) * Math.min(1, dt * 4);
+  if (Math.abs(tx - (f.x + f.w / 2)) < 40) f.vx *= 0.8;
+  f.x = Math.max(ARENA_X + 10, Math.min(ARENA_X + 560, f.x + f.vx * dt));
+}
+function scatterHens() { S.runners.forEach(r => { if (r.kind === 'arena') { r.kind = 'flee'; r.vx = -(470 + Math.random() * 80); } }); if (S.chaseOn) emit('cluck', { x: ARENA_X + 300, y: GROUND - 40 }); }
 function makeBoss() {
   return { name: 'Furtão', x: ARENA_X + 700, y: GROUND - 100, w: 150, h: 100, vx: 0, vy: 0, dir: -1, hp: 3,
     state: 'idle', atk: '', last: '', t: 0, cd: 1.8, hurt: 0, spin: 0, landT: 0, turnT: 0, tx: 0, ballT: 4, thrower: 0 };
@@ -237,7 +279,7 @@ function reset() {
     player: makePlayer(C.START_X), items: makeItems(), enemies: makeEnemies(), boss: makeBoss(), ball: null, waves: [],
     cam: { x: 0, y: 0, look: 0 }, time: 0, clock: 0, cookies: 0, arena: false, trauma: 0, hitstop: 0,
     gold: 0, timeScale: 1, slowT: 0, cine: null, checkpoint: -1, bossSeen: false, hpLost: 0, winT: 0, dustT: 0,
-    thief: null, prize: null, revealed: {}, toy: false, scent: null, fox: makeFox(), notes: 0,
+    thief: null, prize: null, revealed: {}, toy: false, scent: null, fox: makeFox(), notes: 0, runners: [], runDone: {}, warn: null, chaseOn: false, warnedOnce: false,
     friends: C.friends.map(f => ({ x: f.x, home: f.x, vx: 0, follow: 0, kind: f.kind, power: f.power, given: false, hop: 0, face: -1, t: 0 })), gifts: [], tut: {},
   });
   S.totalCookies = S.items.filter(i => i.type === 'cookie').length + C.friends.length * C.GIFT;
@@ -264,7 +306,7 @@ TT.start = () => { reset(); S.mode = 'play';
 TT.retry = () => {
   if (S.checkpoint < 0) return TT.start();
   const x = C.checkpoints[S.checkpoint];
-  S.player = makePlayer(x); S.player.inv = 1.6; S.scent = null; S.boss = makeBoss(); S.fox = makeFox(); S.ball = null; S.thief = null; S.prize = null; S.waves = []; S.arena = false; S.cine = null; S.timeScale = 1; S.slowT = 0; S.hitstop = 0; S.gifts = [];
+  S.player = makePlayer(x); S.player.inv = 1.6; S.scent = null; S.boss = makeBoss(); S.fox = makeFox(); S.runners = []; S.runDone = {}; S.warn = null; S.chaseOn = false; S.ball = null; S.thief = null; S.prize = null; S.waves = []; S.arena = false; S.cine = null; S.timeScale = 1; S.slowT = 0; S.hitstop = 0; S.gifts = [];
   S.cam.x = Math.max(0, x - W * 0.4); S.cam.look = 0; S.mode = 'play';
   emit('start', { retry: true });
 };
@@ -393,7 +435,7 @@ TT.update = (rdt) => {
     if (!S.tut.fire && p.x > 3130) { S.tut.fire = true; emit('tutorial', { kind: 'fire' }); }
     if (!S.tut.dance && p.x > 4380) { S.tut.dance = true; emit('tutorial', { kind: 'dance' }); }
     if (C.HOOP && !S.revealed.argola && Math.hypot(p.x + p.w / 2 - C.HOOP.x, p.y + p.h / 2 - C.HOOP.y) < C.HOOP.r) { S.revealed.argola = true; emit('hoop', C.HOOP); emit('banner', { text: 'Passou pela argola: biscoito dourado!' }); }
-    // chegada: o mastro de São João (só sem chefe; no Arraial a vitória é derrotar a raposa)
+    // chegada: o mastro de São João (só sem chefe; no Arraial a vitória é derrotar o lobo-guará)
     if (!C.FOX && p.x + p.w / 2 > C.GOAL_X) { S.mode = 'winning'; S.winT = 0; p.gliding = false; emit('goal', { x: C.MASTRO_X });
       S.friends.forEach((f, i) => { f.home = C.MASTRO_X - 150 + i * 260; f.given = true; f.follow = 0; }); }
   }
@@ -472,7 +514,10 @@ TT.update = (rdt) => {
   if (S.arena && C.BOSS) updateBoss(dt, prevBottom, playing);
   if (playing && C.FOX && !S.arena && p.x > ARENA_X + 120) { S.arena = true;
     S.friends.forEach((f, i) => { f.home = i ? ARENA_X + W - 70 : ARENA_X + 50; f.x = i ? ARENA_X + W + 70 : ARENA_X - 70; f.given = true; f.follow = 0; f.vx = 0; });
+    scatterHens(); S.fox.state = 'idle'; S.fox.vx = 0; S.fox.dir = -1;
     if (!S.bossSeen) { S.bossSeen = true; S.cine = { type: 'fox', t: 0, dur: 3.2 }; emit('foxIntro'); } else emit('rematch'); }
+  if (C.FOX && !S.arena) preFight(dt);
+  if (C.FOX) updateRunners(dt, prevBottom, playing);
   if (S.arena && C.FOX) updateFox(dt, prevBottom, playing);
 
   // câmera
