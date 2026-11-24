@@ -108,14 +108,24 @@ const { chromium } = require('playwright');
   check(await ev(() => __tintim.S.runners.filter(r => r.kind === 'flee').length === 3 && __tintim.S.runners.every(r => r.kind !== 'flee' || r.vx < 0)), 'na apresentação, as galinhas caçadas fogem para a esquerda');
   check(await until(() => !__tintim.S.cine, 6000), 'depois da apresentação, a luta começa');
   // pulo comum ela esquiva; caindo planando em cima dela, acerta
-  const above = () => ev(() => { const f = __tintim.S.fox, p = __tintim.player; f.x = TT.C.ARENA_X + 400; f.y = TT.C.GROUND - f.h; f.vy = 0; f.state = 'idle'; f.t = 0; f.cd = 9; f.vx = 0; Object.assign(p, { x: f.x + f.w / 2 - p.w / 2, y: f.y - p.h - 40, vx: 0, vy: 200, onGround: false, inv: 99, hp: 3, dj: false, buffer: 0, coyote: 0 }); });
+  const above = () => ev(() => { const f = __tintim.S.fox, p = __tintim.player; f.x = TT.C.ARENA_X + 400; f.y = TT.C.GROUND - f.h; f.vy = 0; f.state = 'idle'; f.t = 0; f.cd = 9; f.vx = 0; f.egg = 99; __tintim.S.fruit = null; Object.assign(p, { x: f.x + f.w / 2 - p.w / 2, y: f.y - p.h - 40, vx: 0, vy: 200, onGround: false, inv: 99, hp: 3, dj: false, buffer: 0, coyote: 0 }); });
   await above();
   check(await until(() => __tintim.S.fox.state === 'dodge', 2000) && await ev(() => __tintim.S.fox.hp === 3), 'pulo comum em cima do lobo-guará: ele esquiva e não perde vida');
-  for (let k = 0; k < 3; k++) {
+  // o latido rouco apaga o ar quente e derruba quem está planando
+  await ev(() => { const f = __tintim.S.fox, p = __tintim.player; f.egg = 99; __tintim.S.fruit = null; f.state = 'wind'; f.atk = 'roar'; f.t = 5; Object.assign(p, { x: TT.C.ARENA_X + 100, y: 200, vx: 0, vy: 50, onGround: false, inv: 99 }); });
+  check(await until(() => __tintim.S.fox.state === 'roar' && __tintim.S.fireOff > 0 && __tintim.player.noGlide > 0, 2000), 'o latido do lobo-guará apaga o ar quente das fogueiras e derruba quem plana');
+  await until(() => __tintim.player.onGround && __tintim.S.fox.state !== 'roar', 4000);
+  // fruta-do-lobo: ele para para comer, de lombo baixo, e até o pulo comum acerta
+  await ev(() => { const f = __tintim.S.fox; f.x = TT.C.ARENA_X + 400; f.state = 'idle'; f.cd = 9; f.egg = 99; __tintim.S.fruit = { x: TT.C.ARENA_X + 560, y: TT.C.GROUND - 22, vx: 0, vy: 0, rest: true }; });
+  check(await until(() => __tintim.S.fox.state === 'eat' && !__tintim.S.fruit, 3000), 'o lobo-guará corre até a fruta-do-lobo e para para comer');
+  await ev(() => { const f = __tintim.S.fox, p = __tintim.player; Object.assign(p, { x: f.x + f.w / 2 - p.w / 2, y: f.y - p.h - 40, vx: 0, vy: 200, onGround: false, inv: 99, hp: 3, dj: false, buffer: 0, coyote: 0 }); });
+  check(await until(() => __tintim.S.fox.hp === 2, 2000), 'comendo a fruta, um pulo comum na crina acerta');
+  for (let k = 1; k < 3; k++) {
     await until(() => ['idle', 'dodge', 'hurt'].includes(__tintim.S.fox.state) && __tintim.S.fox.state !== 'hurt' && __tintim.player.onGround, 4000);
     await above(); await pg.keyboard.down('Space'); await pg.waitForFunction(n => __tintim.S.fox.hp === n, 2 - k, { timeout: 3000, polling: 50 }).catch(() => {}); await pg.keyboard.up('Space');
   }
-  check(await ev(() => __tintim.S.fox.hp === 0), 'três quedas planando em cima dele derrotam o lobo-guará');
+  check(await ev(() => __tintim.S.fox.hp === 0), 'mais duas quedas planando na crina derrotam o lobo-guará');
+  check(await ev(() => __tintim.S.runners.filter(r => r.kind === 'chaser' && r.vx > 0).length === 5), 'no golpe final, as galinhas saem do galinheiro e correm atrás dele');
   check(await until(() => __tintim.state === 'winning' || __tintim.state === 'win', 3000), 'derrotar o lobo-guará vence a fase');
   check(await until(() => document.getElementById('win').classList.contains('on'), 9000), 'tela de vitória aparece');
   check(await ev(() => document.getElementById('winTitle').textContent.includes('Galinheiro') && document.getElementById('stNotes').textContent.includes('1/4')), 'vitória com o texto do galinheiro e a contagem do correio elegante');

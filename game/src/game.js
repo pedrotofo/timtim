@@ -154,55 +154,83 @@ function makeEnemies() {
 // mordendo. Só nessa hora um pisão na cabeça acerta. Fora disso ele sacode o Timtim para o alto, sem dano para ninguém.
 const BOSS = { ballEvery: [5, 6, 7], chew: [3.0, 2.5, 2.1], charge: [520, 590, 660], wind: { charge: 0.75, bark: 0.6, pound: 0.5 } };
 // ---- o Lobo-guará, chefão do Arraial (no código ainda "fox") ----
-// Ela invadiu o galinheiro. Ronda o Timtim e ataca de dois jeitos, sempre com aviso: o bote (agacha e pula em cima dele)
-// e a corrida (arranca e só para quando bate na cerca). O jeito de acertar é a ação da fase: cair em cima dela PLANANDO.
-// Pulo comum ela esquiva com um saltinho para trás, a não ser quando está cansada depois do bote ou tonta depois de bater na
-// cerca. As fogueiras dos cantos levantam o Timtim, e a Zara e o Elvis jogam ovo cozido de tempos em tempos. Três acertos e ela foge.
-const FOXC = { prowl: [110, 140, 170], wind: [0.7, 0.58, 0.46], dash: [560, 640, 720], eggEvery: 9 };
-function makeFox() { return { x: ARENA_X + 640, y: GROUND - 110, w: 120, h: 110, vx: 0, vy: 0, dir: -1, hp: 3, state: 'idle', t: 0, cd: 1.6, atk: '', tx: 0, egg: 5, hurt: 0 }; }
+// Ele invadiu o galinheiro. É alto: o pulo comum só bate na canela dele, que dá um passo para trás, e o Timtim quica.
+// O ponto fraco é o lombo, onde fica a crina: para alcançar, o Timtim sobe no ar quente das fogueiras dos cantos e desce
+// PLANANDO em cima dele. Há também janelas em que ele fica de lombo baixo e qualquer pisão acerta (brilho dourado):
+// fuçando o chão depois do bote, tonto depois de bater na cerca e comendo a fruta-do-lobo.
+// Ataques, sempre com aviso vermelho:
+//  - bote: agacha e dá o salto alto de lobo-guará; a marca no chão mostra onde ele vai cair; depois fica fuçando o chão;
+//  - corrida: cava o chão e atravessa a arena com as pernas compridas; se bater na cerca, fica tonto;
+//  - latido rouco (a partir do 2º coração): apaga o ar quente das fogueiras por 2 s e derruba quem estiver planando.
+// Rodadas: 1º coração devagar, com janelas longas; 2º entra o latido; 3º mais rápido, emendando o bote com a corrida.
+// A Zara e o Elvis se revezam: ovo cozido para o Timtim (planar turbinado) e fruta-do-lobo no chão da arena (ele para
+// para comer). No terceiro golpe, as galinhas criam coragem, saem do galinheiro e expulsam o lobo-guará para a mata.
+const FOXC = { prowl: [100, 130, 160], wind: [0.75, 0.6, 0.48], dash: [560, 640, 720], sniff: [1.5, 1.25, 1.0], bonk: [1.3, 1.1, 0.9], eat: [2.3, 2.0, 1.7],
+  roarWind: 0.7, roarOff: 2.0, throwEvery: 7 };
+function makeFox() { return { x: ARENA_X + 640, y: GROUND - 110, w: 120, h: 110, vx: 0, vy: 0, dir: -1, hp: 3, state: 'idle', t: 0, cd: 1.6, atk: '', tx: 0, egg: 5, hurt: 0, roarCd: 0, throws: 0 }; }
 function updateFox(dt, prevBottom, playing) {
   const p = S.player, f = S.fox, ph = Math.max(0, Math.min(2, 3 - f.hp)), cine = S.cine && S.cine.type === 'fox';
-  f.t += dt; f.hurt = Math.max(0, f.hurt - dt);
+  f.t += dt; f.hurt = Math.max(0, f.hurt - dt); f.roarCd = Math.max(0, f.roarCd - dt);
+  S.fireOff = Math.max(0, (S.fireOff || 0) - dt); p.noGlide = Math.max(0, (p.noGlide || 0) - dt);
   const fx = f.x + f.w / 2, pcx = p.x + p.w / 2, onGround = f.y + f.h >= GROUND - 0.5;
   const go = st => { f.state = st; f.t = 0; };
-  if (f.state === 'flee') { f.dir = 1; f.vx = 560; f.x += f.vx * dt; return; } // foge para a mata, sem parede que a segure
+  // fruta-do-lobo jogada pelos amigos: voa em arco e fica no chão até ele comer
+  const fr = S.fruit;
+  if (fr && !fr.rest) { fr.vy += GRAV * dt; fr.x += fr.vx * dt; fr.y += fr.vy * dt; if (fr.y >= GROUND - 22) { fr.y = GROUND - 22; fr.rest = true; emit('fruitLand', { x: fr.x, y: GROUND, first: !S.fruitSeen }); S.fruitSeen = true; } }
+  if (f.state === 'flee') { f.dir = 1; f.vx = 600; f.x += f.vx * dt; return; } // foge para a mata, sem parede que o segure
   if (cine) f.vx *= 0.9;
   else if (playing) switch (f.state) {
-    case 'idle': { const d = Math.sign(pcx - fx) || f.dir; f.dir = d; f.vx += (d * FOXC.prowl[ph] - f.vx) * Math.min(1, dt * 3);
-      f.cd -= dt; if (f.cd <= 0 && onGround) { f.atk = Math.random() < 0.55 ? 'pounce' : 'dash'; go('wind'); } break; }
-    case 'wind': f.vx *= 0.8; f.dir = Math.sign(pcx - fx) || f.dir; // aviso: agacha (bote) ou cava o chão (corrida)
-      if (f.t >= FOXC.wind[ph]) {
-        if (f.atk === 'pounce') { go('air'); f.tx = Math.max(ARENA_X + 80, Math.min(ARENA_X + W - 80, pcx)); f.vy = -820; f.vx = (f.tx - fx) / (2 * 820 / GRAV); emit('foxPounce', { x: fx, y: GROUND }); }
+    case 'idle': { if (fr && fr.rest && onGround) { go('toFruit'); break; }
+      const d = Math.sign(pcx - fx) || f.dir; f.dir = d; f.vx += (d * FOXC.prowl[ph] - f.vx) * Math.min(1, dt * 3);
+      f.cd -= dt; if (f.cd <= 0 && onGround) {
+        f.atk = ph >= 1 && !f.roarCd && Math.random() < 0.35 ? 'roar' : Math.random() < 0.55 ? 'pounce' : 'dash'; go('wind'); }
+      break; }
+    case 'toFruit': { if (!fr) { go('idle'); f.cd = 0.6; break; } const d = Math.sign(fr.x - fx) || f.dir; f.dir = d; f.vx = d * 330;
+      if (Math.abs(fr.x - fx) < 26) { S.fruit = null; f.vx = 0; go('eat'); emit('foxEat', { x: fx, y: GROUND - 40 }); } break; }
+    case 'wind': { f.vx *= 0.8; f.dir = Math.sign(pcx - fx) || f.dir; // aviso: agacha (bote), cava o chão (corrida) ou enche o peito (latido)
+      const w = f.atk === 'roar' ? FOXC.roarWind : f.combo ? 0.3 : FOXC.wind[ph];
+      if (f.t >= w) { f.combo = false;
+        if (f.atk === 'pounce') { go('air'); f.tx = Math.max(ARENA_X + 80, Math.min(ARENA_X + W - 80, pcx)); f.vy = -900; f.vx = (f.tx - fx) / (2 * 900 / GRAV); emit('foxPounce', { x: fx, y: GROUND }); }
+        else if (f.atk === 'roar') { go('roar'); f.roarCd = 6; S.fireOff = FOXC.roarOff; emit('foxRoar', { x: fx - f.dir * 40, y: f.y + 20, first: !S.roarSeen }); S.roarSeen = true;
+          if (!p.onGround) { p.vy = Math.max(p.vy, 520); p.noGlide = 0.7; p.gliding = false; } } // o latido derruba quem está planando
         else { go('dash'); f.vx = f.dir * FOXC.dash[ph]; emit('foxDash', { x: fx, y: GROUND }); } }
-      break;
-    case 'air': if (onGround && f.t > 0.2) { f.vx = 0; go('tired'); S.trauma = Math.min(1, S.trauma + 0.35); emit('land', { x: fx, y: GROUND }); } break;
+      break; }
+    case 'air': if (onGround && f.t > 0.2) { f.vx = 0; S.trauma = Math.min(1, S.trauma + 0.35); emit('land', { x: fx, y: GROUND });
+      if (ph === 2 && Math.random() < 0.45) { f.atk = 'dash'; f.combo = true; go('wind'); } else { go('tired'); emit('foxSniff', { x: fx, y: GROUND }); } } break; // no 3º coração, às vezes emenda o bote com a corrida
     case 'dash': if ((f.dir < 0 && f.x <= ARENA_X + 14) || (f.dir > 0 && f.x + f.w >= ARENA_X + W - 14)) { f.vx = 0; go('bonk'); S.trauma = Math.min(1, S.trauma + 0.4); emit('bonk', { x: f.dir < 0 ? f.x : f.x + f.w, y: GROUND - 50 }); } break;
-    case 'tired': f.vx *= 0.8; if (f.t > 1.0 - ph * 0.15) { go('idle'); f.cd = 1.2 - ph * 0.2; } break;
-    case 'bonk': f.vx *= 0.8; if (f.t > 1.1 - ph * 0.15) { go('idle'); f.cd = 1.0; } break;
+    case 'tired': f.vx *= 0.8; if (f.t > FOXC.sniff[ph]) { go('idle'); f.cd = 1.1 - ph * 0.2; } break; // fuçando o chão, de lombo baixo
+    case 'bonk': f.vx *= 0.8; if (f.t > FOXC.bonk[ph]) { go('idle'); f.cd = 1.0; } break;
+    case 'eat': f.vx *= 0.8; if (f.t > FOXC.eat[ph]) { go('idle'); f.cd = 0.8; } break;
+    case 'roar': f.vx *= 0.8; if (f.t > 1.0) { go('idle'); f.cd = 0.9; } break;
     case 'dodge': if (onGround && f.t > 0.25) { f.vx = 0; go('idle'); f.cd = 0.6; } break;
     case 'hurt': f.vx *= 0.85; if (f.t > 1.1) { go('idle'); f.cd = 0.9; } break;
   }
   f.vy += GRAV * dt; f.x += f.vx * dt; f.y += f.vy * dt;
   if (f.y + f.h > GROUND) { f.y = GROUND - f.h; f.vy = 0; }
   f.x = Math.max(ARENA_X + 10, Math.min(ARENA_X + W - 10 - f.w, f.x));
-  // a Zara e o Elvis jogam ovo cozido de tempos em tempos: planar turbinado para subir nas fogueiras e cair em cima dela
-  if (playing && !cine) { f.egg -= dt; if (f.egg <= 0 && !S.gifts.length) { f.egg = FOXC.eggEvery; const fr = S.friends[(f.throws = (f.throws || 0) + 1) % 2]; // revezam: um de cada canto
-    S.gifts.push({ sx: fr.x + fr.face * 18, sy: GROUND - 58, x: fr.x, y: GROUND - 58, t: 0, kind: 0, fight: true }); fr.hop = 0.9; emit('friend', { x: fr.x, y: GROUND - 70, kind: fr.kind }); } }
+  // a Zara e o Elvis se revezam, um de cada canto: ovo cozido para o Timtim, fruta-do-lobo para distrair o lobo-guará
+  if (playing && !cine) { f.egg -= dt; if (f.egg <= 0 && !S.gifts.length && !S.fruit) { f.egg = FOXC.throwEvery; f.throws++; const q = S.friends[f.throws % 2];
+    if (f.throws % 2) { S.gifts.push({ sx: q.x + q.face * 18, sy: GROUND - 58, x: q.x, y: GROUND - 58, t: 0, kind: 0, fight: true }); emit('friend', { x: q.x, y: GROUND - 70, kind: q.kind, line: 'Ovo cozido! Plana na crina dele!' }); }
+    else { const tx = Math.max(ARENA_X + 160, Math.min(ARENA_X + W - 160, ARENA_X + W / 2 + (Math.random() - 0.5) * 360)), T = 2 * 650 / GRAV;
+      S.fruit = { x: q.x, y: GROUND - 58, vx: (tx - q.x) / T, vy: -650, rest: false }; emit('friend', { x: q.x, y: GROUND - 70, kind: q.kind, line: 'Ó a fruta-do-lobo, lobão!' }); }
+    q.hop = 0.9; } }
   if (!playing || cine) return;
   const hb = { x: f.x + 14, y: f.y + 12, w: f.w - 28, h: f.h - 12 };
   if (!overlap(p, hb)) return;
-  const fromAbove = p.vy > 0 && (prevBottom <= f.y + 30 || p.y + p.h < f.y + f.h * 0.55);
+  const fromAbove = p.vy > 0 && (prevBottom <= f.y + 30 || p.y + p.h < f.y + f.h * 0.55), low = ['tired', 'bonk', 'eat'].includes(f.state);
   if (fromAbove) {
     if (f.state === 'hurt') { p.vy = -520; p.shrugT = 0.45; return; }
-    if (p.gliding || f.state === 'tired' || f.state === 'bonk') { // acertou!
+    if (p.gliding || low) { // acertou a crina!
       f.hp--; f.hurt = 0.4; go('hurt'); p.vy = -720; p.shrugT = 0.5; S.hitstop = 0.12; S.trauma = Math.min(1, S.trauma + 0.55);
       emit('stomp', { x: fx, y: f.y, boss: true }); emit('foxHit', { x: fx, y: f.y, hp: f.hp });
-      if (f.hp <= 0) { go('flee'); S.mode = 'winning'; S.winT = 0; S.slowT = 0.6;
+      if (f.hp <= 0) { go('flee'); S.mode = 'winning'; S.winT = 0; S.slowT = 0.6; S.fruit = null;
         S.friends.forEach((q, i) => { q.home = Math.max(ARENA_X + 60, p.x - 120 - i * 85) + (p.x < ARENA_X + 300 ? 330 : 0); q.vx = 0; });
-        emit('finalBlow', { x: fx, y: f.y }); emit('foxDefeated', { x: fx, y: f.y }); }
-    } else { // pulo comum: ela esquiva com um saltinho para trás e o Timtim quica
-      go('dodge'); f.vy = -420; f.vx = (fx < pcx ? -1 : 1) * 300; p.vy = -600; p.shrugT = 0.45; emit('foxDodge', { x: fx, y: f.y }); }
-  } else if (!['hurt', 'tired', 'bonk', 'dodge'].includes(f.state) && p.mega <= 0 && !(p.shrugT > 0)) hurt();
+        // as galinhas criam coragem: saem do galinheiro e correm atrás dele até a mata
+        for (let i = 0; i < 5; i++) S.runners.push({ kind: 'chaser', x: ARENA_X + 260 - i * 55, y: GROUND - 30, w: 38, h: 30, vx: 470 + i * 12, t: i * 0.7 });
+        emit('finalBlow', { x: fx, y: f.y }); emit('foxDefeated', { x: fx, y: f.y }); emit('henRevenge', { x: ARENA_X + 300, y: GROUND - 40 }); }
+    } else { // pulo comum: só bate na canela; ele dá um passo para trás e o Timtim quica
+      go('dodge'); f.vy = -380; f.vx = (fx < pcx ? -1 : 1) * 280; p.vy = -600; p.shrugT = 0.45; emit('foxDodge', { x: fx, y: f.y }); }
+  } else if (!['hurt', 'tired', 'bonk', 'dodge', 'eat', 'roar'].includes(f.state) && p.mega <= 0 && !(p.shrugT > 0)) hurt();
 }
 // ---- galinhas em debandada (Arraial) ----
 // De vez em quando um bando vem correndo da direita para a esquerda, fugindo do lobo-guará: o Timtim tem de pular por
@@ -226,7 +254,7 @@ function updateRunners(dt, prevBottom, playing) {
     else r.x += r.vx * dt;
     const gap = !groundAt(r.x + r.w / 2); // sobre um buraco ela bate as asas e atravessa voando baixo
     r.y = GROUND - 30 - Math.abs(Math.sin(r.t * 14)) * (gap ? 26 : 16) - (gap ? 34 : 0);
-    if (r.x < cam.x - 200 && r.kind !== 'arena') { S.runners.splice(i, 1); continue; }
+    if ((r.x < cam.x - 200 && r.kind !== 'arena') || r.x > C.LEVEL_END + 400) { S.runners.splice(i, 1); continue; }
     if (r.kind !== 'run' || !playing || S.cine || !overlap(p, r)) continue;
     if (p.vy > 0 && prevBottom <= r.y + 16) { p.vy = -640; p.shrugT = 0.3; emit('cluck', { x: r.x + r.w / 2, y: r.y }); emit('henBounce', { x: r.x + r.w / 2, y: r.y }); }
     else if (!(p.shrugT > 0)) hurt();
@@ -279,7 +307,7 @@ function reset() {
     player: makePlayer(C.START_X), items: makeItems(), enemies: makeEnemies(), boss: makeBoss(), ball: null, waves: [],
     cam: { x: 0, y: 0, look: 0 }, time: 0, clock: 0, cookies: 0, arena: false, trauma: 0, hitstop: 0,
     gold: 0, timeScale: 1, slowT: 0, cine: null, checkpoint: -1, bossSeen: false, hpLost: 0, winT: 0, dustT: 0,
-    thief: null, prize: null, revealed: {}, toy: false, scent: null, fox: makeFox(), notes: 0, runners: [], runDone: {}, warn: null, chaseOn: false, warnedOnce: false,
+    thief: null, prize: null, revealed: {}, toy: false, scent: null, fox: makeFox(), fruit: null, fireOff: 0, notes: 0, runners: [], runDone: {}, warn: null, chaseOn: false, warnedOnce: false,
     friends: C.friends.map(f => ({ x: f.x, home: f.x, vx: 0, follow: 0, kind: f.kind, power: f.power, given: false, hop: 0, face: -1, t: 0 })), gifts: [], tut: {},
   });
   S.totalCookies = S.items.filter(i => i.type === 'cookie').length + C.friends.length * C.GIFT;
@@ -306,7 +334,7 @@ TT.start = () => { reset(); S.mode = 'play';
 TT.retry = () => {
   if (S.checkpoint < 0) return TT.start();
   const x = C.checkpoints[S.checkpoint];
-  S.player = makePlayer(x); S.player.inv = 1.6; S.scent = null; S.boss = makeBoss(); S.fox = makeFox(); S.runners = []; S.runDone = {}; S.warn = null; S.chaseOn = false; S.ball = null; S.thief = null; S.prize = null; S.waves = []; S.arena = false; S.cine = null; S.timeScale = 1; S.slowT = 0; S.hitstop = 0; S.gifts = [];
+  S.player = makePlayer(x); S.player.inv = 1.6; S.scent = null; S.boss = makeBoss(); S.fox = makeFox(); S.fruit = null; S.fireOff = 0; S.runners = []; S.runDone = {}; S.warn = null; S.chaseOn = false; S.ball = null; S.thief = null; S.prize = null; S.waves = []; S.arena = false; S.cine = null; S.timeScale = 1; S.slowT = 0; S.hitstop = 0; S.gifts = [];
   S.cam.x = Math.max(0, x - W * 0.4); S.cam.look = 0; S.mode = 'play';
   emit('start', { retry: true });
 };
@@ -386,8 +414,8 @@ TT.update = (rdt) => {
   const hang = !p.onGround && I.jump && !locked && Math.abs(p.vy) < 130 ? 0.55 : 1; // flutua um instante no topo do pulo
   // planar (fase 2 em diante): segurando o pulo no ar, depois do topo, a bandana abre como asa-delta e a queda fica lenta;
   // em cima de uma fogueira o ar quente levanta, até o topo da coluna
-  const lifted = C.GLIDE && C.fires.some(f => inColumn(p, f));
-  const gl = C.GLIDE && !p.onGround && !locked && I.jump && p.djT <= 0 && (p.vy > -40 || (lifted && p.gliding));
+  const lifted = C.GLIDE && !(S.fireOff > 0) && C.fires.some(f => inColumn(p, f));
+  const gl = C.GLIDE && !p.onGround && !locked && I.jump && p.djT <= 0 && !(p.noGlide > 0) && (p.vy > -40 || (lifted && p.gliding));
   if (gl && !p.gliding) emit('glide', { x: p.x + p.w / 2, y: p.y });
   p.gliding = gl;
   // com o ovo cozido (planar turbinado) a queda é mais lenta e o ar quente levanta mais forte

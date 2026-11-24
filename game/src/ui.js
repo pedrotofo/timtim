@@ -92,8 +92,11 @@ TT.on('arraialIntro', () => { stage.classList.add('cine'); const c = $('bossCard
 if (FASE === 2) document.querySelector('.bossRow b').textContent = 'Lobo-guará';
 TT.on('foxIntro', () => { stage.classList.add('cine'); const c = $('bossCard'); c.querySelector('small').textContent = 'CHEFÃO'; c.querySelector('h2').textContent = 'O LOBO-GUARÁ';
   c.querySelector('p').textContent = 'invadiu o galinheiro do arraial'; setTimeout(() => c.classList.add('show'), 600); });
-TT.on('cineEnd', e => { if (e.type === 'fox') setTimeout(() => { if (S.mode === 'play') TT.emit('banner', { text: 'Caia em cima dele planando!' }); }, 300); });
-let dodgeTip = false; TT.on('foxDodge', () => { if (dodgeTip) return; dodgeTip = true; TT.emit('banner', { text: 'Pulo comum ele esquiva: plane!' }); });
+TT.on('cineEnd', e => { if (e.type === 'fox') setTimeout(() => { if (S.mode === 'play') TT.emit('banner', { text: 'Plane e caia na crina dele!' }); }, 300); });
+TT.on('foxRoar', e => { if (e.first) TT.emit('banner', { text: 'O latido apaga o ar quente!' }); });
+TT.on('fruitLand', e => { if (e.first) TT.emit('banner', { text: 'Fruta-do-lobo! Ele não resiste...' }); });
+TT.on('henRevenge', () => setTimeout(() => TT.emit('banner', { text: 'As galinhas expulsaram o lobo-guará!' }), 500));
+let dodgeTip = false; TT.on('foxDodge', () => { if (dodgeTip) return; dodgeTip = true; TT.emit('banner', { text: 'Pulo comum só bate na canela: plane!' }); });
 TT.on('start', e => { if (!e.retry) dodgeTip = false; });
 // correio elegante: o bilhete abre na tela com a piada
 let noteT = 0; TT.on('note', e => { const n = $('note'); n.querySelector('small').textContent = `Correio elegante ${e.n}/${e.total}`; n.querySelector('p').textContent = e.text;
@@ -155,7 +158,7 @@ TT.on('hurt', () => { const h = hearts[Math.max(0, S.player.hp)]; if (h) { h.cla
 TT.on('start', () => { show(null); $('hud').classList.add('on'); stage.classList.remove('cine'); $('bossCard').classList.remove('show'); $('cookieT').textContent = '/' + S.totalCookies; irisOpenFromBlack(); });
 // balão dos amigos
 const say = $('say'), LINES = TT.FASE === 2 ? ['Toma um ovo cozido, Timtim! Dá força pra planar!', 'Mais um ovinho: agora nada te machuca!'] : ['Toma um turbo, Timtim!', 'Fica invencível, Timtim!']; let sayF = null, sayEnd = 0;
-TT.on('friend', e => { sayF = S.friends.reduce((a, f) => Math.abs(f.x - e.x) < Math.abs(a.x - e.x) ? f : a); say.textContent = LINES[S.friends.indexOf(sayF) % 2]; sayEnd = performance.now() + 2600; say.classList.add('on'); });
+TT.on('friend', e => { sayF = S.friends.reduce((a, f) => Math.abs(f.x - e.x) < Math.abs(a.x - e.x) ? f : a); say.textContent = e.line || LINES[S.friends.indexOf(sayF) % 2]; sayEnd = performance.now() + 2600; say.classList.add('on'); });
 const uiFrame0 = TT.uiFrame;
 TT.uiFrame = () => { uiFrame0(); if (!sayF) return;
   if (performance.now() > sayEnd || S.mode === 'lose') { say.classList.remove('on'); sayF = null; return; }
@@ -173,7 +176,7 @@ TT.on('win', st => {
   if (!best || st.stars > best.stars || (st.stars === best.stars && st.time < best.time)) { best = { stars: st.stars, time: st.time }; try { localStorage.setItem(BEST_KEY, JSON.stringify(best)); } catch (_) {} }
   done[FASE] = true; try { localStorage.setItem('tintim-fases', JSON.stringify(done)); } catch (_) {}
   $('btnNext').classList.toggle('on', FASE < FASES.length);
-  if (FASE === 2) { document.querySelector('.winMonkey').src = 'assets/sprites/tintim-win.png'; $('winTitle').textContent = 'Galinheiro salvo!'; $('winText').textContent = 'Timtim planou sobre as fogueiras e espantou o lobo-guará de volta para a mata. As galinhas voltaram para casa e a festa continuou até o mastro de São João.'; $('stMain').textContent = 'Galinheiro salvo';
+  if (FASE === 2) { document.querySelector('.winMonkey').src = 'assets/sprites/tintim-win.png'; $('winTitle').textContent = 'Galinheiro salvo!'; $('winText').textContent = 'Timtim planou no ar quente das fogueiras e pisou na crina do lobo-guará até as galinhas criarem coragem e expulsarem ele para a mata. A festa continuou até o mastro de São João.'; $('stMain').textContent = 'Galinheiro salvo';
     $('stNotes').style.display = ''; $('stNotes').firstElementChild.textContent = `${st.notes}/${st.notesTotal}`; $('stNotes').classList.toggle('ok', st.notes >= st.notesTotal); }
   showBest();
   $('stCookies').firstElementChild.textContent = `${st.cookies}/${st.total}`; $('stCookies').classList.toggle('ok', st.allCookies);
