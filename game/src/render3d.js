@@ -28,7 +28,7 @@ THREE.DefaultLoadingManager.onLoad = () => { warmUp(); R.ready = true; TT.emit('
 const TL = new THREE.TextureLoader();
 const load = p => { const t = TL.load('assets/' + p); t.anisotropy = 4; return t; };
 const AR = { 'tintim-idle': 232 / 220, 'tintim-run': 1.2143, 'tintim-jump': 270 / 200, 'tintim-fall': 240 / 220, 'tintim-hurt': 218 / 220,
-  'tintim-win': 189 / 240, 'tintim-sniff': 282 / 220, 'tintim-glide': 420 / 220, 'brute-walk': 362 / 320, 'brute-charge': 454 / 253, 'brute-bark': 341 / 322, 'brute-ball': 413 / 265, 'brute-dizzy': 374 / 345, 'brute-down': 432 / 209, pigeon: 1.1381, 'monkey-front': 217 / 235, 'monkey-joy': 286 / 260,
+  'tintim-win': 189 / 240, 'tintim-sniff': 282 / 220, 'tintim-glide': 420 / 220, galinha: 176 / 230, 'brute-walk': 362 / 320, 'brute-charge': 454 / 253, 'brute-bark': 341 / 322, 'brute-ball': 413 / 265, 'brute-dizzy': 374 / 345, 'brute-down': 432 / 209, pigeon: 1.1381, 'monkey-front': 217 / 235, 'monkey-joy': 286 / 260,
   cookie: 129 / 90, 'chi-pb': 245 / 300, 'chi-br': 223 / 300 };
 const TEX = {};
 AR.choco = 1.25;
@@ -573,7 +573,9 @@ const ballGlow = add(new THREE.Mesh(planeGeoC, glowMat(0xffe14d, 0.7)), 5); ball
 const texWave = canvasTex(64, 128, x => { const g = x.createLinearGradient(0, 0, 64, 0); g.addColorStop(0, 'rgba(255,230,150,0)'); g.addColorStop(0.55, 'rgba(255,230,150,.95)'); g.addColorStop(1, 'rgba(255,255,255,0)');
   x.fillStyle = g; x.beginPath(); x.ellipse(32, 128, 30, 124, 0, Math.PI, 0); x.fill(); });
 const waveM = [0, 1, 2, 3].map(() => { const m = add(new THREE.Mesh(planeGeoC, new THREE.MeshBasicMaterial({ map: texWave, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, fog: false })), 6); m.visible = false; return m; });
-const pigeonM = S.enemies.map(() => { const m = sprite('pigeon', 5, true, 0xffffff); m.geometry = legGeo(); m.userData.warn = add(new THREE.Mesh(planeGeoC, glowMat(0xff2a55, 0.8)), 6); m.material.color.setRGB(1.75, 1.6, 1.85); m.userData.own = { pigeon: ownTex('pigeon') }; m.material.map = m.customDepthMaterial.map = m.userData.own.pigeon; return m; });
+R.foe = ARR ? 'galinha' : 'pigeon'; const FOE = R.foe; // inimigo da fase: pombo no Parque, galinha caipira de chapéu de palha no Arraial
+const pigeonM = S.enemies.map(() => { const m = sprite(FOE, 5, true, 0xffffff); m.geometry = legGeo(); m.userData.warn = add(new THREE.Mesh(planeGeoC, glowMat(0xff2a55, 0.8)), 6);
+  if (ARR) m.material.color.setRGB(1.15, 1.08, 1.02); else { m.material.color.setRGB(1.75, 1.6, 1.85); m.userData.own = { pigeon: ownTex('pigeon') }; m.material.map = m.customDepthMaterial.map = m.userData.own.pigeon; } return m; });
 // barra de chocolate meio desembrulhada, desenhada por código. Contorno creme grosso e embalagem vermelha viva
 // para não sumir no cenário escuro; o brilho vermelho (a cor de "perigo" do jogo, igual ao aviso dos pombos) faz o resto.
 TEX.choco = canvasTex(160, 128, x => { x.translate(80, 64); x.rotate(-0.18);
@@ -875,14 +877,15 @@ R.frame = (rdt) => {
       m.position.set(w.x, Y(GROUND) + h / 2, 6); m.scale.set(46 * w.dir, h * (0.9 + 0.1 * Math.sin(time * 30)), 1); m.material.opacity = Math.min(1, 0.4 + w.t * 3); }); }
   // pombos
   S.enemies.forEach((e, i) => {
-    const m = pigeonM[i]; setAnim(m, 'pigeon', 64, e.dir > 0, e.alive ? Math.floor(e.t * 7) : 1, 4);
+    const m = pigeonM[i]; if (ARR) setAnim(m, 'galinha', 72, e.dir > 0); else setAnim(m, 'pigeon', 64, e.dir > 0, e.alive ? Math.floor(e.t * 7) : 1, 4);
     m.position.set(e.x + e.w / 2, Y(e.y + e.h) - 2 + (e.alive ? Math.abs(Math.sin(e.t * 12)) * 3 : 0), 0);
-    m.rotation.z = e.alive ? 0 : Math.PI; m.visible = e.y < H + 200; m.castShadow = e.alive;
+    m.rotation.z = e.alive ? (ARR ? Math.sin(e.t * 9) * 0.06 : 0) : Math.PI; m.visible = e.y < H + 200; m.castShadow = e.alive; // a galinha gingando de um lado para o outro
     // perigo à vista: um halo rosado que pulsa atrás de cada pombo, mais forte quando o Timtim chega perto
     { const w = m.userData.warn, near = Math.max(0, 1 - Math.abs(tx - m.position.x) / 420), s = 120 + Math.sin(time * 6 + i) * 14 + near * 30;
       w.visible = e.alive && m.visible; w.position.set(m.position.x, m.position.y + 30, 2); w.scale.set(s * 1.25, s, 1); w.material.opacity = ARR ? 0.18 + near * 0.3 + Math.sin(time * 6 + i) * 0.06 : 0.75 + near * 0.25 + Math.sin(time * 6 + i) * 0.15; }
     // pombo anda como pombo: a cabeça vai e volta a cada passo
-    legs(m, e.t * 12, 0, { f: -1, tailX: 0, tailY: e.alive ? Math.sin(e.t * 12) * 0.02 : 0, headX: 0, headY: 0, breathe: 0, shear: 0 });
+    legs(m, e.t * (ARR ? 9 : 12), ARR && e.alive ? 0.06 : 0, { f: -1, tailX: ARR && e.alive ? Math.sin(e.t * 9) * 0.03 : 0, tailY: e.alive ? Math.sin(e.t * 12) * 0.02 : 0,
+      headX: ARR && e.alive ? Math.max(0, Math.sin(e.t * 9)) * 0.05 : 0, headY: ARR && e.alive ? -Math.max(0, Math.sin(e.t * 9)) * 0.02 : 0, breathe: 0, shear: 0 }); // a galinha bica o chão a cada passo
   });
   // itens: flutuam, giram devagar e pulsam como pequenas luzes
   S.items.forEach((it, i) => {

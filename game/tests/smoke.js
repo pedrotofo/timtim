@@ -13,6 +13,7 @@ const { chromium } = require('playwright');
   const check = (ok, msg) => { console.log((ok ? 'ok   ' : 'FALHA') + ' ' + msg); if (!ok) process.exitCode = 1; };
   await pg.goto(url + '?q=0');
   check(await until(() => window.__tintim && __tintim.R.ready && __tintim.state === 'title'), 'abre na tela de título');
+  check(await ev(() => __tintim.R.foe === 'pigeon'), 'os inimigos do Parque são pombos');
   await pg.waitForTimeout(600);
   await pg.click('#btnShelf');
   check(await until(() => document.querySelector('#shelf').classList.contains('on') && document.querySelectorAll('#shelf .slot').length === 5, 3000), 'estante de brinquedos abre com 5 lugares');

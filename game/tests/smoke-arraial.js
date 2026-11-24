@@ -19,6 +19,7 @@ const { chromium } = require('playwright');
   check(await until(() => __tintim.state === 'play' && __tintim.S.cine && __tintim.S.cine.type === 'arraial', 5000), 'Jogar começa direto, com o cartão do Arraial');
   check(await until(() => !__tintim.S.cine, 6000), 'cartão some e o controle é liberado');
   check(await ev(() => !__tintim.S.thief && !__tintim.S.arena), 'sem Furtão nem chefão no Arraial');
+  check(await ev(() => __tintim.R.foe === 'galinha' && __tintim.S.enemies.length > 0), 'os inimigos do Arraial são galinhas caipiras, não pombos');
 
   // planar: no ar, segurando o pulo, a queda fica lenta
   await put(1300, 100); await pg.keyboard.down('Space'); await pg.waitForTimeout(700);
