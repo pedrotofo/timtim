@@ -332,9 +332,9 @@ const addMat = (map, c, op) => new THREE.MeshBasicMaterial({ map, color: c, opac
 // ---------------- mundo estático ----------------
 const FLOOR_Z0 = -104, FLOOR_Z1 = 470, FD = FLOOR_Z1 - FLOOR_Z0, FZ = (FLOOR_Z0 + FLOOR_Z1) / 2;
 const pulses = [], shafts = [], mists = [], ropes = [], buntings = [], figMats = [], landmarks = [], props3 = [], dayMats = []; // dayMats: arte pintada sem luz própria, que acompanha a hora do dia
-const vilaMat = new THREE.ShaderMaterial({ uniforms: { a: { value: texVilaT }, b: { value: texVilaN }, k: { value: 0 }, rep: { value: 1 }, tint: { value: new THREE.Color(1, 1, 1) } },
+const vilaMat = new THREE.ShaderMaterial({ uniforms: { a: { value: texVilaT }, b: { value: texVilaN }, k: { value: 0 }, rep: { value: 1 }, tint: { value: new THREE.Color(1, 1, 1) }, haze: { value: new THREE.Color(0.86, 0.66, 0.5) }, hazeK: { value: 0 } },
   vertexShader: 'varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.); }',
-  fragmentShader: 'uniform sampler2D a, b; uniform float k, rep; uniform vec3 tint; varying vec2 vUv; void main(){ vec2 u = vec2(vUv.x * rep, vUv.y); gl_FragColor = vec4(mix(texture2D(a, u).rgb, texture2D(b, u).rgb, k) * tint, 1.); }' });
+  fragmentShader: 'uniform sampler2D a, b; uniform float k, rep, hazeK; uniform vec3 tint, haze; varying vec2 vUv; void main(){ vec2 u = vec2(vUv.x * rep, vUv.y); vec3 c = mix(texture2D(a, u).rgb, texture2D(b, u).rgb, k) * tint; float l = dot(c, vec3(.3, .59, .11)); c = mix(c, vec3(l), hazeK * .5); gl_FragColor = vec4(mix(c, haze, hazeK), 1.); }' });
 const sky = add(new THREE.Mesh(planeGeoC, new THREE.MeshBasicMaterial({ map: texSky, fog: false })), 1); // por último entre os opacos
 sky.scale.set(4700, 2700, 1); sky.position.set(0, 300, -3000);
 (function buildWorld() {
@@ -376,7 +376,12 @@ sky.scale.set(4700, 2700, 1); sky.position.set(0, 300, -3000);
     if (!ARR) { const pg = new THREE.PlaneGeometry(w, 150), uv = pg.attributes.uv; for (let i = 0; i < uv.count; i++) uv.setX(i, (x0 + uv.getX(i) * w) / 300);
     const p = new THREE.Mesh(pg, new THREE.MeshLambertMaterial({ map: texPath, transparent: true })); p.rotation.x = -Math.PI / 2; p.position.set(x0 + w / 2, 0.6, 6); p.receiveShadow = true; add(p, -1); }
     grassRow(x0, x1, 0, -86, 30, -7); grassRow(x0, x1, 0, 92, 15, 6); grassRow(x0, x1, 0, 210, 22, 6);
+    if (ARR) litEdge(x0 + 40, x1, 0, 118);
   };
+  // borda acesa: um filete de luz quente na quina de cima do chão e de cada plataforma, como o musgo aceso de Ori
+  function litEdge(x0, x1, y, z) { const w = x1 - x0;
+    const line = add(new THREE.Mesh(planeGeoC, new THREE.MeshBasicMaterial({ color: 0xffe0b0, transparent: true, opacity: 0.55, depthWrite: false, blending: THREE.AdditiveBlending, fog: false })), 6); line.scale.set(w, 3, 1); line.position.set(x0 + w / 2, y - 1, z);
+    const soft = add(new THREE.Mesh(planeGeoC, glowMat(0xffc888, 0.22)), 5); soft.scale.set(w * 1.04, 34, 1); soft.position.set(x0 + w / 2, y - 2, z - 1); }
   const spans = [];
   C.grounds.forEach(([x, w], i) => {
     const x0 = i === 0 ? -1600 : x, x1 = x + w;
@@ -398,7 +403,7 @@ sky.scale.set(4700, 2700, 1); sky.position.set(0, 300, -3000);
   if (ARR) for (const [x, y, w] of C.plats) {
     const top = GROUND - y;
     const m = new THREE.Mesh(boxUV(w, 16, 64, 128), [plankSide, plankSide, plankTop, plankSide, plankSide, plankSide]);
-    m.position.set(x + w / 2, top - 8, 0); m.castShadow = m.receiveShadow = true; add(m);
+    m.position.set(x + w / 2, top - 8, 0); m.castShadow = m.receiveShadow = true; add(m); litEdge(x, x + w, top, 33);
     // palafitas: dois (ou três) pares de troncos descendo até o chão ou até o fundo do buraco, com amarração de corda
     const legs = w > 260 ? [x + 16, x + w / 2, x + w - 16] : [x + 16, x + w - 16], H = top + 330;
     for (const lx of legs) for (const lz of [20, -20]) {
@@ -467,8 +472,9 @@ sky.scale.set(4700, 2700, 1); sky.position.set(0, 300, -3000);
   const apool = add(new THREE.Mesh(planeGeoC, glowMat(0x7fe0ff, 0.16)), 0); apool.rotation.x = -Math.PI / 2; apool.scale.set(1100, 420, 1); apool.position.set(ARENA_X + 480, 1.2, 40);
   }
   // primeiro plano: folhagens escuras entre a câmera e o jogo, embaixo e penduradas em cima
-  const frenteM = texFrente.map(t => new THREE.MeshBasicMaterial({ map: t, transparent: true, depthWrite: false, fog: false, side: THREE.DoubleSide }));
-  const galhoM = texGalhos && new THREE.MeshBasicMaterial({ map: texGalhos, transparent: true, depthWrite: false, fog: false, side: THREE.DoubleSide });
+  const FRONT = ARR ? 0x2c1812 : 0xffffff; // no Arraial, o primeiro plano vira silhueta quase preta (o jogo fica entre ela e o fundo claro)
+  const frenteM = texFrente.map(t => new THREE.MeshBasicMaterial({ map: t, color: FRONT, transparent: true, depthWrite: false, fog: false, side: THREE.DoubleSide }));
+  const galhoM = texGalhos && new THREE.MeshBasicMaterial({ map: texGalhos, color: FRONT, transparent: true, depthWrite: false, fog: false, side: THREE.DoubleSide });
   for (let i = 0, x = -200; x < END - 300; i++, x += 620 + (i * 397 % 420)) {
     const m = new THREE.Mesh(planeGeo, frenteM[i % 2]), hh = 150 + (i % 3) * 22; m.scale.set(hh * FRENTE_AR[i % 2] * (i % 4 > 1 ? -1 : 1), hh, 1); m.position.set(x, -78, 350 + (i % 2) * 50); add(m, 9);
     if (i % 2) { const t = new THREE.Mesh(planeGeoTop, galhoM); const gh = 250 + (i % 3) * 30; t.scale.set(gh * GALHO_AR * (i % 4 === 1 ? -1 : 1), gh, 1); t.position.set(x + 310, 500, 330); add(t, 9); }
@@ -614,7 +620,7 @@ const ballGlow = add(new THREE.Mesh(planeGeoC, glowMat(0xffe14d, 0.7)), 5); ball
 const texWave = canvasTex(64, 128, x => { const g = x.createLinearGradient(0, 0, 64, 0); g.addColorStop(0, 'rgba(255,230,150,0)'); g.addColorStop(0.55, 'rgba(255,230,150,.95)'); g.addColorStop(1, 'rgba(255,255,255,0)');
   x.fillStyle = g; x.beginPath(); x.ellipse(32, 128, 30, 124, 0, Math.PI, 0); x.fill(); });
 const waveM = [0, 1, 2, 3].map(() => { const m = add(new THREE.Mesh(planeGeoC, new THREE.MeshBasicMaterial({ map: texWave, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, fog: false })), 6); m.visible = false; return m; });
-const foxM = sprite(ARR ? 'guara-anda' : 'cookie', 5, ARR, 0xfff0e4); foxM.geometry = legGeo(); foxM.userData.ph = 0; foxM.visible = false;
+const foxM = sprite(ARR ? 'guara-anda' : 'cookie', 5, ARR, 0xd6bcae); foxM.geometry = legGeo(); foxM.userData.ph = 0; foxM.visible = false;
 const foxGlow = add(new THREE.Mesh(planeGeoC, glowMat(0xffe14d, 0)), 4), foxWarn = add(new THREE.Mesh(planeGeoC, glowMat(0xff2a55, 0)), 4);
 const foxMark = add(new THREE.Mesh(planeGeoC, new THREE.MeshBasicMaterial({ map: texSoft, color: 0xff1f44, transparent: true, opacity: 0, depthWrite: false, fog: false })), 4);
 const foxStars = [0, 1, 2].map(() => { const s = add(new THREE.Mesh(planeGeoC, new THREE.MeshBasicMaterial({ map: texStar, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, fog: false })), 7); s.scale.set(20, 20, 1); s.visible = false; return s; });
@@ -746,10 +752,10 @@ const blurMat = new THREE.ShaderMaterial({ uniforms: { t: { value: null }, dir: 
     c += (texture2D(t, vUv + dir * 3.231).rgb + texture2D(t, vUv - dir * 3.231).rgb) * .0703; gl_FragColor = vec4(c, 1.); }` });
 const compMat = new THREE.ShaderMaterial({ depthTest: false, vertexShader: VERT,
   uniforms: { tScene: { value: null }, tDepth: { value: null }, tBloom: { value: null }, res: { value: new THREE.Vector2(W, H) },
-    near: { value: camera.near }, far: { value: camera.far }, focus: { value: CAM_D }, dof: { value: 1 }, time: { value: 0 }, flash: { value: 0 }, gray: { value: 0 }, bloomK: { value: ARR ? 0.5 : 0.8 }, expo: { value: ARR ? 1.18 : 1.25 }, shade: { value: new THREE.Vector3(.80, 1.02, 1.16) } },
+    near: { value: camera.near }, far: { value: camera.far }, focus: { value: CAM_D }, dof: { value: 1 }, time: { value: 0 }, flash: { value: 0 }, gray: { value: 0 }, bloomK: { value: ARR ? 0.5 : 0.8 }, heroK: { value: ARR ? 1 : 0.45 }, hero: { value: new THREE.Vector2(0.5, 0.5) }, expo: { value: ARR ? 1.18 : 1.25 }, shade: { value: new THREE.Vector3(.80, 1.02, 1.16) } },
   fragmentShader: `
   precision highp float;
-  uniform sampler2D tScene, tDepth, tBloom; uniform vec2 res; uniform float near, far, focus, dof, time, flash, gray, bloomK, expo; uniform vec3 shade;
+  uniform sampler2D tScene, tDepth, tBloom; uniform vec2 res; uniform float near, far, focus, dof, time, flash, gray, bloomK, expo, heroK; uniform vec3 shade; uniform vec2 hero;
   varying vec2 vUv;
   float hash(vec2 p){ return fract(sin(dot(p, vec2(12.9898, 78.233))) * 43758.5453); }
   void main(){
@@ -775,6 +781,7 @@ const compMat = new THREE.ShaderMaterial({ depthTest: false, vertexShader: VERT,
     col = mix(vec3(l), col, 1.18 * (1. - gray));                     // saturação
     col = clamp(col, 0., 1.); col = mix(col, col * col * (3. - 2. * col), .5);                // contraste suave
     col = mix(col * shade, col, smoothstep(.25, .9, l)); // sombras puxam para o rosado no entardecer e para o azul-petróleo à noite; as luzes ficam puras
+    vec2 hq = (vUv - hero) * vec2(1.78, 1.); col *= mix(1. - .2 * heroK, 1. + .08 * heroK, smoothstep(.75, .05, length(hq))); // poça de luz no herói
     vec2 q = vUv - .5; col *= 1. - dot(q, q) * 1.05;                 // vinheta
     col += (hash(vUv * res + time) - .5) * .014;                     // grão fino
     gl_FragColor = vec4(mix(col, vec3(.85, .97, 1.), flash), 1.);
@@ -1129,6 +1136,7 @@ R.frame = (rdt) => {
       blurMat.uniforms.t.value = rtA.texture; blurMat.uniforms.dir.value.set(i * 1.6 / rtA.width, 0); pass(blurMat, rtB);
       blurMat.uniforms.t.value = rtB.texture; blurMat.uniforms.dir.value.set(0, i * 1.6 / rtA.height); pass(blurMat, rtA); }
     const u = compMat.uniforms; u.tScene.value = rt.texture; u.tDepth.value = rt.depthTexture; u.tBloom.value = rtA.texture;
+    { const hs = R.toScreen(S.player.x + S.player.w / 2, S.player.y + S.player.h / 2); u.hero.value.x += (hs.x - u.hero.value.x) * Math.min(1, rdt * 6); u.hero.value.y += (1 - hs.y - u.hero.value.y) * Math.min(1, rdt * 6); }
     u.time.value = time % 100; u.flash.value = R.flash; u.gray.value += ((S.mode === 'lose' ? 0.75 : 0) - u.gray.value) * Math.min(1, rdt * 3);
     pass(compMat, null);
   } else { renderer.setRenderTarget(null); renderer.render(scene, camera); }
@@ -1139,13 +1147,13 @@ R.frame = (rdt) => {
 // k = 1 usa a paleta azul (NIGHT_); k = 0 usa a paleta laranja (DUSK, que aqui é o Arraial).
 const DAY = { x0: 1400, x1: ARENA_X - 700 };
 const DUSK = { bg: new THREE.Color(0x140604), figB: new THREE.Color(0x2a160e), figF: new THREE.Color(0x4a2e20), mist: new THREE.Color(0x9a4418), shaft: new THREE.Color(0xc2722e),
-  amb: new THREE.Color(0xffb27a), sun: new THREE.Color(0xffc89a), mark: new THREE.Color(0xc99a7a), bunt: new THREE.Color(0xffe2c4), shade: new THREE.Vector3(.92, .86, .9) };
+  amb: new THREE.Color(0xffb27a), sun: new THREE.Color(0xffc89a), mark: new THREE.Color(0xc99a7a), bunt: new THREE.Color(0xffe2c4), shade: new THREE.Vector3(.8, .76, 1.08) };
 const NIGHT_ = { bg: new THREE.Color(0x020a12), figB: new THREE.Color(0x4c7896), figF: new THREE.Color(0xa9c4d6), amb: new THREE.Color(0x6f9cc0), sun: new THREE.Color(0xa6dcff),
   mark: new THREE.Color(0xffffff), bunt: new THREE.Color(0xa8b8d4), shade: new THREE.Vector3(.80, 1.02, 1.16) };
 const tmpC = new THREE.Color();
 function dayLight(cx) {
   const k = ARR ? 0 : 1; // a cor é da fase inteira: não muda ao longo do caminho
-  vilaMat.uniforms.k.value = 0; if (ARR) vilaMat.uniforms.tint.value.setRGB(0.58, 0.5, 0.46); else vilaMat.uniforms.tint.value.setScalar(0.9); // o fundo do Arraial recua: mais escuro, para o que se mexe aparecer
+  vilaMat.uniforms.k.value = 0; if (ARR) { vilaMat.uniforms.tint.value.setRGB(0.74, 0.6, 0.52); vilaMat.uniforms.hazeK.value = 0.32; } else vilaMat.uniforms.tint.value.setScalar(0.9); // o fundo do Arraial recua: mais escuro, para o que se mexe aparecer
   scene.background.copy(DUSK.bg).lerp(NIGHT_.bg, k);
   if (figMats[0]) figMats[0].color.copy(DUSK.figB).lerp(NIGHT_.figB, k);
   if (figMats[1]) figMats[1].color.copy(DUSK.figF).lerp(NIGHT_.figF, k);

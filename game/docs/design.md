@@ -52,6 +52,16 @@ Todas as imagens vão para a placa de vídeo ainda no carregamento (`warmUp`), p
 - Brilhos ficam para o que importa para jogar (biscoitos, brinquedo, chama, checkpoint) e para as luzes de verdade (postes, varais, fogueiras).
 - Pular no Furtão nunca tira coração: cair por cima conta como pisão, e durante a sacudida que ele dá o contato não machuca.
 
+## Contraste à moda de Ori (25/11/2026)
+
+Uma cor dominante só funciona com planos de luz bem separados. Regras, tiradas de Ori and the Blind Forest:
+1. três planos de valor: primeiro plano quase preto (emoldura em cima e embaixo), plano do jogo em tom médio, fundo claro e
+   enevoado, sem contraste nem saturação (`hazeK` no fundo pintado);
+2. o herói é o mais claro da tela e tem uma poça de luz em volta (`hero`/`heroK` na composição final);
+3. luz quente contra sombra fria: no Arraial laranja, as sombras puxam para o roxo (`shade`);
+4. borda acesa: um filete de luz na quina de cima do chão e de cada plataforma mostra onde se pisa;
+5. quem se mexe tem contorno de luz fria; o vilão fica um tom mais escuro, como silhueta contra a névoa.
+
 ## Movimento quadro a quadro, tirado de vídeo (24/11/2026)
 
 Personagens se movem com quadros de verdade, não com uma pose só deformada. O caminho que funciona: a arte do personagem
