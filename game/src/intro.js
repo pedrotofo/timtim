@@ -42,6 +42,22 @@ const SCENES = [
             { x: 590, y: 75, r: 65, c: '255,80,80', a: 0.35, pulse: 1.1 } ],
     flies: 30, leaves: 5, windX: 70, rise: 1 },
 ];
+// fase 2 (Arraial): um quadro só — o trio chega à festa, as galinhas fogem e o estranho de chapéu de pato espia atrás do galinheiro
+const ARRAIAL = [
+  { img: load('assets/intro/4-arraial.jpg'), dur: 6.0, zoom: [1.0, 1.045], at: [900, 941], scroll: [45, 708, 1625, 915], sky: 640,
+    wind: [ { x: 525, y: 330, rx: 230, ry: 200, amp: 2.6, speed: 2.6, freq: 0.035, ring: 1 },   // Timtim: pelo e orelhas
+            { x: 360, y: 470, rx: 120, ry: 110, amp: 2.2, speed: 3.2, freq: 0.05, ring: 1 },    // Zara
+            { x: 670, y: 480, rx: 110, ry: 110, amp: 2.2, speed: 3.0, freq: 0.05, ring: 1 },    // Elvis
+            { x: 300, y: 310, rx: 90, ry: 90, amp: 4, speed: 5, freq: 0.08 },                   // rabo do Timtim
+            { x: 1030, y: 520, rx: 170, ry: 120, amp: 2.4, speed: 30, freq: 0.4, jitter: 1 },   // galinha batendo asa
+            { x: 1400, y: 510, rx: 170, ry: 120, amp: 2.4, speed: 34, freq: 0.4, jitter: 1 } ], // outra galinha
+    glow: [ { x: 150, y: 450, r: 150, c: '255,150,60', a: 0.4, pulse: 2.3, flicker: 1 },          // fogueira
+            { x: 1042, y: 80, r: 80, c: '255,200,110', a: 0.4, pulse: 1.4 }, { x: 880, y: 140, r: 60, c: '255,170,80', a: 0.35, pulse: 1.9 },
+            { x: 272, y: 228, r: 55, c: '255,170,80', a: 0.35, pulse: 1.6, flicker: 1 }, { x: 1590, y: 120, r: 75, c: '120,255,140', a: 0.3, pulse: 1.2 },
+            { x: 922, y: 260, r: 34, c: '255,230,90', a: 0.55, pulse: 3.1 } ],                    // os olhos do estranho
+    flies: 22, leaves: 0, windX: 40 },
+];
+if (TT.FASE === 2) SCENES.splice(0, SCENES.length, ...ARRAIAL);
 SCENES.forEach(s => { s.windX = s.windX || 25; s.text = ''; });
 
 // canvas de trabalho para o vento nos pelos
