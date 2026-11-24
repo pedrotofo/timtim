@@ -34,8 +34,8 @@ Um mapinha da vila liga as fases, e o progresso fica salvo no navegador.
 
 ## Ordem de construção
 1. **Feito:** faro, moita falsa e caminho de cheiro na fase atual, com o primeiro brinquedo (Patinho Quá-Quá) e a estante.
-2. Fase 2, o Arraial, com o planar.
-3. Mapa da vila com progresso salvo (quando houver duas fases).
+2. **Feito (24/11/2026):** fase 2, o Arraial, com o planar. Trechos: palco e primeiro vão (só planando) → vão maior → fogueiras (a chama machuca; o ar quente levanta quem plana) → quadrilha (quatro tábuas que dançam e levam o Timtim) → tudo junto, com a sanfoninha no alto da terceira fogueira (o faro revela o caminho) → mastro de São João. Dados em `game.js` (bloco `FASE === 2`), cenário em `render3d.js` (bloco `ARR`), teste em `tests/smoke-arraial.js`.
+3. Mapa da vila com progresso salvo. Por enquanto as fases se escolhem por botões no título, liberados conforme a fase anterior é vencida (`tintim-fases` no navegador).
 4. As outras fases, uma por vez.
 
 ## Artes
@@ -47,4 +47,6 @@ Geradas no Google Flow (Nano Banana Pro, 24/11/2026) com a folha de personagem e
 
 - **Feito:** a praça da fase 1 (24/11/2026): `bg/vila-tarde.jpg` e `bg/vila-noite.jpg` (mesma vista, do entardecer à noite), `bg/chafariz.png`, `bg/coreto.png` e `bg/pipoca.png`.
 
-Ainda falta: a arte de abertura do Arraial.
+- **Feito (versão 3.0, 24/11/2026):** a arte desenhada por código do cenário virou arte quase realista do Google Flow: texturas de gramado, paralelepípedo, terra, madeira e areia (`assets/tex/`), e sebe, capim, hera, folhagem, samambaia, flores, agapanto, banco, poste, parquinho, barracas, fogueira, mastro e a sanfoninha (`assets/props/`, `sprites/toy-sanfona.png`).
+
+Ainda falta: uma trilha própria de forró para o Arraial (hoje ele usa a música da fase 1) e a arte de abertura pintada do Arraial (hoje é um cartão de texto).

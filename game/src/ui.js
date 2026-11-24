@@ -65,11 +65,28 @@ function endStory() { if (!titleEl.classList.contains('story') || titleEl.classL
 // avança para a próxima tela (um toque logo depois de outro, em menos de meio segundo, não pula duas)
 TT.storyScene = () => storyI;
 const nextStory = () => { if (performance.now() - storyAt > 500) storyLine(storyI + 1); };
-$('btnStart').onclick = () => { if (titleEl.classList.contains('story')) return nextStory(); TT.audioInit(); TT.sfx('ui'); TT.music('title'); titleEl.classList.add('story'); storyAt = performance.now(); storyLine(0); };
+// ---------------- fases ----------------
+// A fase atual vem do endereço (?fase=2). Vencer o Parque libera o Arraial; o progresso fica salvo no navegador.
+const FASE = TT.FASE || 1, FASES = ['O Parque', 'O Arraial'];
+let done = {}; try { done = JSON.parse(localStorage.getItem('tintim-fases') || '{}') || {}; } catch (_) {}
+const goFase = f => { TT.sfx('ui'); irisTo(true, { x: 0.5, y: 0.5 }); setTimeout(() => { location.search = f > 1 ? '?fase=' + f : ''; }, 480); };
+document.querySelectorAll('#fases .chip').forEach(b => { const f = +b.dataset.f; b.classList.toggle('cur', f === FASE); b.disabled = f > 1 && !done[f - 1];
+  b.onclick = () => { if (f !== FASE) goFase(f); }; });
+$('fases').classList.toggle('on', !!done[1] || FASE > 1);
+if (FASE > 1) { $('faseTag').textContent = 'FASE ' + FASE + ' · ' + FASES[FASE - 1].toUpperCase(); $('pauseText').textContent = 'O Timtim parou para comer uma pipoca.'; $('progEnd').textContent = '🎉'; }
+$('btnNext').onclick = () => goFase(FASE + 1);
+$('btnStart').onclick = () => { if (FASE > 1) { if (titleEl.classList.contains('leaving')) return; titleEl.classList.add('leaving'); return begin(TT.start); }
+  if (titleEl.classList.contains('story')) return nextStory(); TT.audioInit(); TT.sfx('ui'); TT.music('title'); titleEl.classList.add('story'); storyAt = performance.now(); storyLine(0); };
 titleEl.addEventListener('pointerdown', () => { if (titleEl.classList.contains('story')) nextStory(); });
 const firstTouch = () => { if (S.mode === 'title') { TT.audioInit(); TT.music('title'); } removeEventListener('pointerdown', firstTouch); removeEventListener('keydown', firstTouch); };
 addEventListener('pointerdown', firstTouch); addEventListener('keydown', firstTouch);
 TT.on('start', () => setTimeout(() => { titleEl.classList.remove('story', 'leaving'); if (TT.intro) TT.intro.stop(); }, 600));
+// dicas do Arraial, na hora em que cada coisa aparece
+const TUT = { glide: isTouch ? 'Segure ▲ no ar para planar' : 'Segure Espaço no ar para planar', fire: 'O ar quente da fogueira levanta quem plana!', dance: 'As tábuas dançam a quadrilha: pule no ritmo!' };
+TT.on('tutorial', e => TT.emit('banner', { text: TUT[e.kind] }));
+// cartão de abertura do Arraial (o mesmo cartão da apresentação do chefão, com outro texto)
+TT.on('arraialIntro', () => { stage.classList.add('cine'); const c = $('bossCard'); c.querySelector('small').textContent = 'FASE 2'; c.querySelector('h2').textContent = 'O ARRAIAL';
+  c.querySelector('p').textContent = 'Plane com a bandana até o mastro de São João'; setTimeout(() => c.classList.add('show'), 350); });
 $('btnAgain').onclick = () => begin(TT.start);
 $('btnRestart').onclick = () => begin(TT.start);
 $('btnLoseRestart').onclick = () => begin(TT.start);
@@ -83,12 +100,14 @@ $('btnMute').onclick = toggleMute; $('btnMute').classList.toggle('muted', TT.isM
 // Um brinquedo por fase: são os brinquedos que o Furtão roubou de outros cães da vila. O que já foi achado fica salvo no navegador.
 const TOYS = [
   { id: 'patinho', fase: 'O Parque', name: 'Patinho Quá-Quá', joke: 'É do Pipoca, o salsicha da padaria. O Furtão levou porque ele faz "quá" toda vez que é mordido.' },
-  { fase: 'O Arraial' }, { fase: 'O Quintal da Vizinha' }, { fase: 'Dia de Chuva' }, { fase: 'O Covil do Furtão' }];
+  { id: 'sanfoninha', fase: 'O Arraial', name: 'Sanfoninha', joke: 'É do Bolota, o vira-lata do sanfoneiro. Cada vez que o Furtão apertava, ela tocava um forró desafinado.' },
+  { fase: 'O Quintal da Vizinha' }, { fase: 'Dia de Chuva' }, { fase: 'O Covil do Furtão' }];
+const TOY_IMG = { patinho: 'assets/sprites/toy-duck.png', sanfoninha: 'assets/sprites/toy-sanfona.png' };
 let found = {};
 try { found = JSON.parse(localStorage.getItem('tintim-toys') || '{}') || {}; } catch (_) {}
 function drawShelf() {
   $('shelfSlots').innerHTML = TOYS.map(t => { const got = t.id && found[t.id], soon = !t.id;
-    const img = t.id === 'patinho' ? '<img src="assets/sprites/toy-duck.png" alt="">' : '<b>?</b>';
+    const img = TOY_IMG[t.id] ? `<img src="${TOY_IMG[t.id]}" alt="">` : '<b>?</b>';
     return `<div class="slot${got ? ' got' : ''}${soon ? ' soon' : ''}"><div class="pic">${img}</div><small>${t.fase}</small>` +
       `<strong>${got ? t.name : soon ? 'Em breve' : 'Ainda perdido'}</strong>${got ? `<p>${t.joke}</p>` : t.id ? '<p>Dica: o faro (↓) mostra o caminho.</p>' : ''}</div>`; }).join('');
   $('shelfCount').textContent = `${TOYS.filter(t => t.id && found[t.id]).length} de ${TOYS.length} brinquedos devolvidos`;
@@ -100,7 +119,8 @@ TT.on('toy', e => { found[e.id] = true; try { localStorage.setItem('tintim-toys'
 TT.on('cineEnd', e => { if (e.type === 'steal' && !found.patinho) setTimeout(() => { if (S.mode === 'play') TT.emit('banner', { text: isTouch ? 'Segure 👃 para farejar' : 'Segure ↓ para farejar' }); }, 400); });
 
 let best = null;
-try { best = JSON.parse(localStorage.getItem('tintim-best') || 'null'); } catch (_) {}
+const BEST_KEY = FASE > 1 ? 'tintim-best-' + FASE : 'tintim-best';
+try { best = JSON.parse(localStorage.getItem(BEST_KEY) || 'null'); } catch (_) {}
 const showBest = () => { $('best').textContent = best ? `Seu recorde: ${'★'.repeat(best.stars)}${'☆'.repeat(3 - best.stars)} em ${best.time.toFixed(1)}s` : ''; };
 showBest();
 
@@ -113,7 +133,7 @@ TT.uiFrame = () => {
   setIf('hp', p.hp, v => hearts.forEach((h, i) => h.classList.toggle('off', i >= v)));
   setIf('ck', S.cookies, v => { const n = $('cookieN'); n.textContent = v; n.classList.remove('bump'); void n.offsetWidth; n.classList.add('bump'); });
   setIf('boss', S.arena, v => $('hr').classList.toggle('boss', v));
-  if (!S.arena) setIf('prog', Math.round(Math.min(1, p.x / C.ARENA_X) * 200) / 2, v => { $('progFill').style.width = v + '%'; $('progDog').style.left = v + '%'; });
+  if (!S.arena) setIf('prog', Math.round(Math.min(1, p.x / C.GOAL_X) * 200) / 2, v => { $('progFill').style.width = v + '%'; $('progDog').style.left = v + '%'; });
   else setIf('bossHp', S.boss.hp, v => segs[0].forEach((s, k) => s.classList.toggle('off', k >= v)));
 };
 
@@ -134,11 +154,14 @@ TT.on('stealIntro', () => stage.classList.add('cine'));
 TT.on('bossIntro', () => { stage.classList.add('cine'); setTimeout(() => $('bossCard').classList.add('show'), 650); });
 TT.on('cineEnd', () => { stage.classList.remove('cine'); $('bossCard').classList.remove('show'); });
 TT.on('lose', () => {
-  $('loseText').textContent = S.checkpoint >= 0 ? 'Você volta do último checkpoint com os corações cheios.' : 'Cuidado com os buracos e pise nos pombos por cima.';
+  $('loseText').textContent = S.checkpoint >= 0 ? 'Você volta do último checkpoint com os corações cheios.' : FASE === 2 ? 'Cuidado com os buracos e com as fogueiras: plane por cima delas.' : 'Cuidado com os buracos e pise nos pombos por cima.';
   setTimeout(() => { if (S.mode === 'lose') show('lose'); }, 1100);
 });
 TT.on('win', st => {
-  if (!best || st.stars > best.stars || (st.stars === best.stars && st.time < best.time)) { best = { stars: st.stars, time: st.time }; try { localStorage.setItem('tintim-best', JSON.stringify(best)); } catch (_) {} }
+  if (!best || st.stars > best.stars || (st.stars === best.stars && st.time < best.time)) { best = { stars: st.stars, time: st.time }; try { localStorage.setItem(BEST_KEY, JSON.stringify(best)); } catch (_) {} }
+  done[FASE] = true; try { localStorage.setItem('tintim-fases', JSON.stringify(done)); } catch (_) {}
+  $('btnNext').classList.toggle('on', FASE < FASES.length);
+  if (FASE === 2) { document.querySelector('.winMonkey').src = 'assets/sprites/tintim-win.png'; $('winTitle').textContent = 'Viva São João!'; $('winText').textContent = 'Timtim atravessou o Arraial planando com a bandana e chegou ao mastro, onde a Zara e o Elvis já dançavam quadrilha.'; $('stMain').textContent = 'Mastro de São João'; }
   showBest();
   $('stCookies').firstElementChild.textContent = `${st.cookies}/${st.total}`; $('stCookies').classList.toggle('ok', st.allCookies);
   $('stHearts').firstElementChild.textContent = st.gold + '/3'; $('stHearts').classList.toggle('ok', st.allGold);

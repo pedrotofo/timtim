@@ -1,4 +1,4 @@
-# Timtim e os Pugs — design em uma página
+# Timtim e o Resgate do Macaco Fedido — design em uma página
 
 **Promessa:** 2 a 3 minutos de plataforma que parecem um curta de animação estrelado por um cachorro de verdade. Feito para mostrar aos amigos.
 
@@ -36,6 +36,12 @@ Início seguro com biscoitos no chão → primeiras lajes → primeiro buraco �
 ## Qualidade adaptativa
 Três níveis. Se a média cair abaixo de 45 quadros por segundo: nível 1 desliga o desfoque e reduz a resolução; nível 0 desliga sombras, pós-processamento, névoa, parte dos fachos e dos halos.
 Todas as imagens vão para a placa de vídeo ainda no carregamento (`warmUp`), para o primeiro segundo da fase não engasgar.
+
+## Versão 3.0: direção de arte quase realista (24/11/2026)
+- Nada no cenário é "desenho de código" à vista: chão, tábuas, plantas, sebes, bancos, postes e o parquinho são arte quase realista (Google Flow), no mesmo acabamento de filme de animação dos personagens. O código cuida só de luz, névoa, partículas e brilhos.
+- A luz pintada acompanha a hora: tudo o que não recebe luz da cena (arte recortada) é tingido pela mesma cor do entardecer ou da noite (`dayMats` em `render3d.js`).
+- Brilhos ficam para o que importa para jogar (biscoitos, brinquedo, chama, checkpoint) e para as luzes de verdade (postes, varais, fogueiras). Os pombos têm só um halo discreto.
+- Pular no Furtão nunca tira coração: cair por cima conta como pisão, e durante a sacudida que ele dá o contato não machuca.
 
 ## Fora do escopo (por enquanto)
 Mais fases, mais quadros de animação (a corrida tem 4), animações próprias para os chihuahuas, sprites dos pugs reais, placar online.

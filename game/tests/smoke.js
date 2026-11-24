@@ -80,6 +80,14 @@ const { chromium } = require('playwright');
   const hp0 = await ev(() => { const b = __tintim.boss, p = __tintim.player; p.inv = 5; p.x = b.x + 50; p.y = b.y - 70; p.vy = 300; return b.hp; });
   await pg.waitForTimeout(600);
   check(await ev(() => __tintim.boss.hp) === hp0, 'pisar fora da hora não machuca o Furtão');
+  // regressão (24/11/2026): cair nas costas do Furtão enquanto ele anda não pode tirar coração do Timtim.
+  // O desenho dele é mais alto que o corpo de colisão; antes, encostar descendo abaixo do topo contava como esbarrão de lado.
+  await until(() => __tintim.boss.state === 'idle', 15000);
+  await ev(() => { const S = __tintim.S, b = S.boss, p = S.player; S.ball = null; S.waves.length = 0; b.cd = 99; b.ballT = 99;
+    Object.assign(p, { inv: 0, mega: 0, hp: 3, vx: 0, vy: 150, onGround: false, x: b.x + 12 - p.w, y: b.y + 45 - p.h }); b.dir = -1; b.vx = -90; });
+  await pg.waitForTimeout(250); // o contato acontece nos primeiros quadros; depois disso ele pode cair de novo ao lado e levar um esbarrão de verdade
+  check(await ev(() => __tintim.player.hp) === 3, 'cair nas costas do Furtão andando não tira coração');
+  await ev(() => { __tintim.S.boss.cd = 1; __tintim.S.boss.ballT = 3; });
   // a bolinha distrai o Brutão; pisar na cabeça enquanto ele morde acerta
   await ev(() => { window.__safe = setInterval(() => { __tintim.player.inv = 2; __tintim.player.hp = 3; }, 100); }); // o teste não desvia dos ataques
   for (let i = 0; i < 3; i++) {

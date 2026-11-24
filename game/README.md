@@ -5,6 +5,9 @@ Jogo de plataforma 2.5D curtinho: o Furtão, o valentão da vila, roubou o Macac
 ## Como jogar
 - ← → / A D: andar · Espaço / ↑ / W: pular (segure para pular mais alto; aperte de novo no ar para a pirueta, um pulo duplo) · ↓ / S: farejar · P ou Esc: pausa · M: som
 - Celular: botões na tela (👃 fareja). Controle (gamepad): direcional + botão A; direcional para baixo fareja.
+- **Fases:** o jogo tem duas fases. A 1, o Parque, abre com a história; vencer o Parque libera a 2, o Arraial (botão "Próxima fase" na vitória e os botões de fase no título). A fase vem do endereço: `index.html?fase=2`.
+- 🪁 Planar (fase 2): no ar, segure o pulo depois do topo e a bandana abre como asa-delta; a queda fica lenta. Em cima de uma fogueira, o ar quente levanta quem está planando. Encostar na chama tira um coração.
+- 💃 Quadrilha (fase 2): as tábuas com bandeirinhas vão e voltam no ritmo da dança e levam o Timtim junto.
 - 👃 Faro: segurando ↓, o Timtim para e fareja, e um rastro verde aponta o segredo mais próximo (biscoito dourado, moita falsa, caminho de cheiro). Sem segredo por perto, o rastro segue o cheiro do Macaco Fedido.
 - Moita falsa: logo atrás do ponto de partida, um arbusto onde dá para entrar esconde 3 biscoitos.
 - Caminho de cheiro: perto do primeiro checkpoint, lajes invisíveis que o faro revela levam ao brinquedo perdido da fase, o Patinho Quá-Quá. Os brinquedos achados ficam na estante "Brinquedos perdidos", na tela de título, e são salvos no navegador.
@@ -33,6 +36,7 @@ cd game && python3 -m http.server 8765   # abrir http://localhost:8765
 | `src/main.js` | Laço principal e qualidade adaptativa. |
 | `docs/design.md` | Decisões de design e de arte. |
 | `docs/plano-fases.md` | Plano das próximas fases, truques e segredos, e o que já foi feito. |
-| `tests/smoke.js` | Teste automático do caminho crítico (`node game/tests/smoke.js`). |
+| `tests/smoke.js` | Teste automático do caminho crítico da fase 1 (`node game/tests/smoke.js`). |
+| `tests/smoke-arraial.js` | Teste automático da fase 2: planar, ar quente, chama, tábuas da quadrilha, sanfoninha e mastro (`node game/tests/smoke-arraial.js`). |
 
 Arte dos personagens gerada no Higgsfield a partir das fotos do Timtim; os chihuahuas foram recortados da folha de personagens. O Timtim farejando e planando, o Patinho Quá-Quá e o fundo da estante (`assets/bg/shelf.jpg`) foram gerados no Google Flow. O fundo da fase é a Vila de Reserva pintada no Google Flow (`assets/bg/vila-tarde.jpg` e `vila-noite.jpg`, que se misturam do entardecer à noite), com o chafariz, o coreto e o carrinho de pipoca recortados; o resto do cenário (chão, tábuas, bandeirinhas, plantas, luzes) é desenhado por código em `render3d.js`. `vendor/three.min.js` é a three.js r149 (licença MIT).

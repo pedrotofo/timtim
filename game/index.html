@@ -176,6 +176,10 @@
   .slot.soon { opacity: .55; }
   #shelfCount { margin: .4cqw 0 0; color: var(--gold); font-weight: 700; font-size: 1.6cqw; }
   #btnShelf { margin-top: 1.2cqw; }
+  #fases { display: none; gap: 1cqw; margin-top: 1.2cqw; } #fases.on { display: flex; }
+  .chip { font-size: 1.4cqw; padding: .5cqw 1.8cqw; } .chip.cur { color: #fff; border-color: var(--glow); box-shadow: 0 0 1.6cqw rgba(255, 214, 160, .35); } .chip:disabled { opacity: .35; cursor: default; }
+  #faseTag { margin: 0 0 1cqw; font-family: var(--display); font-size: 2cqw; letter-spacing: .4cqw; color: var(--gold); text-shadow: 0 0 1.2cqw rgba(255, 180, 90, .6); min-height: 1em; }
+  #btnNext { display: none; } #btnNext.on { display: inline-block; }
   #msg { position: absolute; inset: 0; display: grid; place-items: center; background: #12070f; font-family: var(--display); font-size: 2.2cqw; letter-spacing: .3cqw; color: var(--dim); text-align: center; padding: 6cqw; transition: opacity .8s; }
   #msg.hide { opacity: 0; pointer-events: none; }
   @media (prefers-reduced-motion: reduce) { #banner.show, .star.got, #title .on-anim > *, .polaroid { animation-duration: .01s; } }
@@ -219,7 +223,9 @@
     <div class="on-anim">
       <h1 class="logo"><b>TIMTIM</b><i>E O RESGATE DO MACACO FEDIDO</i></h1>
       <div class="gap"></div>
+      <p id="faseTag"></p>
       <button class="btn" id="btnStart">Jogar</button>
+      <div class="row" id="fases"><button class="btn ghost chip" data-f="1">1 · O Parque</button><button class="btn ghost chip" data-f="2">2 · O Arraial</button></div>
       <p id="best"></p>
       <button class="btn ghost" id="btnShelf">Brinquedos perdidos</button>
       <p class="hint" id="hint">← → andar · Espaço pula · no ar, de novo: pirueta · ↓ fareja</p>
@@ -228,7 +234,7 @@
   </section>
 
   <section id="pause" class="screen scrim"><div class="card">
-    <h2>Pausa</h2><p>O Timtim está olhando o pôr do sol.</p>
+    <h2>Pausa</h2><p id="pauseText">O Timtim está olhando o pôr do sol.</p>
     <div class="row"><button class="btn" id="btnResume">Continuar</button><button class="btn ghost" id="btnRestart">Recomeçar</button></div>
   </div></section>
 
@@ -239,20 +245,20 @@
 
   <section id="win" class="screen scrim"><div class="card">
     <img class="winMonkey" src="assets/sprites/monkey-joy.png" alt="">
-    <h2>O Macaco Fedido voltou!</h2><p style="margin:.6cqw 0 0">Timtim, Zara e Elvis resgataram o macaco das patas do Furtão. Continua fedido, e mais amado do que nunca.</p>
+    <h2 id="winTitle">O Macaco Fedido voltou!</h2><p id="winText" style="margin:.6cqw 0 0">Timtim, Zara e Elvis resgataram o macaco das patas do Furtão. Continua fedido, e mais amado do que nunca.</p>
     <div class="stars">
       <svg class="star" viewBox="0 0 48 46"><path d="M24 2l6.6 13.6 15 2-11 10.4 2.8 14.8L24 35.6l-13.4 7.2 2.800-14.800-11-10.400 15-2z" fill="#ffd23f" stroke="#2b1a10" stroke-width="3" stroke-linejoin="round"/></svg>
       <svg class="star" viewBox="0 0 48 46"><path d="M24 2l6.6 13.6 15 2-11 10.4 2.8 14.8L24 35.6l-13.4 7.2 2.800-14.800-11-10.400 15-2z" fill="#ffd23f" stroke="#2b1a10" stroke-width="3" stroke-linejoin="round"/></svg>
       <svg class="star" viewBox="0 0 48 46"><path d="M24 2l6.6 13.6 15 2-11 10.4 2.8 14.8L24 35.6l-13.4 7.2 2.800-14.800-11-10.400 15-2z" fill="#ffd23f" stroke="#2b1a10" stroke-width="3" stroke-linejoin="round"/></svg>
     </div>
     <div class="stats">
-      <div class="stat ok"><b>✓</b>Macaco resgatado</div>
+      <div class="stat ok"><b>✓</b><span id="stMain">Macaco resgatado</span></div>
       <div class="stat" id="stCookies"><b>0/36</b>Biscoitos</div>
       <div class="stat" id="stHearts"><b>0/3</b>Biscoitos dourados</div>
       <div class="stat" id="stToy"><b>?</b>Brinquedo perdido</div>
       <div class="stat" id="stTime"><b>0s</b>Tempo</div>
     </div>
-    <div class="row"><button class="btn" id="btnAgain">Jogar de novo</button></div>
+    <div class="row"><button class="btn" id="btnNext">Próxima fase: O Arraial</button><button class="btn ghost" id="btnAgain">Jogar de novo</button></div>
   </div></section>
 
   <section id="shelf" class="screen scrim"><div class="card">
