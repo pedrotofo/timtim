@@ -13,11 +13,13 @@ Regra (Pedro, 24/11/2026): cada fase tem **uma cor predominante e um sentimento 
 
 | Fase | Cor | Sentimento | O que compõe |
 |---|---|---|---|
-| 1 · O Parque | **azul** | noite soturna, misteriosa, "cara de pântano" | floresta enevoada ao fundo (`bg/far.jpg`), figueiras com lanternas, varais de luzinhas, lajes de pedra com musgo luminoso e raízes, sebe escura com florzinhas acesas, plantas de pântano ao luar (samambaia, taboa, cogumelos com brilho ciano), esporos azuis e violeta |
+| 1 · O Parque | **azul** | noite soturna, misteriosa, "cara de pântano"; homenagem à linguagem visual de *Ori and the Will of the Wisps* | floresta noturna pintada com raios de luz, névoa em camadas e uma figueira anciã brilhando em ciano ao longe (`bg/floresta-azul.jpg`), o Timtim com luz própria fria e contorno ciano, silhuetas escuras de raízes, samambaias e galhos com borda ciano no primeiro plano (`props/frente-*.png`), flores de luz magenta como acento quente, figueiras com lanternas, varais de luzinhas, lajes de pedra com musgo luminoso e raízes, sebe escura com florzinhas acesas, plantas de pântano ao luar (samambaia, taboa, cogumelos com brilho ciano), esporos azuis e violeta |
 | 2 · O Arraial | **laranja** | festa quente, aconchegante, iluminada por fogueiras | a vila em noite de fogueiras (`bg/vila-laranja.jpg`), barracas, bandeirinhas, fogueiras, mastro de São João, tábuas penduradas, terra batida |
 | 3 · O Quintal da Vizinha | (a definir) | | |
 | 4 · Dia de Chuva | (a definir) | | |
 | 5 · O Covil do Furtão | (a definir) | | |
+
+Homenagem a Ori (24/11/2026): vem da linguagem visual (silhueta primeiro e luz depois, herói pequeno e luminoso num mundo grande, camadas em movimento, raios de luz, bioluminescência, paleta por região), nunca de personagens, lugares, árvores-símbolo ou música do jogo. Tudo no cenário continua sendo do parque do Timtim.
 
 O que **não** entra na fase 1: bandeirinhas, cenário colorido ou "feliz", vila ao entardecer, marcos coloridos da praça (chafariz, coreto, carrinho de pipoca: foram testados e reprovados em 24/11/2026).
 - **Profundidade por valor.** Quanto mais longe, mais claro (rosado no entardecer, azulado à noite); quanto mais perto, mais escuro. O primeiro plano é quase preto e desfocado.

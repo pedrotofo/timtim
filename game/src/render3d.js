@@ -92,10 +92,12 @@ function treeLayer(seed, col, n, size, rim) {
 }
 // a Vila de Reserva ao fundo, pintada no Google Flow: a mesma vista ao entardecer e à noite, que se misturam ao longo da fase
 // cada fase tem uma cor: a fase 1 é azul (floresta enevoada), a fase 2 é laranja (a vila em noite de fogueiras)
-const texFar = load('bg/far.jpg'); texFar.wrapS = THREE.MirroredRepeatWrapping;
+// fase 1: floresta noturna pintada (homenagem à linguagem visual de Ori: raios de luz, névoa em camadas, uma figueira anciã brilhando ao longe)
+const texFar = ARR ? null : load('bg/floresta-azul.jpg'); if (texFar) texFar.wrapS = THREE.MirroredRepeatWrapping;
+const texFrente = ARR ? [] : ['frente-raizes-1', 'frente-raizes-2'].map(n => load('props/' + n + '.png')), texGalhos = ARR ? null : load('props/frente-galhos.png');
 const texVilaT = ARR ? load('bg/vila-laranja.jpg') : null, texVilaN = texVilaT; if (texVilaT) texVilaT.wrapS = THREE.MirroredRepeatWrapping;
-const texSwamp = ARR ? [] : [['pantano-samambaia', 0], ['pantano-taboa', 1], ['pantano-cogumelos', 2]].map(([n, k]) => ({ tex: load('props/' + n + '.png'), k }));
-const SWAMP_AR = [309 / 260, 284 / 320, 434 / 240]; // proporções das plantas de pântano recortadas
+const texSwamp = ARR ? [] : [['pantano-samambaia', 0], ['pantano-taboa', 1], ['pantano-cogumelos', 2], ['flores-luz', 3]].map(([n, k]) => ({ tex: load('props/' + n + '.png'), k }));
+const SWAMP_AR = [309 / 260, 284 / 320, 434 / 240, 279 / 220]; // proporções das plantas de pântano recortadas
 // versão 3.0: tudo o que era desenhado por código no cenário virou arte quase realista (Google Flow), no estilo dos personagens
 const texSoil = load('tex/terra.jpg'), texWood = load('tex/tabuas.jpg'), texDirt = texSoil;
 [texSoil, texWood].forEach(t => { t.wrapS = t.wrapT = THREE.RepeatWrapping; });
@@ -318,8 +320,8 @@ sky.scale.set(4700, 2700, 1); sky.position.set(0, 300, -3000);
   { const w = 18000, hgt = 1900;
     if (ARR) { vilaMat.uniforms.rep.value = w / (hgt * 1376 / 768);
       const q = new THREE.Mesh(planeGeo, vilaMat); q.scale.set(w, hgt, 1); q.position.set(5000, -560, -2200); add(q); }
-    else { texFar.repeat.set(w / (hgt * 1584 / 672), 1);
-      const q = new THREE.Mesh(planeGeo, new THREE.MeshBasicMaterial({ map: texFar, fog: false })); q.scale.set(w, hgt, 1); q.position.set(5000, -700, -2200); add(q); } }
+    else { texFar.repeat.set(w / (hgt * 1376 / 768), 1);
+      const q = new THREE.Mesh(planeGeo, new THREE.MeshBasicMaterial({ map: texFar, fog: false })); q.scale.set(w, hgt, 1); q.position.set(5000, -620, -2200); add(q); } }
   // figueiras pintadas com varais de lanternas, em dois planos: o de trás menor e azulado pela distância
   const figs = (z, y0, hgt, tint, x0) => { const m = flatMat(texFigs, { color: tint, alphaTest: 0.4, side: THREE.DoubleSide }), w = hgt * 2.1053; figMats.push(m);
     for (let x = -3400 + x0, i = 0; x < 13400; x += w, i++) { const q = new THREE.Mesh(planeGeo, m); q.scale.set((i % 2 ? -1 : 1) * w, hgt, 1); q.position.set(x + w / 2, y0, z); add(q); } };
@@ -330,7 +332,7 @@ sky.scale.set(4700, 2700, 1); sky.position.set(0, 300, -3000);
     const m = add(new THREE.Mesh(planeGeo, addMat(texMist, c, op)), order); m.scale.set(20000, hgt, 1); m.position.set(5000, y, z); mists.push({ m, op, i, night: new THREE.Color(c) }); });
   for (let i = 0; i < 22; i++) { const near = i % 3 === 0, z = near ? -260 : -1050, k = near ? 1 : 1.9;
     const m = add(new THREE.Mesh(planeGeoTop, addMat(texShaft, i % 4 === 1 ? 0xa9a0ff : 0x8fe6ff, 0.2)), near ? -11 : -19);
-    m.scale.set((150 + r() * 190) * k, 1150 * k, 1); m.position.set(-400 + i * 560 + r() * 300, 760 * (near ? 1 : 1.25), z); m.rotation.z = -0.34 - r() * 0.1; shafts.push({ m, ph: r() * 6, op: near ? 0.12 : 0.2, night: m.material.color.clone() }); }
+    m.scale.set((150 + r() * 190) * k, 1150 * k, 1); m.position.set(-400 + i * 560 + r() * 300, 760 * (near ? 1 : 1.25), z); m.rotation.z = -0.34 - r() * 0.1; shafts.push({ m, ph: r() * 6, op: (near ? 0.12 : 0.2) * (ARR ? 1 : 1.7), night: m.material.color.clone() }); }
   // abismo e fundação
   const dark = new THREE.MeshBasicMaterial({ color: 0x010910, fog: false });
   const pit = new THREE.Mesh(planeGeoC, dark); pit.scale.set(16000, 700, 1); pit.rotation.x = -Math.PI / 2; pit.position.set(5000, -300, 180); add(pit);
@@ -388,7 +390,7 @@ sky.scale.set(4700, 2700, 1); sky.position.set(0, 300, -3000);
     const hgt = (front ? 44 : 58) + r() * (front ? 34 : 56) + (k === 1 ? 40 : 0), z = front ? 120 + r() * 120 : -92 + r() * 44;
     const ar = SWAMP_AR[texSwamp[k].k], m = add(new THREE.Mesh(planeGeo, (front ? swampDark : swampM)[k]), front ? 8 : -6); m.scale.set(hgt * ar * (r() < 0.5 ? -1 : 1), hgt, 1); m.position.set(x, -3, z);
     // brilho de pântano: fraco nas samambaias e taboas, mais forte embaixo dos cogumelos
-    const g = add(new THREE.Mesh(planeGeoC, glowMat(k === 2 ? PAL.cyan : 0x5fd8c0, k === 2 ? 0.34 : 0.14)), front ? 8 : -6); g.scale.set(hgt * 2.1, hgt * 1.6, 1); g.position.set(x, hgt * 0.4, z - 1); pulses.push({ m: g, base: k === 2 ? 0.34 : 0.14, ph: x * 0.37 });
+    const g = add(new THREE.Mesh(planeGeoC, glowMat(k === 3 ? 0xff5ad8 : k === 2 ? PAL.cyan : 0x5fd8c0, k >= 2 ? 0.34 : 0.14)), front ? 8 : -6); g.scale.set(hgt * 2.1, hgt * 1.6, 1); g.position.set(x, hgt * 0.4, z - 1); pulses.push({ m: g, base: k >= 2 ? 0.34 : 0.14, ph: x * 0.37 });
   }
   if (ARR) for (const [x0, x1] of spans) for (let x = Math.max(-300, x0 + 50); x < x1 - 50; x += 170 + r() * 220) {
     const k = Math.floor(r() * PLANTS2.length), front = x0 < ARENA_X && r() < 0.22, hgt = (front ? 70 : 62) + r() * 46, z = front ? 140 + r() * 110 : -92 + r() * 40;
@@ -437,10 +439,13 @@ sky.scale.set(4700, 2700, 1); sky.position.set(0, 300, -3000);
   // primeiro plano: folhagens escuras entre a câmera e o jogo, embaixo e penduradas em cima
   const bushM = new THREE.MeshBasicMaterial({ map: ARR ? texFolhagem : texBush, color: ARR ? 0x3a2a24 : 0xffffff, transparent: true, depthWrite: false, fog: false, side: THREE.DoubleSide });
   const hangM = new THREE.MeshBasicMaterial({ map: texHera, color: 0x34403f, transparent: true, depthWrite: false, fog: false, side: THREE.DoubleSide });
+  const frenteM = texFrente.map(t => new THREE.MeshBasicMaterial({ map: t, transparent: true, depthWrite: false, fog: false, side: THREE.DoubleSide }));
+  const galhoM = texGalhos && new THREE.MeshBasicMaterial({ map: texGalhos, transparent: true, depthWrite: false, fog: false, side: THREE.DoubleSide });
   for (let i = 0, x = -200; x < END - 300; i++, x += 620 + (i * 397 % 420)) {
-    const m = new THREE.Mesh(planeGeo, bushM); if (ARR) { m.scale.set((150 + (i % 3) * 24) * AR2.folhagem, 150 + (i % 3) * 24, 1); m.position.set(x, -60, 350 + (i % 2) * 50); } else { m.scale.set(300 + (i % 3) * 60, 118, 1); m.position.set(x, -46, 350 + (i % 2) * 50); } add(m, 9);
+    const m = new THREE.Mesh(planeGeo, ARR ? bushM : frenteM[i % 2]); if (ARR) { m.scale.set((150 + (i % 3) * 24) * AR2.folhagem, 150 + (i % 3) * 24, 1); m.position.set(x, -60, 350 + (i % 2) * 50); }
+    else { const hh = 150 + (i % 3) * 22; m.scale.set(hh * (i % 2 ? 808 : 702) / 320 * (i % 4 > 1 ? -1 : 1), hh, 1); m.position.set(x, -78, 350 + (i % 2) * 50); } add(m, 9);
     if (i % 2) { if (ARR) { const t = new THREE.Mesh(planeGeoTop, hangM); t.scale.set(200 * AR2.hera, 200, 1); t.position.set(x + 310, 470, 330); add(t, 9); }
-      else { const t = new THREE.Mesh(planeGeo, bushM); t.scale.set(420, -150, 1); t.position.set(x + 310, 384, 330); add(t, 9); } }
+      else { const t = new THREE.Mesh(planeGeoTop, galhoM); const gh = 250 + (i % 3) * 30; t.scale.set(gh * 504 / 420 * (i % 4 === 1 ? -1 : 1), gh, 1); t.position.set(x + 310, 500, 330); add(t, 9); } }
   }
 })();
 // ---------------- o Arraial (fase 2) ----------------
@@ -515,7 +520,7 @@ const sun = new THREE.DirectionalLight(0xa6dcff, 0.6); sun.castShadow = true; //
 sun.shadow.mapSize.set(2048, 2048); sun.shadow.bias = -0.0006; sun.shadow.normalBias = 1.5;
 Object.assign(sun.shadow.camera, { left: -900, right: 900, top: 620, bottom: -420, near: 100, far: 2200 });
 scene.add(sun); scene.add(sun.target);
-const heroLight = new THREE.PointLight(0xffe6c0, 0.9, 430, 1.5); scene.add(heroLight); // o Timtim ilumina o chão por onde passa
+const heroLight = new THREE.PointLight(ARR ? 0xffe6c0 : 0xcff2ff, 0.9, ARR ? 430 : 480, 1.5); scene.add(heroLight); // o Timtim ilumina o chão por onde passa
 
 // ---------------- sprites ----------------
 function sprite(name, order = 5, shadow = true, tint = 0xffffff) {
@@ -532,7 +537,10 @@ function setAnim(m, name, h, flip, frame = 0, n = 1) {
 }
 const NIGHT = 0x9db3da; // criaturas sob o luar; o Timtim e os amigos têm luz própria
 const tintim = sprite('tintim-idle', 6, true, 0xfffaf2);
-const halo = add(new THREE.Mesh(planeGeoC, glowMat(0xffdfa8, 0.38)), 4);
+const halo = add(new THREE.Mesh(planeGeoC, glowMat(ARR ? 0xffdfa8 : 0xbfeeff, 0.38)), 4);
+// contorno de luz: uma cópia do Timtim um pouco maior, somando luz atrás dele; só a borda aparece (o corpo opaco cobre o resto).
+// É a linguagem de Ori: o herói pequeno e luminoso, recortado contra a floresta escura.
+const rim = add(new THREE.Mesh(tintim.geometry, new THREE.MeshBasicMaterial({ color: ARR ? 0xffc890 : 0x8fe6ff, transparent: true, opacity: 0.55, depthWrite: false, blending: THREE.AdditiveBlending, side: THREE.DoubleSide, fog: false })), 5);
 const aura = add(new THREE.Mesh(planeGeoC, glowMat(0xffaa33)), 5); aura.visible = false;
 const ghostM = [0, 1, 2, 3, 4, 5].map(() => { const m = add(new THREE.Mesh(planeGeo, new THREE.MeshBasicMaterial({ map: TEX['tintim-jump'], color: 0x4fc6ff, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, side: THREE.DoubleSide, fog: false })), 4); m.visible = false; return m; });
 tintim.geometry = legGeo();
@@ -736,11 +744,14 @@ R.frame = (rdt) => {
   const pivot = flip ? h * 0.5 : 0; // a pirueta gira em torno do meio do corpo, não dos pés
   tintim.position.set(tx + Math.sin(tintim.rotation.z) * pivot, ty + pivot - Math.cos(tintim.rotation.z) * pivot, 3);
   tintim.visible = !(p.inv > 0 && Math.floor(time * 20) % 2);
+  rim.geometry = tintim.geometry; rim.material.map = tintim.material.map; rim.visible = tintim.visible && S.mode !== 'lose';
+  rim.position.set(tintim.position.x, tintim.position.y - 2, tintim.position.z - 0.6); rim.rotation.z = tintim.rotation.z; rim.scale.set(tintim.scale.x * 1.07, tintim.scale.y * 1.06, 1);
+  rim.material.opacity = (ARR ? 0.35 : 0.6) + Math.sin(time * 3.1) * 0.06;
   // dor de barriga: fica esverdeado, anda encolhido e solta bolhinhas
   tintim.material.color.set(p.slow > 0 ? 0xbfe8a0 : 0xfffaf2); if (p.slow > 0) { tintim.scale.y *= 0.93;
     if (Math.random() < live * 9) spawn({ x: tx - p.face * 14, y: p.y + 18, vx: (Math.random() - 0.5) * 30, vy: -50 - Math.random() * 40, g: -30, life: 0.9, r: 2.5 + Math.random() * 2.5, grow: 2, color: 0x9dff4a }); }
   const hs = 150 + Math.sin(time * 2.4) * 10 + (fast ? 30 : 0);
-  halo.position.set(tx, ty + 34, 1); halo.scale.set(hs, hs * 0.9, 1); halo.material.opacity = (S.mode === 'lose' ? 0.12 : 0.4) + Math.sin(time * 3.1) * 0.04;
+  halo.position.set(tx, ty + 34, 1); halo.scale.set(hs * (ARR ? 1 : 1.25), hs * (ARR ? 0.9 : 1.15), 1); halo.material.opacity = (S.mode === 'lose' ? 0.12 : ARR ? 0.4 : 0.5) + Math.sin(time * 3.1) * 0.04;
   heroLight.position.set(tx, ty + 46, 60); heroLight.intensity = S.mode === 'lose' ? 0.3 : 1.15 + Math.sin(time * 3.1) * 0.08;
   const left = Math.max(p.fast, p.mega); // no último segundo e meio a aura pisca: o poder está acabando
   aura.visible = fast && !(left < 1.5 && Math.floor(time * 8) % 2);
