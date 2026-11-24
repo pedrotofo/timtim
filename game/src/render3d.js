@@ -91,15 +91,17 @@ function treeLayer(seed, col, n, size, rim) {
   });
 }
 // a Vila de Reserva ao fundo, pintada no Google Flow: a mesma vista ao entardecer e à noite, que se misturam ao longo da fase
-const texVilaT = load('bg/vila-tarde.jpg'), texVilaN = load('bg/vila-noite.jpg'); [texVilaT, texVilaN].forEach(t => { t.wrapS = THREE.MirroredRepeatWrapping; });
-const texChafariz = load('bg/chafariz.png'), texCoreto = load('bg/coreto.png'), texPipoca = load('bg/pipoca.png');
+// cada fase tem uma cor: a fase 1 é azul (floresta enevoada), a fase 2 é laranja (a vila em noite de fogueiras)
+const texFar = load('bg/far.jpg'); texFar.wrapS = THREE.MirroredRepeatWrapping;
+const texVilaT = ARR ? load('bg/vila-laranja.jpg') : null, texVilaN = texVilaT; if (texVilaT) texVilaT.wrapS = THREE.MirroredRepeatWrapping;
+const texSwamp = ARR ? [] : [['pantano-samambaia', 0], ['pantano-taboa', 1], ['pantano-cogumelos', 2]].map(([n, k]) => ({ tex: load('props/' + n + '.png'), k }));
+const SWAMP_AR = [309 / 260, 284 / 320, 434 / 240]; // proporções das plantas de pântano recortadas
 // versão 3.0: tudo o que era desenhado por código no cenário virou arte quase realista (Google Flow), no estilo dos personagens
-const texLawn = load('tex/gramado.jpg'), texSoil = load('tex/terra.jpg'), texWood = load('tex/tabuas.jpg'), texCobble = load('tex/caminho.png');
-const texDirt = load('tex/terra.jpg'), texSandR = load('tex/areia.jpg');
-[texLawn, texSoil, texWood, texDirt, texSandR].forEach(t => { t.wrapS = t.wrapT = THREE.RepeatWrapping; }); texCobble.wrapS = THREE.RepeatWrapping;
+const texSoil = load('tex/terra.jpg'), texWood = load('tex/tabuas.jpg'), texDirt = texSoil;
+[texSoil, texWood].forEach(t => { t.wrapS = t.wrapT = THREE.RepeatWrapping; });
 const prop = n => load('props/' + n + '.png');
-const texSebe = prop('sebe'), texCapim = prop('capim'), texHera = prop('hera'), texFolhagem = prop('folhagem'), texBanco = prop('banco');
-[texSebe, texCapim, texHera].forEach(t => { t.wrapS = THREE.MirroredRepeatWrapping; });
+const texCapim = prop('capim'), texHera = prop('hera'), texFolhagem = prop('folhagem'), texBanco = prop('banco');
+[texCapim, texHera].forEach(t => { t.wrapS = THREE.MirroredRepeatWrapping; });
 const AR2 = { sebe: 716 / 260, capim: 513 / 120, hera: 426 / 200, folhagem: 593 / 300, banco: 491 / 260 };
 const PLANTS2 = [['samambaia', 302 / 260], ['flores', 328 / 220], ['agapanto', 275 / 300], ['tropical', 337 / 300]].map(([n, ar]) => ({ tex: prop(n), ar }));
 const texFigs = load('bg/figs.png');
@@ -147,6 +149,12 @@ const texSand = canvasTex(512, 512, (x, w, h) => { // areia do parquinho sob o l
   for (let i = 0; i < 26; i++) { x.fillStyle = i % 2 ? 'rgba(150,225,245,.08)' : 'rgba(2,14,22,.16)';
     x.beginPath(); x.ellipse(Math.random() * w, Math.random() * h, 40 + Math.random() * 70, 8 + Math.random() * 12, 0, 0, 7); x.fill(); }
   speckle(x, w, h, 5000, ['#0f2a36', '#6fb3c4', '#2d5f70'], 1.1);
+}, true);
+// lateral do chão da fase 1: pedra azul-petróleo escura (a fase 1 é azul, noturna e soturna)
+const texRockBlue = canvasTex(256, 256, (x, w, h) => {
+  const g = x.createLinearGradient(0, 0, 0, h); g.addColorStop(0, '#1b3f4a'); g.addColorStop(1, '#07161d'); x.fillStyle = g; x.fillRect(0, 0, w, h);
+  speckle(x, w, h, 1500, ['#0a1c24', '#3d7482']);
+  x.strokeStyle = 'rgba(2,10,14,.5)'; x.lineWidth = 2; for (let i = 0; i < 9; i++) { let px = Math.random() * w, py = Math.random() * h; x.beginPath(); x.moveTo(px, py); for (let k = 0; k < 4; k++) { px += (Math.random() - 0.5) * 60; py += Math.random() * 40; x.lineTo(px, py); } x.stroke(); }
 }, true);
 const texRock = canvasTex(256, 256, (x, w, h) => {
   const g = x.createLinearGradient(0, 0, 0, h); g.addColorStop(0, '#4a3a2a'); g.addColorStop(0.5, '#2e241a'); g.addColorStop(1, '#16110c'); x.fillStyle = g; x.fillRect(0, 0, w, h);
@@ -308,13 +316,15 @@ sky.scale.set(4700, 2700, 1); sky.position.set(0, 300, -3000);
     for (let x = -3400; x < 13400; x += w) { const q = new THREE.Mesh(planeGeo, m); q.scale.set(w + 2, hgt, 1); q.position.set(x + w / 2, y0, z); add(q); } };
   // fundo pintado: a floresta distante cobre o céu e se repete espelhada, sem emenda
   { const w = 18000, hgt = 1900;
-    vilaMat.uniforms.rep.value = w / (hgt * 1376 / 768);
-    const q = new THREE.Mesh(planeGeo, vilaMat); q.scale.set(w, hgt, 1); q.position.set(5000, -560, -2200); add(q); }
+    if (ARR) { vilaMat.uniforms.rep.value = w / (hgt * 1376 / 768);
+      const q = new THREE.Mesh(planeGeo, vilaMat); q.scale.set(w, hgt, 1); q.position.set(5000, -560, -2200); add(q); }
+    else { texFar.repeat.set(w / (hgt * 1584 / 672), 1);
+      const q = new THREE.Mesh(planeGeo, new THREE.MeshBasicMaterial({ map: texFar, fog: false })); q.scale.set(w, hgt, 1); q.position.set(5000, -700, -2200); add(q); } }
   // figueiras pintadas com varais de lanternas, em dois planos: o de trás menor e azulado pela distância
   const figs = (z, y0, hgt, tint, x0) => { const m = flatMat(texFigs, { color: tint, alphaTest: 0.4, side: THREE.DoubleSide }), w = hgt * 2.1053; figMats.push(m);
     for (let x = -3400 + x0, i = 0; x < 13400; x += w, i++) { const q = new THREE.Mesh(planeGeo, m); q.scale.set((i % 2 ? -1 : 1) * w, hgt, 1); q.position.set(x + w / 2, y0, z); add(q); } };
   figs(-1250, -330, 1450, 0x4c7896, 0); figs(-520, -150, 1020, 0xa9c4d6, 900);
-  if (!ARR) layer(texSebe, -104, -14, Math.round(150 * AR2.sebe), 150, -8);
+  if (!ARR) layer(texHedge, -98, -6, 760, 190, -8); // fase 1: a sebe escura com florzinhas acesas, como antes
   // névoa entre as camadas e fachos de luar
   [[-1750, -360, 900, 0x2aa7c0, 0.11, -22], [-900, -230, 620, 0x1c8fa8, 0.1, -18], [-300, -70, 330, 0x167d92, 0.1, -12]].forEach(([z, y, hgt, c, op, order], i) => {
     const m = add(new THREE.Mesh(planeGeo, addMat(texMist, c, op)), order); m.scale.set(20000, hgt, 1); m.position.set(5000, y, z); mists.push({ m, op, i, night: new THREE.Color(c) }); });
@@ -326,30 +336,38 @@ sky.scale.set(4700, 2700, 1); sky.position.set(0, 300, -3000);
   const pit = new THREE.Mesh(planeGeoC, dark); pit.scale.set(16000, 700, 1); pit.rotation.x = -Math.PI / 2; pit.position.set(5000, -300, 180); add(pit);
   const found = new THREE.Mesh(planeGeoC, dark); found.scale.set(16000, 300, 1); found.position.set(5000, -150, -100); add(found);
   // chão: cada trecho é um bloco de pedra coberto de grama; os buracos são vãos de verdade
-  const side = new THREE.MeshLambertMaterial({ map: texSoil });
-  const grassM = flatMat(texCapim, { alphaTest: 0.4, side: THREE.DoubleSide }); dayMats.push(grassM);
+  const side = new THREE.MeshLambertMaterial({ map: ARR ? texSoil : texRockBlue });
+  const grassM = flatMat(ARR ? texCapim : texGrass, { alphaTest: ARR ? 0.4 : 0.35, side: THREE.DoubleSide }); if (ARR) dayMats.push(grassM);
   const grassRow = (x0, x1, y, z, hgt, order) => { const w = x1 - x0, g = new THREE.PlaneGeometry(w, hgt).translate(0, hgt / 2, 0), uv = g.attributes.uv;
-    for (let i = 0; i < uv.count; i++) uv.setX(i, uv.getX(i) * w / (hgt * AR2.capim) + z * 0.013);
+    for (let i = 0; i < uv.count; i++) uv.setX(i, uv.getX(i) * w / (hgt * (ARR ? AR2.capim : 8)) + z * 0.013);
     const m = new THREE.Mesh(g, grassM); m.position.set(x0 + w / 2, y, z); add(m); };
   const mk = (x0, x1, top, arena) => {
-    const w = x1 - x0, g = boxUV(w, 300, FD, 180), topM = new THREE.MeshLambertMaterial({ map: top, color: top === texSandR ? 0x7a7062 : 0xffffff }); // areia do parquinho mais escura: sob o luar ela estourava de branco
+    const w = x1 - x0, g = boxUV(w, 300, FD, 180), topM = new THREE.MeshLambertMaterial({ map: top });
     const m = new THREE.Mesh(g, [side, side, topM, side, side, side]); m.position.set(x0 + w / 2, -150, FZ); m.receiveShadow = true; add(m);
     if (arena) return;
-    if (!ARR) { const pg = new THREE.PlaneGeometry(w, 150), uv = pg.attributes.uv; for (let i = 0; i < uv.count; i++) uv.setX(i, (x0 + uv.getX(i) * w) / 220);
-    const p = new THREE.Mesh(pg, new THREE.MeshLambertMaterial({ map: texCobble, transparent: true, alphaTest: 0.02 })); p.rotation.x = -Math.PI / 2; p.position.set(x0 + w / 2, 0.6, 6); p.receiveShadow = true; add(p, -1); }
+    if (!ARR) { const pg = new THREE.PlaneGeometry(w, 150), uv = pg.attributes.uv; for (let i = 0; i < uv.count; i++) uv.setX(i, (x0 + uv.getX(i) * w) / 300);
+    const p = new THREE.Mesh(pg, new THREE.MeshLambertMaterial({ map: texPath, transparent: true })); p.rotation.x = -Math.PI / 2; p.position.set(x0 + w / 2, 0.6, 6); p.receiveShadow = true; add(p, -1); }
     grassRow(x0, x1, 0, -86, 30, -7); grassRow(x0, x1, 0, 92, 15, 6); grassRow(x0, x1, 0, 210, 22, 6);
   };
   const spans = [];
   C.grounds.forEach(([x, w], i) => {
     const x0 = i === 0 ? -1600 : x, x1 = x + w;
-    if (C.BOSS && x1 > ARENA_X) { mk(x0, ARENA_X, texLawn); mk(ARENA_X, ARENA_X + 2400, texSandR, true); spans.push([x0, ARENA_X]); } else { mk(x0, x1, ARR ? texDirt : texLawn); spans.push([x0, x1]); }
+    if (C.BOSS && x1 > ARENA_X) { mk(x0, ARENA_X, texTurf); mk(ARENA_X, ARENA_X + 2400, texSand, true); spans.push([x0, ARENA_X]); } else { mk(x0, x1, ARR ? texDirt : texTurf); spans.push([x0, x1]); }
   });
   if (C.BOSS) { const curb = new THREE.Mesh(boxUV(14, 10, FD, 60), side); curb.position.set(ARENA_X, 4, FZ); curb.receiveShadow = true; add(curb); }
   // plataformas: tábuas de balanço penduradas nas figueiras por duas cordas, com hera caindo da borda
   // (antes eram lajes de pedra flutuando, sem motivo para estar no ar)
   const plankTop = new THREE.MeshLambertMaterial({ map: texWood, color: 0xcbb8a8, emissive: 0x0e0804 }), plankSide = new THREE.MeshLambertMaterial({ map: texWood, color: 0xb89878, emissive: 0x0e0602 });
   const ropeM = flatMat(texRope, { alphaTest: 0.4 }), ivyM = flatMat(texHera, { alphaTest: 0.4, side: THREE.DoubleSide, color: 0xd8e0d0 });
-  for (const [x, y, w] of C.plats) {
+  const moss = new THREE.MeshLambertMaterial({ map: texMoss, emissive: 0x0d4a40 }), rootM = flatMat(texRoots, { alphaTest: 0.3 });
+  if (!ARR) for (const [x, y, w] of C.plats) { // fase 1: lajes de pedra com musgo luminoso e raízes penduradas (como antes)
+    const m = new THREE.Mesh(boxUV(w, 18, 70, 120), [side, side, moss, side, side, side]);
+    m.position.set(x + w / 2, GROUND - y - 9, 0); m.castShadow = m.receiveShadow = true; add(m);
+    const rt = add(new THREE.Mesh(planeGeoTop, rootM)); rt.scale.set(w * 0.96, 54 + (x % 40), 1); rt.position.set(x + w / 2, GROUND - y - 16, 30);
+    const gl = add(new THREE.Mesh(planeGeoC, glowMat(PAL.mint, 0.22)), 3); gl.scale.set(w * 1.5, 46, 1); gl.position.set(x + w / 2, GROUND - y + 2, 34);
+    pulses.push({ m: gl, base: 0.22, ph: x });
+  }
+  if (ARR) for (const [x, y, w] of C.plats) {
     const top = GROUND - y;
     const m = new THREE.Mesh(boxUV(w, 16, 64, 128), [plankSide, plankSide, plankTop, plankSide, plankSide, plankSide]);
     m.position.set(x + w / 2, top - 8, 0); m.castShadow = m.receiveShadow = true; add(m);
@@ -364,27 +382,28 @@ sky.scale.set(4700, 2700, 1); sky.position.set(0, 300, -3000);
       const m = new THREE.Mesh(g, fr); m.rotation.y = Math.PI / 2; m.position.set(ex, 0.5, FZ); add(m); } }
   // flora luminosa atrás e à frente do caminho
   const plantM = PLANTS2.map(p => flatMat(p.tex, { alphaTest: 0.4, side: THREE.DoubleSide })), plantDark = PLANTS2.map(p => flatMat(p.tex, { alphaTest: 0.4, side: THREE.DoubleSide, color: 0x56646a })); dayMats.push(...plantM);
-  for (const [x0, x1] of spans.concat(C.BOSS ? [[ARENA_X + 20, ARENA_X + 1000]] : [])) for (let x = Math.max(-300, x0 + 50); x < x1 - 50; x += 170 + r() * 220) {
+  const swampM = texSwamp.map(s => flatMat(s.tex, { alphaTest: 0.35, side: THREE.DoubleSide })), swampDark = texSwamp.map(s => flatMat(s.tex, { alphaTest: 0.35, side: THREE.DoubleSide, color: 0x4a5a70 }));
+  if (!ARR) for (const [x0, x1] of spans.concat([[ARENA_X + 20, ARENA_X + 1000]])) for (let x = Math.max(-300, x0 + 50); x < x1 - 50; x += 130 + r() * 170) {
+    const k0 = Math.floor(r() * swampM.length), front = x0 < ARENA_X && r() < 0.22, k = front && k0 === 1 ? 0 : k0; // na frente da câmera só plantas baixas: as taboas altas escondiam o Timtim
+    const hgt = (front ? 44 : 58) + r() * (front ? 34 : 56) + (k === 1 ? 40 : 0), z = front ? 120 + r() * 120 : -92 + r() * 44;
+    const ar = SWAMP_AR[texSwamp[k].k], m = add(new THREE.Mesh(planeGeo, (front ? swampDark : swampM)[k]), front ? 8 : -6); m.scale.set(hgt * ar * (r() < 0.5 ? -1 : 1), hgt, 1); m.position.set(x, -3, z);
+    // brilho de pântano: fraco nas samambaias e taboas, mais forte embaixo dos cogumelos
+    const g = add(new THREE.Mesh(planeGeoC, glowMat(k === 2 ? PAL.cyan : 0x5fd8c0, k === 2 ? 0.34 : 0.14)), front ? 8 : -6); g.scale.set(hgt * 2.1, hgt * 1.6, 1); g.position.set(x, hgt * 0.4, z - 1); pulses.push({ m: g, base: k === 2 ? 0.34 : 0.14, ph: x * 0.37 });
+  }
+  if (ARR) for (const [x0, x1] of spans) for (let x = Math.max(-300, x0 + 50); x < x1 - 50; x += 170 + r() * 220) {
     const k = Math.floor(r() * PLANTS2.length), front = x0 < ARENA_X && r() < 0.22, hgt = (front ? 70 : 62) + r() * 46, z = front ? 140 + r() * 110 : -92 + r() * 40;
     const m = add(new THREE.Mesh(planeGeo, (front ? plantDark : plantM)[k]), front ? 8 : -6); m.scale.set(hgt * PLANTS2[k].ar * (r() < 0.5 ? -1 : 1), hgt, 1); m.position.set(x, -2, z); props3.push(m);
     r(); r(); // (mantém a mesma sequência de sorteios do cenário)
   }
   // postes com luz quente, e a poça de luz que eles fazem no chão
-  const lampM = flatMat(prop("poste"), { alphaTest: 0.4 }), benchM = flatMat(texBanco, { alphaTest: 0.4 }); dayMats.push(benchM);
+  const lampM = flatMat(ARR ? prop('poste') : texLamp, { alphaTest: 0.4 }), benchM = flatMat(ARR ? texBanco : texBench, { alphaTest: 0.4 }); if (ARR) dayMats.push(benchM, lampM);
   for (let x = 260, i = 0; x < END - 100; x += 880, i++) {
     if (!spans.some(([a, b]) => x > a + 40 && x < b - 40)) x += 170;
-    const m = add(new THREE.Mesh(planeGeo, lampM)); m.scale.set(240 * 70 / 460, 240, 1); m.position.set(x, -2, -72); dayMats.push(lampM);
-    const g = add(new THREE.Mesh(planeGeoC, glowMat(PAL.warm, 0.6)), -4); g.scale.set(200, 200, 1); g.position.set(x, 220, -70); pulses.push({ m: g, base: 0.6, ph: i * 2.2, slow: true });
+    const m = add(new THREE.Mesh(planeGeo, lampM)); if (ARR) { m.scale.set(240 * 70 / 460, 240, 1); m.position.set(x, -2, -72); } else { m.scale.set(66, 220, 1); m.position.set(x, 0, -72); }
+    const g = add(new THREE.Mesh(planeGeoC, glowMat(PAL.warm, 0.6)), -4); g.scale.set(ARR ? 200 : 230, ARR ? 200 : 230, 1); g.position.set(x, ARR ? 220 : 187, -70); pulses.push({ m: g, base: 0.6, ph: i * 2.2, slow: true });
     const pool = add(new THREE.Mesh(planeGeoC, glowMat(PAL.warm, 0.2)), 0); pool.rotation.x = -Math.PI / 2; pool.scale.set(420, 230, 1); pool.position.set(x, 1.2, -10);
-    if (i % 2 === 0 && spans.some(([a, b]) => x + 150 > a + 60 && x + 150 < b - 60)) { const b = add(new THREE.Mesh(planeGeo, benchM)); b.scale.set(66 * AR2.banco, 66, 1); b.position.set(x + 150, -2, -78); props3.push(b); }
+    if (i % 2 === 0 && spans.some(([a, b]) => x + 150 > a + 60 && x + 150 < b - 60)) { const b = add(new THREE.Mesh(planeGeo, benchM)); if (ARR) { b.scale.set(66 * AR2.banco, 66, 1); b.position.set(x + 150, -2, -78); } else { b.scale.set(112, 56, 1); b.position.set(x + 150, 0, -78); } }
   }
-  // marcos da praça da Vila de Reserva: o chafariz logo no começo, o coreto ao lado do caminho de cheiro e o carrinho de pipoca perto do parquinho
-  const mark = (tex, ar, x, hgt, z, seat) => { const m = add(new THREE.Mesh(planeGeo, flatMat(tex, { alphaTest: 0.4 }))); m.scale.set(hgt * ar, hgt, 1); m.position.set(x, -3, z); landmarks.push(m);
-    if (seat) { const sh = add(new THREE.Mesh(planeGeoC, new THREE.MeshBasicMaterial({ map: texSoft, color: 0x000000, transparent: true, opacity: 0.5, depthWrite: false, fog: false })), 0);
-      sh.rotation.x = -Math.PI / 2; sh.scale.set(hgt * ar * 1.15, hgt * 0.3, 1); sh.position.set(x, 1, z + 8); } return m; };
-  if (!ARR) { mark(texChafariz, 343 / 300, 2470, 150, -84, true);
-    mark(texCoreto, 451 / 560, 5000, 440, -360, false).position.y = -70;
-    mark(texPipoca, 233 / 300, 7900, 126, -80, true); }
   // varal de luzinhas nas cores da bandana do Timtim
   const cols = [0xff7a2a, 0xffd23f, 0x35d68f, 0xff5a6e, 0x5aa2ff, 0xfff0d6].map(c => new THREE.Color(c));
   const pos = [], col = [], line = [];
@@ -398,7 +417,7 @@ sky.scale.set(4700, 2700, 1); sky.position.set(0, 300, -3000);
   add(new THREE.Points(bg, new THREE.PointsMaterial({ map: texSoft, size: 95, vertexColors: true, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, fog: false })), -3);
   // bandeirinhas de festa junina entre um varal de luz e outro, um pouco mais atrás
   const buntM = flatMat(texBunting, { alphaTest: 0.4, side: THREE.DoubleSide });
-  for (let x0 = 530, i = 0; x0 < END - 300; x0 += ARR ? 430 : 760, i++) { const m = add(new THREE.Mesh(planeGeoTop, buntM)); const bw = 520 + (i % 3) * 50;
+  if (ARR) for (let x0 = 530, i = 0; x0 < END - 300; x0 += ARR ? 430 : 760, i++) { const m = add(new THREE.Mesh(planeGeoTop, buntM)); const bw = 520 + (i % 3) * 50;
     m.scale.set(bw, bw * 0.13, 1); m.position.set(x0 + 280, (ARR ? 330 + (i % 3) * 45 : 360 + (i % 2) * 30), ARR ? -120 - (i % 3) * 90 : -330); buntings.push({ m, ph: i * 1.7 }); }
   const lg = new THREE.BufferGeometry(); lg.setAttribute('position', new THREE.Float32BufferAttribute(line, 3));
   add(new THREE.LineSegments(lg, new THREE.LineBasicMaterial({ color: 0x06202b, fog: false })), -4);
@@ -412,16 +431,16 @@ sky.scale.set(4700, 2700, 1); sky.position.set(0, 300, -3000);
   // parquinho: silhuetas contra um clarão de lua
   const moon = add(new THREE.Mesh(planeGeoC, glowMat(0x8fe8ff, 0.5)), -15); moon.scale.set(1500, 1300, 1); moon.position.set(ARENA_X + 500, 300, -500); pulses.push({ m: moon, base: 0.5, ph: 1, slow: true });
   // parquinho de verdade (balanço, escorregador, trepa-trepa e gangorra), no lugar das silhuetas desenhadas por código
-  const playM = flatMat(prop('parquinho'), { alphaTest: 0.4 }); dayMats.push(playM);
-  const play = add(new THREE.Mesh(planeGeo, playM)); play.scale.set(320 * 1777 / 520, 320, 1); play.position.set(ARENA_X + 480, -6, -110);
+  const play = add(new THREE.Mesh(planeGeo, flatMat(texPlay, { alphaTest: 0.3 }))); play.scale.set(1180, 590, 1); play.position.set(ARENA_X + 480, -22, -90);
   const apool = add(new THREE.Mesh(planeGeoC, glowMat(0x7fe0ff, 0.16)), 0); apool.rotation.x = -Math.PI / 2; apool.scale.set(1100, 420, 1); apool.position.set(ARENA_X + 480, 1.2, 40);
   }
   // primeiro plano: folhagens escuras entre a câmera e o jogo, embaixo e penduradas em cima
-  const bushM = new THREE.MeshBasicMaterial({ map: texFolhagem, color: 0x3c4a50, transparent: true, depthWrite: false, fog: false, side: THREE.DoubleSide });
+  const bushM = new THREE.MeshBasicMaterial({ map: ARR ? texFolhagem : texBush, color: ARR ? 0x3a2a24 : 0xffffff, transparent: true, depthWrite: false, fog: false, side: THREE.DoubleSide });
   const hangM = new THREE.MeshBasicMaterial({ map: texHera, color: 0x34403f, transparent: true, depthWrite: false, fog: false, side: THREE.DoubleSide });
   for (let i = 0, x = -200; x < END - 300; i++, x += 620 + (i * 397 % 420)) {
-    const m = new THREE.Mesh(planeGeo, bushM); m.scale.set((150 + (i % 3) * 24) * AR2.folhagem, 150 + (i % 3) * 24, 1); m.position.set(x, -60, 350 + (i % 2) * 50); add(m, 9);
-    if (i % 2) { const t = new THREE.Mesh(planeGeoTop, hangM); t.scale.set(200 * AR2.hera, 200, 1); t.position.set(x + 310, 470, 330); add(t, 9); }
+    const m = new THREE.Mesh(planeGeo, bushM); if (ARR) { m.scale.set((150 + (i % 3) * 24) * AR2.folhagem, 150 + (i % 3) * 24, 1); m.position.set(x, -60, 350 + (i % 2) * 50); } else { m.scale.set(300 + (i % 3) * 60, 118, 1); m.position.set(x, -46, 350 + (i % 2) * 50); } add(m, 9);
+    if (i % 2) { if (ARR) { const t = new THREE.Mesh(planeGeoTop, hangM); t.scale.set(200 * AR2.hera, 200, 1); t.position.set(x + 310, 470, 330); add(t, 9); }
+      else { const t = new THREE.Mesh(planeGeo, bushM); t.scale.set(420, -150, 1); t.position.set(x + 310, 384, 330); add(t, 9); } }
   }
 })();
 // ---------------- o Arraial (fase 2) ----------------
@@ -473,8 +492,8 @@ const texFalse = canvasTex(512, 320, (x, w, h) => { const r = rng(21);
     x.fillStyle = i % 4 ? 'rgba(43,179,154,.55)' : 'rgba(157,255,230,.7)'; x.beginPath(); x.ellipse(px, py, 6, 3, r() * 3, 0, 7); x.fill(); }
   for (let i = 0; i < 9; i++) { const px = 70 + r() * (w - 140), py = h - 40 - r() * 140, c = i % 3 ? '190,150,255' : '120,235,255';
     const g = x.createRadialGradient(px, py, 0, px, py, 9); g.addColorStop(0, `rgba(${c},.95)`); g.addColorStop(1, `rgba(${c},0)`); x.fillStyle = g; x.fillRect(px - 9, py - 9, 18, 18); } });
-const hedgeM = C.hedges.map(hd => { const m = add(new THREE.Mesh(planeGeo, new THREE.MeshBasicMaterial({ map: texSebe, color: 0xc8d0c8, transparent: true, depthWrite: false, fog: false })), 9);
-  m.scale.set(hd.w + 120, 172, 1); m.position.set(hd.x + hd.w / 2, -12, 48);
+const hedgeM = C.hedges.map(hd => { const m = add(new THREE.Mesh(planeGeo, new THREE.MeshBasicMaterial({ map: texFalse, transparent: true, depthWrite: false, fog: false })), 9);
+  m.scale.set(hd.w + 70, 168, 1); m.position.set(hd.x + hd.w / 2, -6, 48);
   m.userData.glow = add(new THREE.Mesh(planeGeoC, glowMat(0x7dff6a, 0)), 9); m.userData.glow.scale.set(hd.w + 120, 190, 1); m.userData.glow.position.set(hd.x + hd.w / 2, 80, 50);
   return m; });
 // caminho de cheiro: lajes que só aparecem depois de farejadas; crescem do nada com uma luz verde
@@ -486,8 +505,8 @@ const trailM = C.trails.map(t => t.plats.map(([x, y, w], k) => { const m = new T
 // o rastro de cheiro: uma fita de luzinhas verdes que sai do focinho e serpenteia até o segredo
 const SCENT_N = 34, scentM = []; for (let i = 0; i < SCENT_N; i++) { const m = add(new THREE.Mesh(planeGeoC, glowMat(i % 4 ? 0x7dff6a : 0xd8ffb0, 0)), 10); m.visible = false; scentM.push(m); } // na frente de tudo, até da moita
 // vaga-lumes e esporos de luz flutuando em volta da câmera
-const FLY = 34, flies = [];
-{ const r = rng(55); for (let i = 0; i < FLY; i++) { const m = add(new THREE.Mesh(planeGeoC, glowMat(i % 3 === 0 ? 0xffe6a0 : 0xfff0b8, 0.8)), 8);
+const FLY = ARR ? 40 : 70, flies = [];
+{ const r = rng(55); for (let i = 0; i < FLY; i++) { const m = add(new THREE.Mesh(planeGeoC, glowMat(ARR ? (i % 3 === 0 ? 0xffc070 : 0xffe6a0) : i % 5 === 0 ? 0xfff0a8 : i % 3 === 0 ? PAL.violet : PAL.cyan, 0.8)), 8);
   flies.push({ m, x: r() * 1500, y: 20 + r() * 400, z: -90 + r() * 400, s: 4 + r() * 9, ph: r() * 6.28, sp: 0.4 + r() * 1.2 }); } }
 
 // ---------------- luz e sombra ----------------
@@ -838,7 +857,7 @@ R.frame = (rdt) => {
     m.rotation.z = e.alive ? 0 : Math.PI; m.visible = e.y < H + 200; m.castShadow = e.alive;
     // perigo à vista: um halo rosado que pulsa atrás de cada pombo, mais forte quando o Timtim chega perto
     { const w = m.userData.warn, near = Math.max(0, 1 - Math.abs(tx - m.position.x) / 420), s = 120 + Math.sin(time * 6 + i) * 14 + near * 30;
-      w.visible = e.alive && m.visible; w.position.set(m.position.x, m.position.y + 30, 2); w.scale.set(s * 1.25, s, 1); w.material.opacity = 0.18 + near * 0.3 + Math.sin(time * 6 + i) * 0.06; }
+      w.visible = e.alive && m.visible; w.position.set(m.position.x, m.position.y + 30, 2); w.scale.set(s * 1.25, s, 1); w.material.opacity = ARR ? 0.18 + near * 0.3 + Math.sin(time * 6 + i) * 0.06 : 0.75 + near * 0.25 + Math.sin(time * 6 + i) * 0.15; }
     // pombo anda como pombo: a cabeça vai e volta a cada passo
     legs(m, e.t * 12, 0, { f: -1, tailX: 0, tailY: e.alive ? Math.sin(e.t * 12) * 0.02 : 0, headX: 0, headY: 0, breathe: 0, shear: 0 });
   });
@@ -935,18 +954,19 @@ R.frame = (rdt) => {
     pass(compMat, null);
   } else { renderer.setRenderTarget(null); renderer.render(scene, camera); }
 };
-// ---------------- do entardecer à noite ----------------
-// A fase começa com o sol se pondo atrás da vila e termina à noite, com lua cheia, no parquinho onde está o Furtão.
-// k = 0 é o entardecer e k = 1 é a noite; tudo o que é pintado ou iluminado acompanha.
+// ---------------- a cor de cada fase ----------------
+// Cada fase tem uma cor predominante e um sentimento próprio, para ficar claro que mudou de fase:
+// fase 1 (o Parque) = AZUL, noite soturna de pântano; fase 2 (o Arraial) = LARANJA, festa quente iluminada por fogueiras.
+// k = 1 usa a paleta azul (NIGHT_); k = 0 usa a paleta laranja (DUSK, que aqui é o Arraial).
 const DAY = { x0: 1400, x1: ARENA_X - 700 };
-const DUSK = { bg: new THREE.Color(0x2a1426), figB: new THREE.Color(0x9c7c86), figF: new THREE.Color(0xe6c2b2), mist: new THREE.Color(0x7a4234), shaft: new THREE.Color(0xc0865a),
-  amb: new THREE.Color(0xd2a6a0), sun: new THREE.Color(0xffb27a), mark: new THREE.Color(0xfff0e2), bunt: new THREE.Color(0xffffff), shade: new THREE.Vector3(1.06, .9, .96) };
+const DUSK = { bg: new THREE.Color(0x1e0a04), figB: new THREE.Color(0x6a3a22), figF: new THREE.Color(0xb8764c), mist: new THREE.Color(0xff7a2a), shaft: new THREE.Color(0xffa050),
+  amb: new THREE.Color(0xffa868), sun: new THREE.Color(0xffb070), mark: new THREE.Color(0xffd2a8), bunt: new THREE.Color(0xffe2c4), shade: new THREE.Vector3(1.12, .9, .72) };
 const NIGHT_ = { bg: new THREE.Color(0x020a12), figB: new THREE.Color(0x4c7896), figF: new THREE.Color(0xa9c4d6), amb: new THREE.Color(0x6f9cc0), sun: new THREE.Color(0xa6dcff),
-  mark: new THREE.Color(0x9fb4d6), bunt: new THREE.Color(0xa8b8d4), shade: new THREE.Vector3(.80, 1.02, 1.16) };
+  mark: new THREE.Color(0xffffff), bunt: new THREE.Color(0xa8b8d4), shade: new THREE.Vector3(.80, 1.02, 1.16) };
 const tmpC = new THREE.Color();
 function dayLight(cx) {
-  const t = ARR ? 1 : Math.max(0, Math.min(1, (cx - DAY.x0) / (DAY.x1 - DAY.x0))), k = t * t * (3 - 2 * t);
-  vilaMat.uniforms.k.value = k; vilaMat.uniforms.tint.value.setScalar(0.7 + 0.12 * k);
+  const k = ARR ? 0 : 1; // a cor é da fase inteira: não muda ao longo do caminho
+  vilaMat.uniforms.k.value = 0; vilaMat.uniforms.tint.value.setScalar(0.9);
   scene.background.copy(DUSK.bg).lerp(NIGHT_.bg, k);
   if (figMats[0]) figMats[0].color.copy(DUSK.figB).lerp(NIGHT_.figB, k);
   if (figMats[1]) figMats[1].color.copy(DUSK.figF).lerp(NIGHT_.figF, k);

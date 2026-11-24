@@ -8,12 +8,18 @@
 3. **Impacto.** Cada pisão congela o jogo por um instante (hitstop), treme a câmera e solta faíscas de luz. O golpe final é em câmera lenta.
 4. **Piada interna.** Os chefões são "os pugs da vizinha", com cena de apresentação própria. Os dois amigos chihuahuas esperam no caminho e dão biscoito.
 
-## Direção de arte: a praça da Vila de Reserva, do entardecer à noite
-Referência de clima: plataformas atmosféricos de floresta luminosa. A identidade é nossa: a praça de uma vila do interior do Brasil, com figueiras, postes, bancos, caminho de pedra e parquinho.
-- **A hora passa durante a fase.** O Timtim sai atrás do Furtão com o sol se pondo atrás da vila (casario colonial e capelinha, `bg/vila-tarde.jpg`) e chega ao parquinho à noite, com lua cheia (`bg/vila-noite.jpg`, a mesma vista). As duas pinturas se misturam conforme a câmera avança, e a névoa, os fachos de luz, a luz ambiente, as figueiras e o tom das sombras acompanham (`dayLight` em `render3d.js`).
-- **Marcos da praça**, um por trecho: o chafariz logo no começo, o coreto ao lado do caminho de cheiro e o carrinho de pipoca perto do parquinho (arte do Google Flow, recortada).
-- **Plataformas são tábuas de balanço** penduradas nas figueiras por duas cordas, com hera caindo da borda. Nada flutua sem motivo.
-- **Festa junina**: bandeirinhas nas cores da bandana do Timtim balançam ao fundo, entre os varais de luzes.
+## Direção de arte: cada fase tem uma cor e um sentimento
+Regra (Pedro, 24/11/2026): cada fase tem **uma cor predominante e um sentimento próprio**, para ficar claro que mudou de fase. A paleta é da fase inteira, não muda ao longo do caminho (`dayLight` em `render3d.js`).
+
+| Fase | Cor | Sentimento | O que compõe |
+|---|---|---|---|
+| 1 · O Parque | **azul** | noite soturna, misteriosa, "cara de pântano" | floresta enevoada ao fundo (`bg/far.jpg`), figueiras com lanternas, varais de luzinhas, lajes de pedra com musgo luminoso e raízes, sebe escura com florzinhas acesas, plantas de pântano ao luar (samambaia, taboa, cogumelos com brilho ciano), esporos azuis e violeta |
+| 2 · O Arraial | **laranja** | festa quente, aconchegante, iluminada por fogueiras | a vila em noite de fogueiras (`bg/vila-laranja.jpg`), barracas, bandeirinhas, fogueiras, mastro de São João, tábuas penduradas, terra batida |
+| 3 · O Quintal da Vizinha | (a definir) | | |
+| 4 · Dia de Chuva | (a definir) | | |
+| 5 · O Covil do Furtão | (a definir) | | |
+
+O que **não** entra na fase 1: bandeirinhas, cenário colorido ou "feliz", vila ao entardecer, marcos coloridos da praça (chafariz, coreto, carrinho de pipoca: foram testados e reprovados em 24/11/2026).
 - **Profundidade por valor.** Quanto mais longe, mais claro (rosado no entardecer, azulado à noite); quanto mais perto, mais escuro. O primeiro plano é quase preto e desfocado.
 - **A luz conta a história.** Luz quente e baixa, sombras roxas. O que importa para jogar brilha: o Timtim tem um halo suave, os biscoitos são luzes douradas, os postes fazem poças de luz âmbar.
 - **O mundo respira.** Fachos de sol, névoa, flores e cogumelos que pulsam, vaga-lumes, capim na frente dos pés.
@@ -37,10 +43,9 @@ Início seguro com biscoitos no chão → primeiras lajes → primeiro buraco �
 Três níveis. Se a média cair abaixo de 45 quadros por segundo: nível 1 desliga o desfoque e reduz a resolução; nível 0 desliga sombras, pós-processamento, névoa, parte dos fachos e dos halos.
 Todas as imagens vão para a placa de vídeo ainda no carregamento (`warmUp`), para o primeiro segundo da fase não engasgar.
 
-## Versão 3.0: direção de arte quase realista (24/11/2026)
-- Nada no cenário é "desenho de código" à vista: chão, tábuas, plantas, sebes, bancos, postes e o parquinho são arte quase realista (Google Flow), no mesmo acabamento de filme de animação dos personagens. O código cuida só de luz, névoa, partículas e brilhos.
-- A luz pintada acompanha a hora: tudo o que não recebe luz da cena (arte recortada) é tingido pela mesma cor do entardecer ou da noite (`dayMats` em `render3d.js`).
-- Brilhos ficam para o que importa para jogar (biscoitos, brinquedo, chama, checkpoint) e para as luzes de verdade (postes, varais, fogueiras). Os pombos têm só um halo discreto.
+## Arte quase realista, sempre dentro da cor da fase (24/11/2026)
+- Arte quase realista (Google Flow) é bem-vinda quando é graduada para a paleta da fase: as plantas de pântano da fase 1 já foram geradas ao luar azul; a arte do Arraial é tingida de laranja.
+- Brilhos ficam para o que importa para jogar (biscoitos, brinquedo, chama, checkpoint) e para as luzes de verdade (postes, varais, fogueiras).
 - Pular no Furtão nunca tira coração: cair por cima conta como pisão, e durante a sacudida que ele dá o contato não machuca.
 
 ## Fora do escopo (por enquanto)

@@ -45,8 +45,8 @@ Geradas no Google Flow (Nano Banana Pro, 24/11/2026) com a folha de personagem e
 - **Feito:** `bg/shelf.jpg`, a casinha de madeira à noite com 5 nichos, varal de luzes e bandeirinhas (fundo da estante).
 - **Feito, ainda sem uso:** `sprites/tintim-glide.png`, o Timtim planando com a bandana aberta como asa-delta, para o Arraial.
 
-- **Feito:** a praça da fase 1 (24/11/2026): `bg/vila-tarde.jpg` e `bg/vila-noite.jpg` (mesma vista, do entardecer à noite), `bg/chafariz.png`, `bg/coreto.png` e `bg/pipoca.png`.
 
-- **Feito (versão 3.0, 24/11/2026):** a arte desenhada por código do cenário virou arte quase realista do Google Flow: texturas de gramado, paralelepípedo, terra, madeira e areia (`assets/tex/`), e sebe, capim, hera, folhagem, samambaia, flores, agapanto, banco, poste, parquinho, barracas, fogueira, mastro e a sanfoninha (`assets/props/`, `sprites/toy-sanfona.png`).
+- **Feito (24/11/2026):** cor por fase. Fase 1 azul: plantas de pântano ao luar (`props/pantano-*.png`). Fase 2 laranja: `bg/vila-laranja.jpg`, barracas, pescaria, fogueira, mastro, sanfoninha, texturas de terra e madeira, capim, hera, folhagem, plantas, banco e poste (`assets/props/`, `assets/tex/`).
+- Testado e reprovado na fase 1 (24/11/2026): vila do entardecer à noite, bandeirinhas, chafariz, coreto, carrinho de pipoca, sebe florida, gramado e paralelepípedo realistas. Deixaram a fase genérica e colorida demais.
 
 Ainda falta: uma trilha própria de forró para o Arraial (hoje ele usa a música da fase 1) e a arte de abertura pintada do Arraial (hoje é um cartão de texto).
