@@ -24,7 +24,7 @@ const PAL = { far: '#14506a', mid: '#0b3447', near: '#06202d', back: '#04151d', 
   cyan: 0x6fe9ff, violet: 0xa98bff, warm: 0xffb866, mint: 0x7dffd0 };
 
 // ---------------- texturas ----------------
-THREE.DefaultLoadingManager.onLoad = () => { warmUp(); R.ready = true; TT.emit('assetsReady'); };
+THREE.DefaultLoadingManager.onLoad = () => { if (R.ready) return; warmUp(); R.ready = true; TT.emit('assetsReady'); }; // (antes disparava várias vezes: a 2ª apertava "Jogar" de novo e cortava a história da fase 2)
 const TL = new THREE.TextureLoader();
 const load = p => { const t = TL.load('assets/' + p); t.anisotropy = 4; return t; };
 const AR = { 'tintim-idle': 232 / 220, 'tintim-run': 1.2143, 'tintim-jump': 270 / 200, 'tintim-fall': 240 / 220, 'tintim-hurt': 218 / 220,
@@ -35,7 +35,8 @@ AR.choco = 1.25;
 for (const k in AR) if (k !== 'choco') TEX[k] = load('sprites/' + k + '.png');
 // o lobo-guará (chefão do Arraial) e o bilhete do correio elegante: artes do Google Flow, carregadas só na fase 2
 if (C.FASE === 2) { const more = { 'guara-anda': 313 / 320, 'guara-agacha': 601 / 320, 'guara-bote': 470 / 320, 'guara-corre': 534 / 320, 'guara-tonta': 359 / 320, 'guara-uiva': 331 / 320, bilhete: 180 / 160, fruta: 132 / 140 };
-  for (const k in more) { AR[k] = more[k]; TEX[k] = load('sprites/' + k + '.png'); } }
+  for (const k in more) { AR[k] = more[k]; TEX[k] = load('sprites/' + k + '.png'); }
+  TEX['bandana-asa'] = load('sprites/bandana-asa.png'); }
 // tiras de quadros desenhados: corrida do Timtim (8), corrida dos chihuahuas e andar do pombo (4 cada)
 const FRAMES = { 'tintim-run': 8, 'chi-pb-run': 4, 'chi-br-run': 4, pigeon: 4 };
 for (const k in FRAMES) if (TEX[k]) TEX[k].repeat.set(1 / FRAMES[k], 1);
@@ -360,7 +361,7 @@ sky.scale.set(4700, 2700, 1); sky.position.set(0, 300, -3000);
     const m = add(new THREE.Mesh(planeGeoTop, addMat(texShaft, i % 4 === 1 ? 0xa9a0ff : 0x8fe6ff, 0.2)), near ? -11 : -19);
     m.scale.set((150 + r() * 190) * k, 1150 * k, 1); m.position.set(-400 + i * 560 + r() * 300, 760 * (near ? 1 : 1.25), z); m.rotation.z = -0.34 - r() * 0.1; shafts.push({ m, ph: r() * 6, op: (near ? 0.12 : 0.2) * 1.75, night: m.material.color.clone() }); }
   // abismo e fundação
-  const dark = new THREE.MeshBasicMaterial({ color: 0x010910, fog: false });
+  const dark = new THREE.MeshBasicMaterial({ color: ARR ? 0x100503 : 0x010910, fog: false }); // o fundo dos buracos tem a cor da fase (no Arraial, terra escura, não azul)
   const pit = new THREE.Mesh(planeGeoC, dark); pit.scale.set(16000, 700, 1); pit.rotation.x = -Math.PI / 2; pit.position.set(5000, -300, 180); add(pit);
   const found = new THREE.Mesh(planeGeoC, dark); found.scale.set(16000, 300, 1); found.position.set(5000, -150, -100); add(found);
   // chão: cada trecho é um bloco de pedra coberto de grama; os buracos são vãos de verdade
@@ -472,7 +473,7 @@ sky.scale.set(4700, 2700, 1); sky.position.set(0, 300, -3000);
   const apool = add(new THREE.Mesh(planeGeoC, glowMat(0x7fe0ff, 0.16)), 0); apool.rotation.x = -Math.PI / 2; apool.scale.set(1100, 420, 1); apool.position.set(ARENA_X + 480, 1.2, 40);
   }
   // primeiro plano: folhagens escuras entre a câmera e o jogo, embaixo e penduradas em cima
-  const FRONT = ARR ? 0x2c1812 : 0xffffff; // no Arraial, o primeiro plano vira silhueta quase preta (o jogo fica entre ela e o fundo claro)
+  const FRONT = ARR ? 0x4a2a1e : 0xffffff; // no Arraial, o primeiro plano vira silhueta quase preta (o jogo fica entre ela e o fundo claro)
   const frenteM = texFrente.map(t => new THREE.MeshBasicMaterial({ map: t, color: FRONT, transparent: true, depthWrite: false, fog: false, side: THREE.DoubleSide }));
   const galhoM = texGalhos && new THREE.MeshBasicMaterial({ map: texGalhos, color: FRONT, transparent: true, depthWrite: false, fog: false, side: THREE.DoubleSide });
   for (let i = 0, x = -200; x < END - 300; i++, x += 620 + (i * 397 % 420)) {
@@ -501,10 +502,11 @@ if (ARR) {
   const colT = canvasTex(64, 256, (x, w, h) => { const g = x.createLinearGradient(0, 0, w, 0); g.addColorStop(0, 'rgba(255,255,255,0)'); g.addColorStop(0.5, 'rgba(255,255,255,1)'); g.addColorStop(1, 'rgba(255,255,255,0)');
     x.fillStyle = g; x.fillRect(0, 0, w, h); x.globalCompositeOperation = 'destination-in'; const v = x.createLinearGradient(0, h, 0, 0); v.addColorStop(0, 'rgba(0,0,0,.9)'); v.addColorStop(0.7, 'rgba(0,0,0,.35)'); v.addColorStop(1, 'rgba(0,0,0,0)'); x.fillStyle = v; x.fillRect(0, 0, w, h); });
   for (const f of C.fires) {
-    const m = add(new THREE.Mesh(planeGeo, flatMat(tFogueira, { alphaTest: 0.3 })), 6); m.scale.set(150 * 242 / 360, 150, 1); m.position.set(f.x, -6, 8);
-    const g = add(new THREE.Mesh(planeGeoC, glowMat(0xff9a3a, 0.7)), 7); g.scale.set(300, 260, 1); g.position.set(f.x, 70, 10);
+    // a fogueira fica atrás dos personagens (z negativo): quem passa por ela passa na frente, nunca é coberto pelo fogo
+    const m = add(new THREE.Mesh(planeGeo, flatMat(tFogueira, { alphaTest: 0.3 })), 2); m.scale.set(150 * 242 / 360, 150, 1); m.position.set(f.x, -6, -14);
+    const g = add(new THREE.Mesh(planeGeoC, glowMat(0xff9a3a, 0.7)), 2); g.scale.set(300, 260, 1); g.position.set(f.x, 70, -12);
     const pool = add(new THREE.Mesh(planeGeoC, glowMat(0xff8a30, 0.35)), 0); pool.rotation.x = -Math.PI / 2; pool.scale.set(520, 300, 1); pool.position.set(f.x, 1.2, 20);
-    const col = add(new THREE.Mesh(planeGeo, addMat(colT, 0xffc070, 0.16)), 7); col.scale.set(C.FIRE.col * 2.2, GROUND - C.FIRE.top - 60, 1); col.position.set(f.x, 60, 12);
+    const col = add(new THREE.Mesh(planeGeo, addMat(colT, 0xffc070, 0.16)), 7); col.scale.set(C.FIRE.col * 2.2, GROUND - C.FIRE.top - 60, 1); col.position.set(f.x, 60, -10);
     fireM.push({ f, m, g, col, ph: f.x * 0.01 });
   }
   for (let i = 0; i < 2; i++) { const l = new THREE.PointLight(0xff9a40, 0, 520, 1.6); scene.add(l); fireLights.push(l); }
@@ -595,7 +597,11 @@ function setAnim(m, name, h, flip, frame = 0, n = 1) {
   m.scale.set(h * AR[name] * (flip ? -1 : 1), h, 1);
 }
 const NIGHT = 0x9db3da; // criaturas sob o luar; o Timtim e os amigos têm luz própria
-const tintim = sprite('tintim-idle', 6, true, 0xfffaf2);
+const tintim = sprite('tintim-idle', 6, true, 0xfffaf2); R.tintimMesh = tintim; // (para os testes olharem o desenho)
+// a bandana que vira asa-delta na planada: um pano com ondas que correm do nó para a ponta (a ponta solta balança mais)
+let capeK = 0; const cape = TEX['bandana-asa'] ? add(new THREE.Mesh(new THREE.PlaneGeometry(1, 1, 12, 1).translate(-0.5, 0.15, 0),
+  new THREE.MeshBasicMaterial({ map: TEX['bandana-asa'], color: 0xfff2e6, transparent: true, alphaTest: 0.2, side: THREE.DoubleSide, fog: false })), 5) : null;
+const capeX = [], capeY = []; if (cape) { const pa = cape.geometry.attributes.position; for (let i = 0; i < pa.count; i++) { capeX.push(pa.getX(i)); capeY.push(pa.getY(i)); } cape.visible = false; R.capeMesh = cape; }
 const halo = add(new THREE.Mesh(planeGeoC, glowMat(ARR ? 0xffdfa8 : 0xbfeeff, 0.38)), 4);
 // contorno de luz: uma cópia do Timtim um pouco maior, somando luz atrás dele; só a borda aparece (o corpo opaco cobre o resto).
 // É a linguagem de Ori: o herói pequeno e luminoso, recortado contra a floresta escura.
@@ -630,7 +636,7 @@ const fruitM = sprite(ARR ? 'fruta' : 'cookie', 6, ARR); fruitM.geometry = plane
 const fruitG = add(new THREE.Mesh(planeGeoC, glowMat(0xc8ff7a, 0.5)), 5); fruitG.visible = false;
 const roarM = [0, 1, 2].map(() => { const m = add(new THREE.Mesh(new THREE.RingGeometry(0.82, 1, 48), new THREE.MeshBasicMaterial({ color: 0xffe2b0, transparent: true, opacity: 0, depthWrite: false, blending: THREE.AdditiveBlending, fog: false, side: THREE.DoubleSide })), 7); m.visible = false; return m; });
 let roarT = 9, roarAt = { x: 0, y: 0 };
-const runnerM = ARR ? [0, 1, 2, 3, 4, 5, 6, 7].map(() => { const m = sprite('galinha', 6, true, 0xffffff); m.geometry = legGeo(); m.material.color.setRGB(1.15, 1.08, 1.02); m.visible = false; return m; }) : [];
+const runnerM = ARR ? Array.from({ length: 14 }, () => { const m = sprite('galinha', 6, true, 0xffffff); m.geometry = legGeo(); m.material.color.setRGB(1.15, 1.08, 1.02); m.visible = false; return m; }) : [];
 
 
 // contorno de luz nos personagens do Arraial: um tom frio e claro, o oposto do laranja do cenário, separa quem se mexe
@@ -712,6 +718,8 @@ TT.on('gift', e => burst(e.x, e.y, [0xffd98a, 0xff7d9c, 0xffffff, 0x8fe9ff], 22,
 TT.on('sniff', e => { for (let i = 0; i < 5; i++) spawn({ x: e.x, y: e.y, vx: (Math.random() - 0.5) * 60, vy: -30 - Math.random() * 40, g: -20, life: 0.5, r: 2.5, grow: 4, color: 0x9dff7a }); });
 TT.on('reveal', e => { R.flash = 0.25; const t = C.trails.find(q => q.id === e.id); t.plats.forEach(([x, y, w]) => burst(x + w / 2, y, [0x7dff6a, 0xd8ffb0, 0xffffff], 14, 220, 120)); });
 TT.on('toy', e => { burst(e.x, e.y, [0x9dff7a, 0xffd23f, 0xffffff, 0x8fe9ff], 36, 360, 200); R.flash = 0.3; });
+// o Furtão ri com o macaco na boca: o Timtim leva um susto (estica para cima e volta), parado, encarando o ladrão
+TT.on('laugh', () => { sqV += 5.5; });
 TT.on('start', e => { parts.length = 0; if (!e.retry) trailM.flat().forEach(q => { q.up = 0; }); ghosts.length = 0; R.flash = 0; R.zoom = 1; sq = 1; sqV = 0; if (!e.retry) flags.forEach(f => { f.on = false; f.up = 0; }); });
 let confettiT = 0;
 TT.on('win', () => { confettiT = 4; });
@@ -816,20 +824,22 @@ R.frame = (rdt) => {
   if (moving) runPhase += Math.abs(p.vx) * live / 15; // passo acompanha a velocidade: as patas não patinam
   let name = 'tintim-idle', h = 80, fr = 0, nf = 1;
   if (p.won) { name = 'tintim-win'; h = 92; }
-  else if (S.thief && S.thief.state === 'laugh' && p.onGround) name = 'tintim-hurt'; // assustado: roubaram o macaco!
   else if (p.hurtT > 0 || S.mode === 'lose') name = 'tintim-hurt';
   else if (!p.onGround) { if (p.vy < 0 || p.djT > 0) { name = 'tintim-jump'; h = 77; } else { name = 'tintim-fall'; h = 82; } }
   else if (moving) { name = 'tintim-run'; h = 82; nf = 8; fr = Math.floor(runPhase) % 8; } // a corrida desenhada (8 quadros), com o corpo ondulando
   const sniffing = p.sniff > 0 && p.onGround && name === 'tintim-idle'; // farejando: pose própria, focinho no chão, focinho tremendo
   if (sniffing) { name = 'tintim-sniff'; h = 69; }
-  if (p.gliding && !p.won && p.hurtT <= 0) { name = 'tintim-glide'; h = 112; } // bandana aberta como asa-delta
+  if (p.gliding && !p.won && p.hurtT <= 0) { name = 'tintim-glide'; h = 78; } // o corpo do pulo, esticado; a bandana abre atrás como asa-delta
   // virar: espelha na hora e dá uma agachadinha de impulso (antes a imagem se espremia de lado e parecia um papel girando)
   if (p.face !== faceS) { faceS = p.face; sqV -= 4; }
   // animação de vídeo de cada estado (a corrida continua na tira própria, que acompanha a velocidade)
   const hurtNow = p.hurtT > 0 || S.mode === 'lose' || name === 'tintim-hurt'; if (hurtNow && !tintimHurt) tintimHurtT = time; tintimHurt = hurtNow;
   if (name !== tintimLast) { tintimLast = name; tintimT0 = time; }
-  const TANIM = { 'tintim-win': ['timtim-comemora', 92], 'tintim-hurt': ['timtim-machuca', 80], 'tintim-glide': ['timtim-plana', 92], 'tintim-jump': ['timtim-pulo', 78], 'tintim-fall': ['timtim-queda', 82], 'tintim-sniff': ['timtim-fareja', 70], 'tintim-idle': ['timtim-parado', 80] }[name];
-  const tAnim = !!TANIM && playAnim(tintim, TANIM[0], TANIM[1], faceS < 0, name === 'tintim-hurt' ? time - tintimHurtT : time - tintimT0);
+  const TANIM = { 'tintim-win': ['timtim-comemora', 92], 'tintim-hurt': ['timtim-machuca', 80], 'tintim-glide': ['timtim-pulo', 78], 'tintim-jump': ['timtim-pulo', 78], 'tintim-fall': ['timtim-pulo', 78], 'tintim-sniff': ['timtim-fareja', 70], 'tintim-idle': ['timtim-parado', 80] }[name];
+  // planando, ele fica nos quadros do pulo em que está todo esticado (11 a 14), indo e voltando devagar, como quem rema no vento
+  const tA = name === 'tintim-glide' ? (11 + Math.round(1.5 + 1.5 * Math.sin(time * 4))) / 24 : name === 'tintim-fall' ? (12 + Math.round(1 + Math.sin(time * 9))) / 24
+    : name === 'tintim-jump' ? Math.min(time - tintimT0, 11 / 24) : name === 'tintim-hurt' ? time - tintimHurtT : time - tintimT0; // subindo: o pulo vai até esticar e para ali
+  const tAnim = !!TANIM && playAnim(tintim, TANIM[0], TANIM[1], faceS < 0, tA);
   if (!tAnim) setAnim(tintim, name, h, faceS < 0, fr, nf);
   { // rabo, orelhas e pelo seguem o corpo com atraso; parado, ele respira, abana o rabo e olha em volta
     const air = !p.onGround, sp = Math.min(1, Math.abs(p.vx) / C.FAST), stride = runPhase * Math.PI / 4, idle = p.onGround && !moving && !p.won;
@@ -849,9 +859,18 @@ R.frame = (rdt) => {
   rotS += (rotT - rotS) * Math.min(1, rdt * (moving ? 30 : 16));
   const flip = p.djT > 0 ? -p.face * Math.PI * 2 * ease(1 - p.djT / 0.42) : 0;
   tintim.rotation.z = rotS + flip;
-  const pivot = flip ? h * 0.5 : 0; // a pirueta gira em torno do meio do corpo, não dos pés
+  const pivot = flip ? (tAnim ? tintim.userData.foot * squash + TANIM[1] * 0.5 : h * 0.5) : 0; // a pirueta gira em torno do meio do corpo, não dos pés
   tintim.position.set(tx + Math.sin(tintim.rotation.z) * pivot, ty + pivot - Math.cos(tintim.rotation.z) * pivot, 3);
   tintim.visible = !(p.inv > 0 && Math.floor(time * 20) % 2);
+  if (cape) { capeK += ((name === 'tintim-glide' ? 1 : 0) - capeK) * Math.min(1, rdt * (name === 'tintim-glide' ? 14 : 20));
+    cape.visible = capeK > 0.03 && tintim.visible;
+    if (cape.visible) { const sx = Math.abs(tintim.scale.x), sy = tintim.scale.y, f = faceS, rz = tintim.rotation.z;
+      const nx = f * sx * 0.13, ny = sy * 0.5; // o nó da bandana, no pescoço
+      cape.position.set(tintim.position.x + nx * Math.cos(rz) - ny * Math.sin(rz), tintim.position.y + nx * Math.sin(rz) + ny * Math.cos(rz), tintim.position.z - 0.3);
+      cape.rotation.z = rz + f * 0.12; cape.scale.set(f * 134 * capeK, 52 * (0.6 + 0.4 * capeK), 1);
+      const pa = cape.geometry.attributes.position, wv = 13 + Math.min(10, Math.abs(p.vy) / 40);
+      for (let i = 0; i < pa.count; i++) { const x = capeX[i]; pa.setY(i, capeY[i] + Math.sin(x * 7 + time * wv) * 0.09 * -x); }
+      pa.needsUpdate = true; } }
   rim.geometry = tintim.geometry; rim.material.map = tintim.material.map; rim.visible = tintim.visible && S.mode !== 'lose';
   rim.position.set(tintim.position.x, tintim.position.y - 2, tintim.position.z - 0.6); rim.rotation.z = tintim.rotation.z; rim.scale.set(tintim.scale.x * 1.07, tintim.scale.y * 1.06, 1);
   rim.material.opacity = (ARR ? 0.5 : 0.6) + Math.sin(time * 3.1) * 0.06 + (p.egg > 0 ? 0.25 : 0);
@@ -869,10 +888,11 @@ R.frame = (rdt) => {
   // rastro de luz: silhuetas que ficam para trás na pirueta e no turbo
   ghostT -= live;
   if ((p.djT > 0 || (fast && Math.abs(p.vx) > 200)) && ghostT <= 0 && tintim.visible) { ghostT = 0.04; if (ghosts.length >= ghostM.length) ghosts.shift();
-    ghosts.push({ name, x: tintim.position.x, y: tintim.position.y, sx: tintim.scale.x, sy: tintim.scale.y, rot: tintim.rotation.z, life: 0.28 }); }
+    const tm = tintim.material.map; ghosts.push({ tex: tm, ox: tm.offset.x, oy: tm.offset.y, name, x: tintim.position.x, y: tintim.position.y, sx: tintim.scale.x, sy: tintim.scale.y, rot: tintim.rotation.z, life: 0.28 }); }
   for (let i = ghosts.length - 1; i >= 0; i--) { ghosts[i].life -= live; if (ghosts[i].life <= 0) ghosts.splice(i, 1); }
   ghostM.forEach((m, i) => { const g = ghosts[i]; m.visible = !!g; if (!g) return;
-    if (m.material.map !== TEX[g.name]) m.material.map = TEX[g.name];
+    const c = m.userData.c || (m.userData.c = {}); let t = c[g.tex.uuid]; if (!t) { t = c[g.tex.uuid] = g.tex.clone(); t.needsUpdate = true; } t.offset.set(g.ox, g.oy);
+    if (m.material.map !== t) m.material.map = t;
     m.position.set(g.x, g.y, 2); m.scale.set(g.sx, g.sy, 1); m.rotation.z = g.rot; m.material.opacity = g.life * 1.6; });
 
   // amigos chihuahuas e o biscoito que eles jogam
@@ -941,7 +961,8 @@ R.frame = (rdt) => {
   { const q = S.thief; thiefM.visible = carryM.visible = !!q;
     if (q) {
       const run = q.state === 'run', n = run ? 'brute-charge' : 'brute-walk', h = run ? 124 : 150, flip = q.dir > 0;
-      thiefM.userData.ph += (run ? 18 : 0) * rdt;
+      const qv = thiefM.userData.qx == null ? 0 : Math.abs(q.x - thiefM.userData.qx) / Math.max(rdt, 1e-3); thiefM.userData.qx = q.x;
+      thiefM.userData.ph += (run ? Math.min(22, 4 + qv / 40) : 0) * rdt;
       setAnim(thiefM, n, h, flip);
       // rindo: o corpo sacode em soluços curtos ("he-he-he") e a cabeça balança
       const lt = run ? 0 : q.t - 1.0, giggle = run ? 0 : Math.abs(Math.sin(lt * 15)) * Math.max(0, 1 - lt / 2.4);
@@ -1020,7 +1041,8 @@ R.frame = (rdt) => {
     if (Math.random() < live * 7) spawn({ x: r.x + r.w / 2, y: r.y + 10, vx: -r.vx * 0.2 + (Math.random() - 0.5) * 80, vy: -50 - Math.random() * 70, g: 110, life: 0.9, r: 2.5 + Math.random() * 2, color: Math.random() < 0.6 ? 0xfff2dc : 0xc8864a, hard: true });
     if (Math.random() < live * 10 && r.y > GROUND - 60) spawn({ x: r.x + r.w / 2, y: GROUND - 3, vx: -r.vx * 0.1, vy: -20, g: -30, life: 0.5, r: 3, grow: 6, color: 0xffd9a0 }); });
   // aviso da debandada: poeira levantando na beirada direita da tela
-  if (S.warn) for (let k = 0; k < 3; k++) spawn({ x: S.cam.x + W - 10 + Math.random() * 40, y: GROUND - 4 - Math.random() * 20, vx: -60 - Math.random() * 80, vy: -40 - Math.random() * 80, g: -30, life: 0.8, r: 5 + Math.random() * 5, grow: 10, color: 0xffd9a0 });
+  // a debandada avisa com poeira de terra subindo na borda da tela (antes era um clarão branco estourado)
+  if (S.warn && Math.random() < live * 30) spawn({ x: S.cam.x + W - 10 + Math.random() * 40, y: GROUND - 4 - Math.random() * 16, vx: -60 - Math.random() * 80, vy: -30 - Math.random() * 60, g: -30, life: 0.7, r: 3 + Math.random() * 3, grow: 4, color: 0xa06a3a });
   // pombos
   S.enemies.forEach((e, i) => {
     const m = pigeonM[i], fr = ARR && e.alive && e.scared;

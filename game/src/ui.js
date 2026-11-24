@@ -6,13 +6,14 @@ const $ = id => document.getElementById(id);
 const stage = $('stage');
 
 // ---------------- controles ----------------
+const mainBtn = () => ({ title: 'btnStart', pause: 'btnResume', lose: 'btnRetry', win: $('btnNext').classList.contains('on') ? 'btnNext' : 'btnAgain' })[S.mode];
 const keyMap = { ArrowLeft: 'left', KeyA: 'left', ArrowRight: 'right', KeyD: 'right', Space: 'jump', ArrowUp: 'jump', KeyW: 'jump', ArrowDown: 'sniff', KeyS: 'sniff' };
 const press = (k, on) => { if (k === 'jump' && on && !I.jump) I.jumpPressed = true; I[k] = on; };
 addEventListener('keydown', e => {
   if (e.code === 'KeyP' || e.code === 'Escape') { S.mode === 'pause' ? TT.resume() : TT.pause(); return; }
   if (e.code === 'KeyM') return toggleMute();
   if (e.code === 'Enter' || e.code === 'Space') {
-    const b = { title: 'btnStart', pause: 'btnResume', lose: 'btnRetry', win: 'btnAgain' }[S.mode];
+    const b = mainBtn();
     if ($('shelf').classList.contains('on')) { e.preventDefault(); $('btnShelfBack').click(); return; }
     if (b && $(S.mode).classList.contains('on')) { e.preventDefault(); $(b).click(); return; }
   }
@@ -23,6 +24,7 @@ addEventListener('blur', () => { I.left = I.right = I.jump = I.sniff = false; TT
 document.addEventListener('visibilitychange', () => { if (document.hidden) TT.pause(); });
 
 const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+if (!isTouch) $('skip').textContent = 'clique ou Espaço para avançar';
 if (isTouch) { $('touch').classList.add('on'); $('hint').textContent = '◀ ▶ andar · ▲ pula · no ar, de novo: pirueta · 👃 fareja'; }
 document.querySelectorAll('.tbtn').forEach(b => {
   const k = b.dataset.k;
@@ -38,7 +40,10 @@ TT.pollPad = () => {
   const ax = gp.axes[0] || 0, b = i => !!(gp.buttons[i] && gp.buttons[i].pressed);
   const now = { left: ax < -0.35 || b(14), right: ax > 0.35 || b(15), jump: b(0) || b(1), sniff: (gp.axes[1] || 0) > 0.6 || b(13) || b(2), start: b(9) };
   for (const k of ['left', 'right', 'jump', 'sniff']) if (now[k] !== !!padPrev[k]) press(k, now[k]);
-  if (now.start && !padPrev.start) { if (S.mode === 'play') TT.pause(); else if (S.mode === 'pause') TT.resume(); else if (S.mode === 'title') $('btnStart').click(); }
+  const okNow = now.start || b(0);
+  if (now.start && !padPrev.start && S.mode === 'play') TT.pause();
+  else if (okNow && !padPrev.ok && S.mode !== 'play') { if ($('shelf').classList.contains('on')) $('btnShelfBack').click(); else { const id = mainBtn(); if (id && $(S.mode) && $(S.mode).classList.contains('on')) $(id).click(); } }
+  now.ok = okNow;
   padPrev = now;
 };
 
@@ -74,11 +79,12 @@ let done = {}; try { done = JSON.parse(localStorage.getItem('tintim-fases') || '
 const goFase = (f, jogar) => { TT.sfx('ui'); irisTo(true, { x: 0.5, y: 0.5 }); setTimeout(() => { const h = (f > 1 ? 'fase' + f : 'fase1') + (jogar ? '-jogar' : '');
   if (location.search) location.href = location.pathname + '#' + h; else { location.hash = h; location.reload(); } }, 480); };
 // chegou de "Próxima fase": começa a fase direto, sem a tela inicial
-if (/-jogar/.test(location.hash)) { try { history.replaceState(null, '', location.pathname + location.search + '#fase' + FASE); } catch (_) { location.hash = 'fase' + FASE; } TT.on('assetsReady', () => setTimeout(() => $('btnStart').click(), 250)); }
+if (/-jogar/.test(location.hash)) { try { history.replaceState(null, '', location.pathname + location.search + '#fase' + FASE); } catch (_) { location.hash = 'fase' + FASE; } let auto = false; TT.on('assetsReady', () => { if (auto) return; auto = true; setTimeout(() => { if (S.mode === 'title' && !titleEl.classList.contains('story')) $('btnStart').click(); }, 250); }); }
 document.querySelectorAll('#fases .chip').forEach(b => { const f = +b.dataset.f; b.classList.toggle('cur', f === FASE); b.disabled = f > 1 && !done[f - 1];
   b.onclick = () => { if (f !== FASE) goFase(f); }; });
-$('fases').classList.toggle('on', !!done[1] || FASE > 1);
-if (FASE === 2) { document.querySelector('.logo i').textContent = 'E O MISTÉRIO DO GALINHEIRO'; $('msg').textContent = 'Um estranho está espantando as galinhas do arraial…'; }
+$('fases').classList.remove('on'); // a fase 2 chega sozinha ao vencer o Parque; o título não oferece atalho
+if (FASE === 2) { document.querySelector('.logo i').textContent = 'E O MISTÉRIO DO GALINHEIRO'; { const tb = document.querySelector('#title .tbg'); tb.style.backgroundImage = 'url(assets/title-arraial.jpg)'; tb.style.filter = 'brightness(.66) saturate(.9)'; } // escurece para o título ler bem
+  $('hint').textContent = isTouch ? '◀ ▶ andar · ▲ pula · segure ▲ no ar: planar · 👃 fareja' : '← → andar · Espaço pula · segure Espaço no ar: planar · ↓ fareja'; $('msg').textContent = 'Um estranho está espantando as galinhas do arraial…'; }
 if (FASE > 1) { $('faseTag').textContent = 'FASE ' + FASE + ' · ' + FASES[FASE - 1].toUpperCase(); $('pauseText').textContent = 'O Timtim parou para comer uma pipoca.'; $('progEnd').textContent = '🎉'; }
 let nextT = 0; $('btnNext').onclick = () => { clearInterval(nextT); goFase(FASE + 1, true); };
 $('btnAgain').addEventListener('click', () => clearInterval(nextT), true);
@@ -91,21 +97,26 @@ TT.on('start', () => setTimeout(() => { titleEl.classList.remove('story', 'leavi
 // dicas do Arraial, na hora em que cada coisa aparece
 const HOLD = isTouch ? 'segure ▲' : 'segure Espaço';
 const TUT = { glide: isTouch ? 'Segure ▲ no ar para planar' : 'Segure Espaço no ar para planar', glideEdge: `Pule e ${HOLD} para planar!`,
-  glideHold: HOLD[0].toUpperCase() + HOLD.slice(1) + '!', glideRetry: `Quase! Pule e ${HOLD} para planar`, glideOk: 'Isso! Agora o Timtim sabe planar', fire: 'O ar quente da fogueira levanta quem plana!', dance: 'As tábuas dançam a quadrilha: pule no ritmo!' };
+  glideHold: HOLD[0].toUpperCase() + HOLD.slice(1) + '!', glideRetry: `Quase! Pule e ${HOLD} para planar`, glideOk: 'Isso! Agora o Timtim sabe planar', fire: 'O ar quente da fogueira levanta quem plana!', dance: 'As peneiras dançam a quadrilha: pule na hora certa!' };
 TT.on('tutorial', e => TT.emit('banner', { text: TUT[e.kind] }));
+// a primeira debandada é anunciada: sem isso, as galinhas atropelavam o jogador sem aviso nenhum
+TT.on('stampedeWarn', e => { TT.sfx('pigeon'); if (e.first) TT.emit('banner', { text: 'Galinhas em disparada! Pule por cima delas!' }); });
 TT.on('egg', () => TT.emit('banner', { text: 'Ovo cozido: planar turbinado!' }));
 // cartão de abertura do Arraial (o mesmo cartão da apresentação do chefão, com outro texto)
-TT.on('arraialIntro', () => { stage.classList.add('cine'); const c = $('bossCard'); c.querySelector('small').textContent = 'FASE 2'; c.querySelector('h2').textContent = 'O ARRAIAL';
-  c.querySelector('p').textContent = 'Um estranho está espantando as galinhas do galinheiro. Ajude o Timtim a livrar o arraial desse mal!'; setTimeout(() => c.classList.add('show'), 350); });
+TT.on('arraialIntro', () => { stage.classList.add('cine'); const c = $('bossCard'); c.classList.add('top'); c.querySelector('small').textContent = 'FASE 2'; c.querySelector('h2').textContent = 'O ARRAIAL';
+  c.querySelector('p').textContent = 'Siga as galinhas assustadas até o galinheiro.'; setTimeout(() => c.classList.add('show'), 350); });
 // o chefão do Arraial: o lobo-guará
 if (FASE === 2) document.querySelector('.bossRow b').textContent = 'Lobo-guará';
-TT.on('foxIntro', () => { stage.classList.add('cine'); const c = $('bossCard'); c.querySelector('small').textContent = 'CHEFÃO'; c.querySelector('h2').textContent = 'O LOBO-GUARÁ';
+TT.on('foxIntro', () => { stage.classList.add('cine'); const c = $('bossCard'); c.classList.remove('top'); c.querySelector('small').textContent = 'CHEFÃO'; c.querySelector('h2').textContent = 'O LOBO-GUARÁ';
   c.querySelector('p').textContent = 'invadiu o galinheiro do arraial'; setTimeout(() => c.classList.add('show'), 600); });
 // a estratégia, contada pela Zara e pelo Elvis no começo da luta
+const tipT = [];
 TT.on('cineEnd', e => { if (e.type !== 'fox') return;
   const fala = (i, line) => { const f = S.friends[i]; if (f && S.mode === 'play') TT.emit('friend', { x: f.x, y: C.GROUND - 70, kind: f.kind, line }); };
-  setTimeout(() => { fala(1, 'Sobe no ar quente da fogueira!'); TT.emit('banner', { text: '1. Suba no ar quente da fogueira' }); }, 300);
-  setTimeout(() => { fala(0, 'E cai planando na crina dele!'); TT.emit('banner', { text: '2. Plane e caia na crina dele' }); }, 3300); });
+  const ok = () => S.mode === 'play' && S.arena;
+  tipT.push(setTimeout(() => { if (ok()) { fala(1, 'Sobe no ar quente da fogueira!'); TT.emit('banner', { text: '1. Suba no ar quente da fogueira' }); } }, 300));
+  tipT.push(setTimeout(() => { if (ok()) { fala(0, 'E cai planando na crina dele!'); TT.emit('banner', { text: '2. Plane e caia na crina dele' }); } }, 3300)); });
+TT.on('start', () => { tipT.forEach(clearTimeout); tipT.length = 0; }); TT.on('lose', () => { tipT.forEach(clearTimeout); tipT.length = 0; });
 TT.on('foxRoar', e => { if (e.first) TT.emit('banner', { text: 'O latido apaga o ar quente!' }); });
 TT.on('fruitLand', e => { if (e.first) TT.emit('banner', { text: 'Fruta-do-lobo! Ele não resiste...' }); });
 TT.on('henRevenge', () => setTimeout(() => TT.emit('banner', { text: 'As galinhas expulsaram o lobo-guará!' }), 500));
@@ -137,8 +148,8 @@ function drawShelf() {
   $('shelfSlots').innerHTML = TOYS.map(t => { const got = t.id && found[t.id], soon = !t.id;
     const img = TOY_IMG[t.id] ? `<img src="${TOY_IMG[t.id]}" alt="">` : '<b>?</b>';
     return `<div class="slot${got ? ' got' : ''}${soon ? ' soon' : ''}"><div class="pic">${img}</div><small>${t.fase}</small>` +
-      `<strong>${got ? t.name : soon ? 'Em breve' : 'Ainda perdido'}</strong>${got ? `<p>${t.joke}</p>` : t.id ? '<p>Dica: o faro (↓) mostra o caminho.</p>' : ''}</div>`; }).join('');
-  $('shelfCount').textContent = `${TOYS.filter(t => t.id && found[t.id]).length} de ${TOYS.length} brinquedos devolvidos`;
+      `<strong>${got ? t.name : soon ? 'Em breve' : 'Ainda perdido'}</strong>${got ? `<p>${t.joke}</p>` : t.id ? `<p>Dica: o faro (${isTouch ? '👃' : '↓'}) mostra o caminho.</p>` : ''}</div>`; }).join('');
+  $('shelfCount').textContent = `${TOYS.filter(t => t.id && found[t.id]).length} de ${TOYS.filter(t => t.id).length} brinquedos devolvidos`;
 }
 $('btnShelf').onclick = () => { TT.audioInit(); TT.sfx('ui'); drawShelf(); $('shelf').classList.add('on'); };
 $('btnShelfBack').onclick = () => { TT.sfx('ui'); $('shelf').classList.remove('on'); };
@@ -190,8 +201,8 @@ TT.on('win', st => {
   done[FASE] = true; try { localStorage.setItem('tintim-fases', JSON.stringify(done)); } catch (_) {}
   $('btnNext').classList.toggle('on', FASE < FASES.length);
   if (FASE < FASES.length) { let n = 8; const lab = 'Próxima fase: ' + FASES[FASE]; $('btnNext').textContent = `${lab} (${n})`; clearInterval(nextT);
-    nextT = setInterval(() => { n--; $('btnNext').textContent = `${lab} (${n})`; if (n <= 0) { clearInterval(nextT); $('btnNext').click(); } }, 1000); }
-  if (FASE === 2) { document.querySelector('.winMonkey').src = 'assets/sprites/tintim-win.png'; $('winTitle').textContent = 'Galinheiro salvo!'; $('winText').textContent = 'Timtim planou no ar quente das fogueiras e pisou na crina do lobo-guará até as galinhas criarem coragem e expulsarem ele para a mata. A festa continuou até o mastro de São João.'; $('stMain').textContent = 'Galinheiro salvo';
+    setTimeout(() => { if (S.mode !== 'win') return; clearInterval(nextT); nextT = setInterval(() => { n--; $('btnNext').textContent = `${lab} (${n})`; if (n <= 0) { clearInterval(nextT); $('btnNext').click(); } }, 1000); }, 1900); }
+  if (FASE === 2) { document.querySelector('.winMonkey').src = 'assets/sprites/tintim-win.png'; $('winTitle').textContent = 'Galinheiro salvo!'; $('winText').textContent = 'Timtim planou no ar quente das fogueiras e pisou na crina do lobo-guará até as galinhas criarem coragem e o expulsarem para a mata. A festa continuou até o mastro de São João.'; $('stMain').textContent = 'Galinheiro salvo';
     $('stNotes').style.display = ''; $('stNotes').firstElementChild.textContent = `${st.notes}/${st.notesTotal}`; $('stNotes').classList.toggle('ok', st.notes >= st.notesTotal); }
   showBest();
   $('stCookies').firstElementChild.textContent = `${st.cookies}/${st.total}`; $('stCookies').classList.toggle('ok', st.allCookies);

@@ -40,6 +40,20 @@ const { chromium } = require('playwright');
   const y0 = await ev(() => __tintim.player.y); await pg.waitForTimeout(900); const y1 = await ev(() => __tintim.player.y);
   check(y1 < y0 - 60, `o ar quente da fogueira levanta quem plana (subiu ${(y0 - y1).toFixed(0)} px)`);
   await pg.keyboard.up('Space');
+  // planada sem piscar: segurando o pulo dentro da coluna de ar quente por 2,5 s, ela nunca se desliga no ar
+  const f0 = await ev(() => TT.C.fires[0].x);
+  await ev(f0 => { const S = __tintim.S; S.arena = false; S.mode = 'play'; S.cine = null; S.fireOff = 0; Object.assign(__tintim.player, { x: f0 - 27, y: 300, vx: 0, vy: 0, onGround: false, inv: 99, hp: 3, noGlide: 0, djT: 0, hurtT: 0, dj: false }); }, f0); // sem pirueta guardada: o aperto no ar vai direto para a planada
+  await pg.keyboard.down('Space');
+  await ev(() => { window.__gl = []; const t0 = performance.now(); const f = () => { const p = __tintim.player; if (!p.onGround) __gl.push(p.gliding ? (__tintim.R.tintimMesh.userData.name === 'timtim-pulo' ? 1 : 2) : 0); if (performance.now() - t0 < 2500) requestAnimationFrame(f); }; requestAnimationFrame(f); });
+  await pg.waitForTimeout(2700); await pg.keyboard.up('Space');
+  const gl = await ev(() => __gl), drops = gl.slice(5).filter(v => !v).length;
+  check(gl.length > 30 && drops === 0, `planando na coluna de ar quente a planada não pisca (${drops} quadros sem planar)`);
+  check(gl.length > 30 && gl.every(v => v !== 2), 'planando, o Timtim usa o próprio desenho do pulo (não troca de figura)');
+  // pisar numa galinha do Arraial faz quicar e ela foge; não morre
+  const hen2 = await ev(() => { const e = __tintim.S.enemies.find(e => e.alive); return e && { x: e.x, y: e.y, w: e.w }; });
+  if (hen2) { await ev(h => { const e = __tintim.S.enemies.find(e => e.alive); Object.assign(__tintim.player, { x: e.x + e.w / 2 - 27, y: e.y - 52, vx: 0, vy: 300, onGround: false, inv: 0, hp: 3, mega: 0 }); }, hen2);
+    await pg.waitForTimeout(250);
+    check(await ev(() => __tintim.S.enemies.every(e => e.alive) && __tintim.player.hp === 3), 'pisar numa galinha faz o Timtim quicar: ela foge e não morre' + (process.env.DBG ? await ev(() => JSON.stringify([__tintim.S.enemies.map(e => [e.alive, Math.round(e.x), Math.round(e.y)]), __tintim.player.hp, Math.round(__tintim.player.y), __tintim.player.vy])) : '')); }
 
   // a chama não machuca: é ali que ele pula para subir no ar quente
   await put(fx - 27, 452 - 50, { onGround: true }); await pg.waitForTimeout(250);
@@ -53,7 +67,7 @@ const { chromium } = require('playwright');
   await until(() => __tintim.player.onGround && __tintim.player.on && !!__tintim.player.on.mover, 2000);
   const a0 = await ev(() => ({ px: __tintim.player.x, sx: TT.MOVERS[0].x })); await pg.waitForTimeout(500);
   const a1 = await ev(() => ({ px: __tintim.player.x, sx: TT.MOVERS[0].x, on: __tintim.player.onGround }));
-  check(Math.abs(a1.sx - a0.sx) > 10 && a1.on && Math.abs((a1.px - a0.px) - (a1.sx - a0.sx)) < 4, 'a tábua da quadrilha anda e leva o Timtim junto');
+  check(Math.abs(a1.sx - a0.sx) > 10 && a1.on && Math.abs((a1.px - a0.px) - (a1.sx - a0.sx)) < 4, 'a tábua da quadrilha anda e leva o Timtim junto' + (process.env.DBG ? JSON.stringify([a0, a1]) : ''));
 
   // faro: perto da terceira fogueira revela o caminho de cheiro até a sanfoninha
   const t = await ev(() => TT.C.trails[0].at);
@@ -92,7 +106,7 @@ const { chromium } = require('playwright');
   check(await until(() => __tintim.S.notes === 1 && document.getElementById('note').classList.contains('on'), 3000), 'pegar o bilhete do correio elegante mostra a piada');
 
   // galinhas em debandada: aviso de poeira, depois o bando corre da direita para a esquerda; encostar de lado machuca
-  const st0 = await ev(() => TT.C.STAMPEDES[2].at);
+  const st0 = await ev(() => TT.C.STAMPEDES.find(s => s.n === 4).at);
   await ev(() => { __tintim.S.runDone = {}; __tintim.S.runners = []; });
   await put(st0 + 20, 452 - 50, { onGround: true, inv: 9 });
   check(await until(() => !!__tintim.S.warn, 2000), 'passar do ponto da debandada levanta a poeira de aviso');
@@ -118,8 +132,9 @@ const { chromium } = require('playwright');
   await above();
   check(await until(() => __tintim.S.fox.state === 'dodge', 2000) && await ev(() => __tintim.S.fox.hp === 3), 'pulo comum em cima do lobo-guará: ele esquiva e não perde vida');
   // o latido rouco apaga o ar quente e derruba quem está planando
-  await ev(() => { const f = __tintim.S.fox, p = __tintim.player; f.egg = 99; __tintim.S.fruit = null; f.state = 'wind'; f.atk = 'roar'; f.t = 5; Object.assign(p, { x: TT.C.ARENA_X + 100, y: 200, vx: 0, vy: 50, onGround: false, inv: 99 }); });
+  await ev(() => { const f = __tintim.S.fox, p = __tintim.player; f.egg = 99; __tintim.S.fruit = null; f.state = 'wind'; f.atk = 'roar'; f.t = 5; Object.assign(p, { x: TT.C.ARENA_X + 100, y: 200, vx: 0, vy: 50, onGround: false, inv: 99 }); TT.input.jump = true; }); // planando perto dele
   check(await until(() => __tintim.S.fox.state === 'roar' && __tintim.S.fireOff > 0 && __tintim.player.noGlide > 0, 2000), 'o latido do lobo-guará apaga o ar quente das fogueiras e derruba quem plana');
+  await ev(() => { TT.input.jump = false; });
   await until(() => __tintim.player.onGround && __tintim.S.fox.state !== 'roar', 4000);
   // fruta-do-lobo: ele para para comer, de lombo baixo, e até o pulo comum acerta
   await ev(() => { const f = __tintim.S.fox; f.x = TT.C.ARENA_X + 400; f.state = 'idle'; f.cd = 9; f.egg = 99; __tintim.S.fruit = { x: TT.C.ARENA_X + 560, y: TT.C.GROUND - 22, vx: 0, vy: 0, rest: true }; });

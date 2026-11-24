@@ -64,6 +64,7 @@ function strings(f, t, dur, vol = 0.05) {
 }
 
 const sfx = {
+  glide: t => { noise(t, 0.32, { vol: 0.09, freq: 900, q: 0.8, type: 'lowpass' }); noise(t + 0.04, 0.22, { vol: 0.05, freq: 2600, q: 1.5 }); },
   jump: t => { tone(330, t, 0.16, { type: 'sine', vol: 0.22, slide: 2.1 }); noise(t, 0.06, { vol: 0.05, freq: 3000 }); },
   jump2: t => { tone(520, t, 0.22, { type: 'sine', vol: 0.16, slide: 2.4 }); tone(1040, t + 0.03, 0.3, { type: 'triangle', vol: 0.06, slide: 1.8 }); noise(t, 0.18, { vol: 0.04, freq: 5200, q: 2 }); },
   friend: t => { [0, 0.11].forEach(o => tone(760, t + o, 0.08, { type: 'triangle', vol: 0.13, slide: 1.35 })); },

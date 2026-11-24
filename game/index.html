@@ -45,7 +45,7 @@
   #progEnd { font-size: 1.7cqw; }
   #bossBars { display: none; flex-direction: column; gap: .6cqw; font-size: 1.35cqw; padding: .3cqw 0; }
   .bossRow { display: flex; align-items: center; gap: .8cqw; }
-  .bossRow b { width: 6.6cqw; font-weight: 700; letter-spacing: .05cqw; }
+  .bossRow b { min-width: 6.6cqw; white-space: nowrap; font-weight: 700; letter-spacing: .05cqw; }
   .seg { width: 3.6cqw; height: .7cqw; border-radius: 9cqw; background: var(--violet); box-shadow: 0 0 1cqw var(--violet); transition: transform .35s var(--pop), background .2s, box-shadow .2s; }
   .bossRow.p2 .seg { background: var(--rose); box-shadow: 0 0 1cqw var(--rose); }
   .bossRow .seg.off { background: rgba(255, 220, 190, .14); box-shadow: none; transform: scale(.8); }
@@ -58,7 +58,7 @@
   .round.muted { text-decoration: line-through; opacity: .6; }
   #btnPause { right: 1.6cqw; } #btnMute { right: 6.2cqw; }
 
-  #banner { position: absolute; left: 50%; top: 20%; transform: translate(-50%, 0); opacity: 0; font-family: var(--display); font-size: 3.5cqw; letter-spacing: .32cqw; color: #fff; white-space: nowrap; pointer-events: none;
+  #banner { position: absolute; left: 50%; top: 20%; transform: translate(-50%, 0); opacity: 0; font-family: var(--display); font-size: 3.5cqw; letter-spacing: .32cqw; color: #fff; white-space: normal; width: max-content; max-width: 84cqw; text-align: center; line-height: 1.15; pointer-events: none;
     text-shadow: 0 0 1.2cqw rgba(255, 214, 160, .95), 0 0 4cqw rgba(255, 130, 90, .7), 0 .2cqw .6cqw rgba(0, 10, 16, .8); }
   #banner::after { content: ""; display: block; height: .12cqw; margin: .7cqw auto 0; width: 60%; background: linear-gradient(90deg, transparent, var(--glow), transparent); }
   #banner.show { animation: banner 2.6s var(--out) both; }
@@ -83,6 +83,7 @@
   .cine #hud { opacity: 0; }
   #bossCard { position: absolute; left: 6%; bottom: 17%; opacity: 0; transform: translateX(-4cqw); transition: opacity .5s, transform .7s var(--out); pointer-events: none; }
   .cine #bossCard.show { opacity: 1; transform: none; }
+  #bossCard.top { bottom: auto; top: 16%; } /* cartão de abertura de fase: no alto, para não cobrir o Timtim */
   #bossCard small { display: inline-block; color: var(--rose); font-size: 1.5cqw; font-weight: 800; letter-spacing: .7cqw; text-shadow: 0 0 1cqw rgba(255, 125, 156, .8); }
   #bossCard h2 { margin: .4cqw 0 0; font-family: var(--display); font-weight: 400; font-size: 5.6cqw; line-height: 1; letter-spacing: .3cqw; color: #fff;
     text-shadow: 0 0 1.4cqw rgba(255, 170, 120, .95), 0 0 5cqw rgba(230, 80, 110, .8), 0 .3cqw .8cqw rgba(0, 6, 12, .9); }
@@ -239,7 +240,7 @@
   </section>
 
   <section id="pause" class="screen scrim"><div class="card">
-    <h2>Pausa</h2><p id="pauseText">O Timtim está olhando o pôr do sol.</p>
+    <h2>Pausa</h2><p id="pauseText">O Timtim parou para olhar os vaga-lumes.</p>
     <div class="row"><button class="btn" id="btnResume">Continuar</button><button class="btn ghost" id="btnRestart">Recomeçar</button></div>
   </div></section>
 
