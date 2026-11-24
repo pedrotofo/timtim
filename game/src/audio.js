@@ -184,7 +184,11 @@ function schedule() {
   }
 }
 // ---- trilha gravada (orquestra): toca em laço com fusão entre o fim e o começo; a trilha sintetizada acima cobre enquanto o arquivo carrega ou se ele faltar ----
-const TRACKS = { title: 'theme', level: 'theme', boss: 'boss' }, bufs = {};
+// no Arraial a fase toca a trilha própria (assets/music/arraial.mp3, 100 BPM, cortada em compassos inteiros); se o arquivo não
+// existir, volta para o tema. Ela toca em laço exato, sem fusão, para a batida nunca escorregar, e TT.beatTime() diz em que
+// ponto da música estamos: a quadrilha, as fitas e as lanternas dançam nesse relógio.
+const ARRAIAL_PRONTA = false; // vira true quando o arquivo assets/music/arraial.mp3 (feito no Suno) for colocado no jogo
+const ARRAIAL = TT.FASE === 2 && ARRAIAL_PRONTA, TRACKS = { title: ARRAIAL ? 'arraial' : 'theme', level: ARRAIAL ? 'arraial' : 'theme', boss: ARRAIAL ? 'arraial' : 'boss' }, bufs = {};
 let track = null;
 function stopTrack() {
   if (!track) return; const t = track; track = null; t.alive = false;
@@ -194,6 +198,7 @@ function stopTrack() {
 function playTrack(file) {
   const buf = bufs[file], XF = 1.2, g = ctx.createGain(); g.connect(trackBus);
   const t = track = { file, g, alive: true, srcs: [] };
+  if (file === 'arraial') { const s = ctx.createBufferSource(); s.buffer = buf; s.loop = true; s.connect(g); t.start = ctx.currentTime + 0.05; s.start(t.start); t.srcs.push(s); return; }
   const next = at => {
     if (!t.alive) return;
     const s = ctx.createBufferSource(), e = ctx.createGain(), end = at + buf.duration; s.buffer = buf;
@@ -207,8 +212,13 @@ function loadTrack(file) {
   if (file in bufs) return; bufs[file] = null;
   fetch('assets/music/' + file + '.mp3').then(r => { if (!r.ok) throw 0; return r.arrayBuffer(); }).then(a => ctx.decodeAudioData(a))
     .then(b => { bufs[file] = b; if (song && TRACKS[song] === file && !track) { clearInterval(timer); timer = null; playTrack(file); } })
-    .catch(() => { bufs[file] = false; if (song && TRACKS[song] === file && !timer) { nextT = ctx.currentTime + 0.08; timer = setInterval(schedule, 40); } });
+    .catch(() => { bufs[file] = false;
+      if (file === 'arraial') { Object.keys(TRACKS).forEach(k => { if (TRACKS[k] === 'arraial') TRACKS[k] = k === 'boss' ? 'boss' : 'theme'; }); const s = song; song = null; if (s) TT.music(s); return; }
+      if (song && TRACKS[song] === file && !timer) { nextT = ctx.currentTime + 0.08; timer = setInterval(schedule, 40); } });
 }
+// segundos desde que a trilha do Arraial começou (descontada a latência da saída de som); null quando ela não está tocando
+TT.beatTime = () => (track && track.start != null && ctx) ? Math.max(0, ctx.currentTime - track.start - (ctx.outputLatency || ctx.baseLatency || 0)) : null;
+TT.BPM = 100;
 TT.music = name => {
   if (name === song) return;
   song = name; step = 0;

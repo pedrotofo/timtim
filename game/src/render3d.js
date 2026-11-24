@@ -5,7 +5,7 @@
 'use strict';
 const TT = window.TT, C = TT.C, S = TT.S;
 const { W, H, GROUND, ARENA_X } = C;
-const ARR = C.FASE === 2, END = C.BOSS ? ARENA_X : C.LEVEL_END; // fase 2: o Arraial (sem chefão; a fase vai até o mastro)
+const ARR = C.FASE === 2, END = C.BOSS ? ARENA_X : C.LEVEL_END; // fase 2: o Arraial (a fase vai até a arena da raposa, no fim)
 const R = TT.R = { ready: false, quality: 2, flash: 0 };
 const cv = document.getElementById('c');
 let renderer;
@@ -33,6 +33,9 @@ const AR = { 'tintim-idle': 232 / 220, 'tintim-run': 1.2143, 'tintim-jump': 270 
 const TEX = {};
 AR.choco = 1.25;
 for (const k in AR) if (k !== 'choco') TEX[k] = load('sprites/' + k + '.png');
+// a Raposa (chefona do Arraial) e o bilhete do correio elegante: artes do Google Flow, carregadas só na fase 2
+if (C.FASE === 2) { const more = { 'raposa-anda': 482 / 300, 'raposa-agacha': 338 / 300, 'raposa-bote': 456 / 300, 'raposa-corre': 702 / 300, 'raposa-tonta': 397 / 340, bilhete: 180 / 160 };
+  for (const k in more) { AR[k] = more[k]; TEX[k] = load('sprites/' + k + '.png'); } }
 // tiras de quadros desenhados: corrida do Timtim (8), corrida dos chihuahuas e andar do pombo (4 cada)
 const FRAMES = { 'tintim-run': 8, 'chi-pb-run': 4, 'chi-br-run': 4, pigeon: 4 };
 for (const k in FRAMES) if (TEX[k]) TEX[k].repeat.set(1 / FRAMES[k], 1);
@@ -482,6 +485,24 @@ if (ARR) {
   // mastro de São João no fim, com um clarão em volta
   const ms = add(new THREE.Mesh(planeGeo, flatMat(tMastro, { alphaTest: 0.35 }))); ms.scale.set(440 * 344 / 620, 440, 1); ms.position.set(C.MASTRO_X, -8, -30); landmarks.push(ms);
   const mg = add(new THREE.Mesh(planeGeoC, glowMat(0xffd27a, 0.4)), -4); mg.scale.set(520, 620, 1); mg.position.set(C.MASTRO_X, 260, -40); pulses.push({ m: mg, base: 0.4, ph: 0, slow: true });
+  // galinheiro no fundo da arena da raposa
+  const gal = add(new THREE.Mesh(planeGeo, flatMat(prop('galinheiro'), { alphaTest: 0.35 }))); gal.scale.set(300 * 590 / 520, 300, 1); gal.position.set(ARENA_X + 300, -6, -70); landmarks.push(gal);
+  const galG = add(new THREE.Mesh(planeGeoC, glowMat(0xffc070, 0.3)), -4); galG.scale.set(420, 300, 1); galG.position.set(ARENA_X + 300, 150, -66); pulses.push({ m: galG, base: 0.3, ph: 1, slow: true });
+  // tanque da pescaria: tina de madeira com água; pular dentro solta os biscoitos escondidos
+  if (C.TUB) { const t = C.TUB, tub = new THREE.Mesh(new THREE.CylinderGeometry(t.w / 2, t.w / 2 * 0.86, 44, 28, 1, true), new THREE.MeshLambertMaterial({ map: texBark, color: 0xc89060, side: THREE.DoubleSide })); tub.scale.z = 0.7; tub.position.set(t.x, 0 + 22, 24); tub.castShadow = tub.receiveShadow = true; add(tub);
+    const hoopM = new THREE.MeshLambertMaterial({ color: 0x5a3a22 }); [8, 36].forEach(yy => { const r = new THREE.Mesh(new THREE.TorusGeometry(t.w / 2 * (1 - yy / 44 * 0.14) + 1, 2.2, 6, 28), hoopM); r.rotation.x = Math.PI / 2; r.scale.y = 0.7; r.position.set(t.x, 0 + yy, 24); add(r); });
+    const water = new THREE.Mesh(new THREE.CircleGeometry(t.w / 2 - 3, 28), new THREE.MeshBasicMaterial({ color: 0x3fa6b8, transparent: true, opacity: 0.85 })); water.rotation.x = -Math.PI / 2; water.scale.y = 0.7; water.position.set(t.x, 0 + 38, 24); add(water);
+    const peixes = [0xff7a2a, 0xffd23f, 0xff5a6e].map((c, k) => { const f = add(new THREE.Mesh(new THREE.ConeGeometry(5, 18, 6), new THREE.MeshLambertMaterial({ color: c, emissive: c, emissiveIntensity: 0.25 }))); f.rotation.z = Math.PI / 2; return f; });
+    const tg = add(new THREE.Mesh(planeGeoC, glowMat(0x7fe0ff, 0.25)), 3); tg.scale.set(150, 70, 1); tg.position.set(t.x, 0 + 40, 22);
+    R.tub = { water, peixes, tg, t }; }
+  // argola: um aro de fitas pendurado por uma corda; atravessar planando ou pulando revela o biscoito dourado
+  if (C.HOOP) { const h = C.HOOP, gr = new THREE.Group(); add(gr); gr.position.set(h.x, (GROUND - h.y), 10);
+    const ring = new THREE.Mesh(new THREE.TorusGeometry(h.r, 4, 8, 40), new THREE.MeshLambertMaterial({ map: texStraw, color: 0xffd27a, emissive: 0x2a1404 })); gr.add(ring);
+    const rope = new THREE.Mesh(new THREE.CylinderGeometry(1.2, 1.2, 600, 5), new THREE.MeshLambertMaterial({ color: 0x3a2a1c })); rope.position.y = h.r + 300; gr.add(rope);
+    for (let k = 0; k < 8; k++) { const a = -Math.PI / 2 + (k - 3.5) * 0.22, f = new THREE.Mesh(planeGeoTop, new THREE.MeshBasicMaterial({ color: [0xff7a2a, 0xffd23f, 0x35d68f, 0xff5a6e, 0x5aa2ff][k % 5], side: THREE.DoubleSide, fog: false }));
+      f.scale.set(5, 28 + (k * 7 % 14), 1); f.position.set(Math.cos(a) * h.r, Math.sin(a) * h.r, 0); gr.add(f); }
+    const hg = add(new THREE.Mesh(planeGeoC, glowMat(0xffe14d, 0.35)), 4); hg.scale.set(h.r * 3.4, h.r * 3.4, 1); hg.position.set(h.x, (GROUND - h.y), 8);
+    R.hoop = { gr, hg, h }; }
   // tábuas da quadrilha: madeira com bandeirinhas penduradas embaixo, que balançam no passo da dança
   const strawM = new THREE.MeshLambertMaterial({ map: texStraw, color: 0xffe0b0, emissive: 0x1a0c02 }), rimM = new THREE.MeshLambertMaterial({ map: texStraw, color: 0xb88a50 });
   const FITAS = [0xff7a2a, 0xffd23f, 0x35d68f, 0xff5a6e, 0x5aa2ff, 0xfff0d6].map(c => new THREE.MeshBasicMaterial({ color: c, side: THREE.DoubleSide, fog: false }));
@@ -573,6 +594,11 @@ const ballGlow = add(new THREE.Mesh(planeGeoC, glowMat(0xffe14d, 0.7)), 5); ball
 const texWave = canvasTex(64, 128, x => { const g = x.createLinearGradient(0, 0, 64, 0); g.addColorStop(0, 'rgba(255,230,150,0)'); g.addColorStop(0.55, 'rgba(255,230,150,.95)'); g.addColorStop(1, 'rgba(255,255,255,0)');
   x.fillStyle = g; x.beginPath(); x.ellipse(32, 128, 30, 124, 0, Math.PI, 0); x.fill(); });
 const waveM = [0, 1, 2, 3].map(() => { const m = add(new THREE.Mesh(planeGeoC, new THREE.MeshBasicMaterial({ map: texWave, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, fog: false })), 6); m.visible = false; return m; });
+const foxM = sprite(ARR ? 'raposa-anda' : 'cookie', 5, ARR, 0xfff0e4); foxM.geometry = legGeo(); foxM.userData.ph = 0; foxM.visible = false;
+const foxGlow = add(new THREE.Mesh(planeGeoC, glowMat(0xffe14d, 0)), 4), foxWarn = add(new THREE.Mesh(planeGeoC, glowMat(0xff2a55, 0)), 4);
+const foxMark = add(new THREE.Mesh(planeGeoC, new THREE.MeshBasicMaterial({ map: texSoft, color: 0xff1f44, transparent: true, opacity: 0, depthWrite: false, fog: false })), 4);
+const foxStars = [0, 1, 2].map(() => { const s = add(new THREE.Mesh(planeGeoC, new THREE.MeshBasicMaterial({ map: texStar, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, fog: false })), 7); s.scale.set(20, 20, 1); s.visible = false; return s; });
+if (!ARR) [foxGlow, foxWarn, foxMark].forEach(q => { q.visible = false; });
 R.foe = ARR ? 'galinha' : 'pigeon'; const FOE = R.foe; // inimigo da fase: pombo no Parque, galinha caipira de chapéu de palha no Arraial
 const pigeonM = S.enemies.map(() => { const m = sprite(FOE, 5, true, 0xffffff); m.geometry = legGeo(); m.userData.warn = add(new THREE.Mesh(planeGeoC, glowMat(0xff2a55, 0.8)), 6);
   if (ARR) m.material.color.setRGB(1.15, 1.08, 1.02); else { m.material.color.setRGB(1.75, 1.6, 1.85); m.userData.own = { pigeon: ownTex('pigeon') }; m.material.map = m.customDepthMaterial.map = m.userData.own.pigeon; } return m; });
@@ -590,7 +616,7 @@ TEX.choco = canvasTex(160, 128, x => { x.translate(80, 64); x.rotate(-0.18);
 // brinquedo perdido do Parque: o Patinho Quá-Quá, de borracha e meio mordido (arte do Google Flow, a mesma da estante)
 if (ARR) { TEX.toy = load('sprites/toy-sanfona.png'); AR.toy = 297 / 200; } else { TEX.toy = load('sprites/toy-duck.png'); AR.toy = 214 / 200; }
 const itemM = S.items.map(it => { const m = sprite(it.type === 'gold' ? 'cookie' : it.type, 5, false, it.type === 'gold' ? 0xffd640 : 0xfff4e0); m.geometry = planeGeoC;
-  m.userData.glow = add(new THREE.Mesh(planeGeoC, glowMat(it.type === 'choco' ? 0xff3355 : it.type === 'cookie' ? 0xffc76a : it.type === 'toy' ? 0x9dff7a : 0xffe14d)), 4);
+  m.userData.glow = add(new THREE.Mesh(planeGeoC, glowMat(it.type === 'choco' ? 0xff3355 : it.type === 'cookie' ? 0xffc76a : it.type === 'toy' ? 0x9dff7a : it.type === 'bilhete' ? 0xff8fb8 : 0xffe14d)), 4);
   return m; });
 const friendM = S.friends.map(f => { const m = sprite(f.kind, 5, true, 0xfff6ec); m.geometry = legGeo();
   m.userData.glow = add(new THREE.Mesh(planeGeoC, glowMat(0xffd9a0, 0.3)), 4); return m; });
@@ -646,6 +672,15 @@ TT.on('toy', e => { burst(e.x, e.y, [0x9dff7a, 0xffd23f, 0xffffff, 0x8fe9ff], 36
 TT.on('start', e => { parts.length = 0; if (!e.retry) trailM.flat().forEach(q => { q.up = 0; }); ghosts.length = 0; R.flash = 0; R.zoom = 1; sq = 1; sqV = 0; if (!e.retry) flags.forEach(f => { f.on = false; f.up = 0; }); });
 let confettiT = 0;
 TT.on('win', () => { confettiT = 4; });
+TT.on('splash', e => { burst(e.x, e.y - 40, [0x7fe0ff, 0xd9fff2, 0xffffff], 26, 320, 700); R.flash = 0.15; });
+TT.on('hoop', e => { burst(e.x, e.y, [0xffe14d, 0xff7a2a, 0xffffff], 30, 340, 200); R.flash = 0.2; });
+TT.on('note', e => burst(e.x, e.y, [0xff8fb8, 0xffd0e0, 0xffffff], 18, 220, 150));
+TT.on('cluck', e => burst(e.x, e.y + 20, [0xfff2dc, 0xc8864a, 0xfff2dc], 6, 160, 300));
+TT.on('foxPounce', e => dustPuff(e.x, e.y, 10, 300));
+TT.on('foxDash', e => dustPuff(e.x, e.y, 12, 360));
+TT.on('foxDodge', e => burst(e.x, e.y + 30, [0xffd9a0, 0xffffff], 10, 220));
+TT.on('foxHit', e => burst(e.x, e.y + 20, [0xff7a2a, 0xfff2dc, 0xffffff], 20, 320));
+TT.on('foxDefeated', e => { confettiT = 5; burst(e.x, GROUND - 260, [0xff7a2a, 0xffd23f, 0x35d68f, 0xff5a6e, 0x5aa2ff, 0xffffff], 50, 420, 300); });
 TT.on('goal', e => { R.flash = 0.35; confettiT = 5; burst(e.x, GROUND - 260, [0xff7a2a, 0xffd23f, 0x35d68f, 0xff5a6e, 0x5aa2ff, 0xffffff], 50, 420, 300); });
 
 // ---------------- pós-processamento ----------------
@@ -877,23 +912,53 @@ R.frame = (rdt) => {
       ballGlow.position.set(q.x, Y(q.y), 5); const gs = 70 + Math.sin(time * 9) * 8; ballGlow.scale.set(gs, gs, 1); ballGlow.material.opacity = q.held ? 0.35 : 0.7; }
     waveM.forEach((m, i) => { const w = S.waves[i]; m.visible = !!w; if (!w) return; const h = w.small ? 46 : 70;
       m.position.set(w.x, Y(GROUND) + h / 2, 6); m.scale.set(46 * w.dir, h * (0.9 + 0.1 * Math.sin(time * 30)), 1); m.material.opacity = Math.min(1, 0.4 + w.t * 3); }); }
+
+  // a Raposa: uma pose desenhada para cada momento, e as patas andando por deformação
+  if (ARR) { const g = S.fox, m = foxM, x = g.x + g.w / 2, st = g.state, air = g.y + g.h < GROUND - 4;
+    let n = 'raposa-anda', h = 150, walking = false, y = Y(g.y + g.h) - 4, sy = 1, rot = 0, dx = 0;
+    if (st === 'hurt' || st === 'bonk') { n = 'raposa-tonta'; h = 160; rot = Math.sin(time * 9) * 0.06; }
+    else if (st === 'wind' || st === 'tired') { n = 'raposa-agacha'; h = 142;
+      if (st === 'wind' && g.atk === 'pounce') { rot = Math.sin(time * 24) * 0.04; sy = 1 - 0.08 * Math.min(1, g.t / 0.3); } // rebola antes do bote
+      else if (st === 'wind') { dx = Math.sin(time * 60) * 2.5; } // cava o chão antes da corrida
+      else sy = 1 + Math.sin(time * 16) * 0.035; } // ofegante depois do bote
+    else if (st === 'air' || st === 'dodge') { n = 'raposa-bote'; h = 150; rot = -g.dir * Math.max(-0.3, Math.min(0.3, g.vy / 2400)) * (st === 'dodge' ? -1 : 1); }
+    else if (st === 'dash' || st === 'flee') { n = 'raposa-corre'; h = 118; m.userData.ph += 26 * rdt; y += Math.abs(Math.sin(m.userData.ph)) * 6; }
+    else { walking = Math.abs(g.vx) > 12; if (walking) { m.userData.ph += Math.abs(g.vx) * live / 14; y += Math.abs(Math.sin(m.userData.ph)) * 3; } else sy = 1 + Math.sin(clock * 3) * 0.015; }
+    const flip = st === 'dodge' ? g.vx < 0 : g.dir > 0;
+    setAnim(m, n, h, flip); m.scale.x *= 2 - sy; m.scale.y *= sy;
+    m.position.set(x + dx, y, 1); m.rotation.z = rot + (walking ? Math.sin(m.userData.ph) * 0.03 : 0);
+    legs(m, m.userData.ph, walking ? 0.06 : 0, { f: -1, tailX: Math.sin(clock * (walking ? 7 : 3)) * 0.03, tailY: walking ? Math.cos(m.userData.ph) * 0.02 : 0, headX: 0, headY: walking ? Math.sin(m.userData.ph * 2) * 0.015 : 0, breathe: 0, shear: st === 'dash' ? -0.05 * g.dir : 0 });
+    m.visible = C.FOX && !(g.hurt > 0 && Math.floor(time * 30) % 2) && (S.arena || S.cam.x > ARENA_X - W - 200) && g.x < C.LEVEL_END + 400;
+    if ((st === 'dash' || st === 'flee' || (st === 'wind' && g.atk === 'dash')) && Math.random() < 0.7) spawn({ x: x - g.dir * 50, y: GROUND - 4, vx: -g.dir * (40 + Math.random() * 60), vy: -30 - Math.random() * 60, g: -40, life: 0.6, r: 4 + Math.random() * 3, grow: 8, color: 0xffd9a0 });
+    // leitura: dourado = dá para pisar (cansada ou tonta); vermelho = ataque vindo; marca no chão = onde o bote vai cair
+    const yes = (st === 'tired' || st === 'bonk') && m.visible; foxGlow.material.opacity += ((yes ? 0.5 + 0.2 * Math.sin(time * 8) : 0) - foxGlow.material.opacity) * Math.min(1, live * 10);
+    foxGlow.position.set(x, y + 100, 0.5); foxGlow.scale.set(200, 130, 1); foxGlow.visible = m.visible;
+    const warn = st === 'wind' && m.visible; foxWarn.material.opacity += ((warn ? 0.6 + 0.3 * Math.sin(time * 20) : 0) - foxWarn.material.opacity) * Math.min(1, live * 12);
+    foxWarn.position.set(x, y + 60, 0.4); foxWarn.scale.set(250, 170, 1); foxWarn.visible = m.visible;
+    const sh = st === 'air'; foxMark.material.opacity += ((sh ? 0.7 + 0.2 * Math.sin(time * 18) : 0) - foxMark.material.opacity) * Math.min(1, live * 10);
+    foxMark.position.set(g.tx, Y(GROUND) + 22, 6); foxMark.scale.set(200, 56, 1);
+    foxStars.forEach((s, k) => { s.visible = (st === 'hurt' || st === 'bonk') && m.visible; if (s.visible) { const a = time * 6 + k * 2.1; s.position.set(x + Math.cos(a) * 34, y + 160 + Math.sin(a) * 8, 4 + Math.sin(a)); s.rotation.z = a; } });
+  }
+  // galinheiro: as galinhas espiam pela tela até a raposa fugir
   // pombos
   S.enemies.forEach((e, i) => {
-    const m = pigeonM[i]; if (ARR) setAnim(m, 'galinha', 72, e.dir > 0); else setAnim(m, 'pigeon', 64, e.dir > 0, e.alive ? Math.floor(e.t * 7) : 1, 4);
+    const m = pigeonM[i], fr = ARR && e.alive && e.scared; if (ARR) setAnim(m, 'galinha', 72, e.dir > 0); else setAnim(m, 'pigeon', 64, e.dir > 0, e.alive ? Math.floor(e.t * 7) : 1, 4);
+    if (fr) { const f = Math.sin(e.t * 30); m.scale.y *= 1 + f * 0.06; m.scale.x *= 1 - f * 0.04; // bate as asas, arrepiada
+      if (Math.random() < live * 9) spawn({ x: e.x + e.w / 2 + (Math.random() - 0.5) * 40, y: e.y + 10 + Math.random() * 20, vx: (Math.random() - 0.5) * 120, vy: -60 - Math.random() * 80, g: 120, life: 0.9, r: 2.5 + Math.random() * 2, color: Math.random() < 0.6 ? 0xfff2dc : 0xc8864a, hard: true }); }
     m.position.set(e.x + e.w / 2, Y(e.y + e.h) - 2 + (e.alive ? Math.abs(Math.sin(e.t * 12)) * 3 : 0), 0);
-    m.rotation.z = e.alive ? (ARR ? Math.sin(e.t * 9) * 0.06 : 0) : Math.PI; m.visible = e.y < H + 200; m.castShadow = e.alive; // a galinha gingando de um lado para o outro
+    m.rotation.z = e.alive ? (ARR ? Math.sin(e.t * (fr ? 22 : 9)) * (fr ? 0.12 : 0.06) : 0) : Math.PI; m.visible = e.y < H + 200; m.castShadow = e.alive; // a galinha gingando de um lado para o outro
     // perigo à vista: um halo rosado que pulsa atrás de cada pombo, mais forte quando o Timtim chega perto
     { const w = m.userData.warn, near = Math.max(0, 1 - Math.abs(tx - m.position.x) / 420), s = 120 + Math.sin(time * 6 + i) * 14 + near * 30;
       w.visible = e.alive && m.visible; w.position.set(m.position.x, m.position.y + 30, 2); w.scale.set(s * 1.25, s, 1); w.material.opacity = ARR ? 0.18 + near * 0.3 + Math.sin(time * 6 + i) * 0.06 : 0.75 + near * 0.25 + Math.sin(time * 6 + i) * 0.15; }
     // pombo anda como pombo: a cabeça vai e volta a cada passo
-    legs(m, e.t * (ARR ? 9 : 12), ARR && e.alive ? 0.06 : 0, { f: -1, tailX: ARR && e.alive ? Math.sin(e.t * 9) * 0.03 : 0, tailY: e.alive ? Math.sin(e.t * 12) * 0.02 : 0,
+    legs(m, e.t * (ARR ? (fr ? 22 : 9) : 12), ARR && e.alive ? (fr ? 0.12 : 0.06) : 0, { f: -1, tailX: ARR && e.alive ? Math.sin(e.t * 9) * 0.03 : 0, tailY: e.alive ? Math.sin(e.t * 12) * 0.02 : 0,
       headX: ARR && e.alive ? Math.max(0, Math.sin(e.t * 9)) * 0.05 : 0, headY: ARR && e.alive ? -Math.max(0, Math.sin(e.t * 9)) * 0.02 : 0, breathe: 0, shear: 0 }); // a galinha bica o chão a cada passo
   });
   // itens: flutuam, giram devagar e pulsam como pequenas luzes
   S.items.forEach((it, i) => {
     const hid = it.trail && !S.revealed[it.trail], m = itemM[i]; m.visible = !it.got && !hid; const g = m.userData.glow; g.visible = m.visible;
     if (!m.visible) return;
-    const ck = it.type === 'cookie', gd = it.type === 'gold', hh = ck ? 27 : gd ? 36 : it.type === 'toy' ? 40 : 54, bob = Math.sin(clock * 3 + it.x * 0.05) * 5;
+    const ck = it.type === 'cookie', gd = it.type === 'gold', hh = ck ? 27 : gd ? 36 : it.type === 'toy' ? 40 : it.type === 'bilhete' ? 38 : 54, bob = Math.sin(clock * 3 + it.x * 0.05) * 5;
     m.scale.set(hh * AR[gd ? 'cookie' : it.type], hh, 1); m.position.set(it.x, Y(it.y) + bob, 0);
     m.rotation.y = Math.sin(clock * 2.2 + it.x * 0.01) * (ck ? 0.75 : 0.4); m.rotation.z = Math.sin(clock * 3 + it.x) * 0.12;
     const s = (ck ? 62 : it.type === 'choco' ? 130 : it.type === 'toy' ? 150 : 104) + Math.sin(clock * 5 + it.x * 0.03) * (ck ? 8 : 12); g.scale.set(s, s, 1); g.position.set(it.x, Y(it.y) + bob, -2); g.material.opacity = ck ? 0.5 : it.type === 'choco' ? 0.7 + 0.25 * Math.sin(clock * 6 + it.x) : 0.6;
@@ -932,9 +997,13 @@ R.frame = (rdt) => {
       if (Math.random() < live * 22 && Math.abs(q.f.x - fxS) < 900) spawn({ x: q.f.x + (Math.random() - 0.5) * 50, y: GROUND - 70, vx: (Math.random() - 0.5) * 40, vy: -160 - Math.random() * 220, g: -30, life: 1.4 + Math.random(), r: 1.6 + Math.random() * 1.6, color: Math.random() < 0.5 ? 0xffb050 : 0xffe08a, z: 14 }); }
     const near = fireM.slice().sort((a, b) => Math.abs(a.f.x - fxS) - Math.abs(b.f.x - fxS));
     fireLights.forEach((l, i) => { const q = near[i]; if (!q) return; l.position.set(q.f.x, 90, 60); l.intensity = 1.4 + Math.sin(time * 11 + i) * 0.25; });
+    const bt = TT.beatClock ? TT.beatClock() : clock, beat = Math.pow(1 - (bt / 0.6) % 1, 3); // 100 BPM: um pulso a cada 0,6 s
+    if (R.tub) { const q = R.tub, on = !!S.revealed.pescaria; q.peixes.forEach((f, k) => { const a = time * (0.9 + k * 0.3) + k * 2.1; f.visible = !on; f.position.set(q.t.x + Math.cos(a) * q.t.w * 0.3, Y(GROUND) + 39, 24 + Math.sin(a) * q.t.w * 0.2); f.rotation.y = -a; });
+      q.tg.material.opacity = on ? 0.08 : 0.2 + 0.08 * Math.sin(time * 3); }
+    if (R.hoop) { const q = R.hoop, on = !!S.revealed.argola; q.gr.rotation.z = Math.sin(time * 1.1) * 0.08; q.gr.rotation.y = Math.sin(time * 0.7) * 0.3; q.hg.material.opacity = on ? 0.12 : 0.28 + 0.12 * beat; }
     for (const q of lanterns) { const a = Math.sin(time * 0.9 + q.ph) * 0.06; q.m.rotation.z = a; q.g.position.x = q.x + Math.sin(a) * q.h * 0.78; }
-    for (const q of moverM) { const s = q.s; q.m.position.set(s.x + s.w / 2, Y(s.y) - 8, 0); q.b.position.set(s.x + s.w / 2, Y(s.y) - 12, 30); q.b.rotation.x = Math.sin(time * 2.6 + s.x) * 0.25; q.b.children.forEach((f, k) => { f.rotation.z = Math.sin(time * 3 + k + s.x * 0.01) * 0.18; });
-      q.g.position.set(s.x + s.w / 2, Y(s.y) + 2, 34); q.m.rotation.z = Math.sin(Math.PI * 2 * clock / s.mover.per + s.mover.ph) * 0.03; }
+    for (const q of moverM) { const s = q.s; q.m.position.set(s.x + s.w / 2, Y(s.y) - 8, 0); q.b.position.set(s.x + s.w / 2, Y(s.y) - 12, 30); q.b.rotation.x = Math.sin(time * 2.6 + s.x) * 0.25 + beat * 0.2; q.b.children.forEach((f, k) => { f.rotation.z = Math.sin(time * 3 + k + s.x * 0.01) * 0.18; });
+      q.g.position.set(s.x + s.w / 2, Y(s.y) + 2, 34); q.g.material.opacity = 0.14 + beat * 0.18; q.m.rotation.z = Math.sin(Math.PI * 2 * bt / s.mover.per + s.mover.ph) * 0.03; }
   }
   for (const q of ropes) q.m.rotation.z = Math.sin(time * 0.9 + q.ph) * 0.004;
   for (const q of shafts) q.m.material.opacity = q.op * (0.55 + 0.45 * Math.sin(time * 0.35 + q.ph));
@@ -955,6 +1024,8 @@ R.frame = (rdt) => {
     zt = 1 + 0.34 * k; fx = cx + (ARENA_X + 760 - cx) * k; fy = LOOK_Y - 95 * k; }
   else if (S.cine && S.cine.type === 'steal') { const t = S.cine.t, k = ease(Math.min(1, t / 0.8)) * (1 - ease(Math.max(0, Math.min(1, (t - 3.8) / 0.8))));
     zt = 1 + 0.16 * k; fx = cx + (p.x + p.w / 2 + 170 - cx) * k; fy = LOOK_Y - 40 * k; }
+  else if (S.cine && S.cine.type === 'fox') { const t = S.cine.t, k = ease(Math.min(1, t / 0.7)) * (1 - ease(Math.max(0, Math.min(1, (t - 2.6) / 0.6))));
+    zt = 1 + 0.32 * k; fx = cx + (S.fox.x + S.fox.w / 2 - 80 - cx) * k; fy = LOOK_Y - 80 * k; }
   else if (S.cine && S.cine.type === 'arraial') { const t = S.cine.t, k = ease(Math.min(1, t / 0.6)) * (1 - ease(Math.max(0, Math.min(1, (t - 1.9) / 0.7))));
     zt = 1 + 0.12 * k; fx = cx + (p.x + p.w / 2 + 120 - cx) * k; fy = LOOK_Y - 30 * k; }
   else if (S.mode === 'winning' || S.mode === 'win') { zt = 1.2; fx = cx + (p.x + p.w / 2 - cx) * 0.6; fy = LOOK_Y - 60; }

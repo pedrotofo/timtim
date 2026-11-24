@@ -33,15 +33,22 @@ const W0 = C.W;
 // palco + primeiro vão (só planando) → vão maior → fogueiras (o ar quente levanta quem plana) → quadrilha
 // (tábuas de bandeirinhas que dançam no ritmo) → tudo junto, com o brinquedo perdido no alto de uma fogueira → mastro de São João.
 const FASE = TT.FASE = C.FASE = new URLSearchParams(location.search).get('fase') === '2' ? 2 : 1;
-Object.assign(C, { BOSS: true, GLIDE: false, fires: [], movers: [], GOAL_X: C.ARENA_X, MASTRO_X: 0, GIFT_ITEM: 'cookie', EGG: { time: 12, fall: 70, lift: -470 } });
+Object.assign(C, { BOSS: true, FOX: false, GLIDE: false, fires: [], movers: [], GOAL_X: C.ARENA_X, MASTRO_X: 0, GIFT_ITEM: 'cookie', NOTES: [], TUB: null, HOOP: null, EGG: { time: 12, fall: 70, lift: -470 } });
 if (FASE === 2) Object.assign(C, {
-  BOSS: false, GLIDE: true, LEVEL_END: 7900, ARENA_X: 7900 - W0, GOAL_X: 7480, MASTRO_X: 7580, START_X: 200,
+  BOSS: false, FOX: true, GLIDE: true, LEVEL_END: 7900, ARENA_X: 7900 - W0, GOAL_X: 7900 - W0 + 120, MASTRO_X: 7580, START_X: 200, BPM: 100,
   grounds: [[0, 1150], [1670, 700], [3000, 1500], [5880, 280], [6300, 1600]],
   plats: [[430, 250, 120], [700, 330, 450], [2150, 300, 200], [3500, 90, 170], [4120, 140, 150]],
   // tábuas da quadrilha: x e y da posição de descanso, ax/ay = quanto vão e voltam, per = período (s), ph = fase do passo
   movers: [{ x: 4580, y: 320, w: 150, ax: 100, ay: 0, per: 2.4, ph: 0 }, { x: 4950, y: 290, w: 140, ax: 0, ay: 70, per: 2.4, ph: Math.PI },
            { x: 5280, y: 320, w: 150, ax: 110, ay: 0, per: 2.4, ph: Math.PI / 2 }, { x: 5600, y: 280, w: 140, ax: 0, ay: 80, per: 2.4, ph: 0 }],
-  fires: [{ x: 3410 }, { x: 4040 }, { x: 6610 }, { x: 7250 }],
+  fires: [{ x: 3410 }, { x: 4040 }, { x: 6610 }, { x: 7040 }, { x: 7810 }], // as duas últimas ficam nos cantos da arena da raposa
+  // brincadeiras juninas: cair dentro do tanque da pescaria solta biscoitos; atravessar a argola revela um biscoito dourado
+  TUB: { x: 2120, w: 96 }, HOOP: { x: 5440, y: 130, r: 44 },
+  // correio elegante: bilhetes escondidos, cada um com uma piada dos personagens
+  NOTES: [{ x: 640, y: 300, text: 'Para o Timtim: seu faro é o mais charmoso do arraial. Ass.: um admirador secreto (é o Elvis).' },
+    { x: 2700, y: 170, text: 'Para o Furtão: devolve os brinquedos ou ninguém dança quadrilha com você. Ass.: a Zara.' },
+    { x: 3650, y: 20, text: 'Para a Zara: guardei o último pé de moleque pra você. Ass.: o Elvis (comi metade).' },
+    { x: 6040, y: 300, text: 'Para a Raposa: galinha não é brinquedo! Ass.: todos os cães da vila.' }],
   checkpoints: [1720, 3060, 6340],
   // a Zara e o Elvis ajudam jogando ovo cozido, a comida preferida do Timtim: o primeiro, antes da quadrilha, dá o planar
   // turbinado (cai bem devagar e o ar quente sobe mais); o segundo, antes do trecho final, deixa invencível
@@ -121,16 +128,19 @@ function arraialItems() {
   [3120, 3180, 3240].forEach(x => cookie(x, G)); [330, 250, 170, 90].forEach(y => cookie(3410, y)); [3560, 3620].forEach(x => cookie(x, 40));
   [4170, 4230].forEach(x => cookie(x, 90)); [4290, 4340].forEach(x => cookie(x, G));
   [[4655, 250], [5020, 200], [5355, 250], [5670, 180]].forEach(([x, y]) => cookie(x, y));
-  [5950, 6020, 6090].forEach(x => cookie(x, G)); [6400, 6460, 6880, 6940].forEach(x => cookie(x, G)); [7380, 7430].forEach(x => cookie(x, G));
+  [5950, 6020, 6090].forEach(x => cookie(x, G)); [6400, 6460, 6860, 6910].forEach(x => cookie(x, G));
   cookie(6750, 70, 'sanfona');
-  [[900, 110], [3410, -10], [5440, 60]].forEach(([x, y]) => it.push({ type: 'gold', x, y, got: false }));
+  [[900, 110], [3410, -10]].forEach(([x, y]) => it.push({ type: 'gold', x, y, got: false }));
+  it.push({ type: 'gold', x: 5505, y: 140, got: false, trail: 'argola' }); // só aparece depois de atravessar a argola
+  [[2075, 340], [2100, 300], [2125, 280], [2150, 300], [2175, 340]].forEach(([x, y]) => cookie(x, y, 'pescaria')); // saem do tanque da pescaria
+  C.NOTES.forEach((n, i) => it.push({ type: 'bilhete', x: n.x, y: n.y, got: false, idx: i }));
   [1950, 3880, 6820].forEach(x => it.push({ type: 'choco', x, y: GROUND - 34, got: false }));
   it.push({ type: 'toy', id: C.TOY.id, x: C.TOY.x, y: C.TOY.y, got: false, trail: 'sanfona' });
   for (const o of it) for (const [px, py, pw] of C.plats.concat(...C.trails.map(t => t.plats))) if (o.x > px - 20 && o.x < px + pw + 20 && o.y < py && o.y > py - 50) o.y = py - 50;
   return it;
 }
 function makeEnemies() {
-  if (FASE === 2) return [[2050, 1760, 2340], [3720, 3540, 3900], [6900, 6760, 7120], [7420, 7330, 7470]]
+  if (FASE === 2) return [[2050, 1760, 2340], [3720, 3540, 3900], [6460, 6330, 6560], [6790, 6700, 6900]]
     .map(([x, a, b]) => ({ x, y: GROUND - 30, w: 38, h: 30, a, b, dir: -1, alive: true, t: Math.random() * 6, dy: 0 }));
   // sem pombo no começo; o primeiro anda sozinho no trecho de aprendizado
   return [[1750, 1480, 1960], ...[[1700, 1570, 1980], [2700, 2560, 3300], [3700, 3520, 4500], [4300, 4150, 4300], [5100, 4930, 5600], [6100, 5860, 6560], [7100, 6840, 7500], [8100, 7700, 8700]].map(e => e.map(sx))]
@@ -141,6 +151,57 @@ function makeEnemies() {
 // O ponto fraco é a bolinha: de tempos em tempos a Zara ou o Elvis jogam uma, o Brutão não resiste, vai buscar e fica
 // mordendo. Só nessa hora um pisão na cabeça acerta. Fora disso ele sacode o Timtim para o alto, sem dano para ninguém.
 const BOSS = { ballEvery: [5, 6, 7], chew: [3.0, 2.5, 2.1], charge: [520, 590, 660], wind: { charge: 0.75, bark: 0.6, pound: 0.5 } };
+// ---- a Raposa, chefona do Arraial ----
+// Ela invadiu o galinheiro. Ronda o Timtim e ataca de dois jeitos, sempre com aviso: o bote (agacha e pula em cima dele)
+// e a corrida (arranca e só para quando bate na cerca). O jeito de acertar é a ação da fase: cair em cima dela PLANANDO.
+// Pulo comum ela esquiva com um saltinho para trás, a não ser quando está cansada depois do bote ou tonta depois de bater na
+// cerca. As fogueiras dos cantos levantam o Timtim, e a Zara e o Elvis jogam ovo cozido de tempos em tempos. Três acertos e ela foge.
+const FOXC = { prowl: [110, 140, 170], wind: [0.7, 0.58, 0.46], dash: [560, 640, 720], eggEvery: 9 };
+function makeFox() { return { x: ARENA_X + 640, y: GROUND - 86, w: 130, h: 86, vx: 0, vy: 0, dir: -1, hp: 3, state: 'idle', t: 0, cd: 1.6, atk: '', tx: 0, egg: 5, hurt: 0 }; }
+function updateFox(dt, prevBottom, playing) {
+  const p = S.player, f = S.fox, ph = Math.max(0, Math.min(2, 3 - f.hp)), cine = S.cine && S.cine.type === 'fox';
+  f.t += dt; f.hurt = Math.max(0, f.hurt - dt);
+  const fx = f.x + f.w / 2, pcx = p.x + p.w / 2, onGround = f.y + f.h >= GROUND - 0.5;
+  const go = st => { f.state = st; f.t = 0; };
+  if (f.state === 'flee') { f.dir = 1; f.vx = 560; f.x += f.vx * dt; return; } // foge para a mata, sem parede que a segure
+  if (cine) f.vx *= 0.9;
+  else if (playing) switch (f.state) {
+    case 'idle': { const d = Math.sign(pcx - fx) || f.dir; f.dir = d; f.vx += (d * FOXC.prowl[ph] - f.vx) * Math.min(1, dt * 3);
+      f.cd -= dt; if (f.cd <= 0 && onGround) { f.atk = Math.random() < 0.55 ? 'pounce' : 'dash'; go('wind'); } break; }
+    case 'wind': f.vx *= 0.8; f.dir = Math.sign(pcx - fx) || f.dir; // aviso: agacha (bote) ou cava o chão (corrida)
+      if (f.t >= FOXC.wind[ph]) {
+        if (f.atk === 'pounce') { go('air'); f.tx = Math.max(ARENA_X + 80, Math.min(ARENA_X + W - 80, pcx)); f.vy = -820; f.vx = (f.tx - fx) / (2 * 820 / GRAV); emit('foxPounce', { x: fx, y: GROUND }); }
+        else { go('dash'); f.vx = f.dir * FOXC.dash[ph]; emit('foxDash', { x: fx, y: GROUND }); } }
+      break;
+    case 'air': if (onGround && f.t > 0.2) { f.vx = 0; go('tired'); S.trauma = Math.min(1, S.trauma + 0.35); emit('land', { x: fx, y: GROUND }); } break;
+    case 'dash': if ((f.dir < 0 && f.x <= ARENA_X + 14) || (f.dir > 0 && f.x + f.w >= ARENA_X + W - 14)) { f.vx = 0; go('bonk'); S.trauma = Math.min(1, S.trauma + 0.4); emit('bonk', { x: f.dir < 0 ? f.x : f.x + f.w, y: GROUND - 50 }); } break;
+    case 'tired': f.vx *= 0.8; if (f.t > 1.0 - ph * 0.15) { go('idle'); f.cd = 1.2 - ph * 0.2; } break;
+    case 'bonk': f.vx *= 0.8; if (f.t > 1.1 - ph * 0.15) { go('idle'); f.cd = 1.0; } break;
+    case 'dodge': if (onGround && f.t > 0.25) { f.vx = 0; go('idle'); f.cd = 0.6; } break;
+    case 'hurt': f.vx *= 0.85; if (f.t > 1.1) { go('idle'); f.cd = 0.9; } break;
+  }
+  f.vy += GRAV * dt; f.x += f.vx * dt; f.y += f.vy * dt;
+  if (f.y + f.h > GROUND) { f.y = GROUND - f.h; f.vy = 0; }
+  f.x = Math.max(ARENA_X + 10, Math.min(ARENA_X + W - 10 - f.w, f.x));
+  // a Zara e o Elvis jogam ovo cozido de tempos em tempos: planar turbinado para subir nas fogueiras e cair em cima dela
+  if (playing && !cine) { f.egg -= dt; if (f.egg <= 0 && !S.gifts.length) { f.egg = FOXC.eggEvery; const fr = S.friends[(f.throws = (f.throws || 0) + 1) % 2]; // revezam: um de cada canto
+    S.gifts.push({ sx: fr.x + fr.face * 18, sy: GROUND - 58, x: fr.x, y: GROUND - 58, t: 0, kind: 0, fight: true }); fr.hop = 0.9; emit('friend', { x: fr.x, y: GROUND - 70, kind: fr.kind }); } }
+  if (!playing || cine) return;
+  const hb = { x: f.x + 14, y: f.y + 12, w: f.w - 28, h: f.h - 12 };
+  if (!overlap(p, hb)) return;
+  const fromAbove = p.vy > 0 && (prevBottom <= f.y + 30 || p.y + p.h < f.y + f.h * 0.55);
+  if (fromAbove) {
+    if (f.state === 'hurt') { p.vy = -520; p.shrugT = 0.45; return; }
+    if (p.gliding || f.state === 'tired' || f.state === 'bonk') { // acertou!
+      f.hp--; f.hurt = 0.4; go('hurt'); p.vy = -720; p.shrugT = 0.5; S.hitstop = 0.12; S.trauma = Math.min(1, S.trauma + 0.55);
+      emit('stomp', { x: fx, y: f.y, boss: true }); emit('foxHit', { x: fx, y: f.y, hp: f.hp });
+      if (f.hp <= 0) { go('flee'); S.mode = 'winning'; S.winT = 0; S.slowT = 0.6;
+        S.friends.forEach((q, i) => { q.home = Math.max(ARENA_X + 60, p.x - 120 - i * 85) + (p.x < ARENA_X + 300 ? 330 : 0); q.vx = 0; });
+        emit('finalBlow', { x: fx, y: f.y }); emit('foxDefeated', { x: fx, y: f.y }); }
+    } else { // pulo comum: ela esquiva com um saltinho para trás e o Timtim quica
+      go('dodge'); f.vy = -420; f.vx = (fx < pcx ? -1 : 1) * 300; p.vy = -600; p.shrugT = 0.45; emit('foxDodge', { x: fx, y: f.y }); }
+  } else if (!['hurt', 'tired', 'bonk', 'dodge'].includes(f.state) && p.mega <= 0 && !(p.shrugT > 0)) hurt();
+}
 function makeBoss() {
   return { name: 'Furtão', x: ARENA_X + 700, y: GROUND - 100, w: 150, h: 100, vx: 0, vy: 0, dir: -1, hp: 3,
     state: 'idle', atk: '', last: '', t: 0, cd: 1.8, hurt: 0, spin: 0, landT: 0, turnT: 0, tx: 0, ballT: 4, thrower: 0 };
@@ -157,6 +218,7 @@ for (const t of C.trails) for (const [x, y, w] of t.plats) SOLIDS.push({ x, y, w
 // tábuas da quadrilha: sólidos que se movem; a posição é recalculada a cada quadro e quem está em cima vai junto
 const MOVERS = C.movers.map(m => { const s = { x: m.x, y: m.y, w: m.w, h: 18, oneWay: true, mover: m, dx: 0, dy: 0 }; SOLIDS.push(s); return s; });
 TT.MOVERS = MOVERS;
+TT.beatClock = () => { const b = TT.beatTime && TT.beatTime(); return b != null ? b : S.clock; }; // tempo da música quando há trilha do Arraial; senão o relógio da fase
 function moveMovers(clock) {
   for (const s of MOVERS) { const m = s.mover, a = Math.PI * 2 * clock / m.per + m.ph, nx = m.x + m.ax * Math.sin(a), ny = m.y + m.ay * Math.sin(a);
     s.dx = nx - s.x; s.dy = ny - s.y; s.x = nx; s.y = ny; }
@@ -175,7 +237,7 @@ function reset() {
     player: makePlayer(C.START_X), items: makeItems(), enemies: makeEnemies(), boss: makeBoss(), ball: null, waves: [],
     cam: { x: 0, y: 0, look: 0 }, time: 0, clock: 0, cookies: 0, arena: false, trauma: 0, hitstop: 0,
     gold: 0, timeScale: 1, slowT: 0, cine: null, checkpoint: -1, bossSeen: false, hpLost: 0, winT: 0, dustT: 0,
-    thief: null, prize: null, revealed: {}, toy: false, scent: null,
+    thief: null, prize: null, revealed: {}, toy: false, scent: null, fox: makeFox(), notes: 0,
     friends: C.friends.map(f => ({ x: f.x, home: f.x, vx: 0, follow: 0, kind: f.kind, power: f.power, given: false, hop: 0, face: -1, t: 0 })), gifts: [], tut: {},
   });
   S.totalCookies = S.items.filter(i => i.type === 'cookie').length + C.friends.length * C.GIFT;
@@ -202,7 +264,7 @@ TT.start = () => { reset(); S.mode = 'play';
 TT.retry = () => {
   if (S.checkpoint < 0) return TT.start();
   const x = C.checkpoints[S.checkpoint];
-  S.player = makePlayer(x); S.player.inv = 1.6; S.scent = null; S.boss = makeBoss(); S.ball = null; S.thief = null; S.prize = null; S.waves = []; S.arena = false; S.cine = null; S.timeScale = 1; S.slowT = 0; S.hitstop = 0; S.gifts = [];
+  S.player = makePlayer(x); S.player.inv = 1.6; S.scent = null; S.boss = makeBoss(); S.fox = makeFox(); S.ball = null; S.thief = null; S.prize = null; S.waves = []; S.arena = false; S.cine = null; S.timeScale = 1; S.slowT = 0; S.hitstop = 0; S.gifts = [];
   S.cam.x = Math.max(0, x - W * 0.4); S.cam.look = 0; S.mode = 'play';
   emit('start', { retry: true });
 };
@@ -211,7 +273,7 @@ TT.resume = () => { if (S.mode === 'pause') { S.mode = 'play'; emit('resume'); }
 
 function stats() {
   const allCookies = S.cookies >= Math.ceil(S.totalCookies * 0.8), noHit = S.hpLost === 0, allGold = S.gold >= 3;
-  return { cookies: S.cookies, total: S.totalCookies, time: S.time, hpLost: S.hpLost, gold: S.gold, toy: S.toy, allCookies, noHit, allGold, stars: 1 + (allCookies ? 1 : 0) + (allGold ? 1 : 0) };
+  return { notes: S.notes, notesTotal: C.NOTES.length, cookies: S.cookies, total: S.totalCookies, time: S.time, hpLost: S.hpLost, gold: S.gold, toy: S.toy, allCookies, noHit, allGold, stars: 1 + (allCookies ? 1 : 0) + (allGold ? 1 : 0) };
 }
 
 // modo demonstração (só o script que grava o vídeo de apresentação liga): o Timtim não leva dano
@@ -244,7 +306,7 @@ TT.update = (rdt) => {
   }
 
   const p = S.player, I = TT.input;
-  if (MOVERS.length) { moveMovers(S.clock); if (p.on && p.on.mover && p.onGround) { p.x += p.on.dx; p.y += p.on.dy; } }
+  if (MOVERS.length) { moveMovers(TT.beatClock()); if (p.on && p.on.mover && p.onGround) { p.x += p.on.dx; p.y += p.on.dy; } }
   p.inv = Math.max(0, p.inv - dt); p.fast = Math.max(0, p.fast - dt); p.mega = Math.max(0, p.mega - dt); p.slow = Math.max(0, p.slow - dt);
   p.hurtT = Math.max(0, p.hurtT - dt); p.shrugT = Math.max(0, (p.shrugT || 0) - dt); p.egg = Math.max(0, (p.egg || 0) - dt);
 
@@ -307,7 +369,8 @@ TT.update = (rdt) => {
     else if (p.vy >= 0) { p.y = s.y - p.h; p.vy = 0; p.onGround = true; }
     else { p.y = s.y + s.h; p.vy = 0; }
   }
-  if (p.onGround && !wasGround) { p.landT = 0.18; emit('land', { x: p.x + p.w / 2, y: p.y + p.h }); }
+  if (p.onGround && !wasGround) { p.landT = 0.18; emit('land', { x: p.x + p.w / 2, y: p.y + p.h });
+    if (C.TUB && !S.revealed.pescaria && Math.abs(p.x + p.w / 2 - C.TUB.x) < C.TUB.w / 2 && p.y + p.h >= GROUND - 2) { S.revealed.pescaria = true; emit('splash', { x: C.TUB.x, y: GROUND }); emit('banner', { text: 'Pescaria! Caíram biscoitos do tanque!' }); } }
   p.landT = Math.max(0, p.landT - dt);
   if (p.onGround && p.y + p.h >= GROUND - 1) p.safeX = p.x;
   S.dustT -= dt;
@@ -329,8 +392,9 @@ TT.update = (rdt) => {
     if (!S.tut.glide && p.x > 560) { S.tut.glide = true; emit('tutorial', { kind: 'glide' }); }
     if (!S.tut.fire && p.x > 3130) { S.tut.fire = true; emit('tutorial', { kind: 'fire' }); }
     if (!S.tut.dance && p.x > 4380) { S.tut.dance = true; emit('tutorial', { kind: 'dance' }); }
-    // chegada: o mastro de São João
-    if (p.x + p.w / 2 > C.GOAL_X) { S.mode = 'winning'; S.winT = 0; p.gliding = false; emit('goal', { x: C.MASTRO_X });
+    if (C.HOOP && !S.revealed.argola && Math.hypot(p.x + p.w / 2 - C.HOOP.x, p.y + p.h / 2 - C.HOOP.y) < C.HOOP.r) { S.revealed.argola = true; emit('hoop', C.HOOP); emit('banner', { text: 'Passou pela argola: biscoito dourado!' }); }
+    // chegada: o mastro de São João (só sem chefe; no Arraial a vitória é derrotar a raposa)
+    if (!C.FOX && p.x + p.w / 2 > C.GOAL_X) { S.mode = 'winning'; S.winT = 0; p.gliding = false; emit('goal', { x: C.MASTRO_X });
       S.friends.forEach((f, i) => { f.home = C.MASTRO_X - 150 + i * 260; f.given = true; f.follow = 0; }); }
   }
   if (playing) {
@@ -345,7 +409,8 @@ TT.update = (rdt) => {
       if (it.type === 'cookie') { S.cookies++; emit('cookie', it); }
       if (it.type === 'gold') { S.gold++; emit('power', it); emit('gold', it); }
       if (it.type === 'choco') { if (p.mega <= 0) { p.slow = 5; p.fast = 0; emit('choco', it); } }
-      if (it.type === 'toy') { S.toy = true; S.hitstop = 0.1; emit('toy', it); emit('banner', { text: 'Brinquedo perdido: o Patinho!' }); }
+      if (it.type === 'toy') { S.toy = true; S.hitstop = 0.1; emit('toy', it); emit('banner', { text: FASE === 2 ? 'Brinquedo perdido: a Sanfoninha!' : 'Brinquedo perdido: o Patinho!' }); }
+      if (it.type === 'bilhete') { S.notes++; emit('note', { x: it.x, y: it.y, text: C.NOTES[it.idx].text, n: S.notes, total: C.NOTES.length }); }
     }
   }
 
@@ -368,7 +433,7 @@ TT.update = (rdt) => {
     const g = S.gifts[i]; g.t += dt / 0.8; const k = Math.min(1, g.t), e = k * k * (3 - 2 * k);
     g.x = g.sx + (pcx - g.sx) * e; g.y = g.sy + (p.y + p.h / 2 - g.sy) * e - Math.sin(k * Math.PI) * 110;
     if (k >= 1) {
-      S.gifts.splice(i, 1); S.cookies += C.GIFT; p.hp = Math.min(3, p.hp + 1);
+      S.gifts.splice(i, 1); if (!g.fight) S.cookies += C.GIFT; p.hp = Math.min(3, p.hp + 1);
       const pw = S.friends[g.kind] && S.friends[g.kind].power;
       p.slow = 0; if (pw === 'none') { /* só o biscoito e o coração */ } else if (pw === 'egg') { p.egg = C.EGG.time; emit('egg', { x: g.x, y: g.y }); }
       else if (pw === 'fast' || (!pw && g.kind === 0)) p.fast = 8; else p.mega = 9;
@@ -379,8 +444,15 @@ TT.update = (rdt) => {
   // pombos
   for (const e of S.enemies) {
     if (!e.alive) { e.dy += GRAV * dt; e.y += e.dy * dt; continue; }
-    e.t += dt; e.x += e.dir * 70 * dt;
-    if (e.x < e.a) { e.x = e.a; e.dir = 1; } if (e.x > e.b) { e.x = e.b; e.dir = -1; }
+    e.t += dt;
+    if (FASE === 2) { const d = (p.x + p.w / 2) - (e.x + e.w / 2), near = playing && Math.abs(d) < 230 && Math.abs(p.y - e.y) < 220;
+      e.bolt = Math.max(0, (e.bolt || 0) - dt);
+      if (near && !e.bolt) e.dir = d > 0 ? -1 : 1; // foge para longe do Timtim
+      if (near && !e.scared) emit('cluck', { x: e.x + e.w / 2, y: e.y });
+      e.scared = near || e.bolt > 0; const sp = e.bolt > 0 ? 250 : near ? 185 : 70; e.x += e.dir * sp * dt;
+      const hop = e.scared ? Math.abs(Math.sin(e.t * (e.bolt > 0 ? 13 : 10))) * (e.bolt > 0 ? 40 : 22) : 0; e.y = GROUND - 30 - hop; // pulinhos de susto
+      if (e.x < e.a || e.x > e.b) { e.x = Math.max(e.a, Math.min(e.b, e.x)); if (near && !e.bolt) { e.bolt = 0.6; e.dir = d > 0 ? 1 : -1; emit('cluck', { x: e.x + e.w / 2, y: e.y }); } else if (!e.bolt) e.dir = e.x <= e.a ? 1 : -1; } // encurralada: dispara passando por ele
+    } else { e.x += e.dir * 70 * dt; if (e.x < e.a) { e.x = e.a; e.dir = 1; } if (e.x > e.b) { e.x = e.b; e.dir = -1; } }
     if (!playing || !overlap(p, e)) continue;
     if (p.mega > 0 || (p.vy > 0 && prevBottom <= e.y + 14)) {
       e.alive = false; e.dy = -400; S.hitstop = 0.05; S.trauma = Math.min(1, S.trauma + 0.25);
@@ -397,7 +469,11 @@ TT.update = (rdt) => {
     if (!S.bossSeen) { S.bossSeen = true; S.cine = { type: 'boss', t: 0, dur: 3.4, barks: 0 }; emit('bossIntro'); }
     else emit('rematch');
   }
-  if (S.arena) updateBoss(dt, prevBottom, playing);
+  if (S.arena && C.BOSS) updateBoss(dt, prevBottom, playing);
+  if (playing && C.FOX && !S.arena && p.x > ARENA_X + 120) { S.arena = true;
+    S.friends.forEach((f, i) => { f.home = i ? ARENA_X + W - 70 : ARENA_X + 50; f.x = i ? ARENA_X + W + 70 : ARENA_X - 70; f.given = true; f.follow = 0; f.vx = 0; });
+    if (!S.bossSeen) { S.bossSeen = true; S.cine = { type: 'fox', t: 0, dur: 3.2 }; emit('foxIntro'); } else emit('rematch'); }
+  if (S.arena && C.FOX) updateFox(dt, prevBottom, playing);
 
   // câmera
   const cam = S.cam;

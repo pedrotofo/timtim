@@ -49,4 +49,7 @@ Geradas no Google Flow (Nano Banana Pro, 24/11/2026) com a folha de personagem e
 - **Feito (24/11/2026):** cor por fase. Fase 1 azul: plantas de pântano ao luar (`props/pantano-*.png`). Fase 2 laranja: `bg/vila-laranja.jpg`, barracas, pescaria, fogueira, mastro, sanfoninha, texturas de terra e madeira, capim, hera, folhagem, plantas, banco e poste (`assets/props/`, `assets/tex/`).
 - Testado e reprovado na fase 1 (24/11/2026): vila do entardecer à noite, bandeirinhas, chafariz, coreto, carrinho de pipoca, sebe florida, gramado e paralelepípedo realistas. Deixaram a fase genérica e colorida demais.
 
-Ainda falta: uma trilha própria de forró para o Arraial (hoje ele usa a música da fase 1) e a arte de abertura pintada do Arraial (hoje é um cartão de texto).
+- **Feito (24/11/2026):** chefona do Arraial, a Raposa (bote e corrida com aviso; só a queda planando acerta, a não ser quando ela está cansada ou tonta; três acertos), arena no fim da fase com o galinheiro ao fundo e duas fogueiras nos cantos; galinhas agitadas; brincadeiras juninas como segredos (tanque da pescaria, argola) e o correio elegante (4 bilhetes com piadas). A vitória do Arraial agora é salvar o galinheiro, não chegar ao mastro.
+- **Feito (24/11/2026):** relógio da música a 100 BPM (`TT.beatTime`, `TT.beatClock`): a quadrilha (um vai-e-volta por compasso de 2,4 s), as fitas e a argola pulsam na batida.
+
+Ainda falta: o arquivo da trilha do Arraial, feito no Suno a 100 BPM e cortado em compassos inteiros (`assets/music/arraial.mp3`, depois ligar `ARRAIAL_PRONTA` em `src/audio.js`), e a arte de abertura pintada do Arraial (hoje é um cartão de texto).

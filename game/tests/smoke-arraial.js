@@ -1,5 +1,5 @@
 // Teste de fumaça da fase 2 (o Arraial): planar, ar quente da fogueira, chama que machuca, tábuas da quadrilha,
-// faro revelando o caminho até a sanfoninha e a chegada ao mastro. Mesmo esquema do smoke.js: espera por condições.
+// faro revelando o caminho até a sanfoninha, galinhas agitadas, brincadeiras juninas e a luta com a raposa. Mesmo esquema do smoke.js: espera por condições.
 // Uso: (cd game && python3 -m http.server 8765 &) ; node game/tests/smoke-arraial.js [url]
 const { chromium } = require('playwright');
 (async () => {
@@ -66,11 +66,42 @@ const { chromium } = require('playwright');
   const ge = await ev(() => ({ vy: __tintim.player.vy, gl: __tintim.player.gliding })); await pg.keyboard.up('Space');
   check(ge.gl && ge.vy > 0 && ge.vy <= 75, `com o ovo, a queda planando fica bem mais lenta (vy=${ge.vy.toFixed(0)})`);
 
-  // chegada ao mastro
-  await put(7300, 452 - 50, { onGround: true, inv: 9 }); await pg.keyboard.down('ArrowRight');
-  check(await until(() => __tintim.state === 'winning' || __tintim.state === 'win', 6000), 'chegar ao mastro de São João vence a fase'); await pg.keyboard.up('ArrowRight');
+  // galinha agitada: com o Timtim chegando perto, ela foge cacarejando
+  const hen = await ev(() => { const i = __tintim.S.enemies.findIndex(e => e.alive && e.b - e.a > 200); const e = __tintim.S.enemies[i]; e.x = (e.a + e.b) / 2; return { i, x: e.x }; });
+  await put(hen.x + 150, 452 - 50, { onGround: true, inv: 9 }); await pg.waitForTimeout(150);
+  const scared = await ev(i => __tintim.S.enemies[i].scared, hen.i); await pg.waitForTimeout(250);
+  const h1 = await ev(i => ({ x: __tintim.S.enemies[i].x }), hen.i);
+  check(scared && h1.x < hen.x - 30, `a galinha fica agitada e foge quando o Timtim chega perto (andou ${(hen.x - h1.x).toFixed(0)} px)`);
+
+  // brincadeiras juninas: pular dentro do tanque da pescaria solta biscoitos; atravessar a argola revela o dourado
+  const tub = await ev(() => TT.C.TUB.x);
+  await put(tub - 27, 340, { inv: 9 });
+  check(await until(() => __tintim.S.revealed.pescaria, 3000), 'cair dentro do tanque da pescaria solta os biscoitos escondidos');
+  const hp = await ev(() => TT.C.HOOP);
+  await put(hp.x - 27, hp.y - 25, { inv: 9 });
+  check(await until(() => __tintim.S.revealed.argola, 2000), 'passar pela argola revela o biscoito dourado');
+  // correio elegante: pegar um bilhete abre a piada na tela
+  const n0 = await ev(() => TT.C.NOTES[0]);
+  await put(n0.x - 27, n0.y - 25, { inv: 9 });
+  check(await until(() => __tintim.S.notes === 1 && document.getElementById('note').classList.contains('on'), 3000), 'pegar o bilhete do correio elegante mostra a piada');
+
+  // a raposa: chegar na arena começa a luta com a apresentação dela
+  const ax = await ev(() => TT.C.ARENA_X);
+  await put(ax + 200, 452 - 50, { onGround: true, inv: 99 });
+  check(await until(() => __tintim.S.arena && __tintim.S.cine && __tintim.S.cine.type === 'fox', 3000), 'chegar no fim do Arraial apresenta a raposa');
+  check(await until(() => !__tintim.S.cine, 6000), 'depois da apresentação, a luta começa');
+  // pulo comum ela esquiva; caindo planando em cima dela, acerta
+  const above = () => ev(() => { const f = __tintim.S.fox, p = __tintim.player; f.x = TT.C.ARENA_X + 400; f.y = TT.C.GROUND - f.h; f.vy = 0; f.state = 'idle'; f.t = 0; f.cd = 9; f.vx = 0; Object.assign(p, { x: f.x + f.w / 2 - p.w / 2, y: f.y - p.h - 40, vx: 0, vy: 200, onGround: false, inv: 99, hp: 3, dj: false, buffer: 0, coyote: 0 }); });
+  await above();
+  check(await until(() => __tintim.S.fox.state === 'dodge', 2000) && await ev(() => __tintim.S.fox.hp === 3), 'pulo comum em cima da raposa: ela esquiva e não perde vida');
+  for (let k = 0; k < 3; k++) {
+    await until(() => ['idle', 'dodge', 'hurt'].includes(__tintim.S.fox.state) && __tintim.S.fox.state !== 'hurt' && __tintim.player.onGround, 4000);
+    await above(); await pg.keyboard.down('Space'); await pg.waitForFunction(n => __tintim.S.fox.hp === n, 2 - k, { timeout: 3000, polling: 50 }).catch(() => {}); await pg.keyboard.up('Space');
+  }
+  check(await ev(() => __tintim.S.fox.hp === 0), 'três quedas planando em cima dela derrotam a raposa');
+  check(await until(() => __tintim.state === 'winning' || __tintim.state === 'win', 3000), 'derrotar a raposa vence a fase');
   check(await until(() => document.getElementById('win').classList.contains('on'), 9000), 'tela de vitória aparece');
-  check(await ev(() => document.getElementById('winTitle').textContent.includes('São João')), 'vitória com o texto do Arraial');
+  check(await ev(() => document.getElementById('winTitle').textContent.includes('Galinheiro') && document.getElementById('stNotes').textContent.includes('1/4')), 'vitória com o texto do galinheiro e a contagem do correio elegante');
   check(await ev(() => JSON.parse(localStorage.getItem('tintim-fases') || '{}')[2] === true), 'fase 2 fica marcada como vencida');
   check(errs.length === 0, 'sem erros no console' + (errs.length ? ': ' + errs.slice(0, 3).join(' | ') : ''));
   await b.close();
