@@ -88,7 +88,7 @@ let found = {};
 try { found = JSON.parse(localStorage.getItem('tintim-toys') || '{}') || {}; } catch (_) {}
 function drawShelf() {
   $('shelfSlots').innerHTML = TOYS.map(t => { const got = t.id && found[t.id], soon = !t.id;
-    const img = t.id === 'patinho' && TT.R && TT.R.toyImage ? `<img src="${TT.R.toyImage()}" alt="">` : '<b>?</b>';
+    const img = t.id === 'patinho' ? '<img src="assets/sprites/toy-duck.png" alt="">' : '<b>?</b>';
     return `<div class="slot${got ? ' got' : ''}${soon ? ' soon' : ''}"><div class="pic">${img}</div><small>${t.fase}</small>` +
       `<strong>${got ? t.name : soon ? 'Em breve' : 'Ainda perdido'}</strong>${got ? `<p>${t.joke}</p>` : t.id ? '<p>Dica: o faro (↓) mostra o caminho.</p>' : ''}</div>`; }).join('');
   $('shelfCount').textContent = `${TOYS.filter(t => t.id && found[t.id]).length} de ${TOYS.length} brinquedos devolvidos`;

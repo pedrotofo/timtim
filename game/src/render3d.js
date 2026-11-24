@@ -27,7 +27,7 @@ THREE.DefaultLoadingManager.onLoad = () => { R.ready = true; TT.emit('assetsRead
 const TL = new THREE.TextureLoader();
 const load = p => { const t = TL.load('assets/' + p); t.anisotropy = 4; return t; };
 const AR = { 'tintim-idle': 232 / 220, 'tintim-run': 1.2143, 'tintim-jump': 270 / 200, 'tintim-fall': 240 / 220, 'tintim-hurt': 218 / 220,
-  'tintim-win': 189 / 240, 'brute-walk': 362 / 320, 'brute-charge': 454 / 253, 'brute-bark': 341 / 322, 'brute-ball': 413 / 265, 'brute-dizzy': 374 / 345, 'brute-down': 432 / 209, pigeon: 1.1381, 'monkey-front': 217 / 235, 'monkey-joy': 286 / 260,
+  'tintim-win': 189 / 240, 'tintim-sniff': 282 / 220, 'brute-walk': 362 / 320, 'brute-charge': 454 / 253, 'brute-bark': 341 / 322, 'brute-ball': 413 / 265, 'brute-dizzy': 374 / 345, 'brute-down': 432 / 209, pigeon: 1.1381, 'monkey-front': 217 / 235, 'monkey-joy': 286 / 260,
   cookie: 129 / 90, 'chi-pb': 245 / 300, 'chi-br': 223 / 300 };
 const TEX = {};
 AR.choco = 1.25;
@@ -439,17 +439,8 @@ TEX.choco = canvasTex(160, 128, x => { x.translate(80, 64); x.rotate(-0.18);
     x.fillStyle = '#d08a52'; x.beginPath(); x.roundRect(px + 3, py + 3, 28, 9, 4); x.fill(); x.fillStyle = '#5e2f14'; x.fillRect(px + 3, py + 25, 28, 4); }
   x.fillStyle = '#ff3d5e'; x.beginPath(); x.moveTo(-66, -44); x.lineTo(-8, -44); x.lineTo(-20, 44); x.lineTo(-66, 44); x.closePath(); x.fill();
   x.fillStyle = '#ffd98a'; x.fillRect(-66, -10, 52, 20); x.strokeStyle = '#fff3d6'; x.lineWidth = 3; x.beginPath(); x.moveTo(-8, -44); x.lineTo(-14, -20); x.lineTo(-6, 0); x.lineTo(-16, 22); x.lineTo(-20, 44); x.stroke(); });
-// brinquedo perdido do Parque: um patinho de borracha, desenhado por código (até ganhar arte própria)
-const drawDuck = (x, w, h) => { x.translate(w / 2, h / 2 + 6); const s = w / 128; x.scale(s, s); x.lineJoin = 'round';
-  x.fillStyle = '#ffd23f'; x.strokeStyle = '#fff3c4'; x.lineWidth = 5;
-  x.beginPath(); x.ellipse(-6, 22, 50, 30, 0, 0, 7); x.moveTo(-44, 6); x.quadraticCurveTo(-66, -6, -58, 22); x.fill(); x.stroke();    // corpo e rabinho
-  x.beginPath(); x.arc(18, -18, 28, 0, 7); x.fill(); x.stroke();                                                                         // cabeça
-  x.fillStyle = '#ff8a2a'; x.beginPath(); x.moveTo(40, -16); x.quadraticCurveTo(64, -14, 60, -4); x.quadraticCurveTo(50, 2, 38, -4); x.fill(); // bico
-  x.fillStyle = '#1b1b2a'; x.beginPath(); x.arc(24, -24, 5, 0, 7); x.fill(); x.fillStyle = '#fff'; x.beginPath(); x.arc(26, -26, 1.8, 0, 7); x.fill();
-  x.fillStyle = '#f0b020'; x.beginPath(); x.ellipse(-8, 18, 24, 12, -0.3, 0, 7); x.fill();                                              // asa
-  x.fillStyle = 'rgba(255,255,255,.55)'; x.beginPath(); x.ellipse(8, -30, 9, 5, -0.5, 0, 7); x.fill(); };
-TEX.toy = canvasTex(128, 112, (x, w, h) => drawDuck(x, w, h)); AR.toy = 128 / 112;
-R.toyImage = () => { const c = document.createElement('canvas'); c.width = 256; c.height = 224; drawDuck(c.getContext('2d'), 256, 224); return c.toDataURL(); };
+// brinquedo perdido do Parque: o Patinho Quá-Quá, de borracha e meio mordido (arte do Google Flow, a mesma da estante)
+TEX.toy = load('sprites/toy-duck.png'); AR.toy = 214 / 200;
 const itemM = S.items.map(it => { const m = sprite(it.type === 'gold' ? 'cookie' : it.type, 5, false, it.type === 'gold' ? 0xffd640 : 0xfff4e0); m.geometry = planeGeoC;
   m.userData.glow = add(new THREE.Mesh(planeGeoC, glowMat(it.type === 'choco' ? 0xff3355 : it.type === 'cookie' ? 0xffc76a : it.type === 'toy' ? 0x9dff7a : 0xffe14d)), 4);
   return m; });
@@ -594,7 +585,8 @@ R.frame = (rdt) => {
   else if (p.hurtT > 0 || S.mode === 'lose') name = 'tintim-hurt';
   else if (!p.onGround) { if (p.vy < 0 || p.djT > 0) { name = 'tintim-jump'; h = 66; } else { name = 'tintim-fall'; h = 78; } }
   else if (moving) { name = 'tintim-run'; h = 72; h = 76; nf = 8; fr = Math.floor(runPhase) % 8; }
-  const sniffing = p.sniff > 0 && p.onGround; // farejando: cabeça baixa, focinho tremendo, corpo inclinado para a frente
+  const sniffing = p.sniff > 0 && p.onGround && name === 'tintim-idle'; // farejando: pose própria, focinho no chão, focinho tremendo
+  if (sniffing) { name = 'tintim-sniff'; h = 74; }
   faceS += (p.face - faceS) * Math.min(1, rdt * 20); // vira o corpo num instante, em vez de espelhar de uma vez
   setAnim(tintim, name, h, faceS < 0, fr, nf); tintim.scale.x *= Math.max(0.25, Math.abs(faceS));
   { // rabo, orelhas e pelo seguem o corpo com atraso; parado, ele respira, abana o rabo e olha em volta
@@ -603,13 +595,13 @@ R.frame = (rdt) => {
     const tX = spring(tailX, -sp * 0.07 + happy + (moving ? Math.sin(stride) * 0.02 : 0), sdtA(live));
     const tY = spring(tailY, (air ? Math.max(-0.1, Math.min(0.1, p.vy / 5000)) : 0) + (moving ? Math.cos(stride) * 0.03 : 0), sdtA(live), 120, 9);
     const eY = spring(earS, (air ? Math.max(-0.05, Math.min(0.05, p.vy / 9000)) : 0) + (moving ? -Math.cos(stride + 0.7) * 0.022 : idle ? Math.sin(time * 1.3) * 0.012 : 0), sdtA(live), 200, 14);
-    legs(tintim, 0, 0, { f: 1, tailX: tX, tailY: tY, headX: sniffing ? 0.025 + Math.sin(time * 9) * 0.01 : idle ? Math.sin(time * 0.9) * 0.012 : sp * 0.015, headY: sniffing ? -0.07 + Math.sin(time * 26) * 0.012 : eY, breathe: idle ? Math.sin(time * 2.6) * 0.022 : 0, shear: air ? -Math.max(-0.05, Math.min(0.05, p.vx / 9000)) : 0 }); }
+    legs(tintim, 0, 0, { f: 1, tailX: tX, tailY: tY, headX: sniffing ? Math.sin(time * 9) * 0.006 : idle ? Math.sin(time * 0.9) * 0.012 : sp * 0.015, headY: sniffing ? Math.sin(time * 26) * 0.01 : eY, breathe: idle ? Math.sin(time * 2.6) * 0.022 : 0, shear: air ? -Math.max(-0.05, Math.min(0.05, p.vx / 9000)) : 0 }); }
   const sdt = Math.min(live, 0.02);
   sqV += (-(sq - 1) * 260 - sqV * 15) * sdt; sq = Math.max(0.72, Math.min(1.3, sq + sqV * sdt));
   const squash = sq * (p.onGround ? 1 + Math.sin(clock * 3) * 0.015 : 1 + Math.min(0.08, Math.abs(p.vy) / 9000));
   tintim.scale.x *= 2 - squash; tintim.scale.y *= squash;
   const tx = p.x + p.w / 2, ty = Y(p.y + p.h) - 2 + (moving ? Math.abs(Math.sin(runPhase * Math.PI / 8)) * 2 : 0);
-  const rotT = p.won ? 0 : sniffing ? -p.face * 0.09 : p.onGround ? -(p.vx / C.FAST) * 0.07 : -Math.max(-0.32, Math.min(0.32, p.vy / 2400)) * p.face;
+  const rotT = p.won ? 0 : sniffing ? 0 : p.onGround ? -(p.vx / C.FAST) * 0.07 : -Math.max(-0.32, Math.min(0.32, p.vy / 2400)) * p.face;
   rotS += (rotT - rotS) * Math.min(1, rdt * 16);
   const flip = p.djT > 0 ? -p.face * Math.PI * 2 * ease(1 - p.djT / 0.42) : 0;
   tintim.rotation.z = rotS + flip;
@@ -745,7 +737,7 @@ R.frame = (rdt) => {
   S.items.forEach((it, i) => {
     const hid = it.trail && !S.revealed[it.trail], m = itemM[i]; m.visible = !it.got && !hid; const g = m.userData.glow; g.visible = m.visible;
     if (!m.visible) return;
-    const ck = it.type === 'cookie', gd = it.type === 'gold', hh = ck ? 27 : gd ? 36 : it.type === 'toy' ? 46 : 54, bob = Math.sin(clock * 3 + it.x * 0.05) * 5;
+    const ck = it.type === 'cookie', gd = it.type === 'gold', hh = ck ? 27 : gd ? 36 : it.type === 'toy' ? 40 : 54, bob = Math.sin(clock * 3 + it.x * 0.05) * 5;
     m.scale.set(hh * AR[gd ? 'cookie' : it.type], hh, 1); m.position.set(it.x, Y(it.y) + bob, 0);
     m.rotation.y = Math.sin(clock * 2.2 + it.x * 0.01) * (ck ? 0.75 : 0.4); m.rotation.z = Math.sin(clock * 3 + it.x) * 0.12;
     const s = (ck ? 62 : it.type === 'choco' ? 130 : it.type === 'toy' ? 150 : 104) + Math.sin(clock * 5 + it.x * 0.03) * (ck ? 8 : 12); g.scale.set(s, s, 1); g.position.set(it.x, Y(it.y) + bob, -2); g.material.opacity = ck ? 0.5 : it.type === 'choco' ? 0.7 + 0.25 * Math.sin(clock * 6 + it.x) : 0.6;

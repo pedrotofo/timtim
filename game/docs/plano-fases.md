@@ -38,9 +38,11 @@ Um mapinha da vila liga as fases, e o progresso fica salvo no navegador.
 3. Mapa da vila com progresso salvo (quando houver duas fases).
 4. As outras fases, uma por vez.
 
-## Artes que ainda faltam (para gerar)
-O que existe hoje foi desenhado por código para não travar o trabalho; as artes abaixo deixam tudo no estilo dos personagens:
-- Sprite do Timtim farejando (focinho no chão), fundo transparente, mesmo estilo das folhas de personagem.
-- Sprite do Patinho Quá-Quá (brinquedo de borracha amarelo, um pouco mordido), fundo transparente.
-- Fundo da estante de brinquedos (casinha de madeira com prateleiras e varal de luzes), 16:9.
-- Para o Arraial: a bandana aberta como asa-delta (sprite do Timtim planando) e a arte de abertura da fase.
+## Artes
+Geradas no Google Flow (Nano Banana Pro, 24/11/2026) com a folha de personagem e o `tintim-idle` como referência, sobre fundo cinza liso, e recortadas com alfa suave no pelo:
+- **Feito:** `sprites/tintim-sniff.png`, o Timtim farejando de perfil, focinho no chão (entra quando `p.sniff > 0`).
+- **Feito:** `sprites/toy-duck.png`, o Patinho Quá-Quá mordido no rabo e no bico (na fase e na estante).
+- **Feito:** `bg/shelf.jpg`, a casinha de madeira à noite com 5 nichos, varal de luzes e bandeirinhas (fundo da estante).
+- **Feito, ainda sem uso:** `sprites/tintim-glide.png`, o Timtim planando com a bandana aberta como asa-delta, para o Arraial.
+
+Ainda falta: a arte de abertura do Arraial.

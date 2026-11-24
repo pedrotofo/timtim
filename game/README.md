@@ -35,4 +35,4 @@ cd game && python3 -m http.server 8765   # abrir http://localhost:8765
 | `docs/plano-fases.md` | Plano das próximas fases, truques e segredos, e o que já foi feito. |
 | `tests/smoke.js` | Teste automático do caminho crítico (`node game/tests/smoke.js`). |
 
-Arte dos personagens gerada no Higgsfield a partir das fotos do Timtim; os chihuahuas foram recortados da folha de personagens. O cenário inteiro é desenhado por código em `render3d.js`, sem imagens de fundo. `vendor/three.min.js` é a three.js r149 (licença MIT).
+Arte dos personagens gerada no Higgsfield a partir das fotos do Timtim; os chihuahuas foram recortados da folha de personagens. O Timtim farejando e planando, o Patinho Quá-Quá e o fundo da estante (`assets/bg/shelf.jpg`) foram gerados no Google Flow. O cenário da fase é desenhado por código em `render3d.js`, sem imagens de fundo. `vendor/three.min.js` é a three.js r149 (licença MIT).
