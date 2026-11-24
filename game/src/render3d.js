@@ -94,15 +94,17 @@ function treeLayer(seed, col, n, size, rim) {
 // cada fase tem uma cor: a fase 1 é azul (floresta enevoada), a fase 2 é laranja (a vila em noite de fogueiras)
 // fase 1: floresta noturna pintada (homenagem à linguagem visual de Ori: raios de luz, névoa em camadas, uma figueira anciã brilhando ao longe)
 const texFar = ARR ? null : load('bg/floresta-azul.jpg'); if (texFar) texFar.wrapS = THREE.MirroredRepeatWrapping;
-const texFrente = ARR ? [] : ['frente-raizes-1', 'frente-raizes-2'].map(n => load('props/' + n + '.png')), texGalhos = ARR ? null : load('props/frente-galhos.png');
-const texVilaT = ARR ? load('bg/vila-laranja.jpg') : null, texVilaN = texVilaT; if (texVilaT) texVilaT.wrapS = THREE.MirroredRepeatWrapping;
+// primeiro plano pintado de cada fase: silhuetas escuras com borda de luz (ciano na fase 1, dourada no Arraial)
+const texFrente = (ARR ? ['frente-arraial-1', 'frente-arraial-2'] : ['frente-raizes-1', 'frente-raizes-2']).map(n => load('props/' + n + '.png')), texGalhos = load(ARR ? 'props/galhos-arraial.png' : 'props/frente-galhos.png');
+const FRENTE_AR = ARR ? [804 / 320, 770 / 320] : [702 / 320, 808 / 320], GALHO_AR = ARR ? 441 / 420 : 504 / 420;
+const texVilaT = ARR ? load('bg/arraial-mata.jpg') : null, texVilaN = texVilaT; if (texVilaT) texVilaT.wrapS = THREE.MirroredRepeatWrapping;
 const texSwamp = ARR ? [] : [['pantano-samambaia', 0], ['pantano-taboa', 1], ['pantano-cogumelos', 2], ['flores-luz', 3]].map(([n, k]) => ({ tex: load('props/' + n + '.png'), k }));
 const SWAMP_AR = [309 / 260, 284 / 320, 434 / 240, 279 / 220]; // proporções das plantas de pântano recortadas
 // versão 3.0: tudo o que era desenhado por código no cenário virou arte quase realista (Google Flow), no estilo dos personagens
 const texSoil = load('tex/terra.jpg'), texWood = load('tex/tabuas.jpg'), texDirt = texSoil;
 [texSoil, texWood].forEach(t => { t.wrapS = t.wrapT = THREE.RepeatWrapping; });
 const prop = n => load('props/' + n + '.png');
-const texCapim = prop('capim'), texHera = prop('hera'), texFolhagem = prop('folhagem'), texBanco = prop('banco');
+const texCapim = prop('capim'), texHera = prop('hera'), texBanco = prop('banco');
 [texCapim, texHera].forEach(t => { t.wrapS = THREE.MirroredRepeatWrapping; });
 const AR2 = { sebe: 716 / 260, capim: 513 / 120, hera: 426 / 200, folhagem: 593 / 300, banco: 491 / 260 };
 const PLANTS2 = [['samambaia', 302 / 260], ['flores', 328 / 220], ['agapanto', 275 / 300], ['tropical', 337 / 300]].map(([n, ar]) => ({ tex: prop(n), ar }));
@@ -332,7 +334,7 @@ sky.scale.set(4700, 2700, 1); sky.position.set(0, 300, -3000);
     const m = add(new THREE.Mesh(planeGeo, addMat(texMist, c, op)), order); m.scale.set(20000, hgt, 1); m.position.set(5000, y, z); mists.push({ m, op, i, night: new THREE.Color(c) }); });
   for (let i = 0; i < 22; i++) { const near = i % 3 === 0, z = near ? -260 : -1050, k = near ? 1 : 1.9;
     const m = add(new THREE.Mesh(planeGeoTop, addMat(texShaft, i % 4 === 1 ? 0xa9a0ff : 0x8fe6ff, 0.2)), near ? -11 : -19);
-    m.scale.set((150 + r() * 190) * k, 1150 * k, 1); m.position.set(-400 + i * 560 + r() * 300, 760 * (near ? 1 : 1.25), z); m.rotation.z = -0.34 - r() * 0.1; shafts.push({ m, ph: r() * 6, op: (near ? 0.12 : 0.2) * (ARR ? 1 : 1.7), night: m.material.color.clone() }); }
+    m.scale.set((150 + r() * 190) * k, 1150 * k, 1); m.position.set(-400 + i * 560 + r() * 300, 760 * (near ? 1 : 1.25), z); m.rotation.z = -0.34 - r() * 0.1; shafts.push({ m, ph: r() * 6, op: (near ? 0.12 : 0.2) * 1.75, night: m.material.color.clone() }); }
   // abismo e fundação
   const dark = new THREE.MeshBasicMaterial({ color: 0x010910, fog: false });
   const pit = new THREE.Mesh(planeGeoC, dark); pit.scale.set(16000, 700, 1); pit.rotation.x = -Math.PI / 2; pit.position.set(5000, -300, 180); add(pit);
@@ -437,20 +439,16 @@ sky.scale.set(4700, 2700, 1); sky.position.set(0, 300, -3000);
   const apool = add(new THREE.Mesh(planeGeoC, glowMat(0x7fe0ff, 0.16)), 0); apool.rotation.x = -Math.PI / 2; apool.scale.set(1100, 420, 1); apool.position.set(ARENA_X + 480, 1.2, 40);
   }
   // primeiro plano: folhagens escuras entre a câmera e o jogo, embaixo e penduradas em cima
-  const bushM = new THREE.MeshBasicMaterial({ map: ARR ? texFolhagem : texBush, color: ARR ? 0x3a2a24 : 0xffffff, transparent: true, depthWrite: false, fog: false, side: THREE.DoubleSide });
-  const hangM = new THREE.MeshBasicMaterial({ map: texHera, color: 0x34403f, transparent: true, depthWrite: false, fog: false, side: THREE.DoubleSide });
   const frenteM = texFrente.map(t => new THREE.MeshBasicMaterial({ map: t, transparent: true, depthWrite: false, fog: false, side: THREE.DoubleSide }));
   const galhoM = texGalhos && new THREE.MeshBasicMaterial({ map: texGalhos, transparent: true, depthWrite: false, fog: false, side: THREE.DoubleSide });
   for (let i = 0, x = -200; x < END - 300; i++, x += 620 + (i * 397 % 420)) {
-    const m = new THREE.Mesh(planeGeo, ARR ? bushM : frenteM[i % 2]); if (ARR) { m.scale.set((150 + (i % 3) * 24) * AR2.folhagem, 150 + (i % 3) * 24, 1); m.position.set(x, -60, 350 + (i % 2) * 50); }
-    else { const hh = 150 + (i % 3) * 22; m.scale.set(hh * (i % 2 ? 808 : 702) / 320 * (i % 4 > 1 ? -1 : 1), hh, 1); m.position.set(x, -78, 350 + (i % 2) * 50); } add(m, 9);
-    if (i % 2) { if (ARR) { const t = new THREE.Mesh(planeGeoTop, hangM); t.scale.set(200 * AR2.hera, 200, 1); t.position.set(x + 310, 470, 330); add(t, 9); }
-      else { const t = new THREE.Mesh(planeGeoTop, galhoM); const gh = 250 + (i % 3) * 30; t.scale.set(gh * 504 / 420 * (i % 4 === 1 ? -1 : 1), gh, 1); t.position.set(x + 310, 500, 330); add(t, 9); } }
+    const m = new THREE.Mesh(planeGeo, frenteM[i % 2]), hh = 150 + (i % 3) * 22; m.scale.set(hh * FRENTE_AR[i % 2] * (i % 4 > 1 ? -1 : 1), hh, 1); m.position.set(x, -78, 350 + (i % 2) * 50); add(m, 9);
+    if (i % 2) { const t = new THREE.Mesh(planeGeoTop, galhoM); const gh = 250 + (i % 3) * 30; t.scale.set(gh * GALHO_AR * (i % 4 === 1 ? -1 : 1), gh, 1); t.position.set(x + 310, 500, 330); add(t, 9); }
   }
 })();
 // ---------------- o Arraial (fase 2) ----------------
 // barracas ao fundo, fogueiras com a coluna de ar quente visível, tábuas da quadrilha que dançam e o mastro de São João no fim
-const fireM = [], moverM = [], fireLights = [];
+const fireM = [], moverM = [], fireLights = [], lanterns = [];
 if (ARR) {
   const tBarraca = prop('barraca'), tPescaria = prop('pescaria'), tFogueira = prop('fogueira'), tMastro = prop('mastro');
   // barracas em fila atrás do terreiro, alternando comidas e pescaria, cada uma com a sua luz quente
@@ -459,6 +457,12 @@ if (ARR) {
     const m = add(new THREE.Mesh(planeGeo, flatMat(tex, { alphaTest: 0.4 }))); m.scale.set(hgt * ar * (i % 4 === 2 ? -1 : 1), hgt, 1); m.position.set(x, -14, -150 - (i % 2) * 40); landmarks.push(m);
     const g = add(new THREE.Mesh(planeGeoC, glowMat(0xffb060, 0.35)), -4); g.scale.set(320, 220, 1); g.position.set(x, 120, -140); pulses.push({ m: g, base: 0.35, ph: i * 1.3, slow: true });
   }
+  // lanternas de cabaça penduradas por cordas compridas entre as árvores, balançando devagar: a luz âmbar do Arraial
+  const lantM = flatMat(prop('lanterna'), { alphaTest: 0.35 });
+  for (let x = 250, i = 0; x < C.LEVEL_END; x += 380 + (i * 131 % 220), i++) { const h = 300 + (i % 3) * 60, z = -40 - (i % 3) * 70;
+    const m = add(new THREE.Mesh(planeGeoTop, lantM)); m.scale.set(h * 102 / 480, h, 1); m.position.set(x, 560, z); landmarks.push(m);
+    const g = add(new THREE.Mesh(planeGeoC, glowMat(0xffa040, 0.55)), 4); g.scale.set(160, 160, 1); g.position.set(x, 560 - h * 0.78, z + 1);
+    lanterns.push({ m, g, h, x, ph: i * 1.7 }); pulses.push({ m: g, base: 0.55, ph: i * 2.1 }); }
   // fogueiras: a arte pintada, um brilho que respira, e a coluna de ar quente (um véu dourado subindo) que mostra onde dá para subir planando
   const colT = canvasTex(64, 256, (x, w, h) => { const g = x.createLinearGradient(0, 0, w, 0); g.addColorStop(0, 'rgba(255,255,255,0)'); g.addColorStop(0.5, 'rgba(255,255,255,1)'); g.addColorStop(1, 'rgba(255,255,255,0)');
     x.fillStyle = g; x.fillRect(0, 0, w, h); x.globalCompositeOperation = 'destination-in'; const v = x.createLinearGradient(0, h, 0, 0); v.addColorStop(0, 'rgba(0,0,0,.9)'); v.addColorStop(0.7, 'rgba(0,0,0,.35)'); v.addColorStop(1, 'rgba(0,0,0,0)'); x.fillStyle = v; x.fillRect(0, 0, w, h); });
@@ -746,7 +750,7 @@ R.frame = (rdt) => {
   tintim.visible = !(p.inv > 0 && Math.floor(time * 20) % 2);
   rim.geometry = tintim.geometry; rim.material.map = tintim.material.map; rim.visible = tintim.visible && S.mode !== 'lose';
   rim.position.set(tintim.position.x, tintim.position.y - 2, tintim.position.z - 0.6); rim.rotation.z = tintim.rotation.z; rim.scale.set(tintim.scale.x * 1.07, tintim.scale.y * 1.06, 1);
-  rim.material.opacity = (ARR ? 0.35 : 0.6) + Math.sin(time * 3.1) * 0.06;
+  rim.material.opacity = (ARR ? 0.5 : 0.6) + Math.sin(time * 3.1) * 0.06;
   // dor de barriga: fica esverdeado, anda encolhido e solta bolhinhas
   tintim.material.color.set(p.slow > 0 ? 0xbfe8a0 : 0xfffaf2); if (p.slow > 0) { tintim.scale.y *= 0.93;
     if (Math.random() < live * 9) spawn({ x: tx - p.face * 14, y: p.y + 18, vx: (Math.random() - 0.5) * 30, vy: -50 - Math.random() * 40, g: -30, life: 0.9, r: 2.5 + Math.random() * 2.5, grow: 2, color: 0x9dff4a }); }
@@ -915,6 +919,7 @@ R.frame = (rdt) => {
       if (Math.random() < live * 22 && Math.abs(q.f.x - fxS) < 900) spawn({ x: q.f.x + (Math.random() - 0.5) * 50, y: GROUND - 70, vx: (Math.random() - 0.5) * 40, vy: -160 - Math.random() * 220, g: -30, life: 1.4 + Math.random(), r: 1.6 + Math.random() * 1.6, color: Math.random() < 0.5 ? 0xffb050 : 0xffe08a, z: 14 }); }
     const near = fireM.slice().sort((a, b) => Math.abs(a.f.x - fxS) - Math.abs(b.f.x - fxS));
     fireLights.forEach((l, i) => { const q = near[i]; if (!q) return; l.position.set(q.f.x, 90, 60); l.intensity = 1.4 + Math.sin(time * 11 + i) * 0.25; });
+    for (const q of lanterns) { const a = Math.sin(time * 0.9 + q.ph) * 0.06; q.m.rotation.z = a; q.g.position.x = q.x + Math.sin(a) * q.h * 0.78; }
     for (const q of moverM) { const s = q.s; q.m.position.set(s.x + s.w / 2, Y(s.y) - 8, 0); q.b.position.set(s.x + s.w / 2, Y(s.y) - 16, 30); q.b.rotation.x = Math.sin(time * 2.6 + s.x) * 0.25;
       q.g.position.set(s.x + s.w / 2, Y(s.y) + 2, 34); q.m.rotation.z = Math.sin(Math.PI * 2 * clock / s.mover.per + s.mover.ph) * 0.03; }
   }
