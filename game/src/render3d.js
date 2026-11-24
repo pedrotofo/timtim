@@ -27,17 +27,17 @@ const PAL = { far: '#14506a', mid: '#0b3447', near: '#06202d', back: '#04151d', 
 THREE.DefaultLoadingManager.onLoad = () => { warmUp(); R.ready = true; TT.emit('assetsReady'); };
 const TL = new THREE.TextureLoader();
 const load = p => { const t = TL.load('assets/' + p); t.anisotropy = 4; return t; };
-const AR = { 'tintim-idle': 232 / 220, 'tintim-run': 1.2143, 'tintim-jump': 270 / 200, 'tintim-fall': 240 / 220, 'tintim-hurt': 218 / 220,
+const AR = { 'tintim-idle': 232 / 220, 'tintim-run': 299 / 220, 'tintim-jump': 270 / 200, 'tintim-fall': 240 / 220, 'tintim-hurt': 218 / 220,
   'tintim-win': 189 / 240, 'tintim-sniff': 282 / 220, 'tintim-glide': 420 / 220, galinha: 176 / 230, ovo: 223 / 160, 'brute-walk': 362 / 320, 'brute-charge': 454 / 253, 'brute-bark': 341 / 322, 'brute-ball': 413 / 265, 'brute-dizzy': 374 / 345, 'brute-down': 432 / 209, pigeon: 1.1381, 'monkey-front': 217 / 235, 'monkey-joy': 286 / 260,
   cookie: 129 / 90, 'chi-pb': 245 / 300, 'chi-br': 223 / 300 };
 const TEX = {};
 AR.choco = 1.25;
 for (const k in AR) if (k !== 'choco') TEX[k] = load('sprites/' + k + '.png');
 // o lobo-guará (chefão do Arraial) e o bilhete do correio elegante: artes do Google Flow, carregadas só na fase 2
-if (C.FASE === 2) { const more = { 'guara-anda': 305 / 320, 'guara-agacha': 596 / 320, 'guara-bote': 466 / 320, 'guara-corre': 565 / 320, 'guara-tonta': 384 / 320, 'guara-uiva': 347 / 320, bilhete: 180 / 160, fruta: 132 / 140 };
+if (C.FASE === 2) { const more = { 'guara-anda': 313 / 320, 'guara-agacha': 601 / 320, 'guara-bote': 470 / 320, 'guara-corre': 534 / 320, 'guara-tonta': 359 / 320, 'guara-uiva': 331 / 320, bilhete: 180 / 160, fruta: 132 / 140 };
   for (const k in more) { AR[k] = more[k]; TEX[k] = load('sprites/' + k + '.png'); } }
 // tiras de quadros desenhados: corrida do Timtim (8), corrida dos chihuahuas e andar do pombo (4 cada)
-const FRAMES = { 'tintim-run': 8, 'chi-pb-run': 4, 'chi-br-run': 4, pigeon: 4 };
+const FRAMES = { 'tintim-run': 13, 'chi-pb-run': 4, 'chi-br-run': 4, pigeon: 4 };
 for (const k in FRAMES) if (TEX[k]) TEX[k].repeat.set(1 / FRAMES[k], 1);
 // cada personagem tem a sua cópia da tira, para que nove pombos possam estar em quadros diferentes
 const ownTex = k => { const t = load('sprites/' + k + '.png'); t.repeat.set(1 / FRAMES[k], 1); return t; };
@@ -775,20 +775,20 @@ R.frame = (rdt) => {
 
   // Timtim: o corpo estica e achata com uma mola, inclina com a velocidade e dá uma pirueta no pulo duplo
   const moving = Math.abs(p.vx) > 20 && p.onGround, fast = p.fast > 0 || p.mega > 0;
-  if (moving) runPhase += Math.abs(p.vx) * live / 15; // passo acompanha a velocidade: as patas não patinam
+  if (moving) runPhase += Math.abs(p.vx) * live / 13; // passo acompanha a velocidade (13 quadros tirados de um vídeo a 24 por segundo, na velocidade normal): as patas não patinam
   let name = 'tintim-idle', h = 80, fr = 0, nf = 1;
   if (p.won) { name = 'tintim-win'; h = 92; }
   else if (S.thief && S.thief.state === 'laugh' && p.onGround) name = 'tintim-hurt'; // assustado: roubaram o macaco!
   else if (p.hurtT > 0 || S.mode === 'lose') name = 'tintim-hurt';
   else if (!p.onGround) { if (p.vy < 0 || p.djT > 0) { name = 'tintim-jump'; h = 77; } else { name = 'tintim-fall'; h = 82; } }
-  else if (moving) { name = 'tintim-run'; h = 82; nf = 8; fr = Math.floor(runPhase) % 8; }
+  else if (moving) { name = 'tintim-run'; h = 92; nf = FRAMES['tintim-run']; fr = Math.floor(runPhase) % nf; }
   const sniffing = p.sniff > 0 && p.onGround && name === 'tintim-idle'; // farejando: pose própria, focinho no chão, focinho tremendo
   if (sniffing) { name = 'tintim-sniff'; h = 69; }
   if (p.gliding && !p.won && p.hurtT <= 0) { name = 'tintim-glide'; h = 92; } // bandana aberta como asa-delta
   faceS += (p.face - faceS) * Math.min(1, rdt * 20); // vira o corpo num instante, em vez de espelhar de uma vez
   setAnim(tintim, name, h, faceS < 0, fr, nf); tintim.scale.x *= Math.max(0.25, Math.abs(faceS));
   { // rabo, orelhas e pelo seguem o corpo com atraso; parado, ele respira, abana o rabo e olha em volta
-    const air = !p.onGround, sp = Math.min(1, Math.abs(p.vx) / C.FAST), stride = runPhase * Math.PI / 4, idle = p.onGround && !moving && !p.won;
+    const air = !p.onGround, sp = Math.min(1, Math.abs(p.vx) / C.FAST), stride = runPhase * Math.PI * 2 / FRAMES['tintim-run'], idle = p.onGround && !moving && !p.won;
     const happy = idle ? Math.sin(time * 11) * (0.025 + 0.02 * Math.max(0, Math.sin(time * 0.7))) : p.won ? Math.sin(time * 16) * 0.05 : 0;
     const tX = spring(tailX, -sp * 0.07 + happy + (moving ? Math.sin(stride) * 0.02 : 0), sdtA(live));
     const tY = spring(tailY, (air ? Math.max(-0.1, Math.min(0.1, p.vy / 5000)) : 0) + (moving ? Math.cos(stride) * 0.03 : 0), sdtA(live), 120, 9);
@@ -798,7 +798,7 @@ R.frame = (rdt) => {
   sqV += (-(sq - 1) * 260 - sqV * 15) * sdt; sq = Math.max(0.72, Math.min(1.3, sq + sqV * sdt));
   const squash = sq * (p.onGround ? 1 + Math.sin(clock * 3) * 0.015 : 1 + Math.min(0.08, Math.abs(p.vy) / 9000));
   tintim.scale.x *= 2 - squash; tintim.scale.y *= squash;
-  const tx = p.x + p.w / 2, ty = Y(p.y + p.h) - 2 + (moving ? Math.abs(Math.sin(runPhase * Math.PI / 8)) * 2 : 0);
+  const tx = p.x + p.w / 2, ty = Y(p.y + p.h) - 2; // o sobe-e-desce da corrida já vem nos quadros do vídeo
   const rotT = p.won ? 0 : sniffing ? 0 : p.onGround ? -(p.vx / C.FAST) * 0.07 : -Math.max(-0.32, Math.min(0.32, p.vy / 2400)) * p.face;
   rotS += (rotT - rotS) * Math.min(1, rdt * 16);
   const flip = p.djT > 0 ? -p.face * Math.PI * 2 * ease(1 - p.djT / 0.42) : 0;
@@ -928,8 +928,8 @@ R.frame = (rdt) => {
   // o lobo-guará: uma pose desenhada para cada momento, e as patas andando por deformação
   if (ARR) { const g = S.fox, m = foxM, x = g.x + g.w / 2, st = g.state, air = g.y + g.h < GROUND - 4;
     let n = 'guara-anda', h = 200, walking = false, y = Y(g.y + g.h) - 4, sy = 1, rot = 0, dx = 0;
-    if (st === 'hurt' || st === 'bonk') { n = 'guara-tonta'; h = 190; rot = Math.sin(time * 9) * 0.06; }
-    else if (st === 'roar' || (st === 'wind' && g.atk === 'roar')) { n = 'guara-uiva'; h = 192; sy = st === 'roar' ? 1 + Math.sin(time * 40) * 0.02 : 1 + 0.06 * Math.min(1, g.t / 0.5); } // enche o peito e solta o latido rouco
+    if (st === 'hurt' || st === 'bonk') { n = 'guara-tonta'; h = 193; rot = Math.sin(time * 9) * 0.06; }
+    else if (st === 'roar' || (st === 'wind' && g.atk === 'roar')) { n = 'guara-uiva'; h = 198; sy = st === 'roar' ? 1 + Math.sin(time * 40) * 0.02 : 1 + 0.06 * Math.min(1, g.t / 0.5); } // enche o peito e solta o latido rouco
     else if (st === 'eat') { n = 'guara-agacha'; h = 114; sy = 1 + Math.sin(time * 14) * 0.035; rot = Math.sin(time * 7) * 0.03; // comendo a fruta, distraído
       if (Math.random() < live * 6) spawn({ x: x + g.dir * 100, y: GROUND - 16, vx: (Math.random() - 0.5) * 120, vy: -80 - Math.random() * 80, g: 500, life: 0.5, r: 2.5, color: Math.random() < 0.5 ? 0xb8e86a : 0xfff2a8, hard: true }); }
     else if (st === 'wind' || st === 'tired') { n = 'guara-agacha'; h = 114;
@@ -938,7 +938,7 @@ R.frame = (rdt) => {
       else { sy = 1 + Math.sin(time * 16) * 0.035; rot = Math.sin(time * 11) * 0.04; // fuçando o chão depois do bote, de lombo baixo
         if (Math.random() < live * 8) spawn({ x: x + g.dir * 105, y: GROUND - 4, vx: (Math.random() - 0.5) * 90, vy: -40 - Math.random() * 60, g: 300, life: 0.5, r: 3, color: 0xb89a6a }); } }
     else if (st === 'air' || st === 'dodge') { n = 'guara-bote'; h = 156; rot = -g.dir * Math.max(-0.3, Math.min(0.3, g.vy / 2400)) * (st === 'dodge' ? -1 : 1); }
-    else if (st === 'dash' || st === 'flee' || st === 'chase' || st === 'toFruit') { n = 'guara-corre'; h = 127; m.userData.ph += 26 * rdt; y += Math.abs(Math.sin(m.userData.ph)) * 6; }
+    else if (st === 'dash' || st === 'flee' || st === 'chase' || st === 'toFruit') { n = 'guara-corre'; h = 135; m.userData.ph += 26 * rdt; y += Math.abs(Math.sin(m.userData.ph)) * 6; }
     else { walking = Math.abs(g.vx) > 12; if (walking) { m.userData.ph += Math.abs(g.vx) * live / 14; y += Math.abs(Math.sin(m.userData.ph)) * 3; } else sy = 1 + Math.sin(clock * 3) * 0.015; }
     const flip = st === 'dodge' ? g.vx < 0 : g.dir > 0;
     setAnim(m, n, h, flip); m.scale.x *= 2 - sy; m.scale.y *= sy;
