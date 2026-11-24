@@ -21,6 +21,10 @@ const { chromium } = require('playwright');
   check(await ev(() => !__tintim.S.thief && !__tintim.S.arena), 'sem Furtão nem chefão no Arraial');
   check(await ev(() => __tintim.R.foe === 'galinha' && __tintim.S.enemies.length > 0), 'os inimigos do Arraial são galinhas caipiras, não pombos');
 
+  // aula do planar: cair no primeiro vão (antes de aprender) volta para a beirada sem perder coração
+  await put(1400, 300, { vy: 200 });
+  check(await until(() => __tintim.player.x < TT.C.GLIDE_TUT.edge && __tintim.player.hp === 3 && __tintim.S.tut.tries >= 1, 6000), 'cair no primeiro vão durante a aula do planar não tira coração');
+  await ev(() => { __tintim.S.tut.learned = true; __tintim.S.slowT = 0; });
   // planar: no ar, segurando o pulo, a queda fica lenta
   await put(1300, 100); await pg.keyboard.down('Space'); await pg.waitForTimeout(700);
   const g = await ev(() => ({ vy: __tintim.player.vy, gl: __tintim.player.gliding }));
@@ -35,9 +39,9 @@ const { chromium } = require('playwright');
   check(y1 < y0 - 60, `o ar quente da fogueira levanta quem plana (subiu ${(y0 - y1).toFixed(0)} px)`);
   await pg.keyboard.up('Space');
 
-  // chama machuca quem encosta
+  // a chama não machuca: é ali que ele pula para subir no ar quente
   await put(fx - 27, 452 - 50, { onGround: true }); await pg.waitForTimeout(250);
-  check(await ev(() => __tintim.player.hp < 3), 'encostar na fogueira tira um coração');
+  check(await ev(() => __tintim.player.hp === 3), 'encostar na fogueira não tira coração (ela é o trampolim do planar)');
   await until(() => __tintim.player.onGround, 3000);
 
   // tábuas da quadrilha se movem e levam o Timtim junto

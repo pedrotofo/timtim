@@ -52,5 +52,13 @@ Todas as imagens vão para a placa de vídeo ainda no carregamento (`warmUp`), p
 - Brilhos ficam para o que importa para jogar (biscoitos, brinquedo, chama, checkpoint) e para as luzes de verdade (postes, varais, fogueiras).
 - Pular no Furtão nunca tira coração: cair por cima conta como pisão, e durante a sacudida que ele dá o contato não machuca.
 
+## Movimento quadro a quadro, tirado de vídeo (24/11/2026)
+
+Personagens se movem com quadros de verdade, não com uma pose só deformada. O caminho que funciona: a arte do personagem
+sobre cinza liso vira o primeiro quadro de um vídeo curto no Google Flow ("andando sem sair do lugar, câmera parada"); do
+vídeo sai um ciclo completo (corrida, andar) ou um trecho que toca em vai e volta (parado, latindo, comendo, tonto). Quadros
+desenhados um a um pela IA variam entre si e a animação treme; os do vídeo são contínuos. A deformação por código
+(rabo, orelhas, respiração) fica só para as poses que ainda são paradas (bote, agachado, pulo duplo).
+
 ## Fora do escopo (por enquanto)
 Mais fases, mais quadros de animação (a corrida tem 4), animações próprias para os chihuahuas, sprites dos pugs reais, placar online.

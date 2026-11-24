@@ -32,8 +32,8 @@ const W0 = C.W;
 // A fase 2 ensina uma única ação nova: planar com a bandana aberta (segurar o pulo no ar). Ordem:
 // palco + primeiro vão (só planando) → vão maior → fogueiras (o ar quente levanta quem plana) → quadrilha
 // (tábuas de bandeirinhas que dançam no ritmo) → tudo junto, com o brinquedo perdido no alto de uma fogueira → mastro de São João.
-const FASE = TT.FASE = C.FASE = new URLSearchParams(location.search).get('fase') === '2' ? 2 : 1;
-Object.assign(C, { BOSS: true, FOX: false, GLIDE: false, fires: [], movers: [], GOAL_X: C.ARENA_X, MASTRO_X: 0, GIFT_ITEM: 'cookie', NOTES: [], TUB: null, HOOP: null, STAMPEDES: [], EGG: { time: 12, fall: 70, lift: -470 } });
+const FASE = TT.FASE = C.FASE = (/fase2/.test(location.hash) || new URLSearchParams(location.search).get('fase') === '2') ? 2 : 1;
+Object.assign(C, { BOSS: true, FOX: false, GLIDE: false, fires: [], movers: [], GOAL_X: C.ARENA_X, MASTRO_X: 0, GIFT_ITEM: 'cookie', NOTES: [], TUB: null, HOOP: null, STAMPEDES: [], GLIDE_TUT: null, EGG: { time: 12, fall: 70, lift: -470 } });
 if (FASE === 2) Object.assign(C, {
   BOSS: false, FOX: true, GLIDE: true, LEVEL_END: 7900, ARENA_X: 7900 - W0, GOAL_X: 7900 - W0 + 120, MASTRO_X: 7580, START_X: 200, BPM: 100,
   grounds: [[0, 1150], [1670, 700], [3000, 1500], [5880, 280], [6300, 1600]],
@@ -43,6 +43,8 @@ if (FASE === 2) Object.assign(C, {
            { x: 5280, y: 320, w: 150, ax: 110, ay: 0, per: 2.4, ph: Math.PI / 2 }, { x: 5600, y: 280, w: 140, ax: 0, ay: 80, per: 2.4, ph: 0 }],
   fires: [{ x: 3410 }, { x: 4040 }, { x: 6610 }, { x: 7040 }, { x: 7810 }], // as duas últimas ficam nos cantos da arena do lobo-guará
   // brincadeiras juninas: cair dentro do tanque da pescaria solta biscoitos; atravessar a argola revela um biscoito dourado
+  // aula do planar: o primeiro vão (de 1150 a 1670) só se atravessa planando; cair nele não custa coração até aprender
+  GLIDE_TUT: { edge: 1150, land: 1670 },
   TUB: { x: 2120, w: 96 }, HOOP: { x: 5440, y: 130, r: 44 },
   // galinhas em debandada: quando o Timtim passa de 'at', um bando de n galinhas vem correndo da direita
   STAMPEDES: [{ at: 620, n: 3 }, { at: 1840, n: 3 }, { at: 3120, n: 4 }, { at: 6360, n: 3 }],
@@ -230,7 +232,9 @@ function updateFox(dt, prevBottom, playing) {
         emit('finalBlow', { x: fx, y: f.y }); emit('foxDefeated', { x: fx, y: f.y }); emit('henRevenge', { x: ARENA_X + 300, y: GROUND - 40 }); }
     } else { // pulo comum: só bate na canela; ele dá um passo para trás e o Timtim quica
       go('dodge'); f.vy = -380; f.vx = (fx < pcx ? -1 : 1) * 280; p.vy = -600; p.shrugT = 0.45; emit('foxDodge', { x: fx, y: f.y }); }
-  } else if (!['hurt', 'tired', 'bonk', 'dodge', 'eat', 'roar'].includes(f.state) && p.mega <= 0 && !(p.shrugT > 0)) hurt();
+  } else if ((f.state === 'dash' || (f.state === 'air' && f.vy > 0)) && p.mega <= 0 && !(p.shrugT > 0)) hurt(); // só machucam os ataques avisados: a corrida e a queda do bote
+  else if (f.state !== 'hurt' && f.state !== 'dodge') { // encostou fora de um ataque: o lobo-guará empurra, sem tirar coração
+    const d = Math.sign(pcx - fx) || 1; p.vx = d * 380; p.vy = Math.min(p.vy, -300); p.shrugT = 0.3; emit('foxBump', { x: (pcx + fx) / 2, y: p.y + p.h / 2 }); }
 }
 // ---- galinhas em debandada (Arraial) ----
 // De vez em quando um bando vem correndo da direita para a esquerda, fugindo do lobo-guará: o Timtim tem de pular por
@@ -328,7 +332,7 @@ reset();
 // para na frente dele, ri e foge para a direita (para onde a fase vai). Só então o controle é liberado.
 const STEAL = { inT: 1.0, laughT: 3.3, dur: 4.6 }; // a risada gravada dura ~2,2 s: ele fica parado rindo até ela acabar
 TT.start = () => { reset(); S.mode = 'play';
-  if (FASE === 2) { S.cine = { type: 'arraial', t: 0, dur: 2.6 }; moveMovers(0); emit('start'); emit('arraialIntro'); return; } // cartão de abertura do Arraial
+  if (FASE === 2) { S.cine = { type: 'arraial', t: 0, dur: 3.6 }; moveMovers(0); emit('start'); emit('arraialIntro'); return; } // cartão de abertura do Arraial
   S.thief = { x: -260, dir: 1, state: 'run', t: 0, laughed: false };
   S.cine = { type: 'steal', t: 0, dur: STEAL.dur }; emit('start'); emit('stealIntro'); };
 TT.retry = () => {
@@ -449,6 +453,8 @@ TT.update = (rdt) => {
   // buraco
   if (p.y > H + 80) {
     if (!playing) { p.y = H + 80; p.vy = 0; }
+    else if (C.GLIDE_TUT && !S.tut.learned && p.x + p.w / 2 > C.GLIDE_TUT.edge - 60 && p.x < C.GLIDE_TUT.land + 40) { // aula do planar: volta para a beirada, sem perder coração
+      Object.assign(p, { x: C.GLIDE_TUT.edge - 110, y: GROUND - 160, vx: 0, vy: 0, inv: 0.6, gliding: false }); S.tut.tries = (S.tut.tries || 0) + 1; S.tut.slowed = false; emit('tutorial', { kind: 'glideRetry' }); }
     else {
       p.hp--; S.hpLost++; S.trauma = 0.6; emit('hurt', { x: p.x, y: H });
       if (p.hp <= 0) { S.mode = 'lose'; emit('lose', stats()); }
@@ -457,9 +463,13 @@ TT.update = (rdt) => {
   }
 
   if (playing && C.fires.length) {
-    for (const f of C.fires) if (overlap(p, fireBox(f))) hurt(); // encostou na chama
+    // a fogueira não machuca: é nela que o Timtim pula para subir no ar quente (machucar ali só atrapalhava)
     // dicas na hora certa: o planar antes do primeiro vão, o ar quente antes da primeira fogueira
-    if (!S.tut.glide && p.x > 560) { S.tut.glide = true; emit('tutorial', { kind: 'glide' }); }
+    const GT = C.GLIDE_TUT;
+    if (GT && !S.tut.glide && p.x + p.w > GT.edge - 240) { S.tut.glide = true; emit('tutorial', { kind: 'glideEdge' }); }
+    // pulou o vão sem planar: o tempo desacelera um instante e a dica volta, para dar tempo de segurar o pulo
+    if (GT && !S.tut.learned && !S.tut.slowed && !p.onGround && !p.gliding && p.vy > 60 && p.x > GT.edge - 20 && p.x < GT.land - 80) { S.tut.slowed = true; S.slowT = 0.9; emit('tutorial', { kind: 'glideHold' }); }
+    if (GT && !S.tut.learned && p.onGround && p.x > GT.land) { S.tut.learned = true; emit('tutorial', { kind: 'glideOk' }); }
     if (!S.tut.fire && p.x > 3130) { S.tut.fire = true; emit('tutorial', { kind: 'fire' }); }
     if (!S.tut.dance && p.x > 4380) { S.tut.dance = true; emit('tutorial', { kind: 'dance' }); }
     if (C.HOOP && !S.revealed.argola && Math.hypot(p.x + p.w / 2 - C.HOOP.x, p.y + p.h / 2 - C.HOOP.y) < C.HOOP.r) { S.revealed.argola = true; emit('hoop', C.HOOP); emit('banner', { text: 'Passou pela argola: biscoito dourado!' }); }
