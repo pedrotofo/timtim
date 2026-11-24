@@ -102,10 +102,11 @@ const texSwamp = ARR ? [] : [['pantano-samambaia', 0], ['pantano-taboa', 1], ['p
 const SWAMP_AR = [309 / 260, 284 / 320, 434 / 240, 279 / 220]; // proporções das plantas de pântano recortadas
 // versão 3.0: tudo o que era desenhado por código no cenário virou arte quase realista (Google Flow), no estilo dos personagens
 const texSoil = load('tex/terra.jpg'), texWood = load('tex/tabuas.jpg'), texDirt = texSoil;
-[texSoil, texWood].forEach(t => { t.wrapS = t.wrapT = THREE.RepeatWrapping; });
+const texBark = ARR ? load('tex/casca.jpg') : null, texStraw = ARR ? load('tex/palha.jpg') : null, texTroncos = ARR ? load('props/troncos.png') : null;
+[texSoil, texWood, texBark, texStraw].forEach(t => { if (t) t.wrapS = t.wrapT = THREE.RepeatWrapping; });
 const prop = n => load('props/' + n + '.png');
-const texCapim = prop('capim'), texHera = prop('hera'), texBanco = prop('banco');
-[texCapim, texHera].forEach(t => { t.wrapS = THREE.MirroredRepeatWrapping; });
+const texCapim = prop('capim');
+texCapim.wrapS = THREE.MirroredRepeatWrapping;
 const AR2 = { sebe: 716 / 260, capim: 513 / 120, hera: 426 / 200, folhagem: 593 / 300, banco: 491 / 260 };
 const PLANTS2 = [['samambaia', 302 / 260], ['flores', 328 / 220], ['agapanto', 275 / 300], ['tropical', 337 / 300]].map(([n, ar]) => ({ tex: prop(n), ar }));
 const texFigs = load('bg/figs.png');
@@ -325,9 +326,9 @@ sky.scale.set(4700, 2700, 1); sky.position.set(0, 300, -3000);
     else { texFar.repeat.set(w / (hgt * 1376 / 768), 1);
       const q = new THREE.Mesh(planeGeo, new THREE.MeshBasicMaterial({ map: texFar, fog: false })); q.scale.set(w, hgt, 1); q.position.set(5000, -620, -2200); add(q); } }
   // figueiras pintadas com varais de lanternas, em dois planos: o de trás menor e azulado pela distância
-  const figs = (z, y0, hgt, tint, x0) => { const m = flatMat(texFigs, { color: tint, alphaTest: 0.4, side: THREE.DoubleSide }), w = hgt * 2.1053; figMats.push(m);
-    for (let x = -3400 + x0, i = 0; x < 13400; x += w, i++) { const q = new THREE.Mesh(planeGeo, m); q.scale.set((i % 2 ? -1 : 1) * w, hgt, 1); q.position.set(x + w / 2, y0, z); add(q); } };
-  figs(-1250, -330, 1450, 0x4c7896, 0); figs(-520, -150, 1020, 0xa9c4d6, 900);
+  const figs = (z, y0, hgt, tint, x0) => { const m = flatMat(ARR ? texTroncos : texFigs, { color: tint, alphaTest: 0.4, side: THREE.DoubleSide }), w = hgt * (ARR ? 556 / 900 : 2.1053); figMats.push(m);
+    for (let x = -3400 + x0, i = 0; x < 13400; x += w * (ARR ? 1.9 + (i % 3) * 0.35 : 1), i++) { const q = new THREE.Mesh(planeGeo, m); q.scale.set((i % 2 ? -1 : 1) * w, hgt, 1); q.position.set(x + w / 2, y0, z); add(q); } }; // no Arraial os troncos ficam espaçados: a clareira aparece entre eles
+  if (ARR) { figs(-1250, -420, 1700, 0x4c7896, 0); figs(-560, -230, 1150, 0xa9c4d6, 330); } else { figs(-1250, -330, 1450, 0x4c7896, 0); figs(-520, -150, 1020, 0xa9c4d6, 900); }
   if (!ARR) layer(texHedge, -98, -6, 760, 190, -8); // fase 1: a sebe escura com florzinhas acesas, como antes
   // névoa entre as camadas e fachos de luar
   [[-1750, -360, 900, 0x2aa7c0, 0.11, -22], [-900, -230, 620, 0x1c8fa8, 0.1, -18], [-300, -70, 330, 0x167d92, 0.1, -12]].forEach(([z, y, hgt, c, op, order], i) => {
@@ -362,7 +363,7 @@ sky.scale.set(4700, 2700, 1); sky.position.set(0, 300, -3000);
   // plataformas: tábuas de balanço penduradas nas figueiras por duas cordas, com hera caindo da borda
   // (antes eram lajes de pedra flutuando, sem motivo para estar no ar)
   const plankTop = new THREE.MeshLambertMaterial({ map: texWood, color: 0xcbb8a8, emissive: 0x0e0804 }), plankSide = new THREE.MeshLambertMaterial({ map: texWood, color: 0xb89878, emissive: 0x0e0602 });
-  const ropeM = flatMat(texRope, { alphaTest: 0.4 }), ivyM = flatMat(texHera, { alphaTest: 0.4, side: THREE.DoubleSide, color: 0xd8e0d0 });
+  const poleM = new THREE.MeshLambertMaterial({ map: texBark || texWood, color: 0xd8c0a8 }), tieM = new THREE.MeshLambertMaterial({ map: texRope, color: 0xc8a070 });
   const moss = new THREE.MeshLambertMaterial({ map: texMoss, emissive: 0x0d4a40 }), rootM = flatMat(texRoots, { alphaTest: 0.3 });
   if (!ARR) for (const [x, y, w] of C.plats) { // fase 1: lajes de pedra com musgo luminoso e raízes penduradas (como antes)
     const m = new THREE.Mesh(boxUV(w, 18, 70, 120), [side, side, moss, side, side, side]);
@@ -375,8 +376,12 @@ sky.scale.set(4700, 2700, 1); sky.position.set(0, 300, -3000);
     const top = GROUND - y;
     const m = new THREE.Mesh(boxUV(w, 16, 64, 128), [plankSide, plankSide, plankTop, plankSide, plankSide, plankSide]);
     m.position.set(x + w / 2, top - 8, 0); m.castShadow = m.receiveShadow = true; add(m);
-    [x + 10, x + w - 10].forEach(rx => { const r = add(new THREE.Mesh(planeGeo, ropeM)); r.scale.set(6, 1100, 1); r.position.set(rx, top - 2, -24); ropes.push({ m: r, ph: x * 0.01 }); });
-    const iv = add(new THREE.Mesh(planeGeoTop, ivyM)); iv.scale.set(w * 0.94, Math.min(60, w * 0.94 / AR2.hera) * (0.75 + (x % 30) / 100), 1); iv.position.set(x + w / 2, top - 14, 33);
+    // palafitas: dois (ou três) pares de troncos descendo até o chão ou até o fundo do buraco, com amarração de corda
+    const legs = w > 260 ? [x + 16, x + w / 2, x + w - 16] : [x + 16, x + w - 16], H = top + 330;
+    for (const lx of legs) for (const lz of [20, -20]) {
+      const pole = new THREE.Mesh(new THREE.CylinderGeometry(6.5, 8, H, 10), poleM); pole.position.set(lx + (lz > 0 ? 0 : 6), top - 16 - H / 2, lz); pole.castShadow = true; add(pole);
+      const tie = new THREE.Mesh(new THREE.CylinderGeometry(8.5, 8.5, 7, 10), tieM); tie.position.set(lx + (lz > 0 ? 0 : 6), top - 26, lz); add(tie); }
+    const brace = new THREE.Mesh(new THREE.CylinderGeometry(4, 4, Math.hypot(w - 32, 70), 8), poleM); brace.rotation.z = Math.atan2(70, w - 32) - Math.PI / 2; brace.position.set(x + w / 2, top - 58, 20); add(brace); // trave em diagonal
   }
   // franja de capim e raízes nas bordas dos buracos
   { const fr = new THREE.MeshLambertMaterial({ map: texFringe, transparent: true, alphaTest: 0.3, side: THREE.DoubleSide });
@@ -400,18 +405,18 @@ sky.scale.set(4700, 2700, 1); sky.position.set(0, 300, -3000);
     r(); r(); // (mantém a mesma sequência de sorteios do cenário)
   }
   // postes com luz quente, e a poça de luz que eles fazem no chão
-  const lampM = flatMat(ARR ? prop('poste') : texLamp, { alphaTest: 0.4 }), benchM = flatMat(ARR ? texBanco : texBench, { alphaTest: 0.4 }); if (ARR) dayMats.push(benchM, lampM);
+  const lampM = flatMat(ARR ? prop('tocha') : texLamp, { alphaTest: 0.4 }), benchM = flatMat(texBench, { alphaTest: 0.4 });
   for (let x = 260, i = 0; x < END - 100; x += 880, i++) {
     if (!spans.some(([a, b]) => x > a + 40 && x < b - 40)) x += 170;
-    const m = add(new THREE.Mesh(planeGeo, lampM)); if (ARR) { m.scale.set(240 * 70 / 460, 240, 1); m.position.set(x, -2, -72); } else { m.scale.set(66, 220, 1); m.position.set(x, 0, -72); }
-    const g = add(new THREE.Mesh(planeGeoC, glowMat(PAL.warm, 0.6)), -4); g.scale.set(ARR ? 200 : 230, ARR ? 200 : 230, 1); g.position.set(x, ARR ? 220 : 187, -70); pulses.push({ m: g, base: 0.6, ph: i * 2.2, slow: true });
+    const m = add(new THREE.Mesh(planeGeo, lampM)); if (ARR) { m.scale.set(190 * 84 / 420, 190, 1); m.position.set(x, -4, -72); } else { m.scale.set(66, 220, 1); m.position.set(x, 0, -72); }
+    const g = add(new THREE.Mesh(planeGeoC, glowMat(PAL.warm, 0.6)), -4); g.scale.set(ARR ? 210 : 230, ARR ? 210 : 230, 1); g.position.set(x, ARR ? 172 : 187, -70); pulses.push({ m: g, base: 0.6, ph: i * 2.2, slow: true });
     const pool = add(new THREE.Mesh(planeGeoC, glowMat(PAL.warm, 0.2)), 0); pool.rotation.x = -Math.PI / 2; pool.scale.set(420, 230, 1); pool.position.set(x, 1.2, -10);
-    if (i % 2 === 0 && spans.some(([a, b]) => x + 150 > a + 60 && x + 150 < b - 60)) { const b = add(new THREE.Mesh(planeGeo, benchM)); if (ARR) { b.scale.set(66 * AR2.banco, 66, 1); b.position.set(x + 150, -2, -78); } else { b.scale.set(112, 56, 1); b.position.set(x + 150, 0, -78); } }
+    if (!ARR && i % 2 === 0 && spans.some(([a, b]) => x + 150 > a + 60 && x + 150 < b - 60)) { const b = add(new THREE.Mesh(planeGeo, benchM)); b.scale.set(112, 56, 1); b.position.set(x + 150, 0, -78); }
   }
   // varal de luzinhas nas cores da bandana do Timtim
   const cols = [0xff7a2a, 0xffd23f, 0x35d68f, 0xff5a6e, 0x5aa2ff, 0xfff0d6].map(c => new THREE.Color(c));
   const pos = [], col = [], line = [];
-  for (let x0 = 150; x0 < END - 600; x0 += ARR ? 520 : 760) {
+  if (!ARR) for (let x0 = 150; x0 < END - 600; x0 += 760) {
     const len = 560, n = 13;
     for (let i = 0; i <= n; i++) { const t = i / n, x = x0 + t * len, y = 268 - Math.sin(t * Math.PI) * 38;
       if (i > 0) line.push(x, y, -60); if (i < n) line.push(x, y, -60);
@@ -478,15 +483,18 @@ if (ARR) {
   const ms = add(new THREE.Mesh(planeGeo, flatMat(tMastro, { alphaTest: 0.35 }))); ms.scale.set(440 * 344 / 620, 440, 1); ms.position.set(C.MASTRO_X, -8, -30); landmarks.push(ms);
   const mg = add(new THREE.Mesh(planeGeoC, glowMat(0xffd27a, 0.4)), -4); mg.scale.set(520, 620, 1); mg.position.set(C.MASTRO_X, 260, -40); pulses.push({ m: mg, base: 0.4, ph: 0, slow: true });
   // tábuas da quadrilha: madeira com bandeirinhas penduradas embaixo, que balançam no passo da dança
-  const wTop = new THREE.MeshLambertMaterial({ map: texWood, color: 0xd8c4b0, emissive: 0x1a0c04 });
-  const buntMini = flatMat(texBunting, { alphaTest: 0.4, side: THREE.DoubleSide });
-  for (const s of TT.MOVERS) { const m = new THREE.Mesh(boxUV(s.w, 16, 64, 128), wTop); m.castShadow = m.receiveShadow = true; add(m);
-    const b = add(new THREE.Mesh(planeGeoTop, buntMini)); b.scale.set(s.w * 1.05, s.w * 0.17, 1);
+  const strawM = new THREE.MeshLambertMaterial({ map: texStraw, color: 0xffe0b0, emissive: 0x1a0c02 }), rimM = new THREE.MeshLambertMaterial({ map: texStraw, color: 0xb88a50 });
+  const FITAS = [0xff7a2a, 0xffd23f, 0x35d68f, 0xff5a6e, 0x5aa2ff, 0xfff0d6].map(c => new THREE.MeshBasicMaterial({ color: c, side: THREE.DoubleSide, fog: false }));
+  for (const s of TT.MOVERS) {
+    const m = new THREE.Mesh(new THREE.CylinderGeometry(s.w / 2, s.w / 2 * 0.9, 14, 32), [rimM, strawM, rimM]); m.scale.z = 64 / s.w; m.castShadow = m.receiveShadow = true; add(m); // peneira (o topo é o lado de pisar)
+    const b = new THREE.Group(); add(b); // fitas penduradas na borda da frente
+    for (let k = 0; k < 7; k++) { const f = new THREE.Mesh(planeGeoTop, FITAS[k % FITAS.length]); f.scale.set(7, 34 + (k * 13 % 22), 1); f.position.set((k / 6 - 0.5) * s.w * 0.86, 0, 0); f.rotation.z = (k - 3) * 0.05; b.add(f); }
     const g = add(new THREE.Mesh(planeGeoC, glowMat(0xffd27a, 0.18)), 3); g.scale.set(s.w * 1.5, 50, 1); moverM.push({ s, m, b, g }); }
 }
 // checkpoints: uma lanterna que acende
 const flags = C.checkpoints.map(x => {
-  const pole = add(new THREE.Mesh(new THREE.CylinderGeometry(3, 4, 110, 8), new THREE.MeshLambertMaterial({ color: 0x163845 }))); pole.position.set(x, 55, -40); pole.castShadow = true;
+  if (ARR) { const t = add(new THREE.Mesh(planeGeo, flatMat(prop('tocha'), { alphaTest: 0.4 }))); t.scale.set(150 * 84 / 420, 150, 1); t.position.set(x, -4, -40); }
+  else { const pole = add(new THREE.Mesh(new THREE.CylinderGeometry(3, 4, 110, 8), new THREE.MeshLambertMaterial({ color: 0x163845 }))); pole.position.set(x, 55, -40); pole.castShadow = true; }
   const halo = add(new THREE.Mesh(planeGeoC, glowMat(0x8fb6c4, 0.15)), 3); halo.position.set(x, 122, -38);
   const core = add(new THREE.Mesh(planeGeoC, glowMat(0xffffff, 0.3)), 3); core.position.set(x, 122, -37);
   return { halo, core, up: 0, on: false };
@@ -920,7 +928,7 @@ R.frame = (rdt) => {
     const near = fireM.slice().sort((a, b) => Math.abs(a.f.x - fxS) - Math.abs(b.f.x - fxS));
     fireLights.forEach((l, i) => { const q = near[i]; if (!q) return; l.position.set(q.f.x, 90, 60); l.intensity = 1.4 + Math.sin(time * 11 + i) * 0.25; });
     for (const q of lanterns) { const a = Math.sin(time * 0.9 + q.ph) * 0.06; q.m.rotation.z = a; q.g.position.x = q.x + Math.sin(a) * q.h * 0.78; }
-    for (const q of moverM) { const s = q.s; q.m.position.set(s.x + s.w / 2, Y(s.y) - 8, 0); q.b.position.set(s.x + s.w / 2, Y(s.y) - 16, 30); q.b.rotation.x = Math.sin(time * 2.6 + s.x) * 0.25;
+    for (const q of moverM) { const s = q.s; q.m.position.set(s.x + s.w / 2, Y(s.y) - 8, 0); q.b.position.set(s.x + s.w / 2, Y(s.y) - 12, 30); q.b.rotation.x = Math.sin(time * 2.6 + s.x) * 0.25; q.b.children.forEach((f, k) => { f.rotation.z = Math.sin(time * 3 + k + s.x * 0.01) * 0.18; });
       q.g.position.set(s.x + s.w / 2, Y(s.y) + 2, 34); q.m.rotation.z = Math.sin(Math.PI * 2 * clock / s.mover.per + s.mover.ph) * 0.03; }
   }
   for (const q of ropes) q.m.rotation.z = Math.sin(time * 0.9 + q.ph) * 0.004;
@@ -975,7 +983,7 @@ R.frame = (rdt) => {
 // fase 1 (o Parque) = AZUL, noite soturna de pântano; fase 2 (o Arraial) = LARANJA, festa quente iluminada por fogueiras.
 // k = 1 usa a paleta azul (NIGHT_); k = 0 usa a paleta laranja (DUSK, que aqui é o Arraial).
 const DAY = { x0: 1400, x1: ARENA_X - 700 };
-const DUSK = { bg: new THREE.Color(0x1e0a04), figB: new THREE.Color(0x6a3a22), figF: new THREE.Color(0xb8764c), mist: new THREE.Color(0xff7a2a), shaft: new THREE.Color(0xffa050),
+const DUSK = { bg: new THREE.Color(0x1e0a04), figB: new THREE.Color(0x3c2418), figF: new THREE.Color(0x6e4a34), mist: new THREE.Color(0xff7a2a), shaft: new THREE.Color(0xffa050),
   amb: new THREE.Color(0xffa868), sun: new THREE.Color(0xffb070), mark: new THREE.Color(0xffd2a8), bunt: new THREE.Color(0xffe2c4), shade: new THREE.Vector3(1.12, .9, .72) };
 const NIGHT_ = { bg: new THREE.Color(0x020a12), figB: new THREE.Color(0x4c7896), figF: new THREE.Color(0xa9c4d6), amb: new THREE.Color(0x6f9cc0), sun: new THREE.Color(0xa6dcff),
   mark: new THREE.Color(0xffffff), bunt: new THREE.Color(0xa8b8d4), shade: new THREE.Vector3(.80, 1.02, 1.16) };
