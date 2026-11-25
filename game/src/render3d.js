@@ -7,7 +7,7 @@ const TT = window.TT, C = TT.C, S = TT.S;
 const { W, H, GROUND, ARENA_X } = C;
 const ARR = C.FASE >= 2, VG = C.FASE === 3, END = C.BOSS ? ARENA_X : C.LEVEL_END; // fase 2: o Arraial (a fase vai até a arena do lobo-guará, no fim)
 const VG_AR = { 'vg-cadeira': 0.55, 'vg-cama': 1.4567, 'vg-cipreste': 0.3187, 'vg-girassol': 0.6773, 'vg-vaso': 0.8526, 'vg-mesa': 0.7958, 'vg-lampiao': 0.2942, 'vg-toldo': 2.8364, 'vg-moldura': 1.2964 };
-const VG_PLAT = { 380: 'cama', 700: 'cadeira', 5000: 'toldo', 5500: 'toldo', 5280: 'mesa', 5730: 'mesa' }; // plataformas que são móveis do quadro (não ganham tábua)
+const VG_PLAT = { 380: 'cama', 718: 'cadeira', 5000: 'toldo', 5500: 'toldo', 5280: 'mesa', 5730: 'mesa' }; // plataformas que são móveis do quadro (não ganham tábua)
 const R = TT.R = { ready: false, quality: 2, flash: 0 };
 const cv = document.getElementById('c');
 let renderer;
@@ -42,7 +42,7 @@ if (C.FASE === 2) { const more = { 'guara-anda': 313 / 320, 'guara-agacha': 601 
 // fase 3: o Corvo-Borrão usa as mesmas poses do lobo-guará (mesmos nomes), os corvos entram no lugar das galinhas,
 // a carta ao Theo no lugar do bilhete, a tampinha no lugar da fruta, o tubo de tinta no lugar do ovo e a mancha de tinta no lugar do chocolate
 if (C.FASE === 3) { const vg = { 'guara-anda': 0.9062, 'guara-agacha': 1.6, 'guara-bote': 0.9656, 'guara-corre': 1.7031, 'guara-tonta': 0.8906, 'guara-uiva': 0.9906,
-    galinha: ['corvo', 1.2478], 'corvo-voa': 0.8696, bilhete: ['carta', 1.285], fruta: ['tampinha', 1.06], tubo: 0.465 };
+    galinha: ['corvo', 1.2478], 'corvo-voa': 0.8696, bilhete: ['carta', 1.285], fruta: ['tampinha', 1.06], tubo: 0.465, 'vangogh-triste': 0.45, 'vangogh-feliz': 0.5575, pincel: 0.6423 };
   for (const k in vg) { const [f, ar] = Array.isArray(vg[k]) ? vg[k] : [k, vg[k]]; AR[k] = ar; TEX[k] = load('sprites/vg/' + f + '.png'); }
   TEX['bandana-asa'] = load('sprites/bandana-asa.png'); }
 // tiras de quadros desenhados: corrida do Timtim (8), corrida dos chihuahuas e andar do pombo (4 cada)
@@ -342,9 +342,16 @@ const addMat = (map, c, op) => new THREE.MeshBasicMaterial({ map, color: c, opac
 // ---------------- mundo estático ----------------
 const FLOOR_Z0 = -104, FLOOR_Z1 = 470, FD = FLOOR_Z1 - FLOOR_Z0, FZ = (FLOOR_Z0 + FLOOR_Z1) / 2;
 const pulses = [], shafts = [], mists = [], ropes = [], buntings = [], figMats = [], landmarks = [], props3 = [], dayMats = []; // dayMats: arte pintada sem luz própria, que acompanha a hora do dia
-const vilaMat = new THREE.ShaderMaterial({ uniforms: { a: { value: texVilaT }, b: { value: texVilaN }, k: { value: 0 }, rep: { value: 1 }, tint: { value: new THREE.Color(1, 1, 1) }, haze: { value: new THREE.Color(0.86, 0.66, 0.5) }, hazeK: { value: 0 } },
+const vilaMat = new THREE.ShaderMaterial({ uniforms: { a: { value: texVilaT }, b: { value: texVilaN }, k: { value: 0 }, rep: { value: 1 }, tint: { value: new THREE.Color(1, 1, 1) }, haze: { value: new THREE.Color(0.86, 0.66, 0.5) }, hazeK: { value: 0 }, t: { value: 0 }, flow: { value: 0 } },
   vertexShader: 'varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.); }',
-  fragmentShader: 'uniform sampler2D a, b; uniform float k, rep, hazeK; uniform vec3 tint, haze; varying vec2 vUv; void main(){ vec2 u = vec2(vUv.x * rep, vUv.y); vec3 c = mix(texture2D(a, u).rgb, texture2D(b, u).rgb, k) * tint; float l = dot(c, vec3(.3, .59, .11)); c = mix(c, vec3(l), hazeK * .5); gl_FragColor = vec4(mix(c, haze, hazeK), 1.); }' });
+  // fase 3: a pintura respira — as pinceladas escorrem devagar em redemoinhos (deformação suave das coordenadas, que muda com o tempo)
+  // e o brilho das pinceladas ondula de leve, como tinta fresca pegando luz
+  fragmentShader: 'uniform sampler2D a, b; uniform float k, rep, hazeK, t, flow; uniform vec3 tint, haze; varying vec2 vUv; void main(){ vec2 u = vec2(vUv.x * rep, vUv.y); float sh = 1.;'
+    + ' if (flow > 0.) { vec2 p = vec2(u.x * 5.2, u.y * 4.); float a = t * .32;'
+    + ' vec2 w = vec2(sin(p.y * 2.3 + a + 1.4 * sin(p.x * 1.1 - a * .7)), cos(p.x * 1.9 - a * .8 + 1.4 * sin(p.y * 1.3 + a * .6)));'
+    + ' w += .5 * vec2(sin(p.y * 5.1 - a * 1.6 + p.x * 2.), cos(p.x * 4.3 + a * 1.3 - p.y * 1.7));'
+    + ' u += w * flow * vec2(1., .8); sh = 1. + .045 * sin(p.x * 9. + p.y * 7. - t * 1.1 + w.x * 3.); }'
+    + ' vec3 c = mix(texture2D(a, u).rgb, texture2D(b, u).rgb, k) * tint * sh; float l = dot(c, vec3(.3, .59, .11)); c = mix(c, vec3(l), hazeK * .5); gl_FragColor = vec4(mix(c, haze, hazeK), 1.); }' });
 const sky = add(new THREE.Mesh(planeGeoC, new THREE.MeshBasicMaterial({ map: texSky, fog: false })), 1); // por último entre os opacos
 sky.scale.set(4700, 2700, 1); sky.position.set(0, 300, -3000);
 (function buildWorld() {
@@ -716,15 +723,32 @@ if (VG) { TEX.borrao = load('sprites/vg/borrao.png'); } TEX.choco = canvasTex(16
   x.fillStyle = '#ff3d5e'; x.beginPath(); x.moveTo(-66, -44); x.lineTo(-8, -44); x.lineTo(-20, 44); x.lineTo(-66, 44); x.closePath(); x.fill();
   x.fillStyle = '#ffd98a'; x.fillRect(-66, -10, 52, 20); x.strokeStyle = '#fff3d6'; x.lineWidth = 3; x.beginPath(); x.moveTo(-8, -44); x.lineTo(-14, -20); x.lineTo(-6, 0); x.lineTo(-16, 22); x.lineTo(-20, 44); x.stroke(); });
 // brinquedo perdido do Parque: o Patinho Quá-Quá, de borracha e meio mordido (arte do Google Flow, a mesma da estante)
-if (VG) { TEX.toy = load('sprites/toy-girassol.png'); AR.toy = 0.89; } else if (ARR) { TEX.toy = load('sprites/toy-sanfona.png'); AR.toy = 297 / 200; } else { TEX.toy = load('sprites/toy-duck.png'); AR.toy = 214 / 200; }
+if (VG) { TEX.toy = load('sprites/toy-bolinha.png'); AR.toy = 0.985; } else if (ARR) { TEX.toy = load('sprites/toy-sanfona.png'); AR.toy = 297 / 200; } else { TEX.toy = load('sprites/toy-duck.png'); AR.toy = 214 / 200; }
 if (VG) { TEX.choco = TEX.borrao; AR.choco = 1.62; }
 const GOLD = VG ? 'tubo' : 'cookie'; // no quadro, os dourados são tubos de tinta
+// fase 3: os tubos de tinta que o Corvo-Borrão derruba (e a marca de onde cada um cai), as manchas que ficam no chão,
+// o pincel do Van Gogh, o próprio Van Gogh e o vermelho de raiva do corvo (uma cópia da silhueta pintada de vermelho por cima)
+const TUBE_TINT = [0xfff4d0, 0x9cc0ff, 0xff9a8a], SPLAT_TINT = [0xffd23f, 0x3f6cff, 0xe8283c];
+const texSplat = canvasTex(128, 48, x => { x.fillStyle = '#fff'; x.beginPath(); x.ellipse(64, 30, 50, 15, 0, 0, 7); x.fill();
+  [[22, 26, 9], [104, 28, 10], [40, 16, 8], [88, 15, 9], [12, 36, 5], [118, 38, 5], [64, 12, 7]].forEach(([cx, cy, r]) => { x.beginPath(); x.arc(cx, cy, r, 0, 7); x.fill(); }); });
+const tubeM = VG ? Array.from({ length: 10 }, () => { const m = sprite('tubo', 7, false); m.geometry = planeGeoC; m.visible = false; return m; }) : [];
+const tubeMarkM = VG ? Array.from({ length: 10 }, () => { const m = add(new THREE.Mesh(planeGeoC, new THREE.MeshBasicMaterial({ map: texSoft, color: 0xff1f44, transparent: true, opacity: 0, depthWrite: false, fog: false })), 4); m.visible = false; return m; }) : [];
+const splatM = VG ? Array.from({ length: 10 }, () => { const m = add(new THREE.Mesh(planeGeoC, new THREE.MeshBasicMaterial({ map: texSplat, transparent: true, depthWrite: false, fog: false })), 5); m.visible = false; return m; }) : [];
+const brushM = VG ? sprite('pincel', 7, false) : null; if (brushM) { brushM.geometry = planeGeoC; brushM.visible = false; }
+const brushG = VG ? add(new THREE.Mesh(planeGeoC, glowMat(0xffe14d, 0.55)), 6) : null; if (brushG) brushG.visible = false;
+const vgM = VG ? sprite('vangogh-triste', 5, true, 0xfff4ea) : null; if (vgM) vgM.visible = false;
+const crowRedM = VG ? add(new THREE.Mesh(planeGeo, new THREE.ShaderMaterial({ uniforms: { map: { value: null }, op: { value: 0 } }, transparent: true, depthWrite: false, side: THREE.DoubleSide,
+  vertexShader: 'varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.); }',
+  fragmentShader: 'uniform sampler2D map; uniform float op; varying vec2 vUv; void main(){ float a = texture2D(map, vUv).a; if (a < .3) discard; gl_FragColor = vec4(1., .14, .08, op); }' })), 6) : null;
+if (crowRedM) crowRedM.visible = false;
+if (VG) { TT.on('tubeSplat', e => burst(e.x, GROUND - 10, [SPLAT_TINT[e.c], SPLAT_TINT[e.c], 0xffffff], 16, 280)); TT.on('crowRed', e => burst(e.x, e.y + 30, [0xff2a2a, 0xff7a5a, 0xffd0c0], 30, 360));
+  TT.on('vgHappy', e => { burst(e.x, e.y, [0xffd23f, 0x3f6cff, 0xffffff, 0xff9a3a], 44, 420, 300); }); }
 const itemM = S.items.map(it => { const m = sprite(it.type === 'gold' ? GOLD : it.type, 5, false, it.type === 'gold' ? (VG ? 0xfff0d0 : 0xffd640) : 0xfff4e0); m.geometry = planeGeoC;
   m.userData.glow = add(new THREE.Mesh(planeGeoC, glowMat(it.type === 'choco' ? 0xff3355 : it.type === 'cookie' ? 0xffc76a : it.type === 'toy' ? 0x9dff7a : it.type === 'bilhete' ? 0xff8fb8 : 0xffe14d)), 4);
   return m; });
 const friendM = S.friends.map(f => { const m = sprite(f.kind, 5, true, 0xfff6ec); m.geometry = legGeo();
   m.userData.glow = add(new THREE.Mesh(planeGeoC, glowMat(0xffd9a0, 0.3)), 4); return m; });
-R.dbg = { brute: () => bruteM, friends: () => friendM, fox: () => foxM }; // (para os testes inspecionarem o desenho)
+R.dbg = { brute: () => bruteM, friends: () => friendM, fox: () => foxM, vg: () => vgM, crowRed: () => crowRedM }; // (para os testes inspecionarem o desenho)
 const giftM = [0, 1].map(() => { const m = sprite(C.GIFT_ITEM, 7, false); m.geometry = planeGeoC; m.visible = false;
   m.userData.glow = add(new THREE.Mesh(planeGeoC, glowMat(0xffd27a, 0.8)), 6); m.userData.glow.visible = false; return m; });
 // no Arraial, galinhas, lobo-guará, Zara, Elvis e o ovo ganham o contorno de luz fria
@@ -893,6 +917,7 @@ R.frame = (rdt) => {
   // animação de vídeo de cada estado (a corrida continua na tira própria, que acompanha a velocidade)
   const hurtNow = p.hurtT > 0 || S.mode === 'lose' || name === 'tintim-hurt'; if (hurtNow && !tintimHurt) tintimHurtT = time; tintimHurt = hurtNow;
   if (name !== tintimLast) { tintimLast = name; tintimT0 = time; }
+  // (a comemoração é a animação refeita em 25/11/2026 a partir da pose tintim-win: sem a mancha de panda da versão antiga)
   const TANIM = { 'tintim-win': ['timtim-comemora', 92], 'tintim-hurt': ['timtim-machuca', 80], 'tintim-glide': ['timtim-plana', 102], 'tintim-jump': ['timtim-pulo', 78], 'tintim-fall': ['timtim-pulo', 78], 'tintim-sniff': ['timtim-fareja', 70], 'tintim-idle': ['timtim-parado', 80] }[name];
   // planando: o ciclo próprio do vídeo (a bandana aberta como asa-delta tremulando, o pelo e as orelhas voando para trás)
   const tA = name === 'tintim-glide' ? time - tintimT0 : name === 'tintim-fall' ? (12 + Math.round(1 + Math.sin(time * 9))) / 24
@@ -1054,7 +1079,7 @@ R.frame = (rdt) => {
       m.position.set(w.x, Y(GROUND) + h / 2, 6); m.scale.set(46 * w.dir, h * (0.9 + 0.1 * Math.sin(time * 30)), 1); m.material.opacity = Math.min(1, 0.4 + w.t * 3); }); }
 
   // o lobo-guará: uma pose desenhada para cada momento, e as patas andando por deformação
-  if (ARR) { const g = S.fox, m = foxM, x = g.x + g.w / 2, st = g.state, air = g.y + g.h < GROUND - 4;
+  if (ARR && !VG) { const g = S.fox, m = foxM, x = g.x + g.w / 2, st = g.state, air = g.y + g.h < GROUND - 4;
     let n = 'guara-anda', h = 200, walking = false, y = Y(g.y + g.h) - 4, sy = 1, rot = 0, dx = 0;
     if (st === 'hurt' || st === 'bonk') { n = 'guara-tonta'; h = 193; rot = Math.sin(time * 9) * 0.06; }
     else if (st === 'roar' || (st === 'wind' && g.atk === 'roar')) { n = 'guara-uiva'; h = 198; sy = st === 'roar' ? 1 + Math.sin(time * 40) * 0.02 : 1 + 0.06 * Math.min(1, g.t / 0.5); } // enche o peito e solta o latido rouco
@@ -1089,6 +1114,44 @@ R.frame = (rdt) => {
     // onda do latido: três anéis saindo da boca
     roarT += rdt; roarM.forEach((r, k) => { const t = roarT - k * 0.12; r.visible = t > 0 && t < 0.7; if (!r.visible) return; const s = 40 + t * 900; r.scale.set(s, s, 1); r.position.set(roarAt.x, Y(roarAt.y), 8); r.material.opacity = 0.7 * (1 - t / 0.7); });
     foxStars.forEach((s, k) => { s.visible = (st === 'hurt' || st === 'bonk') && m.visible; if (s.visible) { const a = time * 6 + k * 2.1; s.position.set(x + Math.cos(a) * 34, y + 160 + Math.sin(a) * 8, 4 + Math.sin(a)); s.rotation.z = a; } });
+  }
+  // fase 3: o Corvo-Borrão. Voa (asas abertas batendo), mira gritando antes de soltar cada tubo, mergulha de bico para baixo,
+  // bica o chão (brilho dourado = hora de pular nas costas), fica tonto quando apanha. No último coração, vermelho de raiva.
+  if (VG) { const g = S.fox, m = foxM, st = g.state, x = g.x + g.w / 2, flap = Math.sin(time * 15);
+    let n = 'guara-anda', h = 200, y = Y(g.y + g.h) - 4, sy = 1, rot = 0;
+    const dir = st === 'dive' ? (Math.sign(g.tx - x) || g.dir) : g.dir, lf = dir < 0 ? 1 : -1; // lf: rotação que abaixa a cabeça
+    if (st === 'hurt') { n = 'guara-tonta'; h = 193; rot = Math.sin(time * 9) * 0.06; }
+    else if (st === 'caw' || st === 'aim' || st === 'diveWind') { n = 'guara-uiva'; h = 190; sy = 1 + Math.sin(time * 34) * 0.025; if (st === 'diveWind') rot = lf * 0.12 * Math.min(1, g.t / 0.3); }
+    else if (st === 'peck') { n = 'guara-agacha'; h = 118; const k = Math.max(0, Math.sin(time * 13)); rot = lf * k * k * 0.13; sy = 1 - k * 0.04;
+      if (k > 0.97 && Math.random() < 0.5) spawn({ x: x - lf * 92, y: GROUND - 6, vx: (Math.random() - 0.5) * 140, vy: -90 - Math.random() * 90, g: 600, life: 0.5, r: 3, color: Math.random() < 0.5 ? 0xffd23f : 0x5a7cff, hard: true }); }
+    else if (st === 'dive') { n = 'guara-corre'; h = 135; rot = lf * 0.45; }
+    else if (st === 'rise' || st === 'fly' || st === 'flee') { n = flap > 0.5 && st !== 'fly' ? 'guara-bote' : 'guara-corre'; h = n === 'guara-bote' ? 156 : 135; sy = 1 + flap * 0.07; y += flap * 4; }
+    else sy = 1 + Math.sin(clock * 3) * 0.015;
+    setAnim(m, n, h, dir > 0); m.scale.x *= 2 - sy; m.scale.y *= sy; legs(m, 0, 0);
+    m.position.set(x, y, 1); m.rotation.z = rot;
+    m.visible = C.FOX && !(g.hurt > 0 && Math.floor(time * 30) % 2) && (S.arena || S.cam.x > ARENA_X - W - 200) && g.x < C.LEVEL_END + 400 && g.y > -700;
+    if (g.red) m.material.color.setRGB(1.6, 0.8, 0.74); else m.material.color.setRGB(1.32, 1.2, 1.1);
+    { const r = crowRedM; r.visible = m.visible && g.red; if (r.visible) { r.geometry = m.geometry; r.material.uniforms.map.value = m.material.map; r.material.uniforms.op.value = 0.42 + 0.14 * Math.sin(time * 9);
+      r.position.set(x, y, 1.6); r.scale.copy(m.scale); r.rotation.z = rot; } }
+    const yes = st === 'peck' && m.visible; foxGlow.material.opacity += ((yes ? 0.55 + 0.2 * Math.sin(time * 8) : 0) - foxGlow.material.opacity) * Math.min(1, live * 10);
+    foxGlow.position.set(x, y + 70, 0.5); foxGlow.scale.set(220, 140, 1); foxGlow.visible = m.visible;
+    const warn = (st === 'aim' || st === 'diveWind') && m.visible; foxWarn.material.opacity += ((warn ? 0.6 + 0.3 * Math.sin(time * 20) : g.red && m.visible ? 0.3 : 0) - foxWarn.material.opacity) * Math.min(1, live * 12);
+    foxWarn.position.set(x, y + 60, 0.4); foxWarn.scale.set(260, 180, 1); foxWarn.visible = m.visible;
+    const mk = st === 'aim' || st === 'diveWind' || st === 'dive'; foxMark.material.opacity += ((mk ? 0.7 + 0.2 * Math.sin(time * 18) : 0) - foxMark.material.opacity) * Math.min(1, live * 10);
+    foxMark.position.set(g.tx, Y(GROUND) + 22, 6); foxMark.scale.set(st === 'aim' ? 110 : 200, st === 'aim' ? 36 : 56, 1); foxMark.visible = foxMark.material.opacity > 0.01;
+    foxStars.forEach((s, k) => { s.visible = st === 'hurt' && m.visible; if (s.visible) { const a = time * 6 + k * 2.1; s.position.set(x + Math.cos(a) * 34, y + 170 + Math.sin(a) * 8, 4 + Math.sin(a)); s.rotation.z = a; } });
+    // tubos de tinta caindo (cada um com a marca de onde vai cair) e as manchas que eles deixam
+    tubeM.forEach((q, i) => { const t = S.tubes[i], mk2 = tubeMarkM[i]; q.visible = mk2.visible = !!t; if (!t) return;
+      q.material.color.setHex(TUBE_TINT[t.c]); q.position.set(t.x, Y(t.y), 7); q.scale.set(74 * AR.tubo, 74, 1); q.rotation.z = t.rot;
+      mk2.position.set(t.tx, Y(GROUND) + 22, 6); mk2.scale.set(110, 36, 1); mk2.material.opacity = 0.6 + 0.25 * Math.sin(time * 18); });
+    splatM.forEach((q, i) => { const s = S.splats[i]; q.visible = !!s; if (!s) return; const k = Math.min(1, s.t / 0.12);
+      q.material.color.setHex(SPLAT_TINT[s.c]); q.position.set(s.x, Y(GROUND) + 12, 6.5); q.scale.set(120 * (0.5 + 0.5 * k), 40 * (0.5 + 0.5 * k), 1); q.material.opacity = Math.min(1, (1.4 - s.t) * 2); });
+    // o pincel caindo e o Van Gogh
+    { const b = S.brush; brushM.visible = brushG.visible = !!b; if (b) { brushM.position.set(b.x, Y(b.y) + (b.rest ? 6 + Math.sin(time * 5) * 3 : 0), 7); brushM.rotation.z = b.rest ? 0.9 : b.rot; brushM.scale.set(84 * AR.pincel, 84, 1);
+      brushG.position.set(b.x, Y(b.y) + 8, 6); const s = 110 + Math.sin(time * 6) * 10; brushG.scale.set(s, s, 1); } }
+    { const v = S.vg; vgM.visible = !!v; if (v) { const happy = v.mood === 'happy', hop = happy ? Math.abs(Math.sin(v.t * 6.5)) * 30 : 0;
+      setAnim(vgM, happy ? 'vangogh-feliz' : 'vangogh-triste', happy ? 182 : 170, v.face > 0); const br = happy ? 1 : 1 + Math.sin(time * 2) * 0.012; vgM.scale.y *= br;
+      vgM.position.set(v.x, hop, -30); vgM.rotation.z = happy ? Math.sin(v.t * 6.5) * 0.05 : Math.sin(time * 0.9) * 0.015; } }
   }
   // galinheiro: as galinhas espiam pela tela até o lobo-guará fugir
   // galinhas correndo: pulinhos, asas batendo e penas voando
@@ -1178,7 +1241,7 @@ R.frame = (rdt) => {
     for (const q of VGR.blinks) { const on = TT.blinkOn(q.b), ph = ((S.clock + q.b.ph) % q.b.per) / q.b.per, warn = on && ph > 0.5; // pisca antes de apagar
       q.k += ((on ? 1 : 0.18) - q.k) * Math.min(1, rdt * 10); const fl = warn ? 0.55 + 0.45 * Math.abs(Math.sin(time * 18)) : 1;
       q.m.material.opacity = q.k * fl; q.g.material.opacity = 0.5 * q.k * fl; const sc = q.b.w * 1.25 * (0.9 + 0.1 * q.k); q.m.scale.set(sc, sc, 1); q.m.rotation.z += live * 0.3; }
-    for (const q of VGR.movers) { const s = q.s; q.m.position.set(s.x + s.w / 2, Y(s.y) - q.h * 0.86, -1); q.m.rotation.z = Math.sin(time * 1.3 + s.x) * 0.02; }
+    for (const q of VGR.movers) { const s = q.s; q.m.position.set(s.x + s.w / 2, Y(s.y) - q.h + 10, -1); q.m.rotation.z = Math.sin(time * 1.3 + s.x) * 0.02; }
     for (const q of VGR.toldos) { q.bt = Math.max(0, q.bt - live); const k = Math.sin(q.bt / 0.35 * Math.PI) * 0.18; q.m.scale.y = q.hgt * (1 - k); q.m.position.y = q.base + q.hgt * k; }
     if (R.hoop) { const q = R.hoop, on = !!S.revealed.argola; q.gr.rotation.z = Math.sin(time * 1.1) * 0.06; q.gr.rotation.y = Math.sin(time * 0.7) * 0.25; q.hg.material.opacity = on ? 0.12 : 0.3 + 0.1 * Math.sin(time * 4); }
   }
@@ -1252,7 +1315,7 @@ const tmpC = new THREE.Color();
 function dayLight(cx) {
   const k = ARR ? 0 : 1; // a cor é da fase inteira: não muda ao longo do caminho
   vilaMat.uniforms.k.value = VG ? ease(Math.max(0, Math.min(1, (cx - 4300) / 1300))) : 0; // no quadro: o dia dos girassóis vira noite estrelada no terraço do café (uma passagem curta, sem as duas pinturas misturadas por muito tempo)
-  if (VG) { vilaMat.uniforms.tint.value.setRGB(0.84, 0.82, 0.86); vilaMat.uniforms.hazeK.value = 0.1; } else if (ARR) { vilaMat.uniforms.tint.value.setRGB(0.74, 0.6, 0.52); vilaMat.uniforms.hazeK.value = 0.32; } else vilaMat.uniforms.tint.value.setScalar(0.9); // o fundo do Arraial recua: mais escuro, para o que se mexe aparecer
+  if (VG) { vilaMat.uniforms.tint.value.setRGB(0.7, 0.68, 0.73); vilaMat.uniforms.hazeK.value = 0.16; vilaMat.uniforms.flow.value = 0.006; vilaMat.uniforms.t.value = time; } // mais apagado, para o que está na frente se destacar else if (ARR) { vilaMat.uniforms.tint.value.setRGB(0.74, 0.6, 0.52); vilaMat.uniforms.hazeK.value = 0.32; } else vilaMat.uniforms.tint.value.setScalar(0.9); // o fundo do Arraial recua: mais escuro, para o que se mexe aparecer
   scene.background.copy(DUSK.bg).lerp(NIGHT_.bg, k);
   if (figMats[0]) figMats[0].color.copy(DUSK.figB).lerp(NIGHT_.figB, k);
   if (figMats[1]) figMats[1].color.copy(DUSK.figF).lerp(NIGHT_.figF, k);

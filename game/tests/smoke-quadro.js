@@ -1,5 +1,5 @@
-// Teste de fumaça da fase 3 (o Quadro Encantado, no mundo de Van Gogh): redemoinhos que giram e soltam, toldos do café
-// que quicam, estrelas que piscam, corvos no trigal e a luta com o Corvo-Borrão. Mesmo esquema do smoke-arraial.js: espera por condições.
+// Teste de fumaça da fase 3 (o Quadro Encantado, no mundo de Van Gogh): o Van Gogh pedindo ajuda, redemoinhos que giram e soltam,
+// toldos do café que quicam, estrelas que piscam, corvos no trigal e a luta com o Corvo-Borrão (tubos de tinta, bicadas, pincel). Mesmo esquema do smoke-arraial.js: espera por condições.
 // Uso: (servidor local na porta 8765 servindo a pasta game/) ; node game/tests/smoke-quadro.js [url]
 const { chromium } = require('playwright');
 (async () => {
@@ -18,8 +18,16 @@ const { chromium } = require('playwright');
   await pg.waitForTimeout(500); await pg.click('#btnStart');
   check(await until(() => __tintim.state === 'play' && __tintim.S.cine && __tintim.S.cine.type === 'arraial', 5000), 'Jogar começa direto, com o cartão da fase');
   check(await ev(() => document.body.innerText.includes('QUADRO ENCANTADO')), 'o cartão anuncia "O Quadro Encantado"');
-  check(await until(() => !__tintim.S.cine, 6000), 'cartão some e o controle é liberado');
+  check(await until(() => __tintim.S.cine && __tintim.S.cine.type === 'vangogh', 6000), 'depois do cartão, o Van Gogh aparece pedindo ajuda');
+  check(await until(() => document.getElementById('say').classList.contains('on') && document.getElementById('say').textContent.includes('corvo'), 2500), 'o Van Gogh conta que pintou um corvo que ganhou vida');
+  check(await ev(() => { const m = __tintim.R.dbg.vg(); return m.visible && m.userData.name === 'vangogh-triste'; }), 'o Van Gogh aparece triste no começo');
+  await pg.waitForTimeout(1200); await pg.keyboard.press('Space');
+  check(await until(() => document.getElementById('say').textContent.includes('pincel'), 1500), 'o pulo adianta para a segunda fala (o pincel roubado)');
+  await pg.waitForTimeout(300); await pg.keyboard.press('Space');
+  check(await until(() => !__tintim.S.cine, 2000), 'mais um pulo encerra a conversa e libera o controle');
+  check(await ev(() => __tintim.player.onGround && __tintim.player.vy === 0), 'o pulo que encerrou a conversa não faz o Timtim pular sozinho');
   check(await ev(() => !__tintim.S.thief && !__tintim.S.arena && __tintim.S.enemies.length > 0), 'sem Furtão nem chefão no começo, e há corvos no caminho');
+  check(await ev(() => __tintim.S.enemies.every(e => { for (let x = e.a; x <= e.b + e.w; x += 5) if (!TT.C.grounds.some(([g0, gw]) => x >= g0 && x <= g0 + gw)) return false; return true; })), 'nenhum corvo anda por cima de buraco (o trajeto inteiro fica no chão)');
 
   // redemoinho: pula dentro, ele prende e gira; apertar o pulo solta com força
   const sw = await ev(() => TT.C.SWIRLS[0]);
@@ -65,6 +73,8 @@ const { chromium } = require('playwright');
   const nt = await ev(() => TT.C.NOTES[0]);
   await put(nt.x - pw.w / 2, nt.y - pw.h / 2, { vy: 0, inv: 99 });
   check(await until(() => document.querySelector('#note small').textContent.startsWith('Carta ao Theo'), 2000), 'o bilhete da fase 3 aparece como "Carta ao Theo"');
+  await ev(() => TT.emit('banner', { text: 'TESTE-FAIXA' }));
+  check(await ev(() => document.getElementById('banner').textContent !== 'TESTE-FAIXA'), 'com a carta aberta, uma faixa de texto nova não aparece por cima (um texto por vez)');
   await ev(() => { const n = document.getElementById('note'); if (n) n.classList.remove('on'); });
 
   // o Corvo-Borrão: chegar no morro começa a luta com a apresentação dele
@@ -77,26 +87,44 @@ const { chromium } = require('playwright');
   await pg.waitForTimeout(400);
   check(await ev(() => { const m = __tintim.R.dbg.fox(), o = m.material.map.offset; return m.visible && Number.isFinite(o.x) && Number.isFinite(o.y); }), 'o Corvo-Borrão continua desenhado depois da apresentação');
   check(await ev(() => document.querySelector('.bossRow b').textContent === 'Corvo-Borrão'), 'a barra de vida mostra "Corvo-Borrão"');
-  const above = () => ev(() => { const f = __tintim.S.fox, p = __tintim.player; f.x = TT.C.ARENA_X + 400; f.y = TT.C.GROUND - f.h; f.vy = 0; f.state = 'idle'; f.t = 0; f.cd = 9; f.vx = 0; f.egg = 99; __tintim.S.fruit = null; Object.assign(p, { x: f.x + f.w / 2 - p.w / 2, y: f.y - p.h - 40, vx: 0, vy: 200, onGround: false, inv: 99, hp: 3, dj: false, buffer: 0, coyote: 0, orbit: null, swirlCd: 1 }); });
-  await above();
-  check(await until(() => __tintim.S.fox.state === 'dodge', 2000) && await ev(() => __tintim.S.fox.hp === 3), 'pulo comum em cima do Corvo-Borrão: ele desvia e não perde vida');
-  await until(() => __tintim.player.onGround && __tintim.S.fox.state !== 'dodge', 4000);
-  // os redemoinhos do morro levantam o Timtim até o alto
-  const asw = await ev(() => TT.C.SWIRLS.filter(s => s.x > TT.C.ARENA_X).length);
-  check(asw === 2, 'há dois redemoinhos no morro do chefão');
-  // tampinha dourada: ele para para pegar, e até o pulo comum acerta
-  await ev(() => { const f = __tintim.S.fox; f.x = TT.C.ARENA_X + 400; f.state = 'idle'; f.cd = 9; f.egg = 99; __tintim.S.fruit = { x: TT.C.ARENA_X + 560, y: TT.C.GROUND - 22, vx: 0, vy: 0, rest: true }; });
-  check(await until(() => __tintim.S.fox.state === 'eat' && !__tintim.S.fruit, 3000), 'o Corvo-Borrão corre até a tampinha dourada e para');
-  await ev(() => { const f = __tintim.S.fox, p = __tintim.player; Object.assign(p, { x: f.x + f.w / 2 - p.w / 2, y: f.y - p.h - 40, vx: 0, vy: 200, onGround: false, inv: 99, hp: 3, dj: false, buffer: 0, coyote: 0, orbit: null, swirlCd: 1 }); });
-  check(await until(() => __tintim.S.fox.hp === 2, 2000), 'distraído com a tampinha, um pulo comum nas costas acerta');
-  for (let k = 1; k < 3; k++) {
-    await until(() => ['idle', 'dodge', 'hurt'].includes(__tintim.S.fox.state) && __tintim.S.fox.state !== 'hurt' && __tintim.player.onGround, 4000);
-    await above(); await pg.keyboard.down('Space'); await pg.waitForFunction(n => __tintim.S.fox.hp === n, 2 - k, { timeout: 3000, polling: 50 }).catch(() => {}); await pg.keyboard.up('Space');
-  }
-  check(await ev(() => __tintim.S.fox.hp === 0), 'mais duas quedas planando nas costas derrotam o Corvo-Borrão');
+  check(await ev(() => TT.C.SWIRLS.every(s => s.x < TT.C.ARENA_X)), 'o morro do chefão não tem redemoinhos');
+  check(await until(() => __tintim.S.fox.state === 'fly', 4000), 'o Corvo-Borrão levanta voo');
+  // tubo de tinta: aparece a marca vermelha, o tubo cai ali e machuca quem estiver embaixo
+  await ev(() => { const p = __tintim.player; Object.assign(p, { x: TT.C.ARENA_X + 300, y: TT.C.GROUND - p.h, vx: 0, vy: 0, onGround: true, inv: 0, hp: 3, mega: 0, fast: 0 }); __tintim.S.fox.cd = 0; });
+  check(await until(() => __tintim.S.fox.state === 'aim', 2000), 'ele mira antes de soltar o tubo (aviso)');
+  const tx = await ev(() => __tintim.S.fox.tx);
+  check(Math.abs(tx - (await ev(() => TT.C.ARENA_X + 300 + __tintim.player.w / 2))) < 40, 'a marca do tubo fica onde o Timtim está');
+  check(await until(() => __tintim.S.tubes.length > 0, 2000), 'o corvo solta um tubo de tinta');
+  check(await until(() => __tintim.player.hp === 2, 2500), 'o tubo de tinta machuca quem fica na marca'); 
+  check(await until(() => __tintim.S.splats.length > 0 || !__tintim.S.tubes.length, 2500), 'o tubo vira mancha de tinta no chão');
+  // no ar ele não leva dano
+  await ev(() => { const f = __tintim.S.fox, p = __tintim.player; Object.assign(p, { x: f.x + f.w / 2 - p.w / 2, y: f.y - p.h - 20, vx: 0, vy: 200, onGround: false, inv: 99, hp: 3 }); });
+  await pg.waitForTimeout(500);
+  check(await ev(() => __tintim.S.fox.hp === 3), 'voando, o corvo não perde vida');
+  // acabados os tubos ele mergulha e fica bicando o chão: é a hora de pular nas costas
+  const peck = async () => { await ev(() => { const f = __tintim.S.fox; if (f.state === 'fly') { f.drops = 0; f.cd = 0; } }); return until(() => __tintim.S.fox.state === 'peck', 9000); };
+  const stomp = () => ev(() => { const f = __tintim.S.fox, p = __tintim.player; Object.assign(p, { x: f.x + f.w / 2 - p.w / 2, y: f.y - p.h - 30, vx: 0, vy: 250, onGround: false, inv: 99, hp: 3 }); });
+  await until(() => __tintim.S.fox.state === 'fly', 6000);
+  check(await peck(), 'sem tubos, ele mergulha e fica bicando o chão');
+  check(await ev(() => __tintim.R.dbg.fox().userData.name === 'guara-agacha'), 'bicando, aparece a pose de cabeça baixa');
+  await stomp();
+  check(await until(() => __tintim.S.fox.hp === 2 && __tintim.S.fox.state === 'hurt', 1500), 'pular nas costas enquanto ele bica tira um coração');
+  check(await until(() => __tintim.S.fox.state === 'fly', 6000), 'depois do golpe ele volta a voar');
+  check(await ev(() => __tintim.S.fox.drops === 4), 'na segunda rodada ele joga mais tubos (4)');
+  await peck(); await stomp();
+  check(await until(() => __tintim.S.fox.hp === 1, 1500), 'segundo golpe nas costas');
+  check(await ev(() => __tintim.S.fox.red), 'no último coração o corvo fica vermelho de raiva');
+  await until(() => __tintim.S.fox.state === 'fly', 6000);
+  check(await ev(() => __tintim.R.dbg.crowRed().visible && __tintim.S.fox.drops === 6), 'vermelho e mais bravo: 6 tubos na última rodada');
+  await peck(); await stomp();
+  check(await until(() => __tintim.S.fox.hp === 0, 1500), 'o terceiro golpe derrota o Corvo-Borrão');
+  check(await ev(() => !!__tintim.S.brush), 'derrotado, ele solta o pincel do Van Gogh');
+  check(await until(() => __tintim.S.vg && __tintim.S.vg.mood === 'happy' && !__tintim.S.brush, 5000), 'o Van Gogh aparece feliz com o pincel');
+  check(await ev(() => __tintim.R.dbg.vg().visible && __tintim.R.dbg.vg().userData.name === 'vangogh-feliz'), 'o Van Gogh comemora (pose feliz)');
+  check(await until(() => __tintim.player.won && __tintim.R.tintimMesh.userData.name === 'timtim-comemora', 4000), 'o Timtim comemora com a animação refeita (fiel à ficha, sem olho de panda)');
   check(await until(() => __tintim.state === 'winning' || __tintim.state === 'win', 3000), 'derrotar o Corvo-Borrão vence a fase');
-  check(await until(() => document.getElementById('win').classList.contains('on'), 9000), 'tela de vitória aparece');
-  check(await ev(() => document.getElementById('winTitle').textContent.includes('girassol') && document.getElementById('stNotes').textContent.includes('/4')), 'vitória com o texto do girassol e a contagem das cartas');
+  check(await until(() => document.getElementById('win').classList.contains('on'), 12000), 'tela de vitória aparece');
+  check(await ev(() => document.getElementById('winTitle').textContent.includes('pincel') && document.getElementById('stNotes').textContent.includes('Cartas ao Theo')), 'vitória com o texto do pincel e a contagem das cartas ao Theo');
   check(await ev(() => !document.getElementById('btnNext').classList.contains('on')), 'na última fase não aparece "Próxima fase"');
   check(await ev(() => JSON.parse(localStorage.getItem('tintim-fases') || '{}')[3] === true), 'fase 3 fica marcada como vencida');
   check(errs.length === 0, 'sem erros no console' + (errs.length ? ': ' + errs.slice(0, 3).join(' | ') : ''));
