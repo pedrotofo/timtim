@@ -19,7 +19,7 @@ renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadow
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x020a12);
 const FOV = 28, CAM_D = (H / 2) / Math.tan(FOV * Math.PI / 360), CAM_Y = 272, LOOK_Y = 176;
-const camera = new THREE.PerspectiveCamera(FOV, W / H, 60, 12000);
+const camera = new THREE.PerspectiveCamera(FOV, W / H, 60, 12000); R.camera = camera; // (para os testes acharem o Timtim na tela)
 
 // paleta: do mais distante (claro, enevoado) ao mais próximo (quase preto)
 const PAL = { far: '#14506a', mid: '#0b3447', near: '#06202d', back: '#04151d', front: '#010a0f',
@@ -922,7 +922,7 @@ R.frame = (rdt) => {
   if (p.won) { name = 'tintim-win'; h = 92; }
   else if (p.hurtT > 0 || S.mode === 'lose') name = 'tintim-hurt';
   else if (!p.onGround) { if (p.vy < 0 || p.djT > 0) { name = 'tintim-jump'; h = 77; } else { name = 'tintim-fall'; h = 82; } }
-  else if (moving) { name = 'tintim-run'; h = 82; nf = 8; fr = Math.floor(runPhase) % 8; } // a corrida desenhada (8 quadros), com o corpo ondulando
+  else if (moving) { name = 'tintim-run'; h = 88; nf = 8; fr = Math.floor(runPhase) % 8; } // a corrida desenhada (8 quadros), com o corpo ondulando
   const sniffing = p.sniff > 0 && p.onGround && name === 'tintim-idle'; // farejando: pose própria, focinho no chão, focinho tremendo
   if (sniffing) { name = 'tintim-sniff'; h = 69; }
   if (p.gliding && !p.won && p.hurtT <= 0) { name = 'tintim-glide'; h = 78; } // o corpo do pulo, esticado; a bandana abre atrás como asa-delta
@@ -951,7 +951,9 @@ R.frame = (rdt) => {
   tintim.scale.x *= 2 - squash; tintim.scale.y *= squash;
   // correndo, o tronco sobe e desce como uma onda: o corpo quica e inclina para a frente e para trás a cada passada
   const wave = moving ? Math.sin(runPhase * Math.PI / 4) : 0;
-  const tx = p.x + p.w / 2, ty = Y(p.y + p.h) - 2 - (tAnim ? tintim.userData.foot * squash : 0) + (moving ? Math.abs(Math.sin(runPhase * Math.PI / 8)) * 4 : 0);
+  // a tira da corrida tem 3 px de sobra embaixo (de 210): desconta, para os pés ficarem na mesma linha do Timtim parado
+  // (h 88 deixa o corpo correndo da mesma altura do parado; antes, com 82, ele encolhia e subia a cada largada e parada)
+  const tx = p.x + p.w / 2, ty = Y(p.y + p.h) - 2 - (tAnim ? tintim.userData.foot * squash : name === 'tintim-run' ? h * squash * 3 / 210 : 0) + (moving ? Math.abs(Math.sin(runPhase * Math.PI / 8)) * 3 : 0);
   const rotT = p.won ? 0 : sniffing ? 0 : p.onGround ? -(p.vx / C.FAST) * 0.07 + wave * 0.06 * p.face : -Math.max(-0.32, Math.min(0.32, p.vy / 2400)) * p.face;
   rotS += (rotT - rotS) * Math.min(1, rdt * (moving ? 30 : 16));
   const flip = p.djT > 0 ? -p.face * Math.PI * 2 * ease(1 - p.djT / 0.42) : 0;
