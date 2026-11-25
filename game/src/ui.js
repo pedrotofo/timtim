@@ -86,7 +86,7 @@ $('fases').classList.remove('on'); // a fase 2 chega sozinha ao vencer o Parque;
 if (FASE === 2) { document.querySelector('.logo i').textContent = 'E O MISTÉRIO DO GALINHEIRO'; { const tb = document.querySelector('#title .tbg'); tb.style.backgroundImage = 'url(assets/bg/arraial-mata.jpg)'; tb.style.filter = 'brightness(.8)'; } // escurece para o título ler bem
   $('hint').textContent = isTouch ? '◀ ▶ andar · ▲ pula · segure ▲ no ar: planar · 👃 fareja' : '← → andar · Espaço pula · segure Espaço no ar: planar · ↓ fareja'; $('msg').textContent = 'Um estranho está espantando as galinhas do arraial…'; }
 if (FASE === 3) { document.querySelector('.logo i').textContent = 'E O QUADRO ENCANTADO'; { const tb = document.querySelector('#title .tbg'); tb.style.backgroundImage = 'url(assets/bg/vg-noite.jpg)'; tb.style.filter = 'brightness(.78)'; }
-  $('hint').textContent = isTouch ? '◀ ▶ andar · ▲ pula · no redemoinho, ▲ solta · 👃 fareja' : '← → andar · Espaço pula · no redemoinho, Espaço solta · ↓ fareja'; $('msg').textContent = 'O rastro do Girassol de Apito entra no quadro…'; }
+  $('hint').textContent = isTouch ? '◀ ▶ andar · ▲ pula · no redemoinho, ▲ solta · 👃 fareja' : '← → andar · Espaço pula · no redemoinho, Espaço solta · ↓ fareja'; $('msg').textContent = 'Um corvo pintado fugiu do quadro com o pincel do Van Gogh…'; }
 if (FASE > 1) { $('faseTag').textContent = 'FASE ' + FASE + ' · ' + FASES[FASE - 1].toUpperCase(); $('pauseText').textContent = 'O Timtim parou para comer uma pipoca.'; $('progEnd').textContent = '🎉'; }
 let nextT = 0; $('btnNext').onclick = () => { clearInterval(nextT); goFase(FASE + 1, true); };
 $('btnAgain').addEventListener('click', () => clearInterval(nextT), true);
@@ -107,19 +107,25 @@ TT.on('stampedeWarn', e => { TT.sfx('henPanic'); if (e.first) TT.emit('banner', 
 TT.on('egg', () => TT.emit('banner', { text: 'Ovo cozido: planar turbinado!' }));
 // cartão de abertura do Arraial (o mesmo cartão da apresentação do chefão, com outro texto)
 TT.on('arraialIntro', () => { stage.classList.add('cine'); const c = $('bossCard'); c.classList.add('top'); c.querySelector('small').textContent = 'FASE ' + FASE; c.querySelector('h2').textContent = FASE === 3 ? 'O QUADRO ENCANTADO' : 'O ARRAIAL';
-  c.querySelector('p').textContent = FASE === 3 ? 'Siga o cheiro do Girassol de Apito pelos quadros.' : 'Siga as galinhas assustadas até o galinheiro.'; setTimeout(() => c.classList.add('show'), 350); });
+  c.querySelector('p').textContent = FASE === 3 ? 'O Van Gogh precisa da sua ajuda.' : 'Siga as galinhas assustadas até o galinheiro.'; setTimeout(() => c.classList.add('show'), 350); });
 // o chefão do Arraial: o lobo-guará
 if (FASE === 2) document.querySelector('.bossRow b').textContent = 'Lobo-guará';
 if (FASE === 3) document.querySelector('.bossRow b').textContent = 'Corvo-Borrão';
 TT.on('foxIntro', () => { stage.classList.add('cine'); const c = $('bossCard'); c.classList.remove('top'); c.querySelector('small').textContent = 'CHEFÃO'; c.querySelector('h2').textContent = FASE === 3 ? 'O CORVO-BORRÃO' : 'O LOBO-GUARÁ';
-  c.querySelector('p').textContent = FASE === 3 ? 'guarda o Girassol de Apito no alto do cipreste' : 'invadiu o galinheiro do arraial'; setTimeout(() => c.classList.add('show'), 600); });
+  c.querySelector('p').textContent = FASE === 3 ? 'fugiu com o pincel favorito do Van Gogh' : 'invadiu o galinheiro do arraial'; setTimeout(() => c.classList.add('show'), 600); });
 // a estratégia, contada pela Zara e pelo Elvis no começo da luta
 const tipT = [];
 TT.on('cineEnd', e => { if (e.type !== 'fox') return;
   const fala = (i, line) => { const f = S.friends[i]; if (f && S.mode === 'play') TT.emit('friend', { x: f.x, y: C.GROUND - 70, kind: f.kind, line }); };
   const ok = () => S.mode === 'play' && S.arena;
-  tipT.push(setTimeout(() => { if (ok()) { fala(1, FASE === 3 ? 'Entra no redemoinho!' : 'Sobe no ar quente da fogueira!'); TT.emit('banner', { text: FASE === 3 ? '1. Entre no redemoinho e solte-se no alto' : '1. Suba no ar quente da fogueira' }); } }, 300));
-  tipT.push(setTimeout(() => { if (ok()) { fala(0, FASE === 3 ? 'E cai planando nas costas dele!' : 'E cai planando na crina dele!'); TT.emit('banner', { text: FASE === 3 ? '2. Plane e caia nas costas dele' : '2. Plane e caia na crina dele' }); } }, 3300)); });
+  if (FASE === 3) { tipT.push(setTimeout(() => { if (ok()) { fala(1, 'Cuidado com os tubos de tinta!'); TT.emit('banner', { text: '1. Fuja das marcas vermelhas: ali cai tinta' }); } }, 300)); return; }
+  tipT.push(setTimeout(() => { if (ok()) { fala(1, 'Sobe no ar quente da fogueira!'); TT.emit('banner', { text: '1. Suba no ar quente da fogueira' }); } }, 300));
+  tipT.push(setTimeout(() => { if (ok()) { fala(0, 'E cai planando na crina dele!'); TT.emit('banner', { text: '2. Plane e caia na crina dele' }); } }, 3300)); });
+// o Corvo-Borrão: a hora de atacar é quando ele desce e fica bicando o chão
+TT.on('crowPeck', e => { if (!e.first) return; const f = S.friends[0]; if (f) TT.emit('friend', { x: f.x, y: C.GROUND - 70, kind: f.kind, line: 'Ele desceu! Pula nas costas dele!' });
+  TT.emit('banner', { text: '2. Bicando o chão? Pule nas costas dele!' }); });
+TT.on('crowRed', () => TT.emit('banner', { text: 'O Corvo-Borrão ficou vermelho de raiva!' }));
+TT.on('vgIntro', () => stage.classList.add('cine'));
 TT.on('start', () => { tipT.forEach(clearTimeout); tipT.length = 0; }); TT.on('lose', () => { tipT.forEach(clearTimeout); tipT.length = 0; });
 TT.on('foxRoar', e => { if (e.first) TT.emit('banner', { text: FASE === 3 ? 'O grasnado desliga os redemoinhos!' : 'O latido apaga o ar quente!' }); });
 TT.on('fruitLand', e => { if (e.first) TT.emit('banner', { text: FASE === 3 ? 'Tampinha dourada! Ele não resiste...' : 'Fruta-do-lobo! Ele não resiste...' }); });
@@ -144,9 +150,9 @@ $('btnMute').onclick = toggleMute; $('btnMute').classList.toggle('muted', TT.isM
 const TOYS = [
   { id: 'patinho', fase: 'O Parque', name: 'Patinho Quá-Quá', joke: 'É do Pipoca, o salsicha da padaria. O Furtão levou porque ele faz "quá" toda vez que é mordido.' },
   { id: 'sanfoninha', fase: 'O Arraial', name: 'Sanfoninha', joke: 'É do Bolota, o vira-lata do sanfoneiro. Cada vez que o Furtão apertava, ela tocava um forró desafinado.' },
-  { id: 'girassol', fase: 'O Quadro Encantado', name: 'Girassol de Apito', joke: 'É da Tinta, a cachorrinha da pintora. Apita toda vez que alguém aperta, e o Furtão não parava de apertar.' },
+  { id: 'bolinha', fase: 'O Quadro Encantado', name: 'Bolinha Estrelada', joke: 'É da Tinta, a cachorrinha da pintora da Casa de Cultura. Pintada igual ao céu do quadro: o Furtão achou que tinha roubado uma estrela.' },
   { fase: 'O Quintal da Vizinha' }, { fase: 'O Covil do Furtão' }];
-const TOY_IMG = { patinho: 'assets/sprites/toy-duck.png', sanfoninha: 'assets/sprites/toy-sanfona.png' };
+const TOY_IMG = { patinho: 'assets/sprites/toy-duck.png', sanfoninha: 'assets/sprites/toy-sanfona.png', bolinha: 'assets/sprites/toy-bolinha.png' };
 let found = {};
 try { found = JSON.parse(localStorage.getItem('tintim-toys') || '{}') || {}; } catch (_) {}
 function drawShelf() {
@@ -187,11 +193,13 @@ TT.on('hurt', () => { const h = hearts[Math.max(0, S.player.hp)]; if (h) { h.cla
 TT.on('start', () => { show(null); $('hud').classList.add('on'); stage.classList.remove('cine'); $('bossCard').classList.remove('show'); $('cookieT').textContent = '/' + S.totalCookies; irisOpenFromBlack(); });
 // balão dos amigos
 const say = $('say'), LINES = TT.FASE === 3 ? ['Toma tinta amarela, Timtim! Dá força pra planar!', 'Mais um tubo: agora nada te machuca!'] : TT.FASE === 2 ? ['Toma um ovo cozido, Timtim! Dá força pra planar!', 'Mais um ovinho: agora nada te machuca!'] : ['Toma um turbo, Timtim!', 'Fica invencível, Timtim!']; let sayF = null, sayEnd = 0;
-TT.on('friend', e => { sayF = S.friends.reduce((a, f) => Math.abs(f.x - e.x) < Math.abs(a.x - e.x) ? f : a); say.textContent = e.line || LINES[S.friends.indexOf(sayF) % 2]; sayEnd = performance.now() + 2600; say.classList.add('on'); });
+TT.on('friend', e => { sayF = S.friends.reduce((a, f) => Math.abs(f.x - e.x) < Math.abs(a.x - e.x) ? f : a); say.textContent = e.line || LINES[S.friends.indexOf(sayF) % 2]; sayEnd = performance.now() + 2600; say.classList.remove('long'); say.classList.add('on'); });
+// o Van Gogh fala no mesmo balão, mais alto (ele é bem maior que os cachorros) e com a fala quebrada em linhas
+TT.on('vgSay', e => { if (!S.vg) return; sayF = S.vg; say.textContent = e.line; sayEnd = performance.now() + (e.dur || 3.4) * 1000; say.classList.add('long', 'on'); });
 const uiFrame0 = TT.uiFrame;
 TT.uiFrame = () => { uiFrame0(); if (!sayF) return;
   if (performance.now() > sayEnd || S.mode === 'lose') { say.classList.remove('on'); sayF = null; return; }
-  const at = TT.R.toScreen(sayF.x, C.GROUND - 118), half = say.offsetWidth / 2 / Math.max(1, stage.clientWidth) + 0.01; // o balão nunca sai da tela
+  const at = TT.R.toScreen(sayF.x, C.GROUND - (sayF === S.vg ? 232 : 118)), half = say.offsetWidth / 2 / Math.max(1, stage.clientWidth) + 0.01; // o balão nunca sai da tela
   say.style.left = (Math.max(half, Math.min(1 - half, at.x)) * 100).toFixed(2) + '%'; say.style.top = (Math.max(0.12, at.y) * 100).toFixed(2) + '%'; };
 TT.on('pause', () => show('pause'));
 TT.on('resume', () => show(null));
@@ -199,7 +207,7 @@ TT.on('stealIntro', () => stage.classList.add('cine'));
 TT.on('bossIntro', () => { stage.classList.add('cine'); setTimeout(() => $('bossCard').classList.add('show'), 650); });
 TT.on('cineEnd', () => { stage.classList.remove('cine'); $('bossCard').classList.remove('show'); });
 TT.on('lose', () => {
-  $('loseText').textContent = S.checkpoint >= 0 ? 'Você volta do último checkpoint com os corações cheios.' : FASE === 3 ? 'Cuidado com os buracos: entre no redemoinho e aperte o pulo para se soltar na direção certa.' : FASE === 2 ? 'Cuidado com os buracos: segure o pulo no ar para planar, e use o ar quente das fogueiras para subir.' : 'Cuidado com os buracos e pise nos pombos por cima.';
+  $('loseText').textContent = FASE === 3 && S.arena ? 'Fuja das marcas vermelhas no chão e, quando o corvo descer para bicar, pule nas costas dele.' : S.checkpoint >= 0 ? 'Você volta do último checkpoint com os corações cheios.' : FASE === 3 ? 'Cuidado com os buracos: entre no redemoinho e aperte o pulo para se soltar na direção certa.' : FASE === 2 ? 'Cuidado com os buracos: segure o pulo no ar para planar, e use o ar quente das fogueiras para subir.' : 'Cuidado com os buracos e pise nos pombos por cima.';
   setTimeout(() => { if (S.mode === 'lose') show('lose'); }, 1100);
 });
 TT.on('win', st => {
@@ -208,7 +216,8 @@ TT.on('win', st => {
   $('btnNext').classList.toggle('on', FASE < FASES.length);
   if (FASE < FASES.length) { let n = 8; const lab = 'Próxima fase: ' + FASES[FASE]; $('btnNext').textContent = `${lab} (${n})`; clearInterval(nextT);
     setTimeout(() => { if (S.mode !== 'win') return; clearInterval(nextT); nextT = setInterval(() => { n--; $('btnNext').textContent = `${lab} (${n})`; if (n <= 0) { clearInterval(nextT); $('btnNext').click(); } }, 1000); }, 1900); }
-  if (FASE === 3) { document.querySelector('.winMonkey').src = 'assets/sprites/toy-girassol.png'; $('winTitle').textContent = 'O girassol voltou!'; $('winText').textContent = 'Timtim se soltou dos redemoinhos, planou nas costas do Corvo-Borrão e trouxe o Girassol de Apito de volta para a Tinta. O céu inteiro girou e devolveu a turma à Casa de Cultura.'; $('stMain').textContent = 'Girassol de volta';
+  if (FASE === 3) { document.querySelector('.winMonkey').src = 'assets/sprites/vg/vangogh-feliz.png'; $('winTitle').textContent = 'O pincel voltou!'; $('winText').textContent = 'Timtim desviou dos tubos de tinta, pulou nas costas do Corvo-Borrão e devolveu o pincel favorito do Van Gogh. Na mesma hora ele pintou um quadro novo: o Timtim, a Zara e o Elvis comemorando.'; $('stMain').textContent = 'Pincel de volta';
+    document.querySelector('.winMonkey').style.width = '6.5cqw'; $('stNotes').lastChild.textContent = 'Cartas ao Theo';
     $('stNotes').style.display = ''; $('stNotes').firstElementChild.textContent = `${st.notes}/${st.notesTotal}`; $('stNotes').classList.toggle('ok', st.notes >= st.notesTotal); }
   else if (FASE === 2) { document.querySelector('.winMonkey').src = 'assets/sprites/tintim-win.png'; $('winTitle').textContent = 'Galinheiro salvo!'; $('winText').textContent = 'Timtim planou no ar quente das fogueiras e pisou na crina do lobo-guará até as galinhas criarem coragem e o expulsarem para a mata. A festa continuou até o mastro de São João.'; $('stMain').textContent = 'Galinheiro salvo';
     $('stNotes').style.display = ''; $('stNotes').firstElementChild.textContent = `${st.notes}/${st.notesTotal}`; $('stNotes').classList.toggle('ok', st.notes >= st.notesTotal); }

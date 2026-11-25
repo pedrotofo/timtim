@@ -76,7 +76,7 @@ if (FASE === 3) Object.assign(C, {
   movers: [{ x: 1650, y: 330, w: 120, ax: 0, ay: 50, per: 2.6, ph: 0 }, { x: 1900, y: 270, w: 120, ax: 0, ay: 60, per: 2.6, ph: 2 }, { x: 2150, y: 320, w: 120, ax: 0, ay: 50, per: 2.6, ph: 4 }],
   // redemoinhos: pegam o Timtim no ar e giram com ele; apertar o pulo solta na direção em que ele está indo (d = sentido do giro)
   SWIRLS: [{ x: 880, y: 230, r: 70, d: 1 }, { x: 2520, y: 250, r: 70, d: 1 }, { x: 3450, y: 230, r: 70, d: 1 }, { x: 4800, y: 240, r: 70, d: 1 },
-           { x: 5930, y: 230, r: 70, d: 1 }, { x: 6230, y: 100, r: 64, d: -1 }, { x: 7900 - W0 + 150, y: 250, r: 70, d: 1 }, { x: 7900 - 150, y: 250, r: 70, d: -1 }],
+           { x: 5930, y: 230, r: 70, d: 1 }, { x: 6230, y: 100, r: 64, d: -1 }],
   // estrelas que piscam: só seguram enquanto estão acesas
   blinks: [{ x: 6420, y: 260, w: 100, per: 2.4, ph: 0 }, { x: 6520, y: 180, w: 100, per: 2.4, ph: 1.2 }],
   fires: [], GLIDE_TUT: null, TUB: null, HOOP: { x: 4150, y: 120, r: 46 },
@@ -84,12 +84,12 @@ if (FASE === 3) Object.assign(C, {
   NOTES: [{ x: 1060, y: 100, text: 'Para o Theo, o gato do museu: entramos no quadro! Se o Furtão perguntar, a gente não está aqui. Ass.: a Zara.' },
     { x: 2210, y: 240, text: 'Theo, este trigo faz cócegas na barriga. Já mordi três girassóis achando que eram biscoito. Ass.: o Elvis.' },
     { x: 4060, y: 180, text: 'Theo, o céu daqui gira mais que o Timtim correndo atrás do rabo. Ass.: a Zara (tonta).' },
-    { x: 5560, y: 150, text: 'Para o Corvo-Borrão: devolve o girassol da Tinta e a gente te dá uma tampinha. Ass.: todos os cães da vila.' }],
+    { x: 5560, y: 150, text: 'Para o Corvo-Borrão: devolve o pincel do Van Gogh! Sem ele não sai nem um girassol. Ass.: a Zara e o Elvis.' }],
   checkpoints: [1560, 3600, 4950, 6080],
   friends: [{ x: 2800, kind: 'chi-pb', power: 'egg' }, { x: 5150, kind: 'chi-br', power: 'mega' }], GIFT_ITEM: 'tubo',
   hedges: [],
   trails: [{ id: 'girassol', at: 6200, plats: [[6260, 20, 110], [6120, -80, 110]] }],
-  TOY: { id: 'girassol', x: 6175, y: -130 },
+  TOY: { id: 'bolinha', x: 6175, y: -130 },
   FOXTXT: { egg: 'Tinta amarela! Plana nas costas dele!', fruit: 'Ó a tampinha dourada, corvão!' },
 });
 C.SWIRL = { w: Math.PI * 2 / 1.3, speed: 820 }; // uma volta a cada 1,3 s; a soltura sai a 820 px/s
@@ -198,7 +198,7 @@ function arraialItems() {
   return it;
 }
 function makeEnemies() {
-  if (FASE === 3) return [[3100, 3000, 3340], [3800, 3600, 4100], [4400, 4300, 4650], [1750, 1520, 2380]]
+  if (FASE === 3) return [[3100, 3000, 3300], [3800, 3600, 4100], [4400, 4300, 4650], [1750, 1520, 2350]] // (o fim do trajeto + a largura do corvo não passa da beirada)
     .map(([x, a, b]) => ({ x, y: GROUND - 30, w: 38, h: 30, a, b, dir: -1, alive: true, t: Math.random() * 6, dy: 0 }));
   if (FASE === 2) return [[2050, 1760, 2340], [3720, 3540, 3900], [6460, 6330, 6560], [6790, 6700, 6900]]
     .map(([x, a, b]) => ({ x, y: GROUND - 30, w: 38, h: 30, a, b, dir: -1, alive: true, t: Math.random() * 6, dy: 0 }));
@@ -225,7 +225,76 @@ const BOSS = { ballEvery: [5, 6, 7], chew: [3.0, 2.5, 2.1], charge: [520, 590, 6
 // para comer). No terceiro golpe, as galinhas criam coragem, saem do galinheiro e expulsam o lobo-guará para a mata.
 const FOXC = { prowl: [100, 130, 160], wind: [0.75, 0.6, 0.48], dash: [560, 640, 720], sniff: [1.5, 1.25, 1.0], bonk: [1.3, 1.1, 0.9], eat: [2.3, 2.0, 1.7],
   roarWind: 0.7, roarOff: 2.0, throwEvery: 7 };
-function makeFox() { return { x: ARENA_X + 640, y: GROUND - 110, w: 120, h: 110, vx: 0, vy: 0, dir: -1, hp: 3, state: 'idle', t: 0, cd: 1.6, atk: '', tx: 0, egg: 5, hurt: 0, roarCd: 0, throws: 0 }; }
+function makeFox() { return { x: ARENA_X + 640, y: GROUND - 110, w: 120, h: 110, vx: 0, vy: 0, dir: -1, hp: 3, state: FASE === 3 ? 'perch' : 'idle', t: 0, cd: 1.6, atk: '', tx: 0, egg: 5, hurt: 0, roarCd: 0, throws: 0, drops: 0, red: false }; }
+// ---- o Corvo-Borrão, chefão do Quadro Encantado (usa o mesmo objeto S.fox; desenhado com as poses 'guara-*' da pasta vg) ----
+// O Van Gogh pintou um corvo tão bem feito que ele ganhou vida, se rebelou e fugiu com o pincel favorito do pintor.
+// Rodada: ele voa pelo alto do morro derrubando tubos de tinta (uma marca vermelha no chão mostra onde cada um cai);
+// acabados os tubos, mergulha (outra marca) e fica bicando o chão, distraído: é a hora de pular nas costas dele.
+// Cada golpe deixa a rodada seguinte mais difícil (mais tubos, mais rápido, bicando menos tempo). No último coração
+// ele fica vermelho de raiva. Derrotado, solta o pincel; o Van Gogh aparece feliz e comemora com a turma.
+const CROW = { fly: [170, 215, 280], drops: [3, 4, 6], gap: [1.0, 0.78, 0.52], warn: [0.62, 0.5, 0.38], peck: [3.0, 2.5, 2.1], dive: [0.6, 0.5, 0.4], flyY: GROUND - 300, tubeG: GRAV * 0.6 };
+function updateCrow(dt, prevBottom, playing) {
+  const p = S.player, f = S.fox, ph = Math.max(0, Math.min(2, 3 - f.hp)), cine = S.cine && S.cine.type === 'fox';
+  f.t += dt; f.hurt = Math.max(0, f.hurt - dt);
+  const fx = f.x + f.w / 2, pcx = p.x + p.w / 2, go = st => { f.state = st; f.t = 0; };
+  const clampX = x => Math.max(ARENA_X + 90, Math.min(ARENA_X + W - 90, x));
+  // tubos de tinta caindo: no chão viram uma mancha que some
+  for (let i = S.tubes.length - 1; i >= 0; i--) { const t = S.tubes[i]; t.vy += CROW.tubeG * dt; t.x += t.vx * dt; t.y += t.vy * dt; t.rot += t.spin * dt;
+    if (t.y >= GROUND - 14) { S.tubes.splice(i, 1); S.splats.push({ x: t.x, t: 0, c: t.c }); emit('tubeSplat', { x: t.x, y: GROUND, c: t.c }); continue; }
+    if (playing && !cine && overlap(p, { x: t.x - 13, y: t.y - 24, w: 26, h: 48 })) hurt(t.x); }
+  for (let i = S.splats.length - 1; i >= 0; i--) if ((S.splats[i].t += dt) > 1.4) S.splats.splice(i, 1);
+  if (f.state === 'flee') { f.dir = 1; f.vx = 380; f.vy = Math.max(-430, f.vy - 900 * dt); f.x += f.vx * dt; f.y += f.vy * dt; return; } // vai embora voando, sem o pincel
+  if (cine) { f.vx = 0; if (f.state === 'perch' && f.t > 1.4) { go('caw'); emit('crowCaw', { x: fx, y: f.y }); } }
+  else if (playing) switch (f.state) {
+    case 'perch': case 'caw': go('rise'); f.vy = -150; emit('crowFly', { x: fx, y: f.y }); break;
+    case 'rise': { f.vy += (-460 - f.vy) * Math.min(1, dt * 4); f.vx += ((ARENA_X + W / 2 - f.w / 2 - f.x) * 1.3 - f.vx) * Math.min(1, dt * 2);
+      if (f.y <= CROW.flyY) { f.y = CROW.flyY; f.vy = 0; go('fly'); f.drops = CROW.drops[ph]; f.cd = 0.6; f.dir = pcx < fx ? -1 : 1; } break; }
+    case 'fly': { f.vx += (f.dir * CROW.fly[ph] - f.vx) * Math.min(1, dt * 3); if (f.x < ARENA_X + 60) f.dir = 1; if (f.x + f.w > ARENA_X + W - 60) f.dir = -1;
+      f.vy = 0; f.y = CROW.flyY + Math.sin(f.t * 2.6) * 14; f.cd -= dt;
+      if (f.cd <= 0) { if (f.drops > 0) { go('aim'); f.tx = clampX(pcx + p.vx * 0.35); emit('crowAim', { x: f.tx, y: GROUND }); }
+        else if (!S.tubes.length) { go('diveWind'); f.tx = clampX(pcx); emit('crowDiveWarn', { x: f.tx, y: GROUND }); } }
+      break; }
+    case 'aim': f.vx = Math.max(-520, Math.min(520, (f.tx - f.w / 2 - f.x) * 5)); if (f.t >= CROW.warn[ph]) { // vai para cima da marca e solta o tubo quase reto
+      const y0 = f.y + f.h * 0.7, T = Math.sqrt(2 * (GROUND - 14 - y0) / CROW.tubeG);
+      S.tubes.push({ x: fx, y: y0, vx: (f.tx - fx) / T, vy: 0, rot: 0, spin: (Math.random() < 0.5 ? -1 : 1) * (5 + Math.random() * 4), c: (f.drops + ph) % 3, tx: f.tx });
+      f.drops--; f.cd = CROW.gap[ph]; go('fly'); emit('crowDrop', { x: fx, y: y0 }); } break;
+    case 'diveWind': f.vx *= Math.pow(0.02, dt); if (f.t >= CROW.dive[ph]) { go('dive'); f.sx = f.x; f.sy = f.y; } break;
+    case 'dive': { const k = Math.min(1, f.t / 0.5); f.x = f.sx + (f.tx - f.w / 2 - f.sx) * k; f.y = f.sy + (GROUND - f.h - f.sy) * k * k; f.vx = 0; f.vy = 700;
+      if (k >= 1) { f.y = GROUND - f.h; f.vy = 0; go('peck'); S.trauma = Math.min(1, S.trauma + 0.3); emit('land', { x: fx, y: GROUND }); emit('crowPeck', { x: fx, y: GROUND, first: !S.peckSeen }); S.peckSeen = true; } break; }
+    case 'peck': f.vx = 0; if (f.t >= CROW.peck[ph]) { go('rise'); f.vy = -150; emit('crowFly', { x: fx, y: f.y }); } break; // bicando o chão, distraído
+    case 'hurt': f.vx = 0; if (f.t > 1.0) { go('rise'); f.vy = -150; emit('crowFly', { x: fx, y: f.y }); } break;
+  }
+  if (['rise', 'fly', 'aim', 'diveWind'].includes(f.state)) { f.x += f.vx * dt; if (f.state === 'rise') f.y += f.vy * dt; if (Math.abs(f.vx) > 20) f.dir = Math.sign(f.vx); }
+  else if (f.state !== 'dive') f.y = GROUND - f.h;
+  f.x = Math.max(ARENA_X + 10, Math.min(ARENA_X + W - 10 - f.w, f.x));
+  if (!playing || cine) return;
+  const hb = { x: f.x + 14, y: f.y + 16, w: f.w - 28, h: f.h - 16 };
+  if (!overlap(p, hb)) return;
+  const fromAbove = p.vy > 0 && (prevBottom <= f.y + 34 || p.y + p.h < f.y + f.h * 0.55), flying = ['rise', 'fly', 'aim', 'diveWind'].includes(f.state);
+  if (f.state === 'peck' && fromAbove) { // acertou as costas!
+    f.hp--; f.hurt = 0.4; go('hurt'); p.vy = -720; p.shrugT = 0.5; S.hitstop = 0.12; S.trauma = Math.min(1, S.trauma + 0.55);
+    emit('stomp', { x: fx, y: f.y, boss: true }); emit('foxHit', { x: fx, y: f.y, hp: f.hp });
+    if (f.hp === 1) { f.red = true; emit('crowRed', { x: fx, y: f.y }); }
+    if (f.hp <= 0) { go('flee'); f.vy = -250; S.mode = 'winning'; S.winT = 0; S.slowT = 0.6; S.tubes.length = 0;
+      S.brush = { x: fx, y: f.y + 20, vx: (fx < ARENA_X + W / 2 ? 1 : -1) * 90, vy: -560, rot: 0, rest: false };
+      S.friends.forEach((q, i) => { q.home = Math.max(ARENA_X + 60, p.x - 120 - i * 85) + (p.x < ARENA_X + 300 ? 330 : 0); q.vx = 0; });
+      emit('finalBlow', { x: fx, y: f.y }); emit('foxDefeated', { x: fx, y: f.y }); emit('crowDefeated', { x: fx, y: f.y }); }
+  } else if (f.state === 'hurt' && fromAbove) { p.vy = -520; p.shrugT = 0.45; }
+  else if (f.state === 'dive') { if (!(p.shrugT > 0)) hurt(fx); } // o mergulho machuca: a marca no chão avisou
+  else if (flying) { p.vy = Math.max(p.vy, 380); p.vx = (Math.sign(pcx - fx) || 1) * 240; p.shrugT = 0.3; emit('foxBump', { x: (pcx + fx) / 2, y: p.y }); } // no ar ele bate as asas e empurra, sem tirar coração
+  else if (f.state !== 'hurt') { const d = Math.sign(pcx - fx) || 1; p.vx = d * 380; p.vy = Math.min(p.vy, -300); p.shrugT = 0.3; emit('foxBump', { x: (pcx + fx) / 2, y: p.y + p.h / 2 }); }
+}
+// o Van Gogh: triste no começo da fase, pedindo ajuda; no fim aparece feliz onde o pincel caiu e comemora com a turma
+const VG_LINES = ['Ai, Timtim... pintei um corvo tão bem feito que ele ganhou vida!', 'Ele se rebelou e fugiu com o meu pincel favorito. Você me ajuda a recuperar?'];
+function updateVanGogh(dt) {
+  const v = S.vg, b = S.brush; if (!v) return; v.t += dt;
+  if (b && !b.rest) { b.vy += GRAV * dt; b.x += b.vx * dt; b.y += b.vy * dt; b.rot += 9 * dt;
+    b.x = Math.max(ARENA_X + 120, Math.min(ARENA_X + W - 120, b.x));
+    if (b.y >= GROUND - 18) { b.y = GROUND - 18; b.rest = true; b.rot = 0; b.t = 0; emit('brushLand', { x: b.x, y: GROUND }); } }
+  if (b && b.rest && (b.t += dt) > 0.7 && v.mood !== 'happy') { // o pincel volta para a mão do dono
+    v.mood = 'happy'; v.t = 0; v.x = b.x + (b.x < S.player.x ? -40 : 40); v.face = Math.sign(S.player.x - v.x) || -1; S.brush = null;
+    emit('vgHappy', { x: v.x, y: GROUND - 120 }); emit('vgSay', { line: 'Meu pincel! Obrigado, Timtim! Vou pintar vocês três agora mesmo!', dur: 3.4 }); }
+}
 function updateFox(dt, prevBottom, playing) {
   const p = S.player, f = S.fox, ph = Math.max(0, Math.min(2, 3 - f.hp)), cine = S.cine && S.cine.type === 'fox';
   f.t += dt; f.hurt = Math.max(0, f.hurt - dt); f.roarCd = Math.max(0, f.roarCd - dt);
@@ -379,6 +448,7 @@ function reset() {
     gold: 0, timeScale: 1, slowT: 0, cine: null, checkpoint: -1, bossSeen: false, hpLost: 0, winT: 0, dustT: 0,
     thief: null, prize: null, revealed: {}, toy: false, scent: null, fox: makeFox(), fruit: null, fireOff: 0, notes: 0, runners: [], runDone: {}, warn: null, chaseOn: false, warnedOnce: false, roarSeen: false, fruitSeen: false,
     friends: C.friends.map(f => ({ x: f.x, home: f.x, vx: 0, follow: 0, kind: f.kind, power: f.power, given: false, hop: 0, face: -1, t: 0 })), gifts: [], tut: {},
+    tubes: [], splats: [], brush: null, peckSeen: false, vg: FASE === 3 ? { x: C.START_X - 85, mood: 'sad', t: 0, face: 1 } : null,
   });
   S.totalCookies = S.items.filter(i => i.type === 'cookie').length + C.friends.length * C.GIFT;
 }
@@ -405,7 +475,7 @@ TT.start = () => { reset(); S.mode = 'play';
 TT.retry = () => {
   if (S.checkpoint < 0) return TT.start();
   const x = C.checkpoints[S.checkpoint];
-  S.player = makePlayer(x); S.player.inv = 1.6; S.scent = null; S.boss = makeBoss(); S.fox = makeFox(); S.fruit = null; S.fireOff = 0; S.runners = []; S.runDone = {}; S.warn = null; S.chaseOn = false; S.ball = null; S.thief = null; S.prize = null; S.waves = []; S.arena = false; S.cine = null; S.timeScale = 1; S.slowT = 0; S.hitstop = 0; S.gifts = [];
+  S.player = makePlayer(x); S.player.inv = 1.6; S.scent = null; S.boss = makeBoss(); S.fox = makeFox(); S.tubes = []; S.splats = []; S.brush = null; S.fruit = null; S.fireOff = 0; S.runners = []; S.runDone = {}; S.warn = null; S.chaseOn = false; S.ball = null; S.thief = null; S.prize = null; S.waves = []; S.arena = false; S.cine = null; S.timeScale = 1; S.slowT = 0; S.hitstop = 0; S.gifts = [];
   S.cam.x = Math.max(0, x - W * 0.4); S.cam.look = 0; S.mode = 'play';
   emit('start', { retry: true });
 };
@@ -436,7 +506,13 @@ TT.update = (rdt) => {
   if (S.slowT > 0) { S.slowT -= rdt; S.timeScale = S.slowT > 0 ? 0.2 : 1; }
   const dt = rdt * S.timeScale;
   S.clock += dt;
-  if (S.cine) { S.cine.t += rdt; if (S.cine.t >= S.cine.dur) { const type = S.cine.type; S.cine = null; emit('cineEnd', { type }); } }
+  // depois do cartão da fase 3, o Van Gogh conta o que aconteceu (só na primeira vez; o pulo adianta a fala)
+  if (S.cine && S.cine.type === 'vangogh') { const c = S.cine;
+    if (c.said < 1 && c.t > 0.3) { c.said = 1; emit('vgSay', { line: VG_LINES[0], dur: 3.6 }); }
+    if (c.said < 2 && c.t > 4.0) { c.said = 2; emit('vgSay', { line: VG_LINES[1], dur: 4.0 }); }
+    if (TT.input.jumpPressed && c.t > 1.0) { if (c.t < 4.0) c.t = 4.0; else c.t = Math.max(c.t, c.dur - 0.2); TT.input.jumpPressed = false; } }
+  if (S.cine) { S.cine.t += rdt; if (S.cine.t >= S.cine.dur) { const type = S.cine.type; S.cine = null; emit('cineEnd', { type });
+    if (type === 'arraial' && FASE === 3 && !TT.vgSeen) { TT.vgSeen = true; S.cine = { type: 'vangogh', t: 0, dur: 8.2, said: 0 }; emit('vgIntro'); } } }
   updateThief(rdt); updatePrize(rdt);
   const playing = S.mode === 'play', locked = !playing || !!S.cine;
   if (playing && !S.cine) S.time += dt;
@@ -446,7 +522,7 @@ TT.update = (rdt) => {
     const bb = S.boss, pp = S.player, onBoss = C.BOSS && bb.hp <= 0 && Math.abs(pp.x + pp.w / 2 - (bb.x + bb.w / 2)) < bb.w * 0.8;
     if (onBoss && pp.onGround && !pp.won) { pp.vx = (Math.sign(pp.x + pp.w / 2 - (bb.x + bb.w / 2)) || 1) * 240; pp.face = Math.sign(pp.vx); }
     if (S.winT > 0.9 && S.player.onGround && !onBoss) { if (C.BOSS && !S.player.won) S.player.face = Math.sign(bb.x + bb.w / 2 - pp.x) || 1; S.player.won = true; }
-    if (S.winT > 3.2) { S.mode = 'win'; S.player.won = true; emit('win', stats()); }
+    if (S.winT > (FASE === 3 ? 6.4 : 3.2)) { S.mode = 'win'; S.player.won = true; emit('win', stats()); } // na fase 3, tempo para o Van Gogh comemorar
   }
 
   const p = S.player, I = TT.input;
@@ -579,7 +655,7 @@ TT.update = (rdt) => {
       if (it.type === 'cookie') { S.cookies++; emit('cookie', it); }
       if (it.type === 'gold') { S.gold++; emit('power', it); emit('gold', it); }
       if (it.type === 'choco') { if (p.mega <= 0) { p.slow = 5; p.fast = 0; emit('choco', it); } }
-      if (it.type === 'toy') { S.toy = true; S.hitstop = 0.1; emit('toy', it); emit('banner', { text: FASE === 3 ? 'Brinquedo perdido: o Girassol de Apito!' : FASE === 2 ? 'Brinquedo perdido: a Sanfoninha!' : 'Brinquedo perdido: o Patinho!' }); }
+      if (it.type === 'toy') { S.toy = true; S.hitstop = 0.1; emit('toy', it); emit('banner', { text: FASE === 3 ? 'Brinquedo perdido: a Bolinha Estrelada!' : FASE === 2 ? 'Brinquedo perdido: a Sanfoninha!' : 'Brinquedo perdido: o Patinho!' }); }
       if (it.type === 'bilhete') { S.notes++; emit('note', { x: it.x, y: it.y, text: C.NOTES[it.idx].text, n: S.notes, total: C.NOTES.length }); }
     }
   }
@@ -648,11 +724,12 @@ TT.update = (rdt) => {
   if (S.arena && C.BOSS) updateBoss(dt, prevBottom, playing);
   if (playing && C.FOX && !S.arena && p.x > ARENA_X + 120) { S.arena = true;
     S.friends.forEach((f, i) => { f.home = i ? ARENA_X + W - 210 : ARENA_X + 190; f.x = i ? ARENA_X + W + 70 : ARENA_X - 70; f.given = true; f.follow = 0; f.vx = 0; });
-    scatterHens(); S.fox.state = 'idle'; S.fox.vx = 0; S.fox.dir = -1; S.fox.cd = Math.max(S.fox.cd || 0, 1.6); // sem teleporte: ele continua de onde estava caçando (antes sumia e reaparecia do outro lado)
+    scatterHens(); if (FASE !== 3) S.fox.state = 'idle'; S.fox.vx = 0; S.fox.dir = -1; S.fox.cd = Math.max(S.fox.cd || 0, 1.6); // sem teleporte: ele continua de onde estava caçando (antes sumia e reaparecia do outro lado)
     if (!S.bossSeen) { S.bossSeen = true; S.cine = { type: 'fox', t: 0, dur: 3.2 }; emit('foxIntro'); } else emit('rematch'); }
   if (C.FOX && C.PREFIGHT && !S.arena) preFight(dt);
   if (C.FOX) updateRunners(dt, prevBottom, playing);
-  if (S.arena && C.FOX) updateFox(dt, prevBottom, playing);
+  if (S.arena && C.FOX) (FASE === 3 ? updateCrow : updateFox)(dt, prevBottom, playing);
+  updateVanGogh(dt);
 
   // câmera
   const cam = S.cam;
