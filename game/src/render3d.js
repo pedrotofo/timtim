@@ -1275,7 +1275,7 @@ R.frame = (rdt) => {
   if (S.cine || S.mode !== 'play') camSettle = 0.9; else camSettle = Math.max(0, camSettle - rdt);
   const ks = camSettle > 0 ? Math.min(1, rdt * (4 + (0.9 - camSettle) * 10)) : 1;
   R.zoom += (zt - R.zoom) * kk; fxS += (fx - fxS) * ks; fyS += (fy - fyS) * ks;
-  const tr = S.trauma * S.trauma, sx = tr * 16 * Math.sin(time * 71), sy = tr * 11 * Math.sin(time * 93 + 1);
+  const tr = S.trauma * S.trauma * (TT.calmo ? 0.2 : 1), sx = tr * 16 * Math.sin(time * 71), sy = tr * 11 * Math.sin(time * 93 + 1); // "menos tremor": 20% do tremor
   camera.position.set(fxS + sx + Math.sin(time * 0.6) * 1.5, CAM_Y + (fyS - LOOK_Y) + sy + Math.sin(time * 0.8) * 1.2, CAM_D);
   camera.lookAt(fxS + sx, fyS + sy, 0); camera.rotation.z += tr * 0.025 * Math.sin(time * 57);
   camera.zoom = R.zoom; camera.updateProjectionMatrix();
@@ -1295,7 +1295,7 @@ R.frame = (rdt) => {
       blurMat.uniforms.t.value = rtB.texture; blurMat.uniforms.dir.value.set(0, i * 1.6 / rtA.height); pass(blurMat, rtA); }
     const u = compMat.uniforms; u.tScene.value = rt.texture; u.tDepth.value = rt.depthTexture; u.tBloom.value = rtA.texture;
     { const hs = R.toScreen(S.player.x + S.player.w / 2, S.player.y + S.player.h / 2); u.hero.value.x += (hs.x - u.hero.value.x) * Math.min(1, rdt * 6); u.hero.value.y += (1 - hs.y - u.hero.value.y) * Math.min(1, rdt * 6); }
-    u.time.value = time % 100; u.flash.value = R.flash; u.gray.value += ((S.mode === 'lose' ? 0.75 : 0) - u.gray.value) * Math.min(1, rdt * 3);
+    u.time.value = time % 100; u.flash.value = TT.calmo ? Math.min(R.flash, 0.1) : R.flash; u.gray.value += ((S.mode === 'lose' ? 0.75 : 0) - u.gray.value) * Math.min(1, rdt * 3);
     pass(compMat, null);
   } else { renderer.setRenderTarget(null); renderer.render(scene, camera); }
 };

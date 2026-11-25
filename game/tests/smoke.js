@@ -66,10 +66,15 @@ const { chromium } = require('playwright');
   check(await until(() => __tintim.S.friends[0].given) && await until(() => __tintim.S.gifts.length === 0) && await ev(() => __tintim.S.cookies) === ck + 3, 'amigo chihuahua entrega o biscoito');
   await pg.keyboard.press('KeyP');
   check(await until(() => __tintim.state === 'pause', 3000), 'P pausa');
+  await pg.click('#btnCalmo');
+  check(await ev(() => TT.calmo === true && localStorage.getItem('tintim-calmo') === '1' && document.getElementById('btnCalmo').textContent.endsWith('sim')), 'a pausa liga "menos tremor e clarão" e guarda a escolha');
+  await pg.click('#btnCalmo');
+  check(await ev(() => TT.calmo === false && localStorage.getItem('tintim-calmo') === '0'), 'e desliga de novo');
+  check(await ev(() => { const n = TT.audioNodes(); return !n.ctx || (n.comp.threshold.value === -6 && n.comp.ratio.value === 12); }), 'o som geral passa por um limitador que só age nos picos (não pelo compressor de fábrica)');
   await pg.waitForTimeout(500); await pg.click('#btnResume');
   check(await until(() => __tintim.state === 'play', 3000), 'Continuar retoma');
   await ev(() => { const p = __tintim.player; p.x = 4200; p.y = 300; });
-  check(await until(() => __tintim.S.checkpoint === 0, 5000), 'checkpoint ativado');
+  check(await until(() => __tintim.S.checkpoint === 1, 5000), 'checkpoint ativado'); // (a bandeira 0 agora fica em 2600)
   await ev(() => { __tintim.player.hp = 1; __tintim.player.x = 4000; __tintim.player.y = 700; });
   check(await until(() => __tintim.state === 'lose'), 'cair no buraco sem corações perde');
   await pg.waitForSelector('#lose.on', { timeout: 20000 }); await pg.waitForTimeout(700); await pg.click('#btnRetry');

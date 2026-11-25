@@ -148,6 +148,10 @@ $('btnRestart').onclick = () => begin(TT.start);
 $('btnLoseRestart').onclick = () => begin(TT.start);
 $('btnRetry').onclick = () => begin(TT.retry);
 $('btnResume').onclick = () => TT.resume();
+// opção de acessibilidade: a tela treme bem menos e os clarões ficam fracos (para quem se incomoda com isso); fica salva
+try { TT.calmo = localStorage.getItem('tintim-calmo') === '1'; } catch (_) { TT.calmo = false; }
+const showCalmo = () => { $('btnCalmo').textContent = 'Menos tremor e clarão: ' + (TT.calmo ? 'sim' : 'não'); $('btnCalmo').setAttribute('aria-pressed', TT.calmo ? 'true' : 'false'); };
+$('btnCalmo').onclick = () => { TT.calmo = !TT.calmo; try { localStorage.setItem('tintim-calmo', TT.calmo ? '1' : '0'); } catch (_) {} TT.sfx('ui'); showCalmo(); }; showCalmo();
 $('btnPause').onclick = () => TT.pause();
 const toggleMute = () => { TT.setMuted(!TT.isMuted()); $('btnMute').classList.toggle('muted', TT.isMuted()); };
 $('btnMute').onclick = toggleMute; $('btnMute').classList.toggle('muted', TT.isMuted());

@@ -23,12 +23,16 @@ TT.on('pause', () => TT.audioDuck(true)); TT.on('resume', () => TT.audioDuck(fal
 if (TT.noWebGL || !R || !R.frame) return;
 const qp = new URLSearchParams(location.search).get('q'); // ?q=0..2 fixa a qualidade (para testes)
 if (qp !== null) R.setQuality(+qp);
-let last = performance.now(), acc = 0, n = 0, warm = 0;
+let last = performance.now(), acc = 0, n = 0, warm = 0, step = 0;
+const STEP = 1 / 240;
 TT.on('start', () => { warm = 2; acc = 0; n = 0; });
 function loop(now) {
   const raw = (now - last) / 1000, dt = Math.min(0.033, raw); last = now;
   TT.pollPad();
-  TT.update(dt);
+  // as regras andam em passos fixos de 1/240 s: o pulo sai com a mesma altura em qualquer computador e em qualquer tela
+  // (antes o passo era o tempo do quadro e o pulo ia de 149 px a 30 quadros por segundo a 161 px a 144)
+  step += dt; let k = 0;
+  while (step >= STEP && k < 10) { TT.update(STEP); step -= STEP; k++; }
   R.frame(dt);
   TT.uiFrame();
   // qualidade adaptativa: abaixo de ~45 quadros por segundo, simplifica (sem desfoque → sem sombras/pós)

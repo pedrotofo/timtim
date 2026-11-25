@@ -68,7 +68,9 @@ const { chromium } = require('playwright');
 
   // tábuas da quadrilha se movem e levam o Timtim junto
   const m = await ev(() => { const s = TT.MOVERS[0]; return { x: s.x, y: s.y, w: s.w }; });
-  // a tábua anda enquanto ele cai: põe o Timtim em cima dela na posição atual e espera ele estar mesmo apoiado nela
+  // a tábua anda enquanto ele cai: põe o Timtim em cima dela na posição atual e espera ele estar mesmo apoiado nela.
+  // Começa com a tábua perto do meio do caminho (andando rápido): perto das pontas ela quase para e 0,5 s não basta para medir
+  await until(() => Math.abs(TT.MOVERS[0].x - TT.C.movers[0].x) < 45, 6000);
   await ev(() => { const s = TT.MOVERS[0], p = __tintim.player; Object.assign(p, { x: s.x + s.w / 2 - p.w / 2, y: s.y - p.h - 1, vx: 0, vy: 0, inv: 9, hp: 3, onGround: false }); });
   await until(() => __tintim.player.onGround && __tintim.player.on && !!__tintim.player.on.mover, 2000);
   const a0 = await ev(() => ({ px: __tintim.player.x, sx: TT.MOVERS[0].x })); await pg.waitForTimeout(500);
