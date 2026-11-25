@@ -263,5 +263,5 @@ TT.on('win', st => {
   }, 1900);
 });
 TT.on('assetsReady', () => $('msg').classList.add('hide'));
-if (TT.noWebGL) $('msg').textContent = 'Este navegador não conseguiu ligar o modo 3D (WebGL). Tente no Chrome ou Safari atualizados.';
+if (TT.noWebGL) $('msgTxt').textContent = 'Este navegador não conseguiu ligar o modo 3D (WebGL). Tente no Chrome ou Safari atualizados.';
 })();
