@@ -191,6 +191,16 @@ function drawShelf() {
 }
 $('btnShelf').onclick = () => { TT.audioInit(); TT.sfx('ui'); drawShelf(); $('shelf').classList.add('on'); };
 $('btnShelfBack').onclick = () => { TT.sfx('ui'); $('shelf').classList.remove('on'); };
+// recomeçar o jogo: apaga as fases vencidas, os brinquedos achados e os recordes (o som e o "menos tremor" ficam);
+// o primeiro toque pede confirmação, o segundo (em até 4 s) apaga e volta para a capa com o mapa no Parque
+const PROGRESSO = ['tintim-fases', 'tintim-toys', 'tintim-best', 'tintim-best-2', 'tintim-best-3'];
+{ const b = $('btnReset'); let sureT = 0;
+  try { b.hidden = !PROGRESSO.some(k => localStorage.getItem(k) && localStorage.getItem(k) !== '{}'); } catch (_) {}
+  b.onclick = () => { TT.audioInit(); TT.sfx('ui');
+    if (!b.classList.contains('sure')) { b.classList.add('sure'); b.textContent = 'Apagar todo o progresso? Toque de novo'; clearTimeout(sureT);
+      sureT = setTimeout(() => { b.classList.remove('sure'); b.textContent = 'Recomeçar o jogo'; }, 4000); return; }
+    try { PROGRESSO.forEach(k => localStorage.removeItem(k)); } catch (_) {}
+    location.href = location.pathname + location.search; }; }
 TT.on('toy', e => { found[e.id] = true; try { localStorage.setItem('tintim-toys', JSON.stringify(found)); } catch (_) {} });
 // dica do faro: aparece quando o controle é liberado, enquanto o brinquedo da fase não tiver sido achado
 TT.on('cineEnd', e => { if (e.type === 'steal' && !found.patinho) setTimeout(() => { if (S.mode === 'play') TT.emit('banner', { text: isTouch ? 'Segure 👃 para farejar' : 'Segure ↓ para farejar' }); }, 400); });
@@ -198,6 +208,7 @@ TT.on('cineEnd', e => { if (e.type === 'steal' && !found.patinho) setTimeout(() 
 let best = null;
 const BEST_KEY = FASE > 1 ? 'tintim-best-' + FASE : 'tintim-best';
 try { best = JSON.parse(localStorage.getItem(BEST_KEY) || 'null'); } catch (_) {}
+if (!best || typeof best.stars !== 'number' || typeof best.time !== 'number') best = null; // recorde salvo estragado: ignora, em vez de travar a capa
 const showBest = () => { $('best').textContent = best ? `Seu recorde: ${'★'.repeat(best.stars)}${'☆'.repeat(3 - best.stars)} em ${best.time.toFixed(1)}s` : ''; };
 showBest();
 
