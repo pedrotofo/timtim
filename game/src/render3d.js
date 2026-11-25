@@ -7,7 +7,7 @@ const TT = window.TT, C = TT.C, S = TT.S;
 const { W, H, GROUND, ARENA_X } = C;
 const ARR = C.FASE >= 2, VG = C.FASE === 3, END = C.BOSS ? ARENA_X : C.LEVEL_END; // fase 2: o Arraial (a fase vai até a arena do lobo-guará, no fim)
 const VG_AR = { 'vg-cadeira': 0.55, 'vg-cama': 1.4567, 'vg-cipreste': 0.3187, 'vg-girassol': 0.6773, 'vg-vaso': 0.8526, 'vg-mesa': 0.7958, 'vg-lampiao': 0.2942, 'vg-toldo': 2.8364, 'vg-moldura': 1.2964 };
-const VG_PLAT = { 380: 'cama', 700: 'cadeira', 5000: 'toldo', 5500: 'toldo', 5280: 'mesa', 5730: 'mesa' }; // plataformas que são móveis do quadro (não ganham tábua)
+const VG_PLAT = { 380: 'cama', 718: 'cadeira', 5000: 'toldo', 5500: 'toldo', 5280: 'mesa', 5730: 'mesa' }; // plataformas que são móveis do quadro (não ganham tábua)
 const R = TT.R = { ready: false, quality: 2, flash: 0 };
 const cv = document.getElementById('c');
 let renderer;
@@ -1241,7 +1241,7 @@ R.frame = (rdt) => {
     for (const q of VGR.blinks) { const on = TT.blinkOn(q.b), ph = ((S.clock + q.b.ph) % q.b.per) / q.b.per, warn = on && ph > 0.5; // pisca antes de apagar
       q.k += ((on ? 1 : 0.18) - q.k) * Math.min(1, rdt * 10); const fl = warn ? 0.55 + 0.45 * Math.abs(Math.sin(time * 18)) : 1;
       q.m.material.opacity = q.k * fl; q.g.material.opacity = 0.5 * q.k * fl; const sc = q.b.w * 1.25 * (0.9 + 0.1 * q.k); q.m.scale.set(sc, sc, 1); q.m.rotation.z += live * 0.3; }
-    for (const q of VGR.movers) { const s = q.s; q.m.position.set(s.x + s.w / 2, Y(s.y) - q.h * 0.86, -1); q.m.rotation.z = Math.sin(time * 1.3 + s.x) * 0.02; }
+    for (const q of VGR.movers) { const s = q.s; q.m.position.set(s.x + s.w / 2, Y(s.y) - q.h + 10, -1); q.m.rotation.z = Math.sin(time * 1.3 + s.x) * 0.02; }
     for (const q of VGR.toldos) { q.bt = Math.max(0, q.bt - live); const k = Math.sin(q.bt / 0.35 * Math.PI) * 0.18; q.m.scale.y = q.hgt * (1 - k); q.m.position.y = q.base + q.hgt * k; }
     if (R.hoop) { const q = R.hoop, on = !!S.revealed.argola; q.gr.rotation.z = Math.sin(time * 1.1) * 0.06; q.gr.rotation.y = Math.sin(time * 0.7) * 0.25; q.hg.material.opacity = on ? 0.12 : 0.3 + 0.1 * Math.sin(time * 4); }
   }

@@ -70,8 +70,9 @@ if (FASE === 3) Object.assign(C, {
   BOSS: false, FOX: true, GLIDE: true, LEVEL_END: 7900, ARENA_X: 7900 - W0, GOAL_X: 7900 - W0 + 120, MASTRO_X: 7900 - W0 + 300, START_X: 200, BPM: 84,
   grounds: [[0, 1300], [1500, 900], [2650, 700], [3550, 1150], [4900, 900], [6050, 350], [6600, 1300]],
   // [x, y, largura, quica]: a cama, a cadeira e a estante do quarto; tábuas pintadas; os toldos do café quicam; as mesas
-  plats: [[380, 352, 230], [700, 330, 80], [1000, 150, 160], [2250, 300, 140], [2750, 330, 150], [3000, 320, 160], [3250, 250, 150],
-          [3750, 320, 170], [4000, 240, 150], [4300, 320, 160], [5000, 340, 200, 1], [5280, 372, 80], [5500, 340, 200, 1], [5730, 372, 80], [6150, 300, 120]],
+  // (a cama e a cadeira pisam na altura do cobertor e do assento desenhados; as mesas, no tampo)
+  plats: [[380, 372, 230], [718, 312, 84], [1000, 150, 160], [2250, 300, 140], [2750, 330, 150], [3000, 320, 160], [3250, 250, 150],
+          [3750, 320, 170], [4000, 240, 150], [4300, 320, 160], [5000, 340, 200, 1], [5280, 378, 80], [5500, 340, 200, 1], [5730, 378, 80], [6150, 300, 120]],
   // cabeças de girassol que sobem e descem devagar
   movers: [{ x: 1650, y: 330, w: 120, ax: 0, ay: 50, per: 2.6, ph: 0 }, { x: 1900, y: 270, w: 120, ax: 0, ay: 60, per: 2.6, ph: 2 }, { x: 2150, y: 320, w: 120, ax: 0, ay: 50, per: 2.6, ph: 4 }],
   // redemoinhos: pegam o Timtim no ar e giram com ele; apertar o pulo solta na direção em que ele está indo (d = sentido do giro)
