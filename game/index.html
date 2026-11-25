@@ -124,6 +124,9 @@
   #title .on-anim .gap { flex: 1; }
   #title.story .on-anim { opacity: 0; pointer-events: none; }
   #title.story .tbg { transform: scale(1.5); filter: brightness(.62); }
+  /* as orelhas do Timtim passam na frente da faixa do logo: mesma imagem da capa, só com as orelhas, por cima do logo e no mesmo movimento */
+  #title .tbgTop { background-image: url(assets/capa-orelhas.webp); pointer-events: none; }
+  #title.story .tbgTop { display: none; }
   #storyLine { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; } /* só para leitores de tela: a frase aparece desenhada no pergaminho */
   #introC { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 1s; pointer-events: none; }
   #title.story #introC { opacity: 1; }
@@ -144,8 +147,8 @@
   .logo i { display: inline-block; font-style: normal; font-size: 2.3cqw; letter-spacing: .5cqw; color: #fff6dc; margin-top: 1cqw; padding: .45cqw 2.2cqw; border-radius: .6cqw;
     background: linear-gradient(180deg, #d2402c, #9c2418); box-shadow: 0 .35cqw 0 #4a1008, 0 0 2cqw rgba(0, 0, 0, .45); text-shadow: 0 .2cqw 0 #4a1008; }
   /* capa na direção de arte de Ori: floresta anil e violeta, a turma no tronco de musgo; o logo do Pedro centralizado no alto, com um brilho suave */
-  #title .logo { position: absolute; left: 0; right: 0; top: 2.4cqw; display: flex; justify-content: center; }
-  #title .logo img { width: 40cqw; display: block; filter: drop-shadow(0 0 1.8cqw rgba(255, 214, 170, .32)) drop-shadow(0 .5cqw 1.2cqw rgba(8, 4, 30, .6)); }
+  #title .logo { position: absolute; left: 0; right: 0; top: 1cqw; display: flex; justify-content: center; }
+  #title .logo img { width: 34cqw; display: block; filter: drop-shadow(0 0 1.8cqw rgba(255, 214, 170, .32)) drop-shadow(0 .5cqw 1.2cqw rgba(8, 4, 30, .6)); }
   #title .on-anim > * { animation: rise 1s var(--out) both; }
   #title .on-anim > *:nth-child(2) { animation-delay: .15s; } #title .on-anim > *:nth-child(3) { animation-delay: .3s; } #title .on-anim > *:nth-child(4) { animation-delay: .45s; }
   @keyframes rise { from { opacity: 0; transform: translateY(1.6cqw); filter: blur(.4cqw); } }
@@ -261,6 +264,7 @@
       <div class="row"><button class="btn" id="btnStart">Jogar</button><button class="btn ghost" id="btnShelf">Brinquedos</button></div>
       <p class="hint" id="hint">← → andar · Espaço pula · no ar, de novo: pirueta · ↓ fareja</p>
     </div>
+    <div class="tbg tbgTop"></div>
     <canvas id="introC" width="1600" height="900"></canvas><p id="storyLine" aria-live="polite"></p><span id="skip">toque para começar</span>
     <button id="btnReset" hidden>Recomeçar o jogo</button>
   </section>
