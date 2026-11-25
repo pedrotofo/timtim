@@ -70,5 +70,9 @@ vídeo sai um ciclo completo (corrida, andar) ou um trecho que toca em vai e vol
 desenhados um a um pela IA variam entre si e a animação treme; os do vídeo são contínuos. A deformação por código
 (rabo, orelhas, respiração) fica só para as poses que ainda são paradas (bote, agachado, pulo duplo).
 
+A comemoração do Timtim (`timtim-comemora`, 95 quadros) foi refeita em 25/11/2026: a versão anterior tinha uma mancha escura
+em volta de um olho ("olho de panda"). A nova parte da pose de vitória do jogo (`sprites/tintim-win.png`) sobre cinza liso,
+usada como primeiro e último quadro de um vídeo de 4 s no Veo 3.1 Lite (Artlist); por isso o ciclo fecha sem emenda.
+
 ## Fora do escopo (por enquanto)
 Mais fases, mais quadros de animação (a corrida tem 4), animações próprias para os chihuahuas, sprites dos pugs reais, placar online.
