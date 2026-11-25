@@ -397,7 +397,7 @@ sky.scale.set(4700, 2700, 1); sky.position.set(0, 300, -3000);
   if (!ARR) for (const [x, y, w] of C.plats) { // fase 1: lajes de pedra com musgo luminoso e raízes penduradas (como antes)
     const m = new THREE.Mesh(boxUV(w, 18, 70, 120), [side, side, moss, side, side, side]);
     m.position.set(x + w / 2, GROUND - y - 9, 0); m.castShadow = m.receiveShadow = true; add(m);
-    const rt = add(new THREE.Mesh(planeGeoTop, rootM)); rt.scale.set(w * 0.96, 54 + (x % 40), 1); rt.position.set(x + w / 2, GROUND - y - 16, 30);
+    const rt = add(new THREE.Mesh(planeGeoTop, rootM)); rt.scale.set(w * 0.96, 54 + (x % 40), 1); rt.position.set(x + w / 2, GROUND - y - 16, -30); // as raízes ficam atrás do Timtim (na frente, cobriam ele quando pulava por baixo)
     const gl = add(new THREE.Mesh(planeGeoC, glowMat(PAL.mint, 0.22)), 3); gl.scale.set(w * 1.5, 46, 1); gl.position.set(x + w / 2, GROUND - y + 2, 34);
     pulses.push({ m: gl, base: 0.22, ph: x });
   }
@@ -475,10 +475,11 @@ sky.scale.set(4700, 2700, 1); sky.position.set(0, 300, -3000);
   // primeiro plano: folhagens escuras entre a câmera e o jogo, embaixo e penduradas em cima
   const FRONT = ARR ? 0x4a2a1e : 0xffffff; // no Arraial, o primeiro plano vira silhueta quase preta (o jogo fica entre ela e o fundo claro)
   const frenteM = texFrente.map(t => new THREE.MeshBasicMaterial({ map: t, color: FRONT, transparent: true, depthWrite: false, fog: false, side: THREE.DoubleSide }));
-  const galhoM = texGalhos && new THREE.MeshBasicMaterial({ map: texGalhos, color: FRONT, transparent: true, depthWrite: false, fog: false, side: THREE.DoubleSide });
+  // os galhos pendurados na frente não viram mancha preta no meio da tela: no Arraial ficam num marrom quente e meio transparentes
+  const galhoM = texGalhos && new THREE.MeshBasicMaterial({ map: texGalhos, color: ARR ? 0x7a5340 : 0xffffff, opacity: ARR ? 0.7 : 1, transparent: true, depthWrite: false, fog: false, side: THREE.DoubleSide });
   for (let i = 0, x = -200; x < END - 300; i++, x += 620 + (i * 397 % 420)) {
     const m = new THREE.Mesh(planeGeo, frenteM[i % 2]), hh = 150 + (i % 3) * 22; m.scale.set(hh * FRENTE_AR[i % 2] * (i % 4 > 1 ? -1 : 1), hh, 1); m.position.set(x, -78, 350 + (i % 2) * 50); add(m, 9);
-    if (i % 2) { const t = new THREE.Mesh(planeGeoTop, galhoM); const gh = 250 + (i % 3) * 30; t.scale.set(gh * GALHO_AR * (i % 4 === 1 ? -1 : 1), gh, 1); t.position.set(x + 310, 500, 330); add(t, 9); }
+    if (i % 2) { const t = new THREE.Mesh(planeGeoTop, galhoM); const gh = 250 + (i % 3) * 30; t.scale.set(gh * GALHO_AR * (i % 4 === 1 ? -1 : 1), gh, 1); t.position.set(x + 310, ARR ? 600 : 500, 330); add(t, 9); }
   }
 })();
 // ---------------- o Arraial (fase 2) ----------------
@@ -667,10 +668,11 @@ const itemM = S.items.map(it => { const m = sprite(it.type === 'gold' ? 'cookie'
   return m; });
 const friendM = S.friends.map(f => { const m = sprite(f.kind, 5, true, 0xfff6ec); m.geometry = legGeo();
   m.userData.glow = add(new THREE.Mesh(planeGeoC, glowMat(0xffd9a0, 0.3)), 4); return m; });
+R.dbg = { brute: () => bruteM, friends: () => friendM }; // (para os testes inspecionarem o desenho)
 const giftM = [0, 1].map(() => { const m = sprite(C.GIFT_ITEM, 7, false); m.geometry = planeGeoC; m.visible = false;
   m.userData.glow = add(new THREE.Mesh(planeGeoC, glowMat(0xffd27a, 0.8)), 6); m.userData.glow.visible = false; return m; });
 // no Arraial, galinhas, lobo-guará, Zara, Elvis e o ovo ganham o contorno de luz fria
-if (ARR) { [foxM, ...runnerM, ...pigeonM, ...friendM].forEach(m => addRim(m, 0xcfe6ff, 0.55)); giftM.forEach(m => addRim(m, 0xffffff, 0.7)); }
+// (os contornos de luz nos personagens do Arraial saíram: pareciam uma aura recortada em volta de cada um)
 // cena do roubo: um segundo Furtão (o chefão real só aparece na arena) com o Macaco Fedido pendurado na boca
 const thiefM = sprite('brute-charge', 6, true, 0xf2e2d2); thiefM.geometry = legGeo(); thiefM.userData.ph = 0; thiefM.visible = false;
 const carryM = sprite('monkey-front', 7, true, 0xfff4e6); carryM.geometry = planeGeoTop; carryM.visible = false;
@@ -871,7 +873,7 @@ R.frame = (rdt) => {
       const pa = cape.geometry.attributes.position, wv = 13 + Math.min(10, Math.abs(p.vy) / 40);
       for (let i = 0; i < pa.count; i++) { const x = capeX[i]; pa.setY(i, capeY[i] + Math.sin(x * 7 + time * wv) * 0.09 * -x); }
       pa.needsUpdate = true; } }
-  rim.geometry = tintim.geometry; rim.material.map = tintim.material.map; rim.visible = tintim.visible && S.mode !== 'lose';
+  rim.geometry = tintim.geometry; rim.material.map = tintim.material.map; rim.visible = false; // o contorno de luz parecia uma aura recortada em volta dele: desligado
   rim.position.set(tintim.position.x, tintim.position.y - 2, tintim.position.z - 0.6); rim.rotation.z = tintim.rotation.z; rim.scale.set(tintim.scale.x * 1.07, tintim.scale.y * 1.06, 1);
   rim.material.opacity = (ARR ? 0.5 : 0.6) + Math.sin(time * 3.1) * 0.06 + (p.egg > 0 ? 0.25 : 0);
   if (p.egg > 0 && Math.random() < live * (p.gliding ? 40 : 12)) spawn({ x: tx - p.face * 30 + (Math.random() - 0.5) * 30, y: p.y + 10 + Math.random() * 20, vx: -p.face * 40, vy: 20 + Math.random() * 40, g: 30, life: 0.7, r: 2 + Math.random() * 2, color: Math.random() < 0.5 ? 0xffe08a : 0xfff4c8, hard: true });
@@ -912,7 +914,7 @@ R.frame = (rdt) => {
     const g = m.userData.glow; g.position.set(f.x, 30 + hop, -38); const s = 120 + Math.sin(f.t * 2.2) * 8; g.scale.set(s, s, 1); g.material.opacity = f.given ? 0.2 : 0.34;
   });
   giftM.forEach((m, i) => { const g = S.gifts[i], gl = m.userData.glow; m.visible = gl.visible = !!g; if (!g) return;
-    const gs = C.GIFT_ITEM === 'ovo' ? 60 : 30; m.scale.set(gs * AR[C.GIFT_ITEM], gs, 1); m.position.set(g.x, Y(g.y), 5); m.rotation.z = g.t * (C.GIFT_ITEM === 'ovo' ? 5 : 9); gl.position.set(g.x, Y(g.y), 4); gl.scale.set(ARR ? 130 : 86, ARR ? 130 : 86, 1); if (ARR) gl.material.color.set(0xfff6e0); // o ovo: maior e com um brilho claro, para não sumir no laranja
+    const gs = C.GIFT_ITEM === 'ovo' ? 44 : 30; m.scale.set(gs * AR[C.GIFT_ITEM], gs, 1); m.position.set(g.x, Y(g.y), 5); m.rotation.z = g.t * (C.GIFT_ITEM === 'ovo' ? 5 : 9); gl.position.set(g.x, Y(g.y), 4); gl.scale.set(ARR ? 92 : 86, ARR ? 92 : 86, 1); if (ARR) gl.material.color.set(0xffe2a0); // o ovo: maior e com um brilho claro, para não sumir no laranja
     if (Math.random() < 0.6) spawn({ x: g.x, y: g.y, vx: (Math.random() - 0.5) * 40, vy: (Math.random() - 0.5) * 40, g: 60, life: 0.45, r: 3, color: 0xffd98a }); });
 
   // Brutão

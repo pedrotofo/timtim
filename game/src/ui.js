@@ -184,7 +184,8 @@ TT.on('friend', e => { sayF = S.friends.reduce((a, f) => Math.abs(f.x - e.x) < M
 const uiFrame0 = TT.uiFrame;
 TT.uiFrame = () => { uiFrame0(); if (!sayF) return;
   if (performance.now() > sayEnd || S.mode === 'lose') { say.classList.remove('on'); sayF = null; return; }
-  const at = TT.R.toScreen(sayF.x, C.GROUND - 118); say.style.left = (at.x * 100).toFixed(2) + '%'; say.style.top = (at.y * 100).toFixed(2) + '%'; };
+  const at = TT.R.toScreen(sayF.x, C.GROUND - 118), half = say.offsetWidth / 2 / Math.max(1, stage.clientWidth) + 0.01; // o balão nunca sai da tela
+  say.style.left = (Math.max(half, Math.min(1 - half, at.x)) * 100).toFixed(2) + '%'; say.style.top = (Math.max(0.12, at.y) * 100).toFixed(2) + '%'; };
 TT.on('pause', () => show('pause'));
 TT.on('resume', () => show(null));
 TT.on('stealIntro', () => stage.classList.add('cine'));

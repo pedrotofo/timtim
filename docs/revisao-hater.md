@@ -78,3 +78,19 @@ Legenda: ✅ corrigido · ➖ mantido de propósito (com o motivo) · ⏳ depend
 53. ✅ A galinha cacarejava com o som do pombo. Agora tem sons do Artlist (aprovados): dois cacarejos de susto alternados, galinhas em disparada no aviso da debandada, bater de asas quando o Timtim quica nelas e o galinheiro em alvoroço quando expulsam o lobo.
 54. ⏳ O Arraial ainda toca a música do Parque. Falta o arquivo da trilha do Suno (`assets/music/arraial.mp3`).
 55. ⏳ A tela da história da fase 2 foi retirada: a imagem gerada no Artlist mostrava um cachorro que não é o Timtim (parecia um border collie). Ela volta só com uma arte nova, com o Timtim fiel ao personagem e aprovada antes.
+
+## Segunda rodada (depois do retorno do Pedro, 24/11 à noite)
+Desta vez as duas fases foram atravessadas de ponta a ponta, sem teleporte, com o Timtim correndo, pulando e planando, e uma foto a cada 0,6 s de jogo. Também gravei o Furtão quadro a quadro na abertura, na apresentação e na derrota.
+
+56. ✅ **Aura em volta dos personagens.** O contorno de luz do Timtim (e, no Arraial, de todos os bichos) parecia uma aura recortada. Saiu.
+57. ✅ **Zara andando no ar sobre o buraco.** Os amigos agora param na beirada.
+58. ✅ **Correio elegante no meio da tela.** Virou um bilhete pequeno no canto esquerdo, logo abaixo dos corações (antes também cobria os botões de música e pausa).
+59. ✅ **Defeito no Furtão.** O pelo claro do peito era parecido com o fundo cinza do vídeo e foi apagado junto, abrindo um buraco por onde apareciam os cogumelos de trás. O recorte agora deixa o miolo do corpo opaco, e todas as animações foram refeitas.
+60. ✅ **Timtim comemorava dentro do corpo do Furtão derrotado.** Agora desce de cima dele e comemora do lado, virado para ele.
+61. ✅ A tela de carregamento da fase 2 mostrava a frase da fase 1 ("Ajude Timtim a resgatar o Macaco Fedido…").
+62. ✅ O balão de fala dos amigos saía cortado na borda da tela. Agora fica sempre dentro dela.
+63. ✅ Planando alto (argola, ar quente), o Timtim ficava colado no topo, embaixo do placar. A câmera sobe junto, também na arena do lobo.
+64. ✅ Um galho quase preto atravessava o meio da tela no Arraial. Os galhos ficaram num marrom quente, meio transparentes e mais altos.
+65. ✅ As faixas de dica (texto branco com brilho claro) sumiam sobre o fundo claro do Arraial. Ganharam sombra escura.
+66. ✅ Na fase 1, as raízes penduradas das plataformas cobriam o Timtim quando ele pulava por baixo. Ficaram atrás dele.
+67. ✅ O ovo voando até o Timtim era tão grande e claro que cobria a cabeça dele. Ficou menor.

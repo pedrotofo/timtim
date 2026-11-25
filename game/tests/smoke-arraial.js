@@ -53,6 +53,12 @@ const { chromium } = require('playwright');
     await pg.waitForTimeout(250);
     check(await ev(() => __tintim.S.enemies.every(e => e.alive) && __tintim.player.hp === 3), 'pisar numa galinha faz o Timtim quicar: ela foge e não morre' + (process.env.DBG ? await ev(() => JSON.stringify([__tintim.S.enemies.map(e => [e.alive, Math.round(e.x), Math.round(e.y)]), __tintim.player.hp, Math.round(__tintim.player.y), __tintim.player.vy])) : '')); }
 
+  // a Zara não anda no ar: com o Timtim do outro lado do buraco, ela para na beirada
+  await ev(() => { const f = __tintim.S.friends[0]; f.x = 4440; f.given = false; f.follow = 0; Object.assign(__tintim.player, { x: 4700, y: 60, vx: 0, vy: 0, onGround: false, inv: 99, hp: 3 }); });
+  await ev(() => { window.__fx = 0; const t0 = performance.now(); const f = () => { __fx = Math.max(__fx, __tintim.S.friends[0].x); if (performance.now() - t0 < 700) requestAnimationFrame(f); }; requestAnimationFrame(f); });
+  await pg.waitForTimeout(800);
+  check(await ev(() => __fx <= 4500), `os amigos param na beirada do buraco (foi até ${Math.round(await ev(() => __fx))}, o chão acaba em 4500)`);
+
   // a chama não machuca: é ali que ele pula para subir no ar quente
   await put(fx - 27, 452 - 50, { onGround: true }); await pg.waitForTimeout(250);
   check(await ev(() => __tintim.player.hp === 3), 'encostar na fogueira não tira coração (ela é o trampolim do planar)');

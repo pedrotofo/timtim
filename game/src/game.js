@@ -375,7 +375,10 @@ TT.update = (rdt) => {
   if (playing && !S.cine) S.time += dt;
   if (S.mode === 'winning') {
     S.winT += rdt;
-    if (S.winT > 0.9 && S.player.onGround) S.player.won = true;
+    // vencido o Furtão, o Timtim desce de cima dele e comemora do lado (antes comemorava em pé dentro do corpo do bulldog)
+    const bb = S.boss, pp = S.player, onBoss = C.BOSS && bb.hp <= 0 && Math.abs(pp.x + pp.w / 2 - (bb.x + bb.w / 2)) < bb.w * 0.8;
+    if (onBoss && pp.onGround && !pp.won) { pp.vx = (Math.sign(pp.x + pp.w / 2 - (bb.x + bb.w / 2)) || 1) * 240; pp.face = Math.sign(pp.vx); }
+    if (S.winT > 0.9 && S.player.onGround && !onBoss) { if (C.BOSS && !S.player.won) S.player.face = Math.sign(bb.x + bb.w / 2 - pp.x) || 1; S.player.won = true; }
     if (S.winT > 3.2) { S.mode = 'win'; S.player.won = true; emit('win', stats()); }
   }
 
@@ -504,7 +507,9 @@ TT.update = (rdt) => {
     const seen = playing && Math.abs(pcx - f.home) < 460, chase = seen && (!f.given || f.follow > 0);
     const goal = Math.max(f.home - 20, Math.min(f.home + 280, chase ? pcx - Math.sign(pcx - f.x) * 70 : f.home));
     const want = f.hop > 0.35 || Math.abs(goal - f.x) < 10 ? 0 : Math.sign(goal - f.x) * (chase || !playing ? 260 : 130);
-    f.vx += (want - f.vx) * Math.min(1, dt * 9); f.x += f.vx * dt;
+    f.vx += (want - f.vx) * Math.min(1, dt * 9);
+    // amigos não andam no ar: se o próximo passo sai do chão (beirada de um buraco), param na beirada
+    { const nx = f.x + f.vx * dt, edge = nx + Math.sign(f.vx) * 16; if (groundAt(f.x) && !groundAt(edge)) f.vx = 0; else f.x = nx; }
     if (Math.abs(f.vx) > 30) f.face = Math.sign(f.vx); else if (seen || !playing) f.face = pcx < f.x ? -1 : 1;
     if (playing && !f.given && Math.abs(pcx - f.x) < 120) {
       f.given = true; f.hop = 0.9; f.follow = 3.2; S.gifts.push({ sx: f.x + f.face * 18, sy: GROUND - 58, x: f.x, y: GROUND - 58, t: 0, kind: S.friends.indexOf(f) });
@@ -569,7 +574,7 @@ TT.update = (rdt) => {
   cam.look += (p.vx * 0.32 - cam.look) * Math.min(1, dt * 2.5);
   const want = S.arena ? ARENA_X : Math.max(0, Math.min(ARENA_X, p.x - W * 0.4 + cam.look));
   cam.x += (want - cam.x) * Math.min(1, dt * 5);
-  const wantY = S.arena ? Math.max(-60, Math.min(0, (p.y + p.h - (GROUND - 150)) * 0.3)) : Math.max(-150, Math.min(0, (p.y + p.h - (GROUND - 70)) * 0.42));
+  const wantY = S.arena ? Math.max(C.FOX ? -170 : -60, Math.min(0, (p.y + p.h - (GROUND - 150)) * (C.FOX ? 0.45 : 0.3))) : Math.max(-260, Math.min(0, (p.y + p.h - (GROUND - 70)) * 0.6)); // sobe junto quando ele vai alto (planando, a argola): não fica colado no placar
   cam.y += (wantY - cam.y) * Math.min(1, dt * 3.4);
 };
 
