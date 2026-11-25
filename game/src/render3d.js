@@ -11,6 +11,9 @@ const VG_PLAT = { 380: 'cama', 718: 'cadeira', 5000: 'toldo', 5500: 'toldo', 528
 // celular (dedo, não mouse): começa no nível do meio. A tela já tem muitos pixels; o nível máximo pesava e, quando o jogo
 // baixava a qualidade sozinho no meio da fase, a imagem dava um tranco (sombras e desfoque sumindo de uma vez)
 const MOBILE = matchMedia('(pointer: coarse)').matches;
+// com os botões de toque na tela, a câmera mira mais baixo: o chão sobe e o Timtim anda acima dos botões
+// (no iPhone ele corria escondido atrás do botão ▶, parecia que tinha sumido)
+const DESCE = ('ontouchstart' in window || navigator.maxTouchPoints > 0) ? 46 : 0;
 const R = TT.R = { ready: false, quality: MOBILE ? 1 : 2, flash: 0 };
 const cv = document.getElementById('c');
 let renderer;
@@ -510,7 +513,7 @@ sky.scale.set(4700, 2700, 1); sky.position.set(0, 300, -3000);
   // os galhos pendurados na frente não viram mancha preta no meio da tela: no Arraial ficam num marrom quente e meio transparentes
   const galhoM = texGalhos && new THREE.MeshBasicMaterial({ map: texGalhos, color: VG ? 0xfff6f0 : ARR ? 0x7a5340 : 0xffffff, opacity: VG ? 0.95 : ARR ? 0.7 : 1, transparent: true, depthWrite: false, fog: false, side: THREE.DoubleSide });
   for (let i = 0, x = -200; x < END - 300; i++, x += 620 + (i * 397 % 420)) {
-    const m = new THREE.Mesh(planeGeo, frenteM[i % 2]), hh = 150 + (i % 3) * 22; m.scale.set(hh * FRENTE_AR[i % 2] * (i % 4 > 1 ? -1 : 1), hh, 1); m.position.set(x, -78, 350 + (i % 2) * 50); add(m, 9);
+    const m = new THREE.Mesh(planeGeo, frenteM[i % 2]), hh = 150 + (i % 3) * 22; m.scale.set(hh * FRENTE_AR[i % 2] * (i % 4 > 1 ? -1 : 1), hh, 1); m.position.set(x, -78 - DESCE, 350 + (i % 2) * 50); add(m, 9); // (desce junto com a câmera do celular: senão aparecia o corte reto de baixo da folhagem)
     if (i % 2) { const t = new THREE.Mesh(planeGeoTop, galhoM); const gh = 250 + (i % 3) * 30; t.scale.set(gh * GALHO_AR * (i % 4 === 1 ? -1 : 1), gh, 1); t.position.set(x + 310, ARR ? 600 : 500, 330); add(t, 9); }
   }
 })();
@@ -1325,8 +1328,8 @@ R.frame = (rdt) => {
   const ks = camSettle > 0 ? Math.min(1, rdt * (4 + (0.9 - camSettle) * 10)) : 1;
   R.zoom += (zt - R.zoom) * kk; fxS += (fx - fxS) * ks; fyS += (fy - fyS) * ks;
   const tr = S.trauma * S.trauma * (TT.calmo ? 0.2 : 1), sx = tr * 16 * Math.sin(time * 71), sy = tr * 11 * Math.sin(time * 93 + 1); // "menos tremor": 20% do tremor
-  camera.position.set(fxS + sx + Math.sin(time * 0.6) * 1.5, CAM_Y + (fyS - LOOK_Y) + sy + Math.sin(time * 0.8) * 1.2, CAM_D);
-  camera.lookAt(fxS + sx, fyS + sy, 0); camera.rotation.z += tr * 0.025 * Math.sin(time * 57);
+  camera.position.set(fxS + sx + Math.sin(time * 0.6) * 1.5, CAM_Y + (fyS - LOOK_Y) - DESCE + sy + Math.sin(time * 0.8) * 1.2, CAM_D);
+  camera.lookAt(fxS + sx, fyS - DESCE + sy, 0); camera.rotation.z += tr * 0.025 * Math.sin(time * 57);
   camera.zoom = R.zoom; camera.updateProjectionMatrix();
   sun.target.position.set(fxS, 0, 0); sun.position.set(fxS + 250, 820, 380); sun.target.updateMatrixWorld();
   sky.position.set(camera.position.x, camera.position.y + 30, -3000); // o céu está no infinito: acompanha a câmera
