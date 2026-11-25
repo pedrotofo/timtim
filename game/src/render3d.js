@@ -917,7 +917,8 @@ R.frame = (rdt) => {
   // animação de vídeo de cada estado (a corrida continua na tira própria, que acompanha a velocidade)
   const hurtNow = p.hurtT > 0 || S.mode === 'lose' || name === 'tintim-hurt'; if (hurtNow && !tintimHurt) tintimHurtT = time; tintimHurt = hurtNow;
   if (name !== tintimLast) { tintimLast = name; tintimT0 = time; }
-  const TANIM = { 'tintim-win': ['timtim-comemora', 92], 'tintim-hurt': ['timtim-machuca', 80], 'tintim-glide': ['timtim-pulo', 78], 'tintim-jump': ['timtim-pulo', 78], 'tintim-fall': ['timtim-pulo', 78], 'tintim-sniff': ['timtim-fareja', 70], 'tintim-idle': ['timtim-parado', 80] }[name];
+  // (a comemoração usa a pose desenhada tintim-win, fiel à ficha: a animação de vídeo timtim-comemora deixava os olhos com mancha preta de panda)
+  const TANIM = { 'tintim-hurt': ['timtim-machuca', 80], 'tintim-glide': ['timtim-pulo', 78], 'tintim-jump': ['timtim-pulo', 78], 'tintim-fall': ['timtim-pulo', 78], 'tintim-sniff': ['timtim-fareja', 70], 'tintim-idle': ['timtim-parado', 80] }[name];
   // planando, ele fica nos quadros do pulo em que está todo esticado (11 a 14), indo e voltando devagar, como quem rema no vento
   const tA = name === 'tintim-glide' ? (11 + Math.round(1.5 + 1.5 * Math.sin(time * 4))) / 24 : name === 'tintim-fall' ? (12 + Math.round(1 + Math.sin(time * 9))) / 24
     : name === 'tintim-jump' ? Math.min(time - tintimT0, 11 / 24) : name === 'tintim-hurt' ? time - tintimHurtT : time - tintimT0; // subindo: o pulo vai até esticar e para ali

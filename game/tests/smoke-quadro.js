@@ -119,6 +119,7 @@ const { chromium } = require('playwright');
   check(await ev(() => !!__tintim.S.brush), 'derrotado, ele solta o pincel do Van Gogh');
   check(await until(() => __tintim.S.vg && __tintim.S.vg.mood === 'happy' && !__tintim.S.brush, 5000), 'o Van Gogh aparece feliz com o pincel');
   check(await ev(() => __tintim.R.dbg.vg().visible && __tintim.R.dbg.vg().userData.name === 'vangogh-feliz'), 'o Van Gogh comemora (pose feliz)');
+  check(await until(() => __tintim.player.won && __tintim.R.tintimMesh.userData.name === 'tintim-win', 4000), 'o Timtim comemora com a pose fiel à ficha (sem a animação de olho de panda)');
   check(await until(() => __tintim.state === 'winning' || __tintim.state === 'win', 3000), 'derrotar o Corvo-Borrão vence a fase');
   check(await until(() => document.getElementById('win').classList.contains('on'), 12000), 'tela de vitória aparece');
   check(await ev(() => document.getElementById('winTitle').textContent.includes('pincel') && document.getElementById('stNotes').textContent.includes('Cartas ao Theo')), 'vitória com o texto do pincel e a contagem das cartas ao Theo');
