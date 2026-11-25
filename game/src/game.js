@@ -36,12 +36,12 @@ const W0 = C.W;
 const FASE = TT.FASE = C.FASE = (() => { const q = new URLSearchParams(location.search).get('fase'), h = (location.hash.match(/fase(\d)/) || [])[1]; return +(h || q || 1) === 3 ? 3 : +(h || q || 1) === 2 ? 2 : 1; })();
 Object.assign(C, { BOSS: true, FOX: false, GLIDE: false, PREFIGHT: false, SWIRLS: [], blinks: [], fires: [], movers: [], FOXTXT: { egg: 'Ovo cozido! Plana na crina dele!', fruit: 'Ó a fruta-do-lobo, lobão!' }, GOAL_X: C.ARENA_X, MASTRO_X: 0, GIFT_ITEM: 'cookie', NOTES: [], TUB: null, HOOP: null, STAMPEDES: [], GLIDE_TUT: null, EGG: { time: 12, fall: 70, lift: -470 } });
 if (FASE === 2) Object.assign(C, {
-  BOSS: false, FOX: true, GLIDE: true, PREFIGHT: true, LEVEL_END: 7900, ARENA_X: 7900 - W0, GOAL_X: 7900 - W0 + 120, MASTRO_X: 7580, START_X: 200, BPM: 100,
+  BOSS: false, FOX: true, GLIDE: true, PREFIGHT: true, LEVEL_END: 7900, ARENA_X: 7900 - W0, GOAL_X: 7900 - W0 + 120, MASTRO_X: 7580, START_X: 200, BPM: 97.98,
   grounds: [[0, 1150], [1670, 700], [3000, 1500], [5880, 280], [6300, 1600]],
   plats: [[430, 250, 120], [700, 330, 450], [2150, 322, 200], [3500, 90, 170], [4120, 140, 150]],
-  // tábuas da quadrilha: x e y da posição de descanso, ax/ay = quanto vão e voltam, per = período (s), ph = fase do passo
-  movers: [{ x: 4580, y: 320, w: 150, ax: 100, ay: 0, per: 2.4, ph: 0 }, { x: 4950, y: 290, w: 140, ax: 0, ay: 70, per: 2.4, ph: Math.PI },
-           { x: 5280, y: 320, w: 150, ax: 110, ay: 0, per: 2.4, ph: Math.PI / 2 }, { x: 5600, y: 280, w: 140, ax: 0, ay: 80, per: 2.4, ph: 0 }],
+  // tábuas da quadrilha: x e y da posição de descanso, ax/ay = quanto vão e voltam, per = período (s: 4 tempos da trilha, a 97,98 BPM), ph = fase do passo
+  movers: [{ x: 4580, y: 320, w: 150, ax: 100, ay: 0, per: 240 / 97.98, ph: 0 }, { x: 4950, y: 290, w: 140, ax: 0, ay: 70, per: 240 / 97.98, ph: Math.PI },
+           { x: 5280, y: 320, w: 150, ax: 110, ay: 0, per: 240 / 97.98, ph: Math.PI / 2 }, { x: 5600, y: 280, w: 140, ax: 0, ay: 80, per: 240 / 97.98, ph: 0 }],
   fires: [{ x: 3410 }, { x: 4040 }, { x: 6610 }, { x: 7040 }, { x: 7810 }], // as duas últimas ficam nos cantos da arena do lobo-guará
   // brincadeiras juninas: cair dentro do tanque da pescaria solta biscoitos; atravessar a argola revela um biscoito dourado
   // aula do planar: o primeiro vão (de 1150 a 1670) só se atravessa planando; cair nele não custa coração até aprender

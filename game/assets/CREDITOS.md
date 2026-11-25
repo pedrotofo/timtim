@@ -40,7 +40,8 @@ Legenda da coluna **Confirmar**: ✅ origem clara no histórico · ⚠️ falta 
 | `sfx/*.mp3` (24 efeitos: latidos, pulos, biscoito, pancadas, fanfarra...) | Artlist (16/11/2026), cortados e com volume igualado | Licença da assinatura Artlist do Pedro | ⚠️ confirmar se o plano cobre jogos |
 | `sfx/cluck1.mp3`, `cluck2.mp3`, `henCoop.mp3`, `henFlap.mp3`, `henPanic.mp3` | Artlist (galinhas, 24/11/2026) | Licença da assinatura Artlist | ⚠️ confirmar se o plano cobre jogos |
 | `sfx/cookie.mp3`, `sfx/pigeon.mp3`, `sfx/thud.mp3`, `sfx/laugh.mp3` | Artlist (16–17/11/2026) | Licença da assinatura Artlist | ⚠️ confirmar a fonte e se o plano cobre jogos |
-| `voice/intro-fase1.mp3` a `intro-fase3.mp3` (quando chegarem) | Narração dos cards, gravada pelo Pedro | Do Pedro | ✅ |
+| `voice/intro-fase1.mp3` a `intro-fase3.mp3` | Narração dos cards, criada pelo Pedro (25/11/2026); volume igualado | Do Pedro; se foi voz gerada com IA, anotar a ferramenta | ⚠️ confirmar a ferramenta |
+| `music/arraial.mp3`, `music/arraial-boss.mp3`, `music/quadro.mp3`, `music/quadro-boss.mp3` | Trilhas das fases 2 e 3 criadas pelo Pedro (25/11/2026), a partir dos prompts do jogo; volume igualado às da fase 1 | Música gerada com IA; uso comercial depende do plano usado | ⚠️ confirmar a ferramenta e o plano |
 | `music/theme.mp3` ("Forest Treats"), `music/boss.mp3` ("Triumph of the Brave") | Músicas do Pedro feitas no Suno | Música gerada com IA; uso comercial depende do plano do Suno usado na época | ⚠️ confirmar o plano |
 | Sons de reserva sintetizados (`src/audio.js`) | Feitos em código | Do projeto | ✅ |
 

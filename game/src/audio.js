@@ -25,7 +25,7 @@ function init() {
     sfxBus = ctx.createGain(); sfxBus.gain.value = 0.8; sfxBus.connect(master);
     noiseBuf = ctx.createBuffer(1, ctx.sampleRate * 0.5, ctx.sampleRate);
     const d = noiseBuf.getChannelData(0); for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
-    loadSamples(); loadVoices(); loadTrack('theme'); loadTrack('boss');
+    loadSamples(); loadVoices(); loadTrack(TRACKS.level); loadTrack(TRACKS.boss);
     return true;
   } catch (_) { ctx = null; return false; }
 }
@@ -138,10 +138,10 @@ function playSample(name, t) {
 // Se o arquivo da fase não existir, o card fica só com a imagem, a frase e a música.
 // Enquanto ele fala, a música abaixa. Se a fala ainda não carregou quando o quadro começa, entra assim que chegar (até 1,2 s depois).
 // fases que já têm a narração gravada (quando o arquivo da fase chegar, ponha o número dela aqui; sem isso o navegador acusaria arquivo faltando)
-const NARRADAS = [];
+const NARRADAS = [1, 2, 3];
 const vbufs = []; let voiceSrc = null, voiceWant = null;
 function loadVoices() {
-  [1, 2, 3].forEach((n, i) => NARRADAS.includes(n) && fetch('assets/voice/intro-fase' + n + '.mp3').then(r => { if (!r.ok) throw 0; return r.arrayBuffer(); })
+  [1, 2, 3].forEach((n, i) => NARRADAS.includes(n) && n === (TT.FASE || 1) && fetch('assets/voice/intro-fase' + n + '.mp3').then(r => { if (!r.ok) throw 0; return r.arrayBuffer(); })
     .then(a => ctx.decodeAudioData(a)).then(b => { vbufs[i] = b; if (voiceWant && voiceWant.i === i && performance.now() - voiceWant.at < 1200) playVoice(i); }).catch(() => {}));
 }
 function stopVoice() { if (voiceSrc) { try { voiceSrc.stop(); } catch (_) {} voiceSrc = null; } TT.audioDuck(false); }
@@ -192,12 +192,13 @@ function schedule() {
     step++; nextT += st;
   }
 }
-// ---- trilha gravada (orquestra): toca em laço com fusão entre o fim e o começo; a trilha sintetizada acima cobre enquanto o arquivo carrega ou se ele faltar ----
-// no Arraial a fase toca a trilha própria (assets/music/arraial.mp3, 100 BPM, cortada em compassos inteiros); se o arquivo não
-// existir, volta para o tema. Ela toca em laço exato, sem fusão, para a batida nunca escorregar, e TT.beatTime() diz em que
-// ponto da música estamos: a quadrilha, as fitas e as lanternas dançam nesse relógio.
-const ARRAIAL_PRONTA = false; // vira true quando o arquivo assets/music/arraial.mp3 (feito no Suno) for colocado no jogo
-const ARRAIAL = TT.FASE === 2 && ARRAIAL_PRONTA, TRACKS = { title: ARRAIAL ? 'arraial' : 'theme', level: ARRAIAL ? 'arraial' : 'theme', boss: ARRAIAL ? 'arraial' : 'boss' }, bufs = {};
+// ---- trilha gravada: cada fase tem a sua (fase e chefão); toca em laço com fusão entre o fim e o começo. A trilha sintetizada acima
+// cobre se o arquivo faltar. Fase 1: theme/boss (do Pedro, Suno). Fase 2: arraial/arraial-boss. Fase 3: quadro/quadro-boss.
+// A trilha do Arraial toca em laço exato de 64 compassos (sem fusão), para a batida nunca escorregar: TT.beatTime() diz em que
+// ponto da música estamos, e a quadrilha e as lanternas dançam nesse relógio. Andamento e primeiro tempo medidos no arquivo.
+const LOOPS = { arraial: { bpm: 97.98, beat0: 0.399, bars: 64 } };
+const FASE_MUS = { 1: ['theme', 'boss'], 2: ['arraial', 'arraial-boss'], 3: ['quadro', 'quadro-boss'] }[TT.FASE] || ['theme', 'boss'];
+const TRACKS = { title: FASE_MUS[0], level: FASE_MUS[0], boss: FASE_MUS[1] }, bufs = {};
 let track = null;
 function stopTrack() {
   if (!track) return; const t = track; track = null; t.alive = false;
@@ -207,7 +208,9 @@ function stopTrack() {
 function playTrack(file) {
   const buf = bufs[file], XF = 1.2, g = ctx.createGain(); g.connect(trackBus);
   const t = track = { file, g, alive: true, srcs: [] };
-  if (file === 'arraial') { const s = ctx.createBufferSource(); s.buffer = buf; s.loop = true; s.connect(g); t.start = ctx.currentTime + 0.05; s.start(t.start); t.srcs.push(s); return; }
+  const L = LOOPS[file];
+  if (L) { const s = ctx.createBufferSource(); s.buffer = buf; s.loop = true; s.loopStart = L.beat0; s.loopEnd = L.beat0 + L.bars * 4 * 60 / L.bpm;
+    s.connect(g); t.start = ctx.currentTime + 0.05; t.beat0 = L.beat0; s.start(t.start); t.srcs.push(s); return; } // toca a introdução uma vez; o laço volta para o primeiro tempo
   const next = at => {
     if (!t.alive) return;
     const s = ctx.createBufferSource(), e = ctx.createGain(), end = at + buf.duration; s.buffer = buf;
@@ -222,12 +225,12 @@ function loadTrack(file) {
   fetch('assets/music/' + file + '.mp3').then(r => { if (!r.ok) throw 0; return r.arrayBuffer(); }).then(a => ctx.decodeAudioData(a))
     .then(b => { bufs[file] = b; if (song && TRACKS[song] === file && !track) { clearInterval(timer); timer = null; playTrack(file); } })
     .catch(() => { bufs[file] = false;
-      if (file === 'arraial') { Object.keys(TRACKS).forEach(k => { if (TRACKS[k] === 'arraial') TRACKS[k] = k === 'boss' ? 'boss' : 'theme'; }); const s = song; song = null; if (s) TT.music(s); return; }
+      if (file !== 'theme' && file !== 'boss') { Object.keys(TRACKS).forEach(k => { if (TRACKS[k] === file) TRACKS[k] = k === 'boss' ? 'boss' : 'theme'; }); const s = song; song = null; if (s) TT.music(s); return; } // faltou a trilha da fase: volta para a da fase 1
       if (song && TRACKS[song] === file && !timer) { nextT = ctx.currentTime + 0.08; timer = setInterval(schedule, 40); } });
 }
-// segundos desde que a trilha do Arraial começou (descontada a latência da saída de som); null quando ela não está tocando
-TT.beatTime = () => (track && track.start != null && ctx) ? Math.max(0, ctx.currentTime - track.start - (ctx.outputLatency || ctx.baseLatency || 0)) : null;
-TT.BPM = 100;
+// segundos desde o primeiro tempo da trilha do Arraial (descontada a latência da saída de som); null quando ela não está tocando
+TT.beatTime = () => (track && track.start != null && ctx) ? Math.max(0, ctx.currentTime - track.start - track.beat0 - (ctx.outputLatency || ctx.baseLatency || 0)) : null;
+TT.BPM = LOOPS.arraial.bpm;
 TT.music = name => {
   if (name === song) return;
   song = name; step = 0;

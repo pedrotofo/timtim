@@ -1225,7 +1225,7 @@ R.frame = (rdt) => {
       if (Math.random() < live * 22 && Math.abs(q.f.x - fxS) < 900) spawn({ x: q.f.x + (Math.random() - 0.5) * 50, y: GROUND - 70, vx: (Math.random() - 0.5) * 40, vy: -160 - Math.random() * 220, g: -30, life: 1.4 + Math.random(), r: 1.6 + Math.random() * 1.6, color: Math.random() < 0.5 ? 0xffb050 : 0xffe08a, z: 14 }); }
     const near = fireM.slice().sort((a, b) => Math.abs(a.f.x - fxS) - Math.abs(b.f.x - fxS));
     fireLights.forEach((l, i) => { const q = near[i]; if (!q) return; l.position.set(q.f.x, 90, 60); l.intensity = 1.4 + Math.sin(time * 11 + i) * 0.25; });
-    const bt = TT.beatClock ? TT.beatClock() : clock, beat = Math.pow(1 - (bt / 0.6) % 1, 3); // 100 BPM: um pulso a cada 0,6 s
+    const bt = TT.beatClock ? TT.beatClock() : clock, beat = Math.pow(1 - (bt * C.BPM / 60) % 1, 3); // um pulso por tempo da trilha (97,98 BPM)
     if (R.tub) { const q = R.tub, on = !!S.revealed.pescaria; q.peixes.forEach((f, k) => { const a = time * (0.9 + k * 0.3) + k * 2.1; f.visible = !on; f.position.set(q.t.x + Math.cos(a) * q.t.w * 0.3, Y(GROUND) + 39, 24 + Math.sin(a) * q.t.w * 0.2); f.rotation.y = -a; });
       q.tg.material.opacity = on ? 0.08 : 0.2 + 0.08 * Math.sin(time * 3); }
     if (R.hoop) { const q = R.hoop, on = !!S.revealed.argola; q.gr.rotation.z = Math.sin(time * 1.1) * 0.08; q.gr.rotation.y = Math.sin(time * 0.7) * 0.3; q.hg.material.opacity = on ? 0.12 : 0.28 + 0.12 * beat; }

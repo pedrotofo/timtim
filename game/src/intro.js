@@ -15,7 +15,7 @@ const load = src => { const i = new Image(); i.src = src; return i; };
 // wind: regiões de pelo (ring = rosto parado, só a borda mexe); scroll: o pergaminho [x0, y0, x1, y1]; sky: até onde vaga-lumes e folhas descem
 const SCENES = [
   // fase 1 · O Parque: o Furtão foge com o Macaco Fedido e a turma vai atrás
-  { img: load('assets/intro/2-roubo.jpg'), dur: 7.0, zoom: [1.0, 1.04], at: [1200, 941], scroll: [50, 712, 1625, 900], sky: 620,
+  { img: load('assets/intro/2-roubo.jpg'), dur: 8.4, zoom: [1.0, 1.04], at: [1200, 941], scroll: [50, 712, 1625, 900], sky: 620,
     wind: [ { x: 1340, y: 330, rx: 260, ry: 210, amp: 1.4, speed: 38, freq: 0.5, jitter: 1 },   // Furtão correndo treme
             { x: 1440, y: 420, rx: 120, ry: 110, amp: 3, speed: 6, freq: 0.07 },                 // macaco balançando na boca
             { x: 450, y: 330, rx: 200, ry: 180, amp: 3, speed: 3.4, freq: 0.04, ring: 1 },       // Timtim assustado
@@ -24,7 +24,7 @@ const SCENES = [
             { x: 585, y: 95, r: 65, c: '120,255,120', a: 0.35, pulse: 1.2 }, { x: 740, y: 35, r: 65, c: '255,70,70', a: 0.35, pulse: 1.8, flicker: 1 } ],
     flies: 16, leaves: 6, windX: 60 },
   // fase 2 · O Arraial: galinhas em pânico e um estranho de chapéu de pato atrás da barraca (imagem 1376 × 768)
-  { img: load('assets/intro/fase2.jpg'), iw: 1376, ih: 768, dur: 7.0, zoom: [1.0, 1.04], at: [700, 768], scroll: [20, 578, 1360, 752], sky: 540,
+  { img: load('assets/intro/fase2.jpg'), iw: 1376, ih: 768, dur: 7.4, zoom: [1.0, 1.04], at: [700, 768], scroll: [20, 578, 1360, 752], sky: 540,
     wind: [ { x: 350, y: 290, rx: 150, ry: 140, amp: 2.6, speed: 3.2, freq: 0.04, ring: 1 },   // Timtim
             { x: 160, y: 340, rx: 120, ry: 120, amp: 2.2, speed: 3.4, freq: 0.05, ring: 1 },   // Zara
             { x: 550, y: 300, rx: 100, ry: 110, amp: 2.2, speed: 3.0, freq: 0.05, ring: 1 },   // Elvis

@@ -63,7 +63,7 @@ function begin(fn) { TT.audioInit(); TT.sfx('ui'); irisTo(true, { x: 0.5, y: 0.5
 // Se existir a narração da fase (assets/voice/intro-faseN.mp3), ela toca junto. Um toque (ou Enter/Espaço) começa a fase.
 const titleEl = $('title'), STORY = [
   'O Furtão roubou o Macaco Fedido! Ajude Timtim, Zara e Elvis a trazê-lo de volta.',
-  'Festa de São João! Mas alguém está assustando as galinhas do arraial.',
+  'Alguém está assustando as galinhas do arraial. Descubra quem e ajude o galinheiro.',
   'O corvo do quadro fugiu com o pincel do Van Gogh! Vamos recuperá-lo?'];
 const DUR = (TT.intro && TT.intro.durations) || [7, 7, 7];
 let storyTimer = null, storyAt = 0, storyI = -1;
