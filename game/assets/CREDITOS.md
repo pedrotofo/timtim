@@ -17,8 +17,9 @@ Legenda da coluna **Confirmar**: ✅ origem clara no histórico · ⚠️ falta 
 |---|---|---|---|
 | Logo do jogo `logo.webp` (letra de pincel creme e faixa de pergaminho) | Enviado pelo Pedro (25/11/2026, segunda versão) | Do Pedro | ✅ |
 | Capa do jogo `capa.jpg` (direção de arte de Ori, 25/11/2026) | Google Flow, Nano Banana 2.1 (sem créditos), a partir da referência de cor e composição do Pedro, com os personagens corrigidos um a um pelas fichas | Gerado com IA | ✅ |
-| Cards das fases 2 e 3 `intro/fase2.jpg`, `intro/fase3.jpg` | Google Flow, Nano Banana 2.1 (sem créditos, 25/11/2026), com a ficha do Timtim e a imagem do roubo como referência; a Zara e o Elvis (e, no card 3, o Timtim) redesenhados pelos sprites no mesmo dia | Gerado com IA; Timtim, Zara e Elvis conferidos com as fichas | ✅ |
-| Capa viva e card vivo `capa.mp4`, `intro/fase3.mp4` | Higgsfield, MAGI-2 (Sand AI), 5 s em loop com a mesma imagem no começo e no fim; 12,5 créditos cada, aprovados pelo Pedro (25/11/2026) | Gerado com IA | ✅ |
+| Cards de história `intro/2-roubo.jpg`, `intro/fase2.jpg`, `intro/fase3.jpg` (cenas de ação, 25/11/2026) | Google Flow, Nano Banana 2.1 (sem créditos), com a capa e as fichas do Timtim, da Zara e do Elvis como referência; trio conferido rosto por rosto | Gerado com IA | ✅ |
+| Cards vivos `intro/2-roubo.mp4`, `intro/fase2.mp4`, `intro/fase3.mp4` | Google Flow, Veo 3.1 Lite (10 créditos do Flow cada, aprovados pelo Pedro), mesma imagem no primeiro e no último quadro; fase 1 em vai e volta, fase 3 com o pintor parado | Gerado com IA | ✅ |
+| Capa viva `capa.mp4` | Higgsfield, MAGI-2 (Sand AI), 5 s em loop com a mesma imagem no começo e no fim, com o trio congelado igual à capa; 12,5 créditos, aprovados pelo Pedro (25/11/2026) | Gerado com IA | ✅ |
 | Presentes `sprites/premio-chinela.png`, `sprites/premio-bolinha.png` | Google Flow, Nano Banana 2.1 (sem créditos, 25/11/2026); fotos de produtos enviadas pelo Pedro usadas só como referência de forma; fundo tirado em código | Gerado com IA | ✅ |
 | Fase 3 inteira: `bg/vg-*.jpg`, `props/vg-*.png`, `props/frente-vg-*.png`, `props/galhos-vg.png`, `sprites/vg/*`, `sprites/vg-estrela.png`, `sprites/vg-redemoinho.png`, `sprites/toy-girassol.png`, `tex/vg-*.jpg` | Google Flow, Nano Banana 2.1 (sem créditos) | Gerado com IA | ✅ |
 | Mapa das fases: `mapa/mapa.png`, `mapa/timtim.png` | Google Flow (sem créditos), com a ficha do Timtim de referência; paleta e grade de pixels acertadas em código | Gerado com IA e editado | ✅ |
@@ -31,7 +32,7 @@ Legenda da coluna **Confirmar**: ✅ origem clara no histórico · ⚠️ falta 
 | `sprites/tintim-idle.png`, `tintim-jump.png`, `tintim-fall.png`, `tintim-hurt.png`, `tintim-win.png`, `cookie.png`, `pigeon.png` | Higgsfield (12/11/2026), com ajustes depois | Gerado com IA | ⚠️ conferir se ainda são as do Higgsfield |
 | Furtão: `sprites/brute-*.png` | Recortados de uma ficha de personagem gerada com IA (16 e 24/11/2026) | Gerado com IA | ⚠️ conferir a ferramenta |
 | Zara e Elvis: `sprites/chi-pb*.png`, `sprites/chi-br*.png` | Primeiras versões do jogo (12–13/11/2026) | Gerado com IA | ⚠️ conferir a ferramenta |
-| Macaco Fedido e card da fase 1: `sprites/monkey-*.png`, `intro/2-roubo.jpg` | Gerados com a arte do jogo de referência (13–17/11/2026); no card, a Zara e o Elvis redesenhados no Google Flow (Nano Banana 2.1, sem créditos) pelos sprites em 25/11/2026 | Gerado com IA | ⚠️ conferir a ferramenta |
+| Macaco Fedido: `sprites/monkey-*.png` | Gerados com a arte do jogo de referência (13–17/11/2026) | Gerado com IA | ⚠️ conferir a ferramenta |
 | `bg/figs.png` | Figueiras (13/11/2026) | Gerado com IA | ⚠️ conferir a ferramenta |
 
 ## Sons, música e voz

@@ -2,7 +2,8 @@
 // o vento nos pelos e o tremor do Furtão saíram em 25/11/2026: ficavam bobos) —
 // vento nos pelos (deformação suave só nas regiões marcadas), vaga-lumes, folhas e brilhos pulsando.
 // Cada quadro tem um pergaminho pintado embaixo; a frase é escrita nele (no canvas, junto com a imagem).
-// Desde 25/11/2026 cada quadro tem um vídeo curto em loop (MAGI-2, Higgsfield: a mesma imagem como primeiro e último quadro),
+// Desde 25/11/2026 cada quadro tem um vídeo curto em loop (Veo 3.1 Lite no Google Flow, com a mesma imagem no primeiro e no último quadro;
+// na fase 1 só o trecho bom em vai e volta, na fase 3 o pintor parado igual à imagem),
 // desenhado no canvas no lugar da imagem parada; o pergaminho continua vindo da imagem, para a frase não balançar.
 // Sem vídeo (ainda carregando, ou com "reduzir movimento"), fica a imagem. Coordenadas no espaço de cada imagem (1672 × 941 na fase 1, 1376 × 768 nas outras).
 (() => {
@@ -18,25 +19,16 @@ const loadV = src => { if (still) return null; const v = document.createElement(
 // zoom: escala inicial → final em torno de um ponto (embaixo no centro, para o pergaminho nunca sair do quadro);
 // wind: regiões de pelo (ring = rosto parado, só a borda mexe); scroll: o pergaminho [x0, y0, x1, y1]; sky: até onde vaga-lumes e folhas descem
 const SCENES = [
-  // fase 1 · O Parque: o Furtão foge com o Macaco Fedido e a turma vai atrás
-  { img: load('assets/intro/2-roubo.jpg'), vid: null, dur: 8.4, zoom: [1.0, 1.04], at: [1200, 941], scroll: [50, 712, 1625, 900], sky: 620,
-    wind: [],
-    glow: [ { x: 300, y: 165, r: 70, c: '255,190,90', a: 0.4, pulse: 1.5, flicker: 1 }, { x: 420, y: 140, r: 70, c: '255,70,70', a: 0.4, pulse: 2.1 },
-            { x: 585, y: 95, r: 65, c: '120,255,120', a: 0.35, pulse: 1.2 }, { x: 740, y: 35, r: 65, c: '255,70,70', a: 0.35, pulse: 1.8, flicker: 1 } ],
-    flies: 16, leaves: 6, windX: 60 },
-  // fase 2 · O Arraial: galinhas em pânico e um estranho de chapéu de pato atrás da barraca (imagem 1376 × 768)
-  { img: load('assets/intro/fase2.jpg'), vid: null, iw: 1376, ih: 768, dur: 7.4, zoom: [1.0, 1.04], at: [700, 768], scroll: [20, 578, 1360, 752], sky: 540,
-    wind: [],
-    glow: [ { x: 482, y: 75, r: 70, c: '255,190,90', a: 0.4, pulse: 1.5, flicker: 1 }, { x: 607, y: 40, r: 70, c: '255,150,70', a: 0.4, pulse: 2.1 },
-            { x: 350, y: 100, r: 60, c: '255,200,110', a: 0.35, pulse: 1.2 }, { x: 1290, y: 330, r: 220, c: '255,140,60', a: 0.28, pulse: 2.6, flicker: 1 } ],
-    flies: 22, leaves: 0, windX: 40, rise: 1 },
-  // fase 3 · O Quadro Encantado: o Van Gogh triste e o corvo fugindo com o pincel (imagem 1376 × 768)
-  { img: load('assets/intro/fase3.jpg'), vid: null, iw: 1376, ih: 768, dur: 7.0, zoom: [1.04, 1.0], at: [688, 768], scroll: [20, 640, 1360, 752], sky: 560,
-    wind: [],
-    glow: [ { x: 960, y: 85, r: 150, c: '255,235,120', a: 0.25, pulse: 0.9 }, { x: 290, y: 95, r: 60, c: '255,240,150', a: 0.35, pulse: 1.6 },
-            { x: 150, y: 20, r: 55, c: '255,240,150', a: 0.3, pulse: 2.1, flicker: 1 }, { x: 60, y: 265, r: 55, c: '255,240,150', a: 0.3, pulse: 1.3 },
-            { x: 225, y: 300, r: 55, c: '255,240,150', a: 0.3, pulse: 1.8 } ],
-    flies: 10, leaves: 0, windX: 20 },
+  // Cards de ação (25/11/2026, Google Flow no acabamento da capa, uma cor por fase; trio conferido com as fichas). Imagens 1376 × 768.
+  // fase 1 · O Parque (azul): o Furtão foge com o Macaco Fedido e a turma corre atrás; o pergaminho fica à esquerda, o Furtão à direita
+  { img: load('assets/intro/2-roubo.jpg'), vid: loadV('assets/intro/2-roubo.mp4'), iw: 1376, ih: 768, dur: 8.4, zoom: [1.0, 1.04], at: [688, 768], scroll: [40, 612, 760, 742], sky: 560,
+    wind: [], glow: [], flies: 12, leaves: 4, windX: 50 },
+  // fase 2 · O Arraial (laranja): a turma procura o culpado, as galinhas fogem e o lobo-guará espia da barraca
+  { img: load('assets/intro/fase2.jpg'), vid: loadV('assets/intro/fase2.mp4'), iw: 1376, ih: 768, dur: 7.4, zoom: [1.0, 1.04], at: [688, 768], scroll: [40, 588, 1340, 736], sky: 540,
+    wind: [], glow: [], flies: 16, leaves: 0, windX: 40, rise: 1 },
+  // fase 3 · O Quadro Encantado (azul e amarelo): o corvo foge com o pincel do Van Gogh e a turma dispara pelo trigal
+  { img: load('assets/intro/fase3.jpg'), vid: loadV('assets/intro/fase3.mp4'), iw: 1376, ih: 768, dur: 7.0, zoom: [1.04, 1.0], at: [688, 768], scroll: [40, 645, 1345, 748], sky: 560,
+    wind: [], glow: [], flies: 8, leaves: 0, windX: 20 },
 ];
 SCENES.forEach(s => { s.windX = s.windX || 25; s.text = ''; s.iw = s.iw || IW; s.ih = s.ih || IH; });
 
@@ -101,10 +93,16 @@ function writeScroll(s, t) {
 const SOFT = 26;
 function scrollStrip(s) {
   if (s.strip) return s.strip;
-  const y0 = s.scroll[1] - SOFT, c = document.createElement('canvas'), x = c.getContext('2d'); c.width = s.iw; c.height = s.ih - y0;
-  x.drawImage(s.img, 0, -y0); x.globalCompositeOperation = 'destination-in';
+  const x0 = Math.max(0, s.scroll[0] - 40 - SOFT), x1 = Math.min(s.iw, s.scroll[2] + 40 + SOFT), y0 = s.scroll[1] - SOFT;
+  const c = document.createElement('canvas'), x = c.getContext('2d'); c.width = x1 - x0; c.height = s.ih - y0;
+  x.drawImage(s.img, -x0, -y0); x.globalCompositeOperation = 'destination-in';
   const g = x.createLinearGradient(0, 0, 0, SOFT); g.addColorStop(0, 'rgba(0,0,0,0)'); g.addColorStop(1, 'rgba(0,0,0,1)');
   x.fillStyle = g; x.fillRect(0, 0, c.width, SOFT); x.fillStyle = '#000'; x.fillRect(0, SOFT, c.width, c.height);
+  // bordas dos lados esfumadas (onde a faixa não chega na borda da imagem)
+  const lado = (from, to) => { const h = x.createLinearGradient(from, 0, to, 0); h.addColorStop(0, 'rgba(0,0,0,0)'); h.addColorStop(1, 'rgba(0,0,0,1)'); return h; };
+  if (x0 > 0) { x.fillStyle = lado(0, SOFT); x.fillRect(0, 0, SOFT, c.height); }
+  if (x1 < s.iw) { x.fillStyle = lado(c.width, c.width - SOFT); x.fillRect(c.width - SOFT, 0, SOFT, c.height); }
+  s.stripX = x0;
   return (s.strip = c);
 }
 
@@ -125,7 +123,7 @@ function drawScene(s, t, alpha, outgoing) {
   tx = Math.min(0, Math.max(W - IW * sc, tx)); ty = Math.min(0, Math.max(H - IH * sc, ty));
   ctx.setTransform(sc, 0, 0, sc, tx, ty);
   const v = s.vid;
-  if (v && v.readyState >= 2) { ctx.drawImage(v, 0, 0, IW, IH); ctx.drawImage(scrollStrip(s), 0, s.scroll[1] - SOFT); } // vídeo + o pergaminho parado da imagem
+  if (v && v.readyState >= 2) { ctx.drawImage(v, 0, 0, IW, IH); const st = scrollStrip(s); ctx.drawImage(st, s.stripX, s.scroll[1] - SOFT); } // vídeo + o pergaminho parado da imagem
   else ctx.drawImage(img, 0, 0);
   if (!still) for (const w of s.wind) windPatch(img, w, t);
   ctx.globalCompositeOperation = 'lighter';
