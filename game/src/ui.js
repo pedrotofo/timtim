@@ -62,10 +62,10 @@ function begin(fn) { TT.audioInit(); TT.sfx('ui'); irisTo(true, { x: 0.5, y: 0.5
 // card de introdução: antes de cada fase, um quadro pintado (src/intro.js) com zoom lento e a frase escrita no pergaminho.
 // Se existir a narração da fase (assets/voice/intro-faseN.mp3), ela toca junto. Um toque (ou Enter/Espaço) começa a fase.
 const titleEl = $('title'), STORY = [
-  'Na Vila de Reserva, o Furtão, o valentão da vila, roubou o Macaco Fedido! Ajude Timtim, Zara e Elvis a trazê-lo de volta.',
-  'É noite de São João no arraial! Mas um estranho de chapéu de pato está espantando as galinhas. Será que a turma descobre quem é?',
-  'Van Gogh pintou um corvo tão perfeito que ele ganhou vida e fugiu com o seu pincel favorito! Timtim, Zara e Elvis vão entrar no quadro para recuperá-lo.'];
-const DUR = (TT.intro && TT.intro.durations) || [9, 9, 9];
+  'O Furtão roubou o Macaco Fedido! Ajude Timtim, Zara e Elvis a trazê-lo de volta.',
+  'Festa de São João! Mas alguém está assustando as galinhas do arraial.',
+  'O corvo do quadro fugiu com o pincel do Van Gogh! Vamos recuperá-lo?'];
+const DUR = (TT.intro && TT.intro.durations) || [7, 7, 7];
 let storyTimer = null, storyAt = 0, storyI = -1;
 // a frase vai desenhada no pergaminho (canvas); #storyLine guarda o mesmo texto para leitores de tela
 function storyLine() { const i = (TT.FASE || 1) - 1; clearTimeout(storyTimer); storyI = i; storyAt = performance.now(); if (TT.intro) TT.intro.scene(i, STORY[i]); $('storyLine').textContent = STORY[i]; TT.voice(i); storyTimer = setTimeout(endStory, DUR[i] * 1000); }

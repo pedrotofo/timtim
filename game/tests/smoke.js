@@ -14,7 +14,7 @@ const { chromium } = require('playwright');
   await pg.goto(url + '?q=0');
   check(await until(() => window.__tintim && __tintim.R.ready && __tintim.state === 'title'), 'abre na tela de título');
   check(await ev(() => __tintim.R.foe === 'pigeon'), 'os inimigos do Parque são pombos');
-  check(await ev(() => document.title === 'Timtim e os Brinquedos Perdidos' && document.querySelector('.logo i').textContent === 'E OS BRINQUEDOS PERDIDOS' && document.querySelector('.tagline').textContent.includes('Zara e Elvis')), 'a capa mostra o nome do jogo e o convite');
+  check(await ev(() => document.title === 'Timtim e os Brinquedos Perdidos' && document.querySelector('.logo img').alt === 'Timtim e os Brinquedos Perdidos' && document.querySelector('.logo img').naturalWidth > 0 && document.querySelector('.tagline').textContent.includes('Zara e Elvis')), 'a capa mostra o nome do jogo e o convite');
   await pg.waitForTimeout(600);
   await pg.click('#btnShelf');
   check(await until(() => document.querySelector('#shelf').classList.contains('on') && document.querySelectorAll('#premioSlots .slot').length === 5 && document.querySelectorAll('#shelfSlots .slot').length === 5, 3000), 'a estante abre com os presentes das aventuras em cima e os escondidos embaixo');

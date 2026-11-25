@@ -15,7 +15,7 @@ const load = src => { const i = new Image(); i.src = src; return i; };
 // wind: regiões de pelo (ring = rosto parado, só a borda mexe); scroll: o pergaminho [x0, y0, x1, y1]; sky: até onde vaga-lumes e folhas descem
 const SCENES = [
   // fase 1 · O Parque: o Furtão foge com o Macaco Fedido e a turma vai atrás
-  { img: load('assets/intro/2-roubo.jpg'), dur: 9.0, zoom: [1.0, 1.04], at: [1200, 941], scroll: [50, 712, 1625, 900], sky: 620,
+  { img: load('assets/intro/2-roubo.jpg'), dur: 7.0, zoom: [1.0, 1.04], at: [1200, 941], scroll: [50, 712, 1625, 900], sky: 620,
     wind: [ { x: 1340, y: 330, rx: 260, ry: 210, amp: 1.4, speed: 38, freq: 0.5, jitter: 1 },   // Furtão correndo treme
             { x: 1440, y: 420, rx: 120, ry: 110, amp: 3, speed: 6, freq: 0.07 },                 // macaco balançando na boca
             { x: 450, y: 330, rx: 200, ry: 180, amp: 3, speed: 3.4, freq: 0.04, ring: 1 },       // Timtim assustado
@@ -24,7 +24,7 @@ const SCENES = [
             { x: 585, y: 95, r: 65, c: '120,255,120', a: 0.35, pulse: 1.2 }, { x: 740, y: 35, r: 65, c: '255,70,70', a: 0.35, pulse: 1.8, flicker: 1 } ],
     flies: 16, leaves: 6, windX: 60 },
   // fase 2 · O Arraial: galinhas em pânico e um estranho de chapéu de pato atrás da barraca (imagem 1376 × 768)
-  { img: load('assets/intro/fase2.jpg'), iw: 1376, ih: 768, dur: 9.0, zoom: [1.0, 1.04], at: [700, 768], scroll: [20, 578, 1360, 752], sky: 540,
+  { img: load('assets/intro/fase2.jpg'), iw: 1376, ih: 768, dur: 7.0, zoom: [1.0, 1.04], at: [700, 768], scroll: [20, 578, 1360, 752], sky: 540,
     wind: [ { x: 350, y: 290, rx: 150, ry: 140, amp: 2.6, speed: 3.2, freq: 0.04, ring: 1 },   // Timtim
             { x: 160, y: 340, rx: 120, ry: 120, amp: 2.2, speed: 3.4, freq: 0.05, ring: 1 },   // Zara
             { x: 550, y: 300, rx: 100, ry: 110, amp: 2.2, speed: 3.0, freq: 0.05, ring: 1 },   // Elvis
@@ -35,7 +35,7 @@ const SCENES = [
             { x: 350, y: 100, r: 60, c: '255,200,110', a: 0.35, pulse: 1.2 }, { x: 1290, y: 330, r: 220, c: '255,140,60', a: 0.28, pulse: 2.6, flicker: 1 } ],
     flies: 22, leaves: 0, windX: 40, rise: 1 },
   // fase 3 · O Quadro Encantado: o Van Gogh triste e o corvo fugindo com o pincel (imagem 1376 × 768)
-  { img: load('assets/intro/fase3.jpg'), iw: 1376, ih: 768, dur: 9.0, zoom: [1.04, 1.0], at: [688, 768], scroll: [20, 640, 1360, 752], sky: 560,
+  { img: load('assets/intro/fase3.jpg'), iw: 1376, ih: 768, dur: 7.0, zoom: [1.04, 1.0], at: [688, 768], scroll: [20, 640, 1360, 752], sky: 560,
     wind: [ { x: 680, y: 500, rx: 130, ry: 120, amp: 2.6, speed: 3.0, freq: 0.04, ring: 1 },   // Timtim
             { x: 875, y: 520, rx: 70, ry: 80, amp: 2, speed: 3.4, freq: 0.06, ring: 1 },       // Zara
             { x: 1015, y: 545, rx: 85, ry: 80, amp: 2, speed: 3.2, freq: 0.06, ring: 1 },      // Elvis
@@ -87,7 +87,10 @@ function writeScroll(s, t) {
   const [x0, y0, x1, y1] = s.scroll, maxW = (x1 - x0) * 0.9;
   let size = 58, lines;
   do { ctx.font = `${size}px ${FONT}`; lines = wrap(s.text, maxW); size -= 2; } while ((lines.length * size * 1.3 > (y1 - y0) * 0.86 || lines.length > 2) && size > 30);
-  size += 2; const lh = size * 1.28, cx = (x0 + x1) / 2, top = (y0 + y1) / 2 - (lines.length - 1) * lh / 2;
+  size += 2; ctx.font = `${size}px ${FONT}`;
+  // duas linhas: divide a frase ao meio, para não sobrar uma palavra sozinha embaixo
+  if (lines.length === 2) { const even = wrap(s.text, Math.min(maxW, ctx.measureText(s.text).width / 2 + size * 1.5)); if (even.length === 2) lines = even; }
+  const lh = size * 1.28, cx = (x0 + x1) / 2, top = (y0 + y1) / 2 - (lines.length - 1) * lh / 2;
   // revelação: as palavras surgem ao longo da primeira metade da cena, cada uma num esmaecer rápido
   const total = s.text.split(' ').length, shown = still ? total : Math.max(0, (t - 0.3) / (s.dur * 0.5)) * total;
   ctx.textAlign = 'left'; ctx.textBaseline = 'middle'; let k = 0; const base = ctx.globalAlpha;
