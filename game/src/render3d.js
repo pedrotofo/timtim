@@ -989,7 +989,8 @@ R.frame = (rdt) => {
     const party = S.mode === 'winning' || S.mode === 'win';
     const jump = f.hop > 0 ? Math.abs(Math.sin(f.hop * Math.PI / 0.3)) * 28 * Math.min(1, f.hop * 2.5) : party && !run ? Math.abs(Math.sin(f.t * 8 + i * 1.3)) * 24 : 0;
     const hop = jump + (run ? Math.abs(Math.sin(gal)) * 9 : near ? Math.abs(Math.sin(f.t * 7)) * 5 : 0);
-    const who = f.kind === 'chi-br' ? 'zara' : 'elvis', fa = run ? [who + '-corre', 56, f.t * Math.abs(f.vx) / 230] : jump > 2 || near ? [who + '-pula', 62, f.t] : [who + '-parado', 62, f.t + i * 0.7];
+    const who = f.kind === 'chi-pb' ? 'zara' : 'elvis', // a Zara é a chihuahua preta e branca (chi-pb); o Elvis é o branco (chi-br)
+      fa = run ? [who + '-corre', 56, f.t * Math.abs(f.vx) / 230] : jump > 2 || near ? [who + '-pula', 62, f.t] : [who + '-parado', 62, f.t + i * 0.7];
     const fAnim = playAnim(m, fa[0], fa[1], f.face < 0, fa[2]); if (!fAnim) setAnim(m, run ? f.kind + '-run' : f.kind, run ? 56 : 62, f.face < 0, Math.floor(gal * 2 / Math.PI), run ? 4 : 1);
     // galope: estica no ar e achata no chão; parado, respira; no pulo de alegria, estica
     const br = run ? 1 + Math.sin(gal * 2) * 0.07 : jump > 2 ? 1.1 : 1 + Math.sin(f.t * 3 + i) * 0.025; m.scale.x *= 2 - br; m.scale.y *= br;
