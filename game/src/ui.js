@@ -16,7 +16,7 @@ addEventListener('keydown', e => {
   if (e.code === 'Enter' || e.code === 'Space') {
     const b = mainBtn();
     if ($('shelf').classList.contains('on')) { e.preventDefault(); $('btnShelfBack').click(); return; }
-    if (b && $(S.mode).classList.contains('on')) { e.preventDefault(); if (!cedo()) $(b).click(); return; }
+    if (b && $(S.mode).classList.contains('on')) { e.preventDefault(); if (!cedo()) { $(b).click(); if (TT.mapa && TT.mapa.isOpen()) e.stopImmediatePropagation(); } return; } // se o botão abriu o mapa, a mesma tecla não chega nele
   }
   const k = keyMap[e.code]; if (!k) return; e.preventDefault(); if (!e.repeat) press(k, true);
 });
@@ -99,7 +99,10 @@ if (FASE === 3) $('hint').textContent = isTouch ? '◀ ▶ andar · ▲ pula · 
 if (FASE > 1) { $('pauseText').textContent = 'O Timtim parou para comer uma pipoca.'; $('progEnd').textContent = '🎉'; }
 // mapa das fases: aparece depois do título (escolher a fase) e entre as fases (o Timtim anda pelo caminho até a seguinte)
 const mapaEl = $('mapa');
-function abrirMapa(o) { TT.audioInit(); mapaEl.hidden = false; TT.mapa.open(Object.assign({ root: mapaEl, done, minOpen: FASE, onClose: () => TT.mapa.close() }, o)); }
+// fecha o mapa num fade (o que estiver embaixo, como o card da fase, aparece aos poucos)
+function fecharMapaSuave(ms = 800) { TT.mapa.freeze(); mapaEl.style.transition = `opacity ${ms}ms ease`; mapaEl.style.opacity = '0'; // já não recebe teclas enquanto some
+  setTimeout(() => { TT.mapa.close(); mapaEl.style.transition = ''; mapaEl.style.opacity = ''; }, ms); }
+function abrirMapa(o) { TT.audioInit(); mapaEl.style.transition = ''; mapaEl.style.opacity = ''; mapaEl.hidden = false; TT.mapa.open(Object.assign({ root: mapaEl, done, minOpen: FASE, onClose: () => TT.mapa.close() }, o)); }
 let nextT = 0; $('btnNext').onclick = () => { clearInterval(nextT); const prox = FASE < FASES.length ? FASE + 1 : 0;
   abrirMapa({ at: FASE, walkTo: prox || undefined,
     onArrive: f => { if (f === prox) setTimeout(() => { if (TT.mapa.isOpen() && TT.mapa.state().fase === f) goFase(f, true); }, 1400); }, // chegou na placa da fase nova: ela começa
@@ -114,7 +117,7 @@ const historia = () => { if (contando) return; contando = true; TT.audioInit(); 
 const ultima = () => { let n = 1; while (n < FASES.length && done[n]) n++; return Math.max(FASE, n); };
 // Jogar abre o mapa; no mapa, a fase desta página mostra o card aqui mesmo e as outras carregam a página delas
 $('btnStart').onclick = () => { if (titleEl.classList.contains('story')) return nextStory(); if (TT.mapa.isOpen()) return;
-  abrirMapa({ at: ultima(), onPlay: f => { if (f === FASE) { historia(); setTimeout(() => TT.mapa.close(), 900); } else goFase(f, true); } }); };
+  abrirMapa({ at: ultima(), onPlay: f => { if (f === FASE) { historia(); setTimeout(() => fecharMapaSuave(900), 250); } else goFase(f, true); } }); };
 titleEl.addEventListener('pointerdown', () => { if (titleEl.classList.contains('story')) nextStory(); });
 const firstTouch = () => { if (S.mode === 'title') { TT.audioInit(); TT.music('title'); } removeEventListener('pointerdown', firstTouch); removeEventListener('keydown', firstTouch); };
 addEventListener('pointerdown', firstTouch); addEventListener('keydown', firstTouch);

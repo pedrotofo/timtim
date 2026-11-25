@@ -1144,15 +1144,15 @@ R.frame = (rdt) => {
     if (airborne) cs.fl += live * (st === 'rise' || st === 'flee' ? 1.35 : st === 'aim' ? 1.2 : 1); // relógio do bater de asas (mais rápido subindo e fugindo)
     let n = 'guara-anda', h = 200, y = Y(g.y + g.h) - 4, sy = 1, rot = 0, A = null, at = time;
     const dir = st === 'dive' ? (Math.sign(g.tx - x) || g.dir) : g.dir, lf = dir < 0 ? 1 : -1; // lf: rotação que abaixa a cabeça
-    if (st === 'hurt') { A = 'corvo-tonto'; h = 175; }
-    else if (st === 'caw' || st === 'diveWind') { A = 'corvo-grasna'; h = 150; if (st === 'diveWind') rot = lf * 0.1 * Math.min(1, g.t / 0.3); }
-    else if (st === 'peck') { A = 'corvo-bica'; h = 112;
+    if (st === 'hurt') { A = 'corvo-tonto'; h = 190; }
+    else if (st === 'caw' || st === 'diveWind') { A = 'corvo-grasna'; h = 185; if (st === 'diveWind') rot = lf * 0.1 * Math.min(1, g.t / 0.3); }
+    else if (st === 'peck') { A = 'corvo-bica'; h = 124;
       const k = (time * 24 / ANIM['corvo-bica'].n) % 1; if (k < 0.06 && Math.random() < 0.35) spawn({ x: x - lf * 92, y: GROUND - 6, vx: (Math.random() - 0.5) * 140, vy: -90 - Math.random() * 90, g: 600, life: 0.5, r: 3, color: Math.random() < 0.5 ? 0xffd23f : 0x5a7cff, hard: true }); }
     else if (st === 'dive') { n = 'guara-corre'; h = 135; rot = lf * 0.45; sy = 1.06; }
-    else if (airborne) { A = 'corvo-voa'; h = 150; at = cs.fl; rot = lf * Math.min(1, Math.abs(g.vx || 0) / 520) * 0.1; }
+    else if (airborne) { A = 'corvo-voa'; h = 178; at = cs.fl; rot = lf * Math.min(1, Math.abs(g.vx || 0) / 520) * 0.1; }
     else sy = 1 + Math.sin(clock * 3) * 0.015;
     const anim = !!A && playAnim(m, A, h, dir > 0, at);
-    if (anim) y = Y(g.y + g.h) - 4 - m.userData.foot; else setAnim(m, n, h, dir > 0);
+    if (anim) y = Y(g.y + g.h) - 4 - m.userData.foot * (airborne ? 0.3 : 1); else setAnim(m, n, h, dir > 0); // no voo as asas caídas ficam abaixo do corpo: não puxam o corvo para baixo
     if (cs.land > 0) sy *= 1 - 0.16 * (cs.land / 0.24); // amassadinho ao pousar
     // a inclinação segue o alvo devagar
     cs.rot += (rot - cs.rot) * Math.min(1, live * 9);
@@ -1178,9 +1178,11 @@ R.frame = (rdt) => {
     // o pincel caindo e o Van Gogh
     { const b = S.brush; brushM.visible = brushG.visible = !!b; if (b) { brushM.position.set(b.x, Y(b.y) + (b.rest ? 6 + Math.sin(time * 5) * 3 : 0), 7); brushM.rotation.z = b.rest ? 0.9 : b.rot; brushM.scale.set(84 * AR.pincel, 84, 1);
       brushG.position.set(b.x, Y(b.y) + 8, 6); const s = 110 + Math.sin(time * 6) * 10; brushG.scale.set(s, s, 1); } }
-    { const v = S.vg; vgM.visible = !!v; if (v) { const happy = v.mood === 'happy', hop = happy ? Math.abs(Math.sin(v.t * 6.5)) * 30 : 0;
-      setAnim(vgM, happy ? 'vangogh-feliz' : 'vangogh-triste', happy ? 182 : 170, v.face > 0); const br = happy ? 1 : 1 + Math.sin(time * 2) * 0.012; vgM.scale.y *= br;
-      vgM.position.set(v.x, hop, -30); vgM.rotation.z = happy ? Math.sin(v.t * 6.5) * 0.05 : Math.sin(time * 0.9) * 0.015; } }
+    { const v = S.vg; vgM.visible = !!v; if (v) { const happy = v.mood === 'happy', run = v.mood === 'run';
+      // correndo: passadas rápidas (sobe e desce curto) e o corpo inclinado para a frente; feliz: pulinhos de comemoração
+      const hop = happy ? Math.abs(Math.sin(v.t * 6.5)) * 30 : run ? Math.abs(Math.sin(v.t * 15)) * 12 : 0;
+      setAnim(vgM, happy || run ? 'vangogh-feliz' : 'vangogh-triste', happy || run ? 182 : 170, v.face > 0); const br = happy || run ? 1 : 1 + Math.sin(time * 2) * 0.012; vgM.scale.y *= br;
+      vgM.position.set(v.x, hop, run ? 4 : -30); vgM.rotation.z = run ? -v.face * 0.12 + Math.sin(v.t * 15) * 0.04 : happy ? Math.sin(v.t * 6.5) * 0.05 : Math.sin(time * 0.9) * 0.015; } }
   }
   // galinheiro: as galinhas espiam pela tela até o lobo-guará fugir
   // galinhas correndo: pulinhos, asas batendo e penas voando

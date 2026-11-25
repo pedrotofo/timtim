@@ -256,15 +256,18 @@
     const t = (now - t0) / 1000, dt = Math.min(0.05, (now - last) / 1000); last = now; tick++;
     update(dt, t); paintBase(t); drawRoute(t); drawLife(t); drawNodes(t); drawTimtim(t); drawSign(t);
   }
+  let abertoEm = 0;
   function play() { const f = me.fase; if (me.path || FASES[f - 1].breve || f > maxOpen()) { TT.sfx && TT.sfx('bonk'); return; } TT.sfx && TT.sfx('ui'); if (opts.onPlay) opts.onPlay(f); }
   function key(e) {
-    if (!root || root.hidden) return; const k = e.key;
+    if (!root || root.hidden || !ready) return; const k = e.key;
+    if (e.repeat || e.timeStamp < abertoEm + 150) return; // tecla apertada antes do mapa abrir (a que apertou "Próxima fase") ou segurada: não vale
     if (k === 'ArrowRight' || k === 'ArrowUp' || k === 'd' || k === 'w') { walk(Math.min(5, me.fase + 1)); e.preventDefault(); }
     else if (k === 'ArrowLeft' || k === 'ArrowDown' || k === 'a' || k === 's') { walk(Math.max(1, me.fase - 1)); e.preventDefault(); }
     else if (k === 'Enter' || k === ' ') { play(); e.preventDefault(); }
     else if (k === 'Escape' && opts.onClose) opts.onClose();
   }
   function click(e) {
+    if (!ready) return; // sumindo ou fechado: cliques não valem
     const r = cv.getBoundingClientRect(), x = (e.clientX - r.left) / r.width * W, y = (e.clientY - r.top) / r.height * H;
     const n = FASES.findIndex(f => Math.abs(f.x - x) < 12 && Math.abs(f.y - 4 - y) < 14) + 1;
     if (!n) return; if (n === me.fase) play(); else walk(n);
@@ -281,11 +284,12 @@
         const base = o.base || 'assets/mapa/';
         [img.mapa, img.tim] = await Promise.all([load(base + 'mapa.png'), load(base + 'timtim.png')]); prepare();
       }
-      root.hidden = false; const at = o.at || 1; me.fase = at; me.x = FASES[at - 1].x; me.y = FASES[at - 1].y; me.path = null; me.dir = 'front';
+      root.hidden = false; abertoEm = performance.now(); const at = o.at || 1; me.fase = at; me.x = FASES[at - 1].x; me.y = FASES[at - 1].y; me.path = null; me.dir = 'front';
       t0 = last = performance.now(); ready = true; cancelAnimationFrame(raf); raf = requestAnimationFrame(loop);
       if (o.walkTo && o.walkTo !== at) setTimeout(() => walk(o.walkTo), 700); else setTimeout(showSign, 300);
     },
     close() { ready = false; cancelAnimationFrame(raf); if (root) root.hidden = true; },
+    freeze() { ready = false; cancelAnimationFrame(raf); }, // para de responder e de animar, mas continua na tela (para sumir num fade)
     isOpen: () => !!root && !root.hidden && ready, walk, play, state: () => ({ fase: me.fase, walking: !!me.path, x: me.x, y: me.y, sign: sign.txt, open: maxOpen() }),
   };
 })();

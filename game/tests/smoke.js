@@ -133,6 +133,10 @@ const { chromium } = require('playwright');
   check(await pg.waitForSelector('#win.on', { timeout: 30000 }).then(() => true, () => false), 'tela de vitória aparece');
   check(await ev(() => document.querySelector('#stToy').classList.contains('ok')), 'vitória mostra o brinquedo achado');
   check(await ev(() => __tintim.S.items.every(i => ['cookie', 'gold', 'choco', 'toy'].includes(i.type))), 'na fase só há biscoitos, dourados, chocolates e o brinquedo perdido');
+  // Espaço na vitória: abre o mapa e o Timtim anda até a fase 2 (antes o mesmo Espaço chegava no mapa e recomeçava a fase 1)
+  await pg.waitForTimeout(2500); await pg.keyboard.press('Space'); await pg.waitForTimeout(700);
+  check(await ev(() => TT.mapa.isOpen() && __tintim.state === 'win'), 'Espaço na vitória abre o mapa e não recomeça a fase 1');
+  check(await pg.waitForURL(/fase2/, { timeout: 15000 }).then(() => true, () => false), 'e o Timtim segue para a fase 2');
   check(errs.length === 0, 'sem erros no console' + (errs.length ? ': ' + errs.join(' | ') : ''));
   await b.close();
 })();

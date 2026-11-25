@@ -234,7 +234,7 @@ function makeFox() { return { x: ARENA_X + 640, y: GROUND - 110, w: 120, h: 110,
 // acabados os tubos, mergulha (outra marca) e fica bicando o chão, distraído: é a hora de pular nas costas dele.
 // Cada golpe deixa a rodada seguinte mais difícil (mais tubos, mais rápido, bicando menos tempo). No último coração
 // ele fica vermelho de raiva. Derrotado, solta o pincel; o Van Gogh aparece feliz e comemora com a turma.
-const CROW = { fly: [170, 215, 280], drops: [3, 4, 6], gap: [1.0, 0.78, 0.52], warn: [0.62, 0.5, 0.38], peck: [3.0, 2.5, 2.1], dive: [0.6, 0.5, 0.4], flyY: GROUND - 300, tubeG: GRAV * 0.6 };
+const CROW = { fly: [170, 215, 280], drops: [3, 4, 6], gap: [1.0, 0.78, 0.52], warn: [0.62, 0.5, 0.38], peck: [3.0, 2.5, 2.1], dive: [0.6, 0.5, 0.4], flyY: GROUND - 345, tubeG: GRAV * 0.6 };
 function updateCrow(dt, prevBottom, playing) {
   const p = S.player, f = S.fox, ph = Math.max(0, Math.min(2, 3 - f.hp)), cine = S.cine && S.cine.type === 'fox';
   f.t += dt; f.hurt = Math.max(0, f.hurt - dt);
@@ -292,9 +292,11 @@ function updateVanGogh(dt) {
   if (b && !b.rest) { b.vy += GRAV * dt; b.x += b.vx * dt; b.y += b.vy * dt; b.rot += 9 * dt;
     b.x = Math.max(ARENA_X + 120, Math.min(ARENA_X + W - 120, b.x));
     if (b.y >= GROUND - 18) { b.y = GROUND - 18; b.rest = true; b.rot = 0; b.t = 0; emit('brushLand', { x: b.x, y: GROUND }); } }
-  if (b && b.rest && (b.t += dt) > 0.7 && v.mood !== 'happy') { // o pincel volta para a mão do dono
-    v.mood = 'happy'; v.t = 0; v.x = b.x + (b.x < S.player.x ? -40 : 40); v.face = Math.sign(S.player.x - v.x) || -1; S.brush = null;
-    emit('vgHappy', { x: v.x, y: GROUND - 120 }); emit('vgSay', { line: 'Meu pincel! Obrigado, Timtim! Vou pintar vocês três agora mesmo!', dur: 3.4 }); }
+  if (b && b.rest && (b.t += dt) > 0.5 && v.mood === 'sad') { // o pincel caiu: o dono vem correndo da esquerda da tela buscar
+    v.mood = 'run'; v.t = 0; v.x = S.cam.x - 110; v.face = 1; v.tx = b.x - 46; }
+  if (v.mood === 'run') { v.x = Math.min(v.tx, v.x + 560 * dt);
+    if (v.x >= v.tx) { v.mood = 'happy'; v.t = 0; v.face = Math.sign(S.player.x - v.x) || -1; S.brush = null; // pegou o pincel: comemora
+      emit('vgHappy', { x: v.x, y: GROUND - 120 }); emit('vgSay', { line: 'Meu pincel! Obrigado, Timtim! Vou pintar vocês três agora mesmo!', dur: 3.4 }); } }
 }
 function updateFox(dt, prevBottom, playing) {
   const p = S.player, f = S.fox, ph = Math.max(0, Math.min(2, 3 - f.hp)), cine = S.cine && S.cine.type === 'fox';
@@ -744,7 +746,7 @@ TT.update = (rdt) => {
   cam.look += (p.vx * 0.32 - cam.look) * Math.min(1, dt * 2.5);
   const want = S.arena ? ARENA_X : Math.max(0, Math.min(ARENA_X, p.x - W * 0.4 + cam.look));
   cam.x += (want - cam.x) * Math.min(1, dt * 5);
-  const wantY = S.arena ? Math.max(C.FOX ? -170 : -60, Math.min(0, (p.y + p.h - (GROUND - 150)) * (C.FOX ? 0.45 : 0.3))) : Math.max(-260, Math.min(0, (p.y + p.h - (GROUND - 70)) * 0.6)); // sobe junto quando ele vai alto (planando, a argola): não fica colado no placar
+  const wantY = S.arena ? Math.max(C.FOX ? -170 : -60, Math.min(FASE === 3 ? -50 : 0, (p.y + p.h - (GROUND - 150)) * (C.FOX ? 0.45 : 0.3))) : Math.max(-260, Math.min(0, (p.y + p.h - (GROUND - 70)) * 0.6)); // sobe junto quando ele vai alto (planando, a argola): não fica colado no placar
   cam.y += (wantY - cam.y) * Math.min(1, dt * 3.4);
 };
 

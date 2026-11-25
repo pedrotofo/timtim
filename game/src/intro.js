@@ -113,8 +113,10 @@ function makeParts(s) {
   return p;
 }
 
+const ENTRA = 0.9; // segundos do fade de entrada da imagem (a partir de quando ela fica pronta)
 function drawScene(s, t, alpha, outgoing) {
   const img = s.img; if (!img.complete || !img.naturalWidth) return;
+  if (!outgoing) { if (s.prontaEm == null) s.prontaEm = t; const f = Math.min(1, (t - s.prontaEm) / ENTRA); alpha *= f * f * (3 - 2 * f); }
   const k = Math.min(1, t / s.dur), e = k * k * (3 - 2 * k) * 0.35 + k * 0.65; // zoom contínuo, levemente suavizado
   const IW = s.iw, IH = s.ih, sc = (s.zoom[0] + (s.zoom[1] - s.zoom[0]) * e) * Math.max(W / IW, H / IH);
   ctx.save(); ctx.globalAlpha = alpha;
@@ -162,11 +164,12 @@ function frame(now) {
   if (prev >= 0 && t < FADE) drawScene(SCENES[prev], (now - tp0) / 1000, 1, true);
   if (cur >= 0) drawScene(SCENES[cur], t, Math.min(1, t / FADE));
   // o pergaminho padrão e a frase do quadro atual, por cima de tudo (iguais nos três cards)
-  if (cur >= 0) { const a = prev >= 0 ? 1 : Math.min(1, t / FADE); drawBanner(a); writeScroll(SCENES[cur], t, a); }
+  if (cur >= 0) { const sc = SCENES[cur], pr = sc.prontaEm == null ? 0 : Math.min(1, (t - sc.prontaEm) / ENTRA), a = prev >= 0 ? 1 : pr * pr * (3 - 2 * pr);
+    if (a > 0) { drawBanner(a); writeScroll(sc, sc.prontaEm == null ? 0 : t - sc.prontaEm, a); } }
 }
 TT.intro = {
   durations: SCENES.map(s => s.dur),
-  scene(i, text) { SCENES[i].text = text || ''; const now = performance.now(); prev = cur; tp0 = t0; cur = i; t0 = now; SCENES[i].parts = makeParts(SCENES[i]);
+  scene(i, text) { SCENES[i].text = text || ''; const now = performance.now(); prev = cur; tp0 = t0; cur = i; t0 = now; SCENES[i].parts = makeParts(SCENES[i]); SCENES[i].prontaEm = null;
     const v = SCENES[i].vid; if (v) { try { v.currentTime = 0; } catch (_) {} v.play().catch(() => {}); }
     if (!raf) raf = requestAnimationFrame(frame); },
   stop() { cancelAnimationFrame(raf); raf = 0; cur = prev = -1; SCENES.forEach(s => s.vid && s.vid.pause()); },
