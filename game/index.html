@@ -131,6 +131,10 @@
   #title.story .tbg, #title.story .vig, #title.story .fly { visibility: hidden; } /* no card, a capa some de vez (antes aparecia por um instante entre o mapa e o card) */
   /* as orelhas do Timtim passam na frente da faixa do logo: mesma imagem da capa, só com as orelhas, por cima do logo e no mesmo movimento */
   #title .tbgTop { background-image: url(assets/capa-orelhas.webp); pointer-events: none; }
+  /* a capa viva: vídeo curto em loop (MAGI-2, mesma imagem no começo e no fim) por cima da imagem parada, que fica de reserva */
+  #title .tbgV { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .6s; }
+  #title .tbgV.on { opacity: 1; }
+  @media (prefers-reduced-motion: reduce) { #title .tbgV { display: none; } }
   #title.story .tbgTop { display: none; }
   #storyLine { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; } /* só para leitores de tela: a frase aparece desenhada no pergaminho */
   #introC { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 1s; pointer-events: none; }
@@ -262,7 +266,7 @@
   <div id="iris" class="layer"></div>
 
   <section id="title" class="screen on">
-    <div class="tbg"></div><i class="fly" style="left:18%;top:62%;animation-delay:-0s"></i><i class="fly" style="left:31%;top:48%;animation-delay:-3s"></i><i class="fly" style="left:44%;top:70%;animation-delay:-6s"></i><i class="fly" style="left:52%;top:40%;animation-delay:-1.5s"></i><i class="fly" style="left:70%;top:66%;animation-delay:-4.5s"></i><i class="fly" style="left:78%;top:44%;animation-delay:-7s"></i><i class="fly" style="left:88%;top:58%;animation-delay:-2.5s"></i><i class="fly" style="left:25%;top:30%;animation-delay:-5.5s"></i><div class="vig"></div>
+    <div class="tbg"><video class="tbgV" src="assets/capa.mp4" muted loop playsinline autoplay preload="auto" aria-hidden="true"></video></div><i class="fly" style="left:18%;top:62%;animation-delay:-0s"></i><i class="fly" style="left:31%;top:48%;animation-delay:-3s"></i><i class="fly" style="left:44%;top:70%;animation-delay:-6s"></i><i class="fly" style="left:52%;top:40%;animation-delay:-1.5s"></i><i class="fly" style="left:70%;top:66%;animation-delay:-4.5s"></i><i class="fly" style="left:78%;top:44%;animation-delay:-7s"></i><i class="fly" style="left:88%;top:58%;animation-delay:-2.5s"></i><i class="fly" style="left:25%;top:30%;animation-delay:-5.5s"></i><div class="vig"></div>
     <div class="on-anim">
       <h1 class="logo"><img src="assets/logo.webp" alt="Timtim e os Brinquedos Perdidos"></h1>
       <div class="gap"></div>

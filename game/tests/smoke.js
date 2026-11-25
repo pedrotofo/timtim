@@ -6,7 +6,7 @@ const { chromium } = require('playwright');
   const url = process.argv[2] || 'http://localhost:8765/';
   const b = await chromium.launch({ args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist', '--autoplay-policy=no-user-gesture-required'] });
   const pg = await b.newPage({ viewport: { width: 960, height: 540 } });
-  const errs = []; pg.on('pageerror', e => errs.push(e.message)); pg.on('console', m => m.type() === 'error' && errs.push(m.text()));
+  const errs = []; pg.on('pageerror', e => errs.push(e.message + ' @ ' + String(e.stack || '').split(String.fromCharCode(10)).slice(1, 3).join(' '))); pg.on('console', m => m.type() === 'error' && errs.push(m.text()));
   pg.on('requestfailed', r => errs.push('falhou: ' + r.url()));
   const ev = f => pg.evaluate(f);
   const until = (f, ms = 20000) => pg.waitForFunction(f, null, { timeout: ms, polling: 50 }).then(() => true, () => false);
@@ -83,6 +83,10 @@ const { chromium } = require('playwright');
   await pg.click('#btnCalmo');
   check(await ev(() => TT.calmo === false && localStorage.getItem('tintim-calmo') === '0'), 'e desliga de novo');
   check(await ev(() => { const n = TT.audioNodes(); return !n.ctx || (n.comp.threshold.value === -6 && n.comp.ratio.value === 12); }), 'o som geral passa por um limitador que só age nos picos (não pelo compressor de fábrica)');
+  // mixagem em camadas: nenhum efeito acima de -16 dB (a música fica por volta de -21) e, com uma revoada de sons do cenário,
+  // no máximo 2 tocam juntos
+  check(await ev(() => Object.values(TT.mixInfo().alvos).every(d => d <= -16)), 'nenhum efeito foi mixado acima de -16 dB (pancadas não estouram por cima da música)');
+  check(await ev(async () => { for (let i = 0; i < 8; i++) TT.sfx(i % 2 ? 'henPanic' : 'pigeon'); await new Promise(r => setTimeout(r, 30)); return TT.mixInfo().camadas.mundo <= 2; }), 'muitos bichos de uma vez: só 2 sons do cenário tocam juntos');
   await pg.waitForTimeout(500); await pg.click('#btnResume');
   check(await until(() => __tintim.state === 'play', 3000), 'Continuar retoma');
   await ev(() => { const p = __tintim.player; p.x = 4200; p.y = 300; });
@@ -118,7 +122,7 @@ const { chromium } = require('playwright');
     if (i === 0) check(await ev(() => __tintim.boss.hp) === hp - 1, 'bolinha distrai o Furtão e o pisão acerta');
   }
   check(await until(() => __tintim.state !== 'play' && !!__tintim.S.prize, 40000), '3 pisões na hora certa soltam o Macaco Fedido');
-  check(await until(() => __tintim.S.prize.rest, 5000), 'o macaco cai no chão ao lado do Timtim');
+  check(await until(() => __tintim.S.prize && __tintim.S.prize.rest, 5000), 'o macaco cai no chão ao lado do Timtim');
   check(await until(() => __tintim.state === 'win', 40000), 'vitória depois do resgate');
   check(await pg.waitForSelector('#win.on', { timeout: 30000 }).then(() => true, () => false), 'tela de vitória aparece');
   check(await ev(() => document.querySelector('#stToy').classList.contains('ok')), 'vitória mostra o brinquedo achado');

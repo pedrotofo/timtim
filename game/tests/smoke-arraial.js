@@ -133,10 +133,12 @@ const { chromium } = require('playwright');
   check(await until(() => __tintim.S.chaseOn && __tintim.S.fox.state === 'chase' && __tintim.S.runners.filter(r => r.kind === 'arena').length === 3, 2000), 'chegando perto do fim, o lobo-guará aparece caçando três galinhas');
   // o lobo-guará: chegar na arena começa a luta com a apresentação dele
   const ax = ax0;
+  await ev(ax => { __tintim.S.fox.x = ax + 160; }, ax); // o pior caso: ele caçando bem na entrada da arena
   await put(ax + 200, 452 - 50, { onGround: true, inv: 99 });
   check(await until(() => __tintim.S.arena && __tintim.S.cine && __tintim.S.cine.type === 'fox', 3000), 'chegar no fim do Arraial apresenta o lobo-guará');
   check(await ev(() => __tintim.S.runners.filter(r => r.kind === 'flee').length === 3 && __tintim.S.runners.every(r => r.kind !== 'flee' || r.vx < 0)), 'na apresentação, as galinhas caçadas fogem para a esquerda');
   check(await until(() => !__tintim.S.cine, 6000), 'depois da apresentação, a luta começa');
+  check(await ev(() => { const f = __tintim.S.fox, p = __tintim.player; return (f.x + f.w / 2) - (p.x + p.w / 2) > 280; }), 'na apresentação o lobo-guará se afasta: a luta não começa com o Timtim colado nele');
   await pg.waitForTimeout(400);
   check(await ev(() => { const m = __tintim.R.dbg.fox(), o = m.material.map.offset; return m.visible && Number.isFinite(o.x) && Number.isFinite(o.y) && Number.isFinite(m.userData.ph); }), 'depois da apresentação o lobo-guará continua desenhado (quadro da animação válido)');
   // pulo comum ela esquiva; caindo planando em cima dela, acerta

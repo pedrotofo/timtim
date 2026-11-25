@@ -87,6 +87,7 @@ if (/-jogar/.test(location.hash)) { try { history.replaceState(null, '', locatio
   titleEl.classList.add('story');
   // e a capa fica escondida: antes ela aparecia por um instante, misturada com o card, enquanto o card entrava
   document.querySelectorAll('#title .tbg, #title .vig, #title .fly').forEach(e => { e.style.visibility = 'hidden'; });
+  { const v = document.querySelector('#title .tbgV'); if (v) v.pause(); }
   TT.vemDoMapa = true; }
 document.querySelectorAll('#fases .chip').forEach(b => { const f = +b.dataset.f; b.classList.toggle('cur', f === FASE); b.disabled = f > 1 && !done[f - 1];
   b.onclick = () => { if (f !== FASE) goFase(f); }; });
@@ -103,7 +104,10 @@ let nextT = 0; $('btnNext').onclick = () => { clearInterval(nextT); const prox =
     onPlay: f => { if (f === FASE) { TT.mapa.close(); begin(TT.start); } else goFase(f, true); } }); };
 $('btnAgain').addEventListener('click', () => clearInterval(nextT), true);
 let contando = false;
-const historia = () => { if (contando) return; contando = true; TT.audioInit(); TT.sfx('ui'); TT.music('title'); titleEl.classList.add('story'); storyLine(); };
+const historia = () => { if (contando) return; contando = true; TT.audioInit(); TT.sfx('ui'); TT.music('title'); titleEl.classList.add('story'); storyLine();
+  setTimeout(() => { const v = titleEl.querySelector('.tbgV'); if (v) v.pause(); }, 1200); }; // a capa viva para quando o card cobre a tela
+// a capa viva aparece por cima da imagem parada só quando o vídeo já está tocando (sem tela preta enquanto carrega)
+{ const v = titleEl.querySelector('.tbgV'); if (v) { v.addEventListener('playing', () => v.classList.add('on')); if (!v.paused && v.readyState >= 3) v.classList.add('on'); } }
 // no mapa, o Timtim começa na fase mais nova já liberada (ou na desta página)
 const ultima = () => { let n = 1; while (n < FASES.length && done[n]) n++; return Math.max(FASE, n); };
 // Jogar abre o mapa; no mapa, a fase desta página mostra o card aqui mesmo e as outras carregam a página delas

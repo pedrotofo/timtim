@@ -306,7 +306,10 @@ function updateFox(dt, prevBottom, playing) {
   const fr = S.fruit;
   if (fr && !fr.rest) { fr.vy += GRAV * dt; fr.x += fr.vx * dt; fr.y += fr.vy * dt; if (fr.y >= GROUND - 22) { fr.y = GROUND - 22; fr.rest = true; emit('fruitLand', { x: fr.x, y: GROUND, first: !S.fruitSeen }); S.fruitSeen = true; } }
   if (f.state === 'flee') { f.dir = 1; f.vx = 600; f.x += f.vx * dt; return; } // foge para a mata, sem parede que o segure
-  if (cine) f.vx *= 0.9;
+  // na apresentação ele volta trotando para o lado direito da arena, longe do Timtim (antes ficava onde estava caçando as
+  // galinhas, às vezes bem em cima da entrada, e a luta começava com o Timtim esbarrando nele)
+  if (cine) { const tx = Math.min(ARENA_X + W - 150, Math.max(fx, pcx + 400)), d = tx - fx;
+    if (Math.abs(d) > 14) { f.dir = Math.sign(d); f.vx += (f.dir * 340 - f.vx) * Math.min(1, dt * 6); } else { f.vx *= 0.8; f.dir = Math.sign(pcx - fx) || -1; } }
   else if (playing) switch (f.state) {
     case 'idle': { if (fr && fr.rest && onGround) { go('toFruit'); break; }
       const d = Math.sign(pcx - fx) || f.dir; f.dir = d; f.vx += (d * FOXC.prowl[ph] - f.vx) * Math.min(1, dt * 3);

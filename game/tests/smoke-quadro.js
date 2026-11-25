@@ -105,7 +105,7 @@ const { chromium } = require('playwright');
   const stomp = () => ev(() => { const f = __tintim.S.fox, p = __tintim.player; Object.assign(p, { x: f.x + f.w / 2 - p.w / 2, y: f.y - p.h - 30, vx: 0, vy: 250, onGround: false, inv: 99, hp: 3 }); });
   await until(() => __tintim.S.fox.state === 'fly', 6000);
   check(await peck(), 'sem tubos, ele mergulha e fica bicando o chão');
-  check(await ev(() => __tintim.R.dbg.fox().userData.name === 'guara-agacha'), 'bicando, aparece a pose de cabeça baixa');
+  check(await ev(() => __tintim.R.dbg.fox().userData.name === 'corvo-bica'), 'bicando, toca a animação da bicada (vídeo cortado em quadros)');
   await stomp();
   check(await until(() => __tintim.S.fox.hp === 2 && __tintim.S.fox.state === 'hurt', 1500), 'pular nas costas enquanto ele bica tira um coração');
   check(await until(() => __tintim.S.fox.state === 'fly', 6000), 'depois do golpe ele volta a voar');

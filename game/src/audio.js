@@ -108,32 +108,67 @@ const sfx = {
   laugh: t => { [0, 0.16, 0.32, 0.5].forEach((o, i) => woof(t + o, { f0: 190 - i * 8, dur: 0.12, f1: 700, f2: 1500, vol: 0.3 - i * 0.05 })); },
   choco: t => { [330, 277, 233, 185].forEach((f, i) => tone(f, t + i * 0.12, 0.22, { type: 'sawtooth', vol: 0.1, slide: 0.85 })); tone(90, t + 0.5, 0.5, { type: 'sine', vol: 0.25, slide: 0.6 }); },
 };
-// ---- efeitos gravados: um arquivo por evento; v = volume, vary = quanto a altura muda a cada vez (para repetições não soarem iguais),
-// gap = intervalo mínimo entre duas vezes (biscoitos em fila tocam um som só e cada vez mais baixo) ----
+// ---- efeitos gravados, mixados em camadas (25/11/2026, skill audio-design) ----
+// Cada som tem uma camada e um volume-alvo (db): o nível que ele deve ter na mixagem, medido como o pico de volume em 100 ms
+// depois do barramento de efeitos. A música fica por volta de -21 dB; com isso nada passa por cima dela de surpresa.
+//   heroi: o que o Timtim faz (pulo, biscoito, dano, poderes) - pequeno e claro, um pouco abaixo da música
+//   golpe: chefões e pancadas - os mais fortes, mas no máximo uns 5 dB acima da música; quando tocam, o "mundo" abaixa um pouco
+//   mundo: bichos do cenário (galinhas, corvos pequenos, pombos, latidinhos da turma) - atrás de tudo, mais escuros e com poucos ao mesmo tempo
+//   ui: menus e jingles
+// max = quantos sons da camada tocam juntos (no mundo, o que passar do limite não toca; nas outras, o mais antigo sai em fade).
+// vary = quanto a altura muda a cada vez (repetições não soam iguais); gap = intervalo mínimo entre duas vezes do mesmo som.
+// NIVEL = o volume medido de cada arquivo (scratchpad/medir_sfx.py); ao trocar um arquivo, medir de novo e atualizar aqui.
+const CAMADAS = { heroi: { max: 4 }, golpe: { max: 2 }, mundo: { max: 2 }, ui: { max: 2 } };
+const NIVEL = { bigBark: -8.2, boing: -8.5, bonk: -5.7, boss: -15.4, bossWoof: -11.7, checkpoint: -13.3, choco: -12.9, cluck1: -12.1, cluck2: -11.4, cookie: -21.4, crowCaw: -22.2, crowSmall: -8.7, crowWings: -17.0, diveWhistle: -7.8, eggCrack: -22.2, final: -4.1, gift: -10.8, henCoop: -11.6, henFlap: -13.4, henPanic: -11.3, hurt: -13.3, jump: -17.5, jump2: -16.1, land: -26.8, laugh: -14.9, lose: -9.2, pigeon: -19.1, pound: -6.3, power: -10.4, squeak: -14.4, star: -11.2, stomp: -13.3, swirl: -10.7, throwBall: -17.0, thud: -20.1, ui: -17.6, whimper: -11.7, win: -10.6, yapElvis: -12.1, yapZara: -10.4, yelp: -8.2 };
 const SAMPLES = {
-  jump: { v: 0.28, vary: 0.06 }, jump2: { v: 0.4, vary: 0.05 }, land: { v: 0.32, vary: 0.1 },
-  cookie: { v: 0.2, vary: 0.12, gap: 0.09 }, power: { v: 0.42 }, gift: { v: 0.42 }, star: { v: 0.45 }, checkpoint: { v: 0.38 }, ui: { v: 0.3 },
-  yapZara: { v: 0.5, vary: 0.04 }, yapElvis: { v: 0.55, vary: 0.04 }, hurt: { v: 0.6, vary: 0.05 },
-  bossWoof: { v: 0.8, vary: 0.04 }, bigBark: { v: 0.85, vary: 0.03 }, stomp: { v: 0.65, vary: 0.07 }, final: { v: 0.8 }, boss: { v: 0.55 },
-  thud: { v: 0.5, vary: 0.08 }, pigeon: { v: 0.38, vary: 0.06 }, boing: { v: 0.45, vary: 0.06 }, pound: { v: 0.9, vary: 0.04 }, bonk: { v: 0.7, vary: 0.06 },
-  throwBall: { v: 0.45, vary: 0.06 }, squeak: { v: 0.5, vary: 0.08 }, laugh: { v: 0.8 }, choco: { v: 0.6, vary: 0.06 }, win: { v: 0.6 }, lose: { v: 0.55 },
-  // galinhas do Arraial (Artlist): cacarejo de susto (dois, alternados), disparada, bater de asas e o galinheiro em alvoroço
-  cluck1: { v: 0.5, vary: 0.08, gap: 0.3 }, cluck2: { v: 0.5, vary: 0.08, gap: 0.3 }, henPanic: { v: 0.6 }, henFlap: { v: 0.5, vary: 0.08, gap: 0.15 }, henCoop: { v: 0.65 },
+  // heroi
+  jump: { c: 'heroi', db: -27, vary: 0.06 }, jump2: { c: 'heroi', db: -26, vary: 0.05 }, land: { c: 'heroi', db: -32, vary: 0.1 },
+  cookie: { c: 'heroi', db: -31, vary: 0.12, gap: 0.09 }, power: { c: 'heroi', db: -21 }, gift: { c: 'heroi', db: -21 }, star: { c: 'heroi', db: -22 },
+  checkpoint: { c: 'heroi', db: -23 }, hurt: { c: 'heroi', db: -20, vary: 0.05 }, throwBall: { c: 'heroi', db: -27, vary: 0.06 }, squeak: { c: 'heroi', db: -26, vary: 0.08 },
+  choco: { c: 'heroi', db: -22, vary: 0.06 }, eggCrack: { c: 'heroi', db: -24 }, swirl: { c: 'heroi', db: -26, gap: 0.4 },
+  // golpe (chefões)
+  bossWoof: { c: 'golpe', db: -19, vary: 0.04 }, bigBark: { c: 'golpe', db: -18, vary: 0.03 }, stomp: { c: 'golpe', db: -19, vary: 0.07 },
+  pound: { c: 'golpe', db: -18, vary: 0.04 }, bonk: { c: 'golpe', db: -19, vary: 0.06 }, final: { c: 'golpe', db: -16 }, boss: { c: 'golpe', db: -19 },
+  thud: { c: 'golpe', db: -22, vary: 0.08, gap: 0.12 }, boing: { c: 'golpe', db: -22, vary: 0.06 }, laugh: { c: 'golpe', db: -21 },
+  crowCaw: { c: 'golpe', db: -20, vary: 0.05, gap: 0.5 }, crowWings: { c: 'golpe', db: -24, vary: 0.08, gap: 0.45 }, diveWhistle: { c: 'golpe', db: -22 },
+  yelp: { c: 'golpe', db: -21, vary: 0.04 }, whimper: { c: 'golpe', db: -21 },
+  // mundo (bichos do cenário)
+  cluck1: { c: 'mundo', db: -27, vary: 0.08, gap: 0.3 }, cluck2: { c: 'mundo', db: -27, vary: 0.08, gap: 0.3 }, henPanic: { c: 'mundo', db: -25 },
+  henFlap: { c: 'mundo', db: -28, vary: 0.08, gap: 0.15 }, henCoop: { c: 'mundo', db: -23 }, pigeon: { c: 'mundo', db: -29, vary: 0.06 },
+  crowSmall: { c: 'mundo', db: -28, vary: 0.1, gap: 0.3 }, yapZara: { c: 'mundo', db: -25, vary: 0.04 }, yapElvis: { c: 'mundo', db: -25, vary: 0.04 },
+  // ui e jingles
+  ui: { c: 'ui', db: -26 }, win: { c: 'ui', db: -18 }, lose: { c: 'ui', db: -18 },
 };
-const sbufs = {}, lastAt = {};
+const BUS_DB = 20 * Math.log10(0.8); // o barramento de efeitos (sfxBus = 0,8)
+for (const n in SAMPLES) { const o = SAMPLES[n], lv = NIVEL[n] === undefined ? -12 : NIVEL[n]; o.v = Math.min(1.6, Math.pow(10, (o.db - lv - BUS_DB) / 20)); }
+const sbufs = {}, lastAt = {}, ativos = { heroi: [], golpe: [], mundo: [], ui: [] }, camadaBus = {};
 function loadSamples() {
+  // as camadas: o "mundo" passa por um filtro que tira um pouco do grave e do agudo (fica atrás, sem brigar com o Timtim e os golpes)
+  for (const c in CAMADAS) { const g = ctx.createGain(); camadaBus[c] = g;
+    if (c === 'mundo') { const hp = ctx.createBiquadFilter(), lp = ctx.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 140; lp.type = 'lowpass'; lp.frequency.value = 6500; g.connect(hp).connect(lp).connect(sfxBus); }
+    else g.connect(sfxBus); }
   Object.keys(SAMPLES).forEach(n => fetch('assets/sfx/' + n + '.mp3').then(r => { if (!r.ok) throw 0; return r.arrayBuffer(); })
     .then(a => ctx.decodeAudioData(a)).then(b => { sbufs[n] = b; }).catch(() => {}));
 }
 function playSample(name, t) {
   const b = sbufs[name]; if (!b) return false;
-  const o = SAMPLES[name], src = ctx.createBufferSource(), g = ctx.createGain();
+  const o = SAMPLES[name], cam = o.c || 'heroi', lista = ativos[cam];
   let v = o.v;
   if (o.gap) { const dt = t - (lastAt[name] || -9); if (dt < o.gap) return true; if (dt < 0.6) v *= 0.65; lastAt[name] = t; }
-  src.buffer = b; src.playbackRate.value = 1 + (Math.random() * 2 - 1) * (o.vary || 0); g.gain.value = v;
-  src.connect(g).connect(sfxBus); src.start(t);
+  // limite de sons ao mesmo tempo na camada
+  for (let i = lista.length - 1; i >= 0; i--) if (lista[i].fim <= t) lista.splice(i, 1);
+  if (lista.length >= CAMADAS[cam].max) { if (cam === 'mundo') return true; const velho = lista.shift(); velho.g.gain.setTargetAtTime(0, t, 0.02); try { velho.src.stop(t + 0.12); } catch (_) {} }
+  const src = ctx.createBufferSource(), g = ctx.createGain(), rate = 1 + (Math.random() * 2 - 1) * (o.vary || 0);
+  src.buffer = b; src.playbackRate.value = rate; g.gain.value = v;
+  src.connect(g).connect(camadaBus[cam]); src.start(t);
+  lista.push({ src, g, fim: t + b.duration / rate });
+  // golpe forte: o mundo abaixa uns 7 dB e volta em meio segundo (a pancada aparece sem precisar ser alta)
+  if (cam === 'golpe') { const m = camadaBus.mundo.gain; m.cancelScheduledValues(t); m.setTargetAtTime(0.45, t, 0.015); m.setTargetAtTime(1, t + 0.25, 0.2); }
   return true;
 }
+// para os testes: quantos sons tocam agora em cada camada e o volume-alvo de cada som
+TT.mixInfo = () => { const now = ctx ? ctx.currentTime : 0, c = {}; for (const k in ativos) c[k] = ativos[k].filter(x => x.fim > now).length;
+  const d = {}; for (const k in SAMPLES) d[k] = SAMPLES[k].db; return { camadas: c, alvos: d }; };
 // ---- narração do card de cada fase (assets/voice/intro-fase1.mp3 a intro-fase3.mp3, gravadas pelo Pedro): a mesma frase do pergaminho.
 // Se o arquivo da fase não existir, o card fica só com a imagem, a frase e a música.
 // Enquanto ele fala, a música abaixa. Se a fala ainda não carregou quando o quadro começa, entra assim que chegar (até 1,2 s depois).

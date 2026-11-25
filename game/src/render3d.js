@@ -61,7 +61,7 @@ const ownTex = k => { const t = load('sprites/' + k + '.png'); t.repeat.set(1 / 
 // recortados e postos numa grade (assets/anim/*.webp, medidas em src/anim-data.js). Assim o movimento é o de um
 // animal de verdade, quadro a quadro, sem a "tremedeira" de quadros desenhados um a um.
 const ANIM = TT.ANIM || {}, ANIM_TEX = {};
-const animWanted = k => VG ? /^(timtim|zara|elvis)/.test(k) : ARR ? !/^(pombo|furtao|macaco)/.test(k) : !/^(galinha|guara)/.test(k); // no quadro, os bichos são outros: só a turma tem animação de vídeo
+const animWanted = k => VG ? /^(timtim|zara|elvis|corvo)/.test(k) : ARR ? !/^(pombo|furtao|macaco)/.test(k) : !/^(galinha|guara)/.test(k); // no quadro, os bichos são outros: só a turma tem animação de vídeo
 for (const k in ANIM) if (animWanted(k)) { const t = ANIM_TEX[k] = load('anim/' + k + '.webp'); t.repeat.set(1 / ANIM[k].cols, 1 / ANIM[k].rows); }
 // toca a animação `name` no sprite m: o corpo fica com `bodyH` de altura (o mesmo tamanho da arte parada), t em segundos.
 // Cada sprite tem a sua cópia da textura (mesma imagem na placa de vídeo) para poder estar num quadro diferente.
@@ -573,10 +573,8 @@ if (VG) {
   // o Quarto: a moldura por onde a turma entra, a cama e a cadeira (as duas são plataformas)
   place('vg-moldura', 120, 270, -70); glow(120, 140, -68, 420, 0xffd27a, 0.3);
   place('vg-cama', 495, 160, -2); place('vg-cadeira', 748, 262, -2); place('vg-cadeira', 1180, 230, -90, -6, true);
-  // os Girassóis: um campo deles atrás do caminho, e o vaso famoso
-  { const r = rng(77); for (let x = 1380; x < 3000; x += 70 + r() * 90) { const h = 200 + r() * 140, z = -90 - r() * 90, fl = r() < 0.5;
-    if (C.movers.some(m => Math.abs(x - (m.x + m.w / 2)) < 120)) continue; // atrás dos girassóis que o Timtim pisa, nenhum de enfeite (confundia)
-    place('vg-girassol', x, h, z, -8, fl); } }
+  // os Girassóis: só os que o Timtim pisa (mais abaixo). O campo de girassóis de enfeite saiu em 25/11/2026: perto do buraco
+  // eles pareciam plataformas, o jogador tentava pular neles e caía. Fica o vaso famoso.
   place('vg-vaso', 2960, 300, -60); glow(2960, 200, -58, 380, 0xffd060, 0.22);
   // o Trigal: girassóis esparsos e um cipreste
   place('vg-cipreste', 3420, 520, -130); place('vg-cipreste', 4480, 460, -150, -6, true);
@@ -750,8 +748,8 @@ const splatM = VG ? Array.from({ length: 10 }, () => { const m = add(new THREE.M
 const brushM = VG ? sprite('pincel', 7, false) : null; if (brushM) { brushM.geometry = planeGeoC; brushM.visible = false; }
 const brushG = VG ? add(new THREE.Mesh(planeGeoC, glowMat(0xffe14d, 0.55)), 6) : null; if (brushG) brushG.visible = false;
 const vgM = VG ? sprite('vangogh-triste', 5, true, 0xfff4ea) : null; if (vgM) vgM.visible = false;
-const crowRedM = VG ? add(new THREE.Mesh(planeGeo, new THREE.ShaderMaterial({ uniforms: { map: { value: null }, op: { value: 0 } }, transparent: true, depthWrite: false, side: THREE.DoubleSide,
-  vertexShader: 'varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.); }',
+const crowRedM = VG ? add(new THREE.Mesh(planeGeo, new THREE.ShaderMaterial({ uniforms: { map: { value: null }, op: { value: 0 }, rep: { value: new THREE.Vector2(1, 1) }, off: { value: new THREE.Vector2(0, 0) } }, transparent: true, depthWrite: false, side: THREE.DoubleSide,
+  vertexShader: 'uniform vec2 rep; uniform vec2 off; varying vec2 vUv; void main(){ vUv = uv * rep + off; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.); }',
   fragmentShader: 'uniform sampler2D map; uniform float op; varying vec2 vUv; void main(){ float a = texture2D(map, vUv).a; if (a < .3) discard; gl_FragColor = vec4(1., .14, .08, op); }' })), 6) : null;
 if (crowRedM) crowRedM.visible = false;
 if (VG) { TT.on('tubeSplat', e => burst(e.x, GROUND - 10, [SPLAT_TINT[e.c], SPLAT_TINT[e.c], 0xffffff], 16, 280)); TT.on('crowRed', e => burst(e.x, e.y + 30, [0xff2a2a, 0xff7a5a, 0xffd0c0], 30, 360));
@@ -1133,36 +1131,33 @@ R.frame = (rdt) => {
   // fase 3: o Corvo-Borrão. Voa (asas abertas batendo), mira gritando antes de soltar cada tubo, mergulha de bico para baixo,
   // bica o chão (brilho dourado = hora de pular nas costas), fica tonto quando apanha. No último coração, vermelho de raiva.
   if (VG) { const g = S.fox, m = foxM, st = g.state, x = g.x + g.w / 2;
-    // Corvo-Borrão: bater de asas contínuo (asa em cima / embaixo num ritmo, com o corpo subindo na batida para baixo),
-    // pausas planando entre as batidas no voo, inclinação suave para a frente quando acelera e um amassadinho ao pousar.
-    // (antes trocava as duas poses de uma vez, com tamanhos diferentes, e girava de um estado para o outro sem transição)
-    const cs = m.userData.cs || (m.userData.cs = { rot: 0, ph: 0, st: '', land: 0 });
+    // Corvo-Borrão, como os outros chefões: cada movimento é um vídeo curto (Veo 3.1 Lite, Google Flow) cortado em quadros:
+    // voando (bate as asas no lugar), bicando, tonto e grasnando. Só o mergulho e o pouso parado usam a arte parada.
+    // (antes eram só poses paradas trocadas umas pelas outras, com o corpo balançando por código: ficava duro)
+    const cs = m.userData.cs || (m.userData.cs = { rot: 0, fl: 0, st: '', land: 0 });
     if (cs.st !== st) { if (st === 'peck' || (st === 'perch' && cs.st)) cs.land = 0.24; cs.st = st; }
     cs.land = Math.max(0, cs.land - live);
     const airborne = st === 'rise' || st === 'fly' || st === 'flee' || st === 'aim';
-    const glide = st === 'fly' && Math.sin(clock * 1.7) < -0.35; // no voo, de vez em quando ele plana em vez de bater as asas
-    if (airborne && !glide) cs.ph += live * Math.PI * 2 * (st === 'rise' || st === 'flee' ? 3.4 : 2.6);
-    const flap = Math.sin(cs.ph);
-    let n = 'guara-anda', h = 200, y = Y(g.y + g.h) - 4, sy = 1, rot = 0;
+    if (airborne) cs.fl += live * (st === 'rise' || st === 'flee' ? 1.35 : st === 'aim' ? 1.2 : 1); // relógio do bater de asas (mais rápido subindo e fugindo)
+    let n = 'guara-anda', h = 200, y = Y(g.y + g.h) - 4, sy = 1, rot = 0, A = null, at = time;
     const dir = st === 'dive' ? (Math.sign(g.tx - x) || g.dir) : g.dir, lf = dir < 0 ? 1 : -1; // lf: rotação que abaixa a cabeça
-    if (st === 'hurt') { n = 'guara-tonta'; h = 193; rot = Math.sin(time * 9) * 0.06; }
-    else if (st === 'caw' || st === 'diveWind') { n = 'guara-uiva'; h = 190; sy = 1 + Math.sin(time * 34) * 0.025; if (st === 'diveWind') rot = lf * 0.12 * Math.min(1, g.t / 0.3); }
-    else if (st === 'aim') { n = flap > 0.15 ? 'guara-uiva' : 'guara-corre'; h = n === 'guara-uiva' ? 182 : 135; sy = 1 + flap * 0.05; y += -flap * 6; rot = lf * 0.06; }
-    else if (st === 'peck') { n = 'guara-agacha'; h = 118; const k = Math.max(0, Math.sin(time * 13)); rot = lf * k * k * 0.13; sy = 1 - k * 0.04;
-      if (k > 0.97 && Math.random() < 0.5) spawn({ x: x - lf * 92, y: GROUND - 6, vx: (Math.random() - 0.5) * 140, vy: -90 - Math.random() * 90, g: 600, life: 0.5, r: 3, color: Math.random() < 0.5 ? 0xffd23f : 0x5a7cff, hard: true }); }
+    if (st === 'hurt') { A = 'corvo-tonto'; h = 175; }
+    else if (st === 'caw' || st === 'diveWind') { A = 'corvo-grasna'; h = 150; if (st === 'diveWind') rot = lf * 0.1 * Math.min(1, g.t / 0.3); }
+    else if (st === 'peck') { A = 'corvo-bica'; h = 112;
+      const k = (time * 24 / ANIM['corvo-bica'].n) % 1; if (k < 0.06 && Math.random() < 0.35) spawn({ x: x - lf * 92, y: GROUND - 6, vx: (Math.random() - 0.5) * 140, vy: -90 - Math.random() * 90, g: 600, life: 0.5, r: 3, color: Math.random() < 0.5 ? 0xffd23f : 0x5a7cff, hard: true }); }
     else if (st === 'dive') { n = 'guara-corre'; h = 135; rot = lf * 0.45; sy = 1.06; }
-    else if (airborne) { n = !glide && flap > 0.15 ? 'guara-bote' : 'guara-corre'; h = n === 'guara-bote' ? 150 : 135;
-      sy = 1 + (glide ? 0 : flap * 0.06); y += glide ? Math.sin(clock * 2.2) * 5 : -flap * 7; // sobe na batida para baixo
-      rot = lf * Math.min(1, Math.abs(g.vx || 0) / 520) * 0.14 + (glide ? Math.sin(clock * 1.3) * 0.03 : 0); }
+    else if (airborne) { A = 'corvo-voa'; h = 150; at = cs.fl; rot = lf * Math.min(1, Math.abs(g.vx || 0) / 520) * 0.1; }
     else sy = 1 + Math.sin(clock * 3) * 0.015;
+    const anim = !!A && playAnim(m, A, h, dir > 0, at);
+    if (anim) y = Y(g.y + g.h) - 4 - m.userData.foot; else setAnim(m, n, h, dir > 0);
     if (cs.land > 0) sy *= 1 - 0.16 * (cs.land / 0.24); // amassadinho ao pousar
-    // a inclinação segue o alvo devagar (as bicadas e o tremor de dor continuam rápidos)
-    const quick = st === 'peck' || st === 'hurt'; cs.rot += (rot - cs.rot) * (quick ? 1 : Math.min(1, live * 9));
-    setAnim(m, n, h, dir > 0); m.scale.x *= 2 - sy; m.scale.y *= sy; legs(m, 0, 0);
+    // a inclinação segue o alvo devagar
+    cs.rot += (rot - cs.rot) * Math.min(1, live * 9);
+    m.scale.x *= 2 - sy; m.scale.y *= sy; legs(m, 0, 0);
     m.position.set(x, y, 1); m.rotation.z = cs.rot; rot = cs.rot;
     m.visible = C.FOX && !(g.hurt > 0 && Math.floor(time * 30) % 2) && (S.arena || S.cam.x > ARENA_X - W - 200) && g.x < C.LEVEL_END + 400 && g.y > -700;
     if (g.red) m.material.color.setRGB(1.6, 0.8, 0.74); else m.material.color.setRGB(1.32, 1.2, 1.1);
-    { const r = crowRedM; r.visible = m.visible && g.red; if (r.visible) { r.geometry = m.geometry; r.material.uniforms.map.value = m.material.map; r.material.uniforms.op.value = 0.42 + 0.14 * Math.sin(time * 9);
+    { const r = crowRedM; r.visible = m.visible && g.red; if (r.visible) { r.geometry = m.geometry; r.material.uniforms.map.value = m.material.map; r.material.uniforms.rep.value.copy(m.material.map.repeat); r.material.uniforms.off.value.copy(m.material.map.offset); r.material.uniforms.op.value = 0.42 + 0.14 * Math.sin(time * 9);
       r.position.set(x, y, 1.6); r.scale.copy(m.scale); r.rotation.z = rot; } }
     const yes = st === 'peck' && m.visible; foxGlow.material.opacity += ((yes ? 0.55 + 0.2 * Math.sin(time * 8) : 0) - foxGlow.material.opacity) * Math.min(1, live * 10);
     foxGlow.position.set(x, y + 70, 0.5); foxGlow.scale.set(220, 140, 1); foxGlow.visible = m.visible;
@@ -1273,7 +1268,10 @@ R.frame = (rdt) => {
       q.k += ((on ? 1 : 0.18) - q.k) * Math.min(1, rdt * 10); const fl = warn ? 0.55 + 0.45 * Math.abs(Math.sin(time * 18)) : 1;
       q.m.material.opacity = q.k * fl; q.g.material.opacity = 0.5 * q.k * fl; const sc = q.b.w * 1.25 * (0.9 + 0.1 * q.k); q.m.scale.set(sc, sc, 1); q.m.rotation.z += live * 0.3; }
     for (const q of VGR.movers) { const s = q.s, cx = s.x + s.w / 2, sw = Math.sin(time * 1.3 + s.x) * 0.02;
-      q.head.position.set(cx, Y(s.y) - 6, -2); q.head.rotation.z = sw; q.stem.position.set(cx, Y(s.y) - 14, -6); q.stem.rotation.z = sw; }
+      // o caule vai sempre da cabeça até dentro do chão: quando a flor sobe e desce, é o caule que estica e encolhe
+      // (antes ele tinha tamanho fixo e, com a flor no alto, ficava solto no ar: parecia flutuar)
+      q.head.position.set(cx, Y(s.y) - 6, -2); q.head.rotation.z = sw; q.stem.position.set(cx, Y(s.y) - 14, -6); q.stem.rotation.z = sw * 0.3;
+      q.stem.scale.y = Math.max(40, Y(s.y) - 14 - Y(GROUND) + 10); }
     for (const q of VGR.toldos) { q.bt = Math.max(0, q.bt - live); const k = Math.sin(q.bt / 0.35 * Math.PI) * 0.18; q.m.scale.y = q.hgt * (1 - k); q.m.position.y = q.base + q.hgt * k; }
     if (R.hoop) { const q = R.hoop, on = !!S.revealed.argola; q.gr.rotation.z = Math.sin(time * 1.1) * 0.06; q.gr.rotation.y = Math.sin(time * 0.7) * 0.25; q.hg.material.opacity = on ? 0.12 : 0.3 + 0.1 * Math.sin(time * 4); }
   }

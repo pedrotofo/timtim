@@ -2,7 +2,9 @@
 // o vento nos pelos e o tremor do Furtão saíram em 25/11/2026: ficavam bobos) —
 // vento nos pelos (deformação suave só nas regiões marcadas), vaga-lumes, folhas e brilhos pulsando.
 // Cada quadro tem um pergaminho pintado embaixo; a frase é escrita nele (no canvas, junto com a imagem).
-// Tudo em canvas 2D, sem vídeo. Coordenadas das regiões no espaço de cada imagem (1672 × 941 na fase 1, 1376 × 768 nas outras).
+// Desde 25/11/2026 cada quadro tem um vídeo curto em loop (MAGI-2, Higgsfield: a mesma imagem como primeiro e último quadro),
+// desenhado no canvas no lugar da imagem parada; o pergaminho continua vindo da imagem, para a frase não balançar.
+// Sem vídeo (ainda carregando, ou com "reduzir movimento"), fica a imagem. Coordenadas no espaço de cada imagem (1672 × 941 na fase 1, 1376 × 768 nas outras).
 (() => {
 'use strict';
 const TT = window.TT;
@@ -11,24 +13,25 @@ const ctx = cv.getContext('2d'), W = cv.width, H = cv.height;
 const IW = 1672, IH = 941, FADE = 0.9;
 const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const load = src => { const i = new Image(); i.src = src; return i; };
+const loadV = src => { if (still) return null; const v = document.createElement('video'); v.muted = true; v.loop = true; v.playsInline = true; v.preload = 'auto'; v.setAttribute('playsinline', ''); v.src = src; return v; };
 
 // zoom: escala inicial → final em torno de um ponto (embaixo no centro, para o pergaminho nunca sair do quadro);
 // wind: regiões de pelo (ring = rosto parado, só a borda mexe); scroll: o pergaminho [x0, y0, x1, y1]; sky: até onde vaga-lumes e folhas descem
 const SCENES = [
   // fase 1 · O Parque: o Furtão foge com o Macaco Fedido e a turma vai atrás
-  { img: load('assets/intro/2-roubo.jpg'), dur: 8.4, zoom: [1.0, 1.04], at: [1200, 941], scroll: [50, 712, 1625, 900], sky: 620,
+  { img: load('assets/intro/2-roubo.jpg'), vid: null, dur: 8.4, zoom: [1.0, 1.04], at: [1200, 941], scroll: [50, 712, 1625, 900], sky: 620,
     wind: [],
     glow: [ { x: 300, y: 165, r: 70, c: '255,190,90', a: 0.4, pulse: 1.5, flicker: 1 }, { x: 420, y: 140, r: 70, c: '255,70,70', a: 0.4, pulse: 2.1 },
             { x: 585, y: 95, r: 65, c: '120,255,120', a: 0.35, pulse: 1.2 }, { x: 740, y: 35, r: 65, c: '255,70,70', a: 0.35, pulse: 1.8, flicker: 1 } ],
     flies: 16, leaves: 6, windX: 60 },
   // fase 2 · O Arraial: galinhas em pânico e um estranho de chapéu de pato atrás da barraca (imagem 1376 × 768)
-  { img: load('assets/intro/fase2.jpg'), iw: 1376, ih: 768, dur: 7.4, zoom: [1.0, 1.04], at: [700, 768], scroll: [20, 578, 1360, 752], sky: 540,
+  { img: load('assets/intro/fase2.jpg'), vid: null, iw: 1376, ih: 768, dur: 7.4, zoom: [1.0, 1.04], at: [700, 768], scroll: [20, 578, 1360, 752], sky: 540,
     wind: [],
     glow: [ { x: 482, y: 75, r: 70, c: '255,190,90', a: 0.4, pulse: 1.5, flicker: 1 }, { x: 607, y: 40, r: 70, c: '255,150,70', a: 0.4, pulse: 2.1 },
             { x: 350, y: 100, r: 60, c: '255,200,110', a: 0.35, pulse: 1.2 }, { x: 1290, y: 330, r: 220, c: '255,140,60', a: 0.28, pulse: 2.6, flicker: 1 } ],
     flies: 22, leaves: 0, windX: 40, rise: 1 },
   // fase 3 · O Quadro Encantado: o Van Gogh triste e o corvo fugindo com o pincel (imagem 1376 × 768)
-  { img: load('assets/intro/fase3.jpg'), iw: 1376, ih: 768, dur: 7.0, zoom: [1.04, 1.0], at: [688, 768], scroll: [20, 640, 1360, 752], sky: 560,
+  { img: load('assets/intro/fase3.jpg'), vid: null, iw: 1376, ih: 768, dur: 7.0, zoom: [1.04, 1.0], at: [688, 768], scroll: [20, 640, 1360, 752], sky: 560,
     wind: [],
     glow: [ { x: 960, y: 85, r: 150, c: '255,235,120', a: 0.25, pulse: 0.9 }, { x: 290, y: 95, r: 60, c: '255,240,150', a: 0.35, pulse: 1.6 },
             { x: 150, y: 20, r: 55, c: '255,240,150', a: 0.3, pulse: 2.1, flicker: 1 }, { x: 60, y: 265, r: 55, c: '255,240,150', a: 0.3, pulse: 1.3 },
@@ -94,6 +97,17 @@ function writeScroll(s, t) {
   ctx.globalAlpha = base;
 }
 
+// faixa de baixo da imagem (o pergaminho), com a borda de cima esfumada, para colar por cima do vídeo sem emenda
+const SOFT = 26;
+function scrollStrip(s) {
+  if (s.strip) return s.strip;
+  const y0 = s.scroll[1] - SOFT, c = document.createElement('canvas'), x = c.getContext('2d'); c.width = s.iw; c.height = s.ih - y0;
+  x.drawImage(s.img, 0, -y0); x.globalCompositeOperation = 'destination-in';
+  const g = x.createLinearGradient(0, 0, 0, SOFT); g.addColorStop(0, 'rgba(0,0,0,0)'); g.addColorStop(1, 'rgba(0,0,0,1)');
+  x.fillStyle = g; x.fillRect(0, 0, c.width, SOFT); x.fillStyle = '#000'; x.fillRect(0, SOFT, c.width, c.height);
+  return (s.strip = c);
+}
+
 function makeParts(s) {
   const r = Math.random, p = [];
   for (let i = 0; i < s.flies; i++) p.push({ k: 'fly', x: r() * s.iw, y: 40 + r() * (s.sky - 40) + (s.rise ? 120 : 0), ph: r() * 9, sz: 2 + r() * 3, sp: 0.4 + r() * 0.8 });
@@ -110,7 +124,9 @@ function drawScene(s, t, alpha, outgoing) {
   let tx = W / 2 - s.at[0] * sc, ty = H / 2 - s.at[1] * sc;
   tx = Math.min(0, Math.max(W - IW * sc, tx)); ty = Math.min(0, Math.max(H - IH * sc, ty));
   ctx.setTransform(sc, 0, 0, sc, tx, ty);
-  ctx.drawImage(img, 0, 0);
+  const v = s.vid;
+  if (v && v.readyState >= 2) { ctx.drawImage(v, 0, 0, IW, IH); ctx.drawImage(scrollStrip(s), 0, s.scroll[1] - SOFT); } // vídeo + o pergaminho parado da imagem
+  else ctx.drawImage(img, 0, 0);
   if (!still) for (const w of s.wind) windPatch(img, w, t);
   ctx.globalCompositeOperation = 'lighter';
   for (const g of s.glow) {
@@ -151,7 +167,9 @@ function frame(now) {
 }
 TT.intro = {
   durations: SCENES.map(s => s.dur),
-  scene(i, text) { SCENES[i].text = text || ''; const now = performance.now(); prev = cur; tp0 = t0; cur = i; t0 = now; SCENES[i].parts = makeParts(SCENES[i]); if (!raf) raf = requestAnimationFrame(frame); },
-  stop() { cancelAnimationFrame(raf); raf = 0; cur = prev = -1; },
+  scene(i, text) { SCENES[i].text = text || ''; const now = performance.now(); prev = cur; tp0 = t0; cur = i; t0 = now; SCENES[i].parts = makeParts(SCENES[i]);
+    const v = SCENES[i].vid; if (v) { try { v.currentTime = 0; } catch (_) {} v.play().catch(() => {}); }
+    if (!raf) raf = requestAnimationFrame(frame); },
+  stop() { cancelAnimationFrame(raf); raf = 0; cur = prev = -1; SCENES.forEach(s => s.vid && s.vid.pause()); },
 };
 })();
