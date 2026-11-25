@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: #0d0e11; }
+      #root { position: absolute; inset: 0; background: #0d0e11; overflow: hidden; }
+      /* outro momento do jogo (a luta com o lobo-guará), já desfocado no arquivo */
+      #fundo-video { position: absolute; left: -120px; top: -200px; width: 1320px; height: 2320px; object-fit: cover; opacity: 0.7; }
+      #fundo-escuro {
+        position: absolute; inset: 0;
+        background:
+          radial-gradient(ellipse 75% 45% at 50% 44%, rgba(13, 14, 17, 0.1), rgba(13, 14, 17, 0.78) 100%),
+          linear-gradient(180deg, rgba(13, 14, 17, 0.5), rgba(13, 14, 17, 0.15) 45%, rgba(13, 14, 17, 0.8));
+      }
+      .brilho { position: absolute; left: 40px; top: 320px; width: 1000px; height: 1000px; border-radius: 50%; opacity: 0; }
+      #brilho-azul { background: radial-gradient(circle, rgba(74, 168, 255, 0.55) 0%, transparent 62%); }
+      #brilho-laranja { background: radial-gradient(circle, rgba(255, 154, 60, 0.55) 0%, transparent 62%); }
+      #fundo-pontos {
+        position: absolute; inset: 0;
+        background-image: radial-gradient(rgba(255, 255, 255, 0.06) 2px, transparent 2.4px); background-size: 36px 36px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="18" data-width="1080" data-height="1920">
+      <video id="fundo-video" class="clip" src="assets/fundo.mp4" data-start="0" data-duration="18" data-track-index="0" muted playsinline></video>
+      <div id="fundo-escuro"></div>
+      <div class="brilho" id="brilho-azul"></div>
+      <div class="brilho" id="brilho-laranja"></div>
+      <div id="fundo-pontos"></div>
+      <div id="aparelho" data-composition-id="aparelho" data-composition-src="compositions/aparelho.html"
+        data-start="0" data-duration="18" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div id="textos" data-composition-id="textos" data-composition-src="compositions/textos.html"
+        data-start="0" data-duration="18" data-track-index="2" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      // brilho na cor da fase: azul no console, laranja no celular, as duas juntas no portátil
+      tl.fromTo("#brilho-azul", { opacity: 0, scale: 0.7 }, { opacity: 0.5, scale: 1, duration: 1.2, ease: "power2.out" }, 0);
+      tl.to("#brilho-azul", { opacity: 0, duration: 0.4 }, 5.7);
+      tl.fromTo("#brilho-laranja", { opacity: 0 }, { opacity: 0.5, duration: 0.4 }, 5.7);
+      tl.to("#brilho-laranja", { opacity: 0.35, x: 140, duration: 0.5 }, 11.5);
+      tl.to("#brilho-azul", { opacity: 0.35, x: -140, duration: 0.5 }, 11.5);
+      tl.fromTo("#fundo-video", { x: 50, y: 30 }, { x: -60, y: -30, duration: 18, ease: "none" }, 0);
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

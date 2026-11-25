@@ -1,0 +1,62 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; font-family: "Inter", sans-serif; color: #eef0f4; }
+    .tx-linha {
+      position: absolute; left: 120px; top: 1330px; width: 768px; text-align: center;
+      font-size: 54px; font-weight: 900; letter-spacing: -0.02em; line-height: 1.08;
+      text-shadow: 0 6px 30px rgba(0, 0, 0, 0.6);
+    }
+    .tx-linha span { display: inline-block; margin: 0 0.11em; }
+    .tx-azul { color: #4aa8ff; }
+    .tx-laranja { color: #ff9a3c; }
+    #tx-titulo {
+      position: absolute; left: 120px; top: 1010px; width: 768px; text-align: center;
+      font-size: 68px; font-weight: 900; letter-spacing: -0.03em; line-height: 1.02;
+    }
+    #tx-titulo .tx-bloco { display: block; }
+    #tx-titulo .tx-grad { background: linear-gradient(90deg, #4aa8ff, #ff9a3c); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    #tx-cta {
+      position: absolute; left: 324px; top: 1190px; width: 360px; height: 88px; border-radius: 44px;
+      background: linear-gradient(90deg, #4aa8ff, #ff9a3c); color: #0d0e11; text-align: center;
+      font-size: 40px; font-weight: 900; line-height: 88px; box-shadow: 0 20px 60px rgba(255, 154, 60, 0.35);
+    }
+  </style>
+  <div id="root" data-composition-id="textos" data-width="1080" data-height="1920">
+    <div class="tx-linha clip" id="tx-l1" data-start="0" data-duration="3" data-track-index="0">
+      <span>Roubaram</span><span>o</span><span>brinquedo</span><span>do</span><span class="tx-azul">Timtim.</span>
+    </div>
+    <div class="tx-linha clip" id="tx-l2" data-start="3" data-duration="2.6" data-track-index="0">
+      <span>Corra,</span><span>pule</span><span>e</span><span class="tx-azul">fareje</span><span class="tx-azul">segredos.</span>
+    </div>
+    <div class="tx-linha clip" id="tx-l3" data-start="6.1" data-duration="2.8" data-track-index="0">
+      <span>Plane</span><span>com</span><span>a</span><span class="tx-laranja">bandana</span><span>no</span><span>Arraial.</span>
+    </div>
+    <div class="tx-linha clip" id="tx-l4" data-start="8.9" data-duration="2.5" data-track-index="0">
+      <span>Duas</span><span>fases</span><span>e</span><span class="tx-laranja">dois</span><span class="tx-laranja">chefões.</span>
+    </div>
+    <div class="tx-linha clip" id="tx-l5" data-start="11.9" data-duration="3.1" data-track-index="0">
+      <span>Resgate</span><span>o</span><span class="tx-azul">Macaco</span><span class="tx-laranja">Fedido!</span>
+    </div>
+    <div id="tx-titulo" class="clip" data-start="15" data-duration="3" data-track-index="0">
+      <span class="tx-bloco"><span class="tx-p">Timtim e o Resgate</span></span>
+      <span class="tx-bloco"><span class="tx-p tx-grad">do Macaco Fedido</span></span>
+    </div>
+    <div id="tx-cta" class="clip" data-start="15" data-duration="3" data-track-index="1">Jogue agora</div>
+  </div>
+  <script>
+    (() => {
+      const tl = gsap.timeline({ paused: true });
+      // a primeira frase já está na tela no quadro 0 (é a capa do vídeo)
+      tl.fromTo("#tx-l1 span", { y: 24, opacity: 1 }, { y: 0, duration: 0.7, stagger: 0.04, ease: "power3.out" }, 0);
+      tl.to("#tx-l1 span", { opacity: 0, y: -24, duration: 0.15, stagger: 0.02, ease: "power2.in" }, 2.8);
+      [["#tx-l2", 3, 5.6], ["#tx-l3", 6.1, 8.9], ["#tx-l4", 8.9, 11.4], ["#tx-l5", 11.9, 15.0]].forEach(([id, t0, t1]) => {
+        tl.fromTo(id + " span", { opacity: 0, y: 44, filter: "blur(10px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.4, stagger: 0.06, ease: "power3.out" }, t0 + 0.02);
+        tl.to(id + " span", { opacity: 0, y: -24, duration: 0.15, stagger: 0.02, ease: "power2.in" }, t1 - 0.22);
+      });
+      tl.fromTo("#tx-titulo .tx-p", { opacity: 0, y: 50, filter: "blur(12px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.5, stagger: 0.12, ease: "power3.out" }, 15.15);
+      tl.fromTo("#tx-cta", { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(2)" }, 15.55);
+      tl.to("#tx-cta", { scale: 1.06, duration: 0.4, ease: "sine.inOut", yoyo: true, repeat: 3 }, 16.2);
+      window.__timelines["textos"] = tl;
+    })();
+  </script>
+</template>

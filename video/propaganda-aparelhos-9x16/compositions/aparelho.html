@@ -1,0 +1,147 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; }
+    #ap-palco { position: absolute; inset: 0; perspective: 2200px; perspective-origin: 540px 830px; }
+    #ap-sombra {
+      position: absolute; left: 190px; top: 1255px; width: 700px; height: 80px; border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(0, 0, 0, 0.55), transparent 70%);
+    }
+    #ap-cam { position: absolute; left: 540px; top: 830px; width: 0; height: 0; transform-style: preserve-3d; }
+    .ap-disp { position: absolute; }
+    .ap-tela { position: absolute; overflow: hidden; background: #000; }
+    .ap-tela video { position: absolute; left: 0; top: 0; width: 100%; height: 100%; object-fit: cover; }
+    .ap-reflexo {
+      position: absolute; inset: 0; pointer-events: none;
+      background: linear-gradient(125deg, rgba(255, 255, 255, 0.10) 0%, rgba(255, 255, 255, 0.02) 32%, transparent 33%);
+    }
+    .ap-bola { position: absolute; border-radius: 50%; }
+
+    /* 1. console híbrido: tela no meio, controles azul e vermelho nas laterais */
+    #ap-c1 { left: -456px; top: -208px; width: 912px; height: 416px; }
+    .c1-ctrl { position: absolute; top: 0; width: 104px; height: 416px; box-shadow: inset 0 -8px 18px rgba(0, 0, 0, 0.25), inset 0 6px 12px rgba(255, 255, 255, 0.25); }
+    #c1-esq { left: 0; border-radius: 64px 0 0 64px; background: linear-gradient(180deg, #19c3f0, #0aa6d4); }
+    #c1-dir { left: 808px; border-radius: 0 64px 64px 0; background: linear-gradient(180deg, #ff5a68, #e83a4b); }
+    #c1-corpo { position: absolute; left: 104px; top: 0; width: 704px; height: 416px; background: #1c1d21; border-radius: 6px; box-shadow: inset 0 0 0 2px #2c2e34; }
+    #c1-tela { left: 120px; top: 20px; width: 672px; height: 378px; border-radius: 4px; }
+    .c1-stick { width: 58px; height: 58px; background: radial-gradient(circle at 40% 35%, #4a4d55, #1d1f24 70%); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.45); }
+    .c1-btn { width: 30px; height: 30px; background: radial-gradient(circle at 40% 35%, #3c3f46, #16181c 75%); }
+
+    /* 2. celular deitado: bordas finas, cantos bem redondos, ilha preta do lado */
+    #ap-c2 { left: -440px; top: -212px; width: 880px; height: 424px; opacity: 0; }
+    #c2-corpo {
+      position: absolute; inset: 0; border-radius: 76px; background: #0b0b0d;
+      box-shadow: 0 0 0 5px #b9bcc4, 0 0 0 7px #7d8089, inset 0 0 0 2px #26272b;
+    }
+    #c2-tela { left: 16px; top: 16px; width: 848px; height: 392px; border-radius: 60px; }
+    #c2-tela video { left: 75px; width: 698px; height: 392px; object-fit: cover; }
+    #c2-ilha { position: absolute; left: 34px; top: 157px; width: 34px; height: 110px; border-radius: 17px; background: #000; }
+    .c2-botao { position: absolute; top: -11px; height: 6px; border-radius: 3px; background: #9da0a8; }
+
+    /* 3. portátil clássico em pé: carcaça roxa translúcida, direcional e botões A e B */
+    #ap-c3 { left: -300px; top: -470px; width: 600px; height: 940px; opacity: 0; }
+    #c3-corpo {
+      position: absolute; inset: 0; border-radius: 40px 40px 140px 40px;
+      background: linear-gradient(160deg, rgba(150, 110, 235, 0.97), rgba(96, 58, 186, 0.97) 55%, rgba(74, 40, 158, 0.98));
+      box-shadow: inset 0 8px 20px rgba(255, 255, 255, 0.28), inset 0 -14px 30px rgba(30, 10, 80, 0.45), 0 30px 70px rgba(0, 0, 0, 0.5);
+    }
+    #c3-lente { position: absolute; left: 44px; top: 64px; width: 512px; height: 400px; border-radius: 22px 22px 80px 22px; background: #3b3e4b; box-shadow: inset 0 0 0 2px #4b4f5e; }
+    #c3-tela { left: 80px; top: 130px; width: 440px; height: 248px; border-radius: 3px; }
+    #c3-led { left: 58px; top: 236px; width: 14px; height: 14px; background: radial-gradient(circle, #ff6a6a, #a51818); box-shadow: 0 0 10px #ff3b3b; }
+    #c3-faixa { position: absolute; left: 70px; top: 96px; width: 460px; height: 4px; border-radius: 2px; background: linear-gradient(90deg, #8c8fa0, #8c8fa0 30%, transparent 30%, transparent 70%, #8c8fa0 70%); opacity: 0.6; }
+    .c3-cruz { position: absolute; background: #241b3e; border-radius: 8px; box-shadow: inset 0 3px 4px rgba(255, 255, 255, 0.12), 0 4px 8px rgba(0, 0, 0, 0.35); }
+    .c3-ab { width: 86px; height: 86px; background: radial-gradient(circle at 40% 35%, #4a3388, #261749 75%); box-shadow: 0 6px 10px rgba(0, 0, 0, 0.4); }
+    .c3-pilula { position: absolute; width: 74px; height: 18px; border-radius: 9px; background: #2e2252; transform: rotate(-25deg); }
+    .c3-grade { position: absolute; width: 8px; height: 90px; border-radius: 4px; background: rgba(40, 20, 90, 0.55); transform: rotate(-30deg); }
+  </style>
+  <div id="root" data-composition-id="aparelho" data-width="1080" data-height="1920">
+    <div id="ap-palco">
+      <div id="ap-sombra"></div>
+      <div id="ap-cam" data-layout-allow-overflow>
+        <div class="ap-disp" id="ap-c1">
+          <div class="c1-ctrl" id="c1-esq">
+            <div class="ap-bola c1-stick" style="left: 23px; top: 70px"></div>
+            <div class="ap-bola c1-btn" style="left: 37px; top: 190px"></div>
+            <div class="ap-bola c1-btn" style="left: 37px; top: 262px"></div>
+            <div class="ap-bola c1-btn" style="left: 1px; top: 226px"></div>
+            <div class="ap-bola c1-btn" style="left: 73px; top: 226px"></div>
+          </div>
+          <div id="c1-corpo"></div>
+          <div class="ap-tela" id="c1-tela">
+            <video id="v1" class="clip" src="assets/tela1.mp4" data-start="0" data-duration="5.85" data-track-index="0" muted playsinline></video>
+            <div class="ap-reflexo"></div>
+          </div>
+          <div class="c1-ctrl" id="c1-dir">
+            <div class="ap-bola c1-btn" style="left: 37px; top: 52px"></div>
+            <div class="ap-bola c1-btn" style="left: 37px; top: 124px"></div>
+            <div class="ap-bola c1-btn" style="left: 1px; top: 88px"></div>
+            <div class="ap-bola c1-btn" style="left: 73px; top: 88px"></div>
+            <div class="ap-bola c1-stick" style="left: 23px; top: 250px"></div>
+          </div>
+        </div>
+
+        <div class="ap-disp" id="ap-c2">
+          <div class="c2-botao" style="left: 170px; width: 70px"></div>
+          <div class="c2-botao" style="left: 260px; width: 70px"></div>
+          <div class="c2-botao" style="left: 640px; width: 110px"></div>
+          <div id="c2-corpo"></div>
+          <div class="ap-tela" id="c2-tela">
+            <video id="v2" class="clip" src="assets/tela2.mp4" data-start="5.8" data-duration="5.85" data-track-index="1" muted playsinline></video>
+            <div class="ap-reflexo"></div>
+          </div>
+          <div id="c2-ilha"></div>
+        </div>
+
+        <div class="ap-disp" id="ap-c3">
+          <div id="c3-corpo"></div>
+          <div id="c3-lente"></div>
+          <div id="c3-faixa"></div>
+          <div class="ap-bola" id="c3-led"></div>
+          <div class="ap-tela" id="c3-tela">
+            <video id="v3" class="clip" src="assets/tela3.mp4" data-start="11.6" data-duration="6.4" data-track-index="2" muted playsinline></video>
+            <div class="ap-reflexo"></div>
+          </div>
+          <div class="c3-cruz" style="left: 76px; top: 610px; width: 150px; height: 50px"></div>
+          <div class="c3-cruz" style="left: 126px; top: 560px; width: 50px; height: 150px"></div>
+          <div class="ap-bola c3-ab" style="left: 340px; top: 620px"></div>
+          <div class="ap-bola c3-ab" style="left: 450px; top: 560px"></div>
+          <div class="c3-pilula" style="left: 196px; top: 790px"></div>
+          <div class="c3-pilula" style="left: 296px; top: 790px"></div>
+          <div class="c3-grade" style="left: 470px; top: 790px"></div>
+          <div class="c3-grade" style="left: 492px; top: 790px"></div>
+          <div class="c3-grade" style="left: 514px; top: 790px"></div>
+          <div class="c3-grade" style="left: 536px; top: 790px"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    (() => {
+      const tl = gsap.timeline({ paused: true });
+      // chegada: o console vem de longe, inclinado, e fica de frente
+      tl.fromTo("#ap-cam", { rotationX: 38, rotationY: -32, z: -1000, y: 140 }, { rotationX: 0, rotationY: 0, z: 0, y: 0, duration: 1.1, ease: "power3.out" }, 0);
+      tl.fromTo("#ap-sombra", { opacity: 0, scaleX: 0.5 }, { opacity: 1, scaleX: 1, duration: 1.1, ease: "power3.out" }, 0);
+      tl.to("#ap-cam", { rotationY: -5, rotationX: 2, y: -12, duration: 4.4, ease: "sine.inOut" }, 1.1);
+
+      // giro 1 (5,5–6,1 s): o console gira e volta como celular
+      tl.to("#ap-cam", { rotationY: 90, rotationX: 0, y: 0, filter: "blur(10px)", duration: 0.3, ease: "power2.in" }, 5.5);
+      tl.set("#ap-c1", { opacity: 0 }, 5.8);
+      tl.set("#ap-c2", { opacity: 1 }, 5.8);
+      tl.fromTo("#ap-cam", { rotationY: -90 }, { rotationY: 0, filter: "blur(0px)", duration: 0.32, ease: "power2.out", immediateRender: false }, 5.8);
+      tl.to("#ap-sombra", { scaleX: 0.95, duration: 0.6 }, 5.5);
+      tl.to("#ap-cam", { rotationY: 7, rotationX: 4, y: -10, duration: 5.0, ease: "sine.inOut" }, 6.12);
+
+      // giro 2 (11,3–11,9 s), no outro sentido: o celular vira o portátil em pé
+      tl.to("#ap-cam", { rotationY: -90, rotationX: 0, y: 0, filter: "blur(10px)", duration: 0.3, ease: "power2.in" }, 11.3);
+      tl.set("#ap-c2", { opacity: 0 }, 11.6);
+      tl.set("#ap-c3", { opacity: 1 }, 11.6);
+      tl.fromTo("#ap-cam", { rotationY: 90 }, { rotationY: 0, filter: "blur(0px)", duration: 0.32, ease: "power2.out", immediateRender: false }, 11.6);
+      tl.to("#ap-sombra", { scaleX: 0.7, y: 210, duration: 0.6 }, 11.3);
+      tl.to("#ap-cam", { rotationY: -4, y: -8, duration: 3.1, ease: "sine.inOut" }, 11.92);
+
+      // fechamento: o portátil sobe e encolhe para o nome do jogo entrar embaixo
+      tl.to("#ap-cam", { y: -250, scale: 0.7, rotationY: 6, duration: 0.8, ease: "power3.inOut" }, 15.0);
+      tl.to("#ap-sombra", { opacity: 0, duration: 0.5 }, 15.0);
+      window.__timelines["aparelho"] = tl;
+    })();
+  </script>
+</template>
