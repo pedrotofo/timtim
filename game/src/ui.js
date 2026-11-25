@@ -4,6 +4,14 @@
 const TT = window.TT, S = TT.S, C = TT.C, I = TT.input;
 const $ = id => document.getElementById(id);
 const stage = $('stage');
+// Encaixa o jogo (16:9) na área que aparece de verdade. No celular, e dentro de outros apps (como a janela de artefato do
+// Claude), a medida "vh" do CSS conta a área atrás das barras e o jogo ficava mais alto que a tela, cortado embaixo.
+{ const wrap = $('wrap'), vv = window.visualViewport;
+  const encaixa = () => { const w = vv ? vv.width : innerWidth, h = vv ? vv.height : innerHeight; if (!w || !h) return;
+    wrap.style.inset = 'auto'; wrap.style.left = (vv ? vv.offsetLeft : 0) + 'px'; wrap.style.top = (vv ? vv.offsetTop : 0) + 'px';
+    wrap.style.width = w + 'px'; wrap.style.height = h + 'px'; stage.style.width = Math.floor(Math.min(w, h * 16 / 9)) + 'px'; };
+  encaixa(); addEventListener('resize', encaixa); addEventListener('orientationchange', () => setTimeout(encaixa, 250));
+  if (vv) { vv.addEventListener('resize', encaixa); vv.addEventListener('scroll', encaixa); } }
 
 // ---------------- controles ----------------
 const mainBtn = () => ({ title: 'btnStart', pause: 'btnResume', lose: 'btnRetry', win: $('btnNext').classList.contains('on') ? 'btnNext' : 'btnAgain' })[S.mode];
