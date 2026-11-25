@@ -13,7 +13,7 @@ const VG_PLAT = { 380: 'cama', 718: 'cadeira', 5000: 'toldo', 5500: 'toldo', 528
 const MOBILE = matchMedia('(pointer: coarse)').matches;
 // com os botões de toque na tela, a câmera mira mais baixo: o chão sobe e o Timtim anda acima dos botões
 // (no iPhone ele corria escondido atrás do botão ▶, parecia que tinha sumido)
-const DESCE = ('ontouchstart' in window || navigator.maxTouchPoints > 0) ? 46 : 0;
+const DESCE = ('ontouchstart' in window || navigator.maxTouchPoints > 0) ? 16 : 0; // (46 subia demais e cortava o alto da tela)
 const R = TT.R = { ready: false, quality: MOBILE ? 1 : 2, flash: 0 };
 const cv = document.getElementById('c');
 let renderer;

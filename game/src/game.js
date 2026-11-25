@@ -746,7 +746,7 @@ TT.update = (rdt) => {
   const cam = S.cam;
   cam.look += (p.vx * 0.32 - cam.look) * Math.min(1, dt * 2.5);
   // no celular ele fica um pouco mais para o meio da tela, longe dos botões de andar no canto
-  const want = S.arena ? ARENA_X : Math.max(0, Math.min(ARENA_X, p.x - W * (TOQUE ? 0.46 : 0.4) + cam.look));
+  const want = S.arena ? ARENA_X : Math.max(0, Math.min(ARENA_X, p.x - W * (TOQUE ? 0.45 : 0.4) + cam.look));
   cam.x += (want - cam.x) * Math.min(1, dt * 5);
   const wantY = S.arena ? Math.max(C.FOX ? -170 : -60, Math.min(FASE === 3 ? -50 : 0, (p.y + p.h - (GROUND - 150)) * (C.FOX ? 0.45 : 0.3))) : Math.max(-260, Math.min(0, (p.y + p.h - (GROUND - 70)) * 0.6)); // sobe junto quando ele vai alto (planando, a argola): não fica colado no placar
   cam.y += (wantY - cam.y) * Math.min(1, dt * 3.4);
