@@ -1,0 +1,383 @@
+<title>O Quadro Encantado</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marcellus&family=Nunito:wght@500;600;700;800&display=swap">
+<style>
+/* Layout: um museu à noite. Cabeçalho curto, o panorama pintado da fase ocupa a largura toda e rola de lado,
+   depois as decisões da fase em blocos de leitura com a demonstração do redemoinho no meio. Tema único escuro, de propósito. */
+:root {
+  --ink: #0f1630;        /* azul-noite do museu (fundo) */
+  --ink-2: #18224a;      /* painéis */
+  --line: #2c3a72;       /* filetes */
+  --paper: #f3ead2;      /* texto principal, cor de tela crua */
+  --dim: #b9b3a0;        /* texto secundário */
+  --chrome: #f2c230;     /* amarelo-cromo: a cor da fase */
+  --cobalt: #3f6fd8;     /* azul-cobalto: só no céu do fim */
+  --crow: #1a1a1f;
+  --display: "Marcellus", Georgia, "Times New Roman", serif;
+  --body: "Nunito", "Trebuchet MS", system-ui, sans-serif;
+  color-scheme: dark;
+}
+body { background: var(--ink); color: var(--paper); font-family: var(--body); font-size: 16px; line-height: 1.6; }
+.wrap { max-width: 1080px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+header.top { padding-block: 40px 20px; }
+.eyebrow { font-weight: 800; font-size: 12px; letter-spacing: .22em; text-transform: uppercase; color: var(--chrome); }
+h1 { font-family: var(--display); font-weight: 400; font-size: clamp(38px, 7vw, 76px); line-height: 1; margin: 10px 0 14px; letter-spacing: .01em; text-wrap: balance; }
+.lead { font-size: clamp(17px, 2.1vw, 20px); max-width: 62ch; color: var(--paper); margin: 0; }
+.note { color: var(--dim); font-size: 14px; margin: 10px 0 0; max-width: 70ch; }
+
+/* panorama */
+.pano-band { border-block: 1px solid var(--line); background: #0b1126; }
+.pano-bar { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; justify-content: space-between; padding-block: 12px; }
+.pano-bar .legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 13px; color: var(--dim); }
+.legend i { display: inline-block; width: 18px; height: 10px; border-radius: 6px; vertical-align: middle; margin-right: 6px; }
+.btn { font: inherit; font-weight: 800; font-size: 14px; color: var(--ink); background: var(--chrome); border: 0; border-radius: 999px; padding: 8px 16px; cursor: pointer; }
+.btn.ghost { background: transparent; color: var(--paper); box-shadow: inset 0 0 0 1px var(--line); }
+.btn:focus-visible { outline: 3px solid var(--paper); outline-offset: 2px; }
+.pano-scroll { overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; scrollbar-color: var(--line) transparent; }
+.pano { position: relative; height: clamp(300px, 52vh, 460px); }
+.pano canvas { position: absolute; left: 0; top: 0; height: 100%; display: block; }
+.pano-cap { padding-block: 10px 16px; font-size: 13px; color: var(--dim); }
+
+/* conteúdo */
+main { padding-block: 32px 64px; display: grid; gap: 44px; }
+section h2 { font-family: var(--display); font-weight: 400; font-size: clamp(26px, 3.4vw, 34px); margin: 0 0 10px; line-height: 1.15; text-wrap: balance; }
+section p { margin: 0 0 12px; max-width: 66ch; }
+.two { display: grid; grid-template-columns: 1.1fr 1fr; gap: 28px; align-items: start; }
+.two > * { min-width: 0; }
+@media (max-width: 760px) { .two { grid-template-columns: 1fr; } }
+.swatches { display: flex; gap: 10px; flex-wrap: wrap; margin: 6px 0 12px; }
+.sw { display: grid; gap: 4px; font-size: 12px; color: var(--dim); }
+.sw b { display: block; width: 64px; height: 40px; border-radius: 8px; }
+.cmp { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-top: 10px; }
+.cmp div { border-radius: 10px; padding: 10px 12px; font-size: 13px; line-height: 1.35; }
+.cmp strong { display: block; font-family: var(--display); font-weight: 400; font-size: 17px; }
+.demo { background: var(--ink-2); border-radius: 14px; padding: 14px; }
+.demo canvas { width: 100%; max-width: 100%; aspect-ratio: 2 / 1; display: block; border-radius: 10px; background: #13204d; touch-action: none; cursor: pointer; }
+.demo .row { display: flex; justify-content: space-between; gap: 10px; align-items: center; margin-top: 10px; font-size: 14px; color: var(--dim); flex-wrap: wrap; }
+.demo .score { font-variant-numeric: tabular-nums; color: var(--chrome); font-weight: 800; }
+ol.route { list-style: none; padding: 0; margin: 14px 0 0; display: grid; gap: 0; counter-reset: t; }
+ol.route li { display: grid; grid-template-columns: 54px minmax(0, 1fr); gap: 14px; padding-block: 16px; border-top: 1px solid var(--line); }
+ol.route li::before { counter-increment: t; content: counter(t); font-family: var(--display); font-size: 34px; line-height: 1; color: var(--chrome); }
+ol.route h3 { margin: 0 0 4px; font-family: var(--display); font-weight: 400; font-size: 21px; }
+ol.route p { margin: 0; color: var(--paper); }
+ol.route .tag { display: inline-block; font-size: 12px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--ink); background: var(--chrome); border-radius: 999px; padding: 1px 9px; margin-left: 6px; vertical-align: 2px; }
+.boss { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 12px; }
+@media (max-width: 640px) { .boss, .cmp { grid-template-columns: 1fr; } }
+.boss div { border-top: 3px solid var(--crow); background: var(--ink-2); border-radius: 10px; padding: 12px 14px; }
+.boss div.weak { border-top-color: var(--chrome); }
+.boss strong { display: block; font-family: var(--display); font-weight: 400; font-size: 19px; margin-bottom: 2px; }
+.boss p { margin: 0; font-size: 15px; }
+ul.plain { margin: 8px 0 0; padding-left: 20px; display: grid; gap: 6px; max-width: 70ch; }
+.cast { display: flex; gap: 14px; align-items: flex-end; margin: 6px 0 12px; }
+.cast figure { margin: 0; text-align: center; font-size: 12px; color: var(--dim); }
+.cast img { height: 70px; width: auto; display: block; margin: 0 auto 2px; }
+footer { border-top: 1px solid var(--line); padding-block: 18px 40px; color: var(--dim); font-size: 13px; }
+@media (prefers-reduced-motion: reduce) { .btn { transition: none; } }
+</style>
+
+<header class="top wrap">
+  <div class="eyebrow">Timtim · proposta da fase 3</div>
+  <h1>O Quadro Encantado</h1>
+  <p class="lead">O faro do Timtim leva a turma para dentro de um quadro do Van Gogh. Lá dentro tudo é feito de pinceladas que se mexem: o céu gira, o trigo ondula e os girassóis seguem o sol.</p>
+  <p class="note">A faixa abaixo é um esboço da fase inteira, desenhado aqui mesmo com pinceladas geradas por código. Não é a arte final e não gastou crédito nenhum. Arraste para os lados ou aperte "Assistir o passeio".</p>
+</header>
+
+<div class="pano-band">
+  <div class="wrap pano-bar">
+    <div class="legend">
+      <span><i style="background:var(--paper)"></i>caminho do Timtim</span>
+      <span><i style="background:#fff3b0;box-shadow:0 0 8px #fff3b0"></i>redemoinho</span>
+      <span><i style="background:var(--crow);box-shadow:inset 0 0 0 1px #555"></i>corvo</span>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <button class="btn" id="tour" type="button">Assistir o passeio</button>
+      <button class="btn ghost" id="pathBtn" type="button" aria-pressed="true">Esconder o caminho</button>
+    </div>
+  </div>
+  <div class="pano-scroll" id="scroller" tabindex="0" aria-label="Panorama da fase 3, rola para os lados">
+    <div class="pano" id="pano">
+      <canvas id="paint" aria-hidden="true"></canvas>
+      <canvas id="over" role="img" aria-label="Esboço da fase: o Quarto, os Girassóis, o Trigal com Corvos, o Terraço do Café e a Noite Estrelada, com o chefão no alto do morro"></canvas>
+    </div>
+  </div>
+  <div class="wrap pano-cap">Da esquerda para a direita: o Quarto · os Girassóis · o Trigal com Corvos · o Terraço do Café · a Noite Estrelada e o morro do chefão. Cerca de dois minutos de jogo.</div>
+</div>
+
+<main class="wrap">
+  <section class="two">
+    <div>
+      <h2>A história</h2>
+      <p>Na Casa de Cultura da vila abre uma exposição de quadros do Van Gogh. A Tinta, cachorrinha da pintora da vila, perdeu o Girassol de Apito: o Furtão atirou o brinquedo pela moldura da Noite Estrelada e ele sumiu lá dentro.</p>
+      <p>O faro do Timtim mostra o rastro de cheiro entrando na tela. Timtim, Zara e Elvis pulam pela moldura. Lá dentro, quem está com o girassol é o Corvo-Borrão, um corvo do trigal feito de tinta preta grossa que guarda tudo o que é amarelo e brilha.</p>
+      <div class="cast" aria-label="Os três heróis">
+        <figure><img src="tintim-idle.png" alt="Timtim">Timtim</figure>
+        <figure><img src="chi-br.png" alt="Zara">Zara</figure>
+        <figure><img src="chi-pb.png" alt="Elvis">Elvis</figure>
+      </div>
+      <p class="note">Os três entram no quadro com o desenho de sempre. Só o mundo é pintado em pinceladas, para o Timtim continuar sendo o Timtim.</p>
+    </div>
+    <div>
+      <h2>Cor e sentimento</h2>
+      <p>O chão é amarelo do começo ao fim: girassol, trigo e o toldo do café. O céu vai escurecendo trecho a trecho, do amarelo-claro dos girassóis até o azul-cobalto da noite estrelada, então a fase também conta a passagem do dia para a noite. O sentimento é deslumbramento com um pouco de vertigem: tudo pulsa e gira.</p>
+      <div class="swatches">
+        <span class="sw"><b style="background:#f2c230"></b>amarelo-cromo</span>
+        <span class="sw"><b style="background:#d99a1e"></b>ocre do trigo</span>
+        <span class="sw"><b style="background:#5f8f4a"></b>verde do caule</span>
+        <span class="sw"><b style="background:#2f5fb3"></b>cobalto</span>
+        <span class="sw"><b style="background:#1a1a1f;box-shadow:inset 0 0 0 1px #444"></b>tinta do corvo</span>
+      </div>
+      <div class="cmp">
+        <div style="background:#1c2f5c"><strong>Fase 1</strong>Azul, noite soturna de pântano</div>
+        <div style="background:#5a2a10"><strong>Fase 2</strong>Laranja, festa quente de fogueiras</div>
+        <div style="background:#7a5a0c"><strong>Fase 3</strong>Amarelo que escurece até a noite estrelada</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="two">
+    <div>
+      <h2>A ação nova: o redemoinho</h2>
+      <p>Cada fase ensina uma única ação nova. Nesta, os redemoinhos do céu pegam o Timtim e giram com ele. Apertar o pulo solta o Timtim na direção em que ele está indo naquele instante: acertar a hora é mirar.</p>
+      <p>Depois de solto, ele pode planar com a bandana, que ele aprendeu no Arraial. Os redemoinhos dão uma volta a cada compasso da valsa, então quem pula no ritmo da música acerta mais.</p>
+      <p class="note">Experimente ao lado: clique, toque ou aperte Espaço para soltar o Timtim e acertar a estrela.</p>
+    </div>
+    <div class="demo">
+      <canvas id="demo" width="640" height="320" tabindex="0" aria-label="Demonstração do redemoinho: aperte Espaço, clique ou toque para soltar o Timtim"></canvas>
+      <div class="row"><span>Espaço, clique ou toque: soltar</span><span class="score" id="score">0 estrelas</span></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>O caminho, trecho por trecho</h2>
+    <ol class="route">
+      <li><div><h3>O Quarto <span class="tag">entrada</span></h3><p>O Timtim sai de uma moldura dourada para dentro do quarto torto de Arles. O chão inclinado vira rampa, e a cama e as cadeiras são plataformas. No quadro da parede está o primeiro redemoinho, pequeno, para aprender a soltar na hora certa.</p></div></li>
+      <li><div><h3>Os Girassóis</h3><p>Cabeças de girassol gigantes servem de plataforma e viram devagar seguindo o sol: a que está de frente segura, a que fica de perfil derruba. Um redemoinho alto leva por cima do vaso.</p></div></li>
+      <li><div><h3>O Trigal com Corvos</h3><p>O trigo ondula e as rajadas empurram o Timtim. Os corvos fazem o papel dos pombos e das galinhas: mergulham em diagonal, e a sombra no chão avisa onde vão cair. São três caminhos de terra, e um deles leva a um segredo.</p></div></li>
+      <li><div><h3>O Terraço do Café</h3><p>O toldo amarelo é cama elástica, e as mesas e cadeiras viram escada. As primeiras estrelas acendem no céu. No fim, um redemoinho lança o Timtim para cima.</p></div></li>
+      <li><div><h3>A Noite Estrelada <span class="tag">chefão</span></h3><p>Uma corrente de redemoinhos sobe até o céu. As estrelas são degraus que piscam, e o cipreste é uma chama escura para escalar. No alto do morro, sobre a vila adormecida, espera o Corvo-Borrão.</p></div></li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>O chefão: o Corvo-Borrão</h2>
+    <p>Um corvo enorme feito de tinta preta grossa, que guarda o Girassol de Apito no topo do cipreste. A luta tem três rodadas, e ele fica mais rápido a cada acerto, como o lobo-guará.</p>
+    <div class="boss">
+      <div><strong>Mergulho</strong><p>Risca uma sombra no chão e desce em diagonal. Quem sai da sombra escapa.</p></div>
+      <div><strong>Borrões</strong><p>Sacode a tinta das asas. As gotas mancham o chão e deixam o Timtim lento, como o chocolate da fase 1.</p></div>
+      <div><strong>Ventania</strong><p>Bate as asas, empurra o Timtim e apaga por alguns segundos as plataformas mais perto, que viram tela crua.</p></div>
+      <div class="weak"><strong>Ponto fraco</strong><p>Depois de cada ventania ele pousa no cipreste para admirar o girassol. É a hora: soltar-se de um redemoinho e acertar as costas dele.</p></div>
+    </div>
+    <p style="margin-top:14px">Os amigos ajudam do chão: a Zara late e espanta os corvinhos que vêm junto, e o Elvis joga tubos de tinta amarela que repintam as plataformas apagadas. No fim, o corvo larga o girassol, o céu inteiro gira e devolve os três à Casa de Cultura.</p>
+  </section>
+
+  <section class="two">
+    <div>
+      <h2>Para achar e colecionar</h2>
+      <ul class="plain">
+        <li>Biscoitos com contorno grosso de pincel, para combinar com o mundo pintado.</li>
+        <li>Três tubos de tinta dourados (amarelo, azul e vermelho) no lugar dos biscoitos dourados.</li>
+        <li>O brinquedo perdido, o Girassol de Apito: "É da Tinta, a cachorrinha da pintora. Apita toda vez que alguém aperta, e o Furtão não parava de apertar."</li>
+        <li>A assinatura "Vincent" escondida atrás do vaso dos girassóis: pisar nela abre um atalho.</li>
+        <li>Quatro cartas ao Theo, como o correio elegante do Arraial, com bilhetes engraçados dos cães da vila.</li>
+      </ul>
+    </div>
+    <div>
+      <h2>Música</h2>
+      <p>Uma valsa em três tempos a 84 batidas por minuto, com piano, acordeão e cordas beliscadas. A fase segue o compasso: um redemoinho dá uma volta inteira a cada compasso, e os girassóis viram no tempo forte.</p>
+      <h2 style="margin-top:22px">Como fazer a arte</h2>
+      <p>O cenário pintado sai do Google Flow, que não cobra pelas imagens, quando o limite de uso voltar. Antes de gerar, eu te mostro a lista de imagens e espero o seu ok. Os personagens continuam com o desenho deles, e as pinceladas do fundo se mexem por um filtro do jogo.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap">
+  No plano atual da vila, a fase 3 era o Quintal da Vizinha. Se o Quadro Encantado entrar como fase 3, o Quintal passa para a fase 4. Os quadros de Van Gogh são de domínio público; a arte da fase seria nova, inspirada neles.
+</footer>
+
+<script>
+(() => {
+'use strict';
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+// ---------------- mundo da fase (coordenadas do esboço) ----------------
+const WW = 3600, WH = 900;
+const ZONES = [ // início em x, nome
+  [0, 'O Quarto'], [620, 'Os Girassóis'], [1360, 'O Trigal com Corvos'], [2160, 'O Terraço do Café'], [2860, 'A Noite Estrelada']];
+const zoneAt = x => { let z = 0; for (let i = 0; i < ZONES.length; i++) if (x >= ZONES[i][0]) z = i; return z; };
+// ruído suave (valor) para variar direção e cor das pinceladas
+const P = new Uint8Array(512); { const p = [...Array(256).keys()]; let s = 7; for (let i = 255; i > 0; i--) { s = (s * 16807) % 2147483647; const j = s % (i + 1); [p[i], p[j]] = [p[j], p[i]]; } for (let i = 0; i < 512; i++) P[i] = p[i & 255]; }
+const fade = t => t * t * (3 - 2 * t);
+const hash = (x, y) => P[(P[x & 255] + y) & 255] / 255;
+function noise(x, y) { const xi = Math.floor(x), yi = Math.floor(y), xf = x - xi, yf = y - yi;
+  const a = hash(xi, yi), b = hash(xi + 1, yi), c = hash(xi, yi + 1), d = hash(xi + 1, yi + 1), u = fade(xf), v = fade(yf);
+  return a + (b - a) * u + (c - a) * v + (a - b - c + d) * u * v; }
+let seed = 12345; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+
+// redemoinhos do céu (pintados) e redemoinhos de jogo (animados)
+const SKY_SWIRLS = [[1650, 210, 170, 1], [1980, 300, 120, -1], [2990, 250, 150, 1], [3260, 170, 120, 1], [3440, 330, 110, -1], [2420, 150, 90, 1]];
+const PLAY_SWIRLS = [[520, 455, 46], [1190, 320, 56], [1890, 420, 58], [2780, 380, 58], [2985, 430, 52], [3150, 320, 56]];
+const SUNFLOWERS = [[720, 560, 62], [860, 470, 70], [1000, 400, 74], [1140, 480, 66], [1270, 565, 58]];
+const STARS = [[2280, 120, 22], [2560, 90, 18], [2700, 170, 16], [2900, 300, 30], [3020, 220, 26], [3100, 110, 20], [3370, 90, 22], [3520, 220, 18], [3180, 470, 14]];
+const MOON = [3500, 120, 46];
+const CYPRESS = [3250, 700, 150];
+
+function horizon(x) { const z = zoneAt(x);
+  return [680, 600, 520, 470, 600][z] + Math.sin(x * 0.004) * (z === 4 ? 30 : 8); }
+
+// cor de cada pincelada conforme o lugar
+function colorAt(x, y) {
+  const z = zoneAt(x + (noise(x * 0.01, y * 0.01) - 0.5) * 120), n = noise(x * 0.02, y * 0.02), h = horizon(x), sky = y < h;
+  const pick = arr => arr[Math.floor(rnd() * arr.length)];
+  if (z === 0) { // quarto: paredes azul-violeta, chão verde-ocre de tábuas
+    if (y > 680 - (x / 600) * 30) return pick(['#b6a35a', '#9c8a44', '#c9b46a', '#8a7a3a']);
+    return pick(['#5a6fb0', '#6c80c4', '#4c5f9c', '#7d8fd0', '#8f9bd6']); }
+  if (z === 1) { if (sky) return pick(['#e9d77a', '#f3e39a', '#d8cf7e', '#c9d79a', '#f6e8b0']); return pick(['#c89a2c', '#a8822a', '#7d8f3e', '#d6aa3a']); }
+  if (z === 2) { if (sky) return pick(['#1f2f66', '#2a428a', '#16244f', '#3a5aa6', '#24366e']);
+    const pathy = Math.abs(((x - 1700) * 0.25) - (y - 700)) < 14 || Math.abs(x - 1560 + (y - 520) * 0.6) < 12 || Math.abs(x - 2040 - (y - 520) * 0.5) < 12;
+    if (pathy) return pick(['#a2532a', '#8e4524', '#b86a32']); if (n < 0.33) return pick(['#5f8f4a', '#4f7a3a']); return pick(['#e0b43a', '#c98f1e', '#f2c230', '#d99a1e', '#eac05a']); }
+  if (z === 3) { if (y < 300) return pick(['#1b2a6b', '#24398a', '#14205a', '#2f4ca0']);
+    if (y < h + 160 && x > 2200 && x < 2640) return pick(['#f2b52a', '#e8a21c', '#f6c84a', '#d98d14']); // parede do café
+    if (sky) return pick(['#22357a', '#2c449a', '#5b3a6a']); return pick(['#5a5f9a', '#7a6aa8', '#9a7aa0', '#4a4f88', '#c99a6a']); }
+  // noite estrelada
+  if (y > 700) return pick(['#1f3a3a', '#2a4a3a', '#1b2f4a']);
+  if (!sky) return pick(['#26407a', '#1e3466', '#355a8a', '#2b6a6a']);
+  return n > 0.62 ? pick(['#6f9ee0', '#8fb6ea', '#a9c8ef']) : pick(['#1d3a8a', '#2f5fb3', '#16307a', '#24479c', '#3a64b8']); }
+
+// direção da pincelada: segue o lugar (trigo ondula, céu gira, parede em pinceladas verticais)
+function angleAt(x, y) {
+  const z = zoneAt(x), h = horizon(x), sky = y < h;
+  for (const [cx, cy, r, d] of SKY_SWIRLS) { const dx = x - cx, dy = y - cy, dist = Math.hypot(dx, dy); if (sky && dist < r * 1.4) { const k = Math.max(0, 1 - dist / (r * 1.4)); return Math.atan2(dy, dx) + d * Math.PI / 2 * (0.6 + 0.4 * k) + (noise(x * 0.01, y * 0.01) - 0.5) * 0.6; } }
+  const n = (noise(x * 0.006, y * 0.006) - 0.5) * 2.4;
+  if (z === 0) return y > 650 ? 0.06 + n * 0.1 : Math.PI / 2 + n * 0.3;
+  if (z === 2 && !sky) return -0.9 + Math.sin(x * 0.012 + y * 0.01) * 0.7 + n * 0.3;
+  if (z === 3 && !sky) return y > h + 160 ? 0.2 + n * 0.5 : Math.PI / 2 + n * 0.2;
+  if (sky) return Math.sin(y * 0.01 + x * 0.004) * 0.8 + n;
+  return 0.1 + n * 0.4; }
+
+// ---------------- pintura (feita uma vez, em partes, sem travar a página) ----------------
+const pano = document.getElementById('pano'), paint = document.getElementById('paint'), over = document.getElementById('over'), scroller = document.getElementById('scroller');
+let S = 1, CW = 0, CH = 0, dpr = Math.min(2, window.devicePixelRatio || 1);
+const off = document.createElement('canvas'); off.width = WW; off.height = WH; const oc = off.getContext('2d');
+function stroke(x, y, len, w, col, a) { oc.strokeStyle = col; oc.lineWidth = w; oc.beginPath(); oc.moveTo(x - Math.cos(a) * len / 2, y - Math.sin(a) * len / 2);
+  const mx = x + Math.cos(a + 0.4) * 2, my = y + Math.sin(a + 0.4) * 2; oc.quadraticCurveTo(mx, my, x + Math.cos(a) * len / 2, y + Math.sin(a) * len / 2); oc.stroke(); }
+function paintBase(n) { oc.lineCap = 'round'; for (let i = 0; i < n; i++) { const x = rnd() * WW, y = rnd() * WH, a = angleAt(x, y);
+    oc.globalAlpha = 0.9; stroke(x, y, 14 + rnd() * 16, 5 + rnd() * 4, colorAt(x, y), a); } oc.globalAlpha = 1; }
+function paintDetails() {
+  oc.lineCap = 'round';
+  // moldura dourada da entrada e o quadro na parede do quarto
+  oc.globalAlpha = 1; oc.lineWidth = 14; oc.strokeStyle = '#c99a2c'; oc.strokeRect(24, 440, 120, 250); oc.lineWidth = 4; oc.strokeStyle = '#f2d46a'; oc.strokeRect(32, 448, 104, 234);
+  oc.fillStyle = '#16244f'; oc.fillRect(38, 454, 92, 222);
+  for (let i = 0; i < 300; i++) { const x = 38 + rnd() * 92, y = 454 + rnd() * 222; stroke(x, y, 10, 4, rnd() < 0.15 ? '#f6e27a' : rnd() < 0.5 ? '#2f5fb3' : '#1d3a8a', Math.atan2(y - 560, x - 84) + Math.PI / 2); }
+  // cama amarela e cadeira do quarto
+  for (let i = 0; i < 700; i++) { const x = 150 + rnd() * 190, y = 600 + rnd() * 70; stroke(x, y, 16, 6, ['#e8b030', '#f2c230', '#c98f1e'][i % 3], 0.05); }
+  for (let i = 0; i < 260; i++) { const x = 150 + rnd() * 190, y = 590 + rnd() * 18; stroke(x, y, 14, 5, ['#d7413a', '#e8604a'][i % 2], 0); }
+  for (let i = 0; i < 200; i++) { const x = 410 + rnd() * 80, y = 615 + rnd() * 70; stroke(x, y, 12, 5, ['#d99a1e', '#a8822a'][i % 2], Math.PI / 2); }
+  oc.strokeStyle = '#c99a2c'; oc.lineWidth = 8; oc.strokeRect(470, 400, 100, 110);
+  // girassóis: caules, pétalas em raio e miolo de pontos
+  for (const [cx, cy, r] of SUNFLOWERS) {
+    for (let i = 0; i < 160; i++) { const y = cy + r * 0.6 + rnd() * (700 - cy - r * 0.6), x = cx + Math.sin(y * 0.02) * 6 + (rnd() - 0.5) * 10; stroke(x, y, 16, 5, ['#4f7a3a', '#5f8f4a', '#3e6a30'][i % 3], Math.PI / 2); }
+    for (let i = 0; i < 420; i++) { const a = rnd() * Math.PI * 2, d = r * (0.45 + rnd() * 0.6), x = cx + Math.cos(a) * d, y = cy + Math.sin(a) * d; stroke(x, y, 16, 6, ['#f2c230', '#f6d24a', '#e0a81c', '#fbe07a'][i % 4], a); }
+    for (let i = 0; i < 260; i++) { const a = rnd() * Math.PI * 2, d = rnd() * r * 0.45, x = cx + Math.cos(a) * d, y = cy + Math.sin(a) * d; oc.fillStyle = ['#6b3d1a', '#4a2a12', '#8a5a22'][i % 3]; oc.beginPath(); oc.arc(x, y, 2 + rnd() * 2.5, 0, 7); oc.fill(); } }
+  // vaso dos girassóis
+  for (let i = 0; i < 500; i++) { const x = 940 + rnd() * 120, y = 600 + rnd() * 100; stroke(x, y, 14, 6, ['#e8b030', '#f2c230', '#5a8ac0'][y > 640 && y < 652 ? 2 : i % 2], 0.1); }
+  // toldo e mesas do café
+  for (let i = 0; i < 900; i++) { const x = 2230 + rnd() * 250, y = 540 + rnd() * 40; stroke(x, y, 16, 6, ['#f6c84a', '#f2b52a', '#fbe07a'][i % 3], 0.05); }
+  for (let i = 0; i < 260; i++) { const x = 2230 + rnd() * 250, y = 580 + rnd() * 10; stroke(x, y, 10, 4, i % 2 ? '#e8604a' : '#f6e8b0', Math.PI / 2); }
+  for (const tx of [2500, 2620]) for (let i = 0; i < 120; i++) { const x = tx - 40 + rnd() * 80, y = 636 + rnd() * 10; stroke(x, y, 14, 5, '#f6e8b0', 0); }
+  // lua, estrelas com halos, vila adormecida e cipreste
+  const halo = (cx, cy, r, cols) => { for (let k = 0; k < 4; k++) for (let i = 0; i < 70 + r * 3; i++) { const a = rnd() * Math.PI * 2, d = r * (0.7 + k * 0.45) + rnd() * 6; stroke(cx + Math.cos(a) * d, cy + Math.sin(a) * d, 12, 4, cols[k % cols.length], a + Math.PI / 2); } };
+  halo(MOON[0], MOON[1], MOON[2], ['#f6e27a', '#f2c230', '#c9d27a', '#6f9ee0']);
+  oc.fillStyle = '#fbe07a'; oc.beginPath(); oc.arc(MOON[0], MOON[1], MOON[2] * 0.7, 0, 7); oc.fill(); oc.fillStyle = '#e8b030'; oc.beginPath(); oc.arc(MOON[0] + 14, MOON[1] - 6, MOON[2] * 0.55, 0, 7); oc.fill();
+  for (const [cx, cy, r] of STARS) { halo(cx, cy, r * 0.6, ['#fbe07a', '#f6e8b0', '#9fc0ea']); oc.fillStyle = '#fff4c0'; oc.beginPath(); oc.arc(cx, cy, r * 0.35, 0, 7); oc.fill(); }
+  for (let h = 0; h < 14; h++) { const x = 2900 + h * 50 + rnd() * 20, w = 26 + rnd() * 16, y = 610 + rnd() * 30; for (let i = 0; i < 60; i++) stroke(x + rnd() * w, y + rnd() * 26, 8, 4, ['#3a5a9a', '#5a7ab0', '#1e3466'][i % 3], 0); if (h % 3 === 0) { oc.fillStyle = '#f6c84a'; oc.fillRect(x + 8, y + 8, 6, 6); } }
+  { const [cx, base, w] = CYPRESS; for (let i = 0; i < 1600; i++) { const t = rnd(), y = base - t * 560, half = w * 0.5 * Math.sin(Math.min(1, (1 - t) * 1.25) * Math.PI / 2) * (0.35 + 0.65 * (1 - t * 0.6)), x = cx + (rnd() - 0.5) * 2 * half + Math.sin(y * 0.03) * 10;
+    stroke(x, y, 22, 6, ['#1f3020', '#2b3f22', '#3b4a2a', '#16221a', '#4a5a2a'][i % 5], -Math.PI / 2 + Math.sin(y * 0.04 + x * 0.05) * 0.5); } }
+  // morro do chefão
+  for (let i = 0; i < 1400; i++) { const x = 3300 + rnd() * 300, y = 640 + rnd() * 120; stroke(x, y, 18, 6, ['#2b6a6a', '#1f4a5a', '#3a7a5a'][i % 3], -0.2 + Math.sin(x * 0.02) * 0.4); }
+  // escurece de leve as bordas do quadro (vinheta pintada)
+  const g = oc.createLinearGradient(0, 0, 0, WH); g.addColorStop(0, 'rgba(0,0,20,.18)'); g.addColorStop(0.5, 'rgba(0,0,0,0)'); g.addColorStop(1, 'rgba(0,0,10,.25)'); oc.fillStyle = g; oc.fillRect(0, 0, WW, WH);
+}
+let painted = false;
+function paintAll() { let left = 52000; const step = () => { const n = Math.min(6000, left); paintBase(n); left -= n; blit(); if (left > 0) requestAnimationFrame(step); else { paintDetails(); painted = true; blit(); } }; step(); }
+function blit() { const c = paint.getContext('2d'); c.setTransform(1, 0, 0, 1, 0, 0); c.drawImage(off, 0, 0, paint.width, paint.height); }
+
+// ---------------- camada animada: caminho, redemoinhos, corvos, o Timtim ----------------
+const PATH = [[90, 680], [200, 596], [330, 596], [450, 616], [520, 455], [640, 540], [720, 498], [860, 405], [1000, 330], [1140, 418], [1190, 320], [1300, 560], [1420, 690], [1700, 690], [1820, 690], [1890, 420], [2010, 690], [2200, 690], [2350, 536], [2440, 470], [2560, 630], [2640, 630], [2780, 380], [2900, 268], [2985, 430], [3020, 196], [3150, 320], [3250, 200], [3330, 470], [3400, 640]];
+const LEN = (() => { let L = 0; const acc = [0]; for (let i = 1; i < PATH.length; i++) { L += Math.hypot(PATH[i][0] - PATH[i - 1][0], PATH[i][1] - PATH[i - 1][1]); acc.push(L); } return { L, acc }; })();
+const pointAt = s => { s = Math.max(0, Math.min(LEN.L, s)); let i = 1; while (i < PATH.length - 1 && LEN.acc[i] < s) i++; const a = PATH[i - 1], b = PATH[i], k = (s - LEN.acc[i - 1]) / Math.max(1, LEN.acc[i] - LEN.acc[i - 1]); return [a[0] + (b[0] - a[0]) * k, a[1] + (b[1] - a[1]) * k - Math.sin(k * Math.PI) * (Math.abs(b[0] - a[0]) > 60 ? 34 : 0), b[0] >= a[0] ? 1 : -1]; };
+// os corvos voam baixo, sobre o trigo amarelo (preto no azul do céu sumia)
+const CROWS = [[1480, 580, 0], [1740, 545, 1.7], [2050, 600, 3.1], [3480, 300, 0, true]];
+const imgT = new Image(); imgT.src = 'tintim-idle.png';
+const imgZ = new Image(); imgZ.src = 'chi-br.png';
+const imgE = new Image(); imgE.src = 'chi-pb.png';
+let showPath = true, tourOn = false, s = 0, last = performance.now(), userTook = 0;
+const oxc = over.getContext('2d');
+function drawSwirl(c, x, y, r, t) {
+  c.save(); c.translate(x, y); c.lineCap = 'round';
+  const g = c.createRadialGradient(0, 0, 0, 0, 0, r * 1.5); g.addColorStop(0, 'rgba(255,243,176,.35)'); g.addColorStop(1, 'rgba(255,243,176,0)'); c.fillStyle = g; c.beginPath(); c.arc(0, 0, r * 1.5, 0, 7); c.fill();
+  for (let k = 0; k < 3; k++) { c.rotate(t * (1.6 + k * 0.4) + k); c.strokeStyle = k === 1 ? 'rgba(242,194,48,.95)' : 'rgba(255,248,210,.9)'; c.lineWidth = 5 - k;
+    for (let i = 0; i < 6; i++) { const a0 = i * Math.PI / 3; c.beginPath(); c.arc(0, 0, r * (0.45 + k * 0.22), a0, a0 + 0.7); c.stroke(); } }
+  c.restore(); }
+function drawCrow(c, x, y, t, big) { const s = big ? 2.4 : 1.5, flap = Math.sin(t * 9) * 0.6;
+  c.save(); c.translate(x, y + Math.sin(t * 2) * 8); c.scale(s, s); c.fillStyle = '#121216'; c.strokeStyle = '#121216'; c.lineCap = 'round';
+  c.beginPath(); c.ellipse(0, 0, 18, 9, 0, 0, 7); c.fill(); c.beginPath(); c.arc(-16, -4, 7, 0, 7); c.fill();
+  c.beginPath(); c.moveTo(-22, -4); c.lineTo(-32, -1); c.lineTo(-22, 0); c.fill();
+  c.lineWidth = 6; c.beginPath(); c.moveTo(-4, -2); c.quadraticCurveTo(-10, -26 * (0.4 + flap), 18, -34 * (0.3 + flap)); c.stroke(); c.beginPath(); c.moveTo(4, -2); c.quadraticCurveTo(14, -22 * (0.4 + flap), 34, -20 * (0.3 + flap)); c.stroke();
+  if (big) { c.fillStyle = '#f2c230'; c.beginPath(); c.arc(-36, 2, 5, 0, 7); c.fill(); c.fillStyle = '#f6e27a'; c.beginPath(); c.arc(-30, 12, 2.4, 0, 7); c.fill(); }
+  c.restore(); }
+function frame(now) {
+  const dt = Math.min(0.05, (now - last) / 1000); last = now; const t = now / 1000;
+  if (tourOn) { s += dt * 330; if (s >= LEN.L) { s = LEN.L; tourOn = false; tourBtn.textContent = 'Assistir de novo'; }
+    const [px] = pointAt(s); const target = px * S - scroller.clientWidth * 0.4; scroller.scrollLeft += (target - scroller.scrollLeft) * Math.min(1, dt * 4); }
+  oxc.setTransform(dpr * S, 0, 0, dpr * S, 0, 0); oxc.clearRect(0, 0, WW, WH);
+  // nomes dos trechos
+  oxc.font = '400 30px Marcellus, Georgia, serif'; oxc.textBaseline = 'top';
+  for (const [zx, name] of ZONES) { const w = oxc.measureText(name).width; oxc.fillStyle = 'rgba(10,14,34,.62)'; oxc.beginPath(); oxc.roundRect ? oxc.roundRect(zx + 18, 18, w + 28, 46, 23) : oxc.rect(zx + 18, 18, w + 28, 46); oxc.fill(); oxc.fillStyle = '#f3ead2'; oxc.fillText(name, zx + 32, 26); }
+  if (showPath) { oxc.setLineDash([2, 14]); oxc.lineCap = 'round'; oxc.lineWidth = 5; oxc.strokeStyle = 'rgba(243,234,210,.9)'; oxc.beginPath();
+    for (let q = 0; q <= LEN.L; q += 12) { const [x, y] = pointAt(q); q ? oxc.lineTo(x, y) : oxc.moveTo(x, y); } oxc.stroke(); oxc.setLineDash([]); }
+  for (const [x, y, r] of PLAY_SWIRLS) drawSwirl(oxc, x, y, r, reduce ? 0 : t);
+  for (const [x, y, ph, big] of CROWS) drawCrow(oxc, x + (big ? 0 : Math.sin(t * 0.7 + ph) * 60), y, reduce ? 0 : t + ph, big);
+  // amigos e o Timtim
+  if (imgZ.complete && imgZ.naturalWidth) oxc.drawImage(imgZ, 3390, 586, 45, 60);
+  if (imgE.complete && imgE.naturalWidth) oxc.drawImage(imgE, 3440, 586, 49, 60);
+  const [tx, ty, dir] = pointAt(s);
+  if (imgT.complete && imgT.naturalWidth) { oxc.save(); oxc.translate(tx, ty - 56 + Math.abs(Math.sin(t * 10)) * (tourOn ? 4 : 0)); if (dir < 0) oxc.scale(-1, 1); oxc.drawImage(imgT, -37, 0, 74, 70); oxc.restore(); }
+  requestAnimationFrame(frame); }
+function resize() { const h = pano.clientHeight; S = h / WH; CW = Math.round(WW * S); CH = h; pano.style.width = CW + 'px';
+  for (const c of [paint, over]) { c.width = Math.round(CW * dpr); c.height = Math.round(CH * dpr); c.style.width = CW + 'px'; c.style.height = CH + 'px'; } blit(); }
+const tourBtn = document.getElementById('tour'), pathBtn = document.getElementById('pathBtn');
+tourBtn.addEventListener('click', () => { if (s >= LEN.L) s = 0; tourOn = !tourOn; tourBtn.textContent = tourOn ? 'Pausar o passeio' : 'Assistir o passeio'; });
+pathBtn.addEventListener('click', () => { showPath = !showPath; pathBtn.setAttribute('aria-pressed', String(showPath)); pathBtn.textContent = showPath ? 'Esconder o caminho' : 'Mostrar o caminho'; });
+scroller.addEventListener('wheel', () => { if (tourOn) { tourOn = false; tourBtn.textContent = 'Continuar o passeio'; } }, { passive: true });
+scroller.addEventListener('pointerdown', () => { if (tourOn) { tourOn = false; tourBtn.textContent = 'Continuar o passeio'; } });
+addEventListener('resize', resize); resize(); paintAll(); requestAnimationFrame(frame);
+
+// ---------------- demonstração do redemoinho ----------------
+const dc = document.getElementById('demo'), d = dc.getContext('2d'), scoreEl = document.getElementById('score');
+const SW = { x: 170, y: 175, r: 62 }, G = 900;
+let ang = 0, spin = 2 * Math.PI / 2.14, dog = { mode: 'spin', x: 0, y: 0, vx: 0, vy: 0, trail: [] }, star = { x: 520, y: 90 }, hits = 0, msg = '', msgT = 0, lastD = performance.now();
+const placeStar = () => { star = { x: 420 + Math.random() * 180, y: 50 + Math.random() * 170 }; };
+function launch() { if (dog.mode !== 'spin') return; const sp = spin * SW.r * 1.9; dog.mode = 'fly'; dog.vx = -Math.sin(ang) * sp; dog.vy = Math.cos(ang) * sp; dog.trail = []; }
+dc.addEventListener('pointerdown', e => { e.preventDefault(); launch(); });
+dc.addEventListener('keydown', e => { if (e.code === 'Space' || e.code === 'Enter') { e.preventDefault(); launch(); } });
+function demo(now) {
+  const dt = Math.min(0.04, (now - lastD) / 1000); lastD = now;
+  d.setTransform(1, 0, 0, 1, 0, 0); d.fillStyle = '#13204d'; d.fillRect(0, 0, 640, 320);
+  // céu de pinceladas leves
+  d.lineCap = 'round'; for (let i = 0; i < 80; i++) { const x = (i * 97) % 640, y = (i * 53) % 320, a = Math.atan2(y - SW.y, x - SW.x) + Math.PI / 2; d.strokeStyle = i % 5 ? 'rgba(63,111,216,.35)' : 'rgba(242,194,48,.25)'; d.lineWidth = 5; d.beginPath(); d.moveTo(x - Math.cos(a) * 9, y - Math.sin(a) * 9); d.lineTo(x + Math.cos(a) * 9, y + Math.sin(a) * 9); d.stroke(); }
+  drawSwirl(d, SW.x, SW.y, SW.r, reduce ? 0 : now / 1000);
+  // estrela-alvo
+  d.save(); d.translate(star.x, star.y); const pul = 1 + Math.sin(now / 200) * 0.08; d.scale(pul, pul); d.fillStyle = 'rgba(246,226,122,.25)'; d.beginPath(); d.arc(0, 0, 30, 0, 7); d.fill(); d.fillStyle = '#fbe07a';
+  d.beginPath(); for (let i = 0; i < 10; i++) { const r = i % 2 ? 8 : 18, a = -Math.PI / 2 + i * Math.PI / 5; d.lineTo(Math.cos(a) * r, Math.sin(a) * r); } d.closePath(); d.fill(); d.restore();
+  if (dog.mode === 'spin') { ang += spin * dt; dog.x = SW.x + Math.cos(ang) * SW.r; dog.y = SW.y + Math.sin(ang) * SW.r; }
+  else { dog.vy += G * dt; dog.x += dog.vx * dt; dog.y += dog.vy * dt; dog.trail.push([dog.x, dog.y]); if (dog.trail.length > 40) dog.trail.shift();
+    if (Math.hypot(dog.x - star.x, dog.y - star.y) < 30) { hits++; scoreEl.textContent = hits + (hits === 1 ? ' estrela' : ' estrelas'); msg = 'Acertou!'; msgT = 1.2; placeStar(); dog.mode = 'spin'; }
+    else if (dog.y > 360 || dog.x < -40 || dog.x > 680) { msg = 'Quase! Solte um pouco antes ou depois'; msgT = 1.4; dog.mode = 'spin'; } }
+  d.strokeStyle = 'rgba(243,234,210,.6)'; d.lineWidth = 3; d.setLineDash([2, 9]); d.beginPath(); dog.trail.forEach(([x, y], i) => i ? d.lineTo(x, y) : d.moveTo(x, y)); d.stroke(); d.setLineDash([]);
+  if (imgT.complete && imgT.naturalWidth) { d.save(); d.translate(dog.x, dog.y); if (dog.mode === 'spin') d.rotate(ang + Math.PI / 2); d.drawImage(imgT, -26, -25, 52, 50); d.restore(); }
+  else { d.fillStyle = '#fff'; d.beginPath(); d.arc(dog.x, dog.y, 14, 0, 7); d.fill(); }
+  if (msgT > 0) { msgT -= dt; d.font = '400 26px Marcellus, Georgia, serif'; d.fillStyle = '#f3ead2'; d.textAlign = 'center'; d.fillText(msg, 400, 290); d.textAlign = 'left'; }
+  requestAnimationFrame(demo); }
+requestAnimationFrame(demo);
+})();
+</script>
