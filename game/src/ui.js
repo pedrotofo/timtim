@@ -7,11 +7,14 @@ const stage = $('stage');
 // Encaixa o jogo (16:9) na área que aparece de verdade. No celular, e dentro de outros apps (como a janela de artefato do
 // Claude), a medida "vh" do CSS conta a área atrás das barras e o jogo ficava mais alto que a tela, cortado embaixo.
 { const wrap = $('wrap'), vv = window.visualViewport;
-  const encaixa = () => { const w = vv ? vv.width : innerWidth, h = vv ? vv.height : innerHeight; if (!w || !h) return;
-    wrap.style.inset = 'auto'; wrap.style.left = (vv ? vv.offsetLeft : 0) + 'px'; wrap.style.top = (vv ? vv.offsetTop : 0) + 'px';
-    wrap.style.width = w + 'px'; wrap.style.height = h + 'px'; stage.style.width = Math.floor(Math.min(w, h * 16 / 9)) + 'px'; };
-  encaixa(); addEventListener('resize', encaixa); addEventListener('orientationchange', () => setTimeout(encaixa, 250));
-  if (vv) { vv.addEventListener('resize', encaixa); vv.addEventListener('scroll', encaixa); } }
+  // (antes seguia também o 'scroll' da tela e a posição dela: no iPhone isso dispara o tempo todo, e o jogo inteiro sacudia e mudava
+  // de tamanho a cada toque perto da borda. Agora só muda quando o tamanho muda de verdade, e espera a barra do Safari parar de mexer)
+  let lw = 0, lh = 0, tmr = 0;
+  const encaixa = () => { const w = Math.round(vv ? vv.width : innerWidth), h = Math.round(vv ? vv.height : innerHeight); if (!w || !h || (w === lw && h === lh)) return;
+    lw = w; lh = h; wrap.style.inset = '0 auto auto 0'; wrap.style.width = w + 'px'; wrap.style.height = h + 'px'; stage.style.width = Math.floor(Math.min(w, h * 16 / 9)) + 'px'; };
+  const depois = () => { clearTimeout(tmr); tmr = setTimeout(encaixa, 160); };
+  encaixa(); addEventListener('resize', depois); addEventListener('orientationchange', () => setTimeout(encaixa, 300));
+  if (vv) vv.addEventListener('resize', depois); }
 
 // ---------------- controles ----------------
 const mainBtn = () => ({ title: 'btnStart', pause: 'btnResume', lose: 'btnRetry', win: $('btnNext').classList.contains('on') ? 'btnNext' : 'btnAgain' })[S.mode];
@@ -172,11 +175,9 @@ $('btnRestart').onclick = () => begin(TT.start);
 { const d = document, ok = d.fullscreenEnabled || d.webkitFullscreenEnabled, cheia = () => d.fullscreenElement || d.webkitFullscreenElement;
   // aberto pelo ícone da tela de início: já está sem barras, o botão some
   if (navigator.standalone || matchMedia('(display-mode: fullscreen), (display-mode: standalone)').matches) d.documentElement.classList.add('jaApp');
-  const dica = on => { $('dicaTela').classList.toggle('on', on); };
-  $('btnDicaOk').onclick = e => { e.stopPropagation(); dica(false); }; $('dicaTela').addEventListener('pointerdown', e => e.stopPropagation());
+  if (!ok) d.documentElement.classList.add('semTela'); // iPhone: o Safari não deixa; o botão some
   const rotulo = () => { $('btnTela').textContent = cheia() ? '⛶ Sair da tela cheia' : '⛶ Tela cheia'; $('btnTelaPausa').textContent = cheia() ? 'Sair da tela cheia' : 'Tela cheia'; };
   const alterna = e => { if (e) e.stopPropagation(); const el = d.documentElement;
-    if (!ok) return dica(true); // iPhone: o navegador não deixa; mostra como pôr na tela de início
     if (cheia()) (d.exitFullscreen || d.webkitExitFullscreen).call(d);
     else { const p = (el.requestFullscreen || el.webkitRequestFullscreen).call(el); if (p && p.then) p.then(() => { try { screen.orientation.lock('landscape').catch(() => {}); } catch (_) {} }).catch(() => {}); } };
   $('btnTela').addEventListener('pointerdown', e => e.stopPropagation()); $('btnTela').onclick = alterna; $('btnTelaPausa').onclick = alterna;

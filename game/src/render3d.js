@@ -8,7 +8,10 @@ const { W, H, GROUND, ARENA_X } = C;
 const ARR = C.FASE >= 2, VG = C.FASE === 3, END = C.BOSS ? ARENA_X : C.LEVEL_END; // fase 2: o Arraial (a fase vai até a arena do lobo-guará, no fim)
 const VG_AR = { 'vg-cadeira': 0.55, 'vg-cama': 1.4567, 'vg-cipreste': 0.3187, 'vg-girassol': 0.6773, 'vg-vaso': 0.8526, 'vg-mesa': 0.7958, 'vg-lampiao': 0.2942, 'vg-toldo': 2.8364, 'vg-moldura': 1.2964 };
 const VG_PLAT = { 380: 'cama', 718: 'cadeira', 5000: 'toldo', 5500: 'toldo', 5280: 'mesa', 5730: 'mesa' }; // plataformas que são móveis do quadro (não ganham tábua)
-const R = TT.R = { ready: false, quality: 2, flash: 0 };
+// celular (dedo, não mouse): começa no nível do meio. A tela já tem muitos pixels; o nível máximo pesava e, quando o jogo
+// baixava a qualidade sozinho no meio da fase, a imagem dava um tranco (sombras e desfoque sumindo de uma vez)
+const MOBILE = matchMedia('(pointer: coarse)').matches;
+const R = TT.R = { ready: false, quality: MOBILE ? 1 : 2, flash: 0 };
 const cv = document.getElementById('c');
 let renderer;
 try { renderer = new THREE.WebGLRenderer({ canvas: cv, antialias: false, powerPreference: 'high-performance' }); }
@@ -33,6 +36,12 @@ const PAL = { far: '#14506a', mid: '#0b3447', near: '#06202d', back: '#04151d', 
 THREE.DefaultLoadingManager.onLoad = () => { if (R.ready) return; warmUp(); R.ready = true; TT.emit('assetsReady'); }; // (antes disparava várias vezes: a 2ª apertava "Jogar" de novo e cortava a história da fase 2)
 const TL = new THREE.TextureLoader();
 const load = p => { const t = TL.load('assets/' + p); t.anisotropy = 4; return t; };
+// as animações de vídeo são folhas enormes (até 4096 px). Juntas passavam de 380 MB na placa de vídeo, e o iPhone começava a
+// jogar imagens fora: personagens piscando ou sumindo. No celular elas sobem em 75% do tamanho e sem mipmaps (cerca de 40% da memória);
+// a tela do celular é pequena, a diferença não aparece.
+const loadAnim = p => { const t = TL.load('assets/' + p, MOBILE ? tx => { const im = tx.image, c = document.createElement('canvas');
+    c.width = Math.round(im.width * 0.75); c.height = Math.round(im.height * 0.75); c.getContext('2d').drawImage(im, 0, 0, c.width, c.height); tx.image = c; tx.needsUpdate = true; } : undefined);
+  t.anisotropy = 4; if (MOBILE) { t.generateMipmaps = false; t.minFilter = THREE.LinearFilter; } return t; };
 const AR = { 'tintim-idle': 232 / 220, 'tintim-run': 1.2143, 'tintim-jump': 270 / 200, 'tintim-fall': 240 / 220, 'tintim-hurt': 218 / 220,
   'tintim-win': 189 / 240, 'tintim-sniff': 282 / 220, 'tintim-glide': 353 / 220, galinha: 176 / 230, ovo: 223 / 160, 'brute-walk': 362 / 320, 'brute-charge': 454 / 253, 'brute-bark': 341 / 322, 'brute-ball': 413 / 265, 'brute-dizzy': 374 / 345, 'brute-down': 432 / 209, pigeon: 1.1381, 'monkey-front': 217 / 235, 'monkey-joy': 286 / 260,
   cookie: 129 / 90, 'chi-pb': 245 / 300, 'chi-br': 223 / 300 };
@@ -65,7 +74,7 @@ const ANIM = TT.ANIM || {}, ANIM_TEX = {};
 // soltas, a medição põe o "chão" no lugar errado e ele afundava no chão no fim da fase 1 (aconteceu duas vezes)
 const PE_FIXO = { 'macaco-alegre': 0.012 }; for (const k in PE_FIXO) if (ANIM[k]) ANIM[k].foot = PE_FIXO[k];
 const animWanted = k => VG ? /^(timtim|zara|elvis|corvo)/.test(k) : ARR ? !/^(pombo|furtao|macaco)/.test(k) : !/^(galinha|guara)/.test(k); // no quadro, os bichos são outros: só a turma tem animação de vídeo
-for (const k in ANIM) if (animWanted(k)) { const t = ANIM_TEX[k] = load('anim/' + k + '.webp'); t.repeat.set(1 / ANIM[k].cols, 1 / ANIM[k].rows); }
+for (const k in ANIM) if (animWanted(k)) { const t = ANIM_TEX[k] = loadAnim('anim/' + k + '.webp'); t.repeat.set(1 / ANIM[k].cols, 1 / ANIM[k].rows); }
 // toca a animação `name` no sprite m: o corpo fica com `bodyH` de altura (o mesmo tamanho da arte parada), t em segundos.
 // Cada sprite tem a sua cópia da textura (mesma imagem na placa de vídeo) para poder estar num quadro diferente.
 function playAnim(m, name, bodyH, flip, t, fps = 24) {
@@ -898,6 +907,9 @@ R.resize = () => {
   const r = cv.getBoundingClientRect(), dpr = window.devicePixelRatio || 1;
   const sc = Math.min(MAX_SCALE[R.quality], Math.max(1, (r.width || W) * dpr / W));
   const w = Math.round(W * sc), h = Math.round(H * sc);
+  // mesmo tamanho: não mexe. Redimensionar apaga a tela por um quadro, e o Safari do iPhone dispara 'resize' toda vez que a barra
+  // de endereço aparece ou some: era a imagem piscando
+  if (w === R.w && h === R.h) return; R.w = w; R.h = h;
   renderer.setSize(w, h, false);
   if (GL2) { rt.setSize(w, h); rtA.setSize(w >> 2, h >> 2); rtB.setSize(w >> 2, h >> 2); compMat.uniforms.res.value.set(w, h); }
 };
@@ -1166,7 +1178,7 @@ R.frame = (rdt) => {
       r.position.set(x, y, 1.6); r.scale.copy(m.scale); r.rotation.z = rot; } }
     const yes = st === 'peck' && m.visible; foxGlow.material.opacity += ((yes ? 0.55 + 0.2 * Math.sin(time * 8) : 0) - foxGlow.material.opacity) * Math.min(1, live * 10);
     foxGlow.position.set(x, y + 70, 0.5); foxGlow.scale.set(220, 140, 1); foxGlow.visible = m.visible;
-    const warn = (st === 'aim' || st === 'diveWind') && m.visible; foxWarn.material.opacity += ((warn ? 0.6 + 0.3 * Math.sin(time * 20) : g.red && m.visible ? 0.3 : 0) - foxWarn.material.opacity) * Math.min(1, live * 12);
+    const warn = false; foxWarn.material.opacity += ((warn ? 0.6 + 0.3 * Math.sin(time * 20) : 0) - foxWarn.material.opacity) * Math.min(1, live * 12); // (o corvo não tem mais a bola vermelha borrada atrás dele, nem com raiva nem mirando: parecia defeito. O aviso é o alvo no chão e o grito
     foxWarn.position.set(x, y + 60, 0.4); foxWarn.scale.set(260, 180, 1); foxWarn.visible = m.visible;
     const mk = st === 'aim' || st === 'diveWind' || st === 'dive'; foxMark.material.opacity += ((mk ? 0.7 + 0.2 * Math.sin(time * 18) : 0) - foxMark.material.opacity) * Math.min(1, live * 10);
     foxMark.position.set(g.tx, Y(GROUND) + 22, 6); foxMark.scale.set(st === 'aim' ? 110 : 200, st === 'aim' ? 36 : 56, 1); foxMark.visible = foxMark.material.opacity > 0.01;

@@ -17,6 +17,8 @@
   html, body { margin: 0; height: 100%; background: #12070f; color: var(--text); font-family: var(--font); overflow: hidden;
     -webkit-user-select: none; user-select: none; -webkit-tap-highlight-color: transparent; }
   #wrap { position: fixed; inset: 0; display: grid; place-items: center; }
+  /* no iPhone, nenhum gesto rola, estica (efeito elástico) ou dá zoom na página: só o jogo recebe os toques */
+  html, body, #wrap { touch-action: none; overscroll-behavior: none; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
   /* o tamanho certo vem do ui.js (encaixa na área visível de verdade); svh é a reserva sem script, vh a dos navegadores antigos */
   #stage { position: relative; width: min(100vw, 177.78vh); width: min(100vw, 177.78svh); aspect-ratio: 16 / 9; overflow: hidden; container-type: size; background: #1a0c1c; touch-action: none; }
   #c { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
@@ -156,10 +158,7 @@
   /* tela cheia: botão no canto da capa e na pausa (some onde o navegador não deixa, como no iPhone) */
   #btnTela { position: absolute; left: 2cqw; top: 2cqw; z-index: 3; font-size: 1.15cqw; font-weight: 700; letter-spacing: .08cqw; color: #fff3d6; background: rgba(20, 10, 30, .55);
     border: .12cqw solid rgba(255, 220, 190, .45); border-radius: 99cqw; padding: .45cqw 1.3cqw; }
-  #btnTela:hover { background: rgba(60, 38, 80, .8); } #title.story #btnTela, .jaApp #btnTela, .jaApp #btnTelaPausa { display: none; }
-  /* iPhone: o Safari não deixa site nenhum em tela cheia; o botão mostra como pôr o jogo na tela de início (abre sem barras) */
-  #dicaTela { z-index: 9; background: rgba(12, 6, 14, .82); } #dicaTela .card { max-width: 62cqw; }
-  #dicaTela ol { text-align: left; margin: 1.2cqw 0 2cqw; padding-left: 3cqw; font-size: 1.9cqw; line-height: 1.55; color: var(--text); } #dicaTela b { color: var(--gold); }
+  #btnTela:hover { background: rgba(60, 38, 80, .8); } #title.story #btnTela, .jaApp #btnTela, .jaApp #btnTelaPausa, .semTela #btnTela, .semTela #btnTelaPausa { display: none; }
   @keyframes float { 50% { transform: translateY(-.8cqw); } }
   .logo { margin: 0; font-family: var(--display); font-weight: 400; line-height: .9; }
   /* capa no estilo das caixas de Super Nintendo: nome grande em dourado com contorno escuro, faixa do subtítulo e a arte com a turma e as três aventuras */
@@ -327,9 +326,6 @@
     <h3 class="shelfH">Escondidos pelo Furtão <small>(ache com o faro)</small></h3><div id="shelfSlots"></div><p id="shelfCount"></p>
     <div class="row"><button class="btn" id="btnShelfBack">Voltar</button></div>
   </div></section>
-  <section id="dicaTela" class="screen"><div class="card"><h2>Tela cheia no iPhone</h2>
-    <ol><li>Toque em <b>Compartilhar</b> (o quadrado com a seta para cima) no Safari.</li><li>Escolha <b>Adicionar à Tela de Início</b> e toque em <b>Adicionar</b>.</li><li>Abra o jogo pelo ícone do Timtim: ele abre em tela cheia, sem as barras.</li></ol>
-    <div class="row"><button class="btn" id="btnDicaOk">Entendi</button></div></div></section>
   <div id="msg"><span id="msgTxt">Carregando…</span><img class="loadLogo" src="assets/logo.webp" alt=""></div>
 </div></div>
 
