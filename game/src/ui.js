@@ -10,6 +10,7 @@ const mainBtn = () => ({ title: 'btnStart', pause: 'btnResume', lose: 'btnRetry'
 const keyMap = { ArrowLeft: 'left', KeyA: 'left', ArrowRight: 'right', KeyD: 'right', Space: 'jump', ArrowUp: 'jump', KeyW: 'jump', ArrowDown: 'sniff', KeyS: 'sniff' };
 const press = (k, on) => { if (k === 'jump' && on && !I.jump) I.jumpPressed = true; I[k] = on; };
 addEventListener('keydown', e => {
+  if (TT.mapa && TT.mapa.isOpen()) return; // no mapa, as teclas são do mapa (setas andam, Enter joga, Esc volta)
   if (e.code === 'KeyP' || e.code === 'Escape') { S.mode === 'pause' ? TT.resume() : TT.pause(); return; }
   if (e.code === 'KeyM') return toggleMute();
   if (e.code === 'Enter' || e.code === 'Space') {
@@ -88,10 +89,19 @@ if (FASE === 2) { document.querySelector('.logo i').textContent = 'E O MISTÉRIO
 if (FASE === 3) { document.querySelector('.logo i').textContent = 'E O QUADRO ENCANTADO'; { const tb = document.querySelector('#title .tbg'); tb.style.backgroundImage = 'url(assets/bg/vg-noite.jpg)'; tb.style.filter = 'brightness(.78)'; }
   $('hint').textContent = isTouch ? '◀ ▶ andar · ▲ pula · no redemoinho, ▲ solta · 👃 fareja' : '← → andar · Espaço pula · no redemoinho, Espaço solta · ↓ fareja'; $('msg').textContent = 'Um corvo pintado fugiu do quadro com o pincel do Van Gogh…'; }
 if (FASE > 1) { $('faseTag').textContent = 'FASE ' + FASE + ' · ' + FASES[FASE - 1].toUpperCase(); $('pauseText').textContent = 'O Timtim parou para comer uma pipoca.'; $('progEnd').textContent = '🎉'; }
-let nextT = 0; $('btnNext').onclick = () => { clearInterval(nextT); goFase(FASE + 1, true); };
+// mapa das fases: aparece depois do título (escolher a fase) e entre as fases (o Timtim anda pelo caminho até a seguinte)
+const mapaEl = $('mapa');
+function abrirMapa(o) { TT.audioInit(); mapaEl.hidden = false; TT.mapa.open(Object.assign({ root: mapaEl, done, minOpen: FASE, onClose: () => TT.mapa.close() }, o)); }
+let nextT = 0; $('btnNext').onclick = () => { clearInterval(nextT); const prox = FASE < FASES.length ? FASE + 1 : 0;
+  abrirMapa({ at: FASE, walkTo: prox || undefined,
+    onArrive: f => { if (f === prox) setTimeout(() => { if (TT.mapa.isOpen() && TT.mapa.state().fase === f) goFase(f, true); }, 1400); }, // chegou na placa da fase nova: ela começa
+    onPlay: f => { if (f === FASE) { TT.mapa.close(); begin(TT.start); } else goFase(f, true); } }); };
 $('btnAgain').addEventListener('click', () => clearInterval(nextT), true);
-$('btnStart').onclick = () => { if (FASE > 1) { if (titleEl.classList.contains('leaving')) return; titleEl.classList.add('leaving'); return begin(TT.start); } // a fase 2 ainda não tem tela de história
-  if (titleEl.classList.contains('story')) return nextStory(); TT.audioInit(); TT.sfx('ui'); TT.music('title'); titleEl.classList.add('story'); storyAt = performance.now(); storyLine(0); };
+const comecar = () => { if (FASE > 1) { if (titleEl.classList.contains('leaving')) return; titleEl.classList.add('leaving'); return begin(TT.start); } // as fases 2 e 3 não têm tela de história
+  TT.audioInit(); TT.sfx('ui'); TT.music('title'); titleEl.classList.add('story'); storyAt = performance.now(); storyLine(0); };
+// Jogar abre o mapa; no mapa, a fase desta página começa aqui mesmo e as outras carregam a página delas
+$('btnStart').onclick = () => { if (titleEl.classList.contains('story')) return nextStory(); if (TT.mapa.isOpen()) return;
+  abrirMapa({ at: FASE, onPlay: f => { TT.mapa.close(); if (f === FASE) comecar(); else goFase(f, true); } }); };
 titleEl.addEventListener('pointerdown', () => { if (titleEl.classList.contains('story')) nextStory(); });
 const firstTouch = () => { if (S.mode === 'title') { TT.audioInit(); TT.music('title'); } removeEventListener('pointerdown', firstTouch); removeEventListener('keydown', firstTouch); };
 addEventListener('pointerdown', firstTouch); addEventListener('keydown', firstTouch);
@@ -215,7 +225,7 @@ TT.on('lose', () => {
 TT.on('win', st => {
   if (!best || st.stars > best.stars || (st.stars === best.stars && st.time < best.time)) { best = { stars: st.stars, time: st.time }; try { localStorage.setItem(BEST_KEY, JSON.stringify(best)); } catch (_) {} }
   done[FASE] = true; try { localStorage.setItem('tintim-fases', JSON.stringify(done)); } catch (_) {}
-  $('btnNext').classList.toggle('on', FASE < FASES.length);
+  $('btnNext').classList.add('on'); if (FASE >= FASES.length) $('btnNext').textContent = 'Ver o mapa'; // na última fase pronta, o botão leva ao mapa (com as próximas em breve)
   if (FASE < FASES.length) { let n = 8; const lab = 'Próxima fase: ' + FASES[FASE]; $('btnNext').textContent = `${lab} (${n})`; clearInterval(nextT);
     setTimeout(() => { if (S.mode !== 'win') return; clearInterval(nextT); nextT = setInterval(() => { n--; $('btnNext').textContent = `${lab} (${n})`; if (n <= 0) { clearInterval(nextT); $('btnNext').click(); } }, 1000); }, 1900); }
   if (FASE === 3) { document.querySelector('.winMonkey').src = 'assets/sprites/vg/vangogh-feliz.png'; $('winTitle').textContent = 'O pincel voltou!'; $('winText').textContent = 'Timtim desviou dos tubos de tinta, pulou nas costas do Corvo-Borrão e devolveu o pincel favorito do Van Gogh. Na mesma hora ele pintou um quadro novo: o Timtim, a Zara e o Elvis comemorando.'; $('stMain').textContent = 'Pincel de volta';

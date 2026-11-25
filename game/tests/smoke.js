@@ -19,6 +19,8 @@ const { chromium } = require('playwright');
   check(await until(() => document.querySelector('#shelf').classList.contains('on') && document.querySelectorAll('#shelf .slot').length === 5, 3000), 'estante de brinquedos abre com 5 lugares');
   await pg.click('#btnShelfBack'); await until(() => !document.querySelector('#shelf').classList.contains('on'), 3000);
   await pg.waitForTimeout(300); await pg.click('#btnStart');
+  check(await until(() => TT.mapa.isOpen() && document.querySelector('#mapa canvas'), 4000), 'Jogar abre o mapa das fases');
+  await pg.waitForTimeout(400); await pg.keyboard.press('Enter');
   check(await until(() => document.querySelector('#title').classList.contains('story')), 'Jogar abre a introdução');
   const scene = () => ev(() => __tintim.storyScene);
   await pg.waitForTimeout(700); await pg.mouse.click(480, 270); // cada toque avança uma tela

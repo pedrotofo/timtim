@@ -179,11 +179,30 @@
       const pulse = open && !ok ? (Math.sin(t * 5) > 0 ? 1 : 0) : 0;
       ctx.fillStyle = c[0]; ctx.fillRect(x - 5, y - 2, 11, 5); ctx.fillRect(x - 4, y - 3, 9, 7);
       ctx.fillStyle = c[1]; ctx.fillRect(x - 3, y - 2 - pulse, 5, 2);
-      if (!open || f.breve) { // cadeado
+      if (!open && !f.breve) { // cadeado (fase liberável, ainda não alcançada)
         ctx.fillStyle = '#2a1e2c'; ctx.fillRect(x - 2, y - 9, 5, 1); ctx.fillRect(x - 3, y - 8, 1, 3); ctx.fillRect(x + 3, y - 8, 1, 3);
         ctx.fillRect(x - 4, y - 5, 9, 5); ctx.fillStyle = '#ffd34a'; ctx.fillRect(x - 3, y - 4, 7, 3); ctx.fillStyle = '#2a1e2c'; ctx.fillRect(x, y - 4, 1, 2); }
+      if (f.breve) ribbon(x, y + 9, t, n);
       if (ok) { ctx.fillStyle = '#2a1e2c'; ctx.fillRect(x + 4, y - 12, 1, 10); ctx.fillStyle = Math.sin(t * 6) > 0 ? '#ff4a5a' : '#ff6a78'; ctx.fillRect(x + 5, y - 12, 5, 3); ctx.fillRect(x + 5, y - 11, 6, 1); } // bandeirinha: fase vencida
     });
+  }
+  // faixa de 'EM BREVE' com cadeado, embaixo de cada fase que ainda não existe; balança de leve e treme quando o Timtim tenta entrar
+  const shake = {};
+  function ribbon(cx, top, t, n) {
+    const txt = 'EM BREVE', tw = textWidth(txt), w = tw + 21, h = 11, s = shake[n] > 0 ? Math.round(Math.sin(t * 60) * 2) : 0;
+    const x = Math.round(cx - w / 2) + s, y = top + (Math.sin(t * 2 + n) > 0.7 ? 1 : 0), INK = '#2a1e2c';
+    // pontas dobradas (rabo de andorinha) atrás, mais escuras
+    ctx.fillStyle = INK; ctx.fillRect(x - 6, y + 2, 8, h); ctx.fillRect(x + w - 2, y + 2, 8, h);
+    ctx.fillStyle = '#8e1f2a'; ctx.fillRect(x - 5, y + 3, 6, h - 2); ctx.fillRect(x + w - 1, y + 3, 6, h - 2);
+    ctx.fillStyle = INK; ctx.fillRect(x - 6, y + 6, 2, 3); ctx.fillRect(x + w + 4, y + 6, 2, 3); // o corte em V das pontas
+    // a faixa da frente
+    ctx.fillStyle = INK; ctx.fillRect(x - 1, y - 1, w + 2, h + 2);
+    ctx.fillStyle = '#d7303a'; ctx.fillRect(x, y, w, h); ctx.fillStyle = '#ff6a6e'; ctx.fillRect(x, y, w, 1); ctx.fillStyle = '#a8212c'; ctx.fillRect(x, y + h - 1, w, 1);
+    // cadeado dourado
+    const lx = x + 3, ly = y + 2;
+    ctx.fillStyle = INK; ctx.fillRect(lx + 1, ly - 1, 4, 1); ctx.fillRect(lx, ly, 1, 3); ctx.fillRect(lx + 5, ly, 1, 3); ctx.fillRect(lx - 1, ly + 3, 8, 6);
+    ctx.fillStyle = '#ffd34a'; ctx.fillRect(lx, ly + 4, 6, 4); ctx.fillStyle = '#fff1a0'; ctx.fillRect(lx, ly + 4, 6, 1); ctx.fillStyle = INK; ctx.fillRect(lx + 2, ly + 5, 2, 2);
+    drawText(ctx, txt, x + 13, y + 2, '#fff1cc', '#5a121a');
   }
   function drawTimtim(t) {
     const S = img.tim, fw = S.width / 6, fh = S.height; let f = 0, bob = 0, flip = false;
@@ -207,7 +226,8 @@
   }
 
   // ---------- andar e escolher ----------
-  const maxOpen = () => { let n = 1; for (let f = 2; f <= 5; f++) if (done[f - 1] && !FASES[f - 1].breve) n = f; else break; return n; };
+  // fases liberadas: a 1, cada uma depois de vencida a anterior, e no mínimo a fase da página aberta (quem chega direto nela pode jogar)
+  const maxOpen = () => { let n = Math.max(1, opts.minOpen || 1); for (let f = n + 1; f <= 5; f++) if (done[f - 1] && !FASES[f - 1].breve) n = f; else break; return n; };
   function pathBetween(a, b) {
     let pts = []; if (a === b) return null;
     if (b > a) for (let i = a - 1; i < b - 1; i++) pts = pts.concat(TRECHOS[i]);
@@ -215,7 +235,9 @@
     return pts;
   }
   function walk(to) {
-    if (to < 1 || to > 5 || me.path) return; const p = pathBetween(me.fase, to); if (!p) return;
+    if (to < 1 || to > 5 || me.path) return;
+    if (to > maxOpen()) { const f = FASES[to - 1]; shake[to] = 0.4; TT.sfx && TT.sfx('bonk'); sign.t = 0; sign.txt = `FASE ${to} · ${f.nome}`; sign.sub = f.breve ? 'EM BREVE' : ''; return; }
+    const p = pathBetween(me.fase, to); if (!p) return;
     me.path = p; me.pi = 0; me.to = to; sign.txt = ''; TT.sfx && TT.sfx('jump');
   }
   function showSign() {
@@ -227,7 +249,7 @@
       const i = Math.min(me.path.length - 1, Math.floor(me.pi)), [x, y] = me.path[i], [nx, ny] = me.path[Math.min(me.path.length - 1, i + 3)];
       me.x = x; me.y = y; const dx = nx - x, dy = ny - y; if (Math.abs(dx) > 0.2 || Math.abs(dy) > 0.2) { me.dir = Math.abs(dx) >= Math.abs(dy) * 0.8 ? 'side' : 'front'; if (Math.abs(dx) > 0.2) me.face = Math.sign(dx); }
       if (i >= me.path.length - 1) { me.path = null; me.fase = me.to; me.jumpT = 0.7; showSign(); TT.sfx && TT.sfx('checkpoint'); if (opts.onArrive) opts.onArrive(me.fase); } }
-    me.jumpT = Math.max(0, me.jumpT - dt);
+    me.jumpT = Math.max(0, me.jumpT - dt); for (const k in shake) shake[k] = Math.max(0, shake[k] - dt);
   }
   function loop(now) {
     raf = requestAnimationFrame(loop); if (!ready) return;
@@ -264,6 +286,6 @@
       if (o.walkTo && o.walkTo !== at) setTimeout(() => walk(o.walkTo), 700); else setTimeout(showSign, 300);
     },
     close() { ready = false; cancelAnimationFrame(raf); if (root) root.hidden = true; },
-    walk, play, state: () => ({ fase: me.fase, walking: !!me.path, x: me.x, y: me.y, sign: sign.txt, open: maxOpen() }),
+    isOpen: () => !!root && !root.hidden && ready, walk, play, state: () => ({ fase: me.fase, walking: !!me.path, x: me.x, y: me.y, sign: sign.txt, open: maxOpen() }),
   };
 })();
