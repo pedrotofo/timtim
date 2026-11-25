@@ -119,7 +119,7 @@
   @keyframes breathe { from { scale: 1; translate: 0 0; } to { scale: 1.03; translate: 0 .4%; } } /* respira pouco: o título está pintado no alto da capa e não pode sair do quadro */
   .fly { position: absolute; width: .5cqw; height: .5cqw; border-radius: 50%; background: #ffe9a8; box-shadow: 0 0 1.2cqw .3cqw rgba(255, 210, 120, .8); animation: fly 9s ease-in-out infinite; opacity: 0; }
   @keyframes fly { 0% { opacity: 0; translate: 0 0; } 20% { opacity: 1; } 50% { translate: 2cqw -5cqw; opacity: .5; } 80% { opacity: 1; } 100% { translate: -1.5cqw -11cqw; opacity: 0; } }
-  #title .vig { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 70%, rgba(6, 10, 24, .85)); transition: background 1.2s; }
+  #title .vig { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10, 6, 34, .35), transparent 38%, transparent 70%, rgba(10, 6, 34, .85)); transition: background 1.2s; }
   #title .on-anim { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; text-align: center; padding: 4.5cqw 4cqw 3cqw; transition: opacity .8s; }
   #title .on-anim .gap { flex: 1; }
   #title.story .on-anim { opacity: 0; pointer-events: none; }
@@ -138,8 +138,9 @@
     filter: drop-shadow(0 .5cqw 0 #3b1606) drop-shadow(0 0 2.4cqw rgba(255, 170, 80, .75)); }
   .logo i { display: inline-block; font-style: normal; font-size: 2.3cqw; letter-spacing: .5cqw; color: #fff6dc; margin-top: 1cqw; padding: .45cqw 2.2cqw; border-radius: .6cqw;
     background: linear-gradient(180deg, #d2402c, #9c2418); box-shadow: 0 .35cqw 0 #4a1008, 0 0 2cqw rgba(0, 0, 0, .45); text-shadow: 0 .2cqw 0 #4a1008; }
-  /* o título já vem pintado no alto da capa, centralizado (arte do Pedro); o h1 fica só para leitores de tela */
-  #title .logo { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  /* capa na direção de arte de Ori: floresta anil e violeta, a turma no tronco de musgo; o logo do Pedro centralizado no alto, com um brilho suave */
+  #title .logo { position: absolute; left: 0; right: 0; top: 2.4cqw; display: flex; justify-content: center; }
+  #title .logo img { width: 40cqw; display: block; filter: drop-shadow(0 0 1.8cqw rgba(255, 214, 170, .32)) drop-shadow(0 .5cqw 1.2cqw rgba(8, 4, 30, .6)); }
   #title .on-anim > * { animation: rise 1s var(--out) both; }
   #title .on-anim > *:nth-child(2) { animation-delay: .15s; } #title .on-anim > *:nth-child(3) { animation-delay: .3s; } #title .on-anim > *:nth-child(4) { animation-delay: .45s; }
   @keyframes rise { from { opacity: 0; transform: translateY(1.6cqw); filter: blur(.4cqw); } }
