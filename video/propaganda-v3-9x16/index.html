@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: #0b0d16; }
+      #root { position: absolute; inset: 0; background: #0b0d16; overflow: hidden; }
+      /* a gameplay de outro momento de cada fase (e a capa na abertura), já desfocada no arquivo */
+      #fundo-video { position: absolute; left: -140px; top: -220px; width: 1360px; height: 2360px; object-fit: cover; opacity: 0.75; }
+      #fundo-escuro {
+        position: absolute; inset: 0;
+        background:
+          radial-gradient(ellipse 80% 50% at 50% 45%, rgba(11, 13, 22, 0.05), rgba(11, 13, 22, 0.8) 100%),
+          linear-gradient(180deg, rgba(11, 13, 22, 0.45), rgba(11, 13, 22, 0.1) 45%, rgba(11, 13, 22, 0.85));
+      }
+      .brilho { position: absolute; left: -60px; top: 380px; width: 1200px; height: 1200px; border-radius: 50%; opacity: 0; }
+      #brilho-1 { background: radial-gradient(circle, rgba(74, 168, 255, 0.5) 0%, transparent 60%); }
+      #brilho-2 { background: radial-gradient(circle, rgba(255, 150, 60, 0.5) 0%, transparent 60%); }
+      #brilho-3 { background: radial-gradient(circle, rgba(255, 214, 90, 0.45) 0%, rgba(60, 90, 220, 0.25) 35%, transparent 62%); }
+      #vagalumes { position: absolute; inset: 0; }
+      .vl { position: absolute; border-radius: 50%; background: radial-gradient(circle, #fff6c9 0%, #ffd56b 35%, rgba(255, 200, 80, 0) 70%); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="18" data-width="1080" data-height="1920">
+      <video id="fundo-video" class="clip" src="assets/fundo.mp4" data-start="0" data-duration="18" data-track-index="0" muted playsinline></video>
+      <div id="fundo-escuro"></div>
+      <div class="brilho" id="brilho-1"></div>
+      <div class="brilho" id="brilho-2"></div>
+      <div class="brilho" id="brilho-3"></div>
+      <div id="vagalumes" data-layout-ignore></div>
+      <div id="aparelhos" data-composition-id="aparelhos" data-composition-src="compositions/aparelhos.html"
+        data-start="0" data-duration="18" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div id="marca" data-composition-id="marca" data-composition-src="compositions/marca.html"
+        data-start="0" data-duration="18" data-track-index="2" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div id="textos" data-composition-id="textos" data-composition-src="compositions/textos.html"
+        data-start="0" data-duration="18" data-track-index="3" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      // vaga-lumes subindo: posições fixas (sorteio com semente), sem Math.random
+      let s = 7; const rnd = () => ((s = (s * 16807) % 2147483647) / 2147483647);
+      const box = document.getElementById("vagalumes");
+      for (let i = 0; i < 46; i++) {
+        const d = document.createElement("div"); d.className = "vl"; const r = 8 + rnd() * 16;
+        Object.assign(d.style, { width: r + "px", height: r + "px", left: rnd() * 1080 + "px", top: 300 + rnd() * 1700 + "px" });
+        box.appendChild(d);
+        const sobe = 260 + rnd() * 520, lado = (rnd() - 0.5) * 120, atraso = rnd() * 3, pisca = 0.6 + rnd() * 1.2;
+        tl.fromTo(d, { y: 0, x: 0 }, { y: -sobe, x: lado, duration: 18, ease: "none" }, 0);
+        tl.fromTo(d, { opacity: 0 }, { opacity: 0.25 + rnd() * 0.75, duration: pisca, ease: "sine.inOut", yoyo: true, repeat: Math.floor((18 - atraso) / pisca) }, atraso);
+      }
+      // brilho na cor de cada fase
+      tl.fromTo("#brilho-1", { opacity: 0 }, { opacity: 0.55, duration: 0.6 }, 2.2);
+      tl.to("#brilho-1", { opacity: 0, duration: 0.4 }, 6.8);
+      tl.fromTo("#brilho-2", { opacity: 0 }, { opacity: 0.55, duration: 0.4 }, 6.8);
+      tl.to("#brilho-2", { opacity: 0, duration: 0.4 }, 11.9);
+      tl.fromTo("#brilho-3", { opacity: 0 }, { opacity: 0.6, duration: 0.4 }, 11.9);
+      tl.to("#brilho-3", { opacity: 0, duration: 0.6 }, 16.0);
+      tl.fromTo("#fundo-video", { x: 60, y: 40, scale: 1.05 }, { x: -60, y: -40, scale: 1.0, duration: 18, ease: "none" }, 0);
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

@@ -1,0 +1,40 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; font-family: "Inter", sans-serif; color: #f6efe0; }
+    .tx {
+      position: absolute; left: 120px; top: 1330px; width: 768px; text-align: center;
+      font-size: 54px; font-weight: 900; letter-spacing: -0.02em; line-height: 1.08; text-shadow: 0 6px 30px rgba(0, 0, 0, 0.7);
+    }
+    .tx span { display: inline-block; margin: 0 0.11em; }
+    .tx-chip {
+      position: absolute; left: 390px; top: 1250px; width: 300px; height: 50px; border-radius: 25px; text-align: center;
+      font-size: 26px; font-weight: 900; line-height: 50px; letter-spacing: 0.06em; color: #1b1206;
+    }
+    .az { color: #6cb8ff; } .la { color: #ffab5c; } .am { color: #ffd65a; }
+  </style>
+  <div id="root" data-composition-id="textos" data-width="1080" data-height="1920">
+    <div class="tx-chip clip" id="tx-c1" data-start="2.6" data-duration="4.2" data-track-index="0" style="background: #6cb8ff">FASE 1</div>
+    <div class="tx-chip clip" id="tx-c2" data-start="7.3" data-duration="4.4" data-track-index="0" style="background: #ffab5c">FASE 2</div>
+    <div class="tx-chip clip" id="tx-c3" data-start="12.4" data-duration="3.6" data-track-index="0" style="background: #ffd65a">FASE 3</div>
+    <div class="tx clip" id="tx-1" data-start="2.6" data-duration="2.0" data-track-index="1"><span class="az">O</span><span class="az">Parque</span></div>
+    <div class="tx clip" id="tx-2" data-start="4.6" data-duration="2.1" data-track-index="1"><span>Corra,</span><span>pule</span><span>e</span><span class="az">fareje</span><span class="az">segredos.</span></div>
+    <div class="tx clip" id="tx-3" data-start="7.3" data-duration="2.1" data-track-index="1"><span class="la">O</span><span class="la">Arraial</span></div>
+    <div class="tx clip" id="tx-4" data-start="9.4" data-duration="2.3" data-track-index="1"><span>Plane</span><span>com</span><span>a</span><span class="la">bandana.</span></div>
+    <div class="tx clip" id="tx-5" data-start="12.4" data-duration="1.8" data-track-index="1"><span class="am">O</span><span class="am">Quadro</span><span class="am">Encantado</span></div>
+    <div class="tx clip" id="tx-6" data-start="14.2" data-duration="1.8" data-track-index="1"><span>Ache</span><span>os</span><span class="am">brinquedos</span><span class="am">perdidos.</span></div>
+  </div>
+  <script>
+    (() => {
+      const tl = gsap.timeline({ paused: true });
+      [["#tx-c1", 2.6, 6.8], ["#tx-c2", 7.3, 11.7], ["#tx-c3", 12.4, 16.0]].forEach(([id, a, b]) => {
+        tl.fromTo(id, { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(2)" }, a);
+        tl.to(id, { opacity: 0, scale: 0.8, duration: 0.18, ease: "power2.in" }, b - 0.2);
+      });
+      [["#tx-1", 2.6, 4.6], ["#tx-2", 4.6, 6.7], ["#tx-3", 7.3, 9.4], ["#tx-4", 9.4, 11.7], ["#tx-5", 12.4, 14.2], ["#tx-6", 14.2, 16.0]].forEach(([id, a, b]) => {
+        tl.fromTo(id + " span", { opacity: 0, y: 44, rotationX: -70, filter: "blur(8px)" }, { opacity: 1, y: 0, rotationX: 0, filter: "blur(0px)", duration: 0.45, stagger: 0.06, ease: "power3.out" }, a + 0.05);
+        tl.to(id + " span", { opacity: 0, y: -26, duration: 0.15, stagger: 0.02, ease: "power2.in" }, b - 0.22);
+      });
+      window.__timelines["textos"] = tl;
+    })();
+  </script>
+</template>
