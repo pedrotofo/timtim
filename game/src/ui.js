@@ -168,6 +168,15 @@ let noteT = 0; TT.on('note', e => { const n = $('note'); n.querySelector('small'
 TT.on('start', () => { clearTimeout(noteT); $('note').classList.remove('on'); });
 $('btnAgain').onclick = () => begin(TT.start);
 $('btnRestart').onclick = () => begin(TT.start);
+// tela cheia (e, no celular, tenta travar deitado); onde o navegador não deixa (iPhone, janela de artefato), os botões somem
+{ const d = document, ok = d.fullscreenEnabled || d.webkitFullscreenEnabled, cheia = () => d.fullscreenElement || d.webkitFullscreenElement;
+  if (!ok) d.documentElement.classList.add('semTela');
+  const rotulo = () => { $('btnTela').textContent = cheia() ? '⛶ Sair da tela cheia' : '⛶ Tela cheia'; $('btnTelaPausa').textContent = cheia() ? 'Sair da tela cheia' : 'Tela cheia'; };
+  const alterna = e => { if (e) e.stopPropagation(); const el = d.documentElement;
+    if (cheia()) (d.exitFullscreen || d.webkitExitFullscreen).call(d);
+    else { const p = (el.requestFullscreen || el.webkitRequestFullscreen).call(el); if (p && p.then) p.then(() => { try { screen.orientation.lock('landscape').catch(() => {}); } catch (_) {} }).catch(() => {}); } };
+  $('btnTela').addEventListener('pointerdown', e => e.stopPropagation()); $('btnTela').onclick = alterna; $('btnTelaPausa').onclick = alterna;
+  d.addEventListener('fullscreenchange', rotulo); d.addEventListener('webkitfullscreenchange', rotulo); }
 // voltar ao mapa pela pausa: escolher a mesma fase recomeça ela; outra fase carrega; fechar o mapa volta para a pausa
 $('btnMapaPausa').onclick = () => abrirMapa({ at: FASE, onPlay: f => { if (f === FASE) { TT.mapa.close(); begin(TT.start); } else goFase(f, true); } });
 $('btnLoseRestart').onclick = () => begin(TT.start);

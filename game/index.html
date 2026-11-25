@@ -4,6 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <title>Timtim e os Brinquedos Perdidos</title>
+<!-- no celular, "Adicionar à tela de início" vira um ícone que abre o jogo sem as barras do navegador -->
+<link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="assets/icone-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="theme-color" content="#12070f">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marcellus&family=Nunito:wght@500;600;700;800&display=swap">
 <style>
   /* Sistema visual: entardecer no parque. Vidro cor de vinho, contornos finos de luz, texto que brilha. */
@@ -150,6 +153,10 @@
   #skip { position: absolute; right: 2.4cqw; top: 2.4cqw; font-size: 1.3cqw; letter-spacing: .2cqw; color: rgba(255, 244, 228, .92); padding: .4cqw 1.2cqw; border-radius: 99cqw; background: rgba(40, 18, 8, .55); opacity: 0; transition: opacity .6s .8s; animation: nudge 2.4s ease-in-out infinite; }
   @keyframes nudge { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(.4cqw); } }
   #title.story #skip { opacity: 1; }
+  /* tela cheia: botão no canto da capa e na pausa (some onde o navegador não deixa, como no iPhone) */
+  #btnTela { position: absolute; left: 2cqw; top: 2cqw; z-index: 3; font-size: 1.15cqw; font-weight: 700; letter-spacing: .08cqw; color: #fff3d6; background: rgba(20, 10, 30, .55);
+    border: .12cqw solid rgba(255, 220, 190, .45); border-radius: 99cqw; padding: .45cqw 1.3cqw; }
+  #btnTela:hover { background: rgba(60, 38, 80, .8); } #title.story #btnTela, .semTela #btnTela, .semTela #btnTelaPausa { display: none; }
   @keyframes float { 50% { transform: translateY(-.8cqw); } }
   .logo { margin: 0; font-family: var(--display); font-weight: 400; line-height: .9; }
   /* capa no estilo das caixas de Super Nintendo: nome grande em dourado com contorno escuro, faixa do subtítulo e a arte com a turma e as três aventuras */
@@ -278,13 +285,13 @@
       <p class="hint" id="hint">← → andar · Espaço pula · no ar, de novo: pirueta · ↓ fareja</p>
     </div>
     <div class="tbg tbgTop"></div>
-    <canvas id="introC" width="1600" height="900"></canvas><p id="storyLine" aria-live="polite"></p><span id="skip">toque para começar</span>
+    <canvas id="introC" width="1600" height="900"></canvas><p id="storyLine" aria-live="polite"></p><span id="skip">toque para começar</span><button id="btnTela">⛶ Tela cheia</button>
   </section>
 
   <section id="pause" class="screen scrim"><div class="card">
     <h2>Pausa</h2><p id="pauseText">O Timtim parou para olhar os vaga-lumes.</p>
     <div class="row"><button class="btn" id="btnResume">Continuar</button><button class="btn ghost" id="btnRestart">Recomeçar</button><button class="btn ghost" id="btnMapaPausa">Voltar ao mapa</button></div>
-    <div class="row"><button class="btn ghost" id="btnCalmo" aria-pressed="false">Menos tremor e clarão: não</button></div>
+    <div class="row"><button class="btn ghost" id="btnCalmo" aria-pressed="false">Menos tremor e clarão: não</button><button class="btn ghost" id="btnTelaPausa">Tela cheia</button></div>
   </div></section>
 
   <section id="lose" class="screen scrim"><div class="card">
