@@ -53,7 +53,10 @@ function rotas(L, speed) { // para cada buraco do chão: a rota com o salto mais
   const pulos = [];
   for (const f of [1, 2, 3]) {
     await pg.goto(base + '?fase=' + f + '&q=0&r=' + Date.now() + '#fase' + f + '-jogar');
-    await pg.waitForFunction(() => window.TT && TT.S && TT.S.mode === 'play', null, { timeout: 30000 });
+    // vindo do mapa, a fase abre no card da história; aqui a medição pula o card
+    await pg.waitForFunction(() => window.TT && TT.S && (TT.S.mode === 'play' || (window.__tintim && __tintim.storyScene >= 0)), null, { timeout: 30000 });
+    await pg.evaluate(() => { if (TT.S.mode === 'title') TT.start(); });
+    await pg.waitForFunction(() => TT.S.mode === 'play', null, { timeout: 10000 });
     const L = await pg.evaluate(() => { const C = TT.C, S = TT.S; TT.demo.noHurt = true; S.cine = null;
       const p = S.player, I = TT.input, settle = () => { for (let i = 0; i < 480; i++) TT.update(1 / 240); };
       const jump = mode => { Object.assign(p, { x: 200, vx: 0, vy: 0 }); I.left = I.right = I.jump = false; settle(); const y0 = p.y; let apex = 0, t = 0, n = 0, second = false;
@@ -91,7 +94,9 @@ function rotas(L, speed) { // para cada buraco do chão: a rota com o salto mais
       const real = performance.now.bind(performance); performance.now = () => t; window.__realNow = real; }, hz);
     const p2 = await ctx.newPage();
     await p2.goto(base + '?fase=1&q=0&r=' + hz + '#fase1-jogar');
-    await p2.waitForFunction(() => window.TT && TT.S && TT.S.mode === 'play' && !TT.S.cine && TT.S.player.onGround, null, { timeout: 60000 });
+    await p2.waitForFunction(() => window.TT && TT.S && (TT.S.mode === 'play' || (window.__tintim && __tintim.storyScene >= 0)), null, { timeout: 60000 });
+    await p2.evaluate(() => { if (TT.S.mode === 'title') TT.start(); });
+    await p2.waitForFunction(() => TT.S.mode === 'play' && !TT.S.cine && TT.S.player.onGround, null, { timeout: 60000 });
     await p2.evaluate(() => { TT.demo.noHurt = true; Object.assign(TT.S.player, { x: 200, vx: 0 }); });
     await p2.waitForFunction(() => TT.S.player.onGround && TT.S.player.vy === 0, null, { timeout: 20000 });
     const h = await p2.evaluate(() => new Promise(res => { const p = TT.S.player, y0 = p.y, R = TT.R, frame = R.frame; let apex = 0, left = false;

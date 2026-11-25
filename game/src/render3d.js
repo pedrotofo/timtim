@@ -723,7 +723,7 @@ if (VG) { TEX.borrao = load('sprites/vg/borrao.png'); } TEX.choco = canvasTex(16
   x.fillStyle = '#ff3d5e'; x.beginPath(); x.moveTo(-66, -44); x.lineTo(-8, -44); x.lineTo(-20, 44); x.lineTo(-66, 44); x.closePath(); x.fill();
   x.fillStyle = '#ffd98a'; x.fillRect(-66, -10, 52, 20); x.strokeStyle = '#fff3d6'; x.lineWidth = 3; x.beginPath(); x.moveTo(-8, -44); x.lineTo(-14, -20); x.lineTo(-6, 0); x.lineTo(-16, 22); x.lineTo(-20, 44); x.stroke(); });
 // brinquedo perdido do Parque: o Patinho Quá-Quá, de borracha e meio mordido (arte do Google Flow, a mesma da estante)
-if (VG) { TEX.toy = load('sprites/toy-bolinha.png'); AR.toy = 0.985; } else if (ARR) { TEX.toy = load('sprites/toy-sanfona.png'); AR.toy = 297 / 200; } else { TEX.toy = load('sprites/toy-duck.png'); AR.toy = 214 / 200; }
+if (VG) { TEX.toy = load('sprites/toy-girassol.png'); AR.toy = 178 / 200; } else if (ARR) { TEX.toy = load('sprites/toy-sanfona.png'); AR.toy = 297 / 200; } else { TEX.toy = load('sprites/toy-duck.png'); AR.toy = 214 / 200; }
 if (VG) { TEX.choco = TEX.borrao; AR.choco = 1.62; }
 const GOLD = VG ? 'tubo' : 'cookie'; // no quadro, os dourados são tubos de tinta
 // fase 3: os tubos de tinta que o Corvo-Borrão derruba (e a marca de onde cada um cai), as manchas que ficam no chão,

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
-<title>Timtim e o Resgate do Macaco Fedido</title>
+<title>Timtim e os Brinquedos Perdidos</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marcellus&family=Nunito:wght@500;600;700;800&display=swap">
 <style>
   /* Sistema visual: entardecer no parque. Vidro cor de vinho, contornos finos de luz, texto que brilha. */
@@ -115,11 +115,11 @@
 
   /* título: a arte pintada respira (zoom lento) e vaga-lumes sobem */
   #title { display: block; background: #060a18; overflow: hidden; }
-  #title .tbg { position: absolute; inset: -2%; background: url(assets/title.jpg) center / cover; transform-origin: 62% 52%; animation: breathe 22s ease-in-out infinite alternate; transition: transform 9s cubic-bezier(.3, 0, .2, 1), filter 2s; }
+  #title .tbg { position: absolute; inset: -2%; background: url(assets/capa.jpg) center / cover; transform-origin: 50% 55%; animation: breathe 22s ease-in-out infinite alternate; transition: transform 9s cubic-bezier(.3, 0, .2, 1), filter 2s; }
   @keyframes breathe { from { scale: 1; translate: 0 0; } to { scale: 1.07; translate: -1.2% .6%; } }
   .fly { position: absolute; width: .5cqw; height: .5cqw; border-radius: 50%; background: #ffe9a8; box-shadow: 0 0 1.2cqw .3cqw rgba(255, 210, 120, .8); animation: fly 9s ease-in-out infinite; opacity: 0; }
   @keyframes fly { 0% { opacity: 0; translate: 0 0; } 20% { opacity: 1; } 50% { translate: 2cqw -5cqw; opacity: .5; } 80% { opacity: 1; } 100% { translate: -1.5cqw -11cqw; opacity: 0; } }
-  #title .vig { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(6, 10, 24, .5), transparent 34%, transparent 62%, rgba(6, 10, 24, .82)); transition: background 1.2s; }
+  #title .vig { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(6, 10, 24, .62), rgba(6, 10, 24, .15) 30%, transparent 44%, transparent 70%, rgba(6, 10, 24, .85)); transition: background 1.2s; }
   #title .on-anim { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; text-align: center; padding: 4.5cqw 4cqw 3cqw; transition: opacity .8s; }
   #title .on-anim .gap { flex: 1; }
   #title.story .on-anim { opacity: 0; pointer-events: none; }
@@ -127,14 +127,18 @@
   #storyLine { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; } /* só para leitores de tela: a frase aparece desenhada no pergaminho */
   #introC { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 1s; pointer-events: none; }
   #title.story #introC { opacity: 1; }
-  #skip { position: absolute; right: 2.4cqw; bottom: 2.4cqw; font-size: 1.3cqw; letter-spacing: .2cqw; color: rgba(255, 244, 228, .92); padding: .4cqw 1.2cqw; border-radius: 99cqw; background: rgba(40, 18, 8, .55); opacity: 0; transition: opacity .6s .8s; animation: nudge 2.4s ease-in-out infinite; }
+  #skip { position: absolute; right: 2.4cqw; top: 2.4cqw; font-size: 1.3cqw; letter-spacing: .2cqw; color: rgba(255, 244, 228, .92); padding: .4cqw 1.2cqw; border-radius: 99cqw; background: rgba(40, 18, 8, .55); opacity: 0; transition: opacity .6s .8s; animation: nudge 2.4s ease-in-out infinite; }
   @keyframes nudge { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(.4cqw); } }
   #title.story #skip { opacity: 1; }
   @keyframes float { 50% { transform: translateY(-.8cqw); } }
   .logo { margin: 0; font-family: var(--display); font-weight: 400; line-height: .9; }
-  .logo b { display: block; font-weight: 400; font-size: 11.5cqw; letter-spacing: 1cqw; color: #fff;
-    text-shadow: 0 0 1.6cqw rgba(255, 214, 160, .95), 0 0 5cqw rgba(255, 130, 90, .85), 0 0 12cqw rgba(230, 90, 120, .6); }
-  .logo i { display: block; font-style: normal; font-size: 2.5cqw; letter-spacing: .45cqw; color: var(--gold); margin-top: 1.4cqw; text-shadow: 0 0 1.4cqw rgba(255, 200, 110, .7); }
+  /* capa no estilo das caixas de Super Nintendo: nome grande em dourado com contorno escuro, faixa do subtítulo e a arte com a turma e as três aventuras */
+  .logo b { display: block; font-weight: 400; font-size: 12.5cqw; letter-spacing: 1.1cqw; line-height: .95; color: transparent; -webkit-text-stroke: .32cqw #3b1606; paint-order: stroke fill;
+    background: linear-gradient(180deg, #fffbe0 8%, #ffd85a 46%, #ff9a2e 72%, #ff6a1f 100%); -webkit-background-clip: text; background-clip: text;
+    filter: drop-shadow(0 .5cqw 0 #3b1606) drop-shadow(0 0 2.4cqw rgba(255, 170, 80, .75)); }
+  .logo i { display: inline-block; font-style: normal; font-size: 2.3cqw; letter-spacing: .5cqw; color: #fff6dc; margin-top: 1cqw; padding: .45cqw 2.2cqw; border-radius: .6cqw;
+    background: linear-gradient(180deg, #d2402c, #9c2418); box-shadow: 0 .35cqw 0 #4a1008, 0 0 2cqw rgba(0, 0, 0, .45); text-shadow: 0 .2cqw 0 #4a1008; }
+  .tagline { margin: 1.4cqw 0 0; font-size: 1.9cqw; font-weight: 800; color: #fff; text-shadow: 0 .2cqw .6cqw rgba(6, 10, 24, .95), 0 0 1.6cqw rgba(6, 10, 24, .8); }
   #title .on-anim > * { animation: rise 1s var(--out) both; }
   #title .on-anim > *:nth-child(2) { animation-delay: .15s; } #title .on-anim > *:nth-child(3) { animation-delay: .3s; } #title .on-anim > *:nth-child(4) { animation-delay: .45s; }
   @keyframes rise { from { opacity: 0; transform: translateY(1.6cqw); filter: blur(.4cqw); } }
@@ -174,7 +178,11 @@
   /* ---------- estante de brinquedos perdidos ---------- */
   #shelf { z-index: 5; background: linear-gradient(rgba(18, 7, 18, .38), rgba(18, 7, 18, .62)), url(assets/bg/shelf.jpg) center / cover; } /* casinha de madeira à noite */
   #shelf .card { min-width: 0; width: 78cqw; padding: 2.4cqw 3cqw 2.6cqw; }
-  #shelfSlots { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.2cqw; margin: 1.8cqw 0 2cqw; text-align: center; }
+  #shelfSlots, #premioSlots { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.2cqw; margin: .8cqw 0 1.2cqw; text-align: center; }
+  .shelfH { margin: 1cqw 0 0; font-family: var(--display); font-weight: 400; font-size: 1.7cqw; letter-spacing: .25cqw; color: var(--gold); text-align: left; }
+  .shelfH small { font-family: var(--font); font-size: 1.1cqw; letter-spacing: 0; color: var(--dim); }
+  #shelfSlots .slot { padding: .6cqw .6cqw .8cqw; } #shelfSlots .slot .pic { width: 5.4cqw; height: 5.4cqw; } #shelfSlots .slot .pic img { height: 4.4cqw; } #shelfSlots .slot p { display: none; }
+  #shelfSlots .slot .pic b { font-size: 2.6cqw; }
   .slot { background: rgba(255, 220, 190, .06); border: .1cqw solid rgba(255, 220, 190, .14); border-radius: 1.4cqw; padding: 1cqw .8cqw 1.2cqw; display: flex; flex-direction: column; align-items: center; gap: .3cqw; }
   .slot .pic { height: 8cqw; width: 8cqw; display: grid; place-items: center; border-radius: 50%; background: radial-gradient(circle, rgba(255, 214, 160, .12), transparent 70%); }
   .slot .pic img { height: 6.4cqw; filter: brightness(0) opacity(.45); }
@@ -187,7 +195,7 @@
   .slot.got strong { color: var(--mint); }
   .slot.soon { opacity: .55; }
   #shelfCount { margin: .4cqw 0 0; color: var(--gold); font-weight: 700; font-size: 1.6cqw; }
-  #btnShelf { margin-top: 1.2cqw; }
+  #btnShelf { margin: 0; color: #fff; background: rgba(20, 10, 30, .55); border-color: rgba(255, 220, 190, .55); } /* na capa, o vidro escuro faz o botão ler sobre a arte */
   #fases { display: none; gap: 1cqw; margin-top: 1.2cqw; } #fases.on { display: flex; }
   .chip { font-size: 1.4cqw; padding: .5cqw 1.8cqw; } .chip.cur { color: #fff; border-color: var(--glow); box-shadow: 0 0 1.6cqw rgba(255, 214, 160, .35); } .chip:disabled { opacity: .35; cursor: default; }
   #faseTag { margin: 0 0 1cqw; font-family: var(--display); font-size: 2cqw; letter-spacing: .4cqw; color: var(--gold); text-shadow: 0 0 1.2cqw rgba(255, 180, 90, .6); min-height: 1em; }
@@ -234,16 +242,16 @@
   <section id="title" class="screen on">
     <div class="tbg"></div><i class="fly" style="left:18%;top:62%;animation-delay:-0s"></i><i class="fly" style="left:31%;top:48%;animation-delay:-3s"></i><i class="fly" style="left:44%;top:70%;animation-delay:-6s"></i><i class="fly" style="left:52%;top:40%;animation-delay:-1.5s"></i><i class="fly" style="left:70%;top:66%;animation-delay:-4.5s"></i><i class="fly" style="left:78%;top:44%;animation-delay:-7s"></i><i class="fly" style="left:88%;top:58%;animation-delay:-2.5s"></i><i class="fly" style="left:25%;top:30%;animation-delay:-5.5s"></i><div class="vig"></div>
     <div class="on-anim">
-      <h1 class="logo"><b>TIMTIM</b><i>E O RESGATE DO MACACO FEDIDO</i></h1>
+      <h1 class="logo"><b>TIMTIM</b><i>E OS BRINQUEDOS PERDIDOS</i></h1>
+      <p class="tagline">Ajude Timtim, Zara e Elvis em cada aventura!</p>
       <div class="gap"></div>
       <p id="faseTag"></p>
-      <button class="btn" id="btnStart">Jogar</button>
       <div class="row" id="fases"><button class="btn ghost chip" data-f="1">1 · O Parque</button><button class="btn ghost chip" data-f="2">2 · O Arraial</button></div>
       <p id="best"></p>
-      <button class="btn ghost" id="btnShelf">Brinquedos perdidos</button>
+      <div class="row"><button class="btn" id="btnStart">Jogar</button><button class="btn ghost" id="btnShelf">Brinquedos</button></div>
       <p class="hint" id="hint">← → andar · Espaço pula · no ar, de novo: pirueta · ↓ fareja</p>
     </div>
-    <canvas id="introC" width="1600" height="900"></canvas><p id="storyLine" aria-live="polite"></p><span id="skip">toque para avançar</span>
+    <canvas id="introC" width="1600" height="900"></canvas><p id="storyLine" aria-live="polite"></p><span id="skip">toque para começar</span>
   </section>
 
   <section id="pause" class="screen scrim"><div class="card">
@@ -269,7 +277,7 @@
       <div class="stat ok"><b>✓</b><span id="stMain">Macaco resgatado</span></div>
       <div class="stat" id="stCookies"><b>0/36</b>Biscoitos</div>
       <div class="stat" id="stHearts"><b>0/3</b>Biscoitos dourados</div>
-      <div class="stat" id="stToy"><b>?</b>Brinquedo perdido</div>
+      <div class="stat" id="stToy"><b>?</b>Brinquedo escondido</div>
       <div class="stat" id="stNotes" style="display:none"><b>0/4</b>Correio elegante</div>
       <div class="stat" id="stTime"><b>0s</b>Tempo</div>
     </div>
@@ -277,11 +285,12 @@
   </div></section>
 
   <section id="shelf" class="screen scrim"><div class="card">
-    <h2>Brinquedos perdidos</h2><p style="margin:.6cqw 0 0">O Furtão roubou um brinquedo de cada cão da vila. Ache um em cada fase.</p>
-    <div id="shelfSlots"></div><p id="shelfCount"></p>
+    <h2>Brinquedos</h2>
+    <h3 class="shelfH">Presentes das aventuras</h3><div id="premioSlots"></div>
+    <h3 class="shelfH">Escondidos pelo Furtão <small>(ache com o faro)</small></h3><div id="shelfSlots"></div><p id="shelfCount"></p>
     <div class="row"><button class="btn" id="btnShelfBack">Voltar</button></div>
   </div></section>
-  <div id="msg">Carregando…</div><script>/* a frase de carregamento já sai certa para cada fase (antes a fase 2 mostrava a da fase 1) */ document.getElementById('msg').textContent = /fase3/.test(location.hash) || /fase=3/.test(location.search) ? 'Um corvo pintado fugiu do quadro com o pincel do Van Gogh…' : /fase2/.test(location.hash) || /fase=2/.test(location.search) ? 'Um estranho está espantando as galinhas do arraial…' : 'Ajude Timtim a resgatar o Macaco Fedido…';</script>
+  <div id="msg">Carregando…</div>
 </div></div>
 
 <script src="vendor/three.min.js"></script>

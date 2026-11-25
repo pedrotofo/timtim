@@ -25,7 +25,7 @@ addEventListener('blur', () => { I.left = I.right = I.jump = I.sniff = false; TT
 document.addEventListener('visibilitychange', () => { if (document.hidden) TT.pause(); });
 
 const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-if (!isTouch) $('skip').textContent = 'clique ou Espaço para avançar';
+$('skip').textContent = isTouch ? 'toque para começar' : 'clique ou Espaço para começar';
 if (isTouch) { $('touch').classList.add('on'); $('hint').textContent = '◀ ▶ andar · ▲ pula · no ar, de novo: pirueta · 👃 fareja'; }
 document.querySelectorAll('.tbtn').forEach(b => {
   const k = b.dataset.k;
@@ -59,18 +59,20 @@ function irisTo(closed, at) {
 function irisOpenFromBlack() { iris.style.transition = 'none'; irisTo(true, { x: 0.3, y: 0.7 }); void iris.offsetWidth; iris.style.transition = ''; requestAnimationFrame(() => irisTo(false)); }
 
 function begin(fn) { TT.audioInit(); TT.sfx('ui'); irisTo(true, { x: 0.5, y: 0.5 }); setTimeout(() => { fn(); }, 520); }
-// abertura: introdução cinematográfica (src/intro.js) — três quadros com zoom lento, a frase escrita no pergaminho
-// de cada um e a voz do narrador lendo. Cada toque (ou Enter/Espaço) avança uma tela; depois da terceira, começa o jogo.
-const titleEl = $('title'), STORY = ['Timtim, Zara e Elvis brincavam com o amado Macaco Fedido em paz na Vila de Reserva…',
-  'Até que o Furtão, o valentão da vila, apareceu e roubou o macaco!', 'Agora Timtim, Zara e Elvis partem para resgatar o Macaco Fedido, custe o que custar!'];
-const DUR = (TT.intro && TT.intro.durations) || [3.1, 3.1, 3.1];
-let storyTimer = null, storyAt = 0, storyI = 0;
+// card de introdução: antes de cada fase, um quadro pintado (src/intro.js) com zoom lento e a frase escrita no pergaminho.
+// Se existir a narração da fase (assets/voice/intro-faseN.mp3), ela toca junto. Um toque (ou Enter/Espaço) começa a fase.
+const titleEl = $('title'), STORY = [
+  'Na Vila de Reserva, o Furtão, o valentão da vila, roubou o Macaco Fedido! Ajude Timtim, Zara e Elvis a trazê-lo de volta.',
+  'É noite de São João no arraial! Mas um estranho de chapéu de pato está espantando as galinhas. Será que a turma descobre quem é?',
+  'Van Gogh pintou um corvo tão perfeito que ele ganhou vida e fugiu com o seu pincel favorito! Timtim, Zara e Elvis vão entrar no quadro para recuperá-lo.'];
+const DUR = (TT.intro && TT.intro.durations) || [9, 9, 9];
+let storyTimer = null, storyAt = 0, storyI = -1;
 // a frase vai desenhada no pergaminho (canvas); #storyLine guarda o mesmo texto para leitores de tela
-function storyLine(i) { clearTimeout(storyTimer); if (i >= STORY.length) return endStory(); storyI = i; storyAt = performance.now(); if (TT.intro) TT.intro.scene(i, STORY[i]); $('storyLine').textContent = STORY[i]; if (TT.FASE !== 2) TT.voice(i); storyTimer = setTimeout(() => storyLine(i + 1), DUR[i] * 1000); }
+function storyLine() { const i = (TT.FASE || 1) - 1; clearTimeout(storyTimer); storyI = i; storyAt = performance.now(); if (TT.intro) TT.intro.scene(i, STORY[i]); $('storyLine').textContent = STORY[i]; TT.voice(i); storyTimer = setTimeout(endStory, DUR[i] * 1000); }
 function endStory() { if (!titleEl.classList.contains('story') || titleEl.classList.contains('leaving')) return; clearTimeout(storyTimer); TT.voice(-1); titleEl.classList.add('leaving'); begin(TT.start); }
-// avança para a próxima tela (um toque logo depois de outro, em menos de meio segundo, não pula duas)
+// um toque começa a fase (menos de 0,8 s depois do card aparecer não conta: é o mesmo toque que abriu o card)
 TT.storyScene = () => storyI;
-const nextStory = () => { if (performance.now() - storyAt > 500) storyLine(storyI + 1); };
+const nextStory = () => { if (performance.now() - storyAt > 800) endStory(); };
 // ---------------- fases ----------------
 // A fase atual vem do endereço (?fase=2). Vencer o Parque libera o Arraial; o progresso fica salvo no navegador.
 const FASE = TT.FASE || 1, FASES = ['O Parque', 'O Arraial', 'O Quadro Encantado'];
@@ -78,17 +80,15 @@ let done = {}; try { done = JSON.parse(localStorage.getItem('tintim-fases') || '
 const goFase = (f, jogar) => { TT.sfx('ui'); irisTo(true, { x: 0.5, y: 0.5 }); setTimeout(() => { const h = (f > 1 ? 'fase' + f : 'fase1') + (jogar ? '-jogar' : '');
   if (location.search) location.href = location.pathname + '#' + h; else { location.hash = h; location.reload(); } }, 480); };
 // chegou de "Próxima fase": começa a fase direto, sem a tela inicial
-if (/-jogar/.test(location.hash)) { try { history.replaceState(null, '', location.pathname + location.search + '#fase' + FASE); } catch (_) { location.hash = 'fase' + FASE; } // vindo da fase anterior: a tela de título nem aparece (antes piscava por um instante entre a frase e a fase)
-  titleEl.style.visibility = 'hidden'; TT.on('start', () => { titleEl.style.visibility = ''; });
-  let auto = false; TT.on('assetsReady', () => { if (auto) return; auto = true; if (S.mode === 'title') TT.start(); }); }
+if (/-jogar/.test(location.hash)) { try { history.replaceState(null, '', location.pathname + location.search + '#fase' + FASE); } catch (_) { location.hash = 'fase' + FASE; } // vindo do mapa: a capa nem aparece, entra o card da fase
+  titleEl.classList.add('story');
+  let auto = false; TT.on('assetsReady', () => { if (auto) return; auto = true; if (S.mode === 'title') historia(); }); }
 document.querySelectorAll('#fases .chip').forEach(b => { const f = +b.dataset.f; b.classList.toggle('cur', f === FASE); b.disabled = f > 1 && !done[f - 1];
   b.onclick = () => { if (f !== FASE) goFase(f); }; });
 $('fases').classList.remove('on'); // a fase 2 chega sozinha ao vencer o Parque; o título não oferece atalho
-if (FASE === 2) { document.querySelector('.logo i').textContent = 'E O MISTÉRIO DO GALINHEIRO'; { const tb = document.querySelector('#title .tbg'); tb.style.backgroundImage = 'url(assets/bg/arraial-mata.jpg)'; tb.style.filter = 'brightness(.8)'; } // escurece para o título ler bem
-  $('hint').textContent = isTouch ? '◀ ▶ andar · ▲ pula · segure ▲ no ar: planar · 👃 fareja' : '← → andar · Espaço pula · segure Espaço no ar: planar · ↓ fareja'; $('msg').textContent = 'Um estranho está espantando as galinhas do arraial…'; }
-if (FASE === 3) { document.querySelector('.logo i').textContent = 'E O QUADRO ENCANTADO'; { const tb = document.querySelector('#title .tbg'); tb.style.backgroundImage = 'url(assets/bg/vg-noite.jpg)'; tb.style.filter = 'brightness(.78)'; }
-  $('hint').textContent = isTouch ? '◀ ▶ andar · ▲ pula · no redemoinho, ▲ solta · 👃 fareja' : '← → andar · Espaço pula · no redemoinho, Espaço solta · ↓ fareja'; $('msg').textContent = 'Um corvo pintado fugiu do quadro com o pincel do Van Gogh…'; }
-if (FASE > 1) { $('faseTag').textContent = 'FASE ' + FASE + ' · ' + FASES[FASE - 1].toUpperCase(); $('pauseText').textContent = 'O Timtim parou para comer uma pipoca.'; $('progEnd').textContent = '🎉'; }
+if (FASE === 2) $('hint').textContent = isTouch ? '◀ ▶ andar · ▲ pula · segure ▲ no ar: planar · 👃 fareja' : '← → andar · Espaço pula · segure Espaço no ar: planar · ↓ fareja';
+if (FASE === 3) $('hint').textContent = isTouch ? '◀ ▶ andar · ▲ pula · no redemoinho, ▲ solta · 👃 fareja' : '← → andar · Espaço pula · no redemoinho, Espaço solta · ↓ fareja';
+if (FASE > 1) { $('pauseText').textContent = 'O Timtim parou para comer uma pipoca.'; $('progEnd').textContent = '🎉'; }
 // mapa das fases: aparece depois do título (escolher a fase) e entre as fases (o Timtim anda pelo caminho até a seguinte)
 const mapaEl = $('mapa');
 function abrirMapa(o) { TT.audioInit(); mapaEl.hidden = false; TT.mapa.open(Object.assign({ root: mapaEl, done, minOpen: FASE, onClose: () => TT.mapa.close() }, o)); }
@@ -97,15 +97,17 @@ let nextT = 0; $('btnNext').onclick = () => { clearInterval(nextT); const prox =
     onArrive: f => { if (f === prox) setTimeout(() => { if (TT.mapa.isOpen() && TT.mapa.state().fase === f) goFase(f, true); }, 1400); }, // chegou na placa da fase nova: ela começa
     onPlay: f => { if (f === FASE) { TT.mapa.close(); begin(TT.start); } else goFase(f, true); } }); };
 $('btnAgain').addEventListener('click', () => clearInterval(nextT), true);
-const comecar = () => { if (FASE > 1) { if (titleEl.classList.contains('leaving')) return; titleEl.classList.add('leaving'); return begin(TT.start); } // as fases 2 e 3 não têm tela de história
-  TT.audioInit(); TT.sfx('ui'); TT.music('title'); titleEl.classList.add('story'); storyAt = performance.now(); storyLine(0); };
-// Jogar abre o mapa; no mapa, a fase desta página começa aqui mesmo e as outras carregam a página delas
+let contando = false;
+const historia = () => { if (contando) return; contando = true; TT.audioInit(); TT.sfx('ui'); TT.music('title'); titleEl.classList.add('story'); storyLine(); };
+// no mapa, o Timtim começa na fase mais nova já liberada (ou na desta página)
+const ultima = () => { let n = 1; while (n < FASES.length && done[n]) n++; return Math.max(FASE, n); };
+// Jogar abre o mapa; no mapa, a fase desta página mostra o card aqui mesmo e as outras carregam a página delas
 $('btnStart').onclick = () => { if (titleEl.classList.contains('story')) return nextStory(); if (TT.mapa.isOpen()) return;
-  abrirMapa({ at: FASE, onPlay: f => { TT.mapa.close(); if (f === FASE) comecar(); else goFase(f, true); } }); };
+  abrirMapa({ at: ultima(), onPlay: f => { TT.mapa.close(); if (f === FASE) historia(); else goFase(f, true); } }); };
 titleEl.addEventListener('pointerdown', () => { if (titleEl.classList.contains('story')) nextStory(); });
 const firstTouch = () => { if (S.mode === 'title') { TT.audioInit(); TT.music('title'); } removeEventListener('pointerdown', firstTouch); removeEventListener('keydown', firstTouch); };
 addEventListener('pointerdown', firstTouch); addEventListener('keydown', firstTouch);
-TT.on('start', () => setTimeout(() => { titleEl.classList.remove('story', 'leaving'); if (TT.intro) TT.intro.stop(); }, 600));
+TT.on('start', () => setTimeout(() => { titleEl.classList.remove('story', 'leaving'); contando = false; if (TT.intro) TT.intro.stop(); }, 600));
 // dicas do Arraial, na hora em que cada coisa aparece
 const HOLD = isTouch ? 'segure ▲' : 'segure Espaço';
 const TUT = { glide: isTouch ? 'Segure ▲ no ar para planar' : 'Segure Espaço no ar para planar', glideEdge: `Pule e ${HOLD} para planar!`,
@@ -157,21 +159,31 @@ const toggleMute = () => { TT.setMuted(!TT.isMuted()); $('btnMute').classList.to
 $('btnMute').onclick = toggleMute; $('btnMute').classList.toggle('muted', TT.isMuted());
 
 // ---------------- estante de brinquedos perdidos ----------------
-// Um brinquedo por fase: são os brinquedos que o Furtão roubou de outros cães da vila. O que já foi achado fica salvo no navegador.
+// Em cima, o presente que cada aventura dá ao vencer (fica salvo junto com as fases vencidas).
+// Embaixo, os escondidos: um por fase, achados com o faro; são brinquedos que o Furtão roubou de outros cães da vila.
+const PREMIOS = [
+  { fase: 1, nome: 'O Parque', name: 'Macaco Fedido', img: 'assets/sprites/monkey-joy.png', joke: 'De volta para casa! Continua fedido, e mais amado do que nunca.' },
+  { fase: 2, nome: 'O Arraial', name: 'Chinela Amarela', img: 'assets/sprites/premio-chinela.png', joke: 'Presente das galinhas do arraial: amarela como milho de São João, e boa de morder.' },
+  { fase: 3, nome: 'O Quadro Encantado', name: 'Bolinha Mordedora', img: 'assets/sprites/premio-bolinha.png', joke: 'Presente do Van Gogh: roxa de um lado, verde do outro. "As cores que faltavam no meu quadro."' },
+  { nome: 'O Quintal da Vizinha' }, { nome: 'O Covil do Furtão' }];
 const TOYS = [
   { id: 'patinho', fase: 'O Parque', name: 'Patinho Quá-Quá', joke: 'É do Pipoca, o salsicha da padaria. O Furtão levou porque ele faz "quá" toda vez que é mordido.' },
   { id: 'sanfoninha', fase: 'O Arraial', name: 'Sanfoninha', joke: 'É do Bolota, o vira-lata do sanfoneiro. Cada vez que o Furtão apertava, ela tocava um forró desafinado.' },
-  { id: 'bolinha', fase: 'O Quadro Encantado', name: 'Bolinha Estrelada', joke: 'É da Tinta, a cachorrinha da pintora da Casa de Cultura. Pintada igual ao céu do quadro: o Furtão achou que tinha roubado uma estrela.' },
+  { id: 'girassol', fase: 'O Quadro Encantado', name: 'Girassol de Apito', joke: 'É da Tinta, a cachorrinha da pintora. Apita toda vez que alguém aperta, e o Furtão não parava de apertar.' },
   { fase: 'O Quintal da Vizinha' }, { fase: 'O Covil do Furtão' }];
-const TOY_IMG = { patinho: 'assets/sprites/toy-duck.png', sanfoninha: 'assets/sprites/toy-sanfona.png', bolinha: 'assets/sprites/toy-bolinha.png' };
+const TOY_IMG = { patinho: 'assets/sprites/toy-duck.png', sanfoninha: 'assets/sprites/toy-sanfona.png', girassol: 'assets/sprites/toy-girassol.png' };
 let found = {};
 try { found = JSON.parse(localStorage.getItem('tintim-toys') || '{}') || {}; } catch (_) {}
 function drawShelf() {
+  $('premioSlots').innerHTML = PREMIOS.map(t => { const got = t.fase && done[t.fase], soon = !t.fase;
+    const img = t.img ? `<img src="${t.img}" alt="">` : '<b>?</b>';
+    return `<div class="slot${got ? ' got' : ''}${soon ? ' soon' : ''}"><div class="pic">${img}</div><small>${t.nome}</small>` +
+      `<strong>${got ? t.name : soon ? 'Em breve' : 'Vença a fase'}</strong>${got ? `<p>${t.joke}</p>` : ''}</div>`; }).join('');
   $('shelfSlots').innerHTML = TOYS.map(t => { const got = t.id && found[t.id], soon = !t.id;
     const img = TOY_IMG[t.id] ? `<img src="${TOY_IMG[t.id]}" alt="">` : '<b>?</b>';
     return `<div class="slot${got ? ' got' : ''}${soon ? ' soon' : ''}"><div class="pic">${img}</div><small>${t.fase}</small>` +
       `<strong>${got ? t.name : soon ? 'Em breve' : 'Ainda perdido'}</strong>${got ? `<p>${t.joke}</p>` : t.id ? `<p>Dica: o faro (${isTouch ? '👃' : '↓'}) mostra o caminho.</p>` : ''}</div>`; }).join('');
-  $('shelfCount').textContent = `${TOYS.filter(t => t.id && found[t.id]).length} de ${TOYS.filter(t => t.id).length} brinquedos devolvidos`;
+  $('shelfCount').textContent = `${PREMIOS.filter(t => t.fase && done[t.fase]).length} de ${PREMIOS.filter(t => t.fase).length} presentes · ${TOYS.filter(t => t.id && found[t.id]).length} de ${TOYS.filter(t => t.id).length} escondidos achados`;
 }
 $('btnShelf').onclick = () => { TT.audioInit(); TT.sfx('ui'); drawShelf(); $('shelf').classList.add('on'); };
 $('btnShelfBack').onclick = () => { TT.sfx('ui'); $('shelf').classList.remove('on'); };
@@ -232,10 +244,10 @@ TT.on('win', st => {
   $('btnNext').classList.add('on'); if (FASE >= FASES.length) $('btnNext').textContent = 'Ver o mapa'; // na última fase pronta, o botão leva ao mapa (com as próximas em breve)
   if (FASE < FASES.length) { let n = 8; const lab = 'Próxima fase: ' + FASES[FASE]; $('btnNext').textContent = `${lab} (${n})`; clearInterval(nextT);
     setTimeout(() => { if (S.mode !== 'win') return; clearInterval(nextT); nextT = setInterval(() => { n--; $('btnNext').textContent = `${lab} (${n})`; if (n <= 0) { clearInterval(nextT); $('btnNext').click(); } }, 1000); }, 1900); }
-  if (FASE === 3) { document.querySelector('.winMonkey').src = 'assets/sprites/vg/vangogh-feliz.png'; $('winTitle').textContent = 'O pincel voltou!'; $('winText').textContent = 'Timtim desviou dos tubos de tinta, pulou nas costas do Corvo-Borrão e devolveu o pincel favorito do Van Gogh. Na mesma hora ele pintou um quadro novo: o Timtim, a Zara e o Elvis comemorando.'; $('stMain').textContent = 'Pincel de volta';
-    document.querySelector('.winMonkey').style.width = '6.5cqw'; $('stNotes').lastChild.textContent = 'Cartas ao Theo';
+  if (FASE === 3) { document.querySelector('.winMonkey').src = 'assets/sprites/premio-bolinha.png'; $('winTitle').textContent = 'O pincel voltou!'; $('winText').textContent = 'Timtim pulou nas costas do Corvo-Borrão e devolveu o pincel do Van Gogh. De presente, ganhou uma bolinha mordedora colorida, roxa e verde!'; $('stMain').textContent = 'Pincel de volta';
+    document.querySelector('.winMonkey').style.width = '8cqw'; $('stNotes').lastChild.textContent = 'Cartas ao Theo';
     $('stNotes').style.display = ''; $('stNotes').firstElementChild.textContent = `${st.notes}/${st.notesTotal}`; $('stNotes').classList.toggle('ok', st.notes >= st.notesTotal); }
-  else if (FASE === 2) { document.querySelector('.winMonkey').src = 'assets/sprites/tintim-win.png'; $('winTitle').textContent = 'Galinheiro salvo!'; $('winText').textContent = 'Timtim planou no ar quente das fogueiras e pisou na crina do lobo-guará até as galinhas criarem coragem e o expulsarem para a mata. A festa continuou até o mastro de São João.'; $('stMain').textContent = 'Galinheiro salvo';
+  else if (FASE === 2) { document.querySelector('.winMonkey').src = 'assets/sprites/premio-chinela.png'; document.querySelector('.winMonkey').style.width = '8.5cqw'; $('winTitle').textContent = 'Galinheiro salvo!'; $('winText').textContent = 'As galinhas expulsaram o lobo-guará para a mata e, de presente, deram ao Timtim uma chinela amarela mordedora!'; $('stMain').textContent = 'Galinheiro salvo';
     $('stNotes').style.display = ''; $('stNotes').firstElementChild.textContent = `${st.notes}/${st.notesTotal}`; $('stNotes').classList.toggle('ok', st.notes >= st.notesTotal); }
   showBest();
   $('stCookies').firstElementChild.textContent = `${st.cookies}/${st.total}`; $('stCookies').classList.toggle('ok', st.allCookies);

@@ -1,4 +1,4 @@
-// Timtim e o Resgate do Macaco Fedido — regras do jogo (física, inimigos, chefão, fluxo). Sem nada de desenho aqui.
+// Timtim e os Brinquedos Perdidos — regras do jogo (física, inimigos, chefão, fluxo). Sem nada de desenho aqui.
 (() => {
 'use strict';
 const TT = window.TT = window.TT || {};
@@ -91,7 +91,7 @@ if (FASE === 3) Object.assign(C, {
   friends: [{ x: 2800, kind: 'chi-pb', power: 'egg' }, { x: 5150, kind: 'chi-br', power: 'mega' }], GIFT_ITEM: 'tubo',
   hedges: [],
   trails: [{ id: 'girassol', at: 6200, plats: [[6260, 20, 110], [6120, -80, 110]] }],
-  TOY: { id: 'bolinha', x: 6175, y: -130 },
+  TOY: { id: 'girassol', x: 6175, y: -130 }, // o escondido da fase (o presente do Van Gogh, a bolinha mordedora, vem no fim)
   FOXTXT: { egg: 'Tinta amarela! Plana nas costas dele!', fruit: 'Ó a tampinha dourada, corvão!' },
 });
 C.SWIRL = { w: Math.PI * 2 / 1.3, speed: 820 }; // uma volta a cada 1,3 s; a soltura sai a 820 px/s
@@ -657,7 +657,7 @@ TT.update = (rdt) => {
       if (it.type === 'cookie') { S.cookies++; emit('cookie', it); }
       if (it.type === 'gold') { S.gold++; emit('power', it); emit('gold', it); }
       if (it.type === 'choco') { if (p.mega <= 0) { p.slow = 5; p.fast = 0; emit('choco', it); } }
-      if (it.type === 'toy') { S.toy = true; S.hitstop = 0.1; emit('toy', it); emit('banner', { important: true, text: FASE === 3 ? 'Brinquedo perdido: a Bolinha Estrelada!' : FASE === 2 ? 'Brinquedo perdido: a Sanfoninha!' : 'Brinquedo perdido: o Patinho!' }); }
+      if (it.type === 'toy') { S.toy = true; S.hitstop = 0.1; emit('toy', it); emit('banner', { important: true, text: FASE === 3 ? 'Brinquedo perdido: o Girassol de Apito!' : FASE === 2 ? 'Brinquedo perdido: a Sanfoninha!' : 'Brinquedo perdido: o Patinho!' }); }
       if (it.type === 'bilhete') { S.notes++; emit('note', { x: it.x, y: it.y, text: C.NOTES[it.idx].text, n: S.notes, total: C.NOTES.length }); }
     }
   }

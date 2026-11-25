@@ -134,12 +134,14 @@ function playSample(name, t) {
   src.connect(g).connect(sfxBus); src.start(t);
   return true;
 }
-// ---- narração da abertura (voz de vovô contador de histórias, gerada no Artlist já em fala rápida): uma fala curta por quadro
-// (versão resumida da frase do pergaminho; as três somam menos de 10 s).
+// ---- narração do card de cada fase (assets/voice/intro-fase1.mp3 a intro-fase3.mp3, gravadas pelo Pedro): a mesma frase do pergaminho.
+// Se o arquivo da fase não existir, o card fica só com a imagem, a frase e a música.
 // Enquanto ele fala, a música abaixa. Se a fala ainda não carregou quando o quadro começa, entra assim que chegar (até 1,2 s depois).
+// fases que já têm a narração gravada (quando o arquivo da fase chegar, ponha o número dela aqui; sem isso o navegador acusaria arquivo faltando)
+const NARRADAS = [];
 const vbufs = []; let voiceSrc = null, voiceWant = null;
 function loadVoices() {
-  [1, 2, 3].forEach((n, i) => fetch('assets/voice/intro' + n + '.mp3').then(r => { if (!r.ok) throw 0; return r.arrayBuffer(); })
+  [1, 2, 3].forEach((n, i) => NARRADAS.includes(n) && fetch('assets/voice/intro-fase' + n + '.mp3').then(r => { if (!r.ok) throw 0; return r.arrayBuffer(); })
     .then(a => ctx.decodeAudioData(a)).then(b => { vbufs[i] = b; if (voiceWant && voiceWant.i === i && performance.now() - voiceWant.at < 1200) playVoice(i); }).catch(() => {}));
 }
 function stopVoice() { if (voiceSrc) { try { voiceSrc.stop(); } catch (_) {} voiceSrc = null; } TT.audioDuck(false); }
