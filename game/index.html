@@ -115,11 +115,11 @@
 
   /* título: a arte pintada respira (zoom lento) e vaga-lumes sobem */
   #title { display: block; background: #060a18; overflow: hidden; }
-  #title .tbg { position: absolute; inset: -2%; background: url(assets/capa.jpg) center / cover; transform-origin: 50% 55%; animation: breathe 22s ease-in-out infinite alternate; transition: transform 9s cubic-bezier(.3, 0, .2, 1), filter 2s; }
-  @keyframes breathe { from { scale: 1; translate: 0 0; } to { scale: 1.07; translate: -1.2% .6%; } }
+  #title .tbg { position: absolute; inset: -2%; background: url(assets/capa.jpg) center / cover; transform-origin: 50% 20%; animation: breathe 22s ease-in-out infinite alternate; transition: transform 9s cubic-bezier(.3, 0, .2, 1), filter 2s; }
+  @keyframes breathe { from { scale: 1; translate: 0 0; } to { scale: 1.03; translate: 0 .4%; } } /* respira pouco: o título está pintado no alto da capa e não pode sair do quadro */
   .fly { position: absolute; width: .5cqw; height: .5cqw; border-radius: 50%; background: #ffe9a8; box-shadow: 0 0 1.2cqw .3cqw rgba(255, 210, 120, .8); animation: fly 9s ease-in-out infinite; opacity: 0; }
   @keyframes fly { 0% { opacity: 0; translate: 0 0; } 20% { opacity: 1; } 50% { translate: 2cqw -5cqw; opacity: .5; } 80% { opacity: 1; } 100% { translate: -1.5cqw -11cqw; opacity: 0; } }
-  #title .vig { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(6, 10, 24, .62), rgba(6, 10, 24, .15) 30%, transparent 44%, transparent 70%, rgba(6, 10, 24, .85)); transition: background 1.2s; }
+  #title .vig { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 70%, rgba(6, 10, 24, .85)); transition: background 1.2s; }
   #title .on-anim { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; text-align: center; padding: 4.5cqw 4cqw 3cqw; transition: opacity .8s; }
   #title .on-anim .gap { flex: 1; }
   #title.story .on-anim { opacity: 0; pointer-events: none; }
@@ -138,9 +138,8 @@
     filter: drop-shadow(0 .5cqw 0 #3b1606) drop-shadow(0 0 2.4cqw rgba(255, 170, 80, .75)); }
   .logo i { display: inline-block; font-style: normal; font-size: 2.3cqw; letter-spacing: .5cqw; color: #fff6dc; margin-top: 1cqw; padding: .45cqw 2.2cqw; border-radius: .6cqw;
     background: linear-gradient(180deg, #d2402c, #9c2418); box-shadow: 0 .35cqw 0 #4a1008, 0 0 2cqw rgba(0, 0, 0, .45); text-shadow: 0 .2cqw 0 #4a1008; }
-  /* como nas caixas de jogo: o logo no canto de cima, a turma inteira à mostra no meio */
-  #title .logo { position: absolute; left: 2cqw; top: 1.2cqw; } #title .logo img { width: 34cqw; display: block; filter: drop-shadow(0 .6cqw 1.4cqw rgba(6, 10, 24, .55)); }
-  .tagline { position: absolute; left: 3cqw; top: 19cqw; margin: 0; text-align: left; font-size: 1.9cqw; font-weight: 800; color: #fff; text-shadow: 0 .2cqw .6cqw rgba(6, 10, 24, .95), 0 0 1.6cqw rgba(6, 10, 24, .8); }
+  /* o título já vem pintado no alto da capa, centralizado (arte do Pedro); o h1 fica só para leitores de tela */
+  #title .logo { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
   #title .on-anim > * { animation: rise 1s var(--out) both; }
   #title .on-anim > *:nth-child(2) { animation-delay: .15s; } #title .on-anim > *:nth-child(3) { animation-delay: .3s; } #title .on-anim > *:nth-child(4) { animation-delay: .45s; }
   @keyframes rise { from { opacity: 0; transform: translateY(1.6cqw); filter: blur(.4cqw); } }
@@ -249,7 +248,6 @@
     <div class="tbg"></div><i class="fly" style="left:18%;top:62%;animation-delay:-0s"></i><i class="fly" style="left:31%;top:48%;animation-delay:-3s"></i><i class="fly" style="left:44%;top:70%;animation-delay:-6s"></i><i class="fly" style="left:52%;top:40%;animation-delay:-1.5s"></i><i class="fly" style="left:70%;top:66%;animation-delay:-4.5s"></i><i class="fly" style="left:78%;top:44%;animation-delay:-7s"></i><i class="fly" style="left:88%;top:58%;animation-delay:-2.5s"></i><i class="fly" style="left:25%;top:30%;animation-delay:-5.5s"></i><div class="vig"></div>
     <div class="on-anim">
       <h1 class="logo"><img src="assets/logo.webp" alt="Timtim e os Brinquedos Perdidos"></h1>
-      <p class="tagline">Ajude Timtim, Zara e Elvis em cada aventura!</p>
       <div class="gap"></div>
       <p id="faseTag"></p>
       <div class="row" id="fases"><button class="btn ghost chip" data-f="1">1 · O Parque</button><button class="btn ghost chip" data-f="2">2 · O Arraial</button></div>

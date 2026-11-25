@@ -16,7 +16,8 @@ Legenda da coluna **Confirmar**: ✅ origem clara no histórico · ⚠️ falta 
 | Arquivos | Origem | Licença / observação | Confirmar |
 |---|---|---|---|
 | Logo do jogo `logo.webp` | Enviado pelo Pedro (25/11/2026) | Do Pedro | ✅ |
-| Capa do jogo `capa.jpg` e cards das fases 2 e 3 `intro/fase2.jpg`, `intro/fase3.jpg` | Google Flow, Nano Banana 2.1 (sem créditos, 25/11/2026), com a ficha do Timtim e a imagem do roubo como referência | Gerado com IA; Timtim conferido com a ficha | ✅ |
+| Capa do jogo `capa.jpg` (versão do Pedro com o título pintado, 25/11/2026) | Enviada pelo Pedro, feita a partir da capa gerada no Flow | Gerado com IA e editado | ✅ |
+| Cards das fases 2 e 3 `intro/fase2.jpg`, `intro/fase3.jpg` | Google Flow, Nano Banana 2.1 (sem créditos, 25/11/2026), com a ficha do Timtim e a imagem do roubo como referência | Gerado com IA; Timtim conferido com a ficha | ✅ |
 | Presentes `sprites/premio-chinela.png`, `sprites/premio-bolinha.png` | Google Flow, Nano Banana 2.1 (sem créditos, 25/11/2026); fotos de produtos enviadas pelo Pedro usadas só como referência de forma; fundo tirado em código | Gerado com IA | ✅ |
 | Fase 3 inteira: `bg/vg-*.jpg`, `props/vg-*.png`, `props/frente-vg-*.png`, `props/galhos-vg.png`, `sprites/vg/*`, `sprites/vg-estrela.png`, `sprites/vg-redemoinho.png`, `sprites/toy-girassol.png`, `tex/vg-*.jpg` | Google Flow, Nano Banana 2.1 (sem créditos) | Gerado com IA | ✅ |
 | Mapa das fases: `mapa/mapa.png`, `mapa/timtim.png` | Google Flow (sem créditos), com a ficha do Timtim de referência; paleta e grade de pixels acertadas em código | Gerado com IA e editado | ✅ |

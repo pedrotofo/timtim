@@ -15,7 +15,7 @@ const { chromium } = require('playwright');
   check(await until(() => window.__tintim && __tintim.R.ready && __tintim.state === 'title'), 'abre na tela de título');
   check(await ev(() => __tintim.R.foe === 'pigeon'), 'os inimigos do Parque são pombos');
   check(await ev(() => { const l = document.querySelector('#msg .loadLogo'); return !!l && l.naturalWidth > 0 && getComputedStyle(l).animationName === 'logoPisca'; }), 'a tela de carregamento tem o logo piscando no canto');
-  check(await ev(() => document.title === 'Timtim e os Brinquedos Perdidos' && document.querySelector('.logo img').alt === 'Timtim e os Brinquedos Perdidos' && document.querySelector('.logo img').naturalWidth > 0 && document.querySelector('.tagline').textContent.includes('Zara e Elvis')), 'a capa mostra o nome do jogo e o convite');
+  check(await ev(() => document.title === 'Timtim e os Brinquedos Perdidos' && document.querySelector('.logo img').alt === 'Timtim e os Brinquedos Perdidos' && document.querySelector('.logo img').naturalWidth > 0 && !document.querySelector('.tagline')), 'a capa mostra o nome do jogo (o título vem pintado na capa, sem o convite embaixo)');
   await pg.waitForTimeout(600);
   await pg.click('#btnShelf');
   check(await until(() => document.querySelector('#shelf').classList.contains('on') && document.querySelectorAll('#premioSlots .slot').length === 5 && document.querySelectorAll('#shelfSlots .slot').length === 5, 3000), 'a estante abre com os presentes das aventuras em cima e os escondidos embaixo');
