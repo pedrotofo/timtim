@@ -1,4 +1,5 @@
-// Card de introdução de cada fase: um quadro pintado com zoom lento e "vida" desenhada por cima —
+// Card de introdução de cada fase: um quadro pintado com zoom lento e um pouco de "vida" desenhada por cima (brilhos e vaga-lumes;
+// o vento nos pelos e o tremor do Furtão saíram em 25/11/2026: ficavam bobos) —
 // vento nos pelos (deformação suave só nas regiões marcadas), vaga-lumes, folhas e brilhos pulsando.
 // Cada quadro tem um pergaminho pintado embaixo; a frase é escrita nele (no canvas, junto com a imagem).
 // Tudo em canvas 2D, sem vídeo. Coordenadas das regiões no espaço de cada imagem (1672 × 941 na fase 1, 1376 × 768 nas outras).
@@ -16,31 +17,19 @@ const load = src => { const i = new Image(); i.src = src; return i; };
 const SCENES = [
   // fase 1 · O Parque: o Furtão foge com o Macaco Fedido e a turma vai atrás
   { img: load('assets/intro/2-roubo.jpg'), dur: 8.4, zoom: [1.0, 1.04], at: [1200, 941], scroll: [50, 712, 1625, 900], sky: 620,
-    wind: [ { x: 1340, y: 330, rx: 260, ry: 210, amp: 1.4, speed: 38, freq: 0.5, jitter: 1 },   // Furtão correndo treme
-            { x: 1440, y: 420, rx: 120, ry: 110, amp: 3, speed: 6, freq: 0.07 },                 // macaco balançando na boca
-            { x: 450, y: 330, rx: 200, ry: 180, amp: 3, speed: 3.4, freq: 0.04, ring: 1 },       // Timtim assustado
-            { x: 170, y: 330, rx: 140, ry: 150, amp: 2.6, speed: 3.4, freq: 0.05, ring: 1 } ],   // Zara
+    wind: [],
     glow: [ { x: 300, y: 165, r: 70, c: '255,190,90', a: 0.4, pulse: 1.5, flicker: 1 }, { x: 420, y: 140, r: 70, c: '255,70,70', a: 0.4, pulse: 2.1 },
             { x: 585, y: 95, r: 65, c: '120,255,120', a: 0.35, pulse: 1.2 }, { x: 740, y: 35, r: 65, c: '255,70,70', a: 0.35, pulse: 1.8, flicker: 1 } ],
     flies: 16, leaves: 6, windX: 60 },
   // fase 2 · O Arraial: galinhas em pânico e um estranho de chapéu de pato atrás da barraca (imagem 1376 × 768)
   { img: load('assets/intro/fase2.jpg'), iw: 1376, ih: 768, dur: 7.4, zoom: [1.0, 1.04], at: [700, 768], scroll: [20, 578, 1360, 752], sky: 540,
-    wind: [ { x: 350, y: 290, rx: 150, ry: 140, amp: 2.6, speed: 3.2, freq: 0.04, ring: 1 },   // Timtim
-            { x: 160, y: 340, rx: 120, ry: 120, amp: 2.2, speed: 3.4, freq: 0.05, ring: 1 },   // Zara
-            { x: 550, y: 300, rx: 100, ry: 110, amp: 2.2, speed: 3.0, freq: 0.05, ring: 1 },   // Elvis
-            { x: 800, y: 420, rx: 110, ry: 110, amp: 1.6, speed: 30, freq: 0.4, jitter: 1 },   // galinhas tremendo de medo
-            { x: 1000, y: 440, rx: 100, ry: 100, amp: 1.6, speed: 34, freq: 0.4, jitter: 1 },
-            { x: 1160, y: 460, rx: 90, ry: 90, amp: 1.6, speed: 32, freq: 0.4, jitter: 1 } ],
+    wind: [],
     glow: [ { x: 482, y: 75, r: 70, c: '255,190,90', a: 0.4, pulse: 1.5, flicker: 1 }, { x: 607, y: 40, r: 70, c: '255,150,70', a: 0.4, pulse: 2.1 },
             { x: 350, y: 100, r: 60, c: '255,200,110', a: 0.35, pulse: 1.2 }, { x: 1290, y: 330, r: 220, c: '255,140,60', a: 0.28, pulse: 2.6, flicker: 1 } ],
     flies: 22, leaves: 0, windX: 40, rise: 1 },
   // fase 3 · O Quadro Encantado: o Van Gogh triste e o corvo fugindo com o pincel (imagem 1376 × 768)
   { img: load('assets/intro/fase3.jpg'), iw: 1376, ih: 768, dur: 7.0, zoom: [1.04, 1.0], at: [688, 768], scroll: [20, 640, 1360, 752], sky: 560,
-    wind: [ { x: 680, y: 500, rx: 130, ry: 120, amp: 2.6, speed: 3.0, freq: 0.04, ring: 1 },   // Timtim
-            { x: 875, y: 520, rx: 70, ry: 80, amp: 2, speed: 3.4, freq: 0.06, ring: 1 },       // Zara
-            { x: 1015, y: 545, rx: 85, ry: 80, amp: 2, speed: 3.2, freq: 0.06, ring: 1 },      // Elvis
-            { x: 780, y: 170, rx: 130, ry: 100, amp: 3, speed: 9, freq: 0.06 },                // corvo batendo as asas
-            { x: 690, y: 330, rx: 700, ry: 330, amp: 1.2, speed: 1.2, freq: 0.012 } ],         // o céu pintado escorrendo devagar
+    wind: [],
     glow: [ { x: 960, y: 85, r: 150, c: '255,235,120', a: 0.25, pulse: 0.9 }, { x: 290, y: 95, r: 60, c: '255,240,150', a: 0.35, pulse: 1.6 },
             { x: 150, y: 20, r: 55, c: '255,240,150', a: 0.3, pulse: 2.1, flicker: 1 }, { x: 60, y: 265, r: 55, c: '255,240,150', a: 0.3, pulse: 1.3 },
             { x: 225, y: 300, r: 55, c: '255,240,150', a: 0.3, pulse: 1.8 } ],

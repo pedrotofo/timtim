@@ -9,7 +9,7 @@
 const { chromium } = require('playwright');
 (async () => {
   const base = process.argv[2] || 'http://localhost:8765/';
-  const b = await chromium.launch({ args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist'] });
+  const b = await chromium.launch({ args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist', '--autoplay-policy=no-user-gesture-required'] });
   const check = (ok, msg) => { console.log((ok ? 'ok   ' : 'FALHA') + ' ' + msg); if (!ok) process.exitCode = 1; };
   const abre = async (hash, extra) => { const pg = await b.newPage({ viewport: { width: 960, height: 540 } }); if (extra) await extra(pg);
     await pg.goto(base + '?q=0&r=' + Math.random().toString(36).slice(2) + hash, { waitUntil: 'commit' }); return pg; };

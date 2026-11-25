@@ -87,7 +87,7 @@ if (/-jogar/.test(location.hash)) { try { history.replaceState(null, '', locatio
   titleEl.classList.add('story');
   // e a capa fica escondida: antes ela aparecia por um instante, misturada com o card, enquanto o card entrava
   document.querySelectorAll('#title .tbg, #title .vig, #title .fly').forEach(e => { e.style.visibility = 'hidden'; });
-  let auto = false; TT.on('assetsReady', () => { if (auto) return; auto = true; if (S.mode === 'title') historia(); }); }
+  TT.vemDoMapa = true; }
 document.querySelectorAll('#fases .chip').forEach(b => { const f = +b.dataset.f; b.classList.toggle('cur', f === FASE); b.disabled = f > 1 && !done[f - 1];
   b.onclick = () => { if (f !== FASE) goFase(f); }; });
 $('fases').classList.remove('on'); // a fase 2 chega sozinha ao vencer o Parque; o título não oferece atalho
@@ -108,7 +108,7 @@ const historia = () => { if (contando) return; contando = true; TT.audioInit(); 
 const ultima = () => { let n = 1; while (n < FASES.length && done[n]) n++; return Math.max(FASE, n); };
 // Jogar abre o mapa; no mapa, a fase desta página mostra o card aqui mesmo e as outras carregam a página delas
 $('btnStart').onclick = () => { if (titleEl.classList.contains('story')) return nextStory(); if (TT.mapa.isOpen()) return;
-  abrirMapa({ at: ultima(), onPlay: f => { TT.mapa.close(); if (f === FASE) historia(); else goFase(f, true); } }); };
+  abrirMapa({ at: ultima(), onPlay: f => { if (f === FASE) { historia(); setTimeout(() => TT.mapa.close(), 900); } else goFase(f, true); } }); };
 titleEl.addEventListener('pointerdown', () => { if (titleEl.classList.contains('story')) nextStory(); });
 const firstTouch = () => { if (S.mode === 'title') { TT.audioInit(); TT.music('title'); } removeEventListener('pointerdown', firstTouch); removeEventListener('keydown', firstTouch); };
 addEventListener('pointerdown', firstTouch); addEventListener('keydown', firstTouch);
@@ -277,6 +277,15 @@ TT.on('win', st => {
     [true, st.allCookies, st.allGold].forEach((ok, i) => { if (ok) setTimeout(() => { stars[i].style.animationDelay = '0s'; stars[i].classList.add('got'); TT.sfx('star'); }, 500 + i * 380); });
   }, 1900);
 });
-TT.on('assetsReady', () => $('msg').classList.add('hide'));
+// fim do carregamento. Os navegadores só deixam tocar som depois de um clique ou tecla: se o som ainda estiver travado,
+// a tela de carregamento vira "aperte para começar" (o logo continua piscando) e esse toque já libera a música da capa
+// e a narração do card. Se o som já estiver liberado, segue direto.
+{ let foi = false;
+  const segue = () => { $('msg').classList.remove('gate'); $('msg').classList.add('hide'); if (TT.vemDoMapa) { if (S.mode === 'title') historia(); } else if (S.mode === 'title') TT.music('title'); };
+  TT.on('assetsReady', () => { if (foi) return; foi = true; TT.audioInit();
+    setTimeout(() => { if (TT.audioState() === 'running') return segue();
+      $('msgTxt').textContent = isTouch ? 'Toque para começar' : 'Clique ou aperte uma tecla para começar'; $('msg').classList.add('gate');
+      const toque = e => { e.preventDefault(); e.stopPropagation(); removeEventListener('pointerdown', toque, true); removeEventListener('keydown', toque, true); TT.audioInit(); segue(); };
+      addEventListener('pointerdown', toque, true); addEventListener('keydown', toque, true); }, 120); }); }
 if (TT.noWebGL) $('msgTxt').textContent = 'Este navegador não conseguiu ligar o modo 3D (WebGL). Tente no Chrome ou Safari atualizados.';
 })();

@@ -250,4 +250,5 @@ TT.setMuted = m => {
 TT.isMuted = () => muted;
 TT.audioDuck = (on, k = 0.32) => { if (ctx) { musicBus.gain.setTargetAtTime(on ? 0.32 * k : 0.32, ctx.currentTime, 0.1); trackBus.gain.setTargetAtTime(on ? 0.62 * k : 0.62, ctx.currentTime, 0.1); } };
 TT.audioInit = init;
+TT.audioState = () => ctx ? ctx.state : 'none'; // 'running' quando o navegador já deixa tocar som
 })();

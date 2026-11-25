@@ -47,7 +47,7 @@ function rotas(L, speed) { // para cada buraco do chão: a rota com o salto mais
 
 (async () => {
   const base = process.argv[2] || 'http://localhost:8765/';
-  const b = await chromium.launch({ args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist'] });
+  const b = await chromium.launch({ args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist', '--autoplay-policy=no-user-gesture-required'] });
   const pg = await b.newPage({ viewport: { width: 960, height: 540 } });
   const check = (ok, msg) => { console.log((ok ? 'ok   ' : 'FALHA') + ' ' + msg); if (!ok) process.exitCode = 1; };
   const pulos = [];

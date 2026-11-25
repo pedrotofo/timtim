@@ -4,7 +4,7 @@
 const { chromium } = require('playwright');
 (async () => {
   const url = (process.argv[2] || 'http://localhost:8765/') + '?fase=3&q=0';
-  const b = await chromium.launch({ args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist'] });
+  const b = await chromium.launch({ args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist', '--autoplay-policy=no-user-gesture-required'] });
   const pg = await b.newPage({ viewport: { width: 960, height: 540 } });
   const errs = []; pg.on('pageerror', e => errs.push(e.message)); pg.on('console', m => m.type() === 'error' && errs.push(m.text()));
   pg.on('requestfailed', r => errs.push('falhou: ' + r.url()));
