@@ -5,7 +5,9 @@
 'use strict';
 const TT = window.TT, C = TT.C, S = TT.S;
 const { W, H, GROUND, ARENA_X } = C;
-const ARR = C.FASE === 2, END = C.BOSS ? ARENA_X : C.LEVEL_END; // fase 2: o Arraial (a fase vai até a arena do lobo-guará, no fim)
+const ARR = C.FASE >= 2, VG = C.FASE === 3, END = C.BOSS ? ARENA_X : C.LEVEL_END; // fase 2: o Arraial (a fase vai até a arena do lobo-guará, no fim)
+const VG_AR = { 'vg-cadeira': 0.55, 'vg-cama': 1.4567, 'vg-cipreste': 0.3187, 'vg-girassol': 0.6773, 'vg-vaso': 0.8526, 'vg-mesa': 0.7958, 'vg-lampiao': 0.2942, 'vg-toldo': 2.8364, 'vg-moldura': 1.2964 };
+const VG_PLAT = { 380: 'cama', 700: 'cadeira', 5000: 'toldo', 5500: 'toldo', 5280: 'mesa', 5730: 'mesa' }; // plataformas que são móveis do quadro (não ganham tábua)
 const R = TT.R = { ready: false, quality: 2, flash: 0 };
 const cv = document.getElementById('c');
 let renderer;
@@ -37,6 +39,12 @@ for (const k in AR) if (k !== 'choco') TEX[k] = load('sprites/' + k + '.png');
 if (C.FASE === 2) { const more = { 'guara-anda': 313 / 320, 'guara-agacha': 601 / 320, 'guara-bote': 470 / 320, 'guara-corre': 534 / 320, 'guara-tonta': 359 / 320, 'guara-uiva': 331 / 320, bilhete: 180 / 160, fruta: 132 / 140 };
   for (const k in more) { AR[k] = more[k]; TEX[k] = load('sprites/' + k + '.png'); }
   TEX['bandana-asa'] = load('sprites/bandana-asa.png'); }
+// fase 3: o Corvo-Borrão usa as mesmas poses do lobo-guará (mesmos nomes), os corvos entram no lugar das galinhas,
+// a carta ao Theo no lugar do bilhete, a tampinha no lugar da fruta, o tubo de tinta no lugar do ovo e a mancha de tinta no lugar do chocolate
+if (C.FASE === 3) { const vg = { 'guara-anda': 0.9062, 'guara-agacha': 1.6, 'guara-bote': 0.9656, 'guara-corre': 1.7031, 'guara-tonta': 0.8906, 'guara-uiva': 0.9906,
+    galinha: ['corvo', 1.2478], 'corvo-voa': 0.8696, bilhete: ['carta', 1.285], fruta: ['tampinha', 1.06], tubo: 0.465 };
+  for (const k in vg) { const [f, ar] = Array.isArray(vg[k]) ? vg[k] : [k, vg[k]]; AR[k] = ar; TEX[k] = load('sprites/vg/' + f + '.png'); }
+  TEX['bandana-asa'] = load('sprites/bandana-asa.png'); }
 // tiras de quadros desenhados: corrida do Timtim (8), corrida dos chihuahuas e andar do pombo (4 cada)
 const FRAMES = { 'tintim-run': 8, 'chi-pb-run': 4, 'chi-br-run': 4, pigeon: 4 };
 for (const k in FRAMES) if (TEX[k]) TEX[k].repeat.set(1 / FRAMES[k], 1);
@@ -49,7 +57,7 @@ const ownTex = k => { const t = load('sprites/' + k + '.png'); t.repeat.set(1 / 
 // recortados e postos numa grade (assets/anim/*.webp, medidas em src/anim-data.js). Assim o movimento é o de um
 // animal de verdade, quadro a quadro, sem a "tremedeira" de quadros desenhados um a um.
 const ANIM = TT.ANIM || {}, ANIM_TEX = {};
-const animWanted = k => ARR ? !/^(pombo|furtao|macaco)/.test(k) : !/^(galinha|guara)/.test(k);
+const animWanted = k => VG ? /^(timtim|zara|elvis)/.test(k) : ARR ? !/^(pombo|furtao|macaco)/.test(k) : !/^(galinha|guara)/.test(k); // no quadro, os bichos são outros: só a turma tem animação de vídeo
 for (const k in ANIM) if (animWanted(k)) { const t = ANIM_TEX[k] = load('anim/' + k + '.webp'); t.repeat.set(1 / ANIM[k].cols, 1 / ANIM[k].rows); }
 // toca a animação `name` no sprite m: o corpo fica com `bodyH` de altura (o mesmo tamanho da arte parada), t em segundos.
 // Cada sprite tem a sua cópia da textura (mesma imagem na placa de vídeo) para poder estar num quadro diferente.
@@ -119,13 +127,14 @@ function treeLayer(seed, col, n, size, rim) {
 // fase 1: floresta noturna pintada (homenagem à linguagem visual de Ori: raios de luz, névoa em camadas, uma figueira anciã brilhando ao longe)
 const texFar = ARR ? null : load('bg/floresta-azul.jpg'); if (texFar) texFar.wrapS = THREE.MirroredRepeatWrapping;
 // primeiro plano pintado de cada fase: silhuetas escuras com borda de luz (ciano na fase 1, dourada no Arraial)
-const texFrente = (ARR ? ['frente-arraial-1', 'frente-arraial-2'] : ['frente-raizes-1', 'frente-raizes-2']).map(n => load('props/' + n + '.png')), texGalhos = load(ARR ? 'props/galhos-arraial.png' : 'props/frente-galhos.png');
-const FRENTE_AR = ARR ? [804 / 320, 770 / 320] : [702 / 320, 808 / 320], GALHO_AR = ARR ? 441 / 420 : 504 / 420;
-const texVilaT = ARR ? load('bg/arraial-mata.jpg') : null, texVilaN = texVilaT; if (texVilaT) texVilaT.wrapS = THREE.MirroredRepeatWrapping;
+const texFrente = (VG ? ['frente-vg-1', 'frente-vg-2'] : ARR ? ['frente-arraial-1', 'frente-arraial-2'] : ['frente-raizes-1', 'frente-raizes-2']).map(n => load('props/' + n + '.png')), texGalhos = load(VG ? 'props/galhos-vg.png' : ARR ? 'props/galhos-arraial.png' : 'props/frente-galhos.png');
+const FRENTE_AR = VG ? [2.3937, 2.5875] : ARR ? [804 / 320, 770 / 320] : [702 / 320, 808 / 320], GALHO_AR = VG ? 1.4333 : ARR ? 441 / 420 : 504 / 420;
+const texVilaT = VG ? load('bg/vg-dia.jpg') : ARR ? load('bg/arraial-mata.jpg') : null, texVilaN = VG ? load('bg/vg-noite.jpg') : texVilaT; // no quadro: o dia vira noite estrelada ao longo do caminho
+[texVilaT, texVilaN].forEach(t => { if (t) t.wrapS = THREE.MirroredRepeatWrapping; });
 const texSwamp = ARR ? [] : [['pantano-samambaia', 0], ['pantano-taboa', 1], ['pantano-cogumelos', 2], ['flores-luz', 3]].map(([n, k]) => ({ tex: load('props/' + n + '.png'), k }));
 const SWAMP_AR = [309 / 260, 284 / 320, 434 / 240, 279 / 220]; // proporções das plantas de pântano recortadas
 // versão 3.0: tudo o que era desenhado por código no cenário virou arte quase realista (Google Flow), no estilo dos personagens
-const texSoil = load('tex/terra.jpg'), texWood = load('tex/tabuas.jpg'), texDirt = texSoil;
+const texSoil = load(VG ? 'tex/vg-chao.jpg' : 'tex/terra.jpg'), texWood = load(VG ? 'tex/vg-madeira.jpg' : 'tex/tabuas.jpg'), texDirt = texSoil;
 const texBark = ARR ? load('tex/casca.jpg') : null, texStraw = ARR ? load('tex/palha.jpg') : null, texTroncos = ARR ? load('props/troncos.png') : null;
 [texSoil, texWood, texBark, texStraw].forEach(t => { if (t) t.wrapS = t.wrapT = THREE.RepeatWrapping; });
 const prop = n => load('props/' + n + '.png');
@@ -352,7 +361,7 @@ sky.scale.set(4700, 2700, 1); sky.position.set(0, 300, -3000);
   // figueiras pintadas com varais de lanternas, em dois planos: o de trás menor e azulado pela distância
   const figs = (z, y0, hgt, tint, x0) => { const m = flatMat(ARR ? texTroncos : texFigs, { color: tint, alphaTest: 0.4, side: THREE.DoubleSide }), w = hgt * (ARR ? 556 / 900 : 2.1053); figMats.push(m);
     for (let x = -3400 + x0, i = 0; x < 13400; x += w * (ARR ? 1.9 + (i % 3) * 0.35 : 1), i++) { const q = new THREE.Mesh(planeGeo, m); q.scale.set((i % 2 ? -1 : 1) * w, hgt, 1); q.position.set(x + w / 2, y0, z); add(q); } }; // no Arraial os troncos ficam espaçados: a clareira aparece entre eles
-  if (ARR) { figs(-1250, -420, 1700, 0x4c7896, 0); figs(-560, -230, 1150, 0xa9c4d6, 330); } else { figs(-1250, -330, 1450, 0x4c7896, 0); figs(-520, -150, 1020, 0xa9c4d6, 900); }
+  if (VG) { /* o quadro do fundo já tem os ciprestes */ } else if (ARR) { figs(-1250, -420, 1700, 0x4c7896, 0); figs(-560, -230, 1150, 0xa9c4d6, 330); } else { figs(-1250, -330, 1450, 0x4c7896, 0); figs(-520, -150, 1020, 0xa9c4d6, 900); }
   if (!ARR) layer(texHedge, -98, -6, 760, 190, -8); // fase 1: a sebe escura com florzinhas acesas, como antes
   // névoa entre as camadas e fachos de luar
   [[-1750, -360, 900, 0x2aa7c0, 0.11, -22], [-900, -230, 620, 0x1c8fa8, 0.1, -18], [-300, -70, 330, 0x167d92, 0.1, -12]].forEach(([z, y, hgt, c, op, order], i) => {
@@ -401,7 +410,7 @@ sky.scale.set(4700, 2700, 1); sky.position.set(0, 300, -3000);
     const gl = add(new THREE.Mesh(planeGeoC, glowMat(PAL.mint, 0.22)), 3); gl.scale.set(w * 1.5, 46, 1); gl.position.set(x + w / 2, GROUND - y + 2, 34);
     pulses.push({ m: gl, base: 0.22, ph: x });
   }
-  if (ARR) for (const [x, y, w] of C.plats) {
+  if (ARR) for (const [x, y, w] of C.plats) { if (VG && VG_PLAT[x]) continue; // a cama, a cadeira, os toldos e as mesas já são a plataforma
     const top = GROUND - y;
     const m = new THREE.Mesh(boxUV(w, 16, 64, 128), [plankSide, plankSide, plankTop, plankSide, plankSide, plankSide]);
     m.position.set(x + w / 2, top - 8, 0); m.castShadow = m.receiveShadow = true; add(m); litEdge(x, x + w, top, 33);
@@ -428,13 +437,13 @@ sky.scale.set(4700, 2700, 1); sky.position.set(0, 300, -3000);
     // brilho de pântano: fraco nas samambaias e taboas, mais forte embaixo dos cogumelos
     const g = add(new THREE.Mesh(planeGeoC, glowMat(k === 3 ? 0xff5ad8 : k === 2 ? PAL.cyan : 0x5fd8c0, k >= 2 ? 0.34 : 0.14)), front ? 8 : -6); g.scale.set(hgt * 2.1, hgt * 1.6, 1); g.position.set(x, hgt * 0.4, z - 1); pulses.push({ m: g, base: k >= 2 ? 0.34 : 0.14, ph: x * 0.37 });
   }
-  if (ARR) for (const [x0, x1] of spans) for (let x = Math.max(-300, x0 + 50); x < x1 - 50; x += 170 + r() * 220) {
+  if (ARR && !VG) for (const [x0, x1] of spans) for (let x = Math.max(-300, x0 + 50); x < x1 - 50; x += 170 + r() * 220) {
     const k = Math.floor(r() * PLANTS2.length), front = x0 < ARENA_X && r() < 0.22, hgt = (front ? 70 : 62) + r() * 46, z = front ? 140 + r() * 110 : -92 + r() * 40;
     const m = add(new THREE.Mesh(planeGeo, (front ? plantDark : plantM)[k]), front ? 8 : -6); m.scale.set(hgt * PLANTS2[k].ar * (r() < 0.5 ? -1 : 1), hgt, 1); m.position.set(x, -2, z); props3.push(m);
     r(); r(); // (mantém a mesma sequência de sorteios do cenário)
   }
   // postes com luz quente, e a poça de luz que eles fazem no chão
-  const lampM = flatMat(ARR ? prop('tocha') : texLamp, { alphaTest: 0.4 }), benchM = flatMat(texBench, { alphaTest: 0.4 });
+  const lampM = flatMat(VG ? prop('vg-lampiao') : ARR ? prop('tocha') : texLamp, { alphaTest: 0.4 }), benchM = flatMat(texBench, { alphaTest: 0.4 });
   for (let x = 260, i = 0; x < END - 100; x += 880, i++) {
     if (!spans.some(([a, b]) => x > a + 40 && x < b - 40)) x += 170;
     const m = add(new THREE.Mesh(planeGeo, lampM)); if (ARR) { m.scale.set(190 * 84 / 420, 190, 1); m.position.set(x, -4, -72); } else { m.scale.set(66, 220, 1); m.position.set(x, 0, -72); }
@@ -455,7 +464,7 @@ sky.scale.set(4700, 2700, 1); sky.position.set(0, 300, -3000);
   add(new THREE.Points(bg, new THREE.PointsMaterial({ map: texSoft, size: 95, vertexColors: true, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, fog: false })), -3);
   // bandeirinhas de festa junina entre um varal de luz e outro, um pouco mais atrás
   const buntM = flatMat(texBunting, { alphaTest: 0.4, side: THREE.DoubleSide });
-  if (ARR) for (let x0 = 530, i = 0; x0 < END - 300; x0 += ARR ? 430 : 760, i++) { const m = add(new THREE.Mesh(planeGeoTop, buntM)); const bw = 520 + (i % 3) * 50;
+  if (ARR && !VG) for (let x0 = 530, i = 0; x0 < END - 300; x0 += ARR ? 430 : 760, i++) { const m = add(new THREE.Mesh(planeGeoTop, buntM)); const bw = 520 + (i % 3) * 50;
     m.scale.set(bw, bw * 0.13, 1); m.position.set(x0 + 280, (ARR ? 330 + (i % 3) * 45 : 360 + (i % 2) * 30), ARR ? -120 - (i % 3) * 90 : -330); buntings.push({ m, ph: i * 1.7 }); }
   const lg = new THREE.BufferGeometry(); lg.setAttribute('position', new THREE.Float32BufferAttribute(line, 3));
   add(new THREE.LineSegments(lg, new THREE.LineBasicMaterial({ color: 0x06202b, fog: false })), -4);
@@ -473,10 +482,10 @@ sky.scale.set(4700, 2700, 1); sky.position.set(0, 300, -3000);
   const apool = add(new THREE.Mesh(planeGeoC, glowMat(0x7fe0ff, 0.16)), 0); apool.rotation.x = -Math.PI / 2; apool.scale.set(1100, 420, 1); apool.position.set(ARENA_X + 480, 1.2, 40);
   }
   // primeiro plano: folhagens escuras entre a câmera e o jogo, embaixo e penduradas em cima
-  const FRONT = ARR ? 0x4a2a1e : 0xffffff; // no Arraial, o primeiro plano vira silhueta quase preta (o jogo fica entre ela e o fundo claro)
+  const FRONT = VG ? 0xd8d0e0 : ARR ? 0x4a2a1e : 0xffffff; // no Arraial, o primeiro plano vira silhueta quase preta (o jogo fica entre ela e o fundo claro)
   const frenteM = texFrente.map(t => new THREE.MeshBasicMaterial({ map: t, color: FRONT, transparent: true, depthWrite: false, fog: false, side: THREE.DoubleSide }));
   // os galhos pendurados na frente não viram mancha preta no meio da tela: no Arraial ficam num marrom quente e meio transparentes
-  const galhoM = texGalhos && new THREE.MeshBasicMaterial({ map: texGalhos, color: ARR ? 0x7a5340 : 0xffffff, opacity: ARR ? 0.7 : 1, transparent: true, depthWrite: false, fog: false, side: THREE.DoubleSide });
+  const galhoM = texGalhos && new THREE.MeshBasicMaterial({ map: texGalhos, color: VG ? 0xfff6f0 : ARR ? 0x7a5340 : 0xffffff, opacity: VG ? 0.95 : ARR ? 0.7 : 1, transparent: true, depthWrite: false, fog: false, side: THREE.DoubleSide });
   for (let i = 0, x = -200; x < END - 300; i++, x += 620 + (i * 397 % 420)) {
     const m = new THREE.Mesh(planeGeo, frenteM[i % 2]), hh = 150 + (i % 3) * 22; m.scale.set(hh * FRENTE_AR[i % 2] * (i % 4 > 1 ? -1 : 1), hh, 1); m.position.set(x, -78, 350 + (i % 2) * 50); add(m, 9);
     if (i % 2) { const t = new THREE.Mesh(planeGeoTop, galhoM); const gh = 250 + (i % 3) * 30; t.scale.set(gh * GALHO_AR * (i % 4 === 1 ? -1 : 1), gh, 1); t.position.set(x + 310, ARR ? 600 : 500, 330); add(t, 9); }
@@ -485,7 +494,7 @@ sky.scale.set(4700, 2700, 1); sky.position.set(0, 300, -3000);
 // ---------------- o Arraial (fase 2) ----------------
 // barracas ao fundo, fogueiras com a coluna de ar quente visível, tábuas da quadrilha que dançam e o mastro de São João no fim
 const fireM = [], moverM = [], fireLights = [], lanterns = [];
-if (ARR) {
+if (ARR && !VG) {
   const tBarraca = prop('barraca'), tPescaria = prop('pescaria'), tFogueira = prop('fogueira'), tMastro = prop('mastro');
   // barracas em fila atrás do terreiro, alternando comidas e pescaria, cada uma com a sua luz quente
   for (let x = 380, i = 0; x < C.LEVEL_END - 300; x += 560 + (i * 173 % 160), i++) {
@@ -541,9 +550,54 @@ if (ARR) {
     for (let k = 0; k < 7; k++) { const f = new THREE.Mesh(planeGeoTop, FITAS[k % FITAS.length]); f.scale.set(7, 34 + (k * 13 % 22), 1); f.position.set((k / 6 - 0.5) * s.w * 0.86, 0, 0); f.rotation.z = (k - 3) * 0.05; b.add(f); }
     const g = add(new THREE.Mesh(planeGeoC, glowMat(0xffd27a, 0.18)), 3); g.scale.set(s.w * 1.5, 50, 1); moverM.push({ s, m, b, g }); }
 }
+
+// ---------------- fase 3: o Quadro Encantado (o mundo dos quadros do Van Gogh) ----------------
+// Tudo aqui é arte do Google Flow pintada em pinceladas: o quarto de Arles, girassóis, o vaso, o terraço do café,
+// lampiões, ciprestes, a moldura dourada, os redemoinhos e as estrelas da Noite Estrelada.
+const VGR = { swirls: [], blinks: [], movers: [], toldos: [] };
+if (VG) {
+  const mats = {}, mat = n => mats[n] || (mats[n] = flatMat(prop(n), { alphaTest: 0.35, side: THREE.DoubleSide }));
+  const place = (n, x, h, z = -40, y = -6, flip = false) => { const m = add(new THREE.Mesh(planeGeo, mat(n))); m.scale.set(h * VG_AR[n] * (flip ? -1 : 1), h, 1); m.position.set(x, y, z); landmarks.push(m); return m; };
+  const glow = (x, y, z, s, c, op) => { const g = add(new THREE.Mesh(planeGeoC, glowMat(c, op)), -4); g.scale.set(s, s, 1); g.position.set(x, y, z); pulses.push({ m: g, base: op, ph: x * 0.01, slow: true }); return g; };
+  // o Quarto: a moldura por onde a turma entra, a cama e a cadeira (as duas são plataformas)
+  place('vg-moldura', 120, 270, -70); glow(120, 140, -68, 420, 0xffd27a, 0.3);
+  place('vg-cama', 495, 160, -2); place('vg-cadeira', 748, 262, -2); place('vg-cadeira', 1180, 230, -90, -6, true);
+  // os Girassóis: um campo deles atrás do caminho, e o vaso famoso
+  { const r = rng(77); for (let x = 1380; x < 3000; x += 70 + r() * 90) { const h = 200 + r() * 140; place('vg-girassol', x, h, -90 - r() * 90, -8, r() < 0.5); } }
+  place('vg-vaso', 2960, 300, -60); glow(2960, 200, -58, 380, 0xffd060, 0.22);
+  // o Trigal: girassóis esparsos e um cipreste
+  place('vg-cipreste', 3420, 520, -130); place('vg-cipreste', 4480, 460, -150, -6, true);
+  // o Terraço do Café: toldos que quicam (com mastros de ferro), mesas, lampiões
+  const ironM = new THREE.MeshLambertMaterial({ color: 0x1c2a4a });
+  for (const [x, y, w, b] of C.plats) { if (!b) continue; const top = GROUND - y, hgt = w / VG_AR['vg-toldo'];
+    const m = place('vg-toldo', x + w / 2, hgt, -1, top - hgt + 6); VGR.toldos.push({ m, x, w, hgt, base: top - hgt + 6, bt: 0 });
+    for (const px of [x + 12, x + w - 12]) { const pole = add(new THREE.Mesh(new THREE.CylinderGeometry(3, 3.5, top, 8), ironM)); pole.position.set(px, top / 2, -6); } }
+  place('vg-mesa', 5320, 89, -2); place('vg-mesa', 5770, 89, -2);
+  for (const x of [4960, 5420, 5880]) { place('vg-lampiao', x, 280, -60); glow(x, 238, -58, 230, 0xffc860, 0.55); }
+  // a Noite Estrelada: ciprestes, estrelas grandes no céu, e o cipreste do morro do chefão
+  place('vg-cipreste', 6330, 500, -110); place('vg-cipreste', ARENA_X + 300, 600, -80); place('vg-cipreste', ARENA_X + 820, 420, -120, -6, true);
+  const starTex = load('sprites/vg-estrela.png'), swirlTex = load('sprites/vg-redemoinho.png');
+  const softM = (tex, op) => new THREE.MeshBasicMaterial({ map: tex, transparent: true, opacity: op, depthWrite: false, fog: false });
+  for (const [x, y, s] of [[6150, 560, 140], [6500, 640, 110], [6800, 520, 160], [7150, 640, 120], [7500, 560, 150], [4300, 640, 90], [5200, 600, 110], [5700, 660, 90]]) {
+    const m = add(new THREE.Mesh(planeGeoC, softM(starTex, 0.9)), -6); m.scale.set(s, s, 1); m.position.set(x, y, -300); pulses.push({ m, base: 0.9, ph: x * 0.013 }); }
+  // redemoinhos de jogo: a espiral pintada girando, com um brilho que mostra que dá para entrar
+  for (const s of C.SWIRLS) { const m = add(new THREE.Mesh(planeGeoC, softM(swirlTex, 0.95)), 4); m.scale.set(s.r * 2.7 * (s.d || 1), s.r * 2.7, 1); m.position.set(s.x, GROUND - s.y, -6);
+    const g = add(new THREE.Mesh(planeGeoC, glowMat(0xfff0b0, 0.35)), 3); g.scale.set(s.r * 4, s.r * 4, 1); g.position.set(s.x, GROUND - s.y, -8); VGR.swirls.push({ s, m, g, a: 0 }); }
+  // estrelas que piscam: são plataformas; acesas seguram, apagadas não
+  for (const b of C.blinks) { const m = add(new THREE.Mesh(planeGeoC, softM(starTex, 1)), 4); m.scale.set(b.w * 1.25, b.w * 1.25, 1); m.position.set(b.x + b.w / 2, GROUND - b.y - 4, -2);
+    const g = add(new THREE.Mesh(planeGeoC, glowMat(0xfff0a0, 0.5)), 3); g.scale.set(b.w * 2.4, b.w * 2.4, 1); g.position.set(b.x + b.w / 2, GROUND - b.y, -4); VGR.blinks.push({ b, m, g, k: 1 }); }
+  // cabeças de girassol que sobem e descem: a cabeça é a plataforma, o caule desce até o chão
+  for (const s of TT.MOVERS) { const h = 300, m = add(new THREE.Mesh(planeGeo, mat('vg-girassol'))); m.scale.set(h * VG_AR['vg-girassol'], h, 1); m.position.z = -1; landmarks.push(m); VGR.movers.push({ s, m, h }); }
+  // a moldura dourada no lugar da argola: atravessar revela um tubo de tinta dourado
+  if (C.HOOP) { const h = C.HOOP, gr = new THREE.Group(); add(gr); gr.position.set(h.x, GROUND - h.y, 10); const fh = h.r * 2.3;
+    const fm = new THREE.Mesh(planeGeoC, mat('vg-moldura')); fm.scale.set(fh * VG_AR['vg-moldura'], fh, 1); gr.add(fm); landmarks.push(fm);
+    const hg = add(new THREE.Mesh(planeGeoC, glowMat(0xffe14d, 0.35)), 4); hg.scale.set(h.r * 3.4, h.r * 3.4, 1); hg.position.set(h.x, GROUND - h.y, 8); R.hoop = { gr, hg, h }; }
+  TT.on('bounce', e => { const q = VGR.toldos.find(q => e.x > q.x - 20 && e.x < q.x + q.w + 20); if (q) q.bt = 0.35; });
+}
 // checkpoints: uma lanterna que acende
 const flags = C.checkpoints.map(x => {
-  if (ARR) { const t = add(new THREE.Mesh(planeGeo, flatMat(prop('tocha'), { alphaTest: 0.4 }))); t.scale.set(150 * 84 / 420, 150, 1); t.position.set(x, -4, -40); }
+  if (VG) { const t = add(new THREE.Mesh(planeGeo, flatMat(prop('vg-lampiao'), { alphaTest: 0.4 }))); t.scale.set(170 * 0.2942, 170, 1); t.position.set(x, -4, -40); }
+  else if (ARR) { const t = add(new THREE.Mesh(planeGeo, flatMat(prop('tocha'), { alphaTest: 0.4 }))); t.scale.set(150 * 84 / 420, 150, 1); t.position.set(x, -4, -40); }
   else { const pole = add(new THREE.Mesh(new THREE.CylinderGeometry(3, 4, 110, 8), new THREE.MeshLambertMaterial({ color: 0x163845 }))); pole.position.set(x, 55, -40); pole.castShadow = true; }
   const halo = add(new THREE.Mesh(planeGeoC, glowMat(0x8fb6c4, 0.15)), 3); halo.position.set(x, 122, -38);
   const core = add(new THREE.Mesh(planeGeoC, glowMat(0xffffff, 0.3)), 3); core.position.set(x, 122, -37);
@@ -652,7 +706,7 @@ const pigeonM = S.enemies.map(() => { const m = sprite(FOE, 5, true, 0xffffff); 
   if (ARR) m.material.color.setRGB(1.15, 1.08, 1.02); else { m.material.color.setRGB(1.75, 1.6, 1.85); m.userData.own = { pigeon: ownTex('pigeon') }; m.material.map = m.customDepthMaterial.map = m.userData.own.pigeon; } return m; });
 // barra de chocolate meio desembrulhada, desenhada por código. Contorno creme grosso e embalagem vermelha viva
 // para não sumir no cenário escuro; o brilho vermelho (a cor de "perigo" do jogo, igual ao aviso dos pombos) faz o resto.
-TEX.choco = canvasTex(160, 128, x => { x.translate(80, 64); x.rotate(-0.18);
+if (VG) { TEX.borrao = load('sprites/vg/borrao.png'); } TEX.choco = canvasTex(160, 128, x => { x.translate(80, 64); x.rotate(-0.18);
   const bar = () => { x.beginPath(); x.roundRect(-62, -40, 124, 80, 8); };
   x.lineJoin = 'round'; x.strokeStyle = '#fff3d6'; x.lineWidth = 12; bar(); x.stroke();
   x.beginPath(); x.moveTo(-68, -46); x.lineTo(-6, -46); x.lineTo(-18, 46); x.lineTo(-68, 46); x.closePath(); x.stroke();
@@ -662,8 +716,10 @@ TEX.choco = canvasTex(160, 128, x => { x.translate(80, 64); x.rotate(-0.18);
   x.fillStyle = '#ff3d5e'; x.beginPath(); x.moveTo(-66, -44); x.lineTo(-8, -44); x.lineTo(-20, 44); x.lineTo(-66, 44); x.closePath(); x.fill();
   x.fillStyle = '#ffd98a'; x.fillRect(-66, -10, 52, 20); x.strokeStyle = '#fff3d6'; x.lineWidth = 3; x.beginPath(); x.moveTo(-8, -44); x.lineTo(-14, -20); x.lineTo(-6, 0); x.lineTo(-16, 22); x.lineTo(-20, 44); x.stroke(); });
 // brinquedo perdido do Parque: o Patinho Quá-Quá, de borracha e meio mordido (arte do Google Flow, a mesma da estante)
-if (ARR) { TEX.toy = load('sprites/toy-sanfona.png'); AR.toy = 297 / 200; } else { TEX.toy = load('sprites/toy-duck.png'); AR.toy = 214 / 200; }
-const itemM = S.items.map(it => { const m = sprite(it.type === 'gold' ? 'cookie' : it.type, 5, false, it.type === 'gold' ? 0xffd640 : 0xfff4e0); m.geometry = planeGeoC;
+if (VG) { TEX.toy = load('sprites/toy-girassol.png'); AR.toy = 0.89; } else if (ARR) { TEX.toy = load('sprites/toy-sanfona.png'); AR.toy = 297 / 200; } else { TEX.toy = load('sprites/toy-duck.png'); AR.toy = 214 / 200; }
+if (VG) { TEX.choco = TEX.borrao; AR.choco = 1.62; }
+const GOLD = VG ? 'tubo' : 'cookie'; // no quadro, os dourados são tubos de tinta
+const itemM = S.items.map(it => { const m = sprite(it.type === 'gold' ? GOLD : it.type, 5, false, it.type === 'gold' ? (VG ? 0xfff0d0 : 0xffd640) : 0xfff4e0); m.geometry = planeGeoC;
   m.userData.glow = add(new THREE.Mesh(planeGeoC, glowMat(it.type === 'choco' ? 0xff3355 : it.type === 'cookie' ? 0xffc76a : it.type === 'toy' ? 0x9dff7a : it.type === 'bilhete' ? 0xff8fb8 : 0xffe14d)), 4);
   return m; });
 const friendM = S.friends.map(f => { const m = sprite(f.kind, 5, true, 0xfff6ec); m.geometry = legGeo();
@@ -914,7 +970,7 @@ R.frame = (rdt) => {
     const g = m.userData.glow; g.position.set(f.x, 30 + hop, -38); const s = 120 + Math.sin(f.t * 2.2) * 8; g.scale.set(s, s, 1); g.material.opacity = f.given ? 0.2 : 0.34;
   });
   giftM.forEach((m, i) => { const g = S.gifts[i], gl = m.userData.glow; m.visible = gl.visible = !!g; if (!g) return;
-    const gs = C.GIFT_ITEM === 'ovo' ? 44 : 30; m.scale.set(gs * AR[C.GIFT_ITEM], gs, 1); m.position.set(g.x, Y(g.y), 5); m.rotation.z = g.t * (C.GIFT_ITEM === 'ovo' ? 5 : 9); gl.position.set(g.x, Y(g.y), 4); gl.scale.set(ARR ? 92 : 86, ARR ? 92 : 86, 1); if (ARR) gl.material.color.set(0xffe2a0); // o ovo: maior e com um brilho claro, para não sumir no laranja
+    const gs = C.GIFT_ITEM === 'ovo' ? 44 : C.GIFT_ITEM === 'tubo' ? 46 : 30; m.scale.set(gs * AR[C.GIFT_ITEM], gs, 1); m.position.set(g.x, Y(g.y), 5); m.rotation.z = g.t * (C.GIFT_ITEM === 'ovo' ? 5 : 9); gl.position.set(g.x, Y(g.y), 4); gl.scale.set(ARR ? 92 : 86, ARR ? 92 : 86, 1); if (ARR) gl.material.color.set(0xffe2a0); // o ovo: maior e com um brilho claro, para não sumir no laranja
     if (Math.random() < 0.6) spawn({ x: g.x, y: g.y, vx: (Math.random() - 0.5) * 40, vy: (Math.random() - 0.5) * 40, g: 60, life: 0.45, r: 3, color: 0xffd98a }); });
 
   // Brutão
@@ -1037,7 +1093,7 @@ R.frame = (rdt) => {
   // galinheiro: as galinhas espiam pela tela até o lobo-guará fugir
   // galinhas correndo: pulinhos, asas batendo e penas voando
   runnerM.forEach((m, i) => { const r = S.runners[i]; m.visible = !!r; if (!r) return;
-    const rAnim = playAnim(m, 'galinha-foge', 72, r.vx > 0, r.t * 1.2); if (!rAnim) { setAnim(m, 'galinha', 72, r.vx > 0); const f = Math.sin(r.t * 32); m.scale.y *= 1 + f * 0.06; m.scale.x *= 1 - f * 0.04; }
+    const rAnim = !VG && playAnim(m, 'galinha-foge', 72, r.vx > 0, r.t * 1.2); if (!rAnim) { setAnim(m, VG ? 'corvo-voa' : 'galinha', VG ? 80 : 72, r.vx > 0); const f = Math.sin(r.t * 32); m.scale.y *= 1 + f * 0.06; m.scale.x *= 1 - f * 0.04; }
     m.position.set(r.x + r.w / 2, Y(r.y + r.h) - 2, 2); m.rotation.z = Math.sin(r.t * 24) * 0.12 + (r.vx < 0 ? -0.08 : 0.08);
     if (rAnim) { m.position.y -= m.userData.foot; m.rotation.z = r.air ? -Math.sign(r.vx) * Math.max(-0.35, Math.min(0.35, r.jv / 2500)) : 0; legs(m, 0, 0); } else legs(m, r.t * 24, 0.14, { f: -1, tailX: Math.sin(r.t * 20) * 0.04, tailY: 0, headX: 0.04, headY: 0, breathe: 0, shear: r.vx < 0 ? 0.05 : -0.05 }); // no pulo do buraco: bico para cima subindo, para baixo caindo
     if (Math.random() < live * 7) spawn({ x: r.x + r.w / 2, y: r.y + 10, vx: -r.vx * 0.2 + (Math.random() - 0.5) * 80, vy: -50 - Math.random() * 70, g: 110, life: 0.9, r: 2.5 + Math.random() * 2, color: Math.random() < 0.6 ? 0xfff2dc : 0xc8864a, hard: true });
@@ -1049,11 +1105,11 @@ R.frame = (rdt) => {
   S.enemies.forEach((e, i) => {
     const m = pigeonM[i], fr = ARR && e.alive && e.scared;
     const eAnim = e.alive && playAnim(m, ARR ? (fr ? 'galinha-foge' : 'galinha-anda') : 'pombo-anda', ARR ? 72 : 64, e.dir > 0, e.t * (fr ? 1.3 : 1) + i * 0.41);
-    if (!eAnim) { if (ARR) setAnim(m, 'galinha', 72, e.dir > 0); else setAnim(m, 'pigeon', 64, e.dir > 0, e.alive ? Math.floor(e.t * 7) : 1, 4); }
+    if (!eAnim) { if (VG) setAnim(m, e.alive ? 'galinha' : 'corvo-voa', e.alive ? 64 : 76, e.dir > 0); else if (ARR) setAnim(m, 'galinha', 72, e.dir > 0); else setAnim(m, 'pigeon', 64, e.dir > 0, e.alive ? Math.floor(e.t * 7) : 1, 4); }
     if (fr) { const f = Math.sin(e.t * 30); m.scale.y *= 1 + f * 0.06; m.scale.x *= 1 - f * 0.04; // bate as asas, arrepiada
       if (Math.random() < live * 9) spawn({ x: e.x + e.w / 2 + (Math.random() - 0.5) * 40, y: e.y + 10 + Math.random() * 20, vx: (Math.random() - 0.5) * 120, vy: -60 - Math.random() * 80, g: 120, life: 0.9, r: 2.5 + Math.random() * 2, color: Math.random() < 0.6 ? 0xfff2dc : 0xc8864a, hard: true }); }
     m.position.set(e.x + e.w / 2, Y(e.y + e.h) - 2 + (eAnim ? -m.userData.foot : e.alive ? Math.abs(Math.sin(e.t * 12)) * 3 : 0), 0);
-    m.rotation.z = eAnim ? 0 : e.alive ? (ARR ? Math.sin(e.t * (fr ? 22 : 9)) * (fr ? 0.12 : 0.06) : 0) : Math.PI; m.visible = e.y < H + 200; m.castShadow = e.alive; // a galinha gingando de um lado para o outro
+    m.rotation.z = eAnim || (VG && !e.alive) ? 0 : e.alive ? (ARR ? Math.sin(e.t * (fr ? 22 : 9)) * (fr ? 0.12 : 0.06) : 0) : Math.PI; m.visible = e.y < H + 200; m.castShadow = e.alive; // a galinha gingando de um lado para o outro
     // perigo à vista: um halo rosado que pulsa atrás de cada pombo, mais forte quando o Timtim chega perto
     { const w = m.userData.warn, near = Math.max(0, 1 - Math.abs(tx - m.position.x) / 420), s = 120 + Math.sin(time * 6 + i) * 14 + near * 30;
       w.visible = e.alive && m.visible; w.position.set(m.position.x, m.position.y + 30, 2); w.scale.set(s * 1.25, s, 1); w.material.opacity = ARR ? 0.18 + near * 0.3 + Math.sin(time * 6 + i) * 0.06 : 0.75 + near * 0.25 + Math.sin(time * 6 + i) * 0.15; }
@@ -1066,7 +1122,7 @@ R.frame = (rdt) => {
     const hid = it.trail && !S.revealed[it.trail], m = itemM[i]; m.visible = !it.got && !hid; const g = m.userData.glow; g.visible = m.visible;
     if (!m.visible) return;
     const ck = it.type === 'cookie', gd = it.type === 'gold', hh = ck ? 27 : gd ? 36 : it.type === 'toy' ? 40 : it.type === 'bilhete' ? 38 : 54, bob = Math.sin(clock * 3 + it.x * 0.05) * 5;
-    m.scale.set(hh * AR[gd ? 'cookie' : it.type], hh, 1); m.position.set(it.x, Y(it.y) + bob, 0);
+    m.scale.set(hh * AR[gd ? GOLD : it.type], hh, 1); m.position.set(it.x, Y(it.y) + bob, 0);
     m.rotation.y = Math.sin(clock * 2.2 + it.x * 0.01) * (ck ? 0.75 : 0.4); m.rotation.z = Math.sin(clock * 3 + it.x) * 0.12;
     const s = (ck ? 62 : it.type === 'choco' ? 130 : it.type === 'toy' ? 150 : 104) + Math.sin(clock * 5 + it.x * 0.03) * (ck ? 8 : 12); g.scale.set(s, s, 1); g.position.set(it.x, Y(it.y) + bob, -2); g.material.opacity = ck ? 0.5 : it.type === 'choco' ? 0.7 + 0.25 * Math.sin(clock * 6 + it.x) : 0.6;
   });
@@ -1113,6 +1169,18 @@ R.frame = (rdt) => {
     for (const q of lanterns) { const a = Math.sin(time * 0.9 + q.ph) * 0.06; q.m.rotation.z = a; q.g.position.x = q.x + Math.sin(a) * q.h * 0.78; }
     for (const q of moverM) { const s = q.s; q.m.position.set(s.x + s.w / 2, Y(s.y) - 8, 0); q.b.position.set(s.x + s.w / 2, Y(s.y) - 12, 30); q.b.rotation.x = Math.sin(time * 2.6 + s.x) * 0.25 + beat * 0.2; q.b.children.forEach((f, k) => { f.rotation.z = Math.sin(time * 3 + k + s.x * 0.01) * 0.18; });
       q.g.position.set(s.x + s.w / 2, Y(s.y) + 2, 34); q.g.material.opacity = 0.14 + beat * 0.18; q.m.rotation.z = Math.sin(Math.PI * 2 * bt / s.mover.per + s.mover.ph) * 0.03; }
+  }
+
+  if (VG) { const off = S.fireOff > 0 ? Math.min(1, S.fireOff * 3) : 0;
+    for (const q of VGR.swirls) { q.a -= (q.s.d || 1) * live * 2.6; q.m.rotation.z = q.a; const on = 1 - off * 0.8; q.m.material.opacity = 0.95 * on; q.g.material.opacity = (0.3 + Math.sin(time * 3 + q.s.x) * 0.08) * on;
+      const k = 1 + Math.sin(time * 2.2 + q.s.x) * 0.04; q.m.scale.set(q.s.r * 2.7 * k * (q.s.d || 1), q.s.r * 2.7 * k, 1);
+      if (Math.random() < live * 6 * on && Math.abs(q.s.x - fxS) < 900) { const a = Math.random() * 6.3, rr = q.s.r * 1.1; spawn({ x: q.s.x + Math.cos(a) * rr, y: q.s.y + Math.sin(a) * rr, vx: -Math.sin(a) * 60 * (q.s.d || 1), vy: Math.cos(a) * 60 * (q.s.d || 1), g: 0, life: 0.8, r: 2.4, color: Math.random() < 0.5 ? 0xfff0b0 : 0xa9c8ef }); } }
+    for (const q of VGR.blinks) { const on = TT.blinkOn(q.b), ph = ((S.clock + q.b.ph) % q.b.per) / q.b.per, warn = on && ph > 0.5; // pisca antes de apagar
+      q.k += ((on ? 1 : 0.18) - q.k) * Math.min(1, rdt * 10); const fl = warn ? 0.55 + 0.45 * Math.abs(Math.sin(time * 18)) : 1;
+      q.m.material.opacity = q.k * fl; q.g.material.opacity = 0.5 * q.k * fl; const sc = q.b.w * 1.25 * (0.9 + 0.1 * q.k); q.m.scale.set(sc, sc, 1); q.m.rotation.z += live * 0.3; }
+    for (const q of VGR.movers) { const s = q.s; q.m.position.set(s.x + s.w / 2, Y(s.y) - q.h * 0.86, -1); q.m.rotation.z = Math.sin(time * 1.3 + s.x) * 0.02; }
+    for (const q of VGR.toldos) { q.bt = Math.max(0, q.bt - live); const k = Math.sin(q.bt / 0.35 * Math.PI) * 0.18; q.m.scale.y = q.hgt * (1 - k); q.m.position.y = q.base + q.hgt * k; }
+    if (R.hoop) { const q = R.hoop, on = !!S.revealed.argola; q.gr.rotation.z = Math.sin(time * 1.1) * 0.06; q.gr.rotation.y = Math.sin(time * 0.7) * 0.25; q.hg.material.opacity = on ? 0.12 : 0.3 + 0.1 * Math.sin(time * 4); }
   }
   for (const q of ropes) q.m.rotation.z = Math.sin(time * 0.9 + q.ph) * 0.004;
   for (const q of shafts) q.m.material.opacity = q.op * (0.55 + 0.45 * Math.sin(time * 0.35 + q.ph));
@@ -1177,10 +1245,14 @@ const DUSK = { bg: new THREE.Color(0x140604), figB: new THREE.Color(0x2a160e), f
   amb: new THREE.Color(0xffb27a), sun: new THREE.Color(0xffc89a), mark: new THREE.Color(0xc99a7a), bunt: new THREE.Color(0xffe2c4), shade: new THREE.Vector3(.8, .76, 1.08) };
 const NIGHT_ = { bg: new THREE.Color(0x020a12), figB: new THREE.Color(0x4c7896), figF: new THREE.Color(0xa9c4d6), amb: new THREE.Color(0x6f9cc0), sun: new THREE.Color(0xa6dcff),
   mark: new THREE.Color(0xffffff), bunt: new THREE.Color(0xa8b8d4), shade: new THREE.Vector3(.80, 1.02, 1.16) };
+const VGP = { bg: new THREE.Color(0x0c1430), figB: new THREE.Color(0x1c2a40), figF: new THREE.Color(0x2c3a3a), mist: new THREE.Color(0x7088c8), shaft: new THREE.Color(0xf6e08a),
+  amb: new THREE.Color(0xfff2d8), sun: new THREE.Color(0xffe8b0), mark: new THREE.Color(0xffffff), bunt: new THREE.Color(0xffffff), shade: new THREE.Vector3(.96, .97, 1.04) };
+if (VG) Object.assign(DUSK, VGP); // a fase 3 usa a família quente do Arraial com as cores do quadro
 const tmpC = new THREE.Color();
 function dayLight(cx) {
   const k = ARR ? 0 : 1; // a cor é da fase inteira: não muda ao longo do caminho
-  vilaMat.uniforms.k.value = 0; if (ARR) { vilaMat.uniforms.tint.value.setRGB(0.74, 0.6, 0.52); vilaMat.uniforms.hazeK.value = 0.32; } else vilaMat.uniforms.tint.value.setScalar(0.9); // o fundo do Arraial recua: mais escuro, para o que se mexe aparecer
+  vilaMat.uniforms.k.value = VG ? ease(Math.max(0, Math.min(1, (cx - 4300) / 1300))) : 0; // no quadro: o dia dos girassóis vira noite estrelada no terraço do café (uma passagem curta, sem as duas pinturas misturadas por muito tempo)
+  if (VG) { vilaMat.uniforms.tint.value.setRGB(0.84, 0.82, 0.86); vilaMat.uniforms.hazeK.value = 0.1; } else if (ARR) { vilaMat.uniforms.tint.value.setRGB(0.74, 0.6, 0.52); vilaMat.uniforms.hazeK.value = 0.32; } else vilaMat.uniforms.tint.value.setScalar(0.9); // o fundo do Arraial recua: mais escuro, para o que se mexe aparecer
   scene.background.copy(DUSK.bg).lerp(NIGHT_.bg, k);
   if (figMats[0]) figMats[0].color.copy(DUSK.figB).lerp(NIGHT_.figB, k);
   if (figMats[1]) figMats[1].color.copy(DUSK.figF).lerp(NIGHT_.figF, k);

@@ -32,10 +32,10 @@ const W0 = C.W;
 // A fase 2 ensina uma única ação nova: planar com a bandana aberta (segurar o pulo no ar). Ordem:
 // palco + primeiro vão (só planando) → vão maior → fogueiras (o ar quente levanta quem plana) → quadrilha
 // (tábuas de bandeirinhas que dançam no ritmo) → tudo junto, com o brinquedo perdido no alto de uma fogueira → mastro de São João.
-const FASE = TT.FASE = C.FASE = (/fase2/.test(location.hash) || new URLSearchParams(location.search).get('fase') === '2') ? 2 : 1;
-Object.assign(C, { BOSS: true, FOX: false, GLIDE: false, fires: [], movers: [], GOAL_X: C.ARENA_X, MASTRO_X: 0, GIFT_ITEM: 'cookie', NOTES: [], TUB: null, HOOP: null, STAMPEDES: [], GLIDE_TUT: null, EGG: { time: 12, fall: 70, lift: -470 } });
+const FASE = TT.FASE = C.FASE = (() => { const q = new URLSearchParams(location.search).get('fase'), h = (location.hash.match(/fase(\d)/) || [])[1]; return +(h || q || 1) === 3 ? 3 : +(h || q || 1) === 2 ? 2 : 1; })();
+Object.assign(C, { BOSS: true, FOX: false, GLIDE: false, PREFIGHT: false, SWIRLS: [], blinks: [], fires: [], movers: [], FOXTXT: { egg: 'Ovo cozido! Plana na crina dele!', fruit: 'Ó a fruta-do-lobo, lobão!' }, GOAL_X: C.ARENA_X, MASTRO_X: 0, GIFT_ITEM: 'cookie', NOTES: [], TUB: null, HOOP: null, STAMPEDES: [], GLIDE_TUT: null, EGG: { time: 12, fall: 70, lift: -470 } });
 if (FASE === 2) Object.assign(C, {
-  BOSS: false, FOX: true, GLIDE: true, LEVEL_END: 7900, ARENA_X: 7900 - W0, GOAL_X: 7900 - W0 + 120, MASTRO_X: 7580, START_X: 200, BPM: 100,
+  BOSS: false, FOX: true, GLIDE: true, PREFIGHT: true, LEVEL_END: 7900, ARENA_X: 7900 - W0, GOAL_X: 7900 - W0 + 120, MASTRO_X: 7580, START_X: 200, BPM: 100,
   grounds: [[0, 1150], [1670, 700], [3000, 1500], [5880, 280], [6300, 1600]],
   plats: [[430, 250, 120], [700, 330, 450], [2150, 300, 200], [3500, 90, 170], [4120, 140, 150]],
   // tábuas da quadrilha: x e y da posição de descanso, ax/ay = quanto vão e voltam, per = período (s), ph = fase do passo
@@ -61,6 +61,38 @@ if (FASE === 2) Object.assign(C, {
   trails: [{ id: 'sanfona', at: 6610, plats: [[6690, 120, 130], [6555, 10, 120]] }],
   TOY: { id: 'sanfoninha', x: 6615, y: -40 },
 });
+// ---- fase 3: o Quadro Encantado (dentro dos quadros do Van Gogh) ----
+// Reaproveita a espinha do Arraial (planar, chefão em três rodadas) e ensina UMA ação nova: o redemoinho.
+// Trechos: o Quarto (cama e cadeira, primeiro redemoinho) → os Girassóis (cabeças que sobem e descem, o vaso)
+// → o Trigal com Corvos (corvos andando, revoadas) → o Terraço do Café (toldos que quicam, manchas de tinta)
+// → a Noite Estrelada (estrelas que piscam, o cipreste) → o morro do Corvo-Borrão (o mesmo motor da luta do lobo-guará).
+if (FASE === 3) Object.assign(C, {
+  BOSS: false, FOX: true, GLIDE: true, LEVEL_END: 7900, ARENA_X: 7900 - W0, GOAL_X: 7900 - W0 + 120, MASTRO_X: 7900 - W0 + 300, START_X: 200, BPM: 84,
+  grounds: [[0, 1300], [1500, 900], [2650, 700], [3550, 1150], [4900, 900], [6050, 350], [6600, 1300]],
+  // [x, y, largura, quica]: a cama, a cadeira e a estante do quarto; tábuas pintadas; os toldos do café quicam; as mesas
+  plats: [[380, 352, 230], [700, 330, 80], [1000, 150, 160], [2250, 300, 140], [2750, 330, 150], [3000, 320, 160], [3250, 250, 150],
+          [3750, 320, 170], [4000, 240, 150], [4300, 320, 160], [5000, 340, 200, 1], [5280, 372, 80], [5500, 340, 200, 1], [5730, 372, 80], [6150, 300, 120]],
+  // cabeças de girassol que sobem e descem devagar
+  movers: [{ x: 1650, y: 330, w: 120, ax: 0, ay: 50, per: 2.6, ph: 0 }, { x: 1900, y: 270, w: 120, ax: 0, ay: 60, per: 2.6, ph: 2 }, { x: 2150, y: 320, w: 120, ax: 0, ay: 50, per: 2.6, ph: 4 }],
+  // redemoinhos: pegam o Timtim no ar e giram com ele; apertar o pulo solta na direção em que ele está indo (d = sentido do giro)
+  SWIRLS: [{ x: 880, y: 230, r: 70, d: 1 }, { x: 2520, y: 250, r: 70, d: 1 }, { x: 3450, y: 230, r: 70, d: 1 }, { x: 4800, y: 240, r: 70, d: 1 },
+           { x: 5930, y: 230, r: 70, d: 1 }, { x: 6230, y: 100, r: 64, d: -1 }, { x: 7900 - W0 + 150, y: 250, r: 70, d: 1 }, { x: 7900 - 150, y: 250, r: 70, d: -1 }],
+  // estrelas que piscam: só seguram enquanto estão acesas
+  blinks: [{ x: 6420, y: 260, w: 100, per: 2.4, ph: 0 }, { x: 6520, y: 180, w: 100, per: 2.4, ph: 1.2 }],
+  fires: [], GLIDE_TUT: null, TUB: null, HOOP: { x: 4150, y: 120, r: 46 },
+  STAMPEDES: [{ at: 3600, n: 3 }, { at: 4320, n: 4 }], // revoadas de corvos rasantes
+  NOTES: [{ x: 1060, y: 100, text: 'Para o Theo, o gato do museu: entramos no quadro! Se o Furtão perguntar, a gente não está aqui. Ass.: a Zara.' },
+    { x: 2210, y: 240, text: 'Theo, este trigo faz cócegas na barriga. Já mordi três girassóis achando que eram biscoito. Ass.: o Elvis.' },
+    { x: 4060, y: 180, text: 'Theo, o céu daqui gira mais que o Timtim correndo atrás do rabo. Ass.: a Zara (tonta).' },
+    { x: 5560, y: 150, text: 'Para o Corvo-Borrão: devolve o girassol da Tinta e a gente te dá uma tampinha. Ass.: todos os cães da vila.' }],
+  checkpoints: [1560, 3600, 4950, 6080],
+  friends: [{ x: 2800, kind: 'chi-pb', power: 'egg' }, { x: 5150, kind: 'chi-br', power: 'mega' }], GIFT_ITEM: 'tubo',
+  hedges: [],
+  trails: [{ id: 'girassol', at: 6200, plats: [[6260, 20, 110], [6120, -80, 110]] }],
+  TOY: { id: 'girassol', x: 6175, y: -130 },
+  FOXTXT: { egg: 'Tinta amarela! Plana nas costas dele!', fruit: 'Ó a tampinha dourada, corvão!' },
+});
+C.SWIRL = { w: Math.PI * 2 / 1.3, speed: 820 }; // uma volta a cada 1,3 s; a soltura sai a 820 px/s
 C.FIRE = { w: 64, h: 62, col: 64, top: -70, lift: -380 }; // a chama não machuca; a coluna de ar quente sobe até y = top
 const { W, H, GROUND, GRAV, JUMP_V, RUN, FAST, LEVEL_END, ARENA_X } = C; // (já com o trecho novo e a fase escolhida)
 // ---- segredos (em coordenadas finais) ----
@@ -85,6 +117,7 @@ TT.input = { left: false, right: false, jump: false, jumpPressed: false, sniff: 
 
 function makeItems() {
   if (FASE === 2) return arraialItems();
+  if (FASE === 3) return quadroItems();
   const it = [];
   const cookie = (x, y) => it.push({ type: 'cookie', x, y, got: false });
   [300, 360, 420].forEach(x => cookie(x, GROUND - 40));
@@ -123,6 +156,27 @@ function makeItems() {
 }
 // itens do Arraial: os biscoitos desenham o caminho (o arco do primeiro vão ensina a descer planando; a fila na coluna
 // de ar quente ensina a subir); os dourados ficam no alto do palco, no topo da primeira fogueira e entre duas tábuas da quadrilha
+function quadroItems() {
+  const it = [], G = GROUND - 40, cookie = (x, y, trail) => it.push({ type: 'cookie', x, y, got: false, trail });
+  [300, 360].forEach(x => cookie(x, G)); [430, 490, 550].forEach(x => cookie(x, 300)); cookie(740, 280); [1030, 1090].forEach(x => cookie(x, 100));
+  [[780, 200], [880, 140], [980, 200]].forEach(([x, y]) => cookie(x, y)); // em volta do primeiro redemoinho
+  [1600, 1660].forEach(x => cookie(x, G)); [1710, 1960, 2210].forEach(x => cookie(x, 180)); [2300, 2350].forEach(x => cookie(x, 250));
+  [[2460, 180], [2520, 160], [2580, 180]].forEach(([x, y]) => cookie(x, y)); [2700, 2760].forEach(x => cookie(x, G)); [2800, 2860].forEach(x => cookie(x, 280));
+  [3050, 3110].forEach(x => cookie(x, 270)); [3300, 3360].forEach(x => cookie(x, 200)); [[3400, 160], [3450, 140], [3500, 160]].forEach(([x, y]) => cookie(x, y));
+  for (let x = 3600; x <= 3720; x += 60) cookie(x, G); [3800, 3860, 4050, 4110, 4350, 4410].forEach((x, i) => cookie(x, i < 2 ? 270 : i < 4 ? 190 : 270));
+  [4550, 4610].forEach(x => cookie(x, G)); [[4750, 170], [4800, 150], [4850, 170]].forEach(([x, y]) => cookie(x, y));
+  [5060, 5120].forEach(x => cookie(x, 170)); [5560, 5620].forEach(x => cookie(x, 170)); [5300, 5750].forEach(x => cookie(x, 320));
+  [[5880, 170], [5930, 150], [5980, 170]].forEach(([x, y]) => cookie(x, y)); [6120, 6180].forEach(x => cookie(x, 250));
+  [6440, 6540].forEach((x, i) => cookie(x, i ? 130 : 210)); [6700, 6760, 6820].forEach(x => cookie(x, G));
+  cookie(6290, -30, 'girassol');
+  [[1060, 60], [3300, 170], [5520, 60]].forEach(([x, y]) => it.push({ type: 'gold', x, y, got: false })); // os três tubos de tinta dourados
+  it.push({ type: 'gold', x: 4150, y: 60, got: false, trail: 'argola' }); // a moldura dourada revela mais um
+  C.NOTES.forEach((n, i) => it.push({ type: 'bilhete', x: n.x, y: n.y, got: false, idx: i })); // cartas ao Theo
+  [3900, 5150, 5650].forEach(x => it.push({ type: 'choco', x, y: GROUND - 34, got: false })); // manchas de tinta preta: deixam o Timtim lento
+  it.push({ type: 'toy', id: C.TOY.id, x: C.TOY.x, y: C.TOY.y, got: false, trail: 'girassol' });
+  for (const o of it) for (const [px, py, pw] of C.plats.concat(...C.trails.map(t => t.plats))) if (o.x > px - 20 && o.x < px + pw + 20 && o.y < py && o.y > py - 50) o.y = py - 50;
+  return it;
+}
 function arraialItems() {
   const it = [], G = GROUND - 40, cookie = (x, y, trail) => it.push({ type: 'cookie', x, y, got: false, trail });
   [300, 360, 420].forEach(x => cookie(x, G)); cookie(490, 200); [780, 840, 1040, 1100].forEach(x => cookie(x, 280));
@@ -144,6 +198,8 @@ function arraialItems() {
   return it;
 }
 function makeEnemies() {
+  if (FASE === 3) return [[3100, 3000, 3340], [3800, 3600, 4100], [4400, 4300, 4650], [1750, 1520, 2380]]
+    .map(([x, a, b]) => ({ x, y: GROUND - 30, w: 38, h: 30, a, b, dir: -1, alive: true, t: Math.random() * 6, dy: 0 }));
   if (FASE === 2) return [[2050, 1760, 2340], [3720, 3540, 3900], [6460, 6330, 6560], [6790, 6700, 6900]]
     .map(([x, a, b]) => ({ x, y: GROUND - 30, w: 38, h: 30, a, b, dir: -1, alive: true, t: Math.random() * 6, dy: 0 }));
   // sem pombo no começo; o primeiro anda sozinho no trecho de aprendizado
@@ -212,9 +268,9 @@ function updateFox(dt, prevBottom, playing) {
   f.x = Math.max(ARENA_X + 10, Math.min(ARENA_X + W - 10 - f.w, f.x));
   // a Zara e o Elvis se revezam, um de cada canto: ovo cozido para o Timtim, fruta-do-lobo para distrair o lobo-guará
   if (playing && !cine) { f.egg -= dt; if (f.egg <= 0 && !S.gifts.length && !S.fruit) { f.egg = FOXC.throwEvery; f.throws++; const q = S.friends[f.throws % 2];
-    if (f.throws % 2) { S.gifts.push({ sx: q.x + q.face * 18, sy: GROUND - 58, x: q.x, y: GROUND - 58, t: 0, kind: 0, fight: true }); emit('friend', { x: q.x, y: GROUND - 70, kind: q.kind, line: 'Ovo cozido! Plana na crina dele!' }); }
+    if (f.throws % 2) { S.gifts.push({ sx: q.x + q.face * 18, sy: GROUND - 58, x: q.x, y: GROUND - 58, t: 0, kind: 0, fight: true }); emit('friend', { x: q.x, y: GROUND - 70, kind: q.kind, line: C.FOXTXT.egg }); }
     else { const tx = Math.max(ARENA_X + 160, Math.min(ARENA_X + W - 160, ARENA_X + W / 2 + (Math.random() - 0.5) * 360)), T = 2 * 650 / GRAV;
-      S.fruit = { x: q.x, y: GROUND - 58, vx: (tx - q.x) / T, vy: -650, rest: false }; emit('friend', { x: q.x, y: GROUND - 70, kind: q.kind, line: 'Ó a fruta-do-lobo, lobão!' }); }
+      S.fruit = { x: q.x, y: GROUND - 58, vx: (tx - q.x) / T, vy: -650, rest: false }; emit('friend', { x: q.x, y: GROUND - 70, kind: q.kind, line: C.FOXTXT.fruit }); }
     q.hop = 0.9; } }
   if (!playing || cine) return;
   const hb = { x: f.x + 14, y: f.y + 12, w: f.w - 28, h: f.h - 12 };
@@ -228,8 +284,8 @@ function updateFox(dt, prevBottom, playing) {
       if (f.hp <= 0) { go('flee'); S.mode = 'winning'; S.winT = 0; S.slowT = 0.6; S.fruit = null;
         S.friends.forEach((q, i) => { q.home = Math.max(ARENA_X + 60, p.x - 120 - i * 85) + (p.x < ARENA_X + 300 ? 330 : 0); q.vx = 0; });
         // as galinhas criam coragem: saem do galinheiro e correm atrás dele até a mata
-        for (let i = 0; i < 5; i++) S.runners.push({ kind: 'chaser', x: ARENA_X + 260 - i * 55, y: GROUND - 30, w: 38, h: 30, vx: 470 + i * 12, t: i * 0.7 });
-        emit('finalBlow', { x: fx, y: f.y }); emit('foxDefeated', { x: fx, y: f.y }); emit('henRevenge', { x: ARENA_X + 300, y: GROUND - 40 }); }
+        if (FASE === 2) for (let i = 0; i < 5; i++) S.runners.push({ kind: 'chaser', x: ARENA_X + 260 - i * 55, y: GROUND - 30, w: 38, h: 30, vx: 470 + i * 12, t: i * 0.7 });
+        emit('finalBlow', { x: fx, y: f.y }); emit('foxDefeated', { x: fx, y: f.y }); if (FASE === 2) emit('henRevenge', { x: ARENA_X + 300, y: GROUND - 40 }); }
     } else { // pulo comum: só bate na canela; ele dá um passo para trás e o Timtim quica
       go('dodge'); f.vy = -380; f.vx = (fx < pcx ? -1 : 1) * 280; p.vy = -600; p.shrugT = 0.45; emit('foxDodge', { x: fx, y: f.y }); }
   } else if ((f.state === 'dash' || (f.state === 'air' && f.vy > 0)) && p.mega <= 0 && !(p.shrugT > 0)) hurt(fx); // só machucam os ataques avisados: a corrida e a queda do bote
@@ -296,7 +352,9 @@ function makePlayer(x) {
 
 const SOLIDS = [];
 for (const [x, w] of C.grounds) SOLIDS.push({ x, y: GROUND, w, h: 200, oneWay: false });
-for (const [x, y, w] of C.plats) SOLIDS.push({ x, y, w, h: 18, oneWay: true });
+for (const [x, y, w, b] of C.plats) SOLIDS.push({ x, y, w, h: 18, oneWay: true, bounce: !!b });
+for (const b of C.blinks) SOLIDS.push({ x: b.x, y: b.y, w: b.w, h: 18, oneWay: true, blink: b });
+TT.blinkOn = b => (((TT.S.clock || 0) + b.ph) % b.per) < b.per * 0.62; // acesa 62% do tempo
 for (const t of C.trails) for (const [x, y, w] of t.plats) SOLIDS.push({ x, y, w, h: 18, oneWay: true, trail: t.id }); // só existem depois de farejadas
 // tábuas da quadrilha: sólidos que se movem; a posição é recalculada a cada quadro e quem está em cima vai junto
 const MOVERS = C.movers.map(m => { const s = { x: m.x, y: m.y, w: m.w, h: 18, oneWay: true, mover: m, dx: 0, dy: 0 }; SOLIDS.push(s); return s; });
@@ -309,7 +367,7 @@ function moveMovers(clock) {
 moveMovers(0);
 // fogueiras: a chama machuca quem encosta; a coluna de ar quente em cima levanta quem está planando
 const inColumn = (p, f) => Math.abs(p.x + p.w / 2 - f.x) < C.FIRE.col && p.y > C.FIRE.top;
-const solid = s => !s.trail || S.revealed[s.trail];
+const solid = s => (!s.trail || S.revealed[s.trail]) && (!s.blink || TT.blinkOn(s.blink));
 TT.SOLIDS = SOLIDS;
 const overlap = (a, b) => a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y;
 
@@ -340,7 +398,7 @@ reset();
 // para na frente dele, ri e foge para a direita (para onde a fase vai). Só então o controle é liberado.
 const STEAL = { inT: 1.0, laughT: 3.3, dur: 4.6 }; // a risada gravada dura ~2,2 s: ele fica parado rindo até ela acabar
 TT.start = () => { reset(); S.mode = 'play';
-  if (FASE === 2) { S.cine = { type: 'arraial', t: 0, dur: 3.6 }; moveMovers(0); emit('start'); emit('arraialIntro'); return; } // cartão de abertura do Arraial
+  if (FASE >= 2) { S.cine = { type: 'arraial', t: 0, dur: 3.6 }; moveMovers(0); emit('start'); emit('arraialIntro'); return; } // cartão de abertura do Arraial
   if (TT.stealSeen) { emit('start'); return; }
   TT.stealSeen = true; S.thief = { x: -260, dir: 1, state: 'run', t: 0, laughed: false };
   S.cine = { type: 'steal', t: 0, dur: STEAL.dur }; emit('start'); emit('stealIntro'); };
@@ -409,24 +467,34 @@ TT.update = (rdt) => {
   } else if (S.scent) { S.scent.fade -= dt / 1.2; if (S.scent.fade <= 0) S.scent = null; } // o rastro some devagar
   const dir = locked || sniffing ? 0 : (I.right ? 1 : 0) - (I.left ? 1 : 0);
   const target = dir * speed, accel = p.onGround ? 2600 : 1900;
-  if (p.vx < target) p.vx = Math.min(target, p.vx + accel * dt);
+  if (p.launchT > 0) { /* solto do redemoinho: mantém o impulso um instante */ }
+  else if (p.vx < target) p.vx = Math.min(target, p.vx + accel * dt);
   else if (p.vx > target) p.vx = Math.max(target, p.vx - accel * dt);
   if (dir) p.face = dir;
   // dentro de uma moita falsa
   const pcx0 = p.x + p.w / 2; S.inHedge = C.hedges.findIndex(h => pcx0 > h.x && pcx0 < h.x + h.w && p.y + p.h > GROUND - 140);
 
+  // redemoinho (fase 3): pega o Timtim no ar e gira com ele; apertar o pulo solta na direção em que ele está indo.
+  // O latido/grasnado do chefão desliga os redemoinhos (S.fireOff), como desligava o ar quente.
+  if (C.SWIRLS.length) { p.swirlCd = Math.max(0, (p.swirlCd || 0) - dt); p.launchT = Math.max(0, (p.launchT || 0) - dt);
+    if (!p.orbit && playing && !p.onGround && !(p.swirlCd > 0) && !(S.fireOff > 0)) for (let i = 0; i < C.SWIRLS.length; i++) { const s = C.SWIRLS[i], dx = p.x + p.w / 2 - s.x, dy = p.y + p.h / 2 - s.y;
+      if (dx * dx + dy * dy < (s.r * 0.8) ** 2) { p.orbit = { i, a: Math.atan2(dy, dx) }; p.gliding = false; emit('swirlIn', { x: s.x, y: s.y }); break; } }
+    if (p.orbit && ((I.jumpPressed && !locked) || S.fireOff > 0 || !playing)) { const s = C.SWIRLS[p.orbit.i], a = p.orbit.a, d = s.d || 1, sp = C.SWIRL.speed;
+      p.vx = -Math.sin(a) * d * sp; p.vy = Math.cos(a) * d * sp - 120; p.orbit = null; p.swirlCd = 0.5; p.launchT = 0.45; p.boostT = 0.6; p.dj = true; I.jumpPressed = false; p.buffer = 0;
+      if (p.vx) p.face = Math.sign(p.vx); emit('swirlOut', { x: p.x + p.w / 2, y: p.y + p.h / 2 }); } }
   p.coyote = p.onGround ? 0.1 : Math.max(0, p.coyote - dt);
   const pressedNow = !locked && I.jumpPressed;
   p.buffer = pressedNow ? 0.12 : Math.max(0, p.buffer - dt);
   I.jumpPressed = false;
   if (p.onGround) p.dj = true;
-  p.djT = Math.max(0, p.djT - dt);
+  p.djT = Math.max(0, p.djT - dt); p.boostT = Math.max(0, (p.boostT || 0) - dt);
   if (p.buffer > 0 && p.coyote > 0) { p.vy = JUMP_V; p.coyote = 0; p.buffer = 0; p.onGround = false; emit('jump', { x: p.x + p.w / 2, y: p.y + p.h }); }
   else if (pressedNow && !p.onGround && p.dj) { // pulo duplo: uma pirueta no ar
     p.dj = false; p.buffer = 0; p.vy = JUMP_V * 0.86; p.djT = 0.42; if (dir) p.vx = dir * Math.max(Math.abs(p.vx), speed * 0.8);
     emit('jump2', { x: p.x + p.w / 2, y: p.y + p.h / 2 });
   }
-  if ((locked || !I.jump) && p.vy < -300) p.vy += GRAV * 1.4 * dt; // pulo variável
+  // pulo variável (soltar o pulo corta a subida); o impulso do redemoinho e do toldo não é cortado, senão o quique morre no meio
+  if ((locked || !I.jump) && p.vy < -300 && !(p.boostT > 0)) p.vy += GRAV * 1.4 * dt;
   const hang = !p.onGround && I.jump && !locked && Math.abs(p.vy) < 130 ? 0.55 : 1; // flutua um instante no topo do pulo
   // planar (fase 2 em diante): segurando o pulo no ar, depois do topo, a bandana abre como asa-delta e a queda fica lenta;
   // em cima de uma fogueira o ar quente levanta, até o topo da coluna
@@ -451,7 +519,8 @@ TT.update = (rdt) => {
   const wasGround = p.onGround; p.onGround = false; p.on = null;
   for (const s of SOLIDS) {
     if (!solid(s) || !overlap(p, s)) continue;
-    if (s.oneWay) { if (p.vy >= 0 && prevBottom <= s.y + 2 + Math.max(0, -(s.dy || 0))) { p.y = s.y - p.h; p.vy = 0; p.onGround = true; p.on = s; } }
+    if (s.oneWay) { if (p.vy >= 0 && prevBottom <= s.y + 2 + Math.max(0, -(s.dy || 0))) { p.y = s.y - p.h; p.vy = 0; p.onGround = true; p.on = s;
+      if (s.bounce) { p.vy = -1080; p.boostT = 0.8; p.onGround = false; p.on = null; p.dj = true; emit('bounce', { x: p.x + p.w / 2, y: s.y }); } } } // toldo: cama elástica
     else if (p.vy >= 0) { p.y = s.y - p.h; p.vy = 0; p.onGround = true; }
     else { p.y = s.y + s.h; p.vy = 0; }
   }
@@ -463,6 +532,9 @@ TT.update = (rdt) => {
   S.dustT -= dt;
   if (p.onGround && Math.abs(p.vx) > 160 && S.dustT <= 0) { S.dustT = 0.06; emit('dust', { x: p.x + p.w / 2 - p.face * 14, y: p.y + p.h, dir: -p.face }); }
 
+  if (p.orbit) { const s = C.SWIRLS[p.orbit.i], d = s.d || 1, R = s.r * 0.62; p.orbit.a += d * C.SWIRL.w * dt;
+    p.x = s.x + Math.cos(p.orbit.a) * R - p.w / 2; p.y = s.y + Math.sin(p.orbit.a) * R - p.h / 2; p.vx = 0; p.vy = 0; p.onGround = false; p.gliding = false;
+    p.face = -Math.sin(p.orbit.a) * d >= 0 ? 1 : -1; }
   // buraco
   if (p.y > H + 80) {
     if (!playing) { p.y = H + 80; p.vy = 0; }
@@ -475,7 +547,7 @@ TT.update = (rdt) => {
     }
   }
 
-  if (playing && C.fires.length) {
+  if (playing && C.GLIDE) {
     // a fogueira não machuca: é nela que o Timtim pula para subir no ar quente (machucar ali só atrapalhava)
     // dicas na hora certa: o planar antes do primeiro vão, o ar quente antes da primeira fogueira
     const GT = C.GLIDE_TUT;
@@ -483,9 +555,13 @@ TT.update = (rdt) => {
     // pulou o vão sem planar: o tempo desacelera um instante e a dica volta, para dar tempo de segurar o pulo
     if (GT && !S.tut.learned && !S.tut.slowed && !p.onGround && !p.gliding && p.vy > 60 && p.x > GT.edge - 20 && p.x < GT.land - 80) { S.tut.slowed = true; S.slowT = 0.9; emit('tutorial', { kind: 'glideHold' }); }
     if (GT && !S.tut.learned && p.onGround && p.x > GT.land) { S.tut.learned = true; emit('tutorial', { kind: 'glideOk' }); }
-    if (!S.tut.fire && p.x > 3130) { S.tut.fire = true; emit('tutorial', { kind: 'fire' }); }
-    if (!S.tut.dance && p.x > 4380) { S.tut.dance = true; emit('tutorial', { kind: 'dance' }); }
-    if (C.HOOP && !S.revealed.argola && Math.hypot(p.x + p.w / 2 - C.HOOP.x, p.y + p.h / 2 - C.HOOP.y) < C.HOOP.r) { S.revealed.argola = true; emit('hoop', C.HOOP); emit('banner', { text: 'Passou pela argola: biscoito dourado!' }); }
+    if (FASE === 2 && !S.tut.fire && p.x > 3130) { S.tut.fire = true; emit('tutorial', { kind: 'fire' }); }
+    if (FASE === 2 && !S.tut.dance && p.x > 4380) { S.tut.dance = true; emit('tutorial', { kind: 'dance' }); }
+    // fase 3: as três coisas novas, cada uma na hora em que aparece pela primeira vez
+    if (FASE === 3 && !S.tut.swirl && p.x > 560) { S.tut.swirl = true; emit('tutorial', { kind: 'swirl' }); }
+    if (FASE === 3 && !S.tut.bounce && p.x > 4880) { S.tut.bounce = true; emit('tutorial', { kind: 'bounce' }); }
+    if (FASE === 3 && !S.tut.blink && p.x > 6260) { S.tut.blink = true; emit('tutorial', { kind: 'blink' }); }
+    if (C.HOOP && !S.revealed.argola && Math.hypot(p.x + p.w / 2 - C.HOOP.x, p.y + p.h / 2 - C.HOOP.y) < C.HOOP.r) { S.revealed.argola = true; emit('hoop', C.HOOP); emit('banner', { text: FASE === 3 ? 'Passou pela moldura: tubo de tinta dourado!' : 'Passou pela argola: biscoito dourado!' }); }
     // chegada: o mastro de São João (só sem chefe; no Arraial a vitória é derrotar o lobo-guará)
     if (!C.FOX && p.x + p.w / 2 > C.GOAL_X) { S.mode = 'winning'; S.winT = 0; p.gliding = false; emit('goal', { x: C.MASTRO_X });
       S.friends.forEach((f, i) => { f.home = C.MASTRO_X - 150 + i * 260; f.given = true; f.follow = 0; }); }
@@ -503,7 +579,7 @@ TT.update = (rdt) => {
       if (it.type === 'cookie') { S.cookies++; emit('cookie', it); }
       if (it.type === 'gold') { S.gold++; emit('power', it); emit('gold', it); }
       if (it.type === 'choco') { if (p.mega <= 0) { p.slow = 5; p.fast = 0; emit('choco', it); } }
-      if (it.type === 'toy') { S.toy = true; S.hitstop = 0.1; emit('toy', it); emit('banner', { text: FASE === 2 ? 'Brinquedo perdido: a Sanfoninha!' : 'Brinquedo perdido: o Patinho!' }); }
+      if (it.type === 'toy') { S.toy = true; S.hitstop = 0.1; emit('toy', it); emit('banner', { text: FASE === 3 ? 'Brinquedo perdido: o Girassol de Apito!' : FASE === 2 ? 'Brinquedo perdido: a Sanfoninha!' : 'Brinquedo perdido: o Patinho!' }); }
       if (it.type === 'bilhete') { S.notes++; emit('note', { x: it.x, y: it.y, text: C.NOTES[it.idx].text, n: S.notes, total: C.NOTES.length }); }
     }
   }
@@ -539,7 +615,7 @@ TT.update = (rdt) => {
 
   // pombos
   for (const e of S.enemies) {
-    if (!e.alive) { e.dy += GRAV * dt; e.y += e.dy * dt; continue; }
+    if (!e.alive) { if (FASE === 3) { e.y -= 300 * dt; e.x -= 180 * dt; } else { e.dy += GRAV * dt; e.y += e.dy * dt; } continue; } // corvo pisado sai voando
     e.t += dt;
     if (FASE === 2) { const d = (p.x + p.w / 2) - (e.x + e.w / 2), near = playing && Math.abs(d) < 230 && Math.abs(p.y - e.y) < 220;
       e.bolt = Math.max(0, (e.bolt || 0) - dt);
@@ -574,7 +650,7 @@ TT.update = (rdt) => {
     S.friends.forEach((f, i) => { f.home = i ? ARENA_X + W - 210 : ARENA_X + 190; f.x = i ? ARENA_X + W + 70 : ARENA_X - 70; f.given = true; f.follow = 0; f.vx = 0; });
     scatterHens(); S.fox.state = 'idle'; S.fox.vx = 0; S.fox.dir = -1; S.fox.cd = Math.max(S.fox.cd || 0, 1.6); // sem teleporte: ele continua de onde estava caçando (antes sumia e reaparecia do outro lado)
     if (!S.bossSeen) { S.bossSeen = true; S.cine = { type: 'fox', t: 0, dur: 3.2 }; emit('foxIntro'); } else emit('rematch'); }
-  if (C.FOX && !S.arena) preFight(dt);
+  if (C.FOX && C.PREFIGHT && !S.arena) preFight(dt);
   if (C.FOX) updateRunners(dt, prevBottom, playing);
   if (S.arena && C.FOX) updateFox(dt, prevBottom, playing);
 
