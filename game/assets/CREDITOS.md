@@ -15,7 +15,7 @@ Legenda da coluna **Confirmar**: ✅ origem clara no histórico · ⚠️ falta 
 
 | Arquivos | Origem | Licença / observação | Confirmar |
 |---|---|---|---|
-| Logo do jogo `logo.webp` | Enviado pelo Pedro (25/11/2026) | Do Pedro | ✅ |
+| Logo do jogo `logo.webp` (letra de pincel creme e faixa de pergaminho) | Enviado pelo Pedro (25/11/2026, segunda versão) | Do Pedro | ✅ |
 | Capa do jogo `capa.jpg` (direção de arte de Ori, 25/11/2026) | Google Flow, Nano Banana 2.1 (sem créditos), a partir da referência de cor e composição do Pedro, com os personagens corrigidos um a um pelas fichas | Gerado com IA | ✅ |
 | Cards das fases 2 e 3 `intro/fase2.jpg`, `intro/fase3.jpg` | Google Flow, Nano Banana 2.1 (sem créditos, 25/11/2026), com a ficha do Timtim e a imagem do roubo como referência | Gerado com IA; Timtim conferido com a ficha | ✅ |
 | Presentes `sprites/premio-chinela.png`, `sprites/premio-bolinha.png` | Google Flow, Nano Banana 2.1 (sem créditos, 25/11/2026); fotos de produtos enviadas pelo Pedro usadas só como referência de forma; fundo tirado em código | Gerado com IA | ✅ |
