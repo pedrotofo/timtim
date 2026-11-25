@@ -1,0 +1,227 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; font-family: "Inter", sans-serif; color: #eaeaee; }
+    #jn-palco {
+      position: absolute; inset: 0; perspective: 2000px; perspective-origin: 504px 845px;
+      --azul: #4aa8ff; --laranja: #ff9a3c; --acc: #4aa8ff;
+    }
+    #jn-cam { position: absolute; left: 126px; top: 430px; width: 756px; height: 830px; transform-style: preserve-3d; }
+    #jn-cam > * { position: absolute; }
+    #jn-moldura {
+      left: 0; top: 0; width: 756px; height: 830px; border-radius: 22px;
+      background: #16171c; border: 2px solid #26282e;
+      box-shadow: 0 60px 140px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.03) inset;
+    }
+    #jn-barra { left: 0; top: 0; width: 756px; height: 56px; display: flex; align-items: center; padding: 0 22px; gap: 10px; }
+    .jn-bola { width: 14px; height: 14px; border-radius: 50%; background: #3a3c44; }
+    #jn-endereco {
+      position: relative; margin-left: 18px; flex: 1; height: 32px; border-radius: 16px; background: #0f1013;
+      border: 1px solid #26282e; font-size: 17px; font-weight: 700; color: #8b8d96;
+    }
+    #jn-endereco span { position: absolute; left: 0; right: 0; top: 0; line-height: 30px; text-align: center; }
+    #jn-topo { left: 24px; top: 58px; width: 708px; height: 64px; display: flex; align-items: center; justify-content: space-between; }
+    #jn-titulo { font-size: 26px; font-weight: 700; letter-spacing: -0.01em; }
+    #jn-botao {
+      height: 44px; padding: 0 26px; border-radius: 22px; background: var(--acc); color: #0d0e11;
+      font-size: 21px; font-weight: 900; line-height: 44px;
+    }
+    #jn-prog { left: 24px; top: 128px; width: 708px; height: 6px; border-radius: 3px; background: #23252b; overflow: hidden; }
+    #jn-prog-fill { width: 100%; height: 100%; background: var(--acc); transform-origin: 0 50%; }
+    #jn-tela {
+      left: 20px; top: 146px; width: 716px; height: 403px; border-radius: 14px; overflow: hidden;
+      background: #000; border: 1px solid #2c2e35;
+    }
+    #jn-video { position: absolute; left: 0; top: 0; width: 716px; height: 403px; object-fit: cover; }
+    #jn-flash { position: absolute; inset: 0; background: #fff; opacity: 0; }
+    #jn-lista { left: 20px; top: 562px; width: 716px; height: 250px; }
+    .jn-linha {
+      position: absolute; left: 0; width: 716px; height: 46px; display: flex; align-items: center; gap: 14px;
+      padding: 0 10px; border-radius: 12px;
+    }
+    .jn-check {
+      position: relative; width: 30px; height: 30px; flex: none; border-radius: 50%; border: 2px solid #3a3c44;
+    }
+    .jn-check-cor { position: absolute; inset: -2px; border-radius: 50%; opacity: 0; }
+    .jn-check svg { position: absolute; left: 4px; top: 5px; width: 18px; height: 16px; }
+    .jn-check path { fill: none; stroke: #0d0e11; stroke-width: 3.4; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 30; stroke-dashoffset: 30; }
+    .jn-mini { width: 44px; height: 40px; flex: none; display: flex; align-items: flex-end; justify-content: center; }
+    .jn-mini img { max-width: 44px; max-height: 40px; }
+    .jn-mini.duo img { max-width: 30px; max-height: 32px; }
+    .jn-nome { width: 420px; flex: none; font-size: 26px; font-weight: 700; color: #8b8d96; white-space: nowrap; }
+    .jn-esq { position: relative; flex: 1; height: 10px; border-radius: 5px; background: #23252b; overflow: hidden; }
+    .jn-esq-fill { position: absolute; inset: 0; transform-origin: 0 50%; }
+    .jn-azul .jn-check-cor, .jn-azul .jn-esq-fill { background: var(--azul); }
+    .jn-laranja .jn-check-cor, .jn-laranja .jn-esq-fill { background: var(--laranja); }
+    .jn-etiqueta {
+      height: 70px; padding: 0 26px 0 12px; border-radius: 35px; display: flex; align-items: center; gap: 12px;
+      background: rgba(22, 23, 28, 0.94); border: 2px solid var(--acc);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55); font-size: 29px; font-weight: 900; white-space: nowrap; opacity: 0;
+    }
+    .jn-etiqueta img { height: 54px; }
+    .jn-esquerda { left: -4px; top: 168px; }
+    .jn-direita { right: 44px; top: 456px; }
+    #jn-onda-caixa { position: absolute; left: 504px; top: 845px; width: 0; height: 0; }
+    .jn-onda {
+      position: absolute; left: -430px; top: -430px; width: 860px; height: 860px; border-radius: 50%;
+      border: 5px solid var(--acc); opacity: 0;
+    }
+    .jn-recorte { opacity: 0; }
+    #jn-timtim { left: -60px; top: 330px; height: 300px; }
+    #jn-macaco { right: -40px; top: 360px; height: 190px; }
+    #jn-aviso {
+      position: absolute; left: 174px; top: 300px; width: 660px; height: 112px; border-radius: 24px;
+      background: rgba(22, 23, 28, 0.96); border: 2px solid #26282e; box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+      display: flex; align-items: center; gap: 20px; padding: 0 24px; opacity: 0;
+    }
+    #jn-aviso img { height: 74px; }
+    #jn-aviso-t { font-size: 30px; font-weight: 900; }
+    #jn-aviso-s { font-size: 21px; font-weight: 700; color: #8b8d96; margin-top: 4px; }
+    #jn-aviso-ok {
+      margin-left: auto; width: 46px; height: 46px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--azul), var(--laranja));
+    }
+    #jn-aviso-ok svg { width: 46px; height: 46px; }
+  </style>
+  <div id="root" data-composition-id="janela" data-width="1080" data-height="1920">
+    <div id="jn-palco">
+      <div id="jn-onda-caixa" data-layout-ignore>
+        <div class="jn-onda" id="jn-onda1"></div>
+        <div class="jn-onda" id="jn-onda2"></div>
+        <div class="jn-onda" id="jn-onda3"></div>
+        <div class="jn-onda" id="jn-onda4"></div>
+        <div class="jn-onda" id="jn-onda5"></div>
+        <div class="jn-onda" id="jn-onda6"></div>
+        <div class="jn-onda" id="jn-onda7"></div>
+      </div>
+      <div id="jn-cam" data-layout-allow-overflow>
+        <div id="jn-moldura"></div>
+        <div id="jn-barra">
+          <div class="jn-bola"></div><div class="jn-bola"></div><div class="jn-bola"></div>
+          <div id="jn-endereco"><span id="jn-end1">Timtim · Fase 1 · O Parque</span><span id="jn-end2">Timtim · Fase 2 · O Arraial</span></div>
+        </div>
+        <div id="jn-topo">
+          <div id="jn-titulo">Timtim e o Resgate do Macaco Fedido</div>
+          <div id="jn-botao">Jogar</div>
+        </div>
+        <div id="jn-prog"><div id="jn-prog-fill"></div></div>
+        <div id="jn-tela">
+          <video id="jn-video" class="clip" src="assets/tela.mp4" data-start="0" data-duration="13" data-track-index="0" muted playsinline></video>
+          <div id="jn-flash"></div>
+        </div>
+        <div id="jn-lista">
+          <div class="jn-linha jn-azul" id="jn-l1" style="top: 0px">
+            <div class="jn-check"><div class="jn-check-cor"></div><svg viewBox="0 0 18 16"><path d="M2 8.5 L7 13 L16 3" /></svg></div>
+            <div class="jn-mini"><img src="assets/img/timtim-parado.png" alt="" /></div>
+            <div class="jn-nome">Fase 1 · O Parque</div>
+            <div class="jn-esq"><div class="jn-esq-fill"></div></div>
+          </div>
+          <div class="jn-linha jn-laranja" id="jn-l2" style="top: 50px">
+            <div class="jn-check"><div class="jn-check-cor"></div><svg viewBox="0 0 18 16"><path d="M2 8.5 L7 13 L16 3" /></svg></div>
+            <div class="jn-mini"><img src="assets/img/galinha-anda.png" alt="" /></div>
+            <div class="jn-nome">Fase 2 · O Arraial</div>
+            <div class="jn-esq"><div class="jn-esq-fill"></div></div>
+          </div>
+          <div class="jn-linha jn-laranja" id="jn-l3" style="top: 100px">
+            <div class="jn-check"><div class="jn-check-cor"></div><svg viewBox="0 0 18 16"><path d="M2 8.5 L7 13 L16 3" /></svg></div>
+            <div class="jn-mini duo"><img src="assets/img/furtao-anda.png" alt="" /><img src="assets/img/guara-anda.png" alt="" /></div>
+            <div class="jn-nome">2 chefões para vencer</div>
+            <div class="jn-esq"><div class="jn-esq-fill"></div></div>
+          </div>
+          <div class="jn-linha jn-laranja" id="jn-l4" style="top: 150px">
+            <div class="jn-check"><div class="jn-check-cor"></div><svg viewBox="0 0 18 16"><path d="M2 8.5 L7 13 L16 3" /></svg></div>
+            <div class="jn-mini duo"><img src="assets/img/zara-parado.png" alt="" /><img src="assets/img/elvis-parado.png" alt="" /></div>
+            <div class="jn-nome">Amigos que dão poderes</div>
+            <div class="jn-esq"><div class="jn-esq-fill"></div></div>
+          </div>
+          <div class="jn-linha jn-laranja" id="jn-l5" style="top: 200px">
+            <div class="jn-check"><div class="jn-check-cor"></div><svg viewBox="0 0 18 16"><path d="M2 8.5 L7 13 L16 3" /></svg></div>
+            <div class="jn-mini"><img src="assets/img/timtim-fareja.png" alt="" /></div>
+            <div class="jn-nome">Celular, teclado ou controle</div>
+            <div class="jn-esq"><div class="jn-esq-fill"></div></div>
+          </div>
+        </div>
+
+        <div class="jn-etiqueta jn-esquerda" id="jn-e1"><img src="assets/img/timtim-pulo.png" alt="" />Pulo duplo</div>
+        <div class="jn-etiqueta jn-direita" id="jn-e2"><img src="assets/img/timtim-fareja.png" alt="" />Fareje segredos</div>
+        <div class="jn-etiqueta jn-esquerda" id="jn-e3"><img src="assets/img/furtao-anda.png" alt="" />Chefão: Furtão</div>
+        <div class="jn-etiqueta jn-direita" id="jn-e4"><img src="assets/img/timtim-pulo.png" alt="" />Plane no ar quente</div>
+        <div class="jn-etiqueta jn-esquerda" id="jn-e5"><img src="assets/img/galinha-anda.png" alt="" />Fuja da debandada</div>
+        <div class="jn-etiqueta jn-direita" id="jn-e6"><img src="assets/img/guara-anda.png" alt="" />Chefão: Lobo-guará</div>
+
+        <img class="jn-recorte" id="jn-timtim" src="assets/img/timtim-comemora.png" alt="" />
+        <img class="jn-recorte" id="jn-macaco" src="assets/img/macaco-alegre.png" alt="" />
+      </div>
+      <div id="jn-aviso">
+        <img src="assets/img/macaco-alegre.png" alt="" />
+        <div><div id="jn-aviso-t">Macaco resgatado</div><div id="jn-aviso-s">Fase 1 concluída · Furtão vencido</div></div>
+        <div id="jn-aviso-ok"><svg viewBox="0 0 46 46"><path d="M14 24 L20 30 L32 16" fill="none" stroke="#0d0e11" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+      </div>
+    </div>
+  </div>
+  <script>
+    (() => {
+      const tl = gsap.timeline({ paused: true });
+      const AZUL = "#4aa8ff", LARANJA = "#ff9a3c";
+
+      // ── Câmera: chega inclinada de longe, endireita, inclina na fase 2, gira para o lado no fim
+      tl.fromTo("#jn-cam", { rotationX: 42, rotationY: -32, z: -900, y: 180 }, { rotationX: 0, rotationY: 0, z: 0, y: 0, duration: 1.6, ease: "power3.out" }, 0);
+      tl.to("#jn-cam", { rotationY: -4, rotationX: 1.5, duration: 2.8, ease: "sine.inOut" }, 1.6);
+      tl.to("#jn-cam", { rotationY: 7, rotationX: 4, z: 30, duration: 1.0, ease: "power2.inOut" }, 4.6);
+      tl.to("#jn-cam", { rotationY: 3, rotationX: 2, duration: 2.0, ease: "sine.inOut" }, 5.6);
+      tl.to("#jn-cam", { rotationY: -8, rotationX: 5, z: 60, y: -30, duration: 0.9, ease: "power2.inOut" }, 7.6);
+      tl.to("#jn-cam", { rotationY: -5, duration: 2.1, ease: "sine.inOut" }, 8.5);
+      tl.to("#jn-cam", { rotationY: 26, rotationX: 7, z: -120, x: -30, y: -250, scale: 0.7, duration: 1.0, ease: "power3.inOut" }, 10.6);
+      tl.to("#jn-cam", { rotationY: 20, duration: 1.4, ease: "sine.inOut" }, 11.6);
+
+      // ── A janela se monta, peça por peça, vindo de profundidades diferentes
+      tl.fromTo("#jn-moldura", { opacity: 0, scaleY: 0.15, z: -300 }, { opacity: 1, scaleY: 1, z: 0, duration: 0.6, ease: "power3.out" }, 0.05);
+      tl.fromTo("#jn-barra", { opacity: 0, y: -140, rotationX: 80 }, { opacity: 1, y: 0, rotationX: 0, duration: 0.5, ease: "back.out(1.6)" }, 0.3);
+      tl.fromTo("#jn-topo", { opacity: 0, x: -220, rotationY: -55 }, { opacity: 1, x: 0, rotationY: 0, duration: 0.5, ease: "power3.out" }, 0.45);
+      tl.fromTo("#jn-prog", { opacity: 0, scaleX: 0 }, { opacity: 1, scaleX: 1, duration: 0.4, ease: "power2.out" }, 0.6);
+      tl.fromTo("#jn-tela", { opacity: 0, z: 800, rotationX: -28 }, { opacity: 1, z: 0, rotationX: 0, duration: 0.75, ease: "power3.out" }, 0.4);
+      tl.fromTo("#jn-lista .jn-linha", { opacity: 0, y: 70, rotationX: -75 }, { opacity: 1, y: 0, rotationX: 0, duration: 0.45, stagger: 0.07, ease: "back.out(1.4)" }, 0.8);
+      tl.fromTo("#jn-prog-fill", { scaleX: 0 }, { scaleX: 1, duration: 12.4, ease: "none" }, 0.6);
+
+      // ── Cor do destaque: azul na fase 1, laranja na fase 2
+      tl.to("#jn-palco", { "--acc": LARANJA, duration: 0.3 }, 4.6);
+      tl.fromTo("#jn-end1", { opacity: 1 }, { opacity: 0, duration: 0.25 }, 4.6);
+      tl.fromTo("#jn-end2", { opacity: 0 }, { opacity: 1, duration: 0.25 }, 4.6);
+
+      // ── Cortes dentro da tela: clarão curto
+      [1.8, 2.75, 3.65, 4.6, 5.6, 6.6, 7.6, 9.1, 10.6].forEach(t => {
+        tl.fromTo("#jn-flash", { opacity: 0.38 }, { opacity: 0, duration: 0.22, ease: "power2.out", immediateRender: false }, t);
+      });
+
+      // ── Ondas que saem da janela até as bordas, a cada troca de cena e a cada ✓
+      [[1, 1.8, AZUL], [2, 4.6, LARANJA], [3, 7.6, LARANJA], [4, 8.35, LARANJA], [5, 9.05, LARANJA], [6, 9.75, LARANJA], [7, 10.6, LARANJA]].forEach(([i, t, c]) => {
+        tl.fromTo("#jn-onda" + i, { scale: 0.35, opacity: 0.85, borderColor: c }, { scale: 2.6, opacity: 0, duration: 0.9, ease: "power2.out", immediateRender: false }, t);
+      });
+
+      // ── Lista: cada linha ganha ✓ na hora certa
+      const marca = (id, t) => {
+        tl.fromTo(id + " .jn-check-cor", { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2.4)" }, t);
+        tl.fromTo(id + " path", { strokeDashoffset: 30 }, { strokeDashoffset: 0, duration: 0.25, ease: "power2.out" }, t + 0.08);
+        tl.fromTo(id + " .jn-esq-fill", { scaleX: 0 }, { scaleX: 1, duration: 0.4, ease: "power2.out" }, t);
+        tl.fromTo(id + " .jn-nome", { color: "#8b8d96" }, { color: "#eaeaee", duration: 0.2 }, t);
+        tl.fromTo(id, { backgroundColor: "rgba(255,255,255,0.09)" }, { backgroundColor: "rgba(255,255,255,0)", duration: 0.6, immediateRender: false }, t);
+      };
+      marca("#jn-l1", 4.6); marca("#jn-l2", 7.6); marca("#jn-l3", 8.35); marca("#jn-l4", 9.05); marca("#jn-l5", 9.75);
+
+      // ── Etiquetas que saltam da janela em 3D
+      const etiqueta = (id, t0, t1, lado) => {
+        tl.fromTo(id, { opacity: 0, z: 0, scale: 0.6, rotationY: lado * 40 }, { opacity: 1, z: 160, scale: 1, rotationY: 0, duration: 0.35, ease: "back.out(1.8)" }, t0);
+        tl.to(id, { opacity: 0, z: 260, duration: 0.18, ease: "power2.in" }, t1 - 0.18);
+      };
+      etiqueta("#jn-e1", 1.95, 2.75, -1); etiqueta("#jn-e2", 2.85, 3.65, 1); etiqueta("#jn-e3", 3.75, 4.6, -1);
+      etiqueta("#jn-e4", 4.75, 5.6, 1); etiqueta("#jn-e5", 5.7, 6.6, -1); etiqueta("#jn-e6", 6.7, 7.6, 1);
+
+      // ── Fechamento: Timtim e o macaco saem da janela, e a notificação desce
+      tl.fromTo("#jn-timtim", { opacity: 0, z: 0, y: 80, rotationY: -30 }, { opacity: 1, z: 260, y: 0, rotationY: -26, duration: 0.6, ease: "back.out(1.6)" }, 11.0);
+      tl.fromTo("#jn-macaco", { opacity: 0, z: 0, y: 80, rotation: -20 }, { opacity: 1, z: 200, y: -30, rotation: 8, duration: 0.6, ease: "back.out(1.8)" }, 11.15);
+      tl.to("#jn-macaco", { y: -50, rotation: -4, duration: 0.6, ease: "sine.inOut", yoyo: true, repeat: 1 }, 11.75);
+      tl.fromTo("#jn-aviso", { opacity: 0, y: -160, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.55, ease: "back.out(1.5)" }, 10.85);
+
+      window.__timelines["janela"] = tl;
+    })();
+  </script>
+</template>

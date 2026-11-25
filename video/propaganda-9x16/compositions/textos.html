@@ -1,0 +1,63 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; font-family: "Inter", sans-serif; color: #eaeaee; }
+    .tx-frase {
+      position: absolute; left: 120px; top: 296px; width: 768px; text-align: center;
+      font-size: 60px; font-weight: 900; letter-spacing: -0.025em; line-height: 1.05;
+    }
+    .tx-frase span { display: inline-block; margin: 0 0.12em; }
+    .tx-azul { color: #4aa8ff; }
+    .tx-laranja { color: #ff9a3c; }
+    #tx-titulo {
+      position: absolute; left: 120px; top: 968px; width: 768px; text-align: center;
+      font-size: 66px; font-weight: 900; letter-spacing: -0.03em; line-height: 1.02;
+    }
+    #tx-titulo .tx-linha { display: block; }
+    #tx-titulo .tx-grad {
+      background: linear-gradient(90deg, #4aa8ff, #ff9a3c); -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    #tx-cta {
+      position: absolute; left: 309px; top: 1150px; width: 390px; height: 88px; border-radius: 44px;
+      background: linear-gradient(90deg, #4aa8ff, #ff9a3c); color: #0d0e11; text-align: center;
+      font-size: 40px; font-weight: 900; line-height: 88px; letter-spacing: -0.01em;
+      box-shadow: 0 20px 60px rgba(255, 154, 60, 0.35);
+    }
+  </style>
+  <div id="root" data-composition-id="textos" data-width="1080" data-height="1920">
+    <div class="tx-frase clip" id="tx-f1" data-start="0" data-duration="1.8" data-track-index="0">
+      <span>Roubaram</span><span>o</span><span class="tx-azul">Macaco</span><span class="tx-azul">Fedido.</span>
+    </div>
+    <div class="tx-frase clip" id="tx-f2" data-start="1.8" data-duration="2.8" data-track-index="0">
+      <span>Fase</span><span>1:</span><span class="tx-azul">o</span><span class="tx-azul">Parque.</span>
+    </div>
+    <div class="tx-frase clip" id="tx-f3" data-start="4.6" data-duration="3" data-track-index="0">
+      <span>Fase</span><span>2:</span><span class="tx-laranja">o</span><span class="tx-laranja">Arraial.</span>
+    </div>
+    <div class="tx-frase clip" id="tx-f4" data-start="7.6" data-duration="3" data-track-index="0">
+      <span>Tudo</span><span>numa</span><span class="tx-laranja">aventura</span><span class="tx-laranja">só.</span>
+    </div>
+    <div id="tx-titulo" class="clip" data-start="10.6" data-duration="2.4" data-track-index="0">
+      <span class="tx-linha"><span class="tx-p">Timtim</span> <span class="tx-p">e</span> <span class="tx-p">o</span> <span class="tx-p">Resgate</span></span>
+      <span class="tx-linha"><span class="tx-p tx-grad">do Macaco Fedido</span></span>
+    </div>
+    <div id="tx-cta" class="clip" data-start="10.6" data-duration="2.4" data-track-index="1">Jogue agora</div>
+  </div>
+  <script>
+    (() => {
+      const tl = gsap.timeline({ paused: true });
+      // primeira frase já está na tela no quadro 0 (é a capa do vídeo); só assenta
+      tl.fromTo("#tx-f1 span", { y: 22, opacity: 1 }, { y: 0, duration: 0.8, stagger: 0.04, ease: "power3.out" }, 0);
+      tl.to("#tx-f1 span", { opacity: 0, y: -30, duration: 0.15, stagger: 0.02, ease: "power2.in" }, 1.6);
+      // as outras entram palavra por palavra, do desfoque para o nítido
+      [["#tx-f2", 1.8, 4.6], ["#tx-f3", 4.6, 7.6], ["#tx-f4", 7.6, 10.6]].forEach(([id, t0, t1]) => {
+        tl.fromTo(id + " span", { opacity: 0, y: 50, filter: "blur(12px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.4, stagger: 0.06, ease: "power3.out" }, t0 + 0.02);
+        tl.to(id + " span", { opacity: 0, y: -30, duration: 0.15, stagger: 0.02, ease: "power2.in" }, t1 - 0.22);
+      });
+      // fechamento: nome do jogo e a chamada
+      tl.fromTo("#tx-titulo .tx-p", { opacity: 0, y: 60, filter: "blur(14px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.5, stagger: 0.05, ease: "power3.out" }, 10.62);
+      tl.fromTo("#tx-cta", { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(2)" }, 10.95);
+      tl.to("#tx-cta", { scale: 1.06, duration: 0.35, ease: "sine.inOut", yoyo: true, repeat: 3 }, 11.5);
+      window.__timelines["textos"] = tl;
+    })();
+  </script>
+</template>

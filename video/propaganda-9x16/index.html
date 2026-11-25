@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <style>
+      :root {
+        --ground: #0d0e11;
+        --azul: #4aa8ff;
+        --laranja: #ff9a3c;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body {
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: var(--ground);
+      }
+      #root { position: absolute; inset: 0; background: var(--ground); overflow: hidden; }
+      /* o próprio jogo, desfocado, por trás de tudo (o desfoque já vem pronto no arquivo) */
+      #fundo-video {
+        position: absolute; left: -90px; top: -160px; width: 1260px; height: 2240px;
+        object-fit: cover; opacity: 0.62;
+      }
+      #fundo-escuro {
+        position: absolute; inset: 0;
+        background:
+          radial-gradient(ellipse 70% 45% at 50% 46%, rgba(13, 14, 17, 0.15), rgba(13, 14, 17, 0.82) 100%),
+          linear-gradient(180deg, rgba(13, 14, 17, 0.55), rgba(13, 14, 17, 0.2) 40%, rgba(13, 14, 17, 0.75));
+      }
+      #fundo-pontos {
+        position: absolute; inset: 0;
+        background-image: radial-gradient(rgba(255, 255, 255, 0.07) 2px, transparent 2.4px);
+        background-size: 36px 36px;
+      }
+      #fundo-brilho {
+        position: absolute; left: 90px; top: 520px; width: 900px; height: 900px; border-radius: 50%;
+        background: radial-gradient(circle, var(--azul) 0%, transparent 65%);
+        opacity: 0.16;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="13"
+      data-width="1080"
+      data-height="1920"
+    >
+      <video
+        id="fundo-video"
+        class="clip"
+        src="assets/fundo.mp4"
+        data-start="0"
+        data-duration="13"
+        data-track-index="0"
+        muted
+        playsinline
+      ></video>
+      <div id="fundo-escuro"></div>
+      <div id="fundo-brilho"></div>
+      <div id="fundo-pontos"></div>
+
+      <div
+        id="janela"
+        data-composition-id="janela"
+        data-composition-src="compositions/janela.html"
+        data-start="0"
+        data-duration="13"
+        data-track-index="1"
+        data-track-kind="graphics"
+        data-width="1080"
+        data-height="1920"
+      ></div>
+
+      <div
+        id="textos"
+        data-composition-id="textos"
+        data-composition-src="compositions/textos.html"
+        data-start="0"
+        data-duration="13"
+        data-track-index="2"
+        data-track-kind="graphics"
+        data-width="1080"
+        data-height="1920"
+      ></div>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      // brilho atrás da janela: azul na fase 1, laranja na fase 2, e as duas cores juntas no fim
+      tl.fromTo("#fundo-brilho", { scale: 0.6, opacity: 0 }, { scale: 1, opacity: 0.16, duration: 1.4, ease: "power2.out" }, 0);
+      tl.to("#fundo-brilho", { background: "radial-gradient(circle, #ff9a3c 0%, transparent 65%)", duration: 0.35 }, 4.6);
+      tl.to("#fundo-brilho", { opacity: 0.24, duration: 0.6 }, 10.6);
+      // o fundo desliza ao contrário da câmera
+      tl.fromTo("#fundo-video", { x: 40, y: 30 }, { x: -50, y: -20, duration: 13, ease: "none" }, 0);
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>
