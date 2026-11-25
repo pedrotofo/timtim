@@ -2,7 +2,7 @@
 # Uso: python3 game/tools/conserta-olho-comemora.py <entrada.webp> <saida.png> [escala=0.74]  (precisa de opencv-python-headless)
 import cv2, numpy as np, json, sys
 A='/home/user/timtim/game/assets/anim/'
-SRC=sys.argv[1]; OUT=sys.argv[2]; K=float(sys.argv[3]) if len(sys.argv)>3 else 0.6
+SRC=sys.argv[1]; OUT=sys.argv[2]; K=float(sys.argv[3]) if len(sys.argv)>3 else 0.74
 m=json.load(open(A+'timtim-comemora.json')); im=cv2.imread(SRC, cv2.IMREAD_UNCHANGED)
 fw=im.shape[1]//m['cols']; res=im.copy(); log=[]
 for i in range(m['n']):
