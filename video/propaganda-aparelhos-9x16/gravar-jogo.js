@@ -17,15 +17,16 @@ const which = process.argv[2], OUT = __dirname + '/clips';
   const rec = async (name, n, each) => { const d = `${OUT}/${name}`; fs.rmSync(d, { recursive: true, force: true }); fs.mkdirSync(d, { recursive: true }); const t0 = Date.now();
     for (let f = 0; f < n; f++) { if (each) await each(f); await keep(); await pg.clock.runFor(1000 / 30); await pg.screenshot({ path: `${d}/${String(f).padStart(3, '0')}.jpg`, quality: 92 }); }
     console.log(name, n, 'quadros', ((Date.now() - t0) / 1000).toFixed(0) + 's'); };
-  await pg.goto('http://localhost:8765/?q=2' + (which === 'f2' ? '#fase2' : ''));
+  await pg.goto('http://localhost:8765/?q=2' + (which.startsWith('f2') ? '#fase2' : ''));
   await ff(() => window.__tintim && __tintim.R.ready && __tintim.state === 'title');
   // só para a gravação: sem faixas de dica, sem tela de vitória e sem pular sozinho para a fase seguinte
-  await ev(() => { const st = document.createElement('style'); st.textContent = '#banner,#win{display:none!important}'; document.head.appendChild(st); document.getElementById('btnNext').onclick = () => {}; });
+  await ev(() => { const st = document.createElement('style'); st.textContent = '#banner,#win,#iris{display:none!important}'; document.head.appendChild(st); document.getElementById('btnNext').onclick = () => {}; });
   { const now = await ev(() => Date.now()); await pg.clock.pauseAt(new Date(now + 200)); }
   await pg.clock.runFor(600); await pg.click('#btnStart');
-  if (which === 'f1') {
+  if (which.startsWith('f1')) {
     for (let s = 0; s < 3; s++) { await pg.clock.runFor(900); await pg.mouse.click(640, 360); }
     await ff(() => __tintim.state === 'play' && !!__tintim.S.thief && __tintim.S.cine);
+    if (which === 'f1r') { await ff(() => !__tintim.S.cine && !__tintim.S.thief); } else {
     // tomada 1: o roubo e a corrida atrás do Furtão, com pulo duplo
     let free = -1, jumps = 0;
     await rec('parque', 210, async f => {
@@ -36,6 +37,7 @@ const which = process.argv[2], OUT = __dirname + '/clips';
         if (t === 30 || t === 78) await k.down('Space'); if (t === 38 || t === 86) await k.up('Space'); }
     });
     await k.up('ArrowRight'); await k.up('Space');
+    }
     // tomada 3: o último golpe no Furtão e a comemoração com o macaco
     await ev(() => { const p = __tintim.player; p.x = 9400; p.y = 300; });
     await k.down('ArrowRight'); await ff(() => __tintim.S.cine && __tintim.S.cine.type === 'boss'); await k.up('ArrowRight');
@@ -48,16 +50,22 @@ const which = process.argv[2], OUT = __dirname + '/clips';
     // tomada 2: corre, plana sobre o primeiro vão, corre, plana sobre o segundo
     await ev(() => { Object.assign(__tintim.player, { x: 820, y: 300, vx: 0, vy: 0 }); });
     await ff(() => __tintim.player.onGround); await pg.clock.runFor(500);
-    let holding = false, left = false;
+    // vão da aula do planar: 1150–1670. Pula bem na beirada, plana até o outro lado e segue correndo;
+    // na debandada (x = 1840) pula por cima das galinhas e para antes do segundo vão (2370).
+    let fase = 0, solta = -1;
     await rec('arraial', 210, async f => {
-      const st = await ev(() => ({ x: __tintim.player.x, g: __tintim.player.onGround }));
+      const st = await ev(() => { const p = __tintim.player; return { x: p.x, g: p.onGround, perto: __tintim.S.runners.some(r => r.kind === 'run' && r.x - (p.x + p.w) < 120 && r.x + r.w > p.x - 10) }; });
       if (f === 0) await k.down('ArrowRight');
-      const edge = (st.x > 1085 && st.x < 1200) || (st.x > 2300 && st.x < 2420);
-      if (!holding && st.g && edge) { await k.down('Space'); holding = true; left = false; }
-      if (holding && !st.g) left = true;
-      if (holding && left && st.g) { await k.up('Space'); holding = false; }
+      if (fase === 0 && st.g && st.x > 1098) { await k.down('Space'); fase = 1; }
+      else if (fase === 1 && st.g && st.x > 1600) { await k.up('Space'); fase = 2; }
+      else if (fase === 2) {
+        if (solta < 0 && st.g && st.perto) { await k.down('Space'); solta = f + 9; }
+        if (solta >= 0 && f >= solta) { await k.up('Space'); solta = -1; }
+        if (st.x > 2280) { await k.up('ArrowRight'); }
+      }
     });
     await k.up('ArrowRight'); await k.up('Space');
+    if (which === 'f2a') { await b.close(); return; }
     // tomada 4 (fundo): a luta com o lobo-guará
     const AX = await ev(() => TT.C.ARENA_X);
     await ev(x => { Object.assign(__tintim.player, { x: x - 300, y: 300, vx: 0, vy: 0 }); }, AX);

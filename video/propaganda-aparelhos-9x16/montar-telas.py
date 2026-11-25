@@ -7,8 +7,8 @@ def pasta(nome, alt):
     return p if len(glob.glob(p + '/*.jpg')) >= 120 else os.path.join(ALT, alt)
 ff = lambda *a: subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', *a], check=True)
 enc = ['-c:v', 'libx264', '-crf', '19', '-pix_fmt', 'yuv420p', '-g', '15', '-movflags', '+faststart']
-for n, (nome, alt) in enumerate([('parque', 'corre'), ('arraial', 'planar'), ('resgate', 'vitoria')], 1):
-    ff('-framerate', '30', '-i', pasta(nome, alt) + '/%03d.jpg', '-vf', 'scale=1344:756:flags=lanczos', *enc, os.path.join(OUT, f'tela{n}.mp4'))
+for n, (nome, alt, ini) in enumerate([('parque', 'corre', 35), ('arraial', 'planar', 0), ('resgate', 'vitoria', 0)], 1):
+    ff('-framerate', '30', '-start_number', str(ini), '-i', pasta(nome, alt) + '/%03d.jpg', '-vf', 'scale=1344:756:flags=lanczos', *enc, os.path.join(OUT, f'tela{n}.mp4'))
 # fundo: vai e volta (sem salto no laço), 18 s, desfocado e mais saturado
 lobo = pasta('lobo', 'lobo-luta')
 ff('-framerate', '30', '-i', lobo + '/%03d.jpg', '-filter_complex',
