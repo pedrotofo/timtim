@@ -21,13 +21,13 @@ const loadV = src => { if (still) return null; const v = document.createElement(
 const SCENES = [
   // Cards de ação (25/11/2026, Google Flow no acabamento da capa, uma cor por fase; trio conferido com as fichas). Imagens 1376 × 768.
   // fase 1 · O Parque (azul): o Furtão foge com o Macaco Fedido e a turma corre atrás; o pergaminho fica à esquerda, o Furtão à direita
-  { img: load('assets/intro/2-roubo.jpg'), vid: loadV('assets/intro/2-roubo.mp4'), iw: 1376, ih: 768, dur: 8.4, zoom: [1.0, 1.04], at: [688, 768], scroll: [40, 612, 760, 742], sky: 560,
+  { img: load('assets/intro/2-roubo.jpg'), vid: loadV('assets/intro/2-roubo.mp4'), iw: 1376, ih: 768, dur: 8.4, zoom: [1.065, 1.085], at: [1000, 0], scroll: [40, 612, 760, 742], sky: 560,
     wind: [], glow: [], flies: 12, leaves: 4, windX: 50 },
   // fase 2 · O Arraial (laranja): a turma procura o culpado, as galinhas fogem e o lobo-guará espia da barraca
-  { img: load('assets/intro/fase2.jpg'), vid: loadV('assets/intro/fase2.mp4'), iw: 1376, ih: 768, dur: 7.4, zoom: [1.0, 1.04], at: [688, 768], scroll: [40, 588, 1340, 736], sky: 540,
+  { img: load('assets/intro/fase2.jpg'), vid: loadV('assets/intro/fase2.mp4'), iw: 1376, ih: 768, dur: 7.4, zoom: [1.115, 1.14], at: [0, 0], scroll: [40, 588, 1340, 736], sky: 540,
     wind: [], glow: [], flies: 16, leaves: 0, windX: 40, rise: 1 },
   // fase 3 · O Quadro Encantado (azul e amarelo): o corvo foge com o pincel do Van Gogh e a turma dispara pelo trigal
-  { img: load('assets/intro/fase3.jpg'), vid: loadV('assets/intro/fase3.mp4'), iw: 1376, ih: 768, dur: 7.0, zoom: [1.04, 1.0], at: [688, 768], scroll: [40, 645, 1345, 748], sky: 560,
+  { img: load('assets/intro/fase3.jpg'), vid: loadV('assets/intro/fase3.mp4'), iw: 1376, ih: 768, dur: 7.0, zoom: [1.05, 1.015], at: [688, 0], scroll: [40, 645, 1345, 748], sky: 560,
     wind: [], glow: [], flies: 8, leaves: 0, windX: 20 },
 ];
 SCENES.forEach(s => { s.windX = s.windX || 25; s.text = ''; s.iw = s.iw || IW; s.ih = s.ih || IH; });
@@ -66,44 +66,44 @@ function wrap(text, maxW) {
   for (const w of words) { const t = cur ? cur + ' ' + w : w; if (ctx.measureText(t).width > maxW && cur) { lines.push(cur); cur = w; } else cur = t; }
   if (cur) lines.push(cur); return lines;
 }
-function writeScroll(s, t) {
+// O pergaminho e a frase são desenhados pelo jogo, iguais nos três cards (25/11/2026): mesmo lugar, mesmo tamanho,
+// mesma letra. Cada imagem veio com um pergaminho pintado de um jeito; ele fica escondido atrás deste (a imagem é
+// aproximada e presa no topo em cada cena, ver "zoom" e "at" em SCENES).
+const PERG = load('assets/intro/pergaminho.jpg');
+const BAN = { x: 30, y: 752, w: W - 60, h: 128, r: 34 }, TXT = 44; // em pixels do canvas (1600 × 900)
+function drawBanner(alpha) {
+  ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = alpha;
+  // faixa escura embaixo de tudo: o que sobra do pergaminho pintado em volta some nela
+  const g = ctx.createLinearGradient(0, BAN.y - 40, 0, H); g.addColorStop(0, 'rgba(6,10,24,0)'); g.addColorStop(0.3, 'rgba(6,10,24,.92)'); g.addColorStop(1, 'rgba(6,10,24,1)');
+  ctx.fillStyle = g; ctx.fillRect(0, BAN.y - 40, W, H - BAN.y + 40);
+  ctx.beginPath(); ctx.roundRect(BAN.x, BAN.y, BAN.w, BAN.h, BAN.r);
+  ctx.shadowColor = 'rgba(0,0,0,.55)'; ctx.shadowBlur = 18; ctx.shadowOffsetY = 4; ctx.fillStyle = '#e8c48c'; ctx.fill(); ctx.shadowColor = 'transparent';
+  ctx.save(); ctx.clip(); if (PERG.complete && PERG.naturalWidth) ctx.drawImage(PERG, BAN.x, BAN.y, BAN.w, BAN.h);
+  const e = ctx.createLinearGradient(0, BAN.y, 0, BAN.y + BAN.h); e.addColorStop(0, 'rgba(120,70,20,.22)'); e.addColorStop(0.18, 'rgba(120,70,20,0)'); e.addColorStop(0.82, 'rgba(120,70,20,0)'); e.addColorStop(1, 'rgba(120,70,20,.28)');
+  ctx.fillStyle = e; ctx.fillRect(BAN.x, BAN.y, BAN.w, BAN.h); ctx.restore();
+  ctx.lineWidth = 2; ctx.strokeStyle = 'rgba(110,62,22,.55)'; ctx.stroke();
+  ctx.restore();
+}
+function writeScroll(s, t, alpha) {
   if (!s.text) return;
-  const [x0, y0, x1, y1] = s.scroll, maxW = (x1 - x0) * 0.9;
-  let size = 58, lines;
-  do { ctx.font = `${size}px ${FONT}`; lines = wrap(s.text, maxW); size -= 2; } while ((lines.length * size * 1.3 > (y1 - y0) * 0.86 || lines.length > 2) && size > 30);
-  size += 2; ctx.font = `${size}px ${FONT}`;
+  ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = alpha;
+  const maxW = BAN.w * 0.9; ctx.font = `${TXT}px ${FONT}`;
+  let lines = wrap(s.text, maxW);
   // duas linhas: divide a frase ao meio, para não sobrar uma palavra sozinha embaixo
-  if (lines.length === 2) { const even = wrap(s.text, Math.min(maxW, ctx.measureText(s.text).width / 2 + size * 1.5)); if (even.length === 2) lines = even; }
-  const lh = size * 1.28, cx = (x0 + x1) / 2, top = (y0 + y1) / 2 - (lines.length - 1) * lh / 2;
+  if (lines.length === 2) { const even = wrap(s.text, Math.min(maxW, ctx.measureText(s.text).width / 2 + TXT * 1.5)); if (even.length === 2) lines = even; }
+  const lh = TXT * 1.28, cx = BAN.x + BAN.w / 2, top = BAN.y + BAN.h / 2 - (lines.length - 1) * lh / 2;
   // revelação: as palavras surgem ao longo da primeira metade da cena, cada uma num esmaecer rápido
   const total = s.text.split(' ').length, shown = still ? total : Math.max(0, (t - 0.3) / (s.dur * 0.5)) * total;
-  ctx.textAlign = 'left'; ctx.textBaseline = 'middle'; let k = 0; const base = ctx.globalAlpha;
+  ctx.textAlign = 'left'; ctx.textBaseline = 'middle'; let k = 0;
   lines.forEach((ln, i) => {
     let x = cx - ctx.measureText(ln).width / 2; const y = top + i * lh;
     for (const w of ln.split(' ')) {
       const a = Math.max(0, Math.min(1, shown - k)); k++;
-      if (a > 0) { ctx.globalAlpha = a * base; ctx.fillStyle = 'rgba(255,240,200,.55)'; ctx.fillText(w, x + 1.5, y + 2); ctx.fillStyle = '#4a2410'; ctx.fillText(w, x, y + (1 - a) * 8); }
+      if (a > 0) { ctx.globalAlpha = a * alpha; ctx.fillStyle = 'rgba(255,240,200,.55)'; ctx.fillText(w, x + 1.5, y + 2); ctx.fillStyle = '#4a2410'; ctx.fillText(w, x, y + (1 - a) * 8); }
       x += ctx.measureText(w + ' ').width;
     }
   });
-  ctx.globalAlpha = base;
-}
-
-// faixa de baixo da imagem (o pergaminho), com a borda de cima esfumada, para colar por cima do vídeo sem emenda
-const SOFT = 26;
-function scrollStrip(s) {
-  if (s.strip) return s.strip;
-  const x0 = Math.max(0, s.scroll[0] - 40 - SOFT), x1 = Math.min(s.iw, s.scroll[2] + 40 + SOFT), y0 = s.scroll[1] - SOFT;
-  const c = document.createElement('canvas'), x = c.getContext('2d'); c.width = x1 - x0; c.height = s.ih - y0;
-  x.drawImage(s.img, -x0, -y0); x.globalCompositeOperation = 'destination-in';
-  const g = x.createLinearGradient(0, 0, 0, SOFT); g.addColorStop(0, 'rgba(0,0,0,0)'); g.addColorStop(1, 'rgba(0,0,0,1)');
-  x.fillStyle = g; x.fillRect(0, 0, c.width, SOFT); x.fillStyle = '#000'; x.fillRect(0, SOFT, c.width, c.height);
-  // bordas dos lados esfumadas (onde a faixa não chega na borda da imagem)
-  const lado = (from, to) => { const h = x.createLinearGradient(from, 0, to, 0); h.addColorStop(0, 'rgba(0,0,0,0)'); h.addColorStop(1, 'rgba(0,0,0,1)'); return h; };
-  if (x0 > 0) { x.fillStyle = lado(0, SOFT); x.fillRect(0, 0, SOFT, c.height); }
-  if (x1 < s.iw) { x.fillStyle = lado(c.width, c.width - SOFT); x.fillRect(c.width - SOFT, 0, SOFT, c.height); }
-  s.stripX = x0;
-  return (s.strip = c);
+  ctx.restore();
 }
 
 function makeParts(s) {
@@ -123,7 +123,7 @@ function drawScene(s, t, alpha, outgoing) {
   tx = Math.min(0, Math.max(W - IW * sc, tx)); ty = Math.min(0, Math.max(H - IH * sc, ty));
   ctx.setTransform(sc, 0, 0, sc, tx, ty);
   const v = s.vid;
-  if (v && v.readyState >= 2) { ctx.drawImage(v, 0, 0, IW, IH); const st = scrollStrip(s); ctx.drawImage(st, s.stripX, s.scroll[1] - SOFT); } // vídeo + o pergaminho parado da imagem
+  if (v && v.readyState >= 2) ctx.drawImage(v, 0, 0, IW, IH); // o vídeo no lugar da imagem (o pergaminho padrão vai por cima, em frame())
   else ctx.drawImage(img, 0, 0);
   if (!still) for (const w of s.wind) windPatch(img, w, t);
   ctx.globalCompositeOperation = 'lighter';
@@ -151,7 +151,6 @@ function drawScene(s, t, alpha, outgoing) {
     ctx.save(); ctx.translate(x, y); ctx.rotate(t * 3 * p.sp + p.ph); ctx.scale(1, 0.45 + 0.4 * Math.sin(t * 5 + p.ph));
     ctx.fillStyle = 'rgba(30,70,50,.85)'; ctx.beginPath(); ctx.ellipse(0, 0, p.sz, p.sz * 0.5, 0, 0, 7); ctx.fill(); ctx.restore();
   }
-  if (!outgoing) writeScroll(s, t); // a frase do quadro que está saindo some na hora; o pergaminho novo cobre o antigo
   ctx.restore();
 }
 
@@ -162,6 +161,8 @@ function frame(now) {
   ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.fillStyle = '#060a18'; ctx.fillRect(0, 0, W, H);
   if (prev >= 0 && t < FADE) drawScene(SCENES[prev], (now - tp0) / 1000, 1, true);
   if (cur >= 0) drawScene(SCENES[cur], t, Math.min(1, t / FADE));
+  // o pergaminho padrão e a frase do quadro atual, por cima de tudo (iguais nos três cards)
+  if (cur >= 0) { const a = prev >= 0 ? 1 : Math.min(1, t / FADE); drawBanner(a); writeScroll(SCENES[cur], t, a); }
 }
 TT.intro = {
   durations: SCENES.map(s => s.dur),
