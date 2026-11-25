@@ -3,16 +3,19 @@
 (() => {
 'use strict';
 const TT = window.TT;
-let ctx = null, master, musicBus, trackBus, sfxBus, noiseBuf;
-let muted = false;
+let ctx = null, master, comp, musicBus, trackBus, sfxBus, noiseBuf;
+let muted = false; const VOL = 1.0; // volume geral (era 0,9 com o compressor de fábrica, que somava ganho)
 try { muted = localStorage.getItem('tintim-mute') === '1'; } catch (_) {}
 
 function init() {
   if (ctx) { if (ctx.state === 'suspended') ctx.resume(); return true; }
   try {
     ctx = new (window.AudioContext || window.webkitAudioContext)();
-    master = ctx.createGain(); master.gain.value = muted ? 0 : 0.9;
-    const comp = ctx.createDynamicsCompressor(); master.connect(comp).connect(ctx.destination);
+    master = ctx.createGain(); master.gain.value = muted ? 0 : VOL;
+    // proteção contra estouro: só age nos picos (acima de -6 dB). No ajuste de fábrica do navegador (-24 dB) ele apertava tudo,
+    // e cada pancada ou latido abaixava a música uns 5 dB (a música "respirava")
+    comp = ctx.createDynamicsCompressor(); comp.threshold.value = -6; comp.knee.value = 4; comp.ratio.value = 12; comp.attack.value = 0.003; comp.release.value = 0.25;
+    master.connect(comp).connect(ctx.destination);
     musicBus = ctx.createGain(); musicBus.gain.value = 0.32; musicBus.connect(master);
     // sala grande: reverberação gerada (ruído que decai) para a trilha soar como orquestra num salão
     const len = ctx.sampleRate * 3.2, ir = ctx.createBuffer(2, len, ctx.sampleRate);
@@ -111,9 +114,9 @@ const SAMPLES = {
   jump: { v: 0.28, vary: 0.06 }, jump2: { v: 0.4, vary: 0.05 }, land: { v: 0.32, vary: 0.1 },
   cookie: { v: 0.2, vary: 0.12, gap: 0.09 }, power: { v: 0.42 }, gift: { v: 0.42 }, star: { v: 0.45 }, checkpoint: { v: 0.38 }, ui: { v: 0.3 },
   yapZara: { v: 0.5, vary: 0.04 }, yapElvis: { v: 0.55, vary: 0.04 }, hurt: { v: 0.6, vary: 0.05 },
-  bossWoof: { v: 0.8, vary: 0.04 }, bigBark: { v: 0.85 }, stomp: { v: 0.65 }, final: { v: 0.8 }, boss: { v: 0.55 },
-  thud: { v: 0.5, vary: 0.08 }, pigeon: { v: 0.38, vary: 0.06 }, boing: { v: 0.45 }, pound: { v: 0.9 }, bonk: { v: 0.7 },
-  throwBall: { v: 0.45 }, squeak: { v: 0.5, vary: 0.08 }, laugh: { v: 0.8 }, choco: { v: 0.6 }, win: { v: 0.6 }, lose: { v: 0.55 },
+  bossWoof: { v: 0.8, vary: 0.04 }, bigBark: { v: 0.85, vary: 0.03 }, stomp: { v: 0.65, vary: 0.07 }, final: { v: 0.8 }, boss: { v: 0.55 },
+  thud: { v: 0.5, vary: 0.08 }, pigeon: { v: 0.38, vary: 0.06 }, boing: { v: 0.45, vary: 0.06 }, pound: { v: 0.9, vary: 0.04 }, bonk: { v: 0.7, vary: 0.06 },
+  throwBall: { v: 0.45, vary: 0.06 }, squeak: { v: 0.5, vary: 0.08 }, laugh: { v: 0.8 }, choco: { v: 0.6, vary: 0.06 }, win: { v: 0.6 }, lose: { v: 0.55 },
   // galinhas do Arraial (Artlist): cacarejo de susto (dois, alternados), disparada, bater de asas e o galinheiro em alvoroço
   cluck1: { v: 0.5, vary: 0.08, gap: 0.3 }, cluck2: { v: 0.5, vary: 0.08, gap: 0.3 }, henPanic: { v: 0.6 }, henFlap: { v: 0.5, vary: 0.08, gap: 0.15 }, henCoop: { v: 0.65 },
 };
@@ -131,12 +134,14 @@ function playSample(name, t) {
   src.connect(g).connect(sfxBus); src.start(t);
   return true;
 }
-// ---- narração da abertura (voz de vovô contador de histórias, gerada no Artlist já em fala rápida): uma fala curta por quadro
-// (versão resumida da frase do pergaminho; as três somam menos de 10 s).
+// ---- narração do card de cada fase (assets/voice/intro-fase1.mp3 a intro-fase3.mp3, gravadas pelo Pedro): a mesma frase do pergaminho.
+// Se o arquivo da fase não existir, o card fica só com a imagem, a frase e a música.
 // Enquanto ele fala, a música abaixa. Se a fala ainda não carregou quando o quadro começa, entra assim que chegar (até 1,2 s depois).
+// fases que já têm a narração gravada (quando o arquivo da fase chegar, ponha o número dela aqui; sem isso o navegador acusaria arquivo faltando)
+const NARRADAS = [];
 const vbufs = []; let voiceSrc = null, voiceWant = null;
 function loadVoices() {
-  [1, 2, 3].forEach((n, i) => fetch('assets/voice/intro' + n + '.mp3').then(r => { if (!r.ok) throw 0; return r.arrayBuffer(); })
+  [1, 2, 3].forEach((n, i) => NARRADAS.includes(n) && fetch('assets/voice/intro-fase' + n + '.mp3').then(r => { if (!r.ok) throw 0; return r.arrayBuffer(); })
     .then(a => ctx.decodeAudioData(a)).then(b => { vbufs[i] = b; if (voiceWant && voiceWant.i === i && performance.now() - voiceWant.at < 1200) playVoice(i); }).catch(() => {}));
 }
 function stopVoice() { if (voiceSrc) { try { voiceSrc.stop(); } catch (_) {} voiceSrc = null; } TT.audioDuck(false); }
@@ -148,6 +153,7 @@ function playVoice(i) {
 }
 TT.voice = i => { if (!init()) return; if (i < 0) { voiceWant = null; return stopVoice(); } voiceWant = { i, at: performance.now() }; if (vbufs[i]) playVoice(i); };
 
+TT.audioNodes = () => ({ ctx, comp, master }); // para os testes medirem a mixagem
 TT.sfx = name => { if (!init()) return; const t = ctx.currentTime; if (playSample(name, t)) return; if (sfx[name]) sfx[name](t); };
 
 // ---- trilha: caixinha de música etérea para a fase e um baião tenso para a luta com o Brutão ----
@@ -236,7 +242,7 @@ TT.music = name => {
 };
 TT.setMuted = m => {
   muted = m; try { localStorage.setItem('tintim-mute', m ? '1' : '0'); } catch (_) {}
-  if (ctx) master.gain.setTargetAtTime(m ? 0 : 0.9, ctx.currentTime, 0.03);
+  if (ctx) master.gain.setTargetAtTime(m ? 0 : VOL, ctx.currentTime, 0.03);
 };
 TT.isMuted = () => muted;
 TT.audioDuck = (on, k = 0.32) => { if (ctx) { musicBus.gain.setTargetAtTime(on ? 0.32 * k : 0.32, ctx.currentTime, 0.1); trackBus.gain.setTargetAtTime(on ? 0.62 * k : 0.62, ctx.currentTime, 0.1); } };

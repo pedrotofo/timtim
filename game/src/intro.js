@@ -1,7 +1,7 @@
-// Introdução cinematográfica: três quadros pintados com zoom lento e "vida" desenhada por cima —
+// Card de introdução de cada fase: um quadro pintado com zoom lento e "vida" desenhada por cima —
 // vento nos pelos (deformação suave só nas regiões marcadas), vaga-lumes, folhas e brilhos pulsando.
 // Cada quadro tem um pergaminho pintado embaixo; a frase é escrita nele (no canvas, junto com a imagem).
-// Tudo em canvas 2D, sem vídeo. Coordenadas das regiões no espaço da imagem (1672 × 941).
+// Tudo em canvas 2D, sem vídeo. Coordenadas das regiões no espaço de cada imagem (1672 × 941 na fase 1, 1376 × 768 nas outras).
 (() => {
 'use strict';
 const TT = window.TT;
@@ -14,16 +14,8 @@ const load = src => { const i = new Image(); i.src = src; return i; };
 // zoom: escala inicial → final em torno de um ponto (embaixo no centro, para o pergaminho nunca sair do quadro);
 // wind: regiões de pelo (ring = rosto parado, só a borda mexe); scroll: o pergaminho [x0, y0, x1, y1]; sky: até onde vaga-lumes e folhas descem
 const SCENES = [
-  { img: load('assets/intro/1-brincando.jpg'), dur: 5.0, zoom: [1.0, 1.035], at: [836, 941], scroll: [60, 700, 1610, 900], sky: 600,
-    wind: [ { x: 800, y: 300, rx: 250, ry: 230, amp: 2.6, speed: 2.6, freq: 0.035, ring: 1 },  // Timtim: juba e orelhas
-            { x: 360, y: 340, rx: 160, ry: 170, amp: 2.2, speed: 3.2, freq: 0.05, ring: 1 },   // Zara
-            { x: 1250, y: 380, rx: 150, ry: 160, amp: 2.2, speed: 3.0, freq: 0.05, ring: 1 },  // Elvis
-            { x: 200, y: 470, rx: 90, ry: 90, amp: 4, speed: 5, freq: 0.08 },                  // rabo da Zara abanando
-            { x: 1380, y: 440, rx: 80, ry: 80, amp: 4, speed: 5.4, freq: 0.08 } ],             // rabo do Elvis
-    glow: [ { x: 390, y: 90, r: 70, c: '255,170,80', a: 0.4, pulse: 1.7, flicker: 1 }, { x: 507, y: 65, r: 60, c: '255,80,80', a: 0.35, pulse: 1.3 },
-            { x: 605, y: 115, r: 60, c: '120,255,120', a: 0.35, pulse: 1.9 }, { x: 830, y: 520, r: 260, c: '255,200,110', a: 0.18, pulse: 1.1 } ],
-    flies: 26, leaves: 3 },
-  { img: load('assets/intro/2-roubo.jpg'), dur: 3.4, zoom: [1.0, 1.04], at: [1200, 941], scroll: [50, 712, 1625, 900], sky: 620,
+  // fase 1 · O Parque: o Furtão foge com o Macaco Fedido e a turma vai atrás
+  { img: load('assets/intro/2-roubo.jpg'), dur: 7.0, zoom: [1.0, 1.04], at: [1200, 941], scroll: [50, 712, 1625, 900], sky: 620,
     wind: [ { x: 1340, y: 330, rx: 260, ry: 210, amp: 1.4, speed: 38, freq: 0.5, jitter: 1 },   // Furtão correndo treme
             { x: 1440, y: 420, rx: 120, ry: 110, amp: 3, speed: 6, freq: 0.07 },                 // macaco balançando na boca
             { x: 450, y: 330, rx: 200, ry: 180, amp: 3, speed: 3.4, freq: 0.04, ring: 1 },       // Timtim assustado
@@ -31,18 +23,30 @@ const SCENES = [
     glow: [ { x: 300, y: 165, r: 70, c: '255,190,90', a: 0.4, pulse: 1.5, flicker: 1 }, { x: 420, y: 140, r: 70, c: '255,70,70', a: 0.4, pulse: 2.1 },
             { x: 585, y: 95, r: 65, c: '120,255,120', a: 0.35, pulse: 1.2 }, { x: 740, y: 35, r: 65, c: '255,70,70', a: 0.35, pulse: 1.8, flicker: 1 } ],
     flies: 16, leaves: 6, windX: 60 },
-  { img: load('assets/intro/3-resgate.jpg'), dur: 4.0, zoom: [1.04, 1.0], at: [836, 941], scroll: [55, 755, 1615, 892], sky: 650,
-    wind: [ { x: 860, y: 320, rx: 270, ry: 240, amp: 3.2, speed: 2.8, freq: 0.035, ring: 1 },  // Timtim: juba ao vento
-            { x: 640, y: 280, rx: 140, ry: 140, amp: 5, speed: 2.6, freq: 0.03 },               // rabo do Timtim
-            { x: 990, y: 520, rx: 130, ry: 70, amp: 3, speed: 4, freq: 0.08 },                  // bandana
-            { x: 340, y: 380, rx: 150, ry: 150, amp: 2.4, speed: 3, freq: 0.05, ring: 1 },      // Zara
-            { x: 1330, y: 470, rx: 140, ry: 140, amp: 2.4, speed: 3, freq: 0.05, ring: 1 } ],   // Elvis
-    glow: [ { x: 1450, y: 130, r: 300, c: '200,235,255', a: 0.22, pulse: 0.8 }, { x: 225, y: 170, r: 65, c: '255,80,80', a: 0.4, pulse: 1.6 },
-            { x: 340, y: 165, r: 65, c: '120,255,120', a: 0.35, pulse: 1.3, flicker: 1 }, { x: 465, y: 115, r: 65, c: '255,190,90', a: 0.4, pulse: 2 },
-            { x: 590, y: 75, r: 65, c: '255,80,80', a: 0.35, pulse: 1.1 } ],
-    flies: 30, leaves: 5, windX: 70, rise: 1 },
+  // fase 2 · O Arraial: galinhas em pânico e um estranho de chapéu de pato atrás da barraca (imagem 1376 × 768)
+  { img: load('assets/intro/fase2.jpg'), iw: 1376, ih: 768, dur: 7.0, zoom: [1.0, 1.04], at: [700, 768], scroll: [20, 578, 1360, 752], sky: 540,
+    wind: [ { x: 350, y: 290, rx: 150, ry: 140, amp: 2.6, speed: 3.2, freq: 0.04, ring: 1 },   // Timtim
+            { x: 160, y: 340, rx: 120, ry: 120, amp: 2.2, speed: 3.4, freq: 0.05, ring: 1 },   // Zara
+            { x: 550, y: 300, rx: 100, ry: 110, amp: 2.2, speed: 3.0, freq: 0.05, ring: 1 },   // Elvis
+            { x: 800, y: 420, rx: 110, ry: 110, amp: 1.6, speed: 30, freq: 0.4, jitter: 1 },   // galinhas tremendo de medo
+            { x: 1000, y: 440, rx: 100, ry: 100, amp: 1.6, speed: 34, freq: 0.4, jitter: 1 },
+            { x: 1160, y: 460, rx: 90, ry: 90, amp: 1.6, speed: 32, freq: 0.4, jitter: 1 } ],
+    glow: [ { x: 482, y: 75, r: 70, c: '255,190,90', a: 0.4, pulse: 1.5, flicker: 1 }, { x: 607, y: 40, r: 70, c: '255,150,70', a: 0.4, pulse: 2.1 },
+            { x: 350, y: 100, r: 60, c: '255,200,110', a: 0.35, pulse: 1.2 }, { x: 1290, y: 330, r: 220, c: '255,140,60', a: 0.28, pulse: 2.6, flicker: 1 } ],
+    flies: 22, leaves: 0, windX: 40, rise: 1 },
+  // fase 3 · O Quadro Encantado: o Van Gogh triste e o corvo fugindo com o pincel (imagem 1376 × 768)
+  { img: load('assets/intro/fase3.jpg'), iw: 1376, ih: 768, dur: 7.0, zoom: [1.04, 1.0], at: [688, 768], scroll: [20, 640, 1360, 752], sky: 560,
+    wind: [ { x: 680, y: 500, rx: 130, ry: 120, amp: 2.6, speed: 3.0, freq: 0.04, ring: 1 },   // Timtim
+            { x: 875, y: 520, rx: 70, ry: 80, amp: 2, speed: 3.4, freq: 0.06, ring: 1 },       // Zara
+            { x: 1015, y: 545, rx: 85, ry: 80, amp: 2, speed: 3.2, freq: 0.06, ring: 1 },      // Elvis
+            { x: 780, y: 170, rx: 130, ry: 100, amp: 3, speed: 9, freq: 0.06 },                // corvo batendo as asas
+            { x: 690, y: 330, rx: 700, ry: 330, amp: 1.2, speed: 1.2, freq: 0.012 } ],         // o céu pintado escorrendo devagar
+    glow: [ { x: 960, y: 85, r: 150, c: '255,235,120', a: 0.25, pulse: 0.9 }, { x: 290, y: 95, r: 60, c: '255,240,150', a: 0.35, pulse: 1.6 },
+            { x: 150, y: 20, r: 55, c: '255,240,150', a: 0.3, pulse: 2.1, flicker: 1 }, { x: 60, y: 265, r: 55, c: '255,240,150', a: 0.3, pulse: 1.3 },
+            { x: 225, y: 300, r: 55, c: '255,240,150', a: 0.3, pulse: 1.8 } ],
+    flies: 10, leaves: 0, windX: 20 },
 ];
-SCENES.forEach(s => { s.windX = s.windX || 25; s.text = ''; });
+SCENES.forEach(s => { s.windX = s.windX || 25; s.text = ''; s.iw = s.iw || IW; s.ih = s.ih || IH; });
 
 // canvas de trabalho para o vento nos pelos
 const off = document.createElement('canvas'), ox = off.getContext('2d');
@@ -83,7 +87,10 @@ function writeScroll(s, t) {
   const [x0, y0, x1, y1] = s.scroll, maxW = (x1 - x0) * 0.9;
   let size = 58, lines;
   do { ctx.font = `${size}px ${FONT}`; lines = wrap(s.text, maxW); size -= 2; } while ((lines.length * size * 1.3 > (y1 - y0) * 0.86 || lines.length > 2) && size > 30);
-  size += 2; const lh = size * 1.28, cx = (x0 + x1) / 2, top = (y0 + y1) / 2 - (lines.length - 1) * lh / 2;
+  size += 2; ctx.font = `${size}px ${FONT}`;
+  // duas linhas: divide a frase ao meio, para não sobrar uma palavra sozinha embaixo
+  if (lines.length === 2) { const even = wrap(s.text, Math.min(maxW, ctx.measureText(s.text).width / 2 + size * 1.5)); if (even.length === 2) lines = even; }
+  const lh = size * 1.28, cx = (x0 + x1) / 2, top = (y0 + y1) / 2 - (lines.length - 1) * lh / 2;
   // revelação: as palavras surgem ao longo da primeira metade da cena, cada uma num esmaecer rápido
   const total = s.text.split(' ').length, shown = still ? total : Math.max(0, (t - 0.3) / (s.dur * 0.5)) * total;
   ctx.textAlign = 'left'; ctx.textBaseline = 'middle'; let k = 0; const base = ctx.globalAlpha;
@@ -100,15 +107,15 @@ function writeScroll(s, t) {
 
 function makeParts(s) {
   const r = Math.random, p = [];
-  for (let i = 0; i < s.flies; i++) p.push({ k: 'fly', x: r() * IW, y: 40 + r() * (s.sky - 40) + (s.rise ? 120 : 0), ph: r() * 9, sz: 2 + r() * 3, sp: 0.4 + r() * 0.8 });
-  for (let i = 0; i < s.leaves; i++) p.push({ k: 'leaf', x: -r() * IW, y: r() * s.sky * 0.6, ph: r() * 9, sz: 9 + r() * 9, sp: 0.7 + r() * 0.6 });
+  for (let i = 0; i < s.flies; i++) p.push({ k: 'fly', x: r() * s.iw, y: 40 + r() * (s.sky - 40) + (s.rise ? 120 : 0), ph: r() * 9, sz: 2 + r() * 3, sp: 0.4 + r() * 0.8 });
+  for (let i = 0; i < s.leaves; i++) p.push({ k: 'leaf', x: -r() * s.iw, y: r() * s.sky * 0.6, ph: r() * 9, sz: 9 + r() * 9, sp: 0.7 + r() * 0.6 });
   return p;
 }
 
 function drawScene(s, t, alpha, outgoing) {
   const img = s.img; if (!img.complete || !img.naturalWidth) return;
   const k = Math.min(1, t / s.dur), e = k * k * (3 - 2 * k) * 0.35 + k * 0.65; // zoom contínuo, levemente suavizado
-  const sc = (s.zoom[0] + (s.zoom[1] - s.zoom[0]) * e) * Math.max(W / IW, H / IH);
+  const IW = s.iw, IH = s.ih, sc = (s.zoom[0] + (s.zoom[1] - s.zoom[0]) * e) * Math.max(W / IW, H / IH);
   ctx.save(); ctx.globalAlpha = alpha;
   // zoom em torno de "at", sem deixar borda vazia
   let tx = W / 2 - s.at[0] * sc, ty = H / 2 - s.at[1] * sc;

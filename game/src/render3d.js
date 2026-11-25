@@ -723,7 +723,7 @@ if (VG) { TEX.borrao = load('sprites/vg/borrao.png'); } TEX.choco = canvasTex(16
   x.fillStyle = '#ff3d5e'; x.beginPath(); x.moveTo(-66, -44); x.lineTo(-8, -44); x.lineTo(-20, 44); x.lineTo(-66, 44); x.closePath(); x.fill();
   x.fillStyle = '#ffd98a'; x.fillRect(-66, -10, 52, 20); x.strokeStyle = '#fff3d6'; x.lineWidth = 3; x.beginPath(); x.moveTo(-8, -44); x.lineTo(-14, -20); x.lineTo(-6, 0); x.lineTo(-16, 22); x.lineTo(-20, 44); x.stroke(); });
 // brinquedo perdido do Parque: o Patinho Quá-Quá, de borracha e meio mordido (arte do Google Flow, a mesma da estante)
-if (VG) { TEX.toy = load('sprites/toy-bolinha.png'); AR.toy = 0.985; } else if (ARR) { TEX.toy = load('sprites/toy-sanfona.png'); AR.toy = 297 / 200; } else { TEX.toy = load('sprites/toy-duck.png'); AR.toy = 214 / 200; }
+if (VG) { TEX.toy = load('sprites/toy-girassol.png'); AR.toy = 178 / 200; } else if (ARR) { TEX.toy = load('sprites/toy-sanfona.png'); AR.toy = 297 / 200; } else { TEX.toy = load('sprites/toy-duck.png'); AR.toy = 214 / 200; }
 if (VG) { TEX.choco = TEX.borrao; AR.choco = 1.62; }
 const GOLD = VG ? 'tubo' : 'cookie'; // no quadro, os dourados são tubos de tinta
 // fase 3: os tubos de tinta que o Corvo-Borrão derruba (e a marca de onde cada um cai), as manchas que ficam no chão,
@@ -1275,7 +1275,7 @@ R.frame = (rdt) => {
   if (S.cine || S.mode !== 'play') camSettle = 0.9; else camSettle = Math.max(0, camSettle - rdt);
   const ks = camSettle > 0 ? Math.min(1, rdt * (4 + (0.9 - camSettle) * 10)) : 1;
   R.zoom += (zt - R.zoom) * kk; fxS += (fx - fxS) * ks; fyS += (fy - fyS) * ks;
-  const tr = S.trauma * S.trauma, sx = tr * 16 * Math.sin(time * 71), sy = tr * 11 * Math.sin(time * 93 + 1);
+  const tr = S.trauma * S.trauma * (TT.calmo ? 0.2 : 1), sx = tr * 16 * Math.sin(time * 71), sy = tr * 11 * Math.sin(time * 93 + 1); // "menos tremor": 20% do tremor
   camera.position.set(fxS + sx + Math.sin(time * 0.6) * 1.5, CAM_Y + (fyS - LOOK_Y) + sy + Math.sin(time * 0.8) * 1.2, CAM_D);
   camera.lookAt(fxS + sx, fyS + sy, 0); camera.rotation.z += tr * 0.025 * Math.sin(time * 57);
   camera.zoom = R.zoom; camera.updateProjectionMatrix();
@@ -1295,7 +1295,7 @@ R.frame = (rdt) => {
       blurMat.uniforms.t.value = rtB.texture; blurMat.uniforms.dir.value.set(0, i * 1.6 / rtA.height); pass(blurMat, rtA); }
     const u = compMat.uniforms; u.tScene.value = rt.texture; u.tDepth.value = rt.depthTexture; u.tBloom.value = rtA.texture;
     { const hs = R.toScreen(S.player.x + S.player.w / 2, S.player.y + S.player.h / 2); u.hero.value.x += (hs.x - u.hero.value.x) * Math.min(1, rdt * 6); u.hero.value.y += (1 - hs.y - u.hero.value.y) * Math.min(1, rdt * 6); }
-    u.time.value = time % 100; u.flash.value = R.flash; u.gray.value += ((S.mode === 'lose' ? 0.75 : 0) - u.gray.value) * Math.min(1, rdt * 3);
+    u.time.value = time % 100; u.flash.value = TT.calmo ? Math.min(R.flash, 0.1) : R.flash; u.gray.value += ((S.mode === 'lose' ? 0.75 : 0) - u.gray.value) * Math.min(1, rdt * 3);
     pass(compMat, null);
   } else { renderer.setRenderTarget(null); renderer.render(scene, camera); }
 };

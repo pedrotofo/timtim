@@ -1,4 +1,4 @@
-// Timtim e o Resgate do Macaco Fedido — regras do jogo (física, inimigos, chefão, fluxo). Sem nada de desenho aqui.
+// Timtim e os Brinquedos Perdidos — regras do jogo (física, inimigos, chefão, fluxo). Sem nada de desenho aqui.
 (() => {
 'use strict';
 const TT = window.TT = window.TT || {};
@@ -10,11 +10,12 @@ const C = TT.C = {
   plats: [
     [520, 340, 160], [820, 270, 140], [1180, 330, 150], [1700, 330, 180], [1960, 250, 140],
     [2380, 330, 160], [2850, 320, 140], [3100, 240, 160], [3330, 330, 120], [3800, 320, 200],
-    [4150, 250, 160], [4400, 330, 150], [4620, 300, 120], [5150, 320, 180], [5480, 250, 140],
-    [5700, 300, 110], [5950, 320, 170], [6230, 230, 150], [6470, 140, 130], [6660, 300, 110], [6950, 320, 160], [7200, 235, 140],
-    [7420, 150, 130], [7560, 300, 100], [7900, 320, 180], [8200, 250, 140],
+    [4150, 250, 160], [4400, 330, 150], [4620, 322, 120], [5150, 320, 180], [5480, 250, 140],
+    [5700, 322, 110], [5950, 320, 170], [6230, 230, 150], [6470, 140, 130], [6660, 322, 110], [6950, 320, 160], [7200, 235, 140],
+    [7420, 150, 130], [7560, 322, 100], [7900, 320, 180], [8200, 250, 140],
   ],
-  checkpoints: [3560, 5880, 8660],
+  // bandeiras: a primeira (2000, que vira 2600) fica logo depois do trecho de aprendizado; antes eram 13 s correndo até a primeira
+  checkpoints: [2000, 3560, 5880, 8660],
   // amigos chihuahuas que esperam no caminho e entregam biscoito
   friends: [{ x: 1452, kind: 'chi-pb' }, { x: 4792, kind: 'chi-br' }], GIFT: 3,
 };
@@ -37,7 +38,7 @@ Object.assign(C, { BOSS: true, FOX: false, GLIDE: false, PREFIGHT: false, SWIRLS
 if (FASE === 2) Object.assign(C, {
   BOSS: false, FOX: true, GLIDE: true, PREFIGHT: true, LEVEL_END: 7900, ARENA_X: 7900 - W0, GOAL_X: 7900 - W0 + 120, MASTRO_X: 7580, START_X: 200, BPM: 100,
   grounds: [[0, 1150], [1670, 700], [3000, 1500], [5880, 280], [6300, 1600]],
-  plats: [[430, 250, 120], [700, 330, 450], [2150, 300, 200], [3500, 90, 170], [4120, 140, 150]],
+  plats: [[430, 250, 120], [700, 330, 450], [2150, 322, 200], [3500, 90, 170], [4120, 140, 150]],
   // tábuas da quadrilha: x e y da posição de descanso, ax/ay = quanto vão e voltam, per = período (s), ph = fase do passo
   movers: [{ x: 4580, y: 320, w: 150, ax: 100, ay: 0, per: 2.4, ph: 0 }, { x: 4950, y: 290, w: 140, ax: 0, ay: 70, per: 2.4, ph: Math.PI },
            { x: 5280, y: 320, w: 150, ax: 110, ay: 0, per: 2.4, ph: Math.PI / 2 }, { x: 5600, y: 280, w: 140, ax: 0, ay: 80, per: 2.4, ph: 0 }],
@@ -71,8 +72,8 @@ if (FASE === 3) Object.assign(C, {
   grounds: [[0, 1300], [1500, 900], [2650, 700], [3550, 1150], [4900, 900], [6050, 350], [6600, 1300]],
   // [x, y, largura, quica]: a cama, a cadeira e a estante do quarto; tábuas pintadas; os toldos do café quicam; as mesas
   // (a cama e a cadeira pisam na altura do cobertor e do assento desenhados; as mesas, no tampo)
-  plats: [[380, 372, 230], [718, 312, 84], [1000, 150, 160], [2250, 300, 140], [2750, 330, 150], [3000, 320, 160], [3250, 250, 150],
-          [3750, 320, 170], [4000, 240, 150], [4300, 320, 160], [5000, 340, 200, 1], [5280, 378, 80], [5500, 340, 200, 1], [5730, 378, 80], [6150, 300, 120]],
+  plats: [[380, 372, 230], [718, 312, 84], [1000, 150, 160], [2250, 322, 140], [2750, 330, 150], [3000, 320, 160], [3250, 250, 150],
+          [3750, 320, 170], [4000, 240, 150], [4300, 320, 160], [5000, 340, 200, 1], [5280, 378, 80], [5500, 340, 200, 1], [5730, 378, 80], [6150, 322, 120]],
   // cabeças de girassol que sobem e descem devagar
   movers: [{ x: 1650, y: 330, w: 120, ax: 0, ay: 50, per: 2.6, ph: 0 }, { x: 1900, y: 270, w: 120, ax: 0, ay: 60, per: 2.6, ph: 2 }, { x: 2150, y: 320, w: 120, ax: 0, ay: 50, per: 2.6, ph: 4 }],
   // redemoinhos: pegam o Timtim no ar e giram com ele; apertar o pulo solta na direção em que ele está indo (d = sentido do giro)
@@ -90,7 +91,7 @@ if (FASE === 3) Object.assign(C, {
   friends: [{ x: 2800, kind: 'chi-pb', power: 'egg' }, { x: 5150, kind: 'chi-br', power: 'mega' }], GIFT_ITEM: 'tubo',
   hedges: [],
   trails: [{ id: 'girassol', at: 6200, plats: [[6260, 20, 110], [6120, -80, 110]] }],
-  TOY: { id: 'bolinha', x: 6175, y: -130 },
+  TOY: { id: 'girassol', x: 6175, y: -130 }, // o escondido da fase (o presente do Van Gogh, a bolinha mordedora, vem no fim)
   FOXTXT: { egg: 'Tinta amarela! Plana nas costas dele!', fruit: 'Ó a tampinha dourada, corvão!' },
 });
 C.SWIRL = { w: Math.PI * 2 / 1.3, speed: 820 }; // uma volta a cada 1,3 s; a soltura sai a 820 px/s
@@ -161,13 +162,13 @@ function quadroItems() {
   const it = [], G = GROUND - 40, cookie = (x, y, trail) => it.push({ type: 'cookie', x, y, got: false, trail });
   [300, 360].forEach(x => cookie(x, G)); [430, 490, 550].forEach(x => cookie(x, 300)); cookie(740, 280); [1030, 1090].forEach(x => cookie(x, 100));
   [[780, 200], [880, 140], [980, 200]].forEach(([x, y]) => cookie(x, y)); // em volta do primeiro redemoinho
-  [1600, 1660].forEach(x => cookie(x, G)); [1710, 1960, 2210].forEach(x => cookie(x, 180)); [2300, 2350].forEach(x => cookie(x, 250));
+  [1600, 1660].forEach(x => cookie(x, G)); [1710, 1960, 2210].forEach(x => cookie(x, 180)); [2300, 2350].forEach(x => cookie(x, 272));
   [[2460, 180], [2520, 160], [2580, 180]].forEach(([x, y]) => cookie(x, y)); [2700, 2760].forEach(x => cookie(x, G)); [2800, 2860].forEach(x => cookie(x, 280));
   [3050, 3110].forEach(x => cookie(x, 270)); [3300, 3360].forEach(x => cookie(x, 200)); [[3400, 160], [3450, 140], [3500, 160]].forEach(([x, y]) => cookie(x, y));
   for (let x = 3600; x <= 3720; x += 60) cookie(x, G); [3800, 3860, 4050, 4110, 4350, 4410].forEach((x, i) => cookie(x, i < 2 ? 270 : i < 4 ? 190 : 270));
   [4550, 4610].forEach(x => cookie(x, G)); [[4750, 170], [4800, 150], [4850, 170]].forEach(([x, y]) => cookie(x, y));
   [5060, 5120].forEach(x => cookie(x, 170)); [5560, 5620].forEach(x => cookie(x, 170)); [5300, 5750].forEach(x => cookie(x, 320));
-  [[5880, 170], [5930, 150], [5980, 170]].forEach(([x, y]) => cookie(x, y)); [6120, 6180].forEach(x => cookie(x, 250));
+  [[5880, 170], [5930, 150], [5980, 170]].forEach(([x, y]) => cookie(x, y)); [6120, 6180].forEach(x => cookie(x, 272));
   [6440, 6540].forEach((x, i) => cookie(x, i ? 130 : 210)); [6700, 6760, 6820].forEach(x => cookie(x, G));
   cookie(6290, -30, 'girassol');
   [[1060, 60], [3300, 170], [5520, 60]].forEach(([x, y]) => it.push({ type: 'gold', x, y, got: false })); // os três tubos de tinta dourados
@@ -182,7 +183,7 @@ function arraialItems() {
   const it = [], G = GROUND - 40, cookie = (x, y, trail) => it.push({ type: 'cookie', x, y, got: false, trail });
   [300, 360, 420].forEach(x => cookie(x, G)); cookie(490, 200); [780, 840, 1040, 1100].forEach(x => cookie(x, 280));
   [[1230, 290], [1330, 320], [1430, 350], [1530, 380], [1630, 405]].forEach(([x, y]) => cookie(x, y));
-  for (let x = 1800; x <= 2100; x += 60) cookie(x, G); [2200, 2290].forEach(x => cookie(x, 250));
+  for (let x = 1800; x <= 2100; x += 60) cookie(x, G); [2200, 2290].forEach(x => cookie(x, 272));
   [[2480, 250], [2600, 270], [2720, 290], [2840, 320], [2960, 350]].forEach(([x, y]) => cookie(x, y));
   [3120, 3180, 3240].forEach(x => cookie(x, G)); [330, 250, 170, 90].forEach(y => cookie(3410, y)); [3560, 3620].forEach(x => cookie(x, 40));
   [4170, 4230].forEach(x => cookie(x, 90)); [4290, 4340].forEach(x => cookie(x, G));
@@ -193,7 +194,7 @@ function arraialItems() {
   it.push({ type: 'gold', x: 5505, y: 140, got: false, trail: 'argola' }); // só aparece depois de atravessar a argola
   [[2075, 340], [2100, 300], [2125, 280], [2150, 300], [2175, 340]].forEach(([x, y]) => cookie(x, y, 'pescaria')); // saem do tanque da pescaria
   C.NOTES.forEach((n, i) => it.push({ type: 'bilhete', x: n.x, y: n.y, got: false, idx: i }));
-  [1950, 3880, 6820].forEach(x => it.push({ type: 'choco', x, y: GROUND - 34, got: false }));
+  [3880, 6820].forEach(x => it.push({ type: 'choco', x, y: GROUND - 34, got: false })); // (o de 1950 saiu: lento, o Timtim não atravessava o vão de 2370)
   it.push({ type: 'toy', id: C.TOY.id, x: C.TOY.x, y: C.TOY.y, got: false, trail: 'sanfona' });
   for (const o of it) for (const [px, py, pw] of C.plats.concat(...C.trails.map(t => t.plats))) if (o.x > px - 20 && o.x < px + pw + 20 && o.y < py && o.y > py - 50) o.y = py - 50;
   return it;
@@ -656,7 +657,7 @@ TT.update = (rdt) => {
       if (it.type === 'cookie') { S.cookies++; emit('cookie', it); }
       if (it.type === 'gold') { S.gold++; emit('power', it); emit('gold', it); }
       if (it.type === 'choco') { if (p.mega <= 0) { p.slow = 5; p.fast = 0; emit('choco', it); } }
-      if (it.type === 'toy') { S.toy = true; S.hitstop = 0.1; emit('toy', it); emit('banner', { important: true, text: FASE === 3 ? 'Brinquedo perdido: a Bolinha Estrelada!' : FASE === 2 ? 'Brinquedo perdido: a Sanfoninha!' : 'Brinquedo perdido: o Patinho!' }); }
+      if (it.type === 'toy') { S.toy = true; S.hitstop = 0.1; emit('toy', it); emit('banner', { important: true, text: FASE === 3 ? 'Brinquedo perdido: o Girassol de Apito!' : FASE === 2 ? 'Brinquedo perdido: a Sanfoninha!' : 'Brinquedo perdido: o Patinho!' }); }
       if (it.type === 'bilhete') { S.notes++; emit('note', { x: it.x, y: it.y, text: C.NOTES[it.idx].text, n: S.notes, total: C.NOTES.length }); }
     }
   }

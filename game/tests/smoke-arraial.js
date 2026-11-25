@@ -14,9 +14,13 @@ const { chromium } = require('playwright');
   const put = (x, y, extra) => ev(([x, y, extra]) => { const p = __tintim.player; Object.assign(p, { x, y, vx: 0, vy: 0, onGround: false, inv: 0, hp: 3 }, extra || {}); }, [x, y, extra]);
   await pg.goto(url);
   check(await until(() => window.__tintim && __tintim.R.ready && __tintim.state === 'title'), 'abre o título na fase 2');
-  check(await ev(() => document.getElementById('faseTag').textContent.includes('ARRAIAL')), 'título mostra "Fase 2 · O Arraial"');
+  check(await ev(() => document.querySelector('.logo img').alt === 'Timtim e os Brinquedos Perdidos' && document.querySelector('.logo img').naturalWidth > 0), 'a capa é a mesma do jogo todo');
   await pg.waitForTimeout(500); await pg.click('#btnStart');
-  check(await until(() => __tintim.state === 'play' && __tintim.S.cine && __tintim.S.cine.type === 'arraial', 5000), 'Jogar começa direto, com o cartão do Arraial');
+  check(await until(() => TT.mapa.isOpen() && document.querySelector('#mapa canvas'), 4000), 'Jogar abre o mapa das fases');
+  await pg.waitForTimeout(400); await pg.keyboard.press('Enter');
+  check(await until(() => __tintim.storyScene === 1 && document.getElementById('storyLine').textContent.includes('galinhas do arraial'), 4000), 'antes da fase, o card do Arraial (alguém assustando as galinhas)');
+  await pg.waitForTimeout(900); await pg.keyboard.press('Space');
+  check(await until(() => __tintim.state === 'play' && __tintim.S.cine && __tintim.S.cine.type === 'arraial', 5000), 'depois do card, a fase começa com o cartão do Arraial');
   check(await until(() => !__tintim.S.cine, 6000), 'cartão some e o controle é liberado');
   check(await ev(() => !__tintim.S.thief && !__tintim.S.arena), 'sem Furtão nem chefão no Arraial');
   check(await ev(() => __tintim.R.foe === 'galinha' && __tintim.S.enemies.length > 0), 'os inimigos do Arraial são galinhas caipiras, não pombos');
@@ -66,7 +70,9 @@ const { chromium } = require('playwright');
 
   // tábuas da quadrilha se movem e levam o Timtim junto
   const m = await ev(() => { const s = TT.MOVERS[0]; return { x: s.x, y: s.y, w: s.w }; });
-  // a tábua anda enquanto ele cai: põe o Timtim em cima dela na posição atual e espera ele estar mesmo apoiado nela
+  // a tábua anda enquanto ele cai: põe o Timtim em cima dela na posição atual e espera ele estar mesmo apoiado nela.
+  // Começa com a tábua perto do meio do caminho (andando rápido): perto das pontas ela quase para e 0,5 s não basta para medir
+  await until(() => Math.abs(TT.MOVERS[0].x - TT.C.movers[0].x) < 45, 6000);
   await ev(() => { const s = TT.MOVERS[0], p = __tintim.player; Object.assign(p, { x: s.x + s.w / 2 - p.w / 2, y: s.y - p.h - 1, vx: 0, vy: 0, inv: 9, hp: 3, onGround: false }); });
   await until(() => __tintim.player.onGround && __tintim.player.on && !!__tintim.player.on.mover, 2000);
   const a0 = await ev(() => ({ px: __tintim.player.x, sx: TT.MOVERS[0].x })); await pg.waitForTimeout(500);
@@ -155,8 +161,17 @@ const { chromium } = require('playwright');
   check(await ev(() => __tintim.S.runners.filter(r => r.kind === 'chaser' && r.vx > 0).length === 5), 'no golpe final, as galinhas saem do galinheiro e correm atrás dele');
   check(await until(() => __tintim.state === 'winning' || __tintim.state === 'win', 3000), 'derrotar o lobo-guará vence a fase');
   check(await until(() => document.getElementById('win').classList.contains('on'), 9000), 'tela de vitória aparece');
+  check(await ev(() => document.querySelector('.winMonkey').src.includes('premio-chinela') && document.getElementById('winText').textContent.includes('chinela')), 'de presente, as galinhas dão a chinela amarela');
   check(await ev(() => document.getElementById('winTitle').textContent.includes('Galinheiro') && document.getElementById('stNotes').textContent.includes('1/4')), 'vitória com o texto do galinheiro e a contagem do correio elegante');
   check(await ev(() => JSON.parse(localStorage.getItem('tintim-fases') || '{}')[2] === true), 'fase 2 fica marcada como vencida');
+  // entre as fases: o mapa abre, o Timtim anda pelo caminho até a fase 3 e ela começa sozinha
+  await pg.waitForTimeout(2200); await pg.click('#btnNext');
+  check(await until(() => TT.mapa.isOpen() && TT.mapa.state().walking, 3000), 'Próxima fase abre o mapa e o Timtim anda até a fase seguinte');
+  check(await pg.waitForURL(/fase3/, { timeout: 15000 }).then(() => true, () => false), 'chegando na placa, a fase 3 carrega');
+  check(await until(() => window.TT && TT.FASE === 3 && window.__tintim && __tintim.storyScene === 2 && document.getElementById('title').classList.contains('story'), 20000), 'a fase 3 abre direto no card dela (o Van Gogh), sem a capa');
+  check(await ev(() => !/fase|corvo/i.test(document.getElementById('msg').textContent) || document.getElementById('msg').textContent === 'Carregando…'), 'na carga não aparece frase solta sem imagem');
+  await pg.waitForTimeout(900); await pg.keyboard.press('Space');
+  check(await until(() => __tintim.state === 'play', 6000), 'um toque no card começa a fase 3');
   check(errs.length === 0, 'sem erros no console' + (errs.length ? ': ' + errs.slice(0, 3).join(' | ') : ''));
   await b.close();
 })();
