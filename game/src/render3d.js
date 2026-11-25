@@ -26,6 +26,10 @@ const PAL = { far: '#14506a', mid: '#0b3447', near: '#06202d', back: '#04151d', 
   cyan: 0x6fe9ff, violet: 0xa98bff, warm: 0xffb866, mint: 0x7dffd0 };
 
 // ---------------- texturas ----------------
+{ let ultimo = performance.now(); const prog = THREE.DefaultLoadingManager.onProgress;
+  THREE.DefaultLoadingManager.onProgress = (...a) => { ultimo = performance.now(); if (prog) prog(...a); };
+  // uma imagem que nunca chega deixava o "Carregando…" na tela para sempre: 10 s sem nenhum arquivo novo, o jogo segue com o que tem
+  const vigia = setInterval(() => { if (R.ready) return clearInterval(vigia); if (performance.now() - ultimo > 10000) { clearInterval(vigia); THREE.DefaultLoadingManager.onLoad(); } }, 1000); }
 THREE.DefaultLoadingManager.onLoad = () => { if (R.ready) return; warmUp(); R.ready = true; TT.emit('assetsReady'); }; // (antes disparava várias vezes: a 2ª apertava "Jogar" de novo e cortava a história da fase 2)
 const TL = new THREE.TextureLoader();
 const load = p => { const t = TL.load('assets/' + p); t.anisotropy = 4; return t; };

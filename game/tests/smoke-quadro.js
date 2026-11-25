@@ -1,4 +1,4 @@
-// Teste de fumaça da fase 3 (o Quadro Encantado, no mundo de Van Gogh): o Van Gogh pedindo ajuda, redemoinhos que giram e soltam,
+// Teste de fumaça da fase 3 (o Quadro Encantado, no mundo de Van Gogh): o Van Gogh triste no começo, redemoinhos que giram e soltam,
 // toldos do café que quicam, estrelas que piscam, corvos no trigal e a luta com o Corvo-Borrão (tubos de tinta, bicadas, pincel). Mesmo esquema do smoke-arraial.js: espera por condições.
 // Uso: (servidor local na porta 8765 servindo a pasta game/) ; node game/tests/smoke-quadro.js [url]
 const { chromium } = require('playwright');
@@ -22,14 +22,9 @@ const { chromium } = require('playwright');
   await pg.waitForTimeout(900); await pg.keyboard.press('Space');
   check(await until(() => __tintim.state === 'play' && __tintim.S.cine && __tintim.S.cine.type === 'arraial', 5000), 'depois do card, a fase começa com o cartão dela');
   check(await ev(() => document.body.innerText.includes('QUADRO ENCANTADO')), 'o cartão anuncia "O Quadro Encantado"');
-  check(await until(() => __tintim.S.cine && __tintim.S.cine.type === 'vangogh', 6000), 'depois do cartão, o Van Gogh aparece pedindo ajuda');
-  check(await until(() => document.getElementById('say').classList.contains('on') && document.getElementById('say').textContent.includes('corvo'), 2500), 'o Van Gogh conta que pintou um corvo que ganhou vida');
+  check(await until(() => !__tintim.S.cine, 6000), 'depois do cartão, o controle é liberado (o card já contou a história; o Van Gogh não repete)');
   check(await ev(() => { const m = __tintim.R.dbg.vg(); return m.visible && m.userData.name === 'vangogh-triste'; }), 'o Van Gogh aparece triste no começo');
-  await pg.waitForTimeout(1200); await pg.keyboard.press('Space');
-  check(await until(() => document.getElementById('say').textContent.includes('pincel'), 1500), 'o pulo adianta para a segunda fala (o pincel roubado)');
-  await pg.waitForTimeout(300); await pg.keyboard.press('Space');
-  check(await until(() => !__tintim.S.cine, 2000), 'mais um pulo encerra a conversa e libera o controle');
-  check(await ev(() => __tintim.player.onGround && __tintim.player.vy === 0), 'o pulo que encerrou a conversa não faz o Timtim pular sozinho');
+  check(await ev(() => !document.getElementById('say').classList.contains('on')), 'sem balão de fala do Van Gogh no começo');
   check(await ev(() => !__tintim.S.thief && !__tintim.S.arena && __tintim.S.enemies.length > 0), 'sem Furtão nem chefão no começo, e há corvos no caminho');
   check(await ev(() => __tintim.S.enemies.every(e => { for (let x = e.a; x <= e.b + e.w; x += 5) if (!TT.C.grounds.some(([g0, gw]) => x >= g0 && x <= g0 + gw)) return false; return true; })), 'nenhum corvo anda por cima de buraco (o trajeto inteiro fica no chão)');
 

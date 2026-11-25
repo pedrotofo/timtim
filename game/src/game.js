@@ -287,7 +287,6 @@ function updateCrow(dt, prevBottom, playing) {
   else if (f.state !== 'hurt') { const d = Math.sign(pcx - fx) || 1; p.vx = d * 380; p.vy = Math.min(p.vy, -300); p.shrugT = 0.3; emit('foxBump', { x: (pcx + fx) / 2, y: p.y + p.h / 2 }); }
 }
 // o Van Gogh: triste no começo da fase, pedindo ajuda; no fim aparece feliz onde o pincel caiu e comemora com a turma
-const VG_LINES = ['Ai, Timtim... pintei um corvo tão bem feito que ele ganhou vida!', 'Ele se rebelou e fugiu com o meu pincel favorito. Você me ajuda a recuperar?'];
 function updateVanGogh(dt) {
   const v = S.vg, b = S.brush; if (!v) return; v.t += dt;
   if (b && !b.rest) { b.vy += GRAV * dt; b.x += b.vx * dt; b.y += b.vy * dt; b.rot += 9 * dt;
@@ -395,7 +394,8 @@ function updateRunners(dt, prevBottom, playing) {
           r.boost = d / T / Math.abs(r.vx); r.jv = -1500 * T / 2; r.jy = 0; r.air = true; emit('henJump', { x: cx, y: GROUND - 20 }); } } }
     r.y = GROUND - 30 + (r.air ? r.jy : -Math.abs(Math.sin(r.t * 14)) * 16);
     if ((r.x < cam.x - 200 && r.kind !== 'arena') || r.x > C.LEVEL_END + 400 || r.jy > 500) { S.runners.splice(i, 1); continue; }
-    if (r.kind !== 'run' || !playing || S.cine || !overlap(p, r)) continue;
+    // galinha pulando um buraco não machuca: no vão grande do Arraial ela cruzava com o Timtim planando, e o empurrão jogava ele no buraco
+    if (r.kind !== 'run' || r.air || !playing || S.cine || !overlap(p, r)) continue;
     if (p.vy > 0 && prevBottom <= r.y + 16) { p.vy = -640; p.shrugT = 0.3; emit('cluck', { x: r.x + r.w / 2, y: r.y }); emit('henBounce', { x: r.x + r.w / 2, y: r.y }); }
     else if (!(p.shrugT > 0)) hurt(r.x + r.w / 2);
   }
@@ -508,13 +508,11 @@ TT.update = (rdt) => {
   if (S.slowT > 0) { S.slowT -= rdt; S.timeScale = S.slowT > 0 ? 0.2 : 1; }
   const dt = rdt * S.timeScale;
   S.clock += dt;
-  // depois do cartão da fase 3, o Van Gogh conta o que aconteceu (só na primeira vez; o pulo adianta a fala)
-  if (S.cine && S.cine.type === 'vangogh') { const c = S.cine;
-    if (c.said < 1 && c.t > 0.3) { c.said = 1; emit('vgSay', { line: VG_LINES[0], dur: 3.6 }); }
-    if (c.said < 2 && c.t > 4.0) { c.said = 2; emit('vgSay', { line: VG_LINES[1], dur: 4.0 }); }
-    if (TT.input.jumpPressed && c.t > 1.0) { if (c.t < 4.0) c.t = 4.0; else c.t = Math.max(c.t, c.dur - 0.2); TT.input.jumpPressed = false; } }
+  // cena do Furtão roubando o macaco (fase 1): o card já contou a história, então o pulo encerra a cena (o Furtão sai correndo)
+  if (S.cine && S.cine.type === 'steal' && TT.input.jumpPressed && S.cine.t > 0.6) { TT.input.jumpPressed = false; S.cine.t = S.cine.dur;
+    if (S.thief && S.thief.t < STEAL.laughT) S.thief.t = STEAL.laughT; }
   if (S.cine) { S.cine.t += rdt; if (S.cine.t >= S.cine.dur) { const type = S.cine.type; S.cine = null; emit('cineEnd', { type });
-    if (type === 'arraial' && FASE === 3 && !TT.vgSeen) { TT.vgSeen = true; S.cine = { type: 'vangogh', t: 0, dur: 8.2, said: 0 }; emit('vgIntro'); } } }
+  } } // (na fase 3 o Van Gogh não conta mais a história dentro da fase: o card dele já contou; ele fica triste no começo)
   updateThief(rdt); updatePrize(rdt);
   const playing = S.mode === 'play', locked = !playing || !!S.cine;
   if (playing && !S.cine) S.time += dt;

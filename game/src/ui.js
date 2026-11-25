@@ -16,7 +16,7 @@ addEventListener('keydown', e => {
   if (e.code === 'Enter' || e.code === 'Space') {
     const b = mainBtn();
     if ($('shelf').classList.contains('on')) { e.preventDefault(); $('btnShelfBack').click(); return; }
-    if (b && $(S.mode).classList.contains('on')) { e.preventDefault(); $(b).click(); return; }
+    if (b && $(S.mode).classList.contains('on')) { e.preventDefault(); if (!cedo()) $(b).click(); return; }
   }
   const k = keyMap[e.code]; if (!k) return; e.preventDefault(); if (!e.repeat) press(k, true);
 });
@@ -43,14 +43,17 @@ TT.pollPad = () => {
   for (const k of ['left', 'right', 'jump', 'sniff']) if (now[k] !== !!padPrev[k]) press(k, now[k]);
   const okNow = now.start || b(0);
   if (now.start && !padPrev.start && S.mode === 'play') TT.pause();
-  else if (okNow && !padPrev.ok && S.mode !== 'play') { if ($('shelf').classList.contains('on')) $('btnShelfBack').click(); else { const id = mainBtn(); if (id && $(S.mode) && $(S.mode).classList.contains('on')) $(id).click(); } }
+  else if (okNow && !padPrev.ok && S.mode !== 'play' && !cedo()) { if ($('shelf').classList.contains('on')) $('btnShelfBack').click(); else { const id = mainBtn(); if (id && $(S.mode) && $(S.mode).classList.contains('on')) $(id).click(); } }
   now.ok = okNow;
   padPrev = now;
 };
 
 // ---------------- telas ----------------
 const screens = ['title', 'pause', 'lose', 'win'];
-const show = name => screens.forEach(s => $(s).classList.toggle('on', s === name));
+// vitória e derrota: no primeiro 1,5 s a tela não aceita Espaço/Enter (quem vinha apertando o pulo pulava a tela sem ver o presente)
+let shownAt = 0; const ESPERA = { win: 1500, lose: 1500 };
+const cedo = () => performance.now() - shownAt < (ESPERA[S.mode] || 0);
+const show = name => { shownAt = performance.now(); screens.forEach(s => $(s).classList.toggle('on', s === name)); };
 const iris = $('iris');
 function irisTo(closed, at) {
   if (at) { iris.style.setProperty('--x', (at.x * 100).toFixed(1) + '%'); iris.style.setProperty('--y', (at.y * 100).toFixed(1) + '%'); }
@@ -82,6 +85,8 @@ const goFase = (f, jogar) => { TT.sfx('ui'); irisTo(true, { x: 0.5, y: 0.5 }); s
 // chegou de "Próxima fase": começa a fase direto, sem a tela inicial
 if (/-jogar/.test(location.hash)) { try { history.replaceState(null, '', location.pathname + location.search + '#fase' + FASE); } catch (_) { location.hash = 'fase' + FASE; } // vindo do mapa: a capa nem aparece, entra o card da fase
   titleEl.classList.add('story');
+  // e a capa fica escondida: antes ela aparecia por um instante, misturada com o card, enquanto o card entrava
+  document.querySelectorAll('#title .tbg, #title .vig, #title .fly').forEach(e => { e.style.visibility = 'hidden'; });
   let auto = false; TT.on('assetsReady', () => { if (auto) return; auto = true; if (S.mode === 'title') historia(); }); }
 document.querySelectorAll('#fases .chip').forEach(b => { const f = +b.dataset.f; b.classList.toggle('cur', f === FASE); b.disabled = f > 1 && !done[f - 1];
   b.onclick = () => { if (f !== FASE) goFase(f); }; });
@@ -134,7 +139,6 @@ TT.on('cineEnd', e => { if (e.type !== 'fox') return;
   tipT.push(setTimeout(() => { if (ok()) fala(0, 'E cai planando na crina dele!'); }, 3300)); });
 // o Corvo-Borrão: a hora de atacar é quando ele desce e fica bicando o chão
 TT.on('crowPeck', e => { if (!e.first) return; const f = S.friends[0]; if (f) TT.emit('friend', { x: f.x, y: C.GROUND - 70, kind: f.kind, line: 'Desceu! Pula nas costas dele!' }); });
-TT.on('vgIntro', () => stage.classList.add('cine'));
 TT.on('start', () => { tipT.forEach(clearTimeout); tipT.length = 0; }); TT.on('lose', () => { tipT.forEach(clearTimeout); tipT.length = 0; });
 TT.on('foxRoar', e => { if (e.first) TT.emit('banner', { text: FASE === 3 ? 'O grasnado desliga os redemoinhos!' : 'O latido apaga o ar quente!' }); });
 TT.on('fruitLand', e => { if (e.first) TT.emit('banner', { text: 'Fruta-do-lobo!' }); });
@@ -221,9 +225,9 @@ TT.on('hurt', () => { const h = hearts[Math.max(0, S.player.hp)]; if (h) { h.cla
 TT.on('start', () => { show(null); $('hud').classList.add('on'); stage.classList.remove('cine'); $('bossCard').classList.remove('show'); $('cookieT').textContent = '/' + S.totalCookies; irisOpenFromBlack(); });
 // balão dos amigos
 const say = $('say'), LINES = TT.FASE === 3 ? ['Toma tinta amarela, Timtim! Dá força pra planar!', 'Mais um tubo: agora nada te machuca!'] : TT.FASE === 2 ? ['Toma um ovo cozido, Timtim! Dá força pra planar!', 'Mais um ovinho: agora nada te machuca!'] : ['Toma um turbo, Timtim!', 'Fica invencível, Timtim!']; let sayF = null, sayEnd = 0;
-TT.on('friend', e => { if (noteOpen() && !S.arena) return; sayF = S.friends.reduce((a, f) => Math.abs(f.x - e.x) < Math.abs(a.x - e.x) ? f : a); say.textContent = e.line || LINES[S.friends.indexOf(sayF) % 2]; sayEnd = performance.now() + 2600; say.classList.remove('long'); say.classList.add('on'); });
+TT.on('friend', e => { if (noteOpen() && !S.arena) return; say.style.fontSize = ''; sayF = S.friends.reduce((a, f) => Math.abs(f.x - e.x) < Math.abs(a.x - e.x) ? f : a); say.textContent = e.line || LINES[S.friends.indexOf(sayF) % 2]; sayEnd = performance.now() + 2600; say.classList.remove('long'); say.classList.add('on'); });
 // o Van Gogh fala no mesmo balão, mais alto (ele é bem maior que os cachorros) e com a fala quebrada em linhas
-TT.on('vgSay', e => { if (!S.vg) return; sayF = S.vg; say.textContent = e.line; sayEnd = performance.now() + (e.dur || 3.4) * 1000; say.classList.add('long', 'on'); });
+TT.on('vgSay', e => { if (!S.vg) return; sayF = S.vg; say.textContent = e.line; say.style.fontSize = '2.1cqw'; sayEnd = performance.now() + (e.dur || 3.4) * 1000; say.classList.add('long', 'on'); }); // letra maior: a fala dele é comprida
 const uiFrame0 = TT.uiFrame;
 TT.uiFrame = () => { uiFrame0(); if (!sayF) return;
   if (performance.now() > sayEnd || S.mode === 'lose') { say.classList.remove('on'); sayF = null; return; }
