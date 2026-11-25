@@ -170,9 +170,13 @@ $('btnAgain').onclick = () => begin(TT.start);
 $('btnRestart').onclick = () => begin(TT.start);
 // tela cheia (e, no celular, tenta travar deitado); onde o navegador não deixa (iPhone, janela de artefato), os botões somem
 { const d = document, ok = d.fullscreenEnabled || d.webkitFullscreenEnabled, cheia = () => d.fullscreenElement || d.webkitFullscreenElement;
-  if (!ok) d.documentElement.classList.add('semTela');
+  // aberto pelo ícone da tela de início: já está sem barras, o botão some
+  if (navigator.standalone || matchMedia('(display-mode: fullscreen), (display-mode: standalone)').matches) d.documentElement.classList.add('jaApp');
+  const dica = on => { $('dicaTela').classList.toggle('on', on); };
+  $('btnDicaOk').onclick = e => { e.stopPropagation(); dica(false); }; $('dicaTela').addEventListener('pointerdown', e => e.stopPropagation());
   const rotulo = () => { $('btnTela').textContent = cheia() ? '⛶ Sair da tela cheia' : '⛶ Tela cheia'; $('btnTelaPausa').textContent = cheia() ? 'Sair da tela cheia' : 'Tela cheia'; };
   const alterna = e => { if (e) e.stopPropagation(); const el = d.documentElement;
+    if (!ok) return dica(true); // iPhone: o navegador não deixa; mostra como pôr na tela de início
     if (cheia()) (d.exitFullscreen || d.webkitExitFullscreen).call(d);
     else { const p = (el.requestFullscreen || el.webkitRequestFullscreen).call(el); if (p && p.then) p.then(() => { try { screen.orientation.lock('landscape').catch(() => {}); } catch (_) {} }).catch(() => {}); } };
   $('btnTela').addEventListener('pointerdown', e => e.stopPropagation()); $('btnTela').onclick = alterna; $('btnTelaPausa').onclick = alterna;
