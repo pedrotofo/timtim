@@ -73,6 +73,8 @@ const { chromium } = require('playwright');
   const nt = await ev(() => TT.C.NOTES[0]);
   await put(nt.x - pw.w / 2, nt.y - pw.h / 2, { vy: 0, inv: 99 });
   check(await until(() => document.querySelector('#note small').textContent.startsWith('Carta ao Theo'), 2000), 'o bilhete da fase 3 aparece como "Carta ao Theo"');
+  await ev(() => TT.emit('banner', { text: 'TESTE-FAIXA' }));
+  check(await ev(() => document.getElementById('banner').textContent !== 'TESTE-FAIXA'), 'com a carta aberta, uma faixa de texto nova não aparece por cima (um texto por vez)');
   await ev(() => { const n = document.getElementById('note'); if (n) n.classList.remove('on'); });
 
   // o Corvo-Borrão: chegar no morro começa a luta com a apresentação dele

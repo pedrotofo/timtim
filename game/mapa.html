@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Timtim · Mapa das fases (protótipo)</title>
+<style>
+  html, body { margin: 0; height: 100%; background: #0b1730; overflow: hidden; }
+  #mapa { position: fixed; inset: 0; display: grid; place-items: center; }
+  .mapaCanvas { width: min(100vw, calc(100vh * 458 / 256)); height: auto; aspect-ratio: 458 / 256; image-rendering: pixelated; image-rendering: crisp-edges; display: block; cursor: pointer; touch-action: manipulation; }
+</style>
+</head>
+<body>
+<div id="mapa"></div>
+<script src="src/mapa.js"></script>
+<script>
+  // protótipo: fases 1 e 2 vencidas; o Timtim começa no Arraial e anda até o Quadro Encantado
+  let done = {}; try { done = JSON.parse(localStorage.getItem('tintim-fases') || '{}') || {}; } catch (_) {}
+  const demo = Object.assign({ 1: true, 2: true }, done);
+  TT.mapa.open({ root: document.getElementById('mapa'), done: demo, at: 2, walkTo: 3, onPlay: f => { location.href = 'index.html#fase' + f + '-jogar'; } });
+</script>
+</body>
+</html>

@@ -540,7 +540,7 @@ TT.update = (rdt) => {
     S.scent = Object.assign(scentTarget(p), { t: (S.scent && S.scent.t) || 0, fade: 1 }); S.scent.t += dt;
     if (S.scent.x !== p.x + p.w / 2) p.face = Math.sign(S.scent.x - (p.x + p.w / 2)) || p.face;
     if (p.sniff > C.SNIFF.reveal) for (const t of C.trails) if (!S.revealed[t.id] && Math.abs(t.at - (p.x + p.w / 2)) < C.SNIFF.range) {
-      S.revealed[t.id] = true; emit('reveal', { id: t.id, x: t.at, y: t.plats[0][1] }); emit('banner', { text: 'Caminho de cheiro!' }); }
+      S.revealed[t.id] = true; emit('reveal', { id: t.id, x: t.at, y: t.plats[0][1] }); emit('banner', { text: 'Caminho de cheiro!', important: true }); }
   } else if (S.scent) { S.scent.fade -= dt / 1.2; if (S.scent.fade <= 0) S.scent = null; } // o rastro some devagar
   const dir = locked || sniffing ? 0 : (I.right ? 1 : 0) - (I.left ? 1 : 0);
   const target = dir * speed, accel = p.onGround ? 2600 : 1900;
@@ -603,7 +603,7 @@ TT.update = (rdt) => {
   }
   if (p.onGround) p.gliding = false;
   if (p.onGround && !wasGround) { p.landT = 0.18; emit('land', { x: p.x + p.w / 2, y: p.y + p.h }); }
-  { if (C.TUB && playing && !S.revealed.pescaria && Math.abs(p.x + p.w / 2 - C.TUB.x) < C.TUB.w / 2 && p.y + p.h >= GROUND - 2) { S.revealed.pescaria = true; emit('splash', { x: C.TUB.x, y: GROUND }); emit('banner', { text: 'Pescaria! Caíram biscoitos do tanque!' }); } }
+  { if (C.TUB && playing && !S.revealed.pescaria && Math.abs(p.x + p.w / 2 - C.TUB.x) < C.TUB.w / 2 && p.y + p.h >= GROUND - 2) { S.revealed.pescaria = true; emit('splash', { x: C.TUB.x, y: GROUND }); emit('banner', { text: 'Pescaria!' }); } }
   p.landT = Math.max(0, p.landT - dt);
   if (p.onGround && p.y + p.h >= GROUND - 1) p.safeX = p.x;
   S.dustT -= dt;
@@ -638,7 +638,7 @@ TT.update = (rdt) => {
     if (FASE === 3 && !S.tut.swirl && p.x > 560) { S.tut.swirl = true; emit('tutorial', { kind: 'swirl' }); }
     if (FASE === 3 && !S.tut.bounce && p.x > 4880) { S.tut.bounce = true; emit('tutorial', { kind: 'bounce' }); }
     if (FASE === 3 && !S.tut.blink && p.x > 6260) { S.tut.blink = true; emit('tutorial', { kind: 'blink' }); }
-    if (C.HOOP && !S.revealed.argola && Math.hypot(p.x + p.w / 2 - C.HOOP.x, p.y + p.h / 2 - C.HOOP.y) < C.HOOP.r) { S.revealed.argola = true; emit('hoop', C.HOOP); emit('banner', { text: FASE === 3 ? 'Passou pela moldura: tubo de tinta dourado!' : 'Passou pela argola: biscoito dourado!' }); }
+    if (C.HOOP && !S.revealed.argola && Math.hypot(p.x + p.w / 2 - C.HOOP.x, p.y + p.h / 2 - C.HOOP.y) < C.HOOP.r) { S.revealed.argola = true; emit('hoop', C.HOOP); emit('banner', { text: FASE === 3 ? 'Tubo dourado!' : 'Biscoito dourado!' }); }
     // chegada: o mastro de São João (só sem chefe; no Arraial a vitória é derrotar o lobo-guará)
     if (!C.FOX && p.x + p.w / 2 > C.GOAL_X) { S.mode = 'winning'; S.winT = 0; p.gliding = false; emit('goal', { x: C.MASTRO_X });
       S.friends.forEach((f, i) => { f.home = C.MASTRO_X - 150 + i * 260; f.given = true; f.follow = 0; }); }
@@ -656,7 +656,7 @@ TT.update = (rdt) => {
       if (it.type === 'cookie') { S.cookies++; emit('cookie', it); }
       if (it.type === 'gold') { S.gold++; emit('power', it); emit('gold', it); }
       if (it.type === 'choco') { if (p.mega <= 0) { p.slow = 5; p.fast = 0; emit('choco', it); } }
-      if (it.type === 'toy') { S.toy = true; S.hitstop = 0.1; emit('toy', it); emit('banner', { text: FASE === 3 ? 'Brinquedo perdido: a Bolinha Estrelada!' : FASE === 2 ? 'Brinquedo perdido: a Sanfoninha!' : 'Brinquedo perdido: o Patinho!' }); }
+      if (it.type === 'toy') { S.toy = true; S.hitstop = 0.1; emit('toy', it); emit('banner', { important: true, text: FASE === 3 ? 'Brinquedo perdido: a Bolinha Estrelada!' : FASE === 2 ? 'Brinquedo perdido: a Sanfoninha!' : 'Brinquedo perdido: o Patinho!' }); }
       if (it.type === 'bilhete') { S.notes++; emit('note', { x: it.x, y: it.y, text: C.NOTES[it.idx].text, n: S.notes, total: C.NOTES.length }); }
     }
   }

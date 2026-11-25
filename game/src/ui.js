@@ -99,12 +99,11 @@ TT.on('start', () => setTimeout(() => { titleEl.classList.remove('story', 'leavi
 // dicas do Arraial, na hora em que cada coisa aparece
 const HOLD = isTouch ? 'segure ▲' : 'segure Espaço';
 const TUT = { glide: isTouch ? 'Segure ▲ no ar para planar' : 'Segure Espaço no ar para planar', glideEdge: `Pule e ${HOLD} para planar!`,
-  glideHold: HOLD[0].toUpperCase() + HOLD.slice(1) + '!', glideRetry: `Quase! Pule e ${HOLD} para planar`, glideOk: 'Isso! Agora o Timtim sabe planar', swirl: isTouch ? 'Pule no redemoinho e toque ▲ para se soltar!' : 'Pule no redemoinho e aperte Espaço para se soltar!',
-  bounce: 'O toldo do café é cama elástica!', blink: 'As estrelas apagam: pule enquanto brilham!', fire: 'O ar quente da fogueira levanta quem plana!', dance: 'As peneiras dançam a quadrilha: pule na hora certa!' };
-TT.on('tutorial', e => TT.emit('banner', { text: TUT[e.kind] }));
+  glideHold: HOLD[0].toUpperCase() + HOLD.slice(1) + '!', glideRetry: `Quase! Pule e ${HOLD} para planar`, glideOk: 'Isso! O Timtim sabe planar', swirl: isTouch ? '▲ solta do redemoinho' : 'Espaço solta do redemoinho', fire: 'Plane sobre o ar quente' };
+TT.on('tutorial', e => { if (TUT[e.kind]) TT.emit('banner', { text: TUT[e.kind], important: true, now: e.kind.startsWith('glide') }); }); // a aula de planar troca a dica no meio do pulo: substitui na hora
 // a primeira debandada é anunciada: sem isso, as galinhas atropelavam o jogador sem aviso nenhum
-TT.on('stampedeWarn', e => { TT.sfx('henPanic'); if (e.first) TT.emit('banner', { text: 'Galinhas em disparada! Pule por cima delas!' }); });
-TT.on('egg', () => TT.emit('banner', { text: 'Ovo cozido: planar turbinado!' }));
+TT.on('stampedeWarn', e => { TT.sfx('henPanic'); if (e.first) TT.emit('banner', { text: 'Galinhas em disparada!', important: true }); });
+TT.on('egg', () => TT.emit('banner', { text: 'Planar turbinado!' }));
 // cartão de abertura do Arraial (o mesmo cartão da apresentação do chefão, com outro texto)
 TT.on('arraialIntro', () => { stage.classList.add('cine'); const c = $('bossCard'); c.classList.add('top'); c.querySelector('small').textContent = 'FASE ' + FASE; c.querySelector('h2').textContent = FASE === 3 ? 'O QUADRO ENCANTADO' : 'O ARRAIAL';
   c.querySelector('p').textContent = FASE === 3 ? 'O Van Gogh precisa da sua ajuda.' : 'Siga as galinhas assustadas até o galinheiro.'; setTimeout(() => c.classList.add('show'), 350); });
@@ -118,19 +117,17 @@ const tipT = [];
 TT.on('cineEnd', e => { if (e.type !== 'fox') return;
   const fala = (i, line) => { const f = S.friends[i]; if (f && S.mode === 'play') TT.emit('friend', { x: f.x, y: C.GROUND - 70, kind: f.kind, line }); };
   const ok = () => S.mode === 'play' && S.arena;
-  if (FASE === 3) { tipT.push(setTimeout(() => { if (ok()) { fala(1, 'Cuidado com os tubos de tinta!'); TT.emit('banner', { text: '1. Fuja das marcas vermelhas: ali cai tinta' }); } }, 300)); return; }
-  tipT.push(setTimeout(() => { if (ok()) { fala(1, 'Sobe no ar quente da fogueira!'); TT.emit('banner', { text: '1. Suba no ar quente da fogueira' }); } }, 300));
-  tipT.push(setTimeout(() => { if (ok()) { fala(0, 'E cai planando na crina dele!'); TT.emit('banner', { text: '2. Plane e caia na crina dele' }); } }, 3300)); });
+  if (FASE === 3) { tipT.push(setTimeout(() => { if (ok()) fala(1, 'Cuidado com os tubos de tinta!'); }, 300)); return; }
+  tipT.push(setTimeout(() => { if (ok()) fala(1, 'Sobe no ar quente da fogueira!'); }, 300));
+  tipT.push(setTimeout(() => { if (ok()) fala(0, 'E cai planando na crina dele!'); }, 3300)); });
 // o Corvo-Borrão: a hora de atacar é quando ele desce e fica bicando o chão
-TT.on('crowPeck', e => { if (!e.first) return; const f = S.friends[0]; if (f) TT.emit('friend', { x: f.x, y: C.GROUND - 70, kind: f.kind, line: 'Ele desceu! Pula nas costas dele!' });
-  TT.emit('banner', { text: '2. Bicando o chão? Pule nas costas dele!' }); });
-TT.on('crowRed', () => TT.emit('banner', { text: 'O Corvo-Borrão ficou vermelho de raiva!' }));
+TT.on('crowPeck', e => { if (!e.first) return; const f = S.friends[0]; if (f) TT.emit('friend', { x: f.x, y: C.GROUND - 70, kind: f.kind, line: 'Desceu! Pula nas costas dele!' }); });
 TT.on('vgIntro', () => stage.classList.add('cine'));
 TT.on('start', () => { tipT.forEach(clearTimeout); tipT.length = 0; }); TT.on('lose', () => { tipT.forEach(clearTimeout); tipT.length = 0; });
 TT.on('foxRoar', e => { if (e.first) TT.emit('banner', { text: FASE === 3 ? 'O grasnado desliga os redemoinhos!' : 'O latido apaga o ar quente!' }); });
-TT.on('fruitLand', e => { if (e.first) TT.emit('banner', { text: FASE === 3 ? 'Tampinha dourada! Ele não resiste...' : 'Fruta-do-lobo! Ele não resiste...' }); });
+TT.on('fruitLand', e => { if (e.first) TT.emit('banner', { text: 'Fruta-do-lobo!' }); });
 TT.on('henRevenge', () => setTimeout(() => TT.emit('banner', { text: 'As galinhas expulsaram o lobo-guará!' }), 500));
-let dodgeTip = false; TT.on('foxDodge', () => { if (dodgeTip) return; dodgeTip = true; TT.emit('banner', { text: FASE === 3 ? 'Pulo comum ele desvia: plane!' : 'Pulo comum só bate na canela: plane!' }); });
+let dodgeTip = false; TT.on('foxDodge', () => { if (dodgeTip) return; dodgeTip = true; TT.emit('banner', { text: 'Pulo comum não basta: plane!', important: true }); });
 TT.on('start', e => { if (!e.retry) dodgeTip = false; });
 // correio elegante: o bilhete abre na tela com a piada
 let noteT = 0; TT.on('note', e => { const n = $('note'); n.querySelector('small').textContent = `${FASE === 3 ? 'Carta ao Theo' : 'Correio elegante'} ${e.n}/${e.total}`; n.querySelector('p').textContent = e.text;
@@ -188,12 +185,17 @@ TT.uiFrame = () => {
 };
 
 const banner = $('banner');
-TT.on('banner', e => { banner.textContent = e.text; banner.classList.remove('show'); void banner.offsetWidth; banner.classList.add('show'); });
+let bannerUntil = 0, bannerQ = null;
+const noteOpen = () => $('note').classList.contains('on'), textBusy = () => performance.now() < bannerUntil || noteOpen();
+const showBanner = e => { banner.textContent = e.text; banner.classList.remove('show'); void banner.offsetWidth; banner.classList.add('show'); bannerUntil = performance.now() + 2700; };
+TT.on('banner', e => { if (textBusy() && !e.now) { if (e.important) bannerQ = e; return; } showBanner(e); });
+setInterval(() => { if (bannerQ && !textBusy() && S.mode === 'play') { const q = bannerQ; bannerQ = null; showBanner(q); } }, 250);
+TT.on('start', () => { bannerQ = null; bannerUntil = 0; });
 TT.on('hurt', () => { const h = hearts[Math.max(0, S.player.hp)]; if (h) { h.classList.remove('hit'); void h.offsetWidth; h.classList.add('hit'); } });
 TT.on('start', () => { show(null); $('hud').classList.add('on'); stage.classList.remove('cine'); $('bossCard').classList.remove('show'); $('cookieT').textContent = '/' + S.totalCookies; irisOpenFromBlack(); });
 // balão dos amigos
 const say = $('say'), LINES = TT.FASE === 3 ? ['Toma tinta amarela, Timtim! Dá força pra planar!', 'Mais um tubo: agora nada te machuca!'] : TT.FASE === 2 ? ['Toma um ovo cozido, Timtim! Dá força pra planar!', 'Mais um ovinho: agora nada te machuca!'] : ['Toma um turbo, Timtim!', 'Fica invencível, Timtim!']; let sayF = null, sayEnd = 0;
-TT.on('friend', e => { sayF = S.friends.reduce((a, f) => Math.abs(f.x - e.x) < Math.abs(a.x - e.x) ? f : a); say.textContent = e.line || LINES[S.friends.indexOf(sayF) % 2]; sayEnd = performance.now() + 2600; say.classList.remove('long'); say.classList.add('on'); });
+TT.on('friend', e => { if (noteOpen() && !S.arena) return; sayF = S.friends.reduce((a, f) => Math.abs(f.x - e.x) < Math.abs(a.x - e.x) ? f : a); say.textContent = e.line || LINES[S.friends.indexOf(sayF) % 2]; sayEnd = performance.now() + 2600; say.classList.remove('long'); say.classList.add('on'); });
 // o Van Gogh fala no mesmo balão, mais alto (ele é bem maior que os cachorros) e com a fala quebrada em linhas
 TT.on('vgSay', e => { if (!S.vg) return; sayF = S.vg; say.textContent = e.line; sayEnd = performance.now() + (e.dur || 3.4) * 1000; say.classList.add('long', 'on'); });
 const uiFrame0 = TT.uiFrame;

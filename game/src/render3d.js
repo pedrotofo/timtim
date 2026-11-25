@@ -1315,7 +1315,7 @@ const tmpC = new THREE.Color();
 function dayLight(cx) {
   const k = ARR ? 0 : 1; // a cor é da fase inteira: não muda ao longo do caminho
   vilaMat.uniforms.k.value = VG ? ease(Math.max(0, Math.min(1, (cx - 4300) / 1300))) : 0; // no quadro: o dia dos girassóis vira noite estrelada no terraço do café (uma passagem curta, sem as duas pinturas misturadas por muito tempo)
-  if (VG) { vilaMat.uniforms.tint.value.setRGB(0.7, 0.68, 0.73); vilaMat.uniforms.hazeK.value = 0.16; vilaMat.uniforms.flow.value = 0.0035; vilaMat.uniforms.t.value = time; } // mais apagado, para o que está na frente se destacar else if (ARR) { vilaMat.uniforms.tint.value.setRGB(0.74, 0.6, 0.52); vilaMat.uniforms.hazeK.value = 0.32; } else vilaMat.uniforms.tint.value.setScalar(0.9); // o fundo do Arraial recua: mais escuro, para o que se mexe aparecer
+  if (VG) { vilaMat.uniforms.tint.value.setRGB(0.7, 0.68, 0.73); vilaMat.uniforms.hazeK.value = 0.16; vilaMat.uniforms.flow.value = 0.006; vilaMat.uniforms.t.value = time; } // mais apagado, para o que está na frente se destacar else if (ARR) { vilaMat.uniforms.tint.value.setRGB(0.74, 0.6, 0.52); vilaMat.uniforms.hazeK.value = 0.32; } else vilaMat.uniforms.tint.value.setScalar(0.9); // o fundo do Arraial recua: mais escuro, para o que se mexe aparecer
   scene.background.copy(DUSK.bg).lerp(NIGHT_.bg, k);
   if (figMats[0]) figMats[0].color.copy(DUSK.figB).lerp(NIGHT_.figB, k);
   if (figMats[1]) figMats[1].color.copy(DUSK.figF).lerp(NIGHT_.figF, k);
