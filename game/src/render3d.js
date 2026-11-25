@@ -57,7 +57,7 @@ const ownTex = k => { const t = load('sprites/' + k + '.png'); t.repeat.set(1 / 
 // recortados e postos numa grade (assets/anim/*.webp, medidas em src/anim-data.js). Assim o movimento é o de um
 // animal de verdade, quadro a quadro, sem a "tremedeira" de quadros desenhados um a um.
 const ANIM = TT.ANIM || {}, ANIM_TEX = {};
-const animWanted = k => VG ? /^(timtim|zara|elvis)/.test(k) : ARR ? !/^(pombo|furtao|macaco)/.test(k) : !/^(galinha|guara)/.test(k); // no quadro, os bichos são outros: só a turma tem animação de vídeo
+const animWanted = k => VG ? /^(timtim|zara|elvis)/.test(k) : ARR ? !/^(pombo|furtao|macaco)/.test(k) : !/^(galinha|guara|timtim-plana)/.test(k); // no quadro, os bichos são outros: só a turma tem animação de vídeo
 for (const k in ANIM) if (animWanted(k)) { const t = ANIM_TEX[k] = load('anim/' + k + '.webp'); t.repeat.set(1 / ANIM[k].cols, 1 / ANIM[k].rows); }
 // toca a animação `name` no sprite m: o corpo fica com `bodyH` de altura (o mesmo tamanho da arte parada), t em segundos.
 // Cada sprite tem a sua cópia da textura (mesma imagem na placa de vídeo) para poder estar num quadro diferente.
@@ -893,9 +893,9 @@ R.frame = (rdt) => {
   // animação de vídeo de cada estado (a corrida continua na tira própria, que acompanha a velocidade)
   const hurtNow = p.hurtT > 0 || S.mode === 'lose' || name === 'tintim-hurt'; if (hurtNow && !tintimHurt) tintimHurtT = time; tintimHurt = hurtNow;
   if (name !== tintimLast) { tintimLast = name; tintimT0 = time; }
-  const TANIM = { 'tintim-win': ['timtim-comemora', 92], 'tintim-hurt': ['timtim-machuca', 80], 'tintim-glide': ['timtim-pulo', 78], 'tintim-jump': ['timtim-pulo', 78], 'tintim-fall': ['timtim-pulo', 78], 'tintim-sniff': ['timtim-fareja', 70], 'tintim-idle': ['timtim-parado', 80] }[name];
-  // planando, ele fica nos quadros do pulo em que está todo esticado (11 a 14), indo e voltando devagar, como quem rema no vento
-  const tA = name === 'tintim-glide' ? (11 + Math.round(1.5 + 1.5 * Math.sin(time * 4))) / 24 : name === 'tintim-fall' ? (12 + Math.round(1 + Math.sin(time * 9))) / 24
+  const TANIM = { 'tintim-win': ['timtim-comemora', 92], 'tintim-hurt': ['timtim-machuca', 80], 'tintim-glide': ['timtim-plana', 102], 'tintim-jump': ['timtim-pulo', 78], 'tintim-fall': ['timtim-pulo', 78], 'tintim-sniff': ['timtim-fareja', 70], 'tintim-idle': ['timtim-parado', 80] }[name];
+  // planando: o ciclo próprio do vídeo (a bandana aberta como asa-delta tremulando, o pelo e as orelhas voando para trás)
+  const tA = name === 'tintim-glide' ? time - tintimT0 : name === 'tintim-fall' ? (12 + Math.round(1 + Math.sin(time * 9))) / 24
     : name === 'tintim-jump' ? Math.min(time - tintimT0, 11 / 24) : name === 'tintim-hurt' ? time - tintimHurtT : time - tintimT0; // subindo: o pulo vai até esticar e para ali
   const tAnim = !!TANIM && playAnim(tintim, TANIM[0], TANIM[1], faceS < 0, tA);
   if (!tAnim) setAnim(tintim, name, h, faceS < 0, fr, nf);
@@ -920,7 +920,7 @@ R.frame = (rdt) => {
   const pivot = flip ? (tAnim ? tintim.userData.foot * squash + TANIM[1] * 0.5 : h * 0.5) : 0; // a pirueta gira em torno do meio do corpo, não dos pés
   tintim.position.set(tx + Math.sin(tintim.rotation.z) * pivot, ty + pivot - Math.cos(tintim.rotation.z) * pivot, 3);
   tintim.visible = !(p.inv > 0 && Math.floor(time * 20) % 2);
-  if (cape) { capeK += ((name === 'tintim-glide' ? 1 : 0) - capeK) * Math.min(1, rdt * (name === 'tintim-glide' ? 14 : 20));
+  if (cape) { capeK += ((name === 'tintim-glide' && !tAnim ? 1 : 0) - capeK) * Math.min(1, rdt * (name === 'tintim-glide' ? 14 : 20));
     cape.visible = capeK > 0.03 && tintim.visible;
     if (cape.visible) { const sx = Math.abs(tintim.scale.x), sy = tintim.scale.y, f = faceS, rz = tintim.rotation.z;
       const nx = f * sx * 0.13, ny = sy * 0.5; // o nó da bandana, no pescoço

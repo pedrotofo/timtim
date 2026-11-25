@@ -73,6 +73,9 @@ desenhados um a um pela IA variam entre si e a animação treme; os do vídeo s�
 A comemoração do Timtim (`timtim-comemora`, 95 quadros) foi refeita em 25/11/2026: a versão anterior tinha uma mancha escura
 em volta de um olho ("olho de panda"). A nova parte da pose de vitória do jogo (`sprites/tintim-win.png`) sobre cinza liso,
 usada como primeiro e último quadro de um vídeo de 4 s no Veo 3.1 Lite (Artlist); por isso o ciclo fecha sem emenda.
+A planada (`timtim-plana`, 95 quadros) saiu do mesmo jeito, da arte `sprites/tintim-glide.png` (a bandana aberta como asa-delta):
+o pano tremula, o pelo e as orelhas voam para trás. Antes a planada usava os quadros esticados do pulo com uma bandana
+separada ondulando atrás; essa bandana (`bandana-asa`) agora só aparece se a animação não carregar.
 
 ## Fora do escopo (por enquanto)
 Mais fases, mais quadros de animação (a corrida tem 4), animações próprias para os chihuahuas, sprites dos pugs reais, placar online.

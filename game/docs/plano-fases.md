@@ -43,7 +43,7 @@ Geradas no Google Flow (Nano Banana Pro, 24/11/2026) com a folha de personagem e
 - **Feito:** `sprites/tintim-sniff.png`, o Timtim farejando de perfil, focinho no chão (entra quando `p.sniff > 0`).
 - **Feito:** `sprites/toy-duck.png`, o Patinho Quá-Quá mordido no rabo e no bico (na fase e na estante).
 - **Feito:** `bg/shelf.jpg`, a casinha de madeira à noite com 5 nichos, varal de luzes e bandeirinhas (fundo da estante).
-- **Feito, ainda sem uso:** `sprites/tintim-glide.png`, o Timtim planando com a bandana aberta como asa-delta, para o Arraial.
+- **Feito (25/11/2026):** `sprites/tintim-glide.png`, o Timtim planando com a bandana aberta como asa-delta, virou a animação `anim/timtim-plana` (vídeo de 4 s), usada em toda planada.
 
 
 - **Feito (24/11/2026):** cor por fase. Fase 1 azul: plantas de pântano ao luar (`props/pantano-*.png`). Fase 2 laranja: `bg/vila-laranja.jpg`, barracas, pescaria, fogueira, mastro, sanfoninha, texturas de terra e madeira, capim, hera, folhagem, plantas, banco e poste (`assets/props/`, `assets/tex/`).

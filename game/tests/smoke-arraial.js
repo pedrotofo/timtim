@@ -42,11 +42,11 @@ const { chromium } = require('playwright');
   const f0 = await ev(() => TT.C.fires[0].x);
   await ev(f0 => { const S = __tintim.S; S.arena = false; S.mode = 'play'; S.cine = null; S.fireOff = 0; Object.assign(__tintim.player, { x: f0 - 27, y: 300, vx: 0, vy: 0, onGround: false, inv: 99, hp: 3, noGlide: 0, djT: 0, hurtT: 0, dj: false }); }, f0); // sem pirueta guardada: o aperto no ar vai direto para a planada
   await pg.keyboard.down('Space');
-  await ev(() => { window.__gl = []; const t0 = performance.now(); const f = () => { const p = __tintim.player; if (!p.onGround) __gl.push(p.gliding ? (__tintim.R.tintimMesh.userData.name === 'timtim-pulo' ? 1 : 2) : 0); if (performance.now() - t0 < 2500) requestAnimationFrame(f); }; requestAnimationFrame(f); });
+  await ev(() => { window.__gl = []; const t0 = performance.now(); const f = () => { const p = __tintim.player; if (!p.onGround) __gl.push(p.gliding ? (__tintim.R.tintimMesh.userData.name === 'timtim-plana' ? 1 : 2) : 0); if (performance.now() - t0 < 2500) requestAnimationFrame(f); }; requestAnimationFrame(f); });
   await pg.waitForTimeout(2700); await pg.keyboard.up('Space');
   const gl = await ev(() => __gl), drops = gl.slice(5).filter(v => !v).length;
   check(gl.length > 30 && drops === 0, `planando na coluna de ar quente a planada não pisca (${drops} quadros sem planar)`);
-  check(gl.length > 30 && gl.every(v => v !== 2), 'planando, o Timtim usa o próprio desenho do pulo (não troca de figura)');
+  check(gl.length > 30 && gl.every(v => v !== 2), 'planando, o Timtim usa a animação própria da planada, com a bandana aberta (não troca de figura)');
   // pisar numa galinha do Arraial faz quicar e ela foge; não morre
   const hen2 = await ev(() => { const e = __tintim.S.enemies.find(e => e.alive); return e && { x: e.x, y: e.y, w: e.w }; });
   if (hen2) { await ev(h => { const e = __tintim.S.enemies.find(e => e.alive); Object.assign(__tintim.player, { x: e.x + e.w / 2 - 27, y: e.y - 52, vx: 0, vy: 300, onGround: false, inv: 0, hp: 3, mega: 0 }); }, hen2);
