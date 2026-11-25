@@ -94,3 +94,9 @@ Desta vez as duas fases foram atravessadas de ponta a ponta, sem teleporte, com 
 65. ✅ As faixas de dica (texto branco com brilho claro) sumiam sobre o fundo claro do Arraial. Ganharam sombra escura.
 66. ✅ Na fase 1, as raízes penduradas das plataformas cobriam o Timtim quando ele pulava por baixo. Ficaram atrás dele.
 67. ✅ O ovo voando até o Timtim era tão grande e claro que cobria a cabeça dele. Ficou menor.
+
+## Terceira rodada (24/11, noite)
+68. ✅ **Galinhas flutuando sobre o buraco.** Na beirada, a galinha da debandada dá um pulo batendo as asas e cai do outro lado; nunca nasce em cima de um buraco.
+69. ✅ **Lobo-guará sumindo e reaparecendo no começo da luta.** Eram duas coisas: um teleporte para o outro lado da arena (saiu) e o contador de passos dele, que ficava inválido depois da apresentação e apagava o desenho até ele trocar de pose. A câmera também volta suave da apresentação, sem pulo.
+70. ✅ **Lobo-guará apagado.** Ficou mais aceso que o cenário.
+71. ✅ **Tela de título piscando entre a frase e a fase 2.** Vindo da fase 1, a tela de título nem aparece: frase de carregamento e já o jogo.

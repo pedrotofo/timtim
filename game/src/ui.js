@@ -77,7 +77,9 @@ let done = {}; try { done = JSON.parse(localStorage.getItem('tintim-fases') || '
 const goFase = (f, jogar) => { TT.sfx('ui'); irisTo(true, { x: 0.5, y: 0.5 }); setTimeout(() => { const h = (f > 1 ? 'fase' + f : 'fase1') + (jogar ? '-jogar' : '');
   if (location.search) location.href = location.pathname + '#' + h; else { location.hash = h; location.reload(); } }, 480); };
 // chegou de "Próxima fase": começa a fase direto, sem a tela inicial
-if (/-jogar/.test(location.hash)) { try { history.replaceState(null, '', location.pathname + location.search + '#fase' + FASE); } catch (_) { location.hash = 'fase' + FASE; } let auto = false; TT.on('assetsReady', () => { if (auto) return; auto = true; setTimeout(() => { if (S.mode === 'title' && !titleEl.classList.contains('story')) $('btnStart').click(); }, 250); }); }
+if (/-jogar/.test(location.hash)) { try { history.replaceState(null, '', location.pathname + location.search + '#fase' + FASE); } catch (_) { location.hash = 'fase' + FASE; } // vindo da fase anterior: a tela de título nem aparece (antes piscava por um instante entre a frase e a fase)
+  titleEl.style.visibility = 'hidden'; TT.on('start', () => { titleEl.style.visibility = ''; });
+  let auto = false; TT.on('assetsReady', () => { if (auto) return; auto = true; if (S.mode === 'title') TT.start(); }); }
 document.querySelectorAll('#fases .chip').forEach(b => { const f = +b.dataset.f; b.classList.toggle('cur', f === FASE); b.disabled = f > 1 && !done[f - 1];
   b.onclick = () => { if (f !== FASE) goFase(f); }; });
 $('fases').classList.remove('on'); // a fase 2 chega sozinha ao vencer o Parque; o título não oferece atalho

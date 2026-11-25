@@ -248,17 +248,26 @@ function updateRunners(dt, prevBottom, playing) {
     S.runDone[st.at] = true; S.warn = { t: 0, n: st.n };
     emit('stampedeWarn', { x: cam.x + W, y: GROUND, first: !S.warnedOnce }); S.warnedOnce = true;
   }
-  if (S.warn) { S.warn.t += dt; if (S.warn.t >= 0.9) { for (let i = 0; i < S.warn.n; i++)
-      S.runners.push({ kind: 'run', x: cam.x + W + 40 + i * 85, y: GROUND - 30, w: 38, h: 30, vx: -(390 + Math.random() * 70), t: Math.random() * 3 });
+  if (S.warn) { S.warn.t += dt; if (S.warn.t >= 0.9) { for (let i = 0; i < S.warn.n; i++) {
+      let x = cam.x + W + 40 + i * 85; if (!groundAt(x + 19)) { const g = C.grounds.find(([g0]) => g0 > x); if (!g) continue; x = g[0] + 40 + i * 85; }
+      S.runners.push({ kind: 'run', x, y: GROUND - 30, w: 38, h: 30, vx: -(390 + Math.random() * 70), t: Math.random() * 3 }); }
     S.warn = null; emit('stampede', { x: cam.x + W, y: GROUND }); } }
   for (let i = S.runners.length - 1; i >= 0; i--) {
     const r = S.runners[i]; r.t += dt;
     if (r.kind === 'arena') { // perseguida pelo lobo-guará dentro da arena, de um lado para o outro
       r.x += r.vx * dt; if (r.x < ARENA_X + 30) { r.x = ARENA_X + 30; r.vx = Math.abs(r.vx); } if (r.x > ARENA_X + 430) { r.x = ARENA_X + 430; r.vx = -Math.abs(r.vx); } } // fica na parte da arena que já aparece para quem chega
     else r.x += r.vx * dt;
-    const gap = !groundAt(r.x + r.w / 2); // sobre um buraco ela bate as asas e atravessa voando baixo
-    r.y = GROUND - 30 - Math.abs(Math.sin(r.t * 14)) * (gap ? 26 : 16) - (gap ? 34 : 0);
-    if ((r.x < cam.x - 200 && r.kind !== 'arena') || r.x > C.LEVEL_END + 400) { S.runners.splice(i, 1); continue; }
+    // na beirada de um buraco ela dá um pulo batendo as asas e cai do outro lado (antes atravessava flutuando)
+    if (r.air) { r.jv += 1500 * dt; r.jy += r.jv * dt; r.x += r.vx * (r.boost - 1) * dt;
+      if (r.jy >= 0 && groundAt(r.x + r.w / 2)) { r.jy = 0; r.jv = 0; r.air = false; emit('henLand', { x: r.x + r.w / 2, y: GROUND }); } }
+    else { const dir = Math.sign(r.vx) || -1, cx = r.x + r.w / 2;
+      if (groundAt(cx) && !groundAt(cx + dir * 22)) {
+        const segs = C.grounds.filter(([g0, gw]) => dir < 0 ? g0 + gw < cx : g0 > cx);
+        const land = segs.length ? (dir < 0 ? segs.reduce((a, s) => s[0] + s[1] > a[0] + a[1] ? s : a) : segs.reduce((a, s) => s[0] < a[0] ? s : a)) : null;
+        if (land) { const edge = dir < 0 ? land[0] + land[1] - 30 : land[0] + 30, d = Math.abs(edge - cx), T = Math.min(0.85, d / Math.abs(r.vx));
+          r.boost = d / T / Math.abs(r.vx); r.jv = -1500 * T / 2; r.jy = 0; r.air = true; emit('henJump', { x: cx, y: GROUND - 20 }); } } }
+    r.y = GROUND - 30 + (r.air ? r.jy : -Math.abs(Math.sin(r.t * 14)) * 16);
+    if ((r.x < cam.x - 200 && r.kind !== 'arena') || r.x > C.LEVEL_END + 400 || r.jy > 500) { S.runners.splice(i, 1); continue; }
     if (r.kind !== 'run' || !playing || S.cine || !overlap(p, r)) continue;
     if (p.vy > 0 && prevBottom <= r.y + 16) { p.vy = -640; p.shrugT = 0.3; emit('cluck', { x: r.x + r.w / 2, y: r.y }); emit('henBounce', { x: r.x + r.w / 2, y: r.y }); }
     else if (!(p.shrugT > 0)) hurt(r.x + r.w / 2);
@@ -563,7 +572,7 @@ TT.update = (rdt) => {
   if (S.arena && C.BOSS) updateBoss(dt, prevBottom, playing);
   if (playing && C.FOX && !S.arena && p.x > ARENA_X + 120) { S.arena = true;
     S.friends.forEach((f, i) => { f.home = i ? ARENA_X + W - 210 : ARENA_X + 190; f.x = i ? ARENA_X + W + 70 : ARENA_X - 70; f.given = true; f.follow = 0; f.vx = 0; });
-    scatterHens(); S.fox.state = 'idle'; S.fox.vx = 0; S.fox.dir = -1; S.fox.x = Math.max(S.fox.x, ARENA_X + W - 300); S.fox.cd = Math.max(S.fox.cd || 0, 1.2);
+    scatterHens(); S.fox.state = 'idle'; S.fox.vx = 0; S.fox.dir = -1; S.fox.cd = Math.max(S.fox.cd || 0, 1.6); // sem teleporte: ele continua de onde estava caçando (antes sumia e reaparecia do outro lado)
     if (!S.bossSeen) { S.bossSeen = true; S.cine = { type: 'fox', t: 0, dur: 3.2 }; emit('foxIntro'); } else emit('rematch'); }
   if (C.FOX && !S.arena) preFight(dt);
   if (C.FOX) updateRunners(dt, prevBottom, playing);

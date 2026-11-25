@@ -131,6 +131,8 @@ const { chromium } = require('playwright');
   check(await until(() => __tintim.S.arena && __tintim.S.cine && __tintim.S.cine.type === 'fox', 3000), 'chegar no fim do Arraial apresenta o lobo-guará');
   check(await ev(() => __tintim.S.runners.filter(r => r.kind === 'flee').length === 3 && __tintim.S.runners.every(r => r.kind !== 'flee' || r.vx < 0)), 'na apresentação, as galinhas caçadas fogem para a esquerda');
   check(await until(() => !__tintim.S.cine, 6000), 'depois da apresentação, a luta começa');
+  await pg.waitForTimeout(400);
+  check(await ev(() => { const m = __tintim.R.dbg.fox(), o = m.material.map.offset; return m.visible && Number.isFinite(o.x) && Number.isFinite(o.y) && Number.isFinite(m.userData.ph); }), 'depois da apresentação o lobo-guará continua desenhado (quadro da animação válido)');
   // pulo comum ela esquiva; caindo planando em cima dela, acerta
   const above = () => ev(() => { const f = __tintim.S.fox, p = __tintim.player; f.x = TT.C.ARENA_X + 400; f.y = TT.C.GROUND - f.h; f.vy = 0; f.state = 'idle'; f.t = 0; f.cd = 9; f.vx = 0; f.egg = 99; __tintim.S.fruit = null; Object.assign(p, { x: f.x + f.w / 2 - p.w / 2, y: f.y - p.h - 40, vx: 0, vy: 200, onGround: false, inv: 99, hp: 3, dj: false, buffer: 0, coyote: 0 }); });
   await above();

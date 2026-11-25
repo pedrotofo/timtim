@@ -627,7 +627,7 @@ const ballGlow = add(new THREE.Mesh(planeGeoC, glowMat(0xffe14d, 0.7)), 5); ball
 const texWave = canvasTex(64, 128, x => { const g = x.createLinearGradient(0, 0, 64, 0); g.addColorStop(0, 'rgba(255,230,150,0)'); g.addColorStop(0.55, 'rgba(255,230,150,.95)'); g.addColorStop(1, 'rgba(255,255,255,0)');
   x.fillStyle = g; x.beginPath(); x.ellipse(32, 128, 30, 124, 0, Math.PI, 0); x.fill(); });
 const waveM = [0, 1, 2, 3].map(() => { const m = add(new THREE.Mesh(planeGeoC, new THREE.MeshBasicMaterial({ map: texWave, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, fog: false })), 6); m.visible = false; return m; });
-const foxM = sprite(ARR ? 'guara-anda' : 'cookie', 5, ARR, 0xd6bcae); foxM.geometry = legGeo(); foxM.userData.ph = 0; foxM.visible = false;
+const foxM = sprite(ARR ? 'guara-anda' : 'cookie', 5, ARR, 0xffffff); foxM.material.color.setRGB(1.32, 1.2, 1.1); foxM.geometry = legGeo(); foxM.userData.ph = 0; foxM.visible = false; // o lobo-guará mais aceso que o cenário (antes ficava apagado no laranja)
 const foxGlow = add(new THREE.Mesh(planeGeoC, glowMat(0xffe14d, 0)), 4), foxWarn = add(new THREE.Mesh(planeGeoC, glowMat(0xff2a55, 0)), 4);
 const foxMark = add(new THREE.Mesh(planeGeoC, new THREE.MeshBasicMaterial({ map: texSoft, color: 0xff1f44, transparent: true, opacity: 0, depthWrite: false, fog: false })), 4);
 const foxStars = [0, 1, 2].map(() => { const s = add(new THREE.Mesh(planeGeoC, new THREE.MeshBasicMaterial({ map: texStar, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, fog: false })), 7); s.scale.set(20, 20, 1); s.visible = false; return s; });
@@ -668,7 +668,7 @@ const itemM = S.items.map(it => { const m = sprite(it.type === 'gold' ? 'cookie'
   return m; });
 const friendM = S.friends.map(f => { const m = sprite(f.kind, 5, true, 0xfff6ec); m.geometry = legGeo();
   m.userData.glow = add(new THREE.Mesh(planeGeoC, glowMat(0xffd9a0, 0.3)), 4); return m; });
-R.dbg = { brute: () => bruteM, friends: () => friendM }; // (para os testes inspecionarem o desenho)
+R.dbg = { brute: () => bruteM, friends: () => friendM, fox: () => foxM }; // (para os testes inspecionarem o desenho)
 const giftM = [0, 1].map(() => { const m = sprite(C.GIFT_ITEM, 7, false); m.geometry = planeGeoC; m.visible = false;
   m.userData.glow = add(new THREE.Mesh(planeGeoC, glowMat(0xffd27a, 0.8)), 6); m.userData.glow.visible = false; return m; });
 // no Arraial, galinhas, lobo-guará, Zara, Elvis e o ovo ganham o contorno de luz fria
@@ -722,7 +722,7 @@ TT.on('reveal', e => { R.flash = 0.25; const t = C.trails.find(q => q.id === e.i
 TT.on('toy', e => { burst(e.x, e.y, [0x9dff7a, 0xffd23f, 0xffffff, 0x8fe9ff], 36, 360, 200); R.flash = 0.3; });
 // o Furtão ri com o macaco na boca: o Timtim leva um susto (estica para cima e volta), parado, encarando o ladrão
 TT.on('laugh', () => { sqV += 5.5; });
-TT.on('start', e => { parts.length = 0; if (!e.retry) trailM.flat().forEach(q => { q.up = 0; }); ghosts.length = 0; R.flash = 0; R.zoom = 1; sq = 1; sqV = 0; if (!e.retry) flags.forEach(f => { f.on = false; f.up = 0; }); });
+TT.on('start', e => { camSettle = 0; parts.length = 0; if (!e.retry) trailM.flat().forEach(q => { q.up = 0; }); ghosts.length = 0; R.flash = 0; R.zoom = 1; sq = 1; sqV = 0; if (!e.retry) flags.forEach(f => { f.on = false; f.up = 0; }); });
 let confettiT = 0;
 TT.on('win', () => { confettiT = 4; });
 TT.on('splash', e => { burst(e.x, e.y - 40, [0x7fe0ff, 0xd9fff2, 0xffffff], 26, 320, 700); R.flash = 0.15; });
@@ -815,7 +815,7 @@ addEventListener('resize', R.resize); R.resize();
 
 // ---------------- quadro a quadro ----------------
 const Y = y => GROUND - y, sdtA = live => Math.min(live, 0.02);
-R.zoom = 1; let fxS = W / 2, fyS = LOOK_Y, time = 0;
+R.zoom = 1; let fxS = W / 2, fyS = LOOK_Y, time = 0, camSettle = 0;
 const ease = t => t * t * (3 - 2 * t);
 R.frame = (rdt) => {
   time += rdt;
@@ -1039,7 +1039,7 @@ R.frame = (rdt) => {
   runnerM.forEach((m, i) => { const r = S.runners[i]; m.visible = !!r; if (!r) return;
     const rAnim = playAnim(m, 'galinha-foge', 72, r.vx > 0, r.t * 1.2); if (!rAnim) { setAnim(m, 'galinha', 72, r.vx > 0); const f = Math.sin(r.t * 32); m.scale.y *= 1 + f * 0.06; m.scale.x *= 1 - f * 0.04; }
     m.position.set(r.x + r.w / 2, Y(r.y + r.h) - 2, 2); m.rotation.z = Math.sin(r.t * 24) * 0.12 + (r.vx < 0 ? -0.08 : 0.08);
-    if (rAnim) { m.position.y -= m.userData.foot; m.rotation.z = 0; legs(m, 0, 0); } else legs(m, r.t * 24, 0.14, { f: -1, tailX: Math.sin(r.t * 20) * 0.04, tailY: 0, headX: 0.04, headY: 0, breathe: 0, shear: r.vx < 0 ? 0.05 : -0.05 });
+    if (rAnim) { m.position.y -= m.userData.foot; m.rotation.z = r.air ? -Math.sign(r.vx) * Math.max(-0.35, Math.min(0.35, r.jv / 2500)) : 0; legs(m, 0, 0); } else legs(m, r.t * 24, 0.14, { f: -1, tailX: Math.sin(r.t * 20) * 0.04, tailY: 0, headX: 0.04, headY: 0, breathe: 0, shear: r.vx < 0 ? 0.05 : -0.05 }); // no pulo do buraco: bico para cima subindo, para baixo caindo
     if (Math.random() < live * 7) spawn({ x: r.x + r.w / 2, y: r.y + 10, vx: -r.vx * 0.2 + (Math.random() - 0.5) * 80, vy: -50 - Math.random() * 70, g: 110, life: 0.9, r: 2.5 + Math.random() * 2, color: Math.random() < 0.6 ? 0xfff2dc : 0xc8864a, hard: true });
     if (Math.random() < live * 10 && r.y > GROUND - 60) spawn({ x: r.x + r.w / 2, y: GROUND - 3, vx: -r.vx * 0.1, vy: -20, g: -30, life: 0.5, r: 3, grow: 6, color: 0xffd9a0 }); });
   // aviso da debandada: poeira levantando na beirada direita da tela
@@ -1140,7 +1140,10 @@ R.frame = (rdt) => {
     zt = 1 + 0.12 * k; fx = cx + (p.x + p.w / 2 + 120 - cx) * k; fy = LOOK_Y - 30 * k; }
   else if (S.mode === 'winning' || S.mode === 'win') { zt = 1.2; fx = cx + (p.x + p.w / 2 - cx) * 0.6; fy = LOOK_Y - 60; }
   const kk = Math.min(1, rdt * 4);
-  R.zoom += (zt - R.zoom) * kk; fxS += (fx - fxS) * (S.cine || S.mode !== 'play' ? kk : 1); fyS += (fy - fyS) * (S.cine || S.mode !== 'play' ? kk : 1);
+  // depois de uma cena a câmera ainda desliza um instante até o lugar do jogo (antes dava um pulo: o lobo-guará parecia sumir e reaparecer)
+  if (S.cine || S.mode !== 'play') camSettle = 0.9; else camSettle = Math.max(0, camSettle - rdt);
+  const ks = camSettle > 0 ? Math.min(1, rdt * (4 + (0.9 - camSettle) * 10)) : 1;
+  R.zoom += (zt - R.zoom) * kk; fxS += (fx - fxS) * ks; fyS += (fy - fyS) * ks;
   const tr = S.trauma * S.trauma, sx = tr * 16 * Math.sin(time * 71), sy = tr * 11 * Math.sin(time * 93 + 1);
   camera.position.set(fxS + sx + Math.sin(time * 0.6) * 1.5, CAM_Y + (fyS - LOOK_Y) + sy + Math.sin(time * 0.8) * 1.2, CAM_D);
   camera.lookAt(fxS + sx, fyS + sy, 0); camera.rotation.z += tr * 0.025 * Math.sin(time * 57);
