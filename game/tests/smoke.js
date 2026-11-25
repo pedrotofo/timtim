@@ -87,6 +87,11 @@ const { chromium } = require('playwright');
   // no máximo 2 tocam juntos
   check(await ev(() => Object.values(TT.mixInfo().alvos).every(d => d <= -16)), 'nenhum efeito foi mixado acima de -16 dB (pancadas não estouram por cima da música)');
   check(await ev(async () => { for (let i = 0; i < 8; i++) TT.sfx(i % 2 ? 'henPanic' : 'pigeon'); await new Promise(r => setTimeout(r, 30)); return TT.mixInfo().camadas.mundo <= 2; }), 'muitos bichos de uma vez: só 2 sons do cenário tocam juntos');
+  // pausa → Voltar ao mapa abre o mapa; fechar o mapa volta para a pausa
+  await pg.click('#btnMapaPausa');
+  check(await until(() => TT.mapa.isOpen(), 3000), 'na pausa, "Voltar ao mapa" abre o mapa das fases');
+  await ev(() => TT.mapa.close()); await pg.waitForTimeout(300);
+  check(await ev(() => !TT.mapa.isOpen() && __tintim.state === 'pause'), 'fechar o mapa volta para a pausa');
   await pg.waitForTimeout(500); await pg.click('#btnResume');
   check(await until(() => __tintim.state === 'play', 3000), 'Continuar retoma');
   await ev(() => { const p = __tintim.player; p.x = 4200; p.y = 300; });
@@ -123,6 +128,7 @@ const { chromium } = require('playwright');
   }
   check(await until(() => __tintim.state !== 'play' && !!__tintim.S.prize, 40000), '3 pisões na hora certa soltam o Macaco Fedido');
   check(await until(() => __tintim.S.prize && __tintim.S.prize.rest, 5000), 'o macaco cai no chão ao lado do Timtim');
+  check(await ev(() => TT.ANIM['macaco-alegre'].foot < 0.05), 'o macaco pisa no chão (não afunda): o ajuste do pé continua valendo');
   check(await until(() => __tintim.state === 'win', 40000), 'vitória depois do resgate');
   check(await pg.waitForSelector('#win.on', { timeout: 30000 }).then(() => true, () => false), 'tela de vitória aparece');
   check(await ev(() => document.querySelector('#stToy').classList.contains('ok')), 'vitória mostra o brinquedo achado');

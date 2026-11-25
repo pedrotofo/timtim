@@ -69,10 +69,12 @@ const titleEl = $('title'), STORY = [
   'Alguém está assustando as galinhas do arraial. Descubra quem e ajude o galinheiro.',
   'O corvo do quadro fugiu com o pincel do Van Gogh! Vamos recuperá-lo?'];
 const DUR = (TT.intro && TT.intro.durations) || [7, 7, 7];
-let storyTimer = null, storyAt = 0, storyI = -1;
+let storyTimer = null, vozTimer = null, storyAt = 0, storyI = -1;
 // a frase vai desenhada no pergaminho (canvas); #storyLine guarda o mesmo texto para leitores de tela
-function storyLine() { const i = (TT.FASE || 1) - 1; clearTimeout(storyTimer); storyI = i; storyAt = performance.now(); if (TT.intro) TT.intro.scene(i, STORY[i]); $('storyLine').textContent = STORY[i]; TT.voice(i); storyTimer = setTimeout(endStory, DUR[i] * 1000); }
-function endStory() { if (!titleEl.classList.contains('story') || titleEl.classList.contains('leaving')) return; clearTimeout(storyTimer); TT.voice(-1); titleEl.classList.add('leaving'); begin(TT.start); }
+function storyLine() { const i = (TT.FASE || 1) - 1; clearTimeout(storyTimer); storyI = i; storyAt = performance.now(); if (TT.intro) TT.intro.scene(i, STORY[i]); $('storyLine').textContent = STORY[i];
+  // a voz entra depois que o mapa fecha e o card termina de aparecer (antes falava logo no clique, com o mapa ainda na tela)
+  clearTimeout(vozTimer); vozTimer = setTimeout(() => TT.voice(i), 1200); storyTimer = setTimeout(endStory, DUR[i] * 1000); }
+function endStory() { if (!titleEl.classList.contains('story') || titleEl.classList.contains('leaving')) return; clearTimeout(storyTimer); clearTimeout(vozTimer); TT.voice(-1); titleEl.classList.add('leaving'); begin(TT.start); }
 // um toque começa a fase (menos de 0,8 s depois do card aparecer não conta: é o mesmo toque que abriu o card)
 TT.storyScene = () => storyI;
 const nextStory = () => { if (performance.now() - storyAt > 800) endStory(); };
@@ -155,6 +157,8 @@ let noteT = 0; TT.on('note', e => { const n = $('note'); n.querySelector('small'
 TT.on('start', () => { clearTimeout(noteT); $('note').classList.remove('on'); });
 $('btnAgain').onclick = () => begin(TT.start);
 $('btnRestart').onclick = () => begin(TT.start);
+// voltar ao mapa pela pausa: escolher a mesma fase recomeça ela; outra fase carrega; fechar o mapa volta para a pausa
+$('btnMapaPausa').onclick = () => abrirMapa({ at: FASE, onPlay: f => { if (f === FASE) { TT.mapa.close(); begin(TT.start); } else goFase(f, true); } });
 $('btnLoseRestart').onclick = () => begin(TT.start);
 $('btnRetry').onclick = () => begin(TT.retry);
 $('btnResume').onclick = () => TT.resume();

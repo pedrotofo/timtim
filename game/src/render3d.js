@@ -61,6 +61,9 @@ const ownTex = k => { const t = load('sprites/' + k + '.png'); t.repeat.set(1 / 
 // recortados e postos numa grade (assets/anim/*.webp, medidas em src/anim-data.js). Assim o movimento é o de um
 // animal de verdade, quadro a quadro, sem a "tremedeira" de quadros desenhados um a um.
 const ANIM = TT.ANIM || {}, ANIM_TEX = {};
+// ajustes à mão que o anim-data.js (gerado de novo a cada animação nova) não pode apagar: o macaco do prêmio tem as perninhas
+// soltas, a medição põe o "chão" no lugar errado e ele afundava no chão no fim da fase 1 (aconteceu duas vezes)
+const PE_FIXO = { 'macaco-alegre': 0.012 }; for (const k in PE_FIXO) if (ANIM[k]) ANIM[k].foot = PE_FIXO[k];
 const animWanted = k => VG ? /^(timtim|zara|elvis|corvo)/.test(k) : ARR ? !/^(pombo|furtao|macaco)/.test(k) : !/^(galinha|guara)/.test(k); // no quadro, os bichos são outros: só a turma tem animação de vídeo
 for (const k in ANIM) if (animWanted(k)) { const t = ANIM_TEX[k] = load('anim/' + k + '.webp'); t.repeat.set(1 / ANIM[k].cols, 1 / ANIM[k].rows); }
 // toca a animação `name` no sprite m: o corpo fica com `bodyH` de altura (o mesmo tamanho da arte parada), t em segundos.

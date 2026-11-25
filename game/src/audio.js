@@ -182,8 +182,8 @@ function loadVoices() {
 function stopVoice() { if (voiceSrc) { try { voiceSrc.stop(); } catch (_) {} voiceSrc = null; } TT.audioDuck(false); }
 function playVoice(i) {
   stopVoice(); voiceWant = null; const b = vbufs[i]; if (!b) return;
-  const s = ctx.createBufferSource(), g = ctx.createGain(); s.buffer = b; g.gain.value = 1.1; s.connect(g).connect(master);
-  s.start(ctx.currentTime + 0.3); voiceSrc = s; TT.audioDuck(true, 0.45);
+  const s = ctx.createBufferSource(), g = ctx.createGain(); s.buffer = b; g.gain.value = 0.48; s.connect(g).connect(master); // fala por volta de -21 dB e picos de -16 dB: clara, sem gritar (antes 1,1: uns 12 dB acima da música)
+  s.start(ctx.currentTime + 0.3); voiceSrc = s; TT.audioDuck(true, 0.6);
   s.onended = () => { if (voiceSrc === s) { voiceSrc = null; TT.audioDuck(false); } };
 }
 TT.voice = i => { if (!init()) return; if (i < 0) { voiceWant = null; return stopVoice(); } voiceWant = { i, at: performance.now() }; if (vbufs[i]) playVoice(i); };
