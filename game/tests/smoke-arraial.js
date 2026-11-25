@@ -113,7 +113,7 @@ const { chromium } = require('playwright');
   // correio elegante: pegar um bilhete abre a piada na tela
   const n0 = await ev(() => TT.C.NOTES[0]);
   await put(n0.x - 27, n0.y - 25, { inv: 9 });
-  check(await until(() => __tintim.S.notes === 1 && document.getElementById('note').classList.contains('on'), 3000), 'pegar o bilhete do correio elegante mostra a piada');
+  check(await until(() => __tintim.S.notes === 1 && document.getElementById('note').classList.contains('on'), 3000), 'pegar o bilhete da turma mostra a piada');
 
   // galinhas em debandada: aviso de poeira, depois o bando corre da direita para a esquerda; encostar de lado machuca
   const st0 = await ev(() => TT.C.STAMPEDES.find(s => s.n === 4).at);

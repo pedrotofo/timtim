@@ -574,7 +574,9 @@ if (VG) {
   place('vg-moldura', 120, 270, -70); glow(120, 140, -68, 420, 0xffd27a, 0.3);
   place('vg-cama', 495, 160, -2); place('vg-cadeira', 748, 262, -2); place('vg-cadeira', 1180, 230, -90, -6, true);
   // os Girassóis: um campo deles atrás do caminho, e o vaso famoso
-  { const r = rng(77); for (let x = 1380; x < 3000; x += 70 + r() * 90) { const h = 200 + r() * 140; place('vg-girassol', x, h, -90 - r() * 90, -8, r() < 0.5); } }
+  { const r = rng(77); for (let x = 1380; x < 3000; x += 70 + r() * 90) { const h = 200 + r() * 140, z = -90 - r() * 90, fl = r() < 0.5;
+    if (C.movers.some(m => Math.abs(x - (m.x + m.w / 2)) < 120)) continue; // atrás dos girassóis que o Timtim pisa, nenhum de enfeite (confundia)
+    place('vg-girassol', x, h, z, -8, fl); } }
   place('vg-vaso', 2960, 300, -60); glow(2960, 200, -58, 380, 0xffd060, 0.22);
   // o Trigal: girassóis esparsos e um cipreste
   place('vg-cipreste', 3420, 520, -130); place('vg-cipreste', 4480, 460, -150, -6, true);
@@ -598,7 +600,14 @@ if (VG) {
   for (const b of C.blinks) { const m = add(new THREE.Mesh(planeGeoC, softM(starTex, 1)), 4); m.scale.set(b.w * 1.25, b.w * 1.25, 1); m.position.set(b.x + b.w / 2, GROUND - b.y - 4, -2);
     const g = add(new THREE.Mesh(planeGeoC, glowMat(0xfff0a0, 0.5)), 3); g.scale.set(b.w * 2.4, b.w * 2.4, 1); g.position.set(b.x + b.w / 2, GROUND - b.y, -4); VGR.blinks.push({ b, m, g, k: 1 }); }
   // cabeças de girassol que sobem e descem: a cabeça é a plataforma, o caule desce até o chão
-  for (const s of TT.MOVERS) { const h = 300, m = add(new THREE.Mesh(planeGeo, mat('vg-girassol'))); m.scale.set(h * VG_AR['vg-girassol'], h, 1); m.position.z = -1; landmarks.push(m); VGR.movers.push({ s, m, h }); }
+  // A cabeça fica deitada para trás, virada para cima como um disco, e o Timtim pisa no meio dela (antes a flor ficava de frente
+  // e ele pisava na ponta das pétalas, parecendo estar dentro da flor). O caule continua em pé, da cabeça até o chão.
+  { const base = mat('vg-girassol'), part = (oy, ry) => { const m2 = base.clone(); m2.map = base.map.clone(); m2.map.repeat.set(1, ry); m2.map.offset.set(0, oy); return m2; };
+    const headM = part(0.52, 0.48), stemM = part(0, 0.53);
+    for (const s of TT.MOVERS) { const h = 300, w = h * VG_AR['vg-girassol'];
+      const head = add(new THREE.Mesh(planeGeoC, headM)); head.scale.set(w * 1.05, h * 0.48 * 1.05, 1); head.rotation.x = -1.05; landmarks.push(head);
+      const stem = add(new THREE.Mesh(planeGeoTop, stemM)); stem.scale.set(w, h * 0.53, 1); landmarks.push(stem);
+      VGR.movers.push({ s, head, stem, h }); } }
   // a moldura dourada no lugar da argola: atravessar revela um tubo de tinta dourado
   if (C.HOOP) { const h = C.HOOP, gr = new THREE.Group(); add(gr); gr.position.set(h.x, GROUND - h.y, 10); const fh = h.r * 2.3;
     const fm = new THREE.Mesh(planeGeoC, mat('vg-moldura')); fm.scale.set(fh * VG_AR['vg-moldura'], fh, 1); gr.add(fm); landmarks.push(fm);
@@ -1072,7 +1081,8 @@ R.frame = (rdt) => {
       const mAnim = m.rest && playAnim(prizeM, 'macaco-alegre', 70, m.x < tx, m.t);
       const hop = m.rest && !mAnim ? Math.abs(Math.sin(m.t * 7)) * 26 : 0, h = m.rest ? 70 : 62;
       if (!mAnim) setAnim(prizeM, m.rest && Math.sin(m.t * 7) < 0.2 ? 'monkey-front' : 'monkey-joy', h, m.x < tx);
-      prizeM.position.set(m.x, Y(m.y) + hop, 7); prizeM.rotation.z = mAnim ? 0 : m.rest ? Math.sin(m.t * 7) * 0.12 : -m.spin;
+      // a comemoração é um pulo: apoia a animação no chão pelo pé (antes o Macaco afundava no chão ao aterrissar)
+      prizeM.position.set(m.x, mAnim ? Y(GROUND) + prizeM.scale.y / 2 - prizeM.userData.foot : Y(m.y) + hop, 7); prizeM.rotation.z = mAnim ? 0 : m.rest ? Math.sin(m.t * 7) * 0.12 : -m.spin;
       prizeGlow.position.set(m.x, Y(m.y) + hop, 6); const gs = 150 + Math.sin(time * 5) * 14; prizeGlow.scale.set(gs, gs, 1);
       if (!m.rest && Math.random() < 0.8) spawn({ x: m.x, y: m.y, vx: (Math.random() - 0.5) * 60, vy: (Math.random() - 0.5) * 60, g: 60, life: 0.5, r: 3, color: 0xffd98a });
     } }
@@ -1122,18 +1132,34 @@ R.frame = (rdt) => {
   }
   // fase 3: o Corvo-Borrão. Voa (asas abertas batendo), mira gritando antes de soltar cada tubo, mergulha de bico para baixo,
   // bica o chão (brilho dourado = hora de pular nas costas), fica tonto quando apanha. No último coração, vermelho de raiva.
-  if (VG) { const g = S.fox, m = foxM, st = g.state, x = g.x + g.w / 2, flap = Math.sin(time * 15);
+  if (VG) { const g = S.fox, m = foxM, st = g.state, x = g.x + g.w / 2;
+    // Corvo-Borrão: bater de asas contínuo (asa em cima / embaixo num ritmo, com o corpo subindo na batida para baixo),
+    // pausas planando entre as batidas no voo, inclinação suave para a frente quando acelera e um amassadinho ao pousar.
+    // (antes trocava as duas poses de uma vez, com tamanhos diferentes, e girava de um estado para o outro sem transição)
+    const cs = m.userData.cs || (m.userData.cs = { rot: 0, ph: 0, st: '', land: 0 });
+    if (cs.st !== st) { if (st === 'peck' || (st === 'perch' && cs.st)) cs.land = 0.24; cs.st = st; }
+    cs.land = Math.max(0, cs.land - live);
+    const airborne = st === 'rise' || st === 'fly' || st === 'flee' || st === 'aim';
+    const glide = st === 'fly' && Math.sin(clock * 1.7) < -0.35; // no voo, de vez em quando ele plana em vez de bater as asas
+    if (airborne && !glide) cs.ph += live * Math.PI * 2 * (st === 'rise' || st === 'flee' ? 3.4 : 2.6);
+    const flap = Math.sin(cs.ph);
     let n = 'guara-anda', h = 200, y = Y(g.y + g.h) - 4, sy = 1, rot = 0;
     const dir = st === 'dive' ? (Math.sign(g.tx - x) || g.dir) : g.dir, lf = dir < 0 ? 1 : -1; // lf: rotação que abaixa a cabeça
     if (st === 'hurt') { n = 'guara-tonta'; h = 193; rot = Math.sin(time * 9) * 0.06; }
-    else if (st === 'caw' || st === 'aim' || st === 'diveWind') { n = 'guara-uiva'; h = 190; sy = 1 + Math.sin(time * 34) * 0.025; if (st === 'diveWind') rot = lf * 0.12 * Math.min(1, g.t / 0.3); }
+    else if (st === 'caw' || st === 'diveWind') { n = 'guara-uiva'; h = 190; sy = 1 + Math.sin(time * 34) * 0.025; if (st === 'diveWind') rot = lf * 0.12 * Math.min(1, g.t / 0.3); }
+    else if (st === 'aim') { n = flap > 0.15 ? 'guara-uiva' : 'guara-corre'; h = n === 'guara-uiva' ? 182 : 135; sy = 1 + flap * 0.05; y += -flap * 6; rot = lf * 0.06; }
     else if (st === 'peck') { n = 'guara-agacha'; h = 118; const k = Math.max(0, Math.sin(time * 13)); rot = lf * k * k * 0.13; sy = 1 - k * 0.04;
       if (k > 0.97 && Math.random() < 0.5) spawn({ x: x - lf * 92, y: GROUND - 6, vx: (Math.random() - 0.5) * 140, vy: -90 - Math.random() * 90, g: 600, life: 0.5, r: 3, color: Math.random() < 0.5 ? 0xffd23f : 0x5a7cff, hard: true }); }
-    else if (st === 'dive') { n = 'guara-corre'; h = 135; rot = lf * 0.45; }
-    else if (st === 'rise' || st === 'fly' || st === 'flee') { n = flap > 0.5 && st !== 'fly' ? 'guara-bote' : 'guara-corre'; h = n === 'guara-bote' ? 156 : 135; sy = 1 + flap * 0.07; y += flap * 4; }
+    else if (st === 'dive') { n = 'guara-corre'; h = 135; rot = lf * 0.45; sy = 1.06; }
+    else if (airborne) { n = !glide && flap > 0.15 ? 'guara-bote' : 'guara-corre'; h = n === 'guara-bote' ? 150 : 135;
+      sy = 1 + (glide ? 0 : flap * 0.06); y += glide ? Math.sin(clock * 2.2) * 5 : -flap * 7; // sobe na batida para baixo
+      rot = lf * Math.min(1, Math.abs(g.vx || 0) / 520) * 0.14 + (glide ? Math.sin(clock * 1.3) * 0.03 : 0); }
     else sy = 1 + Math.sin(clock * 3) * 0.015;
+    if (cs.land > 0) sy *= 1 - 0.16 * (cs.land / 0.24); // amassadinho ao pousar
+    // a inclinação segue o alvo devagar (as bicadas e o tremor de dor continuam rápidos)
+    const quick = st === 'peck' || st === 'hurt'; cs.rot += (rot - cs.rot) * (quick ? 1 : Math.min(1, live * 9));
     setAnim(m, n, h, dir > 0); m.scale.x *= 2 - sy; m.scale.y *= sy; legs(m, 0, 0);
-    m.position.set(x, y, 1); m.rotation.z = rot;
+    m.position.set(x, y, 1); m.rotation.z = cs.rot; rot = cs.rot;
     m.visible = C.FOX && !(g.hurt > 0 && Math.floor(time * 30) % 2) && (S.arena || S.cam.x > ARENA_X - W - 200) && g.x < C.LEVEL_END + 400 && g.y > -700;
     if (g.red) m.material.color.setRGB(1.6, 0.8, 0.74); else m.material.color.setRGB(1.32, 1.2, 1.1);
     { const r = crowRedM; r.visible = m.visible && g.red; if (r.visible) { r.geometry = m.geometry; r.material.uniforms.map.value = m.material.map; r.material.uniforms.op.value = 0.42 + 0.14 * Math.sin(time * 9);
@@ -1246,7 +1272,8 @@ R.frame = (rdt) => {
     for (const q of VGR.blinks) { const on = TT.blinkOn(q.b), ph = ((S.clock + q.b.ph) % q.b.per) / q.b.per, warn = on && ph > 0.5; // pisca antes de apagar
       q.k += ((on ? 1 : 0.18) - q.k) * Math.min(1, rdt * 10); const fl = warn ? 0.55 + 0.45 * Math.abs(Math.sin(time * 18)) : 1;
       q.m.material.opacity = q.k * fl; q.g.material.opacity = 0.5 * q.k * fl; const sc = q.b.w * 1.25 * (0.9 + 0.1 * q.k); q.m.scale.set(sc, sc, 1); q.m.rotation.z += live * 0.3; }
-    for (const q of VGR.movers) { const s = q.s; q.m.position.set(s.x + s.w / 2, Y(s.y) - q.h + 10, -1); q.m.rotation.z = Math.sin(time * 1.3 + s.x) * 0.02; }
+    for (const q of VGR.movers) { const s = q.s, cx = s.x + s.w / 2, sw = Math.sin(time * 1.3 + s.x) * 0.02;
+      q.head.position.set(cx, Y(s.y) - 6, -2); q.head.rotation.z = sw; q.stem.position.set(cx, Y(s.y) - 14, -6); q.stem.rotation.z = sw; }
     for (const q of VGR.toldos) { q.bt = Math.max(0, q.bt - live); const k = Math.sin(q.bt / 0.35 * Math.PI) * 0.18; q.m.scale.y = q.hgt * (1 - k); q.m.position.y = q.base + q.hgt * k; }
     if (R.hoop) { const q = R.hoop, on = !!S.revealed.argola; q.gr.rotation.z = Math.sin(time * 1.1) * 0.06; q.gr.rotation.y = Math.sin(time * 0.7) * 0.25; q.hg.material.opacity = on ? 0.12 : 0.3 + 0.1 * Math.sin(time * 4); }
   }

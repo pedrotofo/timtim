@@ -146,7 +146,7 @@ TT.on('henRevenge', () => setTimeout(() => TT.emit('banner', { text: 'As galinha
 let dodgeTip = false; TT.on('foxDodge', () => { if (dodgeTip) return; dodgeTip = true; TT.emit('banner', { text: 'Pulo comum não basta: plane!', important: true }); });
 TT.on('start', e => { if (!e.retry) dodgeTip = false; });
 // correio elegante: o bilhete abre na tela com a piada
-let noteT = 0; TT.on('note', e => { const n = $('note'); n.querySelector('small').textContent = `${FASE === 3 ? 'Carta ao Theo' : 'Correio elegante'} ${e.n}/${e.total}`; n.querySelector('p').textContent = e.text;
+let noteT = 0; TT.on('note', e => { const n = $('note'); n.querySelector('small').textContent = `${FASE === 3 ? 'Carta ao Theo' : 'Bilhete da turma'} ${e.n}/${e.total}`; n.querySelector('p').textContent = e.text;
   n.classList.remove('on'); void n.offsetWidth; n.classList.add('on'); clearTimeout(noteT); noteT = setTimeout(() => n.classList.remove('on'), 4800); });
 TT.on('start', () => { clearTimeout(noteT); $('note').classList.remove('on'); });
 $('btnAgain').onclick = () => begin(TT.start);
@@ -194,8 +194,11 @@ $('btnShelfBack').onclick = () => { TT.sfx('ui'); $('shelf').classList.remove('o
 // recomeçar o jogo: apaga as fases vencidas, os brinquedos achados e os recordes (o som e o "menos tremor" ficam);
 // o primeiro toque pede confirmação, o segundo (em até 4 s) apaga e volta para a capa com o mapa no Parque
 const PROGRESSO = ['tintim-fases', 'tintim-toys', 'tintim-best', 'tintim-best-2', 'tintim-best-3'];
-{ const b = $('btnReset'); let sureT = 0;
-  try { b.hidden = !PROGRESSO.some(k => localStorage.getItem(k) && localStorage.getItem(k) !== '{}'); } catch (_) {}
+// o botão fica no mapa (canto de baixo), só quando o mapa está aberto e já existe progresso salvo
+{ const b = $('btnReset'); let sureT = 0, temProgresso = false;
+  try { temProgresso = PROGRESSO.some(k => localStorage.getItem(k) && localStorage.getItem(k) !== '{}'); } catch (_) {}
+  TT.resetVisivel = () => { b.hidden = !(temProgresso && TT.mapa && TT.mapa.isOpen()); };
+  b.addEventListener('pointerdown', e => e.stopPropagation());
   b.onclick = () => { TT.audioInit(); TT.sfx('ui');
     if (!b.classList.contains('sure')) { b.classList.add('sure'); b.textContent = 'Apagar todo o progresso? Toque de novo'; clearTimeout(sureT);
       sureT = setTimeout(() => { b.classList.remove('sure'); b.textContent = 'Recomeçar o jogo'; }, 4000); return; }
@@ -240,7 +243,7 @@ TT.on('friend', e => { if (noteOpen() && !S.arena) return; say.style.fontSize = 
 // o Van Gogh fala no mesmo balão, mais alto (ele é bem maior que os cachorros) e com a fala quebrada em linhas
 TT.on('vgSay', e => { if (!S.vg) return; sayF = S.vg; say.textContent = e.line; say.style.fontSize = '2.1cqw'; sayEnd = performance.now() + (e.dur || 3.4) * 1000; say.classList.add('long', 'on'); }); // letra maior: a fala dele é comprida
 const uiFrame0 = TT.uiFrame;
-TT.uiFrame = () => { uiFrame0(); if (!sayF) return;
+TT.uiFrame = () => { uiFrame0(); if (TT.resetVisivel) TT.resetVisivel(); if (!sayF) return;
   if (performance.now() > sayEnd || S.mode === 'lose') { say.classList.remove('on'); sayF = null; return; }
   const at = TT.R.toScreen(sayF.x, C.GROUND - (sayF === S.vg ? 232 : 118)), half = say.offsetWidth / 2 / Math.max(1, stage.clientWidth) + 0.01; // o balão nunca sai da tela
   say.style.left = (Math.max(half, Math.min(1 - half, at.x)) * 100).toFixed(2) + '%'; say.style.top = (Math.max(0.12, at.y) * 100).toFixed(2) + '%'; };

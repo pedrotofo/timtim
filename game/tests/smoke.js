@@ -21,11 +21,13 @@ const { chromium } = require('playwright');
   check(await until(() => document.querySelector('#shelf').classList.contains('on') && document.querySelectorAll('#premioSlots .slot').length === 5 && document.querySelectorAll('#shelfSlots .slot').length === 5, 3000), 'a estante abre com os presentes das aventuras em cima e os escondidos embaixo');
   check(await ev(() => document.querySelector('#premioSlots .slot').textContent.includes('Vença a fase') && document.querySelectorAll('#shelfSlots .slot')[2].textContent.includes('Girassol') === false && document.querySelectorAll('#shelfSlots .slot')[2].textContent.includes('Quadro')), 'presente ainda não ganho aparece como "Vença a fase"');
   await pg.click('#btnShelfBack'); await until(() => !document.querySelector('#shelf').classList.contains('on'), 3000);
-  check(await ev(() => document.getElementById('btnReset').hidden), 'sem progresso, a capa não mostra "Recomeçar o jogo"');
+  check(await ev(() => document.getElementById('btnReset').hidden), 'sem progresso, não aparece "Recomeçar o jogo"');
   // com progresso salvo: o link aparece, o primeiro toque pede confirmação e o segundo apaga só o progresso
   await ev(() => { localStorage.setItem('tintim-fases', '{"1":true,"2":true}'); localStorage.setItem('tintim-toys', '{"patinho":true}'); localStorage.setItem('tintim-best', '{"stars":3,"time":72}'); localStorage.setItem('tintim-calmo', '1'); });
   await pg.reload(); await until(() => window.__tintim && __tintim.R.ready && __tintim.state === 'title' && document.getElementById('msg').classList.contains('hide'));
-  check(await ev(() => !document.getElementById('btnReset').hidden), 'com progresso salvo, a capa mostra "Recomeçar o jogo"');
+  check(await ev(() => document.getElementById('btnReset').hidden), 'na capa o botão de recomeçar não aparece (ele fica no mapa)');
+  await pg.waitForTimeout(400); await pg.click('#btnStart'); await until(() => TT.mapa.isOpen(), 4000); await pg.waitForTimeout(200);
+  check(await ev(() => !document.getElementById('btnReset').hidden && getComputedStyle(document.getElementById('btnReset')).borderTopStyle === 'solid'), 'com progresso salvo, o mapa mostra o botão "Recomeçar o jogo"');
   await pg.waitForTimeout(500); await pg.click('#btnReset');
   check(await ev(() => document.getElementById('btnReset').textContent.includes('Toque de novo') && localStorage.getItem('tintim-fases') !== null), 'o primeiro toque só pede confirmação');
   await Promise.all([pg.waitForNavigation({ timeout: 15000 }).catch(() => {}), pg.click('#btnReset')]);

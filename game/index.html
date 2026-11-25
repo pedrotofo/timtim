@@ -112,6 +112,11 @@
   .btn.ghost { background: transparent; border-color: var(--line); box-shadow: none; color: var(--dim); font-size: 1.8cqw; padding: .7cqw 2.8cqw; text-shadow: none; }
   .btn.ghost:hover { color: #fff; border-color: var(--glow); }
   .row { display: flex; gap: 1.6cqw; align-items: center; justify-content: center; flex-wrap: wrap; }
+  #pause .card { padding: 3.2cqw 6cqw 3cqw; }
+  #pause .card p { margin-bottom: 2.6cqw; }
+  #pause .card .row:first-of-type { flex-direction: column; gap: 1.4cqw; } #pause .card .row:first-of-type .btn { min-width: 24cqw; }
+  #pause .card .row + .row { margin-top: 2.6cqw; padding-top: 2cqw; border-top: .1cqw solid var(--line); }
+  #pause #btnCalmo { font-size: 1.35cqw; padding: .5cqw 2cqw; }
 
   /* título: a arte pintada respira (zoom lento) e vaga-lumes sobem */
   #title { display: block; background: #060a18; overflow: hidden; }
@@ -131,10 +136,12 @@
   #introC { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 1s; pointer-events: none; }
   #title.story #introC { opacity: 1; }
   /* recomeçar o jogo: link pequeno e apagado no canto da capa, só quando já existe progresso; o segundo toque confirma */
-  #btnReset { position: absolute; left: 2cqw; bottom: 1.8cqw; background: none; padding: .3cqw .6cqw; font-size: 1.1cqw; font-weight: 600; letter-spacing: .05cqw; color: rgba(255, 246, 234, .38); transition: color .2s; }
-  #btnReset:hover, #btnReset:focus-visible { color: rgba(255, 246, 234, .85); text-decoration: underline; }
-  #btnReset.sure { color: #ffb3a3; }
-  #title.story #btnReset { display: none; }
+  /* recomeçar o jogo: botão no canto de baixo do mapa, no clima de placa do mapa; o segundo toque confirma */
+  #btnReset { position: absolute; left: 1.8cqw; bottom: 1.8cqw; z-index: 7; font: 800 1.3cqw var(--font); letter-spacing: .08cqw; color: #fff3d6; background: rgba(28, 18, 44, .88);
+    border: .22cqw solid #e9c27a; border-radius: .5cqw; padding: .6cqw 1.5cqw; box-shadow: 0 .3cqw 0 #5a3a14, 0 0 1.2cqw rgba(0, 0, 0, .45); }
+  #btnReset:hover, #btnReset:focus-visible { background: rgba(60, 38, 80, .95); }
+  #btnReset:active { transform: translateY(.2cqw); box-shadow: 0 .1cqw 0 #5a3a14; }
+  #btnReset.sure { background: #8c2a1c; border-color: #ffc2a8; }
   #skip { position: absolute; right: 2.4cqw; top: 2.4cqw; font-size: 1.3cqw; letter-spacing: .2cqw; color: rgba(255, 244, 228, .92); padding: .4cqw 1.2cqw; border-radius: 99cqw; background: rgba(40, 18, 8, .55); opacity: 0; transition: opacity .6s .8s; animation: nudge 2.4s ease-in-out infinite; }
   @keyframes nudge { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(.4cqw); } }
   #title.story #skip { opacity: 1; }
@@ -251,7 +258,7 @@
   </div>
   <div class="bar" id="barT"></div><div class="bar" id="barB"></div>
   <div id="bossCard"><small>CHEFÃO</small><h2>O FURTÃO</h2><p>o valentão que roubou o Macaco Fedido</p></div>
-  <div id="mapa" hidden></div>
+  <div id="mapa" hidden></div><button id="btnReset" hidden>Recomeçar o jogo</button>
   <div id="iris" class="layer"></div>
 
   <section id="title" class="screen on">
@@ -267,7 +274,6 @@
     </div>
     <div class="tbg tbgTop"></div>
     <canvas id="introC" width="1600" height="900"></canvas><p id="storyLine" aria-live="polite"></p><span id="skip">toque para começar</span>
-    <button id="btnReset" hidden>Recomeçar o jogo</button>
   </section>
 
   <section id="pause" class="screen scrim"><div class="card">
@@ -294,7 +300,7 @@
       <div class="stat" id="stCookies"><b>0/36</b>Biscoitos</div>
       <div class="stat" id="stHearts"><b>0/3</b>Biscoitos dourados</div>
       <div class="stat" id="stToy"><b>?</b>Brinquedo escondido</div>
-      <div class="stat" id="stNotes" style="display:none"><b>0/4</b>Correio elegante</div>
+      <div class="stat" id="stNotes" style="display:none"><b>0/4</b>Bilhetes da turma</div>
       <div class="stat" id="stTime"><b>0s</b>Tempo</div>
     </div>
     <div class="row"><button class="btn" id="btnNext">Próxima fase: O Arraial</button><button class="btn ghost" id="btnAgain">Jogar de novo</button></div>

@@ -49,10 +49,10 @@ if (FASE === 2) Object.assign(C, {
   TUB: { x: 2120, w: 96 }, HOOP: { x: 5440, y: 130, r: 44 },
   // galinhas em debandada: quando o Timtim passa de 'at', um bando de n galinhas vem correndo da direita
   STAMPEDES: [{ at: 1840, n: 3 }, { at: 3120, n: 4 }, { at: 6360, n: 3 }],
-  // correio elegante: bilhetes escondidos, cada um com uma piada dos personagens
-  NOTES: [{ x: 640, y: 300, text: 'Para o Timtim: seu faro é o mais charmoso do arraial. Ass.: um admirador secreto (é o Elvis).' },
+  // bilhetes da turma: escondidos no arraial, cada um com uma piada canina entre os três amigos (nada de romance: são amigos)
+  NOTES: [{ x: 640, y: 300, text: 'Para o Timtim: dancei quadrilha com o meu próprio rabo e ganhei o concurso. O rabo quer revanche. Ass.: o Elvis.' },
     { x: 2700, y: 170, text: 'Para o Furtão: devolve os brinquedos ou ninguém dança quadrilha com você. Ass.: a Zara.' },
-    { x: 3650, y: 20, text: 'Para a Zara: guardei o último pé de moleque pra você. Ass.: o Elvis (comi metade).' },
+    { x: 3650, y: 20, text: 'Para a Zara: achei o melhor lugar do arraial pra enterrar osso: atrás da barraca de pamonha. Não conta pro Timtim. Ass.: o Elvis.' },
     { x: 6040, y: 300, text: 'Para o Lobo-guará: galinha não é brinquedo! Vai comer fruta-do-lobo. Ass.: todos os cães da vila.' }],
   checkpoints: [1720, 3060, 5900, 6340],
   // a Zara e o Elvis ajudam jogando ovo cozido, a comida preferida do Timtim: o primeiro, antes da quadrilha, dá o planar
@@ -491,6 +491,8 @@ function stats() {
 
 // modo demonstração (só o script que grava o vídeo de apresentação liga): o Timtim não leva dano
 TT.demo = { noHurt: false };
+// arena: os amigos esperam fora da tela, à esquerda do Timtim, até a apresentação do chefão acabar; aí entram juntos para os seus cantos
+function friendsWait(homes) { S.friends.forEach((f, i) => { f.x = ARENA_X - 90 - i * 60; f.home = f.x; f.given = true; f.follow = 0; f.vx = 0; }); S.friendsHome = homes; }
 function hurt(fromX) {
   const p = S.player;
   if (p.inv > 0 || p.mega > 0 || S.mode !== 'play' || TT.demo.noHurt) return;
@@ -667,7 +669,9 @@ TT.update = (rdt) => {
     // corre ao encontro do Timtim, acompanha uns passos depois do presente e volta para o seu lugar
     const seen = playing && Math.abs(pcx - f.home) < 460, chase = seen && (!f.given || f.follow > 0);
     const goal = Math.max(f.home - 20, Math.min(f.home + 280, chase ? pcx - Math.sign(pcx - f.x) * 70 : f.home));
-    const want = f.hop > 0.35 || Math.abs(goal - f.x) < 10 ? 0 : Math.sign(goal - f.x) * (chase || !playing ? 260 : 130);
+    if (S.friendsHome && !S.cine) { S.friends.forEach((g, i) => { g.home = S.friendsHome[i]; g.rush = 4; }); S.friendsHome = null; } // a apresentação acabou: entram
+    f.rush = Math.max(0, (f.rush || 0) - dt);
+    const want = f.hop > 0.35 || Math.abs(goal - f.x) < 10 ? 0 : Math.sign(goal - f.x) * (chase || !playing || f.rush > 0 ? 260 : 130);
     f.vx += (want - f.vx) * Math.min(1, dt * 9);
     // amigos não andam no ar: se o próximo passo sai do chão (beirada de um buraco), param na beirada
     { const nx = f.x + f.vx * dt, edge = nx + Math.sign(f.vx) * 16; if (groundAt(f.x) && !groundAt(edge)) f.vx = 0; else f.x = nx; }
@@ -716,14 +720,15 @@ TT.update = (rdt) => {
   // arena
   if (playing && C.BOSS && !S.arena && p.x > ARENA_X + 120) {
     S.arena = true;
-    // os chihuahuas entram na arena e ficam um em cada canto, prontos para jogar a bolinha
-    S.friends.forEach((f, i) => { f.home = i ? ARENA_X + W - 70 : ARENA_X + 50; f.x = i ? ARENA_X + W + 70 : ARENA_X - 70; f.given = true; f.follow = 0; f.vx = 0; });
+    // os chihuahuas entram juntos pela esquerda depois da apresentação do chefão e ficam um em cada canto, prontos para jogar a bolinha
+    // (antes o Elvis entrava pela direita, colado no Furtão, ainda na apresentação: parecia parceiro dele)
+    friendsWait([ARENA_X + 50, ARENA_X + W - 70]);
     if (!S.bossSeen) { S.bossSeen = true; S.cine = { type: 'boss', t: 0, dur: 3.4, barks: 0 }; emit('bossIntro'); }
     else emit('rematch');
   }
   if (S.arena && C.BOSS) updateBoss(dt, prevBottom, playing);
   if (playing && C.FOX && !S.arena && p.x > ARENA_X + 120) { S.arena = true;
-    S.friends.forEach((f, i) => { f.home = i ? ARENA_X + W - 210 : ARENA_X + 190; f.x = i ? ARENA_X + W + 70 : ARENA_X - 70; f.given = true; f.follow = 0; f.vx = 0; });
+    friendsWait([ARENA_X + 190, ARENA_X + W - 210]);
     scatterHens(); if (FASE !== 3) S.fox.state = 'idle'; S.fox.vx = 0; S.fox.dir = -1; S.fox.cd = Math.max(S.fox.cd || 0, 1.6); // sem teleporte: ele continua de onde estava caçando (antes sumia e reaparecia do outro lado)
     if (!S.bossSeen) { S.bossSeen = true; S.cine = { type: 'fox', t: 0, dur: 3.2 }; emit('foxIntro'); } else emit('rematch'); }
   if (C.FOX && C.PREFIGHT && !S.arena) preFight(dt);
