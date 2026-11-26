@@ -35,7 +35,7 @@ Run `bash .claude/scripts/cut-read.sh` and keep its rows:
 | Rows | Use |
 |---|---|
 | `brief`, `title` | The briefs written, both copies while they are the same text. `brief none`: say "/cut works from the brief's Features list, and there is no `design/game-brief.md`", name `/scope-check` when `design/gdd/` has files, and stop. `brief_differs`: the game's folder copy differs; only `design/game-brief.md` is written, said in one line |
-| `goal`, `dates` | `dates asked` or `not_asked` follows the goal. `goal - unset` (or `unknown`): guess it with `/start`'s goal table (`.claude/skills/start/SKILL.md`, Phase 4) from the brief's In your words, `hobby` when nothing fits, and show it *guessed* |
+| `goal`, `dates` | `dates asked` or `not_asked` follows the goal. `goal - unset` (or `unknown`): guess it with `/studio-start`'s goal table (`.claude/skills/studio-start/SKILL.md`, Phase 4) from the brief's In your words, `hobby` when nothing fits, and show it *guessed* |
 | `feature`, `keep`, `avoid`, `out`, `cut` | The Features list by number, with its marks; the lists the proposals check |
 | `recorded`, `passed` | Dates already on the brief's Dates line, and any date already past |
 | `game`, `record`, `open` | A one-shot's last check record and its fails not marked deliberate |

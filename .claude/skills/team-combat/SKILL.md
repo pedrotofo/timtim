@@ -261,6 +261,6 @@ Verdict: **BLOCKED** — one or more phases could not complete, or an agent was 
 
 ## Next Steps
 
-- Run `/code-review` on the implemented combat code before closing stories.
+- Run `/studio-code-review` on the implemented combat code before closing stories.
 - Run `/balance-check` to validate combat formulas and tuning values.
 - Run `/team-polish` if VFX, audio, or performance polish is needed.

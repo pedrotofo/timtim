@@ -57,7 +57,7 @@ the right rule.
 
 **Default**: `collaborative`. New projects start here.
 
-**Set by**: `/start`, `/project-settings`.
+**Set by**: `/studio-start`, `/project-settings`.
 
 ---
 

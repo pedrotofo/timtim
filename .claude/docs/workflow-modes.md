@@ -130,7 +130,7 @@ the expansion.) Per-system overrides read via
 
 **Default**: `minimal` (the rationale block above `_yaml_helper_defaults` in
 `.claude/hooks/yaml-helper.sh` carries the reasoning and the ordering
-constraint). **Set by**: `/start` (via `modes.rigor`), `/project-settings`. **Locked to
+constraint). **Set by**: `/studio-start` (via `modes.rigor`), `/project-settings`. **Locked to
 `project.yaml`** (not locally overridable — divergence would change which
 artifacts must exist on disk).
 
@@ -292,7 +292,7 @@ per-skill tables for spec authors, and is not worth loading to apply a knob.
 
 > **All four below are fronted by `modes.rigor`** (`docs.density`,
 > `modes.story_granularity`, `qa.level`, `team.size` — along with `workflow` itself,
-> and `modes.review_mode`, for six fronted knobs total). One question at `/start`
+> and `modes.review_mode`, for six fronted knobs total). One question at `/studio-start`
 > sets all of them; setting any explicitly overrides just that one and leaves its
 > siblings on the rigor level. `team.size` and `modes.review_mode` are the two that
 > also stay overridable from `project.local.yaml` (they are personal-experience

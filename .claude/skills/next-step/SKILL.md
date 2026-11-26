@@ -439,7 +439,7 @@ After the recommendations, if the user seems stuck or confused, add:
 Need more detail?
 - `/project-stage-detect` — full gap analysis with all missing artifacts listed
 - `/gate-check` — formal readiness check for your next stage
-- `/start` — re-orient from scratch
+- `/studio-start` — re-orient from scratch
 - `/project-settings` — if the process feels mismatched to your project, adjust
   `modes.rigor`. Apply the change-triggers in
   `.claude/docs/settings-guidance.md § 4`: a **lower** tier when the user sounds

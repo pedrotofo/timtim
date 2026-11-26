@@ -112,7 +112,7 @@ sign-off rows stay at every level, because the look is not):
 - [ ] Signed-off evidence doc at `production/qa/evidence/[story-slug]-evidence.md` for all Visual/Feel stories *(every qa.level)*
 - [ ] Smoke check passes (run `/smoke-check sprint` before QA hand-off) *(qa.level standard/full)*
 - [ ] No regressions introduced
-- [ ] Code reviewed (via `/code-review` or documented peer review)
+- [ ] Code reviewed (via `/studio-code-review` or documented peer review)
 - [ ] Story file updated to `Status: Complete` (via `/story-done`)
 
 **Stories requiring playtest sign-off before close**: [list, or "None"]

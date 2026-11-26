@@ -54,7 +54,7 @@ projects are one baseline plus one or two deliberate exceptions.
 
 ## 3. Seeding rigor from a described concept
 
-When the user has described their game (e.g. `/start` Phase 2 free text), map it to
+When the user has described their game (e.g. `/studio-start` Phase 2 free text), map it to
 an archetype and **pre-select** the recommendation rather than asking cold. Signals:
 
 | Concept mentions… | Lean toward |
@@ -72,7 +72,7 @@ rigor; want that?"). If the user has **no concept yet** (exploring), do not seed
 "No concept yet" means **no signal**, not a particular onboarding path. A rough
 one-line hint is still a description: if it trips the signals above, seed from the
 signal. Only fall back to `minimal`-for-exploring when the user has given you
-nothing to map. (`/start` Phase 4 applies the same rule when it infers rigor for its
+nothing to map. (`/studio-start` Phase 4 applies the same rule when it infers rigor for its
 Path A/B branch.)
 
 ---
@@ -100,7 +100,7 @@ state is needed — but never emit the same suggestion twice in one session.
 
 | Skill | Moment | Sections used |
 |---|---|---|
-| `/start` | Phase 4 — inferring rigor for the card | § 2 (presets), § 3 (seed from concept) |
+| `/studio-start` | Phase 4 — inferring rigor for the card | § 2 (presets), § 3 (seed from concept) |
 | `/next-step` | escalation footer when the user sounds overwhelmed, or the project has outgrown its tier | § 4 (lower and raise triggers) |
 | `/gate-check` | on PASS into a new stage | § 4 (raise trigger) |
 | `/project-settings` | view output — further reading | § 2 (choosing a value) |

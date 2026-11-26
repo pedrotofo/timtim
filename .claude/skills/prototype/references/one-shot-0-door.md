@@ -14,7 +14,7 @@ a one-shot. The original is only ever read: nothing in it is edited, moved or de
 ## 1. When it runs
 
 `/prototype --from <path>`, or a message that brings a game without it (a path to a game,
-"bring in my game"). `/start` sends people here when it finds a game in the project.
+"bring in my game"). `/studio-start` sends people here when it finds a game in the project.
 
 ## 2. Look first
 

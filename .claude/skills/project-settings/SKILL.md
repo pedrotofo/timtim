@@ -110,7 +110,7 @@ legitimate; storing it *silently* is the defect.
 (when no arguments)
 
 1. Confirm `project.yaml` exists. If missing, report:
-   > "No `project.yaml` found — run `/start` to create one."
+   > "No `project.yaml` found — run `/studio-start` to create one."
    And exit.
 
 2. Check if `project.local.yaml` exists.
@@ -424,7 +424,7 @@ When the effective value is empty (key not set anywhere), print just:
    `--local` as the silent route.
 
 3. **Base check**: if `project.yaml` doesn't exist:
-   > "Cannot create `project.local.yaml` — `project.yaml` is missing. Run `/start` to create one first."
+   > "Cannot create `project.local.yaml` — `project.yaml` is missing. Run `/studio-start` to create one first."
    Exit. (Local overrides require a base, per spec.)
 
 4. **Approval gate**: ask with the question tool:

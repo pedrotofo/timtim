@@ -101,7 +101,7 @@ are resolved. The new run will reflect the current state of the project.
 **Do not write a review mode.** `modes.review_mode` is one of the six knobs
 `modes.rigor` fronts: pinning it in `project.yaml` shadows the rigor expansion, and
 the legacy `production/review-mode.txt` sits *above* that expansion in resolution,
-so either write would freeze director-review depth for good — the rule `/start`
+so either write would freeze director-review depth for good — the rule `/studio-start`
 and `project.yaml`'s header comment both state.
 
 Report the value the bootstrap above resolved instead: "Review mode resolves to

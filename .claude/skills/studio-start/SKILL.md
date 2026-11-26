@@ -39,10 +39,10 @@ set, ask it.
 
 **A game already asked for.** When the message that started this skill asks for a game itself
 ("make me a game", or a description of one: "a game where you herd sheep with a dog") and the
-person did not type `/start`, ask nothing and read nothing. Say in one line that you are taking
+person did not type `/studio-start`, ask nothing and read nothing. Say in one line that you are taking
 them straight to the build, then start `/prototype` with the Skill tool and no arguments: it
 reads their message as their words and asks only what is missing. This is the one step this
-skill runs itself, and only because it was started for them: a typed `/start` runs its turn on
+skill runs itself, and only because it was started for them: a typed `/studio-start` runs its turn on
 this skill's own model, and the build must run on the session's (Phase 7).
 
 **A game brought.** When that message brings a game the person already has (a path to an

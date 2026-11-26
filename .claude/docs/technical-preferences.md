@@ -67,7 +67,7 @@
 ## Engine Specialists
 
 <!-- Written by /setup-engine when engine is configured. -->
-<!-- Read by /code-review, /architecture-decision, /architecture-review, and team skills -->
+<!-- Read by /studio-code-review, /architecture-decision, /architecture-review, and team skills -->
 <!-- to know which specialist to spawn for engine-specific validation. -->
 
 - **Primary**: [TO BE CONFIGURED — run /setup-engine]

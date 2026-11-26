@@ -369,7 +369,7 @@ phases:
 
       - id: code-review
         name: "Code Review"
-        command: /code-review
+        command: /studio-code-review
         required: false
         repeatable: true
         description: "Architectural code review after each story implementation. Run after /dev-story, before /story-done."

@@ -30,7 +30,7 @@ The main path starts with a game, not an engine:
 an engine set, `/prototype` builds a throwaway prototype in it instead. `/prototype --spike`
 is the quick test of one mechanic. `/brainstorm` helps when you have no idea yet.
 
-`modes.rigor` defaults to `minimal` (`/start` infers it from what you describe and shows it
+`modes.rigor` defaults to `minimal` (`/studio-start` infers it from what you describe and shows it
 before saving; `/project-settings` changes it any time). At `minimal` the one-page brief
 stands in for the concept doc, systems decomposition and per-system GDDs.
 
@@ -109,7 +109,7 @@ Ask yourself: "What department would handle this in a real studio?"
 
 | Command | What it does |
 |---------|-------------|
-| `/start` | First-time onboarding — asks where you are, guides you to the right workflow |
+| `/studio-start` | First-time onboarding — asks where you are, guides you to the right workflow |
 | `/next-step` | Context-aware "what do I do next?" — reads your current phase and artifacts |
 | `/project-stage-detect` | Analyze project state, detect stage, identify gaps |
 | `/setup-engine` | Configure engine + version, populate reference docs |
@@ -137,7 +137,7 @@ Ask yourself: "What department would handle this in a real studio?"
 | `/story-done` | End-of-story completion review — verifies acceptance criteria |
 | `/estimate` | Produces structured effort estimates |
 | `/design-review` | Reviews a design document |
-| `/code-review` | Reviews code for quality and architecture |
+| `/studio-code-review` | Reviews code for quality and architecture |
 | `/balance-check` | Analyzes game balance data |
 | `/asset-audit` | Audits assets for compliance |
 | `/content-audit` | GDD-specified content vs. implemented — find gaps |
@@ -236,7 +236,7 @@ Templates are in `.claude/docs/templates/`:
 
 ## First Steps for a New Project
 
-**Don't know where to begin?** Run `/start`. It asks where you are and routes
+**Don't know where to begin?** Run `/studio-start`. It asks where you are and routes
 you to the right workflow. No assumptions about your game, engine, or experience level.
 
 The paths below walk the `standard`/`full` pipeline. At `rigor: minimal` (the
@@ -246,7 +246,7 @@ If you already know what you need, jump directly to the relevant path:
 
 ### Path A: "I have no idea what to build"
 
-1. **Run `/start`** (or `/brainstorm open`) — guided creative exploration:
+1. **Run `/studio-start`** (or `/brainstorm open`) — guided creative exploration:
    what excites you, what you've played, your constraints
    - Generates 3 concepts, helps you pick one, defines core loop and pillars
    - Produces a game concept document and recommends an engine
@@ -295,7 +295,7 @@ If you have a concept but don't know which engine fits:
 
 If you have design docs, prototypes, or code already:
 
-1. **Run `/start`** (or `/project-stage-detect`) — analyzes what exists,
+1. **Run `/studio-start`** (or `/project-stage-detect`) — analyzes what exists,
    identifies gaps, and recommends next steps
 2. **Run `/adopt`** if you have existing GDDs, ADRs, or stories — audits
    internal format compliance and builds a numbered migration plan to fill gaps

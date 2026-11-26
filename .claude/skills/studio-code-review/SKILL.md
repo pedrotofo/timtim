@@ -75,7 +75,7 @@ If no engine is configured (no `engine.name` in `project.yaml`, and `technical-p
 
 ## Phase 3: ADR Compliance Check
 
-**Argument:** `/code-review [file(s)]` may optionally include a story file path as the last argument (e.g., `/code-review Assets/Scripts/Combat/Attack.cs production/epics/combat/story-001.md`). If a story path is provided, read it to extract the governing ADR reference.
+**Argument:** `/studio-code-review [file(s)]` may optionally include a story file path as the last argument (e.g., `/studio-code-review Assets/Scripts/Combat/Attack.cs production/epics/combat/story-001.md`). If a story path is provided, read it to extract the governing ADR reference.
 
 Search for ADR references in, in priority order:
 1. The story file (if provided as argument)
@@ -84,7 +84,7 @@ Search for ADR references in, in priority order:
 
 Look for patterns like `ADR-NNNN` or `docs/architecture/adr-` (either case).
 
-If no ADR references found, note: "No ADR references found — ADR compliance check skipped. For full ADR compliance review, provide the story path: `/code-review [files] [story-path]`."
+If no ADR references found, note: "No ADR references found — ADR compliance check skipped. For full ADR compliance review, provide the story path: `/studio-code-review [files] [story-path]`."
 
 For each referenced ADR, load **only the sections this check needs — never an unbounded full read.** A substantial ADR exceeds the 25k-token read cap, and a capped read's only recovery is paging the remainder — the most expensive way to read a file. Use the same pattern as `/dev-story` and `/create-stories`:
 
@@ -271,11 +271,11 @@ Ask:
     - `[B] Run /story-done now — suggestions noted for later`
     - `[C] Stop here`
   - If CHANGES REQUIRED:
-    - `[A] Fix the issues and re-run /code-review`
+    - `[A] Fix the issues and re-run /studio-code-review`
     - `[B] Run /story-done anyway with noted exceptions`
     - `[C] Stop here`
   - If NOT ASSESSED:
-    - `[A] Fix what stopped the review (point me at the code, run /setup-engine, or fix the unreadable ADR reference), then re-run /code-review`
+    - `[A] Fix what stopped the review (point me at the code, run /setup-engine, or fix the unreadable ADR reference), then re-run /studio-code-review`
     - `[B] Stop here`
 
 If an ARCHITECTURAL VIOLATION is found:

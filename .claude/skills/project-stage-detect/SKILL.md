@@ -132,7 +132,7 @@ Based on scanned artifacts, determine stage. Check `project.stage` in `project.y
 > **A disagreement makes Stage Confidence CONCERNS** (step 4) — ambiguous
 > signals by definition — however complete the artifacts are. One exception: at
 > `workflow: minimal` nothing runs `/gate-check`, so the configured stage stays
-> where `/start` set it. There, report the observed stage and say the configured
+> where `/studio-start` set it. There, report the observed stage and say the configured
 > one is not advanced at this tier; that lag is expected, not a disagreement.
 
 | Stage | Indicators |

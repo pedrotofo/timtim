@@ -300,5 +300,5 @@ Verdict: **BLOCKED** — pipeline halted; surface the blocker and its phase befo
 ## Next Steps
 
 - Run `/ux-review` on the final spec if not yet approved.
-- Run `/code-review` on the UI implementation before closing stories.
+- Run `/studio-code-review` on the UI implementation before closing stories.
 - Run `/team-polish` if visual or audio polish pass is needed.

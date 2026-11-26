@@ -27,7 +27,7 @@ and `## Files`, and its `production/sprint-status.yaml` entry. The programmer ag
 write the code and tests under the code root and test root
 (`.claude/docs/code-root-resolution.md`). The session checkpoint and the evidence
 stamp are written without an ask.
-**Next:** `/story-done [story-path]`; at `standard` and `full`, `/code-review
+**Next:** `/story-done [story-path]`; at `standard` and `full`, `/studio-code-review
 [files]` first. `/dev-story` and `/story-done` start only when the person types them, so never offer to start one as an option: print it as a line to type.
 
 Asks follow `.claude/docs/automation-modes.md` (collaborative always asks, guided
@@ -93,7 +93,7 @@ are what the programmer reads instead. Compare the ADR's `version` with the stor
   `references/version-mismatch.md`. On a match, do not load it.
 
 Never treat an absent stamp as a stale one: unknown falls back to the story, and
-`/story-readiness` and `/code-review` are the checks that catch drift later.
+`/story-readiness` and `/studio-code-review` are the checks that catch drift later.
 
 **The manifest.** When it exists, compare its `Manifest Version` line with the
 story's. They differ: read `references/version-mismatch.md`.
@@ -352,7 +352,7 @@ this when the Phase 3 ask was declined.
 **The run's last reply ends with this block**, the only place the `Run result:` line
 is printed: print it nowhere else in the reply. The Next step goes by the tier you stated in Phase 1 (the `workflow` line,
 never `rigor` or `qa.level`). The Next step: at `minimal`, `/story-done [path]`. At `standard` and `full`,
-`/code-review [files]`, then `/story-done [path]`. INCOMPLETE: `/dev-story [path]`
+`/studio-code-review [files]`, then `/story-done [path]`. INCOMPLETE: `/dev-story [path]`
 to resume. A same-seed run changed and not accepted is INCOMPLETE too: `/dev-story [path]`
 after the fix. BLOCKED: the action that unblocks it (`/architecture-decision accept
 ADR-NNNN`, the dependency to finish, the diff to review).
@@ -361,5 +361,5 @@ ADR-NNNN`, the dependency to finish, the diff to review).
 Story: [path] — [Implemented | INCOMPLETE — <breakage> | BLOCKED — <reason>]
 Run result: [OBSERVED — … | NOT VERIFIED — … | N/A — …]
 Same-seed run: [a grown game only, as in Phase 6]
-Next step: [Implemented, Tier: workflow minimal → /story-done [path] | Implemented, Tier: workflow standard or full → /code-review [changed files], then /story-done [path] | INCOMPLETE → /dev-story [path] to resume | BLOCKED → the unblocking action]
+Next step: [Implemented, Tier: workflow minimal → /story-done [path] | Implemented, Tier: workflow standard or full → /studio-code-review [changed files], then /story-done [path] | INCOMPLETE → /dev-story [path] to resume | BLOCKED → the unblocking action]
 ```

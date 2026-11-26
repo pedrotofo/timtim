@@ -193,7 +193,7 @@ of two things, and the message says which:
   not a second `migrate`.
 
 Both files merely *existing* is not exit 3 and must not be reported as a
-conflict: `/start` writes `production/stage.txt` on every new v1.1 project as a
+conflict: `/studio-start` writes `production/stage.txt` on every new v1.1 project as a
 mirror, so agreement is the normal state. The script says
 `the legacy files mirror it (values agree)` and exits 0 for that.
 

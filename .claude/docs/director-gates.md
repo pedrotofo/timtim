@@ -63,7 +63,7 @@ Review intensity controls whether gates run.
 
 **Global config**: `modes.review_mode` in `project.yaml` — one word: `full`,
 `lean`, or `solo`. Legacy fallback: `production/review-mode.txt` (single line,
-same values); `project.yaml` wins when both are present. `/start` never writes
+same values); `project.yaml` wins when both are present. `/studio-start` never writes
 it: left unset, it follows `modes.rigor` (`minimal` → `solo`, `standard` →
 `lean`, `full` → `full`). Set it explicitly only with
 `/project-settings modes.review_mode=<value>`.

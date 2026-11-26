@@ -62,7 +62,7 @@ when they asked for epics.
 
 ### `minimal`: the brief
 
-Read `design/game-brief.md`. None: stop, "No `design/game-brief.md` — run `/start`
+Read `design/game-brief.md`. None: stop, "No `design/game-brief.md` — run `/studio-start`
 or `/brainstorm` first." Never ask for GDDs, a systems index, an architecture
 document, ADRs, a TR registry or a control manifest, and never send the user to
 `/design-system`, `/map-systems` or `/create-architecture` first: this tier has none

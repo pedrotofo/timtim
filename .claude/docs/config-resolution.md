@@ -184,7 +184,7 @@ these six to the lean row. That default was `standard`; it changed because the
 heavier tier costs more to reach working code without producing a better
 result. See the rationale block above `_yaml_helper_defaults`
 in `.claude/hooks/yaml-helper.sh` for the reasoning and the ordering
-constraint. Raising the tier is one question in `/start` or one `/project-settings`
+constraint. Raising the tier is one question in `/studio-start` or one `/project-settings`
 call, and `settings-guidance.md § 4`'s upward triggers are written to fire from
 this starting state. (`team.size` is the one knob the flip does not move:
 `minimal` and `standard` both yield `individual`, and only `full` opts into the
@@ -308,6 +308,6 @@ directions. Two properties are asserted that are easy to lose:
 - The local **read** scope and the `/project-settings --local` **write** whitelist stay
   in step. If they drift, `/project-settings` accepts and displays a value that every
   skill then ignores.
-- The expansion is *reachable* (`/start` asks about it) and *legible*
+- The expansion is *reachable* (`/studio-start` asks about it) and *legible*
   (`/project-settings` reports derived values rather than "(not set)"). A correct
   expansion nobody is asked about and no view displays would be worth nothing.

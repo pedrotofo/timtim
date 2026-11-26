@@ -25,7 +25,7 @@ the brief · 6 On Build it
   alone and `design/game-brief.md` stays as it is.
 - **No brief:** the person's words are what they typed, word for word: the text after the skill
   name when they started the skill themselves; with nothing after it, what they wrote about the
-  game earlier in this conversation (an answer to `/start`, say); otherwise their whole message
+  game earlier in this conversation (an answer to `/studio-start`, say); otherwise their whole message
   that asked for the game. The skill's arguments, when it was started for them, are a summary,
   never their words.
 - **A pivot note:** a `PIVOT-NOTE.md` in the folder of the game they just changed direction

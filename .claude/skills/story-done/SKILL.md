@@ -251,7 +251,7 @@ Read the `review_gate` line above.
 
 - **`skill-gates=skip`:** no agent. Note `QL-TEST-COVERAGE skipped — [Solo | Lean]
   mode` and `LP-CODE-REVIEW skipped — [Solo | Lean] mode`. In `lean` mode, ask: "Did
-  you run `/code-review` on the implemented files?" Options: Yes — it passed or was
+  you run `/studio-code-review` on the implemented files?" Options: Yes — it passed or was
   approved with suggestions / No — skipping review for this story / No — I'll run
   it before the sprint close-out. The answer sets Reviewed by.
 - **`skill-gates=run`:** read `references/review-gates.md` and
@@ -259,7 +259,7 @@ Read the `review_gate` line above.
   it.
 
 **Reviewed by** is never blank: `lead-programmer` when LP-CODE-REVIEW ran;
-`/code-review (you said you ran it; not verified here)` for the lean Yes; `self, no
+`/studio-code-review (you said you ran it; not verified here)` for the lean Yes; `self, no
 independent review` in solo mode, for either No, and when no implementation file
 exists yet.
 

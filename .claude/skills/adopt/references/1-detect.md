@@ -28,16 +28,16 @@ Use the same heuristic as `/project-stage-detect`:
 - ADRs exist → Technical Setup
 - systems-index.md exists → Systems Design
 - game-concept.md (or `design/game-brief.md`) exists → Concept
-- Nothing → Fresh (not a brownfield project — suggest `/start`)
+- Nothing → Fresh (not a brownfield project — suggest `/studio-start`)
 
 If the project appears fresh (no artifacts at all), use `AskUserQuestion`:
 - "This looks like a fresh project — no existing artifacts found. `/adopt` is for
   projects with work to migrate. What would you like to do?"
-  - "Run `/start` — begin guided first-time onboarding"
+  - "Run `/studio-start` — begin guided first-time onboarding"
   - "My artifacts are in a non-standard location — help me find them"
   - "Cancel"
 
-`/start` and Cancel end this skill: say which, and stop.
+`/studio-start` and Cancel end this skill: say which, and stop.
 
 **If they pick "help me find them"**, search before asking anything else:
 
@@ -56,7 +56,7 @@ If the project appears fresh (no artifacts at all), use `AskUserQuestion`:
    `docs/architecture/adr-NNNN-[name].md`; story →
    `production/epics/[epic]/story-NNN-[name].md`; concept →
    `design/gdd/game-concept.md`; brief → `design/game-brief.md`. If nothing
-   matched, say so, name the folders and headings searched, and offer `/start`.
+   matched, say so, name the folders and headings searched, and offer `/studio-start`.
 4. Ask before moving anything — a move takes the file away from its old path,
    so it is a `file_deletions` decision: "May I move these [N] files to the
    standard folders?" — `[A] Move them all` / `[B] Let me pick which` /

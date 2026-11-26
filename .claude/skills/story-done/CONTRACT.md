@@ -58,7 +58,7 @@ then `COMPLETE`; see the verdict section of `SKILL.md`.
 
 ### Output Guarantees
 - `Status: Complete` is written only after the user explicitly approves: on a COMPLETE or COMPLETE WITH NOTES verdict, or — on a BLOCKED or NOT ASSESSED verdict — only when the user explicitly asks to close anyway (the Phase 7 override, which always prompts as a `scope_changes` decision), with the override risk recorded in `## Completion Notes`
-- `## Completion Notes` always contains: completion date, criteria pass count, deviation summary, test evidence path (or "None required"), code review status, and a Reviewed by line: `lead-programmer`, `/code-review (you said you ran it; not verified here)`, or `self, no independent review` when nobody else reviewed the work
+- `## Completion Notes` always contains: completion date, criteria pass count, deviation summary, test evidence path (or "None required"), code review status, and a Reviewed by line: `lead-programmer`, `/studio-code-review (you said you ran it; not verified here)`, or `self, no independent review` when nobody else reviewed the work
 - Session state always records the final verdict and the next recommended story path
 
 ## Immutability Rules

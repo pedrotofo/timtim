@@ -57,7 +57,7 @@ of starting over; its In your words section is never rewritten, only added to.
    questions, writes the one-page brief from the genre's sheet and builds a playable browser
    game." End with `Verdict: COMPLETE — concept picked; /prototype writes
    the brief.` Go on to step 2 only when they ask to write the brief here first ("write it
-   down", "formalize it", or `/start`'s `Formalize it first`).
+   down", "formalize it", or `/studio-start`'s `Formalize it first`).
 2. **Fill the brief** in conversation, several fields per exchange:
    - **In your words:** everything the user writes about the game, word for word: the hint, their
      descriptions, their changes. Never your concept lines; when they only picked one, it holds

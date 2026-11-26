@@ -44,13 +44,11 @@ model ships.
 | **Opus** | `opus` | Multi-document synthesis, high-stakes phase gate verdicts, cross-system holistic review |
 | **Session** | `inherit` | Agents only — runs on whatever model the session runs |
 
-Skills with `model: haiku` (6): `/next-step`, `/onboard`, `/project-stage-detect`,
-`/scope-check`, `/sprint-status`, and `/help`, the old name of `/next-step`
+Skills with `model: haiku` (5): `/next-step`, `/onboard`, `/project-stage-detect`,
+`/scope-check`, `/sprint-status`
 
-> `/help`, `/settings` and `/changelog` are the old names of `/next-step`,
-> `/project-settings` and `/write-changelog`. Each carries the
-> `model:` of the skill it points to: typed as `/help`, the old name runs on its
-> own pin, and it then starts the new skill in the same turn.
+> `/help`, `/settings` and `/changelog` were the old names of `/next-step`,
+> `/project-settings` and `/write-changelog`; their stubs were removed from this repo.
 >
 > `/patch-notes` and `/write-changelog` are `sonnet`, not `haiku`: both produce
 > **player-facing** copy and need judgement the cheapest tier is defined as not
@@ -83,7 +81,7 @@ model. 19 are pinned:
   `ue-blueprint-specialist`, `ue-gas-specialist`, `ue-replication-specialist`,
   `ue-umg-specialist`, `unity-addressables-specialist`,
   `unity-dots-specialist`, `unity-shader-specialist`, `unity-ui-specialist`.
-  `/dev-story` and `/code-review` spawn the sub-specialists named in
+  `/dev-story` and `/studio-code-review` spawn the sub-specialists named in
   `project.yaml`'s `specialists` block (which `/setup-engine` writes); `/team-ui` spawns
   `unity-ui-specialist` and `ue-umg-specialist`; `/team-release` spawns
   `devops-engineer` and `community-manager`, and `/team-live-ops` spawns

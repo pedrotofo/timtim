@@ -1,7 +1,7 @@
 # /dev-story — Handoff Contract
 
 ## Role in Pipeline
-Bridges planning and code by loading the full context for a single story (story file, TR registry, ADR, control manifest, engine prefs), routing to the correct programmer agent, implementing source code and tests, and leaving the story ready for `/story-done` (with `/code-review` first at `standard`/`full`).
+Bridges planning and code by loading the full context for a single story (story file, TR registry, ADR, control manifest, engine prefs), routing to the correct programmer agent, implementing source code and tests, and leaving the story ready for `/story-done` (with `/studio-code-review` first at `standard`/`full`).
 
 ## Inputs Required
 
@@ -46,7 +46,7 @@ Bridges planning and code by loading the full context for a single story (story 
 - Test file path matches exactly the path declared in the story's `## Test Evidence` section
 - Every acceptance criterion is mapped to a test function (Logic/Integration), an `OBSERVED` retained screenshot (the *look* half of Visual/Feel and UI), or flagged `DEFERRED` (the *feel* half only — timing, weight, responsiveness) in the implementation summary
 - No files are written outside the story's `## Out of Scope` boundary without surfacing the conflict to the user first
-- Session state records files changed and the next recommended invocation (`/story-done`; `/code-review` first at `standard`/`full`) — on INCOMPLETE, `/dev-story` to resume; on BLOCKED, the unblocking action
+- Session state records files changed and the next recommended invocation (`/story-done`; `/studio-code-review` first at `standard`/`full`) — on INCOMPLETE, `/dev-story` to resume; on BLOCKED, the unblocking action
 - The implementation summary states a **verification** result — what was run against the written code (Godot: `.claude/scripts/godot-parse-check.gd` over the changed scripts; Unity: `commands.smoke`; Unreal: the editor-target build) and its exit code. When the engine binary is unavailable this is **`NOT VERIFIED — <reason>`**, never an inference that the code is fine because it reads correctly
 - The implementation summary states a **run result** — `OBSERVED — <what was on screen>` with a retained screenshot under `production/qa/evidence/[story-slug]/`, `NOT VERIFIED — <reason>`, or `N/A — <reason>` (only for a story with genuinely nothing observable). `NOT VERIFIED` is a blocker at the default gate level for Visual/Feel and UI stories. The run is **not waived at `qa.level: minimal`** — tests are, the look is not. Procedure: `.claude/docs/run-and-observe.md`
 - At `qa.level: minimal` no test file is written, and for a Logic or Integration story the summary says so explicitly (`Test evidence: waived at qa.level: minimal`); UI and Visual/Feel stories get no waiver line, because their screenshot still applies. A waived run and a run where tests were forgotten must not produce the same artifact

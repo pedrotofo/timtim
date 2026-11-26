@@ -1,6 +1,6 @@
 # Available Skills (Slash Commands)
 
-75 slash commands organized by phase. Type `/` in Claude Code to access any of them.
+72 slash commands organized by phase. Type `/` in Claude Code to access any of them.
 
 > **Renamed in 1.3.0:** `/help` is now `/next-step`, `/settings` is now
 > `/project-settings` and `/changelog` is now `/write-changelog`, because other
@@ -11,7 +11,7 @@
 
 | Command | Purpose |
 |---------|---------|
-| `/start` | First-time onboarding — asks where you are, then guides you to the right workflow |
+| `/studio-start` | First-time onboarding — asks where you are, then guides you to the right workflow |
 | `/next-step` | Context-aware "what do I do next?" — reads current stage and surfaces the required next step |
 | `/project-stage-detect` | Full project audit — detect phase, identify existence gaps, recommend next steps |
 | `/setup-engine` | Configure engine + version, detect knowledge gaps, populate version-aware reference docs |
@@ -71,7 +71,7 @@
 | Command | Purpose |
 |---------|---------|
 | `/design-review` | Review a game design document for completeness and consistency |
-| `/code-review` | Architectural code review for a file or changeset |
+| `/studio-code-review` | Architectural code review for a file or changeset |
 | `/balance-check` | Analyze game balance data, formulas, and config — flag outliers |
 | `/content-audit` | Audit GDD-specified content counts against implemented content |
 | `/scope-check` | Analyze feature or sprint scope against original plan, flag scope creep |
@@ -150,8 +150,8 @@ Claude Code ships its own skills, and one name collides with Claude Code Game St
 
 | You type | You get | Use it for |
 |---------|---------|-----------|
-| `/code-review` | **Claude Code Game Studios'** — project skills take the bare name | Architectural review against this project's coding standards, SOLID, testability and the control manifest. Knows about ADRs, stories and `docs/architecture/`. |
-| `/review` | **Claude Code's bundled** review — the alias of its `/code-review`, which Claude Code Game Studios' skill shadows | Reviewing a pull request or a plain diff for correctness bugs, with no knowledge of Claude Code Game Studios' design documents or gates. |
+| `/studio-code-review` | **Claude Code Game Studios'** — renamed in this repo so it no longer shadows the bundled one | Architectural review against this project's coding standards, SOLID, testability and the control manifest. Knows about ADRs, stories and `docs/architecture/`. |
+| `/code-review` (or `/review`) | **Claude Code's bundled** review | Reviewing a pull request or a plain diff for correctness bugs, with no knowledge of Claude Code Game Studios' design documents or gates. |
 
 Both are useful; they answer different questions. Reach for the Claude Code Game Studios one during
 `/dev-story` and before `/story-done`, because it checks the things the gates

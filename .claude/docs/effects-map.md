@@ -203,9 +203,9 @@ When skills or hooks read either file:
 
 | Scenario | Behavior |
 |----------|----------|
-| `/start` on fresh project | Creates `project.yaml` only. Does NOT create `project.local.yaml`. |
+| `/studio-start` on fresh project | Creates `project.yaml` only. Does NOT create `project.local.yaml`. |
 | `/project-settings --local <x>=<y>` when local.yaml doesn't exist | Creates `project.local.yaml` containing just that setting. |
-| `project.local.yaml` exists but `project.yaml` doesn't | Hard error: *"`project.yaml` missing — run `/start` to create one. Local overrides require a base."* |
+| `project.local.yaml` exists but `project.yaml` doesn't | Hard error: *"`project.yaml` missing — run `/studio-start` to create one. Local overrides require a base."* |
 | Both files exist | Read `project.yaml` first, deep-merge `project.local.yaml` on top. Normal operation. |
 | Both files set the same key | `project.local.yaml` wins. No prompting. |
 
@@ -330,7 +330,7 @@ behavior: strict project defaults for CI, looser developer overrides for local w
 **Controls:** How many specialist and director agents are spawned during skill execution  
 **Values:** `full` | `lean` | `solo`  
 **Default:** *none* — supplied by `modes.rigor` (`minimal`, the default, yields `solo`; `standard` yields `lean`; `full` yields `full`)  
-**Set by:** `/project-settings`, or `migrate-v1-config.sh` (which `/adopt` runs) when it carries over a v1.0 `production/review-mode.txt`. `/start` and `/adopt` never write it themselves — unset, it follows `modes.rigor`  
+**Set by:** `/project-settings`, or `migrate-v1-config.sh` (which `/adopt` runs) when it carries over a v1.0 `production/review-mode.txt`. `/studio-start` and `/adopt` never write it themselves — unset, it follows `modes.rigor`  
 **Read by:** See skill table below
 
 **Priority chain (all skills):** inline argument flag → `modes.review_mode` in `project.yaml` → `production/review-mode.txt` (legacy fallback) → `modes.rigor` expansion (no terminal default; `minimal`→`solo`, `standard`→`lean`, `full`→`full`)
@@ -455,12 +455,12 @@ pipeline's own review steps run in every mode.
 ## modes.rigor
 
 **Controls:** How much process the project carries overall — the single question
-`/start` asks that sets the six knobs below
+`/studio-start` asks that sets the six knobs below
 **Values:** `minimal` | `standard` | `full`
 **Default:** `minimal` — see the rationale block above `_yaml_helper_defaults`
 in `.claude/hooks/yaml-helper.sh`. Short version: the heavier tier costs more to
 reach working code without producing a better result.
-**Set by:** `/start` (Phase 4: inferred from the user's description, shown, saved on a yes), `/project-settings`
+**Set by:** `/studio-start` (Phase 4: inferred from the user's description, shown, saved on a yes), `/project-settings`
 **Read by:** nothing directly — it is read *through* the six knobs it supplies
 
 **Priority chain:** `modes.rigor` in `project.yaml` → hardcoded default `minimal`
@@ -529,7 +529,7 @@ the tradeoff between token/time cost of documentation and speed of reaching
 working code  
 **Values:** `full` | `standard` | `minimal`  
 **Default:** *none* — supplied by `modes.rigor` (`minimal`, the default, yields `minimal`; `standard` yields `standard`; `full` yields `full`)  
-**Set by:** `/start` (via `modes.rigor`), `/project-settings`  
+**Set by:** `/studio-start` (via `modes.rigor`), `/project-settings`  
 **Read by:** See skill tables below
 
 **Priority chain:** `modes.workflow` in `project.yaml` → `modes.rigor` expansion → *(no hardcoded default)*
@@ -776,7 +776,7 @@ workflow_overrides:
 recommend and proceed — the tradeoff between user control and speed  
 **Values:** `collaborative` | `guided` | `autonomous`  
 **Default:** `collaborative`  
-**Set by:** `/start`, `/project-settings`  
+**Set by:** `/studio-start`, `/project-settings`  
 **Read by:** All 69 skills that use `AskUserQuestion` or write files
 
 **Priority chain:** `modes.automation` in `project.yaml` → hardcoded default
@@ -997,7 +997,7 @@ The list is a YAML list of these strings. Skills check whether the current decis
 **Controls:** How big each story is and how many stories per epic/sprint
 **Values:** `coarse` | `balanced` | `fine`
 **Default:** *none* — supplied by `modes.rigor` (`minimal`, the default, yields `coarse`; `standard` yields `balanced`; `full` yields `fine`)
-**Set by:** `/start` (via `modes.rigor`), `/project-settings`
+**Set by:** `/studio-start` (via `modes.rigor`), `/project-settings`
 **Read by:** `/create-stories`, `/sprint-plan`, `/sprint-status`, `/story-readiness`
 
 **Priority chain:** `modes.story_granularity` in `project.yaml` → `modes.rigor` expansion → *(no hardcoded default)*
@@ -1029,7 +1029,7 @@ The list is a YAML list of these strings. Skills check whether the current decis
 **Controls:** How deep each section in authored docs goes — independent of which sections are required
 **Values:** `terse` | `balanced` | `thorough`
 **Default:** *none* — supplied by `modes.rigor` (`minimal`, the default, yields `terse`; `standard` yields `balanced`; `full` yields `thorough`)
-**Set by:** `/start` (via `modes.rigor`), `/project-settings`
+**Set by:** `/studio-start` (via `modes.rigor`), `/project-settings`
 **Read by:** `/design-system`, `/art-bible`, `/create-architecture`, `/ux-design`, `/map-systems`, `/brainstorm`
 
 **Priority chain:** `docs.density` in `project.yaml` → `modes.rigor` expansion → *(no hardcoded default)*
@@ -1173,7 +1173,7 @@ closing, or produces a warning and lets work continue — per test type
 **Controls:** What test evidence is required to mark stories Done
 **Values:** `minimal` | `standard` | `full`
 **Default:** *none* — supplied by `modes.rigor` (`minimal`, the default, yields `minimal`; `standard` yields `standard`; `full` yields `full`)
-**Set by:** `/start` (via `modes.rigor`), `/project-settings`
+**Set by:** `/studio-start` (via `modes.rigor`), `/project-settings`
 **Read by:** `/story-done`, `/story-readiness`, `/dev-story`, `/smoke-check`, `/gate-check`, `/qa-plan`, `/regression-suite`, `/team-qa`, `/test-evidence-review`, `/create-stories`, `/retrospective`, `/test-setup`
 
 **Priority chain:** `qa.level` in `project.yaml` → `modes.rigor` expansion → *(no hardcoded default)*
@@ -1285,7 +1285,7 @@ closing, or produces a warning and lets work continue — per test type
 **Controls:** Which agents are active by default — solo devs shouldn't get studio-grade gating on every change
 **Values:** `individual` | `small` | `studio`
 **Default:** *none* — supplied by `modes.rigor` (`minimal`/`standard` yield `individual`, `full` yields `studio`)
-**Set by:** `/start` (via `modes.rigor`), `/project-settings`
+**Set by:** `/studio-start` (via `modes.rigor`), `/project-settings`
 **Read by:** All `team-*` skills, `/gate-check`, all skills that spawn agents via `Agent`
 
 **Priority chain:** `team.size` in `project.local.yaml` → `project.yaml` → the `modes.rigor` expansion (`full` → `studio`, else `individual`) → no terminal default. Locally overridable — it is a personal-experience knob, not an on-disk artifact.
@@ -1471,7 +1471,7 @@ must tell them apart)
 > The value is checked for valid spelling when you set it, and then ignored.
 > The accessibility-specialist routing and the Polish-stage audit described
 > below **do not happen at any level** — `/team-ui`, `/team-level`,
-> `/team-polish` and `/gate-check` do not read this setting, and `/start`
+> `/team-polish` and `/gate-check` do not read this setting, and `/studio-start`
 > does not ask for it.
 
 **Controls:** Accessibility commitment level — routes accessibility specialist and gates audit requirements
@@ -1484,7 +1484,7 @@ must tell them apart)
 
 > **Default is `none`, not `standard`.** Most Claude Code Game Studios users are solo devs and jam-game
 > makers — defaulting to `standard` would auto-spawn the accessibility specialist
-> for projects where it's overhead. `/start` does not ask about it; you set it with
+> for projects where it's overhead. `/studio-start` does not ask about it; you set it with
 > `/project-settings`.
 
 ---
@@ -1617,7 +1617,7 @@ validates and what artifacts are expected to exist
 > `Concept | Systems Design | Technical Setup | Pre-Production | Production | Polish | Release`
 
 > **This is a project attribute, not a mode.** It records where the project is
-> in its lifecycle. Only `/start` (at onboarding) and `/gate-check` write it —
+> in its lifecycle. Only `/studio-start` (at onboarding) and `/gate-check` write it —
 > `/gate-check` on a PASS verdict with user confirmation, or on a CONCERNS
 > verdict whose risks the user explicitly accepts (they are recorded); a FAIL never advances it.
 > Never write it manually mid-session except to correct an incorrect auto-detect.
@@ -1626,7 +1626,7 @@ validates and what artifacts are expected to exist
 > `project.yaml` first, then legacy `production/stage.txt`, then artifact
 > auto-detection. When `/gate-check` advances the stage it dual-writes BOTH
 > `project.yaml` and `production/stage.txt`, so hooks that have not migrated
-> still resolve correctly. `/start` also dual-writes the initial stage. The
+> still resolve correctly. `/studio-start` also dual-writes the initial stage. The
 > legacy `.txt` file is retired at `.claude/scripts/migrate-v1-config.sh --finalize`.
 
 ---
@@ -1668,7 +1668,7 @@ required at `standard` and `minimal` levels.
 a portfolio piece, or a game to sell  
 **Values:** `jam` | `learn` | `hobby` | `portfolio` | `sell` | `early_access` | `publisher` | `mobile` | `other`  
 **Default:** none. A reader with no value guesses from the person's words, otherwise `hobby`  
-**Set by:** `/start`, which guesses it from the person's answers, shows it on the assumptions card
+**Set by:** `/studio-start`, which guesses it from the person's answers, shows it on the assumptions card
 where they can change it, and writes it only on `Save them`; `/project-settings`; `/cut`, only
 when the person changes the goal on its screen  
 **Read by:** `prototype` (the one-shot card's Your goal line, and the handover's note when a
@@ -1676,7 +1676,7 @@ reference game's name or art would ship with a selling goal); `cut` (`sell`, `ea
 `publisher` are asked a target date and offered a freeze date; the other goals get no date)
 
 > **A project attribute, not a mode.** It changes no gate and no required artifact. It is never
-> asked as a question of its own: `/start` shows its guess on the card, and a project without the
+> asked as a question of its own: `/studio-start` shows its guess on the card, and a project without the
 > key works as before.
 
 ---
@@ -1937,14 +1937,14 @@ Users override per-project as needed via `/project-settings commands.<field>=<va
 **Read by:** `/adopt`, `/architecture-review`, `/asset-spec`,
 `/create-architecture`, `/create-control-manifest`, `/dev-story`,
 `/vertical-slice` — each reads `naming.*` from `project.yaml` and feeds the
-conventions into a brief, manifest or spec. **NOT by `/code-review` and NOT by
+conventions into a brief, manifest or spec. **NOT by `/studio-code-review` and NOT by
 `validate-commit.sh`**.
   *(Reader list derived by grep, so treat it as the verified floor rather than
   a ceiling — a skill reading the value through a helper would not show up.)*
 
 > **These conventions are guidance, not a gate.** They reach your project by
 > being passed into briefs, manifests and specs for whoever writes the code.
-> Nothing checks the result: `/code-review` does not validate files against them
+> Nothing checks the result: `/studio-code-review` does not validate files against them
 > and `validate-commit.sh` does not warn on violations — neither contains any
 > naming logic. If you need enforcement, it has to be added.
 >
@@ -2312,7 +2312,7 @@ for you only)
 **Controls:** Which version of the project.yaml schema this file conforms to
 **Values:** integer
 **Default:** `1` (for v1.1 of Claude Code Game Studios)
-**Set by:** `/start`, `/adopt`
+**Set by:** `/studio-start`, `/adopt`
 **Read by:** All skills and hooks that parse project.yaml (for migration safety)
 
 > Lets future Claude Code Game Studios versions detect and migrate old project.yaml files. The
@@ -2337,8 +2337,8 @@ for you only)
 **Controls:** Tracks which Claude Code Game Studios version created or last touched this project
 **Values:** `framework.version` (semver string) + `framework.last_upgraded` (ISO date)
 **Default:** stamped in the template's `project.yaml` at each release
-**Set by:** the template; `/start` (through `set-stage.sh`), `/setup-engine` and `/gate-check` write the block into a `project.yaml` they create, and `migrate-v1-config.sh` (which `/adopt` runs) writes `framework.version` into the one it builds
-**Read by:** no skill branches on it — it is file metadata, not a behavioural setting. It appears in `/start`, `/gate-check`, `/project-settings` and `/setup-engine` as part of the `project.yaml` block they **write or display**, and in `yaml-helper.sh`.
+**Set by:** the template; `/studio-start` (through `set-stage.sh`), `/setup-engine` and `/gate-check` write the block into a `project.yaml` they create, and `migrate-v1-config.sh` (which `/adopt` runs) writes `framework.version` into the one it builds
+**Read by:** no skill branches on it — it is file metadata, not a behavioural setting. It appears in `/studio-start`, `/gate-check`, `/project-settings` and `/setup-engine` as part of the `project.yaml` block they **write or display**, and in `yaml-helper.sh`.
   *(The four skills above were verified to name it; whether each reads it or merely emits it was NOT separated, so this says 'appears in', not 'read by'.)*
 
 ---

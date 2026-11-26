@@ -284,7 +284,7 @@ sign-off rows stay at every level, because the look is not):
 - [ ] Signed-off evidence doc at `production/qa/evidence/[story-slug]-evidence.md` for all Visual/Feel stories *(every qa.level)*
 - [ ] Smoke check passes (run `/smoke-check sprint` before QA hand-off) *(qa.level standard/full)*
 - [ ] No regressions introduced
-- [ ] Code reviewed (via `/code-review` or documented peer review)
+- [ ] Code reviewed (via `/studio-code-review` or documented peer review)
 - [ ] Story file updated to `Status: Complete` (via `/story-done`)
 ````
 
@@ -304,7 +304,7 @@ question: "Ready to write the QA plan. Choose output options:"
 multiSelect: true
 options:
   - "Write QA plan to production/qa/qa-plan-[sprint-slug]-[date].md"
-  - "Also back-fill test case specs into each story file's ## QA Test Cases section (Recommended — enables /dev-story and /code-review traceability)"
+  - "Also back-fill test case specs into each story file's ## QA Test Cases section (Recommended — enables /dev-story and /studio-code-review traceability)"
 ```
 
 If "Write QA plan" is selected: write the plan file exactly as generated — do not truncate.
