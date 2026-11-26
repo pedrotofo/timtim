@@ -1,0 +1,20 @@
+# Material de cliente e saídas de trabalho: nunca no repositório
+*.mp4
+*.mov
+*.mxf
+*.wav
+*.m4a
+*.mp3
+*.srt
+*.vtt
+bruto/
+decup/
+edited/
+motions/
+premiere/
+work/
+renders/
+.hyperframes/
+node_modules/
+__pycache__/
+.DS_Store

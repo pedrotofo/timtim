@@ -1,0 +1,16 @@
+# Skills de terceiros, presas no commit que foi conferido (código lido, licença checada).
+# Formato: repositório  commit  pastas-de-skill (relativas à raiz do repositório)
+# Para atualizar: troque o commit, leia o que mudou e rode instalar.sh de novo.
+
+# HyperFrames (HeyGen, Apache-2.0): HTML -> vídeo. Só o conjunto principal recomendado pelo README.
+heygen-com/hyperframes 971499e9d5e43e3915467f671e89a68e0f553be6 skills/hyperframes skills/hyperframes-cli skills/hyperframes-registry skills/media-use
+
+# Remotion (oficial): vídeo em React. Licença própria: grátis para pessoa física e empresas de até
+# 3 pessoas; acima disso pede licença paga (veja /remotion-license).
+remotion-dev/skills a3f4098a2afd0e13f6a6f8c8760e275f75457ea9 skills/remotion-best-practices skills/remotion-create skills/remotion-markup skills/remotion-elements skills/remotion-maps skills/remotion-multimedia skills/remotion-captions skills/remotion-render skills/remotion-studio skills/remotion-docs skills/remotion-interactivity skills/remotion-license skills/remotion-upgrade skills/remotion-saas
+
+# Corte de talking head (MIT): tira silêncios, "éé", gaguejos e retakes; legenda e capítulos.
+social-media-skills/video-editing-skill f94d0517d717de281ee23569094aac616d32f4ef skills/video-editing-skill
+
+# Versão do CLI do HyperFrames que acompanha as skills acima (instalar.sh usa esta linha)
+hyperframes-cli 0.9.98
