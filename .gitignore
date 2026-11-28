@@ -7,9 +7,12 @@ site/
 .env*
 !.env.example
 
-# capturas das fases: 20 MB de PNG gerados por game/tests/capturar-fases.js
+# capturas das fases: PNG gerados por game/tests/capturar-fases.js
 production/fases/
 production/fases-celular/
+production/fases-deitado/
+# evidência jogada do pente fino, gerada pelo qa-tester
+production/qa/
 # evidência do Gate 1: prints e recibo são gerados por game/tests/provar.js
 production/evidencia/
 # logs de sessão dos hooks do framework
