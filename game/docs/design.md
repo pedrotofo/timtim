@@ -1,4 +1,4 @@
-# Timtim e o Resgate do Macaco Fedido — design em uma página
+# Timtim e os Brinquedos Perdidos — design em uma página
 
 **Promessa:** 2 a 3 minutos de plataforma que parecem um curta de animação estrelado por um cachorro de verdade. Feito para mostrar aos amigos.
 

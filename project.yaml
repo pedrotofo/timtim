@@ -1,0 +1,88 @@
+# Configuração do Timtim — fonte de verdade legível por máquina.
+# Criado em 28/11/2026 a partir do estudo em docs/equipe-de-agentes.md.
+# Antes deste arquivo existir, modes.rigor caía no padrão "minimal", que resolve
+# review_mode: solo — nenhum dos 28 gates de diretor rodava. Era a causa raiz da refação.
+schema_version: 1
+
+framework:
+  version: "1.3.0"
+  last_upgraded: "2026-11-28"
+
+project:
+  stage: Production
+  name: "Timtim e os Brinquedos Perdidos"
+  genre: "Plataforma 2.5D"
+  version: "0.3.0"
+  kind: game
+  goal: hobby                  # design.md: "Feito para mostrar aos amigos"
+
+modes:
+  rigor: minimal               # o jogo já está construído; GDDs por sistema seriam retrabalho
+  review_mode: lean            # EXPLÍCITO: não deixar o rigor minimal resolver isto como "solo"
+  automation: guided           # decisões grandes vêm ao Pedro; as pequenas seguem declaradas
+  automation_always_ask:
+    - scope_changes
+    - file_deletions
+
+workflow_overrides:
+  art_bible_strict: true       # as 9 seções do art bible (escolha do Pedro, 28/11)
+
+docs:
+  density: balanced
+
+testing:
+  framework: playwright        # game/tests/*.js, já existentes
+  strict:
+    logic: true
+    integration: true
+    visual: true               # print ausente BLOQUEIA — metade do Gate 1, nativo
+    ui: true                   # print ausente BLOQUEIA
+    config: false
+
+qa:
+  level: standard
+
+strict_gate_checks: true       # falha de gate de fase bloqueia a transição
+
+team:
+  size: individual
+
+platform:
+  multiplayer: false
+  online: false
+  targets: [Web, Mobile]       # os 6 commits de iPhone vieram de Mobile nunca ter sido declarado
+  primary_input: "Keyboard/Mouse"
+  gamepad_support: "None"
+  touch_support: "Full"        # botões de toque na tela, com safe-area de iPhone
+  cert_tier: none
+
+engine:
+  name: "Web"
+  version: "r144"              # game/vendor/three.min.js — sobe para 0.186.1 no próximo passo
+  language: "JavaScript"
+  rendering: "Three.js WebGL"
+
+naming:
+  files: kebab-case            # render3d.js, anim-data.js, smoke-arraial.js
+  constants: SCREAMING_SNAKE   # W, H, GROUND, ARENA_X, CAM_D
+
+accessibility:
+  target: none
+
+performance:
+  target_framerate: 60         # piso adaptativo em 45: abaixo disso R.setQuality baixa o nível
+  frame_budget_ms: 16.67
+  enforce: block               # orçamento estourado BLOQUEIA — Gate 3, nativo
+
+commands:
+  run: "cd game && python3 -m http.server 8765"
+  test: "node game/tests/smoke.js && node game/tests/smoke-arraial.js && node game/tests/smoke-quadro.js"
+  smoke: "node game/tests/smoke.js"
+
+features:
+  session_state: on
+  read_guard: on
+  read_guard_kb: 40
+
+updates:
+  check: true
