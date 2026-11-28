@@ -428,3 +428,49 @@ cada perigo pelos trechos que ele **ocupa**. Enquanto a tabela disser que o inte
 4. **Quantas tentativas uma criança leva** no Corvo-Borrão. O bot tem reflexo perfeito.
 5. **O piso de 45 fps** — não verificável neste contêiner, que roda WebGL por software.
 6. **Por que o Timtim não aparece** num print de desktop embora `R.toScreen` o coloque em quadro.
+
+---
+
+## Onde paramos (28/11/2026)
+
+Aplicado e empurrado nos dois branches:
+
+| Grupo | O quê | Commit |
+|---|---|---|
+| **A** | 8 consertos de 1 a 3 linhas | `cdad4ac` |
+| **C** | interface no celular (itens 14 a 18) | `4def2f8` |
+| **B** | borda, névoa e nível de emergência (itens 9 a 12) | `e89468a` |
+
+**Falta do laudo:** Grupo **D** (item 19, o relógio do áudio), Grupo **E** (itens 20 a 26, só
+depois do `level-design-document`), e o item **13** do Grupo B.
+
+### Três coisas achadas durante o Grupo B, ainda abertas
+
+1. **Item 13 não foi feito** (regerar o Furtão em marrom sem coleira de espinhos, clarear a crina do
+   lobo-guará). É gerar sprite novo, e gerar imagem gasta crédito do Pedro: **pede o "pode" dele**.
+2. **A corrida do Timtim está 10% maior do que o fato não-negociável manda.** `CLAUDE.md` e
+   `design.md` dizem que a altura da corrida é **82**; `render3d.js`, em `R.frame`, usa **88**
+   (`name = 'tintim-run'; h = 88`). Não foi mexido: pode ter sido proposital quando a corrida virou
+   tira desenhada de 8 quadros, e "mesmo tamanho em todas as poses" é fato não-negociável — quem
+   decide é o Pedro, depois de olhar o histórico. As outras batem (parado 80, pulo 77, queda 82,
+   farejando 69); `win` 92 e `glide` 78 também não estão na tabela.
+3. **A borda da fase 3 ficou discreta de propósito** (linha de contato escura, não filete aceso,
+   porque numa cena clara a luz aditiva satura em branco e vira um risco em cima da pintura).
+   Está esperando o Pedro dizer se ficou discreta demais. Mexe em `litEdge`, no ramo `if (VG)`.
+
+### Duas perguntas antigas, ainda sem resposta do Pedro
+
+- As três linhas ⚠️ de `CREDITOS.md` (música e voz geradas por IA — risco de licença se o jogo for
+  mostrado em público).
+- Encurtar `arraial.mp3` de 64 para 32 compassos.
+
+### Armadilhas que já custaram tempo, para não cair de novo
+
+- **Medir diferença de print entre duas versões não funciona aqui.** A cena anima (névoa,
+  vaga-lumes, pincelada), então `comparar-prints.js` acusa 60–79% dos pixels mesmo onde quase nada
+  mudou. Para julgar arte, olhe as imagens.
+- **Esperar `R.ready` não quer dizer que a fase começou** — na tela de título ele já é verdadeiro.
+  Quem sabe entrar na fase é `game/tests/capturar-fases.js`.
+- **Os testes rodam com `q=0`**, então mudança no nível 0 do render muda o tempo dos testes.
+- **O relógio do jogo corre a cerca de metade do tempo de parede** nesta máquina (WebGL por
+  software). Orçamento de espera para cinemática é `CINE`, nunca um número à mão.
