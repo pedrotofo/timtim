@@ -3,6 +3,14 @@
 // Todo o cenário é desenhado por código; só os personagens são imagens.
 (() => {
 'use strict';
+// Three.js r186 (era r144 até 28/11/2026). Duas compensações mantêm a imagem idêntica à do r144:
+//  1. Desde o r152 THREE.ColorManagement vem LIGADO e converte todo literal de cor de sRGB para
+//     linear. Este arquivo tem 433 literais (326 em 0xRRGGBB e 107 em '#RRGGBB') afinados à mão
+//     contra o r144, onde isso não existia. Desligar preserva a arte; ligar seria repintar o jogo.
+//  2. O padrão de saída virou sRGB no r152; no r144 era linear. outputColorSpace volta ao linear.
+// Para adotar o gerenciamento de cor de verdade um dia, é um passe de arte com print nos dois
+// viewports, não uma troca de biblioteca — ver design/art/art-bible.md, Seção 4.
+THREE.ColorManagement.enabled = false;
 const TT = window.TT, C = TT.C, S = TT.S;
 const { W, H, GROUND, ARENA_X } = C;
 const ARR = C.FASE >= 2, VG = C.FASE === 3, END = C.BOSS ? ARENA_X : C.LEVEL_END; // fase 2: o Arraial (a fase vai até a arena do lobo-guará, no fim)
@@ -19,6 +27,7 @@ const cv = document.getElementById('c');
 let renderer;
 try { renderer = new THREE.WebGLRenderer({ canvas: cv, antialias: false, powerPreference: 'high-performance' }); }
 catch (e) { TT.noWebGL = true; return; }
+renderer.outputColorSpace = THREE.LinearSRGBColorSpace; // r144 saía em linear; o padrão virou sRGB no r152
 const GL2 = renderer.capabilities.isWebGL2;
 renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 

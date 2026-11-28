@@ -1,9 +1,9 @@
 # Art Bible: Timtim e os Brinquedos Perdidos
 
-> **Status**: Draft
+> **Status**: Approved
 > **Owned By**: art-director
 > **Last Updated**: 2026-11-28
-> **Art Director Sign-Off (AD-ART-BIBLE)**: [Not yet reviewed]
+> **Art Director Sign-Off (AD-ART-BIBLE)**: SKIPPED 2026-11-28 — lean mode
 
 Escrito em 28/11/2026, retroativamente: o jogo já existe e já está publicado. As decisões de
 arte que já estavam tomadas vêm de `game/docs/design.md`, datadas — este documento **consolida
@@ -600,7 +600,7 @@ Os orçamentos declarados em `project.yaml` são:
 | `performance.draw_call_limit` | **não definido** |
 | `performance.memory_ceiling_mb` | **não definido** |
 | `platform.targets` | `[Web, Mobile]` |
-| `engine.name` / `version` | Web / three r144 |
+| `engine.name` / `version` | Web / three r186 |
 
 **Dois orçamentos não estão definidos, e eu não vou inventá-los.** Sem limite de draw call e sem
 teto de memória, esta seção não pode dizer quantos triângulos ou quantos megabytes de textura um
@@ -642,6 +642,202 @@ nível 0, ou a densidade alta fica limitada ao que ainda lê sem desfoque. É de
 
 ## 9. Reference Direction
 
-[To be designed] — 3–5 references (games, films, art styles or artists). For
-each: the specific element to take from it, and what to avoid so the result
-does not read as a copy.
+Cinco fontes, e **cada uma tem direito a um eixo só**. A regra desta seção é essa: uma referência
+que já tem dono para o seu eixo não pode ser invocada para outro. Foi o que faltou em 24 e
+25/11/2026, quando "Ori" foi reaplicado quatro vezes em dois dias sem ninguém dizer *o quê* de Ori.
+
+| Fonte | O eixo que ela — e só ela — governa |
+|---|---|
+| **Ori and the Blind Forest / Will of the Wisps** | separação de planos por valor e luz |
+| **Van Gogh** | hierarquia por direção de pincelada, na fase 3 |
+| **Hades** | interface de paleta constante contra mundo que troca de cor |
+| **Eadweard Muybridge**, *Animal Locomotion* | ciclo de locomoção medido de registro real |
+| **Aardman / Gromit** | a piada por encenação séria |
+
+**Como se cita uma referência, a partir de agora:** um pedido de arte, um prompt de gerador ou um
+comentário de revisão **nomeia a fonte e o item**. "Faz à moda de Ori" não é briefing e volta sem
+ser atendido. "Fundo enevoado sem contraste, à moda de Ori (item 2 de 9.1)" é briefing.
+
+### 9.1 Ori — a referência fundadora
+
+**O que tomar.** Cinco itens, e a lista é **fechada**. Fora dela não existe "Ori" neste projeto.
+
+1. **Silhueta primeiro, luz depois** — a ordem de desenho da Seção 1.
+2. **Três planos de valor separados**: primeiro plano quase preto emoldurando, plano do jogo em
+   tom médio e nítido, fundo claro e enevoado sem contraste nem saturação (`hazeK`).
+3. **Herói pequeno e luminoso num mundo grande**, com poça de luz própria (`heroK`).
+4. **Paleta por região**: uma cor dominante por fase, constante ao longo do caminho.
+5. **Raios de luz, névoa em camadas e bioluminescência** como atmosfera — e, pelo princípio B, a
+   bioluminescência mora no primeiro plano e no fundo, nunca como emissor pontual na zona de leitura.
+
+Se for para tomar um só, é este: **o fundo é claro e desbotado, não escuro.** É a inversão que a
+maioria dos imitadores erra. O instinto de "jogo noturno" pinta o fundo de preto, e aí o herói
+claro não tem contra o que se destacar. Em Ori o fundo é a parte *mais clara* e menos saturada da
+tela, e a moldura preta é a mais perto da câmera. É o que já está em `NIGHT_` e no `hazeK`.
+
+**O que evitar** — lista também fechada:
+
+- **Nada de conteúdo**: nenhum personagem, lugar, árvore-símbolo ou música. Já proibido na Seção 1;
+  repetido aqui porque é a infração que tentou acontecer quatro vezes.
+- **O parallax de Ori é de camadas 2D deslizando; o nosso é perspectiva de verdade** (Seção 6).
+  Divergência deliberada, e é ela que faz o jogo parecer um curta. Pedido de "mais camadas de
+  parallax" volta como pedido de mais profundidade de cena.
+- **Nada de luz própria no vilão.** Em Ori quase tudo que importa brilha. Aqui o chefe é um tom
+  mais escuro e **não emite**. É a divergência de maior consequência.
+- **Nada de bioluminescência por metro quadrado.** Ori pode pulsar em toda parte porque não tem um
+  pilar de Impacto dependendo de o brilho ser raro. O princípio B é mais restritivo que a referência.
+- **Nada do silêncio melancólico.** O humor-alvo da Seção 2 é piada interna e susto cômico, não
+  luto. A fase 1 é soturna porque é noite num parque de bairro, não porque alguém morreu.
+
+### 9.2 Van Gogh — a fase 3, e só ela
+
+**O que tomar: a direção da pincelada carrega a hierarquia que a temperatura não carrega.** Na
+fase 3 o `shade` é quase neutro, então a separação de planos perde a ferramenta habitual. Nos
+quadros de Van Gogh planos diferentes têm **direção de traço diferente** — o céu gira, o cipreste
+sobe, o campo corre na horizontal — e o olho separa por direção antes de separar por cor.
+
+Vira regra de produção para a fase 3:
+
+- **fundo**: pincelada em espiral, curva longa, baixo contraste — massa, não objeto;
+- **plano do jogo**: pincelada que acompanha a forma (o cipreste vertical, o girassol radial);
+- **piso**: pincelada **horizontal e paralela à aresta**, nunca atravessando a aresta de cima.
+
+Item menor: o par **amarelo-cromo contra azul-violeta** como luz quente contra sombra fria — que é
+o par que `VGP` já usa (`shaft #f6e08a` contra `bg #0c1430`). Não é cor nova; é confirmação de que
+a paleta da fase 3 está dentro da referência.
+
+**O que evitar:**
+
+- **Nada de citar uma composição inteira.** A fase 3 é o mundo *depois* do roubo do pincel, com a
+  mobília do quadro servindo de plataforma — não um quadro reproduzido com um cachorro em cima.
+  Sem moldura de museu, sem assinatura, sem placa.
+- **Nada de impasto na zona de leitura.** Pincelada grossa é textura, e textura compete com o
+  filete aceso. O relevo fica fora da zona de leitura; dentro dela a pincelada é direção, não
+  espessura.
+- **Nada da biografia.** O Van Gogh deste jogo é uma figura que vem correndo buscar o pincel. Sem
+  iconografia de orelha, hospital ou revólver.
+- **Nada de pincelada em outra fase.** É marco da fase 3, como as lajes são da 1 e os deques da 2.
+
+### 9.3 Hades — a interface, que ainda não tinha referência
+
+A Seção 3 declara que a interface tem linguagem própria e a Seção 4 declara que ela não se tinge
+da fase. As duas dizem *o que*; nenhuma diz *de onde*. Este era o buraco.
+
+**O que tomar: a interface mantém paleta constante enquanto o mundo troca de cor a cada região — e
+por isso nunca compete com o mundo, mesmo sendo forte.** É exatamente a divergência declarada da
+Seção 4 (ameixa e quente, constante nas três fases), com a prova de que funciona em produção.
+
+O que se copia não é a aparência, é o **critério**: a interface é a única coisa do jogo com
+gramática constante, e é isso que a torna confiável como "onde estou no sistema". Segundo item: **o
+nome do chefe entra como cartela tipográfica, não como elemento de cena** — tipo grande, serifado,
+sobre fundo sem informação, por tempo fixo. É o que a Seção 2 pede na apresentação de 3,2 s.
+
+**O que evitar:**
+
+- **A densidade de informação.** Hades é longo, com meta-progressão e recursos; a interface dele é
+  densa porque precisa. Aqui a fase dura 2 a 3 minutos e a interface mostra coração, biscoito,
+  dica e pausa. Herdar a densidade seria herdar um problema que não temos.
+- **O ornamento.** As molduras de Hades são grossas e decoradas. Aqui é vidro escuro e filete fino.
+- **O retrato de personagem.** Não há diálogo, e um retrato duplicaria a silhueta que a Seção 3 já
+  faz trabalhar na cena.
+- **A interface sempre viva.** Aqui ela aparece e fica quieta.
+
+> *Incerteza declarada:* o princípio (paleta de interface constante contra biomas de cores
+> diferentes) e a cartela tipográfica de nome de inimigo são seguros. **Não** se afirmam de memória
+> as cores, a família tipográfica nem a duração exatas de Hades — e nada aqui depende delas.
+
+### 9.4 Muybridge, *Animal Locomotion* — o ciclo tirado de registro
+
+A Seção 5 decide que a animação sai de quadros de vídeo; nenhuma seção diz como se julga um ciclo
+bom. Este era o segundo buraco.
+
+**O que tomar: o ciclo é medido, não inventado — e se mede em câmera parada, perfil puro, fundo
+liso e neutro.** As pranchas de locomoção animal são isso: o mesmo animal, a mesma distância, a
+mesma lateral, quadro a quadro, contra um fundo de referência. É literalmente o procedimento que o
+`design.md` já descreve ("andando sem sair do lugar, câmera parada", sobre cinza liso) — a
+referência confirma que o procedimento é o certo, não uma gambiarra de ferramenta.
+
+Dois itens que se cobram em revisão de ciclo:
+
+1. **Altura constante.** Pose nova se mede contra as que existem (`R.frame`). O fundo cinza liso do
+   primeiro quadro do vídeo é o nosso fundo graduado.
+2. **A pata de apoio não escorrega.** É o que o jogo já respeita ao avançar a corrida **pela
+   distância percorrida**, não pelo tempo. Um ciclo em que a pata de apoio desliza está errado
+   mesmo que cada quadro esteja bonito.
+
+**O que evitar:**
+
+- **O realismo de fotografia.** Muybridge é registro científico: sem expressão, sem exagero, sem
+  personagem. O Timtim é expressivo e elástico. O ciclo é medido; a **atitude** não é.
+- **A contagem de quadros.** As pranchas têm dezenas de fases por passada; a corrida daqui tem
+  **quatro**, e mais quadros está fora do escopo. A referência ensina a julgar apoio e altura, não
+  a aumentar a resolução temporal.
+- **Somar mola a ciclo filmado.** Já proibido na Seção 5: é a tremida que o projeto já pagou uma vez.
+- **O olhar de catálogo.** Muybridge fotografa um espécime; aqui é **o cachorro de alguém**. Se o
+  ciclo ficar genérico e correto, falhou no pilar 1. O jeito de andar do Timtim é fato de
+  identidade, como a bandana.
+
+> *Incerteza declarada:* o método (câmera parada, perfil, série medida, fundo de referência) é
+> seguro. O detalhe do fundo graduado ou numerado das pranchas é de memória; o argumento não
+> depende dele.
+
+### 9.5 Aardman / Gromit — a piada interna, encenada a sério
+
+O pilar 4 é piada interna e a Seção 2 pede "a piada e a ameaça no mesmo quadro". Nada nas seções
+anteriores diz como se faz humor sem quebrar o pilar 1. Terceiro buraco.
+
+**O que tomar: a composição nunca avisa que é uma piada.** Em Aardman o cão é encenado com
+seriedade total — enquadramento de suspense, luz dramática, tempo de cena de ação — e a graça nasce
+de o sujeito ser um cachorro doméstico e o cenário ser banal. O gag está no contraste entre a
+gravidade da encenação e a trivialidade do assunto, não num exagero de desenho.
+
+Aplicação direta: **o Furtão, o lobo-guará e o Corvo-Borrão entram na cartela de 3,2 s com luz de
+palco, chave dura de lado, contraste máximo e o maior texto do jogo — e a piada é o jogador
+reconhecer o cão da vizinhança ali.** Nada na composição pisca. É por isso que a Seção 2 consegue
+pedir piada e ameaça no mesmo quadro sem uma terceira camada visual: a ameaça é toda da encenação,
+a piada é toda do reconhecimento.
+
+Segundo item, para os amigos: **o apoio se lê pela postura e pela orelha, não pela cara.** A 80 px
+de altura não há cara nenhuma para atuar, então a atuação é silhueta e postura — que é a tradução de
+humor da Seção 3, que já dá à Zara e ao Elvis duas orelhas triangulares altas demais como traço único.
+
+**O que evitar:**
+
+- **A massinha.** Sem dedada, sem textura de plasticina, sem olho de botão: o Timtim é um cachorro
+  real e a Seção 6 proíbe material fisicamente correto em qualquer direção.
+- **A paleta doméstica cinza-esverdeada britânica.** Mesmo a proposta da fase 4 é quintal
+  brasileiro com janela quente, não cozinha inglesa.
+- **O exagero cartunesco.** Olho esbugalhado, queixo caído, cara de deboche: viram mascote e matam
+  o pilar 1. O limite é expressivo e elástico, não caricatural.
+- **A piada verbal e a piada por letreiro.** Não há diálogo. Se precisar de texto para funcionar,
+  não funcionou.
+- **A duração.** Aardman tem tempo para construir um gag; aqui a cartela tem 3,2 s. A piada tem de
+  caber num quadro parado.
+
+### 9.6 Onde cada referência **não** pode ser invocada
+
+Mapa de exclusão, para o próximo pedido não repetir 24/11:
+
+- Dúvida de **interface** não se resolve com Ori nem com Van Gogh. Resolve-se em 9.3.
+- Dúvida de **ciclo de animação** não se resolve com Ori, que é 2D desenhado. Resolve-se em 9.4.
+- Dúvida de **tom cômico** não se resolve com Ori, que não tem humor. Resolve-se em 9.5.
+- Dúvida de **pincelada** só existe na fase 3. Nas fases 1, 2, 4 e 5 a resposta é não.
+- Dúvida de **separação de planos** se resolve em 9.1 — e os números são os de `compMat.uniforms`,
+  não os de Ori.
+
+### O que esta seção já proíbe
+
+- Invocar uma referência sem nomear o item que se toma dela: "à moda de Ori" e "estilo Van Gogh"
+  sozinhos voltam sem ser atendidos.
+- Qualquer conteúdo de *Ori*: personagem, lugar, árvore-símbolo, música.
+- Fundo escuro "porque é noite": o fundo é o plano mais claro e menos saturado da tela.
+- Luz própria no vilão, em qualquer referência que o autorize.
+- Parallax por camadas deslizantes, mesmo invocando Ori.
+- Pincelada, impasto ou relevo fora da fase 3 — e, dentro dela, dentro da zona de leitura.
+- Reproduzir composição, assinatura, moldura de museu ou iconografia biográfica de Van Gogh.
+- Densidade de informação, ornamento grosso ou retrato de personagem na interface, mesmo
+  invocando Hades.
+- Ciclo com pata de apoio escorregando, ou com altura fora da faixa medida em `R.frame`.
+- Elástico por código somado a ciclo de vídeo, inclusive para "ficar mais Aardman".
+- Textura de massinha, exagero cartunesco, piada verbal ou piada por letreiro.
+- Usar uma referência fora do eixo que 9.6 lhe dá.

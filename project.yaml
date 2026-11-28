@@ -58,7 +58,7 @@ platform:
 
 engine:
   name: "Web"
-  version: "r144"              # game/vendor/three.min.js — sobe para 0.186.1 no próximo passo
+  version: "r186"              # game/vendor/three.min.js, empacotado de three@0.186.1 (era r144 até 28/11/2026)
   language: "JavaScript"
   rendering: "Three.js WebGL"
 

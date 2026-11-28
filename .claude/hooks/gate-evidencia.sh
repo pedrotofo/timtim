@@ -36,8 +36,10 @@ git rev-parse --git-dir >/dev/null 2>&1 || exit 0
 
 # --- o que mudou e precisa de prova -----------------------------------------
 # Só o que se vê ou se joga. Documentos, testes e o próprio .claude não pedem print.
+# game/vendor conta: trocar a biblioteca que desenha o jogo (three.js) é a mudança que mais
+# precisa de prova visual, e a primeira versão deste hook não a vigiava.
 MUDADOS=$(git status --porcelain -- \
-  'game/src' 'game/index.html' 'game/mapa.html' 'game/assets' 2>/dev/null \
+  'game/src' 'game/index.html' 'game/mapa.html' 'game/assets' 'game/vendor' 2>/dev/null \
   | sed 's/^...//' | sed 's/.* -> //')
 [ -z "$MUDADOS" ] && exit 0
 

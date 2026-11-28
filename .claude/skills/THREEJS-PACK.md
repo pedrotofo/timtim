@@ -35,4 +35,6 @@ que o README do próprio pacote recomenda.
 - **O scorecard e as âncoras de calibração** (`assets/scorecard-anchors/*.jpg`) foram pontuados
   para um estilo quase fotográfico. O Timtim é pintado, na linguagem visual de Ori: use o método
   (comparar contra uma âncora), não as notas.
-- As três skills pressupõem uma versão recente do Three.js. O jogo está em **r144** (2022).
+- As três skills pressupõem uma versão recente do Three.js. O jogo subiu para **r186** em
+  28/11/2026 (era r144, de 2022), com `ColorManagement` desligado para preservar a arte — ver o
+  cabeçalho de `game/src/render3d.js`.
