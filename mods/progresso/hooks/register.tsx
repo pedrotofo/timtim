@@ -9,6 +9,10 @@
 //      mais trabalho é mais útil que uma que mente para parecer que avança.
 //   2. Quando não há tarefa declarada nenhuma, ele diz isso. É a informação mais importante que
 //      ele dá: significa que ninguém está acompanhando nada.
+//
+// E por isso ele se sincroniza ao abrir a sessão: tarefas criadas antes de o mod carregar seriam
+// invisíveis para ele, e a faixa diria "nenhuma tarefa declarada" com oito tarefas na lista —
+// mentindo justamente no caso que ela existe para denunciar.
 import { atom, read, update } from 'claude-code'
 import type { Register } from 'claude-code'
 
@@ -26,6 +30,14 @@ function corta(assunto: string): string {
 }
 
 export const register: Register = on => {
+  // Ao abrir ou retomar, pede a lista uma vez: o hook de TaskList abaixo faz a contagem. Sem
+  // isto, a faixa só saberia da primeira tarefa mexida DEPOIS de o mod carregar.
+  on('session.start', async ($, e, next) => {
+    const r = await next(e)
+    await $.tool.call({ tool: 'TaskList' })
+    return r
+  }).catch(($, e, next) => (next.called ? undefined : next(e)))
+
   // TaskList é a fonte autoritativa: recontagem completa, e conserta qualquer deriva.
   on('tool.call', { tool: 'TaskList' }, async ($, e, next) => {
     const r = await next(e)
