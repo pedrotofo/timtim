@@ -93,7 +93,7 @@ if (FASE === 3) Object.assign(C, {
   hedges: [],
   trails: [{ id: 'girassol', at: 6200, plats: [[6260, 20, 110], [6120, -80, 110]] }],
   TOY: { id: 'girassol', x: 6175, y: -130 }, // o escondido da fase (o presente do Van Gogh, a bolinha mordedora, vem no fim)
-  FOXTXT: { egg: 'Tinta amarela! Plana nas costas dele!', fruit: 'Ó a tampinha dourada, corvão!' },
+  FOXTXT: { egg: 'Tinta amarela! Pula nas costas quando ele bicar!', fruit: 'Pega a tampinha, corvão!' } // planar não dá altura: o dorso dele fica a 110 px e o pulo cheio sobe 162,
 });
 C.SWIRL = { w: Math.PI * 2 / 1.3, speed: 820 }; // uma volta a cada 1,3 s; a soltura sai a 820 px/s
 C.FIRE = { w: 64, h: 62, col: 64, top: -70, lift: -380 }; // a chama não machuca; a coluna de ar quente sobe até y = top
@@ -484,6 +484,12 @@ TT.retry = () => {
   if (S.checkpoint < 0) return TT.start();
   const x = C.checkpoints[S.checkpoint];
   S.player = makePlayer(x); S.player.inv = 1.6; S.scent = null; S.boss = makeBoss(); S.fox = makeFox(); S.tubes = []; S.splats = []; S.brush = null; S.fruit = null; S.fireOff = 0; S.runners = []; S.runDone = {}; S.warn = null; S.chaseOn = false; S.ball = null; S.thief = null; S.prize = null; S.waves = []; S.arena = false; S.cine = null; S.timeScale = 1; S.slowT = 0; S.hitstop = 0; S.gifts = [];
+  // Quem morreu é exatamente quem não aprendeu: os sinalizadores de PRIMEIRA VEZ DIDÁTICA voltam
+  // a false aqui. Até 28/11/2026 só o reset() os zerava, então todo o ensino do jogo (aviso de
+  // debandada, latido, rótulo da fruta, dica do corvo) sumia na primeira morte.
+  // bossSeen NÃO entra: ele guarda a cartela de apresentação, que não se repete — quem repete a
+  // estratégia é o 'rematch', tratado no ui.js.
+  S.warnedOnce = false; S.roarSeen = false; S.fruitSeen = false; S.peckSeen = false;
   S.cam.x = Math.max(0, x - W * 0.4); S.cam.look = 0; S.mode = 'play';
   emit('start', { retry: true });
 };

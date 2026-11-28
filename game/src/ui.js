@@ -136,10 +136,19 @@ TT.on('start', () => setTimeout(() => { titleEl.classList.remove('story', 'leavi
 // dicas do Arraial, na hora em que cada coisa aparece
 const HOLD = isTouch ? 'segure ▲' : 'segure Espaço';
 const TUT = { glide: isTouch ? 'Segure ▲ no ar para planar' : 'Segure Espaço no ar para planar', glideEdge: `Pule e ${HOLD} para planar!`,
-  glideHold: HOLD[0].toUpperCase() + HOLD.slice(1) + '!', glideRetry: `Quase! Pule e ${HOLD} para planar`, glideOk: 'Isso! O Timtim sabe planar', swirl: isTouch ? '▲ solta do redemoinho' : 'Espaço solta do redemoinho', fire: 'Plane sobre o ar quente' };
-TT.on('tutorial', e => { if (TUT[e.kind]) TT.emit('banner', { text: TUT[e.kind], important: true, now: e.kind.startsWith('glide') }); }); // a aula de planar troca a dica no meio do pulo: substitui na hora
+  glideHold: HOLD[0].toUpperCase() + HOLD.slice(1) + '!', glideRetry: `Quase! Pule e ${HOLD} para planar`, glideOk: 'Isso! O Timtim sabe planar', swirl: isTouch ? '▲ solta do redemoinho' : 'Espaço solta do redemoinho', fire: 'Plane sobre o ar quente',
+  // Estes três faltavam até 28/11/2026: o game.js emitia 'dance', 'bounce' e 'blink' e o guarda
+  // if (TUT[e.kind]) os descartava em silêncio. A tábua móvel — a mecânica mais perigosa da fase 2,
+  // que estreia sobre o vão de 1380 px — estreava muda, e as duas mecânicas novas da fase 3 também.
+  dance: 'As tábuas dançam: pule no tempo da música', bounce: 'O toldo joga para cima',
+  blink: 'A estrela só segura quando está acesa' };
+TT.on('tutorial', e => { if (TUT[e.kind]) TT.emit('banner', { text: TUT[e.kind], important: true, now: true }); }); // 'now' em todas: na fila, a dica chegava até 840 px depois do gatilho // a aula de planar troca a dica no meio do pulo: substitui na hora
 // a primeira debandada é anunciada: sem isso, as galinhas atropelavam o jogador sem aviso nenhum
-TT.on('stampedeWarn', e => { TT.sfx('henPanic'); if (e.first) TT.emit('banner', { text: 'Galinhas em disparada!', important: true }); });
+// A debandada descrevia em vez de instruir, só avisava na PRIMEIRA de toda a partida, e na fase 3
+// anunciava galinha para revoada de corvos. Agora instrui (estar no ar é a única ação correta),
+// avisa em todas, e usa o bicho e o som da fase.
+TT.on('stampedeWarn', () => { const corvos = FASE === 3; TT.sfx(corvos ? 'crowCaw' : 'henPanic');
+  TT.emit('banner', { text: corvos ? 'Revoada de corvos: fique no ar!' : 'Vêm galinhas: fique no ar!', important: true, now: true }); });
 TT.on('egg', () => TT.emit('banner', { text: 'Planar turbinado!' }));
 // cartão de abertura do Arraial (o mesmo cartão da apresentação do chefão, com outro texto)
 TT.on('arraialIntro', () => { stage.classList.add('cine'); const c = $('bossCard'); c.classList.add('top'); c.querySelector('small').textContent = 'FASE ' + FASE; c.querySelector('h2').textContent = FASE === 3 ? 'O QUADRO ENCANTADO' : 'O ARRAIAL';
@@ -151,15 +160,19 @@ TT.on('foxIntro', () => { stage.classList.add('cine'); const c = $('bossCard'); 
   c.querySelector('p').textContent = FASE === 3 ? 'fugiu com o pincel favorito do Van Gogh' : 'invadiu o galinheiro do arraial'; setTimeout(() => c.classList.add('show'), 600); });
 // a estratégia, contada pela Zara e pelo Elvis no começo da luta
 const tipT = [];
-TT.on('cineEnd', e => { if (e.type !== 'fox') return;
+// Também no 'rematch': entrar na arena de novo depois de morrer não repete a cartela, mas tem de
+// repetir a estratégia — é a única instrução que ensina a vencer, e antes ela só vinha uma vez.
+const estrategia = () => {
   const fala = (i, line) => { const f = S.friends[i]; if (f && S.mode === 'play') TT.emit('friend', { x: f.x, y: C.GROUND - 70, kind: f.kind, line }); };
   const ok = () => S.mode === 'play' && S.arena;
   if (FASE === 3) { tipT.push(setTimeout(() => { if (ok()) fala(1, 'Cuidado com os tubos de tinta!'); }, 300)); return; }
   tipT.push(setTimeout(() => { if (ok()) fala(1, 'Sobe no ar quente da fogueira!'); }, 300));
-  tipT.push(setTimeout(() => { if (ok()) fala(0, 'E cai planando na crina dele!'); }, 3300)); });
+  tipT.push(setTimeout(() => { if (ok()) fala(0, 'E cai planando na crina dele!'); }, 3300)); };
+TT.on('cineEnd', e => { if (e.type === 'fox') estrategia(); });
+TT.on('rematch', estrategia);
 // o Corvo-Borrão: a hora de atacar é quando ele desce e fica bicando o chão
 TT.on('crowPeck', e => { if (!e.first) return; const f = S.friends[0]; if (f) TT.emit('friend', { x: f.x, y: C.GROUND - 70, kind: f.kind, line: 'Desceu! Pula nas costas dele!' }); });
-TT.on('start', () => { tipT.forEach(clearTimeout); tipT.length = 0; }); TT.on('lose', () => { tipT.forEach(clearTimeout); tipT.length = 0; });
+TT.on('start', () => { tipT.forEach(clearTimeout); tipT.length = 0; dodgeTip = false; }); // dodgeTip: mesmo defeito, some na primeira morte TT.on('lose', () => { tipT.forEach(clearTimeout); tipT.length = 0; });
 TT.on('foxRoar', e => { if (e.first) TT.emit('banner', { text: FASE === 3 ? 'O grasnado desliga os redemoinhos!' : 'O latido apaga o ar quente!' }); });
 TT.on('fruitLand', e => { if (e.first) TT.emit('banner', { text: 'Fruta-do-lobo!' }); });
 TT.on('henRevenge', () => setTimeout(() => TT.emit('banner', { text: 'As galinhas expulsaram o lobo-guará!' }), 500));
@@ -286,7 +299,13 @@ TT.on('stealIntro', () => stage.classList.add('cine'));
 TT.on('bossIntro', () => { stage.classList.add('cine'); setTimeout(() => $('bossCard').classList.add('show'), 650); });
 TT.on('cineEnd', () => { stage.classList.remove('cine'); $('bossCard').classList.remove('show'); });
 TT.on('lose', () => {
-  $('loseText').textContent = FASE === 3 && S.arena ? 'Fuja das marcas vermelhas no chão e, quando o corvo descer para bicar, pule nas costas dele.' : S.checkpoint >= 0 ? 'Você volta do último checkpoint com os corações cheios.' : FASE === 3 ? 'Cuidado com os buracos: entre no redemoinho e aperte o pulo para se soltar na direção certa.' : FASE === 2 ? 'Cuidado com os buracos: segure o pulo no ar para planar, e use o ar quente das fogueiras para subir.' : 'Cuidado com os buracos e pise nos pombos por cima.';
+  // O ramo de arena vem ANTES do de checkpoint: antes disso, morrer para um chefe depois de pegar
+  // bandeira respondia "você volta do último checkpoint", e a luta do Furtão não tinha uma única
+  // linha de instrução em todo o jogo.
+  $('loseText').textContent = S.arena && FASE === 3 ? 'Fuja das marcas vermelhas no chão e, quando o corvo descer para bicar, pule nas costas dele.'
+    : S.arena && FASE === 2 ? 'Suba no ar quente da fogueira e caia planando na crina dele.'
+    : S.arena ? 'Espere ele parar para mastigar a bolinha e pule na cabeça dele.'
+    : S.checkpoint >= 0 ? 'Você volta do último checkpoint com os corações cheios.' : FASE === 3 ? 'Cuidado com os buracos: entre no redemoinho e aperte o pulo para se soltar na direção certa.' : FASE === 2 ? 'Cuidado com os buracos: segure o pulo no ar para planar, e use o ar quente das fogueiras para subir.' : 'Cuidado com os buracos e pise nos pombos por cima.';
   setTimeout(() => { if (S.mode === 'lose') show('lose'); }, 1100);
 });
 TT.on('win', st => {

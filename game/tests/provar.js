@@ -75,7 +75,7 @@ function gameJsMudou() {
 
   if (gameJsMudou()) {
     console.log('\n=== métricas (game.js mudou: a regra dos 70%) ===');
-    if (!await rodar('metricas.js')) falhas++;
+    if (!await rodar('metricas.js', [url])) falhas++; // a URL vai junto: a porta é sorteada, não é mais a 8765
   }
 
   srv.close();

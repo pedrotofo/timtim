@@ -73,12 +73,17 @@ as estrelas que piscam, descritas como "o teste final antes do chefe".
 Some-se o banner morto *"O grasnado desliga os redemoinhos!"* (`ui.js:163`), cuja mecânica
 `updateCrow` nunca dispara.
 
-### 1.4 A fase 3 usa a galinha do Arraial — `render3d.js:746` e `ui.js:142`
+### 1.4 A fase 3 anuncia galinha para revoada de corvos — `ui.js:142`, `main.js:10`
 
-`R.foe = ARR ? 'galinha' : 'pigeon'`, e `ARR = C.FASE >= 2`. Dentro do quadro de Van Gogh o
-inimigo comum é galinha caipira de chapéu de palha.
+> **Correção de um erro deste laudo.** As versões anteriores afirmavam que a fase 3 usa a galinha
+> do Arraial como inimigo comum, porque `R.foe = ARR ? 'galinha' : 'pigeon'` e `ARR = FASE >= 2`.
+> **É falso.** `render3d.js:67-71` faz substituição de textura por fase — *"os corvos entram no
+> lugar das galinhas"* —, e `galinha: ['corvo', 1.2478]` carrega `sprites/vg/corvo.png` sob a
+> chave `galinha`. O nome é chave, não arte: **o jogador vê corvos.** O mesmo vale para a carta no
+> lugar do bilhete e a tampinha no lugar da fruta. O erro foi meu e do laudo de arte, que
+> julgaram pelo nome da variável sem seguir a tabela de substituição.
 
-E o aviso de debandada é o texto fixo *"Galinhas em disparada!"* com `sfx('henPanic')` — som de
+O que **é** real nesse item é só o som e o texto. O aviso de debandada é o texto fixo *"Galinhas em disparada!"* com `sfx('henPanic')` — som de
 galinha — para o que o próprio `game.js:86` chama de "revoadas de corvos rasantes". O
 `main.js:10` também liga `henBounce` e `henJump` a `henFlap`, que disparam na fase 3.
 
@@ -346,7 +351,8 @@ antecipar. As tábuas nunca foram previsíveis, nem pelo olho nem pelo ouvido.
 1. Quebrar `render3d.js:1379` em duas linhas. *(o fundo da fase 2 volta a recuar)*
 2. Zerar os cinco sinalizadores didáticos em `TT.retry` e repetir a estratégia no `rematch`.
 3. Escrever os três textos que faltam (`dance`, `bounce`, `blink`) e instruir a debandada por fase.
-4. Trocar `henPanic`→`crowCaw` e `henFlap`→`crowWings` na fase 3; e o inimigo comum da fase 3.
+4. Trocar `henPanic`→`crowCaw` e `henFlap`→`crowWings` na fase 3. *(A arte do inimigo já estava
+   certa — ver a correção em 1.4.)*
 5. Dar faixa própria aos avisos de mecânica (`now: true`), para não ficarem na fila.
 6. Corrigir o texto do Corvo-Borrão: a instrução certa já existe no `loseText`.
 7. Camada `vida` protegida para o dano; `bonk` para −22 dB.

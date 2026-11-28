@@ -118,17 +118,20 @@ const sfx = {
 // max = quantos sons da camada tocam juntos (no mundo, o que passar do limite não toca; nas outras, o mais antigo sai em fade).
 // vary = quanto a altura muda a cada vez (repetições não soam iguais); gap = intervalo mínimo entre duas vezes do mesmo som.
 // NIVEL = o volume medido de cada arquivo (scratchpad/medir_sfx.py); ao trocar um arquivo, medir de novo e atualizar aqui.
-const CAMADAS = { heroi: { max: 4 }, golpe: { max: 2 }, mundo: { max: 2 }, ui: { max: 2 } };
+// 'vida' existe desde 28/11/2026 só para o dano: na camada 'heroi' um biscoito ou um pulo
+// posterior EXPULSAVA o 'hurt' (a lista tira o mais antigo), então o som que informa a perda de
+// um coração era descartável. Sozinho na camada, nada o expulsa.
+const CAMADAS = { vida: { max: 1 }, heroi: { max: 4 }, golpe: { max: 2 }, mundo: { max: 2 }, ui: { max: 2 } };
 const NIVEL = { bigBark: -8.2, boing: -8.5, bonk: -5.7, boss: -15.4, bossWoof: -11.7, checkpoint: -13.3, choco: -12.9, cluck1: -12.1, cluck2: -11.4, cookie: -21.4, crowCaw: -22.2, crowSmall: -8.7, crowWings: -17.0, diveWhistle: -7.8, eggCrack: -22.2, final: -4.1, gift: -10.8, henCoop: -11.6, henFlap: -13.4, henPanic: -11.3, hurt: -13.3, jump: -17.5, jump2: -16.1, land: -26.8, laugh: -14.9, lose: -9.2, pigeon: -19.1, pound: -6.3, power: -10.4, squeak: -14.4, star: -11.2, stomp: -13.3, swirl: -10.7, throwBall: -17.0, thud: -20.1, ui: -17.6, whimper: -11.7, win: -10.6, yapElvis: -12.1, yapZara: -10.4, yelp: -8.2 };
 const SAMPLES = {
   // heroi
   jump: { c: 'heroi', db: -27, vary: 0.06 }, jump2: { c: 'heroi', db: -26, vary: 0.05 }, land: { c: 'heroi', db: -32, vary: 0.1 },
   cookie: { c: 'heroi', db: -31, vary: 0.12, gap: 0.09 }, power: { c: 'heroi', db: -21 }, gift: { c: 'heroi', db: -21 }, star: { c: 'heroi', db: -22 },
-  checkpoint: { c: 'heroi', db: -23 }, hurt: { c: 'heroi', db: -20, vary: 0.05 }, throwBall: { c: 'heroi', db: -27, vary: 0.06 }, squeak: { c: 'heroi', db: -26, vary: 0.08 },
-  choco: { c: 'heroi', db: -22, vary: 0.06 }, eggCrack: { c: 'heroi', db: -24 }, swirl: { c: 'heroi', db: -26, gap: 0.4 },
+  checkpoint: { c: 'heroi', db: -23 }, hurt: { c: 'vida', db: -16, vary: 0.05 }, throwBall: { c: 'heroi', db: -27, vary: 0.06 }, squeak: { c: 'heroi', db: -26, vary: 0.08 },
+  choco: { c: 'heroi', db: -22, vary: 0.06 }, eggCrack: { c: 'heroi', db: -24 }, swirl: { c: 'heroi', db: -26, gap: 0.4 }, swirlOut: { c: 'heroi', db: -24, gap: 0.12, vary: 0.04, arq: 'swirl', rate: 1.5 },
   // golpe (chefões)
   bossWoof: { c: 'golpe', db: -19, vary: 0.04 }, bigBark: { c: 'golpe', db: -18, vary: 0.03 }, stomp: { c: 'golpe', db: -19, vary: 0.07 },
-  pound: { c: 'golpe', db: -18, vary: 0.04 }, bonk: { c: 'golpe', db: -19, vary: 0.06 }, final: { c: 'golpe', db: -16 }, boss: { c: 'golpe', db: -19 },
+  pound: { c: 'golpe', db: -18, vary: 0.04 }, bonk: { c: 'golpe', db: -22, vary: 0.06 }, final: { c: 'golpe', db: -16 }, boss: { c: 'golpe', db: -19 },
   thud: { c: 'golpe', db: -22, vary: 0.08, gap: 0.12 }, boing: { c: 'golpe', db: -22, vary: 0.06 }, laugh: { c: 'golpe', db: -21 },
   crowCaw: { c: 'golpe', db: -20, vary: 0.05, gap: 0.5 }, crowWings: { c: 'golpe', db: -24, vary: 0.08, gap: 0.45 }, diveWhistle: { c: 'golpe', db: -22 },
   yelp: { c: 'golpe', db: -21, vary: 0.04 }, whimper: { c: 'golpe', db: -21 },
@@ -141,13 +144,13 @@ const SAMPLES = {
 };
 const BUS_DB = 20 * Math.log10(0.8); // o barramento de efeitos (sfxBus = 0,8)
 for (const n in SAMPLES) { const o = SAMPLES[n], lv = NIVEL[n] === undefined ? -12 : NIVEL[n]; o.v = Math.min(1.6, Math.pow(10, (o.db - lv - BUS_DB) / 20)); }
-const sbufs = {}, lastAt = {}, ativos = { heroi: [], golpe: [], mundo: [], ui: [] }, camadaBus = {};
+const sbufs = {}, lastAt = {}, ativos = { vida: [], heroi: [], golpe: [], mundo: [], ui: [] }, camadaBus = {};
 function loadSamples() {
   // as camadas: o "mundo" passa por um filtro que tira um pouco do grave e do agudo (fica atrás, sem brigar com o Timtim e os golpes)
   for (const c in CAMADAS) { const g = ctx.createGain(); camadaBus[c] = g;
     if (c === 'mundo') { const hp = ctx.createBiquadFilter(), lp = ctx.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 140; lp.type = 'lowpass'; lp.frequency.value = 6500; g.connect(hp).connect(lp).connect(sfxBus); }
     else g.connect(sfxBus); }
-  Object.keys(SAMPLES).forEach(n => fetch('assets/sfx/' + n + '.mp3').then(r => { if (!r.ok) throw 0; return r.arrayBuffer(); })
+  Object.keys(SAMPLES).forEach(n => fetch('assets/sfx/' + (SAMPLES[n].arq || n) + '.mp3').then(r => { if (!r.ok) throw 0; return r.arrayBuffer(); })
     .then(a => ctx.decodeAudioData(a)).then(b => { sbufs[n] = b; }).catch(() => {}));
 }
 function playSample(name, t) {
@@ -158,11 +161,13 @@ function playSample(name, t) {
   // limite de sons ao mesmo tempo na camada
   for (let i = lista.length - 1; i >= 0; i--) if (lista[i].fim <= t) lista.splice(i, 1);
   if (lista.length >= CAMADAS[cam].max) { if (cam === 'mundo') return true; const velho = lista.shift(); velho.g.gain.setTargetAtTime(0, t, 0.02); try { velho.src.stop(t + 0.12); } catch (_) {} }
-  const src = ctx.createBufferSource(), g = ctx.createGain(), rate = 1 + (Math.random() * 2 - 1) * (o.vary || 0);
+  const src = ctx.createBufferSource(), g = ctx.createGain(), rate = (o.rate || 1) * (1 + (Math.random() * 2 - 1) * (o.vary || 0));
   src.buffer = b; src.playbackRate.value = rate; g.gain.value = v;
   src.connect(g).connect(camadaBus[cam]); src.start(t);
   lista.push({ src, g, fim: t + b.duration / rate });
   // golpe forte: o mundo abaixa uns 7 dB e volta em meio segundo (a pancada aparece sem precisar ser alta)
+  if (cam === 'vida') for (const c of ['golpe', 'mundo']) { const d = camadaBus[c].gain;
+    d.cancelScheduledValues(t); d.setTargetAtTime(0.5, t, 0.01); d.setTargetAtTime(1, t + 0.15, 0.1); }
   if (cam === 'golpe') { const m = camadaBus.mundo.gain; m.cancelScheduledValues(t); m.setTargetAtTime(0.45, t, 0.015); m.setTargetAtTime(1, t + 0.25, 0.2); }
   return true;
 }
