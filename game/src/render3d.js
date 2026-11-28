@@ -368,6 +368,7 @@ const glowMat = (c, op = 1) => new THREE.MeshBasicMaterial({ map: texSoft, color
 const addMat = (map, c, op) => new THREE.MeshBasicMaterial({ map, color: c, opacity: op, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, fog: false });
 
 // ---------------- mundo estático ----------------
+const BLOOM_K = ARR ? 0.5 : 0.8; // o peso do bloom na composição final (o Arraial já é claro)
 const FLOOR_Z0 = -104, FLOOR_Z1 = 470, FD = FLOOR_Z1 - FLOOR_Z0, FZ = (FLOOR_Z0 + FLOOR_Z1) / 2;
 const pulses = [], shafts = [], mists = [], ropes = [], buntings = [], figMats = [], landmarks = [], props3 = [], dayMats = []; // dayMats: arte pintada sem luz própria, que acompanha a hora do dia
 const vilaMat = new THREE.ShaderMaterial({ uniforms: { a: { value: texVilaT }, b: { value: texVilaN }, k: { value: 0 }, rep: { value: 1 }, tint: { value: new THREE.Color(1, 1, 1) }, haze: { value: new THREE.Color(0.86, 0.66, 0.5) }, hazeK: { value: 0 }, t: { value: 0 }, flow: { value: 0 } },
@@ -421,12 +422,28 @@ sky.scale.set(4700, 2700, 1); sky.position.set(0, 300, -3000);
     if (!ARR) { const pg = new THREE.PlaneGeometry(w, 150), uv = pg.attributes.uv; for (let i = 0; i < uv.count; i++) uv.setX(i, (x0 + uv.getX(i) * w) / 300);
     const p = new THREE.Mesh(pg, new THREE.MeshLambertMaterial({ map: texPath, transparent: true })); p.rotation.x = -Math.PI / 2; p.position.set(x0 + w / 2, 0.6, 6); p.receiveShadow = true; add(p, -1); }
     grassRow(x0, x1, 0, -86, 30, -7); grassRow(x0, x1, 0, 92, 15, 6); grassRow(x0, x1, 0, 210, 22, 6);
-    if (ARR) litEdge(x0 + 40, x1, 0, 118);
+    litEdge(x0 + 40, x1, 0, 118); // 28/11/2026: era só o Arraial, e a fase 1 ia para a tela sem a borda que design.md manda
   };
-  // borda acesa: um filete de luz quente na quina de cima do chão e de cada plataforma, como o musgo aceso de Ori
+  // borda acesa: um filete de luz na quina de cima do chão e de cada plataforma, como o musgo aceso
+  // de Ori (design.md, Contraste à moda de Ori, regra 4, 25/11/2026).
+  // A cor é a MESMA nas três fases, de propósito: o filete não é cenário, é informação — ele quer
+  // dizer "pode pisar aqui", e isso só se aprende se não mudar de fase para fase. O menta já era a
+  // cor do musgo aceso das lajes da fase 1, então a regra "uma cor por fase" segue valendo para o
+  // cenário; esta linha fica fora dela. Era quente (0xffe0b0) e, no Arraial laranja, desaparecia
+  // dentro da própria fogueira.
+  const EDGE_LINE = 0x9fffe0, EDGE_SOFT = 0x5fe8c0;
   function litEdge(x0, x1, y, z) { const w = x1 - x0;
-    const line = add(new THREE.Mesh(planeGeoC, new THREE.MeshBasicMaterial({ color: 0xffe0b0, transparent: true, opacity: 0.55, depthWrite: false, blending: THREE.AdditiveBlending, fog: false })), 6); line.scale.set(w, 3, 1); line.position.set(x0 + w / 2, y - 1, z);
-    const soft = add(new THREE.Mesh(planeGeoC, glowMat(0xffc888, 0.22)), 5); soft.scale.set(w * 1.04, 34, 1); soft.position.set(x0 + w / 2, y - 2, z - 1); }
+    if (VG) { // o quadro é claro: ali a borda é SOMBRA, não luz
+      // art-bible Seção 3: na fase 3 a hierarquia vem de valor e direção de pincelada, não de
+      // temperatura (a sombra é quase neutra, shade .96/.97/1.04). Um filete aditivo numa cena
+      // clara satura em branco e vira um risco atravessando a pintura — conferido em print na cama
+      // e na cadeira do Van Gogh. Contra fundo claro, quem separa é o escuro: uma linha de contato
+      // discreta, que é o que um objeto apoiado faz de verdade.
+      const ln = add(new THREE.Mesh(planeGeoC, new THREE.MeshBasicMaterial({ color: 0x2e2440, transparent: true, opacity: 0.3, depthWrite: false, fog: false })), 6); ln.scale.set(w, 2.5, 1); ln.position.set(x0 + w / 2, y - 1.5, z);
+      const sh = add(new THREE.Mesh(planeGeoC, glowMat(0x241c33, 0.14)), 5); sh.scale.set(w * 1.02, 22, 1); sh.position.set(x0 + w / 2, y - 9, z - 1);
+      return; }
+    const line = add(new THREE.Mesh(planeGeoC, new THREE.MeshBasicMaterial({ color: EDGE_LINE, transparent: true, opacity: 0.55, depthWrite: false, blending: THREE.AdditiveBlending, fog: false })), 6); line.scale.set(w, 3, 1); line.position.set(x0 + w / 2, y - 1, z);
+    const soft = add(new THREE.Mesh(planeGeoC, glowMat(EDGE_SOFT, 0.22)), 5); soft.scale.set(w * 1.04, 34, 1); soft.position.set(x0 + w / 2, y - 2, z - 1); }
   const spans = [];
   C.grounds.forEach(([x, w], i) => {
     const x0 = i === 0 ? -1600 : x, x1 = x + w;
@@ -442,13 +459,20 @@ sky.scale.set(4700, 2700, 1); sky.position.set(0, 300, -3000);
     const m = new THREE.Mesh(boxUV(w, 18, 70, 120), [side, side, moss, side, side, side]);
     m.position.set(x + w / 2, GROUND - y - 9, 0); m.castShadow = m.receiveShadow = true; add(m);
     const rt = add(new THREE.Mesh(planeGeoTop, rootM)); rt.scale.set(w * 0.96, 54 + (x % 40), 1); rt.position.set(x + w / 2, GROUND - y - 16, -30); // as raízes ficam atrás do Timtim (na frente, cobriam ele quando pulava por baixo)
-    const gl = add(new THREE.Mesh(planeGeoC, glowMat(PAL.mint, 0.22)), 3); gl.scale.set(w * 1.5, 46, 1); gl.position.set(x + w / 2, GROUND - y + 2, 34);
-    pulses.push({ m: gl, base: 0.22, ph: x });
+    // a borda acesa, no lugar do halo antigo: aquele tinha 1,5x a largura da própria laje e, por
+    // isso, mentia sobre onde a laje acabava — justamente a informação que a borda existe para dar.
+    litEdge(x, x + w, GROUND - y, 36);
   }
-  if (ARR) for (const [x, y, w] of C.plats) { if (VG && VG_PLAT[x]) continue; // a cama, a cadeira, os toldos e as mesas já são a plataforma
+  if (ARR) for (const [x, y, w] of C.plats) {
     const top = GROUND - y;
+    // a borda acesa vem ANTES do desvio: a cama, a cadeira, os toldos e as mesas da fase 3 já são a
+    // plataforma e não ganham tábua, mas precisam do filete tanto quanto as outras — dizer onde se
+    // pisa é da borda, não da tábua. Até 28/11/2026 o continue estava na linha de cima e levava as
+    // seis embora junto com a tábua.
+    litEdge(x, x + w, top, VG && VG_PLAT[x] ? 40 : 33);
+    if (VG && VG_PLAT[x]) continue;
     const m = new THREE.Mesh(boxUV(w, 16, 64, 128), [plankSide, plankSide, plankTop, plankSide, plankSide, plankSide]);
-    m.position.set(x + w / 2, top - 8, 0); m.castShadow = m.receiveShadow = true; add(m); litEdge(x, x + w, top, 33);
+    m.position.set(x + w / 2, top - 8, 0); m.castShadow = m.receiveShadow = true; add(m);
     // palafitas: dois (ou três) pares de troncos descendo até o chão ou até o fundo do buraco, com amarração de corda
     const legs = w > 260 ? [x + 16, x + w / 2, x + w - 16] : [x + 16, x + w - 16], H = top + 330;
     for (const lx of legs) for (const lz of [20, -20]) {
@@ -877,7 +901,7 @@ const blurMat = new THREE.ShaderMaterial({ uniforms: { t: { value: null }, dir: 
     c += (texture2D(t, vUv + dir * 3.231).rgb + texture2D(t, vUv - dir * 3.231).rgb) * .0703; gl_FragColor = vec4(c, 1.); }` });
 const compMat = new THREE.ShaderMaterial({ depthTest: false, vertexShader: VERT,
   uniforms: { tScene: { value: null }, tDepth: { value: null }, tBloom: { value: null }, res: { value: new THREE.Vector2(W, H) },
-    near: { value: camera.near }, far: { value: camera.far }, focus: { value: CAM_D }, dof: { value: 1 }, time: { value: 0 }, flash: { value: 0 }, gray: { value: 0 }, bloomK: { value: ARR ? 0.5 : 0.8 }, heroK: { value: ARR ? 1 : 0.45 }, hero: { value: new THREE.Vector2(0.5, 0.5) }, expo: { value: ARR ? 1.18 : 1.25 }, shade: { value: new THREE.Vector3(.80, 1.02, 1.16) } },
+    near: { value: camera.near }, far: { value: camera.far }, focus: { value: CAM_D }, dof: { value: 1 }, time: { value: 0 }, flash: { value: 0 }, gray: { value: 0 }, bloomK: { value: BLOOM_K }, heroK: { value: ARR ? 1 : 0.45 }, hero: { value: new THREE.Vector2(0.5, 0.5) }, expo: { value: ARR ? 1.18 : 1.25 }, shade: { value: new THREE.Vector3(.80, 1.02, 1.16) } },
   fragmentShader: `
   precision highp float;
   uniform sampler2D tScene, tDepth, tBloom; uniform vec2 res; uniform float near, far, focus, dof, time, flash, gray, bloomK, expo, heroK; uniform vec3 shade; uniform vec2 hero;
@@ -911,6 +935,33 @@ const compMat = new THREE.ShaderMaterial({ depthTest: false, vertexShader: VERT,
     col += (hash(vUv * res + time) - .5) * .014;                     // grão fino
     gl_FragColor = vec4(mix(col, vec3(.85, .97, 1.), flash), 1.);
   }` });
+// O MESMO acabamento no nível 0, pelo caminho barato. O nível 0 é o nível de emergência: ele entra
+// quando a máquina já não dá conta, então não pode custar mais do que salva. Medido com SwiftShader
+// (sem placa de vídeo), rodar o compMat inteiro ali derrubava 15,6 → 10,0 fps na fase 1, porque o
+// que pesa não é a conta de cor: é o grão (um sin por pixel), o highp e as buscas em tDepth e
+// tBloom, que no nível 0 não servem para nada (dof = 0, bloomK = 0).
+// Este shader é o compMat sem profundidade de campo, sem bloom e sem grão — uma busca de textura e
+// aritmética. Guarda o que importa para o jogo continuar sendo o mesmo jogo: expo, saturação,
+// contraste, shade, a poça de luz do herói, a vinheta, o flash e o cinza da derrota.
+// Os uniforms são os MESMOS objetos do compMat, de propósito: o quadro atualiza um só lugar.
+const liteMat = new THREE.ShaderMaterial({ depthTest: false, vertexShader: VERT,
+  uniforms: { tScene: compMat.uniforms.tScene, flash: compMat.uniforms.flash, gray: compMat.uniforms.gray,
+    heroK: compMat.uniforms.heroK, hero: compMat.uniforms.hero, expo: compMat.uniforms.expo, shade: compMat.uniforms.shade },
+  fragmentShader: `
+  precision mediump float;
+  uniform sampler2D tScene; uniform float flash, gray, heroK, expo; uniform vec3 shade; uniform vec2 hero;
+  varying vec2 vUv;
+  void main(){
+    vec3 col = texture2D(tScene, vUv).rgb;
+    col = 1. - exp(-col * expo);
+    float l = dot(col, vec3(.299, .587, .114));
+    col = mix(vec3(l), col, 1.18 * (1. - gray));
+    col = clamp(col, 0., 1.); col = mix(col, col * col * (3. - 2. * col), .5);
+    col = mix(col * shade, col, smoothstep(.25, .9, l));
+    vec2 hq = (vUv - hero) * vec2(1.78, 1.); col *= mix(1. - .2 * heroK, 1. + .08 * heroK, smoothstep(.75, .05, length(hq)));
+    vec2 q = vUv - .5; col *= 1. - dot(q, q) * 1.05;
+    gl_FragColor = vec4(mix(col, vec3(.85, .97, 1.), flash), 1.);
+  }` });
 function pass(mat, target) { quad.material = mat; renderer.setRenderTarget(target); renderer.render(quadScene, quadCam); }
 
 // ---------------- qualidade e tamanho ----------------
@@ -926,6 +977,7 @@ R.resize = () => {
   if (GL2) { rt.setSize(w, h); rtA.setSize(w >> 2, h >> 2); rtB.setSize(w >> 2, h >> 2); compMat.uniforms.res.value.set(w, h); }
 };
 R.setQuality = q => { R.quality = Math.max(0, Math.min(2, q)); sun.castShadow = R.quality > 0; compMat.uniforms.dof.value = R.quality > 1 ? 1 : 0;
+  compMat.uniforms.bloomK.value = R.quality > 0 ? BLOOM_K : 0; // no nível 0 não há passe de bloom: a textura de bloom fica velha, então o peso vai a zero
   const rich = R.quality > 0; // no nível mais leve saem a névoa, os fachos e metade dos vaga-lumes
   mists.forEach(q => { q.m.visible = rich || q.i === 0; }); shafts.forEach((q, i) => { q.m.visible = rich || i % 3 === 0; }); flies.forEach((f, i) => { f.m.visible = rich || i % 2 === 0; }); pulses.forEach(q => { q.m.visible = rich || !!q.slow; });
   R.resize(); };
@@ -1348,16 +1400,25 @@ R.frame = (rdt) => {
 
   dayLight(fxS);
   R.flash = Math.max(0, R.flash - rdt * 2.2);
-  if (GL2 && R.quality > 0) {
+  if (GL2) {
+    // No nível 0 a cadeia FECHA, só não desfoca: cinco passes de bloom saem, mas o compMat roda
+    // igual, com dof e bloomK em 0. Até 28/11/2026 o nível 0 pulava este branch inteiro e ia direto
+    // para a tela — e com ele iam embora expo (o joelho que satura as luzes sem estourar), heroK
+    // (a poça de luz do Timtim), shade (a sombra puxada para o roxo), flash e o gray da derrota.
+    // O jogo mudava de cor justamente no computador em que já estava engasgando, e a tela de
+    // derrota deixava de ficar cinza. Rodar só o compMat é mais barato que o nível 1 de hoje.
+    const lite = R.quality === 0;
     renderer.setRenderTarget(rt); renderer.render(scene, camera);
-    brightMat.uniforms.t.value = rt.texture; brightMat.uniforms.px.value.set(1 / rt.width, 1 / rt.height); pass(brightMat, rtA);
-    for (let i = 1; i <= 2; i++) { // dois passes de desfoque, o segundo mais largo: halos macios
-      blurMat.uniforms.t.value = rtA.texture; blurMat.uniforms.dir.value.set(i * 1.6 / rtA.width, 0); pass(blurMat, rtB);
-      blurMat.uniforms.t.value = rtB.texture; blurMat.uniforms.dir.value.set(0, i * 1.6 / rtA.height); pass(blurMat, rtA); }
+    if (!lite) {
+      brightMat.uniforms.t.value = rt.texture; brightMat.uniforms.px.value.set(1 / rt.width, 1 / rt.height); pass(brightMat, rtA);
+      for (let i = 1; i <= 2; i++) { // dois passes de desfoque, o segundo mais largo: halos macios
+        blurMat.uniforms.t.value = rtA.texture; blurMat.uniforms.dir.value.set(i * 1.6 / rtA.width, 0); pass(blurMat, rtB);
+        blurMat.uniforms.t.value = rtB.texture; blurMat.uniforms.dir.value.set(0, i * 1.6 / rtA.height); pass(blurMat, rtA); }
+    }
     const u = compMat.uniforms; u.tScene.value = rt.texture; u.tDepth.value = rt.depthTexture; u.tBloom.value = rtA.texture;
     { const hs = R.toScreen(S.player.x + S.player.w / 2, S.player.y + S.player.h / 2); u.hero.value.x += (hs.x - u.hero.value.x) * Math.min(1, rdt * 6); u.hero.value.y += (1 - hs.y - u.hero.value.y) * Math.min(1, rdt * 6); }
     u.time.value = time % 100; u.flash.value = TT.calmo ? Math.min(R.flash, 0.1) : R.flash; u.gray.value += ((S.mode === 'lose' ? 0.75 : 0) - u.gray.value) * Math.min(1, rdt * 3);
-    pass(compMat, null);
+    pass(lite ? liteMat : compMat, null);
   } else { renderer.setRenderTarget(null); renderer.render(scene, camera); }
 };
 // ---------------- a cor de cada fase ----------------
@@ -1381,7 +1442,14 @@ function dayLight(cx) {
   // comentário "mais apagado..." começava na coluna 175 engolindo os 281 caracteres seguintes:
   // o else if (ARR) e o else eram código morto, e o Arraial ia para a tela com hazeK 0, cru.
   if (VG) { // fase 3: o quadro, com a pincelada escorrendo de leve
-    vilaMat.uniforms.tint.value.setRGB(0.7, 0.68, 0.73); vilaMat.uniforms.hazeK.value = 0.16;
+    // 28/11/2026: era hazeK 0,16, metade do Arraial, e o quadro vinha para a frente em cima do
+    // Timtim. Mas só subir o número quase não mudava nada (1,88 níveis de diferença média medidos),
+    // porque a COR para onde o fundo enevoa nunca foi declarada por fase: ficou no padrão quente
+    // 0.86/0.66/0.5, que é quase a cor que o quadro já tem — o fundo estava sendo misturado com ele
+    // mesmo. A névoa da fase 3 é azul-lavanda (art bible: névoa #7088c8), clareada para o fundo ser
+    // a parte mais clara e MENOS saturada da tela.
+    vilaMat.uniforms.haze.value.setRGB(0.72, 0.77, 0.89);
+    vilaMat.uniforms.tint.value.setRGB(0.7, 0.68, 0.73); vilaMat.uniforms.hazeK.value = 0.28;
     vilaMat.uniforms.flow.value = 0.006; vilaMat.uniforms.t.value = time;
   } else if (ARR) { // fase 2: o fundo do Arraial recua, para o que se mexe aparecer
     vilaMat.uniforms.tint.value.setRGB(0.74, 0.6, 0.52); vilaMat.uniforms.hazeK.value = 0.32;

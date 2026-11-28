@@ -39,7 +39,9 @@ const servidor = () => http.createServer((req, res) => {
     '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist', '--autoplay-policy=no-user-gesture-required'] });
 
   const opcoes = MOBILE
-    ? { ...devices['iPhone 13'], isMobile: true, hasTouch: true }
+    // DEITADO, nao em pe: desde 28/11/2026 o jogo mostra a tela "Gire o aparelho" em retrato no
+    // toque, entao uma captura em pe fotografa o aviso e nao a fase. Mesma virada que evidencia.js.
+    ? (({ viewport: v, ...r }) => ({ ...r, viewport: { width: v.height, height: v.width }, isMobile: true, hasTouch: true }))(devices['iPhone 13'])
     : { viewport: { width: 960, height: 540 } };
 
   for (const fase of [1, 2, 3]) {

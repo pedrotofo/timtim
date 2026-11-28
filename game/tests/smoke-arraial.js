@@ -190,7 +190,11 @@ const CINE = 20000; // ms reais para uma cinematica de ate 3,6 s de jogo termina
   check(await ev(() => __tintim.S.fox.hp === 0), 'mais duas quedas planando na crina derrotam o lobo-guará');
   check(await ev(() => __tintim.S.runners.filter(r => r.kind === 'chaser' && r.vx > 0).length === 5), 'no golpe final, as galinhas saem do galinheiro e correm atrás dele');
   check(await until(() => __tintim.state === 'winning' || __tintim.state === 'win', 3000), 'derrotar o lobo-guará vence a fase');
-  check(await until(() => document.getElementById('win').classList.contains('on'), 9000), 'tela de vitória aparece');
+  // CINE, nao 9000: o golpe final e em camera lenta (design.md, Impacto) e a cinematica de vitoria
+  // anda pelo relogio do JOGO. Em maquina sem placa de video o relogio do jogo corre a meio do
+  // tempo de parede, entao 9 s reais nao garantem os ~4 s de jogo que a cena pede. Era a ultima
+  // espera de cinematica do arquivo com orcamento a mao.
+  check(await until(() => document.getElementById('win').classList.contains('on'), CINE), 'tela de vitória aparece');
   check(await ev(() => document.querySelector('.winMonkey').src.includes('premio-chinela') && document.getElementById('winText').textContent.includes('chinela')), 'de presente, as galinhas dão a chinela amarela');
   check(await ev(() => document.getElementById('winTitle').textContent.includes('Galinheiro') && document.getElementById('stNotes').textContent.includes('1/4')), 'vitória com o texto do galinheiro e a contagem do correio elegante');
   check(await ev(() => JSON.parse(localStorage.getItem('tintim-fases') || '{}')[2] === true), 'fase 2 fica marcada como vencida');

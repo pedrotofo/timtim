@@ -132,7 +132,8 @@ const CINE = 20000; // ms reais para uma cinematica de ate 3,6 s de jogo termina
   await peck(); await stomp();
   check(await until(() => __tintim.S.fox.hp === 0, 1500), 'o terceiro golpe derrota o Corvo-Borrão');
   check(await ev(() => !!__tintim.S.brush), 'derrotado, ele solta o pincel do Van Gogh');
-  check(await until(() => __tintim.S.vg && __tintim.S.vg.mood === 'run', 3000), 'o Van Gogh vem correndo buscar o pincel (não surge do nada)');
+  // CINE, nao 3000: vem depois do golpe final, que e em camera lenta e anda pelo relogio do jogo
+  check(await until(() => __tintim.S.vg && __tintim.S.vg.mood === 'run', CINE), 'o Van Gogh vem correndo buscar o pincel (não surge do nada)');
   check(await until(() => __tintim.S.vg && __tintim.S.vg.mood === 'happy' && !__tintim.S.brush, 6000), 'o Van Gogh aparece feliz com o pincel');
   check(await ev(() => __tintim.R.dbg.vg().visible && __tintim.R.dbg.vg().userData.name === 'vangogh-feliz'), 'o Van Gogh comemora (pose feliz)');
   check(await until(() => __tintim.player.won && __tintim.R.tintimMesh.userData.name === 'tintim-win', 4000), 'o Timtim comemora com a pose fiel à ficha (sem a animação de olho de panda)');
