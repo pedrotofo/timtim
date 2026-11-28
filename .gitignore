@@ -7,7 +7,10 @@ site/
 .env*
 !.env.example
 
-# evidência do Gate 1: prints e recibo são gerados por game/tests/provar.sh
+# capturas das fases: 20 MB de PNG gerados por game/tests/capturar-fases.js
+production/fases/
+production/fases-celular/
+# evidência do Gate 1: prints e recibo são gerados por game/tests/provar.js
 production/evidencia/
 # logs de sessão dos hooks do framework
 production/session-logs/
