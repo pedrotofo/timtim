@@ -20,3 +20,5 @@ production/session-logs/
 
 # dependências das ferramentas de teste (o jogo não tem build)
 node_modules/
+# consertos do Grupo C: prints gerados à mão
+production/grupoC/

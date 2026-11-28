@@ -26,9 +26,13 @@ const servidor = http.createServer((req, res) => {
 
 // Os dois viewports obrigatórios. O do iPhone leva toque de verdade (hasTouch), porque é
 // `pointer: coarse` que muda a câmera (DESCE, em render3d.js) e põe os botões na tela.
+// O iPhone entra DEITADO: é a orientação que o jogo pede (manifest landscape, ui.js trava a
+// orientação na tela cheia), e desde 28/11/2026 em pé o palco é coberto pela tela de "gire o
+// aparelho" — fotografar em pé passaria a registrar a cobertura, não o jogo.
+const ip = devices['iPhone 13'];
 const CASOS = [
   { nome: 'desktop', opcoes: { viewport: { width: 960, height: 540 } } },
-  { nome: 'iphone', opcoes: { ...devices['iPhone 13'], isMobile: true, hasTouch: true } },
+  { nome: 'iphone', opcoes: { ...ip, viewport: { width: ip.viewport.height, height: ip.viewport.width }, isMobile: true, hasTouch: true } },
 ];
 
 (async () => {

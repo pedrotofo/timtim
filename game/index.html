@@ -17,6 +17,11 @@
   html, body { margin: 0; height: 100%; background: #12070f; color: var(--text); font-family: var(--font); overflow: hidden;
     -webkit-user-select: none; user-select: none; -webkit-tap-highlight-color: transparent; }
   #wrap { position: fixed; inset: 0; display: grid; place-items: center; }
+  /* PISO DE 12 px no texto de sistema (28/11/2026). Tudo aqui é cqw — 1% da largura do palco —,
+     o que mantém a composição idêntica em qualquer tela. Mas o palco tem 960 px no desktop e 693
+     no iPhone deitado, então o mesmo 1,1cqw dava 10,6 px e 7,6 px. Nove estilos ficavam ilegíveis
+     na orientação que o jogo PEDE. max() põe chão sem mexer na composição acima dele: no desktop
+     só cinco declarações sobem, de 1 a 2 px. Display e banner não encostam no piso. */
   /* no iPhone, nenhum gesto rola, estica (efeito elástico) ou dá zoom na página: só o jogo recebe os toques */
   html, body, #wrap { touch-action: none; overscroll-behavior: none; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
   /* o tamanho certo vem do ui.js (encaixa na área visível de verdade); svh é a reserva sem script, vh a dos navegadores antigos */
@@ -44,12 +49,12 @@
   #cookieN { min-width: 2.4cqw; font-variant-numeric: tabular-nums; display: inline-block; text-align: right; color: var(--gold); text-shadow: 0 0 1cqw rgba(255, 200, 110, .6); }
   #cookieN.bump { animation: bump .32s var(--pop); }
   @keyframes bump { 40% { transform: scale(1.5); color: #fff; } }
-  #cookieT { font-size: 1.35cqw; font-weight: 600; color: var(--dim); margin-left: -.6cqw; }
+  #cookieT { font-size: max(12px, 1.35cqw); font-weight: 600; color: var(--dim); margin-left: -.6cqw; }
   #prog { width: 19cqw; height: .5cqw; background: rgba(255, 220, 190, .16); border-radius: 9cqw; position: relative; margin: .9cqw 0 .9cqw .8cqw; }
   #progFill { position: absolute; inset: 0 auto 0 0; width: 0; background: linear-gradient(90deg, rgba(255, 214, 160, .2), var(--glow)); border-radius: 9cqw; box-shadow: 0 0 1cqw var(--glow); }
   #progDog { position: absolute; top: 50%; height: 3cqw; transform: translate(-50%, -58%); left: 0; }
-  #progEnd { font-size: 1.7cqw; }
-  #bossBars { display: none; flex-direction: column; gap: .6cqw; font-size: 1.35cqw; padding: .3cqw 0; }
+  #progEnd { font-size: max(12px, 1.7cqw); }
+  #bossBars { display: none; flex-direction: column; gap: .6cqw; font-size: max(12px, 1.35cqw); padding: .3cqw 0; }
   .bossRow { display: flex; align-items: center; gap: .8cqw; }
   .bossRow b { min-width: 6.6cqw; white-space: nowrap; font-weight: 700; letter-spacing: .05cqw; }
   .seg { width: 3.6cqw; height: .7cqw; border-radius: 9cqw; background: var(--violet); box-shadow: 0 0 1cqw var(--violet); transition: transform .35s var(--pop), background .2s, box-shadow .2s; }
@@ -58,7 +63,7 @@
   #hr.boss #prog, #hr.boss #progEnd { display: none; } #hr.boss #bossBars { display: flex; }
   #hr.boss { border-radius: 2cqw; }
   .round { position: absolute; top: 7.2cqw; width: 3.8cqw; height: 3.8cqw; border-radius: 50%; background: var(--glass); border: .12cqw solid var(--line); pointer-events: auto;
-    display: grid; place-items: center; font-size: 1.5cqw; color: var(--text); padding: 0; transition: transform .15s var(--pop), box-shadow .2s; }
+    display: grid; place-items: center; font-size: max(12px, 1.5cqw); color: var(--text); padding: 0; transition: transform .15s var(--pop), box-shadow .2s; }
   .round:hover { box-shadow: 0 0 1.6cqw rgba(255, 214, 160, .45); }
   .round:active { transform: scale(.9); }
   .round.muted { text-decoration: line-through; opacity: .6; }
@@ -70,14 +75,14 @@
   #banner.show { animation: banner 2.6s var(--out) both; }
   @keyframes banner { 0% { opacity: 0; transform: translate(-50%, 1cqw); } 16% { opacity: 1; transform: translate(-50%, 0); } 80% { opacity: 1; transform: translate(-50%, 0); } 100% { opacity: 0; transform: translate(-50%, -1cqw); } }
 
-  #say { position: absolute; transform: translate(-50%, -100%) scale(.6); opacity: 0; background: #fff6ea; color: #3a1c30; font-weight: 800; font-size: 1.7cqw; padding: .4cqw 1.3cqw; border-radius: 1.4cqw; white-space: nowrap; pointer-events: none; transition: opacity .25s, transform .35s var(--pop); box-shadow: 0 .3cqw 1.2cqw rgba(40, 10, 30, .4); }
+  #say { position: absolute; transform: translate(-50%, -100%) scale(.6); opacity: 0; background: #fff6ea; color: #3a1c30; font-weight: 800; font-size: max(12px, 1.7cqw); padding: .4cqw 1.3cqw; border-radius: 1.4cqw; white-space: nowrap; pointer-events: none; transition: opacity .25s, transform .35s var(--pop); box-shadow: 0 .3cqw 1.2cqw rgba(40, 10, 30, .4); }
   #say::after { content: ""; position: absolute; left: 50%; bottom: -.7cqw; border: .8cqw solid transparent; border-top-color: #fff6ea; border-bottom: 0; transform: translateX(-50%); }
   #say.on { opacity: 1; transform: translate(-50%, -100%) scale(1); }
   #say.long { white-space: normal; width: 34cqw; text-align: center; line-height: 1.25; padding: .7cqw 1.5cqw; } /* fala comprida (o Van Gogh): quebra em linhas */
   #note { position: absolute; left: 2.2cqw; top: 33%; width: 25cqw; transform: rotate(-1.5deg) scale(.7); transform-origin: 0 0; opacity: 0; background: #ffe3ee; color: #4a1830; border-radius: 1.4cqw; padding: 1.1cqw 1.8cqw 1.3cqw; pointer-events: none; text-align: center;
     box-shadow: 0 .5cqw 2cqw rgba(60, 10, 30, .45), inset 0 0 0 .25cqw #ff9fc0; transition: opacity .3s, transform .45s var(--pop); }
-  #note small { display: block; font-size: 1.05cqw; font-weight: 800; letter-spacing: .3cqw; text-transform: uppercase; color: #d8457a; }
-  #note p { margin: .5cqw 0 0; font-size: 1.4cqw; font-weight: 700; line-height: 1.3; }
+  #note small { display: block; font-size: max(12px, 1.05cqw); font-weight: 800; letter-spacing: .3cqw; text-transform: uppercase; color: #d8457a; }
+  #note p { margin: .5cqw 0 0; font-size: max(12px, 1.4cqw); font-weight: 700; line-height: 1.3; }
   #note.on { opacity: .96; transform: rotate(-1.5deg) scale(1); } /* pequeno, no lado esquerdo, abaixo das faixas de dica: longe do Timtim, dos pulos e dos botões */
   .hero { position: relative; display: grid; place-items: center; animation: float 6s ease-in-out infinite; }
   .hero::before { content: ""; position: absolute; width: 30cqw; height: 30cqw; border-radius: 50%; background: radial-gradient(circle, rgba(255, 226, 170, .75), rgba(255, 150, 100, .28) 45%, transparent 70%); }
@@ -91,7 +96,7 @@
   #bossCard { position: absolute; left: 6%; bottom: 17%; opacity: 0; transform: translateX(-4cqw); transition: opacity .5s, transform .7s var(--out); pointer-events: none; }
   .cine #bossCard.show { opacity: 1; transform: none; }
   #bossCard.top { bottom: auto; top: 16%; } /* cartão de abertura de fase: no alto, para não cobrir o Timtim */
-  #bossCard small { display: inline-block; color: var(--rose); font-size: 1.5cqw; font-weight: 800; letter-spacing: .7cqw; text-shadow: 0 0 1cqw rgba(255, 125, 156, .8); }
+  #bossCard small { display: inline-block; color: var(--rose); font-size: max(12px, 1.5cqw); font-weight: 800; letter-spacing: .7cqw; text-shadow: 0 0 1cqw rgba(255, 125, 156, .8); }
   #bossCard h2 { margin: .4cqw 0 0; font-family: var(--display); font-weight: 400; font-size: 5.6cqw; line-height: 1; letter-spacing: .3cqw; color: #fff;
     text-shadow: 0 0 1.4cqw rgba(255, 170, 120, .95), 0 0 5cqw rgba(230, 80, 110, .8), 0 .3cqw .8cqw rgba(0, 6, 12, .9); }
   #bossCard p { margin: 1cqw 0 0; font-size: 1.9cqw; font-weight: 600; color: var(--text); text-shadow: 0 .2cqw .6cqw rgba(0, 6, 12, .9); }
@@ -122,7 +127,7 @@
   #pause .card p { margin-bottom: 2.6cqw; }
   #pause .card .row:first-of-type { flex-direction: column; gap: 1.4cqw; } #pause .card .row:first-of-type .btn { min-width: 24cqw; }
   #pause .card .row + .row { margin-top: 2.6cqw; padding-top: 2cqw; border-top: .1cqw solid var(--line); }
-  #pause #btnCalmo { font-size: 1.35cqw; padding: .5cqw 2cqw; }
+  #pause #btnCalmo { font-size: max(12px, 1.35cqw); padding: .5cqw 2cqw; }
 
   /* título: a arte pintada respira (zoom lento) e vaga-lumes sobem */
   #title { display: block; background: #060a18; overflow: hidden; }
@@ -152,11 +157,11 @@
   #btnReset:hover, #btnReset:focus-visible { background: rgba(60, 38, 80, .95); }
   #btnReset:active { transform: translateY(.2cqw); box-shadow: 0 .1cqw 0 #5a3a14; }
   #btnReset.sure { background: #8c2a1c; border-color: #ffc2a8; }
-  #skip { position: absolute; right: 2.4cqw; top: 2.4cqw; font-size: 1.3cqw; letter-spacing: .2cqw; color: rgba(255, 244, 228, .92); padding: .4cqw 1.2cqw; border-radius: 99cqw; background: rgba(40, 18, 8, .55); opacity: 0; transition: opacity .6s .8s; animation: nudge 2.4s ease-in-out infinite; }
+  #skip { position: absolute; right: 2.4cqw; top: 2.4cqw; font-size: max(12px, 1.3cqw); letter-spacing: .2cqw; color: rgba(255, 244, 228, .92); padding: .4cqw 1.2cqw; border-radius: 99cqw; background: rgba(40, 18, 8, .55); opacity: 0; transition: opacity .6s .8s; animation: nudge 2.4s ease-in-out infinite; }
   @keyframes nudge { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(.4cqw); } }
   #title.story #skip { opacity: 1; }
   /* tela cheia: botão no canto da capa e na pausa (some onde o navegador não deixa, como no iPhone) */
-  #btnTela { position: absolute; left: 2cqw; top: 2cqw; z-index: 3; font-size: 1.15cqw; font-weight: 700; letter-spacing: .08cqw; color: #fff3d6; background: rgba(20, 10, 30, .55);
+  #btnTela { position: absolute; left: 2cqw; top: 2cqw; z-index: 3; font-size: max(12px, 1.15cqw); font-weight: 700; letter-spacing: .08cqw; color: #fff3d6; background: rgba(20, 10, 30, .55);
     border: .12cqw solid rgba(255, 220, 190, .45); border-radius: 99cqw; padding: .45cqw 1.3cqw; }
   #btnTela:hover { background: rgba(60, 38, 80, .8); } #title.story #btnTela, .jaApp #btnTela, .jaApp #btnTelaPausa, .semTela #btnTela, .semTela #btnTelaPausa { display: none; }
   @keyframes float { 50% { transform: translateY(-.8cqw); } }
@@ -174,11 +179,11 @@
   #title .on-anim > *:nth-child(2) { animation-delay: .15s; } #title .on-anim > *:nth-child(3) { animation-delay: .3s; } #title .on-anim > *:nth-child(4) { animation-delay: .45s; }
   @keyframes rise { from { opacity: 0; transform: translateY(1.6cqw); filter: blur(.4cqw); } }
   .how { display: flex; gap: .9cqw; margin: 2.6cqw 0 2.8cqw; flex-wrap: wrap; max-width: 50cqw; }
-  .how span { display: flex; align-items: center; gap: .6cqw; background: var(--glass); color: var(--text); border-radius: 9cqw; padding: .35cqw 1.3cqw .35cqw .7cqw; font-size: 1.45cqw; font-weight: 600; border: .1cqw solid var(--line); }
+  .how span { display: flex; align-items: center; gap: .6cqw; background: var(--glass); color: var(--text); border-radius: 9cqw; padding: .35cqw 1.3cqw .35cqw .7cqw; font-size: max(12px, 1.45cqw); font-weight: 600; border: .1cqw solid var(--line); }
   .how img { height: 2.1cqw; filter: drop-shadow(0 0 .5cqw rgba(255, 210, 120, .7)); }
   .how .key { color: var(--glow); font-weight: 800; padding: 0 .3cqw; }
-  .hint { font-size: 1.3cqw; font-weight: 600; color: rgba(255, 246, 234, .9); margin: 1.4cqw 0 0; padding: .5cqw 1.6cqw; border-radius: 99cqw; background: rgba(6, 10, 24, .62); border: .1cqw solid rgba(255, 220, 190, .14); text-shadow: 0 .1cqw .6cqw rgba(0, 4, 14, .9); }
-  #best { font-size: 1.5cqw; font-weight: 700; color: var(--gold); margin: 1cqw 0 0; min-height: 2cqw; }
+  .hint { font-size: max(12px, 1.3cqw); font-weight: 600; color: rgba(255, 246, 234, .9); margin: 1.4cqw 0 0; padding: .5cqw 1.6cqw; border-radius: 99cqw; background: rgba(6, 10, 24, .62); border: .1cqw solid rgba(255, 220, 190, .14); text-shadow: 0 .1cqw .6cqw rgba(0, 4, 14, .9); }
+  #best { font-size: max(12px, 1.5cqw); font-weight: 700; color: var(--gold); margin: 1cqw 0 0; min-height: 2cqw; }
 
   .card { background: rgba(40, 16, 36, .72); color: var(--text); border: .12cqw solid var(--line); border-radius: 2.4cqw; padding: 3cqw 5cqw 3.2cqw; text-align: center;
     backdrop-filter: blur(1cqw); -webkit-backdrop-filter: blur(1cqw); box-shadow: 0 0 6cqw rgba(255, 130, 90, .22), inset 0 0 3cqw rgba(255, 214, 160, .06);
@@ -195,7 +200,7 @@
   .star.got path { fill: var(--gold); stroke: #fff3d6; }
   @keyframes starIn { from { transform: scale(0) rotate(-140deg); } to { transform: scale(1); } }
   .stats { display: flex; justify-content: center; gap: 1.2cqw; margin: 1.8cqw 0 2.6cqw; flex-wrap: wrap; }
-  .stat { background: rgba(255, 220, 190, .07); border: .1cqw solid rgba(255, 220, 190, .14); border-radius: 1.4cqw; padding: .7cqw 1.6cqw; font-size: 1.3cqw; font-weight: 600; line-height: 1.3; color: var(--dim); }
+  .stat { background: rgba(255, 220, 190, .07); border: .1cqw solid rgba(255, 220, 190, .14); border-radius: 1.4cqw; padding: .7cqw 1.6cqw; font-size: max(12px, 1.3cqw); font-weight: 600; line-height: 1.3; color: var(--dim); }
   .stat b { display: block; font-size: 2.4cqw; font-variant-numeric: tabular-nums; color: var(--text); }
   .stat.ok { border-color: rgba(125, 255, 208, .5); } .stat.ok b { color: var(--mint); text-shadow: 0 0 1cqw rgba(125, 255, 208, .6); }
 
@@ -210,27 +215,70 @@
   #shelf { z-index: 5; background: linear-gradient(rgba(18, 7, 18, .38), rgba(18, 7, 18, .62)), url(assets/bg/shelf.jpg) center / cover; } /* casinha de madeira à noite */
   #shelf .card { min-width: 0; width: 78cqw; padding: 2.4cqw 3cqw 2.6cqw; }
   #shelfSlots, #premioSlots { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.2cqw; margin: .8cqw 0 1.2cqw; text-align: center; }
-  .shelfH { margin: 1cqw 0 0; font-family: var(--display); font-weight: 400; font-size: 1.7cqw; letter-spacing: .25cqw; color: var(--gold); text-align: left; }
-  .shelfH small { font-family: var(--font); font-size: 1.1cqw; letter-spacing: 0; color: var(--dim); }
+  .shelfH { margin: 1cqw 0 0; font-family: var(--display); font-weight: 400; font-size: max(12px, 1.7cqw); letter-spacing: .25cqw; color: var(--gold); text-align: left; }
+  .shelfH small { font-family: var(--font); font-size: max(12px, 1.1cqw); letter-spacing: 0; color: var(--dim); }
   #shelfSlots .slot { padding: .6cqw .6cqw .8cqw; } #shelfSlots .slot .pic { width: 5.4cqw; height: 5.4cqw; } #shelfSlots .slot .pic img { height: 4.4cqw; } #shelfSlots .slot p { display: none; }
   #shelfSlots .slot .pic b { font-size: 2.6cqw; }
   .slot { background: rgba(255, 220, 190, .06); border: .1cqw solid rgba(255, 220, 190, .14); border-radius: 1.4cqw; padding: 1cqw .8cqw 1.2cqw; display: flex; flex-direction: column; align-items: center; gap: .3cqw; }
   .slot .pic { height: 8cqw; width: 8cqw; display: grid; place-items: center; border-radius: 50%; background: radial-gradient(circle, rgba(255, 214, 160, .12), transparent 70%); }
   .slot .pic img { height: 6.4cqw; filter: brightness(0) opacity(.45); }
   .slot .pic b { font-family: var(--display); font-size: 4cqw; font-weight: 400; color: rgba(255, 246, 234, .25); }
-  .slot small { font-size: 1.1cqw; font-weight: 700; letter-spacing: .12cqw; color: var(--dim); text-transform: uppercase; }
-  .slot strong { font-size: 1.45cqw; color: var(--text); }
-  .slot p { margin: .3cqw 0 0; font-size: 1.1cqw; line-height: 1.35; color: var(--dim); }
+  .slot small { font-size: max(12px, 1.1cqw); font-weight: 700; letter-spacing: .12cqw; color: var(--dim); text-transform: uppercase; }
+  .slot strong { font-size: max(12px, 1.45cqw); color: var(--text); }
+  .slot p { margin: .3cqw 0 0; font-size: max(12px, 1.1cqw); line-height: 1.35; color: var(--dim); }
   .slot.got { border-color: rgba(125, 255, 208, .5); box-shadow: 0 0 2cqw rgba(125, 255, 208, .15); }
   .slot.got .pic img { filter: drop-shadow(0 0 1cqw rgba(255, 220, 120, .8)); animation: float 2.2s ease-in-out infinite; }
   .slot.got strong { color: var(--mint); }
   .slot.soon { opacity: .55; }
-  #shelfCount { margin: .4cqw 0 0; color: var(--gold); font-weight: 700; font-size: 1.6cqw; }
+  #shelfCount { margin: .4cqw 0 0; color: var(--gold); font-weight: 700; font-size: max(12px, 1.6cqw); }
   #btnShelf { margin: 0; color: #fff; background: rgba(20, 10, 30, .55); border-color: rgba(255, 220, 190, .55); } /* na capa, o vidro escuro faz o botão ler sobre a arte */
   #fases { display: none; gap: 1cqw; margin-top: 1.2cqw; } #fases.on { display: flex; }
-  .chip { font-size: 1.4cqw; padding: .5cqw 1.8cqw; } .chip.cur { color: #fff; border-color: var(--glow); box-shadow: 0 0 1.6cqw rgba(255, 214, 160, .35); } .chip:disabled { opacity: .35; cursor: default; }
+  .chip { font-size: max(12px, 1.4cqw); padding: .5cqw 1.8cqw; } .chip.cur { color: #fff; border-color: var(--glow); box-shadow: 0 0 1.6cqw rgba(255, 214, 160, .35); } .chip:disabled { opacity: .35; cursor: default; }
   #faseTag { margin: 0 0 1cqw; font-family: var(--display); font-size: 2cqw; letter-spacing: .4cqw; color: var(--gold); text-shadow: 0 0 1.2cqw rgba(255, 180, 90, .6); min-height: 1em; }
   #btnNext { display: none; } #btnNext.on { display: inline-block; }
+  /* Em pé, no celular, o jogo vira uma faixa de 26% da altura com os botões de toque POR CIMA da
+     área de jogo — e nada na tela dizia para girar. Deitado é a mesma composição 1,78x maior: o
+     estado bom já existia e o jogo não contava ao jogador. (pente fino, 28/11/2026) */
+  /* SAFE-AREA (28/11/2026). O viewport pede viewport-fit=cover (linha 5) e até hoje não havia um
+     único env(safe-area-inset-*) no projeto: no iPhone deitado o notch podia cobrir o botão ◀ ou
+     a pílula de corações, e a barra de gesto de baixo fica sobre os botões de toque. As duas
+     camadas que encostam nas bordas recuam pelo recorte do sistema; onde não há recorte, env()
+     vale 0 e nada muda. NÃO FOI POSSÍVEL VERIFICAR AQUI: nenhum emulador desenha recorte de
+     sistema — precisa de um iPhone de verdade. */
+  @supports (padding: env(safe-area-inset-left)) {
+    #hud, #touch { inset: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left); }
+  }
+
+  /* PISO DE 44 px NOS ALVOS DE TOQUE (28/11/2026), só onde há dedo: no mouse não faz falta e
+     mexeria na composição. Seis alvos falhavam, e os dois piores eram o ❚❚ e o ♪ (3,8cqw = 14,8 px
+     em pé, 26 px deitado) — a ÚNICA saída de uma fase no celular, com 1,6cqw entre eles: errar por
+     um milímetro trocava o som quando se queria pausar. */
+  @media (pointer: coarse) {
+    .round { width: max(44px, 3.8cqw); height: max(44px, 3.8cqw); }
+    .tbtn { width: max(44px, 9.5cqw); height: max(44px, 9.5cqw); }
+    #btnReset, #btnTela, #btnTelaPausa { min-height: 44px; }
+  }
+
+  /* No toque não havia saída do mapa: Escape fecha, mas no celular não existe Escape. Quem abria
+     o mapa pelo "Jogar" não chegava mais em "Brinquedos" sem recarregar a página. */
+  #btnMapaVoltar { position: absolute; left: 1.8cqw; top: 1.8cqw; z-index: 7; font: 800 max(12px, 1.3cqw) var(--font); letter-spacing: .08cqw;
+    color: #fff3d6; background: rgba(28, 18, 44, .88); border: .12cqw solid var(--line); border-radius: 9cqw; padding: .7cqw 1.6cqw; }
+  #btnMapaVoltar:hover, #btnMapaVoltar:focus-visible { background: rgba(60, 38, 80, .95); }
+  @media (pointer: coarse) { #btnMapaVoltar { min-height: 44px; } }
+
+  #pauseHint { font-size: max(12px, 1.4cqw); color: var(--dim); letter-spacing: .04cqw; margin: -.4cqw 0 1.2cqw; }
+
+  #girar { position: absolute; inset: 0; display: none; place-items: center; align-content: center; background: #12070f;
+    font-family: var(--display); color: var(--text); text-align: center; padding: 8cqw; z-index: 60; }
+  #girar .fone { font-size: max(40px, 11cqw); line-height: 1; display: block; margin-bottom: 4cqw; animation: giraFone 2.6s ease-in-out infinite; }
+  #girar b { font-size: max(16px, 4cqw); font-weight: 400; display: block; }
+  #girar small { font-size: max(12px, 2.2cqw); color: var(--dim); display: block; margin-top: 3cqw; line-height: 1.6; font-family: var(--font); }
+  @keyframes giraFone { 0%, 35% { transform: rotate(0deg); } 55%, 100% { transform: rotate(-90deg); } }
+  /* só no toque: num navegador de computador com a janela alta, o jogo continua jogável */
+  @media (orientation: portrait) and (pointer: coarse) { #girar { display: grid; } }
+  /* a linha da tela de início só aparece onde não há tela cheia (o Safari do iPhone) */
+  #girar .semFs { display: none; } .semTela #girar .semFs { display: block; }
+
   #msg { position: absolute; inset: 0; display: grid; place-items: center; background: #12070f; font-family: var(--display); font-size: 2.2cqw; letter-spacing: .3cqw; color: var(--dim); text-align: center; padding: 6cqw; transition: opacity .8s; }
   #msg.hide { opacity: 0; pointer-events: none; }
   #msg.gate { cursor: pointer; color: #fff6ea; } #msg.gate #msgTxt { animation: logoPisca 1.6s ease-in-out infinite; } /* aperte para começar */
@@ -272,7 +320,7 @@
   </div>
   <div class="bar" id="barT"></div><div class="bar" id="barB"></div>
   <div id="bossCard"><small>CHEFÃO</small><h2>O FURTÃO</h2><p>o valentão que roubou o Macaco Fedido</p></div>
-  <div id="mapa" hidden></div><button id="btnReset" hidden>Recomeçar o jogo</button>
+  <div id="mapa" hidden></div><button id="btnReset" hidden>Recomeçar o jogo</button><button id="btnMapaVoltar" hidden>‹ Voltar</button>
   <div id="iris" class="layer"></div>
 
   <section id="title" class="screen on">
@@ -292,6 +340,10 @@
 
   <section id="pause" class="screen scrim"><div class="card">
     <h2>Pausa</h2><p id="pauseText">O Timtim parou para olhar os vaga-lumes.</p>
+    <!-- Os controles só existiam na capa, e quem vai para a fase 2 pelo "Próxima fase" não passa
+         pela capa: a dica de planar era vista por quase ninguém. A pausa é o lugar da referência
+         permanente — e, pela Seção 2 do art bible, ela é camada, não tela nova. -->
+    <p id="pauseHint" class="dica"></p>
     <div class="row"><button class="btn" id="btnResume">Continuar</button><button class="btn ghost" id="btnRestart">Recomeçar</button><button class="btn ghost" id="btnMapaPausa">Voltar ao mapa</button></div>
     <div class="row"><button class="btn ghost" id="btnCalmo" aria-pressed="false">Menos tremor e clarão: não</button><button class="btn ghost" id="btnTelaPausa">Tela cheia</button></div>
   </div></section>
@@ -327,6 +379,12 @@
     <div class="row"><button class="btn" id="btnShelfBack">Voltar</button></div>
   </div></section>
   <div id="msg"><span id="msgTxt">Carregando…</span><img class="loadLogo" src="assets/logo.webp" alt=""></div>
+  <div id="girar" aria-live="polite"><div>
+    <span class="fone" aria-hidden="true">📱</span>
+    <b>Gire o aparelho</b>
+    <small>O Timtim joga deitado — a tela fica quase duas vezes maior.</small>
+    <small class="semFs">Para jogar em tela cheia, use <b style="display:inline;font-size:inherit">Compartilhar › Adicionar à Tela de Início</b>.</small>
+  </div></div>
 </div></div>
 
 <script src="vendor/three.min.js"></script>

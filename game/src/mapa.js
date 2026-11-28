@@ -242,7 +242,10 @@
   }
   function showSign() {
     const f = FASES[me.fase - 1]; sign.t = 0; sign.txt = `FASE ${me.fase} · ${f.nome}`;
-    sign.sub = f.breve ? 'EM BREVE' : ''; // só o nome da fase, como nos mapas clássicos (Enter ou um toque na fase começa)
+    // Até 28/11/2026 a placa trazia só o nome da fase ("como nos mapas clássicos"). Mas os mapas
+    // clássicos vinham com manual: aqui o jogador apertava "Jogar", caía numa ilha e ficava sem
+    // ação declarada. Agora a placa diz o que fazer.
+    sign.sub = f.breve ? 'EM BREVE' : (matchMedia('(pointer: coarse)').matches ? 'TOQUE PARA JOGAR' : 'ENTER PARA JOGAR');
   }
   function update(dt, t) {
     if (me.path) { me.walkT += dt; me.pi += dt * 46;
@@ -269,7 +272,7 @@
   function click(e) {
     if (!ready) return; // sumindo ou fechado: cliques não valem
     const r = cv.getBoundingClientRect(), x = (e.clientX - r.left) / r.width * W, y = (e.clientY - r.top) / r.height * H;
-    const n = FASES.findIndex(f => Math.abs(f.x - x) < 12 && Math.abs(f.y - 4 - y) < 14) + 1;
+    const n = FASES.findIndex(f => Math.abs(f.x - x) < 16 && Math.abs(f.y - 4 - y) < 18) + 1; // 32x36 de canvas: ~48x54 px no deitado, acima do piso de 44 (era 24x28 = 36x42)
     if (!n) return; if (n === me.fase) play(); else walk(n);
   }
 

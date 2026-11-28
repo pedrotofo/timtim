@@ -16,6 +16,18 @@ const stage = $('stage');
   encaixa(); addEventListener('resize', depois); addEventListener('orientationchange', () => setTimeout(encaixa, 300));
   if (vv) vv.addEventListener('resize', depois); }
 
+// Em pé, no celular, a tela de girar cobre o palco (CSS) e o jogo PAUSA: senão ele seguiria
+// correndo atrás da cobertura, com o jogador sem ver nada. Ao girar, volta sozinho — quem girou
+// o aparelho quer continuar, e abrir o cartão de pausa seria um cartão que ninguém pediu.
+{ const deitadoOuTeclado = matchMedia('(orientation: landscape), (pointer: fine)');
+  let pausadoPorGiro = false;
+  const confere = () => {
+    if (!deitadoOuTeclado.matches) { if (S.mode === 'play') { TT.pause(); pausadoPorGiro = true; } }
+    else if (pausadoPorGiro) { pausadoPorGiro = false; TT.resume(); } };
+  confere();
+  if (deitadoOuTeclado.addEventListener) deitadoOuTeclado.addEventListener('change', confere);
+  addEventListener('orientationchange', () => setTimeout(confere, 300)); }
+
 // ---------------- controles ----------------
 const mainBtn = () => ({ title: 'btnStart', pause: 'btnResume', lose: 'btnRetry', win: $('btnNext').classList.contains('on') ? 'btnNext' : 'btnAgain' })[S.mode];
 const keyMap = { ArrowLeft: 'left', KeyA: 'left', ArrowRight: 'right', KeyD: 'right', Space: 'jump', ArrowUp: 'jump', KeyW: 'jump', ArrowDown: 'sniff', KeyS: 'sniff' };
@@ -162,12 +174,16 @@ TT.on('foxIntro', () => { stage.classList.add('cine'); const c = $('bossCard'); 
 const tipT = [];
 // Também no 'rematch': entrar na arena de novo depois de morrer não repete a cartela, mas tem de
 // repetir a estratégia — é a única instrução que ensina a vencer, e antes ela só vinha uma vez.
+// A estratégia vai no BANNER, não no balão. O balão (#say) tem 1,7cqw — 11,8 px no iPhone
+// deitado —, dura 2,6 s e fica em cima do personagem, durante a luta: o jogador perdia corações
+// sem conseguir ler a única instrução que ensina a vencer. O banner tem 2,7cqw (18,7 px) e sombra
+// feita para fundo claro. O balão continua para o que é sabor (o ovo, a fruta).
 const estrategia = () => {
-  const fala = (i, line) => { const f = S.friends[i]; if (f && S.mode === 'play') TT.emit('friend', { x: f.x, y: C.GROUND - 70, kind: f.kind, line }); };
   const ok = () => S.mode === 'play' && S.arena;
-  if (FASE === 3) { tipT.push(setTimeout(() => { if (ok()) fala(1, 'Cuidado com os tubos de tinta!'); }, 300)); return; }
-  tipT.push(setTimeout(() => { if (ok()) fala(1, 'Sobe no ar quente da fogueira!'); }, 300));
-  tipT.push(setTimeout(() => { if (ok()) fala(0, 'E cai planando na crina dele!'); }, 3300)); };
+  const diz = (txt, ms) => tipT.push(setTimeout(() => { if (ok()) TT.emit('banner', { text: txt, important: true, now: true }); }, ms));
+  if (FASE === 3) return diz('Quando o corvo descer para bicar, pule nas costas dele!', 300);
+  diz('Suba no ar quente da fogueira!', 300);
+  diz('E caia planando na crina dele!', 3300); };
 TT.on('cineEnd', e => { if (e.type === 'fox') estrategia(); });
 TT.on('rematch', estrategia);
 // o Corvo-Borrão: a hora de atacar é quando ele desce e fica bicando o chão
@@ -243,7 +259,11 @@ const PROGRESSO = ['tintim-fases', 'tintim-toys', 'tintim-best', 'tintim-best-2'
 // o botão fica no mapa (canto de baixo), só quando o mapa está aberto e já existe progresso salvo
 { const b = $('btnReset'); let sureT = 0, temProgresso = false;
   try { temProgresso = PROGRESSO.some(k => localStorage.getItem(k) && localStorage.getItem(k) !== '{}'); } catch (_) {}
-  TT.resetVisivel = () => { b.hidden = !(temProgresso && TT.mapa && TT.mapa.isOpen()); };
+  const voltar = $('btnMapaVoltar');
+  voltar.addEventListener('pointerdown', e => e.stopPropagation());
+  voltar.onclick = () => { TT.sfx('ui'); TT.mapa.close(); TT.resetVisivel(); };
+  TT.resetVisivel = () => { const noMapa = !!(TT.mapa && TT.mapa.isOpen());
+    b.hidden = !(temProgresso && noMapa); voltar.hidden = !noMapa; };
   b.addEventListener('pointerdown', e => e.stopPropagation());
   b.onclick = () => { TT.audioInit(); TT.sfx('ui');
     if (!b.classList.contains('sure')) { b.classList.add('sure'); b.textContent = 'Apagar todo o progresso? Toque de novo'; clearTimeout(sureT);
@@ -293,7 +313,10 @@ TT.uiFrame = () => { uiFrame0(); if (TT.resetVisivel) TT.resetVisivel(); if (!sa
   if (performance.now() > sayEnd || S.mode === 'lose') { say.classList.remove('on'); sayF = null; return; }
   const at = TT.R.toScreen(sayF.x, C.GROUND - (sayF === S.vg ? 232 : 118)), half = say.offsetWidth / 2 / Math.max(1, stage.clientWidth) + 0.01; // o balão nunca sai da tela
   say.style.left = (Math.max(half, Math.min(1 - half, at.x)) * 100).toFixed(2) + '%'; say.style.top = (Math.max(0.12, at.y) * 100).toFixed(2) + '%'; };
-TT.on('pause', () => show('pause'));
+// A pausa repete os controles da fase: o #hint existe só na capa, e quem chega pelo "Próxima
+// fase" não passa por ela. Copia o texto que o próprio jogo já monta por fase, em vez de
+// duplicar a lista e arriscar que as duas divirjam.
+TT.on('pause', () => { const h = $('hint'), ph = $('pauseHint'); if (h && ph) ph.textContent = h.textContent; show('pause'); });
 TT.on('resume', () => show(null));
 TT.on('stealIntro', () => stage.classList.add('cine'));
 TT.on('bossIntro', () => { stage.classList.add('cine'); setTimeout(() => $('bossCard').classList.add('show'), 650); });
