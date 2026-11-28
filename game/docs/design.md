@@ -34,6 +34,10 @@ O que **não** entra na fase 1: bandeirinhas, cenário colorido ou "feliz", vila
 - **Movimento elástico.** O corpo do Timtim estica e achata com uma mola, inclina com a velocidade, e deixa um rastro de silhuetas de luz na pirueta e no turbo.
 - **O Timtim tem o mesmo tamanho em todas as poses.** As alturas em `R.frame` (parado 80, correndo 82, pulo 77, queda 82, farejando 69) foram acertadas para a cabeça dele não mudar de tamanho ao trocar de pose; antes ele encolhia uns 20% no pulo.
 - **O Furtão é marrom**, como na abertura pintada (antes o jogo o deixava cinza-azulado).
+  Virou verdade em 28/11/2026: as folhas dele foram **graduadas** para o marrom da abertura
+  (R/B 2,05, o mesmo da arte pintada), e não regeradas — são 149 quadros tirados de vídeo. A coleira
+  de espinhos **fica**: a abertura pintada tem coleira. Na mesma passada, a crina do lobo-guará saiu
+  do preto chapado para o marrom quente do card da fase 2, que é onde ela devia estar.
 - **Interface discreta.** Vidro escuro, contornos finos de luz, letras serifadas que brilham. Nada de contorno grosso.
 
 ## 2.5D

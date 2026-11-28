@@ -441,9 +441,9 @@ Aplicado e empurrado nos dois branches:
 | **C** | interface no celular (itens 14 a 18) | `4def2f8` |
 | **B** | borda, névoa e nível de emergência (itens 9 a 12) | `e89468a` |
 | **D** | o relógio do áudio (item 19) | *este commit* |
+| **B** | item 13: o Furtão marrom e a crina do lobo-guará clareada | *este commit* |
 
-**Falta do laudo:** Grupo **E** (itens 20 a 26, só depois do `level-design-document`) e o item
-**13** do Grupo B (regerar o Furtão e clarear a crina — gasta crédito, pede o "pode" do Pedro).
+**Falta do laudo:** só o Grupo **E** (itens 20 a 26, depois do `level-design-document`).
 
 ### O que o Grupo D fechou (28/11/2026)
 
@@ -465,10 +465,46 @@ laudo de áudio elas nunca foram previsíveis pelo ouvido (cada uma tem fase pr�
 é 4× mais rápido que o ciclo), então o que se perde é a intenção escrita no `audio.js`, não um
 efeito que o jogador sentia. O pulso visual (lanternas, brilho) continua na batida.
 
-### Três coisas achadas durante o Grupo B, ainda abertas
+### O item 13 foi feito sem gastar crédito (28/11/2026)
 
-1. **Item 13 não foi feito** (regerar o Furtão em marrom sem coleira de espinhos, clarear a crina do
-   lobo-guará). É gerar sprite novo, e gerar imagem gasta crédito do Pedro: **pede o "pode" dele**.
+Pedro autorizou gerar. Não foi preciso: o defeito era de **cor**, não de desenho, e graduar as folhas
+que já existem resolve melhor do que regerar. As folhas de animação são 149 quadros do Furtão e 172
+do lobo-guará, tirados de vídeo; pelo `design.md` (24/11/2026), quadros gerados um a um pela IA variam
+entre si e a animação treme. Regerar custaria crédito e devolveria uma animação **pior**.
+
+**O Furtão** (`tools/grade-furtao.py`, 5 tiras + 6 poses paradas). Medido no arquivo, o pelo nem era
+azul: era marrom lavado (R 0,345 G 0,299 B 0,269, saturação 0,24). Lido sob a névoa azul da fase 1,
+isso vira cinza — a conta era de saturação e matiz. O alvo saiu da própria abertura pintada
+(`intro/2-roubo.jpg`), que o `design.md` cita como referência: R/B 2,03. A força é calibrada por
+arquivo, senão o Furtão ia de R/B 2,01 a 2,58 conforme a pose e mudava de tom ao trocar de pose. As
+onze poses ficaram em **2,05**.
+
+**A crina do lobo-guará** (`tools/clarear-crina.py`, 6 tiras + 6 poses paradas). O card pintado da
+fase 2 tem a crina **marrom-escura e quente** (v 0,46 contra 0,58 do corpo), não preta; o sprite tinha
+0,25 contra 0,54. Sobe por curva, não por soma, porque o que precisa subir é o preto chapado. O que a
+saturação não separa são as **patas**, também pretas — daí a banda vertical: só os 55% de cima da
+caixa opaca **de cada quadro** entram, quadro a quadro dentro da grade. Pata preta é do bicho e fica.
+
+> Na primeira passada a crina ficou lavada e leu como **lilás** contra o laranja do Arraial (saturação
+> 0,34 contra 0,72 do card). Corrigido subindo a saturação de chegada para 0,66.
+
+**A coleira de espinhos ficou, de propósito.** O item 13 dizia "sem coleira de espinhos", mas a
+abertura pintada — que é a referência que o `design.md` manda seguir para a cor dele — tem o Furtão
+**marrom e de coleira de espinhos**, e o art bible não proíbe a coleira em lugar nenhum: o fato
+não-negociável é só "marrom, nunca cinza-azulado". Tirar a coleira faria o sprite contradizer a
+própria arte de abertura. Se o Pedro quiser mesmo sem coleira, aí sim é gerar — e o card também muda.
+
+**O que um grade não alcança:** o art bible pede que a crina seja "o único ponto claro nele". Ela saiu
+do preto e ficou na cor do card, mas não é o ponto mais claro do bicho — isso seria redesenhar o
+animal, decisão de direção de arte, não de conserto. Vale notar que o aviso de **janela** já existe e
+funciona: `foxGlow` (`render3d.js:1199`) acende um brilho dourado em cima do lombo em `tired`, `bonk`
+e `eat`. Com a crina fora do preto, o brilho agora cai sobre uma forma que se enxerga.
+
+### Achadas durante o Grupo B: uma feita, duas ainda abertas
+
+1. ~~**Item 13 não foi feito**~~ — **feito em 28/11/2026**, por graduação das folhas que já existiam,
+   sem gerar sprite e sem gastar crédito (ver a seção acima). A coleira de espinhos ficou, de
+   propósito, porque a abertura pintada tem coleira.
 2. **A corrida do Timtim está 10% maior do que o fato não-negociável manda.** `CLAUDE.md` e
    `design.md` dizem que a altura da corrida é **82**; `render3d.js`, em `R.frame`, usa **88**
    (`name = 'tintim-run'; h = 88`). Não foi mexido: pode ter sido proposital quando a corrida virou
