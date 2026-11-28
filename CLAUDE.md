@@ -54,8 +54,11 @@ o que parece certo no desktop esconde o Timtim no iPhone.
 
 Nada é pronto sem:
 
-- `node game/tests/smoke.js`, `smoke-arraial.js` e `smoke-quadro.js` **verdes**; e
-- print nos dois viewports acima (`bash .claude/scripts/page-shot.sh game/index.html <saida.png> --size WxH`).
+    node game/tests/provar.js
+
+Isso roda os três smoke tests e abre o jogo nos dois viewports acima, salvando um print de cada
+em `production/evidencia/`. Funciona igual no Windows, no macOS e no Linux. Termina verde e escreve
+o recibo que o hook `.claude/hooks/gate-evidencia.sh` confere — sem ele, a resposta não encerra.
 
 Mexeu no pulo ou no desenho de uma fase? `node game/tests/metricas.js` também, e a regra dos
 **70% do alcance** no caminho principal é bloqueante, não conselho.

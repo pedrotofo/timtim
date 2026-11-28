@@ -36,7 +36,7 @@ próprio e **nenhuma** das APIs removidas entre r144 e r186 (`outputEncoding`, `
 
 ## Como se verificou que a imagem não mudou
 
-`bash game/tests/provar.sh` ficou verde (173 verificações). Depois, `comparar-prints.js` mediu a
+`node game/tests/provar.js` ficou verde (173 verificações). Depois, `comparar-prints.js` mediu a
 diferença de pixel entre a linha de base r144 e o r186, **e também entre duas rodadas do próprio
 r186**, como controle:
 

@@ -2,20 +2,31 @@
 
 ## Preparar a máquina (uma vez)
 
-Precisa de **Node 18 ou mais**, **Python 3** (serve a pasta `game/` na porta 8765) e o Chromium do
-Playwright:
+Precisa de **Node 18 ou mais** e do Chromium do Playwright. **Não precisa de Python** — o
+servidor local é Node, dentro do `provar.js`:
 
 ```sh
 npm install          # instala o playwright
 npm run preparar     # baixa o Chromium que ele usa
 ```
 
-No Windows, os hooks de `.claude/hooks/` são bash: use o **Git Bash**.
+### Windows: o Git Bash não é opcional
+
+A prova (`provar.js`) é Node e roda no PowerShell sem problema. **Os hooks são outra história.**
+Sem o [Git para Windows](https://git-scm.com/downloads/win) instalado, o Claude Code roda os hooks
+no PowerShell, e cada um **sai 0 sem executar** — o Gate 1 não bloqueia nada, em silêncio. O
+`setup-requirements.md` do framework documenta isso. O Claude Code acha o Git Bash em
+`C:\Program Files\Git` mesmo fora do PATH; se não achar, defina `CLAUDE_CODE_GIT_BASH_PATH`
+apontando para o `bash.exe`.
+
+No PowerShell 5.1 (o que vem no Windows) o `&&` não é operador válido: rode os comandos em linhas
+separadas, ou use `;`.
 
 ## Rodar
 
 ```sh
 npm run provar       # a prova completa: os 3 smoke tests + evidência nos 2 viewports
+# ou, sem npm:  node game/tests/provar.js
 ```
 
 É isto que o Gate 1 exige. Termina verde e escreve `production/evidencia/prova.ok`; o hook
@@ -42,7 +53,8 @@ você escrever um teste novo, espere por **condição** (`until(...)`), nunca po
 
 | Arquivo | O que faz |
 |---|---|
-| `provar.sh` | a prova completa; sobe e derruba o servidor sozinho e escreve o recibo |
+| `provar.js` | a prova completa; sobe e derruba o servidor Node sozinho e escreve o recibo. Igual nos três sistemas |
+| `provar.sh` | atalho de uma linha para o `provar.js`, para quem decorou o comando |
 | `smoke.js` | fase 1 (o Parque), 56 verificações |
 | `smoke-arraial.js` | fase 2 (o Arraial), 55 verificações |
 | `smoke-quadro.js` | fase 3 (o Quadro Encantado), 60 verificações |

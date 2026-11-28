@@ -47,7 +47,9 @@
       "Bash(node game/tests/smoke-quadro.js)",
       "Bash(node game/tests/evidencia.js *)",
       "Bash(node game/tests/evidencia.js)",
-      "Bash(node game/tests/metricas.js)"
+      "Bash(node game/tests/metricas.js)",
+      "Bash(node game/tests/provar.js)",
+      "Bash(npm run provar)"
     ],
     "deny": [
       "Bash(rm -rf *)",

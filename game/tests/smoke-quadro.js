@@ -16,6 +16,14 @@ const CINE = 20000; // ms reais para uma cinematica de ate 3,6 s de jogo termina
   pg.on('requestfailed', r => errs.push('falhou: ' + r.url()));
   const ev = (f, a) => pg.evaluate(f, a);
   const until = (f, ms = 20000) => pg.waitForFunction(f, null, { timeout: ms, polling: 50 }).then(() => true, () => false);
+  // Espera N segundos DE JOGO, não de parede, lendo o relógio do próprio jogo (S.clock).
+  // Existe porque main.js limita cada quadro a dt = min(0.033, raw) e a 10 passos de 1/240 s, de
+  // propósito, para a física não explodir num engasgo: numa máquina sem placa de vídeo o relógio
+  // do jogo anda a 0,5x o tempo real (medido). Medir movimento do jogo com waitForTimeout fazia o
+  // teste falhar por corrida, variando qual quebrava a cada rodada.
+  const esperaJogo = (s) => pg.evaluate(() => { window.__c0 = __tintim.S.clock; })
+    .then(() => pg.waitForFunction(s => __tintim.S.clock - window.__c0 >= s, s,
+      { timeout: Math.max(20000, s * 10000), polling: 25 }).then(() => true, () => false));
   const check = (ok, msg) => { console.log((ok ? 'ok   ' : 'FALHA') + ' ' + msg); if (!ok) process.exitCode = 1; };
   const put = (x, y, extra) => ev(([x, y, extra]) => { const p = __tintim.player; Object.assign(p, { x, y, vx: 0, vy: 0, onGround: false, inv: 0, hp: 3, orbit: null, swirlCd: 0, launchT: 0 }, extra || {}); }, [x, y, extra]);
   await pg.goto(url);
@@ -39,7 +47,7 @@ const CINE = 20000; // ms reais para uma cinematica de ate 3,6 s de jogo termina
   const pw = await ev(() => ({ w: __tintim.player.w, h: __tintim.player.h }));
   await put(sw.x - pw.w / 2 + 10, sw.y - pw.h / 2, { vy: 100 });
   check(await until(() => !!__tintim.player.orbit, 1500), 'pular dentro do redemoinho prende o Timtim');
-  const a0 = await ev(() => __tintim.player.orbit.a); await pg.waitForTimeout(400);
+  const a0 = await ev(() => __tintim.player.orbit.a); await esperaJogo(0.4);
   const o = await ev(() => ({ a: __tintim.player.orbit && __tintim.player.orbit.a, x: __tintim.player.x, y: __tintim.player.y }));
   check(o.a != null && Math.abs(o.a - a0) > 0.8, `o redemoinho gira com ele (girou ${(o.a - a0).toFixed(2)} rad)`);
   await ev(() => { window._swOut = null; TT.on('swirlOut', () => { const p = __tintim.player; window._swOut = window._swOut || { vx: p.vx, vy: p.vy }; }); });
@@ -53,7 +61,7 @@ const CINE = 20000; // ms reais para uma cinematica de ate 3,6 s de jogo termina
   const tol = await ev(() => TT.C.plats.find(q => q[3]));
   await put(tol[0] + tol[2] / 2 - pw.w / 2, tol[1] - pw.h - 30, { vy: 300 });
   check(await until(() => __tintim.player.vy < -900, 1500), 'cair no toldo do café quica alto');
-  let topY = 1e9; for (let i = 0; i < 12; i++) { topY = Math.min(topY, await ev(() => __tintim.player.y)); await pg.waitForTimeout(50); }
+  let topY = 1e9; for (let i = 0; i < 12; i++) { topY = Math.min(topY, await ev(() => __tintim.player.y)); await esperaJogo(0.05); }
   check(topY < tol[1] - pw.h - 200, `o quique sobe mais de 200 px (subiu ${(tol[1] - pw.h - topY).toFixed(0)})`);
 
   // estrelas que piscam: apagada, ele atravessa; acesa, segura
@@ -93,7 +101,7 @@ const CINE = 20000; // ms reais para uma cinematica de ate 3,6 s de jogo termina
   check(await ev(() => { const m = __tintim.R.dbg.fox(), o = m.material.map.offset; return m.visible && Number.isFinite(o.x) && Number.isFinite(o.y); }), 'o Corvo-Borrão continua desenhado depois da apresentação');
   check(await ev(() => document.querySelector('.bossRow b').textContent === 'Corvo-Borrão'), 'a barra de vida mostra "Corvo-Borrão"');
   check(await ev(() => TT.C.SWIRLS.every(s => s.x < TT.C.ARENA_X)), 'o morro do chefão não tem redemoinhos');
-  check(await until(() => __tintim.S.fox.state === 'fly', 4000), 'o Corvo-Borrão levanta voo');
+  check(await until(() => __tintim.S.fox.state === 'fly', CINE), 'o Corvo-Borrão levanta voo');
   // tubo de tinta: aparece a marca vermelha, o tubo cai ali e machuca quem estiver embaixo
   await ev(() => { const p = __tintim.player; Object.assign(p, { x: TT.C.ARENA_X + 300, y: TT.C.GROUND - p.h, vx: 0, vy: 0, onGround: true, inv: 0, hp: 3, mega: 0, fast: 0 }); __tintim.S.fox.cd = 0; });
   check(await until(() => __tintim.S.fox.state === 'aim', 2000), 'ele mira antes de soltar o tubo (aviso)');
@@ -109,17 +117,17 @@ const CINE = 20000; // ms reais para uma cinematica de ate 3,6 s de jogo termina
   // acabados os tubos ele mergulha e fica bicando o chão: é a hora de pular nas costas
   const peck = async () => { await ev(() => { const f = __tintim.S.fox; if (f.state === 'fly') { f.drops = 0; f.cd = 0; } }); return until(() => __tintim.S.fox.state === 'peck', 9000); };
   const stomp = () => ev(() => { const f = __tintim.S.fox, p = __tintim.player; Object.assign(p, { x: f.x + f.w / 2 - p.w / 2, y: f.y - p.h - 30, vx: 0, vy: 250, onGround: false, inv: 99, hp: 3 }); });
-  await until(() => __tintim.S.fox.state === 'fly', 6000);
+  check(await until(() => __tintim.S.fox.state === 'fly', CINE), 'entre as rodadas o corvo volta a voar');
   check(await peck(), 'sem tubos, ele mergulha e fica bicando o chão');
   check(await ev(() => __tintim.R.dbg.fox().userData.name === 'corvo-bica'), 'bicando, toca a animação da bicada (vídeo cortado em quadros)');
   await stomp();
   check(await until(() => __tintim.S.fox.hp === 2 && __tintim.S.fox.state === 'hurt', 1500), 'pular nas costas enquanto ele bica tira um coração');
-  check(await until(() => __tintim.S.fox.state === 'fly', 6000), 'depois do golpe ele volta a voar');
+  check(await until(() => __tintim.S.fox.state === 'fly', CINE), 'depois do primeiro golpe ele volta a voar');
   check(await ev(() => __tintim.S.fox.drops === 4), 'na segunda rodada ele joga mais tubos (4)');
   await peck(); await stomp();
   check(await until(() => __tintim.S.fox.hp === 1, 1500), 'segundo golpe nas costas');
   check(await ev(() => __tintim.S.fox.red), 'no último coração o corvo fica vermelho de raiva');
-  await until(() => __tintim.S.fox.state === 'fly', 6000);
+  check(await until(() => __tintim.S.fox.state === 'fly', CINE), 'depois do segundo golpe ele volta a voar');
   check(await ev(() => __tintim.R.dbg.crowRed().visible && __tintim.S.fox.drops === 6), 'vermelho e mais bravo: 6 tubos na última rodada');
   await peck(); await stomp();
   check(await until(() => __tintim.S.fox.hp === 0, 1500), 'o terceiro golpe derrota o Corvo-Borrão');

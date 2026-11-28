@@ -2,6 +2,12 @@
 // Uso: (cd game && python3 -m http.server 8765 &) ; node game/tests/smoke.js [url]
 // Espera por condições (e não por tempo fixo), então funciona mesmo em máquina lenta sem placa de vídeo.
 const { chromium } = require('playwright');
+// Espera de evento que acontece em tempo DE JOGO. As cinemáticas duram 3,2 a 4,6 segundos de jogo
+// (STEAL.dur é 4,6), e o relógio do jogo anda mais devagar que o tempo real numa máquina sem placa
+// de vídeo: main.js limita cada quadro a dt = min(0.033, raw) e a 10 passos de 1/240 s, de
+// propósito. Medimos 0,51x com WebGL por software, e aí 4,6 s de jogo levam 9,0 s de parede — o
+// prazo de 8000 ms desta suíte estava condenado a falhar. 20000 ms cobre até 0,23x.
+const CINE = 20000;
 (async () => {
   const url = process.argv[2] || 'http://localhost:8765/';
   const b = await chromium.launch({ args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist', '--autoplay-policy=no-user-gesture-required'] });
@@ -10,6 +16,14 @@ const { chromium } = require('playwright');
   pg.on('requestfailed', r => errs.push('falhou: ' + r.url()));
   const ev = f => pg.evaluate(f);
   const until = (f, ms = 20000) => pg.waitForFunction(f, null, { timeout: ms, polling: 50 }).then(() => true, () => false);
+  // Espera N segundos DE JOGO, não de parede, lendo o relógio do próprio jogo (S.clock).
+  // Existe porque main.js limita cada quadro a dt = min(0.033, raw) e a 10 passos de 1/240 s, de
+  // propósito, para a física não explodir num engasgo: numa máquina sem placa de vídeo o relógio
+  // do jogo anda a 0,5x o tempo real (medido). Medir movimento do jogo com waitForTimeout fazia o
+  // teste falhar por corrida, variando qual quebrava a cada rodada.
+  const esperaJogo = (s) => pg.evaluate(() => { window.__c0 = __tintim.S.clock; })
+    .then(() => pg.waitForFunction(s => __tintim.S.clock - window.__c0 >= s, s,
+      { timeout: Math.max(20000, s * 10000), polling: 25 }).then(() => true, () => false));
   const check = (ok, msg) => { console.log((ok ? 'ok   ' : 'FALHA') + ' ' + msg); if (!ok) process.exitCode = 1; };
   await pg.goto(url + '?q=0');
   check(await until(() => window.__tintim && __tintim.R.ready && __tintim.state === 'title'), 'abre na tela de título');
@@ -43,8 +57,8 @@ const { chromium } = require('playwright');
   check(await ev(() => __tintim.state) === 'title', 'o toque que abriu o card não pula o card');
   await pg.waitForTimeout(900); await pg.mouse.click(480, 270);
   check(await until(() => __tintim.state === 'play'), 'um toque no card começa a fase');
-  check(await until(() => !!__tintim.S.thief && __tintim.S.cine && __tintim.S.cine.type === 'steal', 5000), 'Furtão aparece com o macaco na abertura');
-  check(await until(() => !__tintim.S.cine && !__tintim.S.thief, 8000), 'Furtão foge e o controle é liberado');
+  check(await until(() => !!__tintim.S.thief && __tintim.S.cine && __tintim.S.cine.type === 'steal', CINE), 'Furtão aparece com o macaco na abertura');
+  check(await until(() => !__tintim.S.cine && !__tintim.S.thief, CINE), 'Furtão foge e o controle é liberado');
   await pg.keyboard.down('ArrowRight');
   check(await until(() => __tintim.player.x > 300), 'Tintim anda para a direita');
   check(await until(() => __tintim.S.cookies > 0), 'coleta biscoitos');
@@ -104,14 +118,15 @@ const { chromium } = require('playwright');
   await pg.keyboard.down('ArrowRight');
   check(await until(() => __tintim.S.cine && __tintim.S.cine.type === 'boss'), 'cena de apresentação do Furtão');
   await pg.keyboard.up('ArrowRight');
-  check(await until(() => !__tintim.S.cine && __tintim.S.arena, 40000), 'luta começa depois da cena');
+  check(await until(() => !__tintim.S.cine && __tintim.S.arena, CINE), 'luta começa depois da cena');
   // pisar fora da hora não tira coração do Brutão: ele sacode o Timtim
   const hp0 = await ev(() => { const b = __tintim.boss, p = __tintim.player; p.inv = 5; p.x = b.x + 50; p.y = b.y - 70; p.vy = 300; return b.hp; });
   await pg.waitForTimeout(600);
   check(await ev(() => __tintim.boss.hp) === hp0, 'pisar fora da hora não machuca o Furtão');
   // regressão (24/11/2026): cair nas costas do Furtão enquanto ele anda não pode tirar coração do Timtim.
   // O desenho dele é mais alto que o corpo de colisão; antes, encostar descendo abaixo do topo contava como esbarrão de lado.
-  await until(() => __tintim.boss.state === 'idle', 15000);
+  const bossParado = await until(() => __tintim.boss.state === 'idle', 15000);
+  check(bossParado, 'o Furtão volta a ficar parado depois do golpe');
   await ev(() => { const S = __tintim.S, b = S.boss, p = S.player; S.ball = null; S.waves.length = 0; b.cd = 99; b.ballT = 99;
     Object.assign(p, { inv: 0, mega: 0, hp: 3, vx: 0, vy: 150, onGround: false, x: b.x + 12 - p.w, y: b.y + 45 - p.h }); b.dir = -1; b.vx = -90; });
   await pg.waitForTimeout(250); // o contato acontece nos primeiros quadros; depois disso ele pode cair de novo ao lado e levar um esbarrão de verdade

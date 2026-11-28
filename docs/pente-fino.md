@@ -31,7 +31,7 @@ hooks costumam ser lidos na abertura. Se a sessão nova não mostrar o bloco de 
 
 ## A regra que não se negocia
 
-`bash game/tests/provar.sh` tem de terminar verde (173 verificações hoje) e escrever
+`node game/tests/provar.js` tem de terminar verde (173 verificações hoje) e escrever
 `production/evidencia/prova.ok`. O hook `.claude/hooks/gate-evidencia.sh` sai com 2 e impede a
 resposta de encerrar enquanto houver mudança em `game/src`, `game/assets`, `game/vendor`,
 `index.html` ou `mapa.html` sem prova mais nova que ela. Um teste que falha é bug a consertar,
@@ -127,7 +127,7 @@ paralelo com outra tarefa.
 
 ## Ordem sugerida
 
-1. **Prova de linha de base** — `bash game/tests/provar.sh` em segundo plano, para saber que o
+1. **Prova de linha de base** — `node game/tests/provar.js` em segundo plano, para saber que o
    ponto de partida é verde antes de culpar qualquer coisa.
 2. **Três em paralelo** — `level-designer` (progressão, as 6 perguntas acima, mais plataformas
    móveis), `art-director` (as proibições do art bible, mais os ciclos de animação pela Seção 9.4)

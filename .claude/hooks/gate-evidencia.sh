@@ -12,7 +12,7 @@
 #
 # É BARATO DE PROPÓSITO. O evento Stop dispara a cada resposta, não uma vez por sessão, então
 # este script não roda teste nenhum: ele compara datas de arquivo. Quem roda é
-# game/tests/provar.sh, que escreve o recibo.
+# game/tests/provar.js, que escreve o recibo.
 set -u
 
 # --- raiz do projeto (mesma precedência dos outros hooks) --------------------
@@ -62,7 +62,7 @@ GATE 1 — evidência pendente. $QUANTOS arquivo(s) do jogo mudaram e $1.
 
 Rode antes de encerrar:
 
-    bash game/tests/provar.sh
+    node game/tests/provar.js
 
 Isso roda os três smoke tests, abre o jogo em desktop 960x540 e num iPhone com
 safe-area e botões de toque, salva os prints em production/evidencia/ e escreve o

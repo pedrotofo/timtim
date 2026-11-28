@@ -16,6 +16,14 @@ const CINE = 20000; // ms reais para uma cinematica de ate 3,6 s de jogo termina
   pg.on('requestfailed', r => errs.push('falhou: ' + r.url()));
   const ev = (f, a) => pg.evaluate(f, a);
   const until = (f, ms = 20000) => pg.waitForFunction(f, null, { timeout: ms, polling: 50 }).then(() => true, () => false);
+  // Espera N segundos DE JOGO, não de parede, lendo o relógio do próprio jogo (S.clock).
+  // Existe porque main.js limita cada quadro a dt = min(0.033, raw) e a 10 passos de 1/240 s, de
+  // propósito, para a física não explodir num engasgo: numa máquina sem placa de vídeo o relógio
+  // do jogo anda a 0,5x o tempo real (medido). Medir movimento do jogo com waitForTimeout fazia o
+  // teste falhar por corrida, variando qual quebrava a cada rodada.
+  const esperaJogo = (s) => pg.evaluate(() => { window.__c0 = __tintim.S.clock; })
+    .then(() => pg.waitForFunction(s => __tintim.S.clock - window.__c0 >= s, s,
+      { timeout: Math.max(20000, s * 10000), polling: 25 }).then(() => true, () => false));
   const check = (ok, msg) => { console.log((ok ? 'ok   ' : 'FALHA') + ' ' + msg); if (!ok) process.exitCode = 1; };
   const put = (x, y, extra) => ev(([x, y, extra]) => { const p = __tintim.player; Object.assign(p, { x, y, vx: 0, vy: 0, onGround: false, inv: 0, hp: 3 }, extra || {}); }, [x, y, extra]);
   await pg.goto(url);
@@ -51,8 +59,8 @@ const CINE = 20000; // ms reais para uma cinematica de ate 3,6 s de jogo termina
 
   // ar quente: planando em cima da fogueira, ele sobe
   const fx = await ev(() => TT.C.fires[0].x);
-  await put(fx - 27, 250, { vy: 50 }); await pg.keyboard.down('Space'); await pg.waitForTimeout(150);
-  const y0 = await ev(() => __tintim.player.y); await pg.waitForTimeout(900); const y1 = await ev(() => __tintim.player.y);
+  await put(fx - 27, 250, { vy: 50 }); await pg.keyboard.down('Space'); await esperaJogo(0.15);
+  const y0 = await ev(() => __tintim.player.y); await esperaJogo(0.9); const y1 = await ev(() => __tintim.player.y);
   check(y1 < y0 - 60, `o ar quente da fogueira levanta quem plana (subiu ${(y0 - y1).toFixed(0)} px)`);
   await pg.keyboard.up('Space');
   // planada sem piscar: segurando o pulo dentro da coluna de ar quente por 2,5 s, ela nunca se desliga no ar
@@ -79,7 +87,7 @@ const CINE = 20000; // ms reais para uma cinematica de ate 3,6 s de jogo termina
   // a chama não machuca: é ali que ele pula para subir no ar quente
   await put(fx - 27, 452 - 50, { onGround: true }); await pg.waitForTimeout(250);
   check(await ev(() => __tintim.player.hp === 3), 'encostar na fogueira não tira coração (ela é o trampolim do planar)');
-  await until(() => __tintim.player.onGround, 3000);
+  await until(() => __tintim.player.onGround, CINE);
 
   // tábuas da quadrilha se movem e levam o Timtim junto
   const m = await ev(() => { const s = TT.MOVERS[0]; return { x: s.x, y: s.y, w: s.w }; });
@@ -110,14 +118,16 @@ const CINE = 20000; // ms reais para uma cinematica de ate 3,6 s de jogo termina
   const fr = await ev(() => TT.C.friends[0].x);
   await put(fr - 260, 452 - 50, { onGround: true, inv: 9 }); await pg.keyboard.down('ArrowRight');
   check(await until(() => __tintim.player.egg > 0, 6000), 'pegar o ovo cozido dá o planar turbinado'); await pg.keyboard.up('ArrowRight');
-  await put(fr, 60, { inv: 9 }); await pg.keyboard.down('Space'); await pg.waitForTimeout(700);
+  await put(fr, 60, { inv: 9 }); await pg.keyboard.down('Space');
+  // espera a planada turbinada ENGATAR e chegar ao teto dela (queda livre passaria de 1000)
+  const ovoEngatou = await until(() => __tintim.player.gliding && __tintim.player.vy > 20, CINE);
   const ge = await ev(() => ({ vy: __tintim.player.vy, gl: __tintim.player.gliding })); await pg.keyboard.up('Space');
-  check(ge.gl && ge.vy > 0 && ge.vy <= 75, `com o ovo, a queda planando fica bem mais lenta (vy=${ge.vy.toFixed(0)})`);
+  check(ovoEngatou && ge.gl && ge.vy > 0 && ge.vy <= 75, `com o ovo, a queda planando fica bem mais lenta (vy=${ge.vy.toFixed(0)})`);
 
   // galinha agitada: com o Timtim chegando perto, ela foge cacarejando
   const hen = await ev(() => { const i = __tintim.S.enemies.findIndex(e => e.alive && e.b - e.a > 200); const e = __tintim.S.enemies[i]; e.x = (e.a + e.b) / 2; return { i, x: e.x }; });
-  await put(hen.x + 150, 452 - 50, { onGround: true, inv: 9 }); await pg.waitForTimeout(150);
-  const scared = await ev(i => __tintim.S.enemies[i].scared, hen.i); await pg.waitForTimeout(250);
+  await put(hen.x + 150, 452 - 50, { onGround: true, inv: 9 }); await esperaJogo(0.15);
+  const scared = await ev(i => __tintim.S.enemies[i].scared, hen.i); await esperaJogo(0.25);
   const h1 = await ev(i => ({ x: __tintim.S.enemies[i].x }), hen.i);
   check(scared && h1.x < hen.x - 30, `a galinha fica agitada e foge quando o Timtim chega perto (andou ${(hen.x - h1.x).toFixed(0)} px)`);
 
@@ -139,7 +149,7 @@ const CINE = 20000; // ms reais para uma cinematica de ate 3,6 s de jogo termina
   await put(st0 + 20, 452 - 50, { onGround: true, inv: 9 });
   check(await until(() => !!__tintim.S.warn, 2000), 'passar do ponto da debandada levanta a poeira de aviso');
   check(await until(() => __tintim.S.runners.filter(r => r.kind === 'run').length === 4, 3000), 'depois do aviso, um bando de 4 galinhas aparece correndo');
-  const r0 = await ev(() => __tintim.S.runners[0].x); await pg.waitForTimeout(200);
+  const r0 = await ev(() => __tintim.S.runners[0].x); await esperaJogo(0.2);
   check(await ev(x => __tintim.S.runners[0].x < x - 40, r0), 'as galinhas da debandada correm da direita para a esquerda');
   await ev(() => { const r = __tintim.S.runners[0], p = __tintim.player; Object.assign(p, { x: r.x - 70, y: 452 - p.h, vx: 0, vy: 0, onGround: true, inv: 0, hp: 3, mega: 0 }); });
   check(await until(() => __tintim.player.hp < 3, 2000), 'encostar de lado numa galinha da debandada tira um coração');
@@ -167,14 +177,14 @@ const CINE = 20000; // ms reais para uma cinematica de ate 3,6 s de jogo termina
   await ev(() => { const f = __tintim.S.fox, p = __tintim.player; f.egg = 99; __tintim.S.fruit = null; f.state = 'wind'; f.atk = 'roar'; f.t = 5; Object.assign(p, { x: TT.C.ARENA_X + 100, y: 200, vx: 0, vy: 50, onGround: false, inv: 99 }); TT.input.jump = true; }); // planando perto dele
   check(await until(() => __tintim.S.fox.state === 'roar' && __tintim.S.fireOff > 0 && __tintim.player.noGlide > 0, 2000), 'o latido do lobo-guará apaga o ar quente das fogueiras e derruba quem plana');
   await ev(() => { TT.input.jump = false; });
-  await until(() => __tintim.player.onGround && __tintim.S.fox.state !== 'roar', 4000);
+  await until(() => __tintim.player.onGround && __tintim.S.fox.state !== 'roar', CINE);
   // fruta-do-lobo: ele para para comer, de lombo baixo, e até o pulo comum acerta
   await ev(() => { const f = __tintim.S.fox; f.x = TT.C.ARENA_X + 400; f.state = 'idle'; f.cd = 9; f.egg = 99; __tintim.S.fruit = { x: TT.C.ARENA_X + 560, y: TT.C.GROUND - 22, vx: 0, vy: 0, rest: true }; });
   check(await until(() => __tintim.S.fox.state === 'eat' && !__tintim.S.fruit, 3000), 'o lobo-guará corre até a fruta-do-lobo e para para comer');
   await ev(() => { const f = __tintim.S.fox, p = __tintim.player; Object.assign(p, { x: f.x + f.w / 2 - p.w / 2, y: f.y - p.h - 40, vx: 0, vy: 200, onGround: false, inv: 99, hp: 3, dj: false, buffer: 0, coyote: 0 }); });
   check(await until(() => __tintim.S.fox.hp === 2, 2000), 'comendo a fruta, um pulo comum na crina acerta');
   for (let k = 1; k < 3; k++) {
-    await until(() => ['idle', 'dodge', 'hurt'].includes(__tintim.S.fox.state) && __tintim.S.fox.state !== 'hurt' && __tintim.player.onGround, 4000);
+    await until(() => ['idle', 'dodge', 'hurt'].includes(__tintim.S.fox.state) && __tintim.S.fox.state !== 'hurt' && __tintim.player.onGround, CINE);
     await above(); await pg.keyboard.down('Space'); await pg.waitForFunction(n => __tintim.S.fox.hp === n, 2 - k, { timeout: 3000, polling: 50 }).catch(() => {}); await pg.keyboard.up('Space');
   }
   check(await ev(() => __tintim.S.fox.hp === 0), 'mais duas quedas planando na crina derrotam o lobo-guará');

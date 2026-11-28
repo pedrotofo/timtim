@@ -5,8 +5,7 @@
   "description": "Timtim e os Brinquedos Perdidos — plataforma 2.5D no navegador. O jogo em si não tem etapa de build: game/index.html carrega three.js e os oito arquivos de game/src por <script src>. Este package.json existe só para as ferramentas de teste.",
   "scripts": {
     "preparar": "playwright install chromium",
-    "servir": "cd game && python3 -m http.server 8765",
-    "provar": "bash game/tests/provar.sh",
+    "provar": "node game/tests/provar.js",
     "evidencia": "node game/tests/evidencia.js",
     "metricas": "node game/tests/metricas.js",
     "smoke": "node game/tests/smoke.js",
