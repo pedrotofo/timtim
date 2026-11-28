@@ -1,0 +1,10 @@
+{
+  "name": "progresso",
+  "version": "0.1.0",
+  "description": "Mostra numa faixa acima do campo de digitação quantas tarefas declaradas estão prontas, em barra, fração e porcentagem — e avisa quando não há nenhuma declarada.",
+  "types": "./types/index.d.ts",
+  "license": "MIT",
+  "author": {
+    "name": "Pedro"
+  }
+}
