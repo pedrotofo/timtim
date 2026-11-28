@@ -74,5 +74,19 @@ vídeo sai um ciclo completo (corrida, andar) ou um trecho que toca em vai e vol
 desenhados um a um pela IA variam entre si e a animação treme; os do vídeo são contínuos. A deformação por código
 (rabo, orelhas, respiração) fica só para as poses que ainda são paradas (bote, agachado, pulo duplo).
 
+## O som não é física (28/11/2026)
+
+Nenhuma mecânica deste jogo pode depender de ouvir. O som **confirma e antecipa**; quem decide se dá
+para pisar é a imagem. O relógio da música (`TT.beatClock`) pode enfeitar — pulso das lanternas, brilho
+das tábuas, uma batida que o cenário acompanha — e **nunca** ser a física: as regras do jogo andam todas
+em `S.clock`, no passo fixo de 1/240 s.
+
+Veio do pente fino: as tábuas da quadrilha andavam em `ctx.currentTime`, que não congela na pausa nem
+anda no passo do jogo. Media 195,3 px de teleporte lateral num só passo depois de 3,7 s de pausa (basta
+trocar de aba) e 1,55× a velocidade de projeto sem pausa nenhuma, com picos de 16× — ou seja, a
+velocidade das plataformas do vão de 1380 px dependia da máquina de quem jogava. O `beatClock` que
+sobrou é contínuo e monotónico: troca de trilha, laço da música ou aba escondida não fazem o enfeite
+pular nem voltar.
+
 ## Fora do escopo (por enquanto)
 Mais fases, mais quadros de animação (a corrida tem 4), animações próprias para os chihuahuas, sprites dos pugs reais, placar online.

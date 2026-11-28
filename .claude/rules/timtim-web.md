@@ -28,6 +28,17 @@ gamepad, e não há modo para daltônicos.
   porque o pulo dependia da taxa de quadros: 149 px a 30 fps contra 161 px a 144 fps. Nunca
   faça física ou lógica de jogo depender de `dt` variável.
 
+## O som não é física
+
+- **Nenhuma mecânica pode depender de ouvir.** O som confirma e antecipa; quem decide se dá para
+  pisar é a imagem. Decisão de 28/11/2026, em `game/docs/design.md`.
+- As regras do jogo — posição de plataforma móvel, tempo de estrela que pisca, tudo — andam em
+  `S.clock`. **Nunca** em `ctx.currentTime`, `TT.beatTime()` ou `TT.beatClock()`: eles não congelam
+  na pausa nem andam no passo fixo de 1/240 s.
+- `TT.beatClock()` existe **só para enfeite** (pulso, brilho, balanço) e é contínuo e monotónico de
+  propósito. Se um enfeite vai junto com um objeto que se move, use o relógio do objeto, não o da
+  música, ou o desenho descola da colisão.
+
 ## Celular é obrigatório, não é adaptação
 
 - `matchMedia('(pointer: coarse)')` muda a câmera (`DESCE`, em `render3d.js`) e os botões de

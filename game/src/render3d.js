@@ -1334,13 +1334,13 @@ R.frame = (rdt) => {
       if (Math.random() < live * 22 && Math.abs(q.f.x - fxS) < 900) spawn({ x: q.f.x + (Math.random() - 0.5) * 50, y: GROUND - 70, vx: (Math.random() - 0.5) * 40, vy: -160 - Math.random() * 220, g: -30, life: 1.4 + Math.random(), r: 1.6 + Math.random() * 1.6, color: Math.random() < 0.5 ? 0xffb050 : 0xffe08a, z: 14 }); }
     const near = fireM.slice().sort((a, b) => Math.abs(a.f.x - fxS) - Math.abs(b.f.x - fxS));
     fireLights.forEach((l, i) => { const q = near[i]; if (!q) return; l.position.set(q.f.x, 90, 60); l.intensity = 1.4 + Math.sin(time * 11 + i) * 0.25; });
-    const bt = TT.beatClock ? TT.beatClock() : clock, beat = Math.pow(1 - (bt * C.BPM / 60) % 1, 3); // um pulso por tempo da trilha (97,98 BPM)
+    const bt = TT.beatClock ? TT.beatClock() : clock, beat = Math.pow(1 - (bt * C.BPM / 60) % 1, 3); // um pulso por tempo da trilha (97,98 BPM). Só enfeite: nada de física sai daqui
     if (R.tub) { const q = R.tub, on = !!S.revealed.pescaria; q.peixes.forEach((f, k) => { const a = time * (0.9 + k * 0.3) + k * 2.1; f.visible = !on; f.position.set(q.t.x + Math.cos(a) * q.t.w * 0.3, Y(GROUND) + 39, 24 + Math.sin(a) * q.t.w * 0.2); f.rotation.y = -a; });
       q.tg.material.opacity = on ? 0.08 : 0.2 + 0.08 * Math.sin(time * 3); }
     if (R.hoop) { const q = R.hoop, on = !!S.revealed.argola; q.gr.rotation.z = Math.sin(time * 1.1) * 0.08; q.gr.rotation.y = Math.sin(time * 0.7) * 0.3; q.hg.material.opacity = on ? 0.12 : 0.28 + 0.12 * beat; }
     for (const q of lanterns) { const a = Math.sin(time * 0.9 + q.ph) * 0.06; q.m.rotation.z = a; q.g.position.x = q.x + Math.sin(a) * q.h * 0.78; }
     for (const q of moverM) { const s = q.s; q.m.position.set(s.x + s.w / 2, Y(s.y) - 8, 0); q.b.position.set(s.x + s.w / 2, Y(s.y) - 12, 30); q.b.rotation.x = Math.sin(time * 2.6 + s.x) * 0.25 + beat * 0.2; q.b.children.forEach((f, k) => { f.rotation.z = Math.sin(time * 3 + k + s.x * 0.01) * 0.18; });
-      q.g.position.set(s.x + s.w / 2, Y(s.y) + 2, 34); q.g.material.opacity = 0.14 + beat * 0.18; q.m.rotation.z = Math.sin(Math.PI * 2 * bt / s.mover.per + s.mover.ph) * 0.03; }
+      q.g.position.set(s.x + s.w / 2, Y(s.y) + 2, 34); q.g.material.opacity = 0.14 + beat * 0.18; q.m.rotation.z = Math.sin(Math.PI * 2 * clock / s.mover.per + s.mover.ph) * 0.03; } // a inclinação acompanha a POSIÇÃO da tábua, que anda em S.clock
   }
 
   if (VG) { const off = S.fireOff > 0 ? Math.min(1, S.fireOff * 3) : 0;

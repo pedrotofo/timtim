@@ -235,7 +235,9 @@ function schedule() {
 // ---- trilha gravada: cada fase tem a sua (fase e chefão); toca em laço com fusão entre o fim e o começo. A trilha sintetizada acima
 // cobre se o arquivo faltar. Fase 1: theme/boss (do Pedro, Suno). Fase 2: arraial/arraial-boss. Fase 3: quadro/quadro-boss.
 // A trilha do Arraial toca em laço exato de 64 compassos (sem fusão), para a batida nunca escorregar: TT.beatTime() diz em que
-// ponto da música estamos, e a quadrilha e as lanternas dançam nesse relógio. Andamento e primeiro tempo medidos no arquivo.
+// ponto da música estamos, e o pulso visual (lanternas, brilho das tábuas) dança nesse relógio. Andamento e primeiro tempo
+// medidos no arquivo. Desde 28/11/2026 este relógio NÃO move mais as tábuas da quadrilha: a física anda em S.clock (ver
+// TT.beatClock em game.js). Som enfeita; nenhuma mecânica do jogo pode depender de ouvir.
 const LOOPS = { arraial: { bpm: 97.98, beat0: 0.399, bars: 64 } };
 const FASE_MUS = { 1: ['theme', 'boss'], 2: ['arraial', 'arraial-boss'], 3: ['quadro', 'quadro-boss'] }[TT.FASE] || ['theme', 'boss'];
 const TRACKS = { title: FASE_MUS[0], level: FASE_MUS[0], boss: FASE_MUS[1] }, bufs = {};

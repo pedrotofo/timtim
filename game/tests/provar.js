@@ -70,6 +70,10 @@ function gameJsMudou() {
     if (!await rodar(t, [url])) falhas++;
   }
 
+  // regressão do relógio (Grupo D do laudo): a física não pode voltar a depender do áudio
+  console.log('\n=== relogio.js (a física não depende do áudio) ===');
+  if (!await rodar('relogio.js', [url])) falhas++;
+
   console.log('\n=== evidência (desktop + iphone) ===');
   if (!await rodar('evidencia.js', [OUT])) falhas++;
 

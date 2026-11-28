@@ -30,6 +30,7 @@ Regras usadas para conferir:
 | 1 | Tábuas de 5220, 6300, 7260 e 8160 desceram de 152 para 130 px | Ficavam a 3 px do topo do pulo; num computador lento nem eram alcançadas |
 | 1 | Bandeira nova em 2600 | Eram 13 s correndo até a primeira bandeira, a maior distância das 3 fases, logo na primeira fase |
 | 2 | Tábua de 2150 desceu para 130 px (com os biscoitos de cima) | Mesmo "quase" |
+| 2 | As tábuas da quadrilha passaram a andar no relógio da fase (`S.clock`), não no da música | Andavam **1,55×** mais rápido que o período declarado (picos de 16×), e **saltavam 195 px** ao voltar da pausa. A rota pelo vão de 1380 px dependia da máquina de quem jogava; agora `per` vale o que esta tabela supõe (medido: 21%) |
 | 2 | Saiu o chocolate de 1950 | Lento, o Timtim não atravessava o vão de 630 px logo depois (só a 85% do alcance com pulo duplo + planar da tábua) |
 | 3 | Tábuas de 2250 e 6150 desceram para 130 px (com os biscoitos de cima) | Mesmo "quase" |
 

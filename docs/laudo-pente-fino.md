@@ -440,9 +440,30 @@ Aplicado e empurrado nos dois branches:
 | **A** | 8 consertos de 1 a 3 linhas | `cdad4ac` |
 | **C** | interface no celular (itens 14 a 18) | `4def2f8` |
 | **B** | borda, névoa e nível de emergência (itens 9 a 12) | `e89468a` |
+| **D** | o relógio do áudio (item 19) | *este commit* |
 
-**Falta do laudo:** Grupo **D** (item 19, o relógio do áudio), Grupo **E** (itens 20 a 26, só
-depois do `level-design-document`), e o item **13** do Grupo B.
+**Falta do laudo:** Grupo **E** (itens 20 a 26, só depois do `level-design-document`) e o item
+**13** do Grupo B (regerar o Furtão e clarear a crina — gasta crédito, pede o "pode" do Pedro).
+
+### O que o Grupo D fechou (28/11/2026)
+
+A física não depende mais de ouvir. `moveMovers` anda em `S.clock`; `TT.beatClock()` sobrou só como
+enfeite e virou contínuo e monotónico (descarta qualquer salto de fonte). A política está declarada
+em `game/docs/design.md` ("O som não é física") e cobrada em `.claude/rules/timtim-web.md`.
+
+A regressão é `game/tests/relogio.js`, que entra no `provar.js`. Ela falsifica a fonte de som de
+propósito (relógio de música a 10×, com saltos para trás), porque neste contêiner o áudio pode nem
+tocar e o teste passaria contra o próprio defeito. **Vista falhar contra o código sem o conserto:**
+211 px de teleporte num só passo (o laudo media 195,3) e 82,6 px de erro de posição sem pausa
+nenhuma. Com o conserto: 1,16 px por passo, teto de 1,96; erro de posição 0,00 px.
+
+As métricas confirmam de fora: o vão de 1380 px agora mede **21%** do alcance pelas tábuas móveis,
+exatamente o que o `ritmo-das-fases.md` dizia e não era verdade.
+
+**O que isso custou de propósito:** as tábuas não estão mais travadas no compasso da trilha. Pelo
+laudo de áudio elas nunca foram previsíveis pelo ouvido (cada uma tem fase própria e o pulso visual
+é 4× mais rápido que o ciclo), então o que se perde é a intenção escrita no `audio.js`, não um
+efeito que o jogador sentia. O pulso visual (lanternas, brilho) continua na batida.
 
 ### Três coisas achadas durante o Grupo B, ainda abertas
 

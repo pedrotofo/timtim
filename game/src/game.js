@@ -436,7 +436,22 @@ for (const t of C.trails) for (const [x, y, w] of t.plats) SOLIDS.push({ x, y, w
 // tábuas da quadrilha: sólidos que se movem; a posição é recalculada a cada quadro e quem está em cima vai junto
 const MOVERS = C.movers.map(m => { const s = { x: m.x, y: m.y, w: m.w, h: 18, oneWay: true, mover: m, dx: 0, dy: 0 }; SOLIDS.push(s); return s; });
 TT.MOVERS = MOVERS;
-TT.beatClock = () => { const b = TT.beatTime && TT.beatTime(); return b != null ? b : S.clock; }; // tempo da música quando há trilha do Arraial; senão o relógio da fase
+// Relógio da batida — SÓ ENFEITE. A física NÃO usa este relógio (ver a chamada de moveMovers): o som
+// confirma e antecipa, quem decide se dá para pisar é a imagem. Política do laudo de áudio de
+// 28/11/2026: nenhuma mecânica deste jogo pode depender de ouvir.
+// Até 28/11/2026 ele devolvia TT.beatTime() cru (ctx.currentTime), que não congela na pausa nem anda
+// no passo fixo de 1/240 s — e movia as tábuas da quadrilha: medidos 195,3 px de teleporte lateral num
+// só passo depois de 3,7 s de pausa, e 1,55× a velocidade de projeto (picos de 16×) sem pausa nenhuma.
+// Agora é contínuo e monotónico: acumula o avanço da fonte de agora e descarta qualquer salto (troca de
+// trilha, laço da música, aba escondida, áudio que começa no meio da fase), então trocar de fonte
+// nunca pula para frente nem volta atrás.
+let beatSrc = null, beatAcc = 0;
+TT.beatClock = () => {
+  const b = TT.beatTime && TT.beatTime(), src = b != null ? b : S.clock, d = beatSrc == null ? 0 : src - beatSrc;
+  beatSrc = src;
+  if (d > 0 && d < 0.25) beatAcc += d; // salto (para frente ou para trás) = troca de fonte: não anda neste quadro
+  return beatAcc;
+};
 function moveMovers(clock) {
   for (const s of MOVERS) { const m = s.mover, a = Math.PI * 2 * clock / m.per + m.ph, nx = m.x + m.ax * Math.sin(a), ny = m.y + m.ay * Math.sin(a);
     s.dx = nx - s.x; s.dy = ny - s.y; s.x = nx; s.y = ny; }
@@ -540,7 +555,9 @@ TT.update = (rdt) => {
   }
 
   const p = S.player, I = TT.input;
-  if (MOVERS.length) { moveMovers(TT.beatClock()); if (p.on && p.on.mover && p.onGround) { p.x += p.on.dx; p.y += p.on.dy; } }
+  // as tábuas andam no relógio da FASE (S.clock, passo fixo de 1/240 s), nunca no da música: a física
+  // não depende de áudio (ver TT.beatClock). É o que faz o período de `per` valer o que o ritmo-das-fases.md supõe.
+  if (MOVERS.length) { moveMovers(S.clock); if (p.on && p.on.mover && p.onGround) { p.x += p.on.dx; p.y += p.on.dy; } }
   p.inv = Math.max(0, p.inv - dt); p.fast = Math.max(0, p.fast - dt); p.mega = Math.max(0, p.mega - dt); p.slow = Math.max(0, p.slow - dt);
   p.hurtT = Math.max(0, p.hurtT - dt); p.shrugT = Math.max(0, (p.shrugT || 0) - dt); p.egg = Math.max(0, (p.egg || 0) - dt);
 
