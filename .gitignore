@@ -11,3 +11,6 @@ site/
 production/evidencia/
 # logs de sessão dos hooks do framework
 production/session-logs/
+
+# dependências das ferramentas de teste (o jogo não tem build)
+node_modules/
