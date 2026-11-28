@@ -2,6 +2,12 @@
 // faro revelando o caminho até a sanfoninha, galinhas agitadas, brincadeiras juninas e a luta com o lobo-guará. Mesmo esquema do smoke.js: espera por condições.
 // Uso: (cd game && python3 -m http.server 8765 &) ; node game/tests/smoke-arraial.js [url]
 const { chromium } = require('playwright');
+// Espera de fim de cinematica. As cinematicas duram 3,2 a 3,6 segundos DE JOGO, e o relogio do
+// jogo anda mais devagar que o tempo real numa maquina lenta: main.js limita cada quadro a
+// dt = min(0.033, raw) e a 10 passos de 1/240 s, de proposito, para a fisica nao explodir num
+// engasgo. Com WebGL por software (sem placa de video), medimos 0,58x o tempo real: 3,2 s de jogo
+// levaram 5,5 s reais, e o orcamento de 6000 ms falhava por pouco. 20000 ms cobre ate 0,18x.
+const CINE = 20000; // ms reais para uma cinematica de ate 3,6 s de jogo terminar
 (async () => {
   const url = (process.argv[2] || 'http://localhost:8765/') + '?fase=2&q=0';
   const b = await chromium.launch({ args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist', '--autoplay-policy=no-user-gesture-required'] });
@@ -21,7 +27,7 @@ const { chromium } = require('playwright');
   check(await until(() => __tintim.storyScene === 1 && document.getElementById('storyLine').textContent.includes('galinhas do arraial'), 4000), 'antes da fase, o card do Arraial (alguém assustando as galinhas)');
   await pg.waitForTimeout(900); await pg.keyboard.press('Space');
   check(await until(() => __tintim.state === 'play' && __tintim.S.cine && __tintim.S.cine.type === 'arraial', 5000), 'depois do card, a fase começa com o cartão do Arraial');
-  check(await until(() => !__tintim.S.cine, 6000), 'cartão some e o controle é liberado');
+  check(await until(() => !__tintim.S.cine, CINE), 'cartão some e o controle é liberado');
   check(await ev(() => !__tintim.S.thief && !__tintim.S.arena), 'sem Furtão nem chefão no Arraial');
   check(await ev(() => __tintim.R.foe === 'galinha' && __tintim.S.enemies.length > 0), 'os inimigos do Arraial são galinhas caipiras, não pombos');
 
@@ -30,11 +36,18 @@ const { chromium } = require('playwright');
   check(await until(() => __tintim.player.x < TT.C.GLIDE_TUT.edge && __tintim.player.hp === 3 && __tintim.S.tut.tries >= 1, 6000), 'cair no primeiro vão durante a aula do planar não tira coração');
   await ev(() => { __tintim.S.tut.learned = true; __tintim.S.slowT = 0; });
   // planar: no ar, segurando o pulo, a queda fica lenta
-  await put(1300, 100); await pg.keyboard.down('Space'); await pg.waitForTimeout(700);
+  await put(1300, 100); await pg.keyboard.down('Space');
+  // Segurar a tecla por 700 ms de parede rendia pouco tempo DE JOGO numa máquina lenta (ver a nota
+  // do CINE acima): medimos a planada ainda sem engatar, com vy=37, e o teste falhava por corrida.
+  // Agora espera as duas condições: a planada engatar, e a velocidade chegar ao teto dela.
+  const engatou = await until(() => __tintim.player.gliding, CINE);
+  const noTeto = await until(() => __tintim.player.vy > 100, CINE);
   const g = await ev(() => ({ vy: __tintim.player.vy, gl: __tintim.player.gliding }));
-  check(g.gl && g.vy > 0 && g.vy < 160, `planando, a queda fica lenta (vy=${g.vy.toFixed(0)})`);
-  await pg.keyboard.up('Space'); await pg.waitForTimeout(300);
-  check(await ev(() => !__tintim.player.gliding && __tintim.player.vy > 300), 'soltando o pulo, ele volta a cair normal');
+  // queda livre passa de 1000; a planada tem de estar presa perto de 135
+  check(engatou && noTeto && g.gl && g.vy > 0 && g.vy < 160, `planando, a queda fica lenta (vy=${g.vy.toFixed(0)})`);
+  await pg.keyboard.up('Space');
+  const soltou = await until(() => !__tintim.player.gliding && __tintim.player.vy > 300, CINE);
+  check(soltou, 'soltando o pulo, ele volta a cair normal');
 
   // ar quente: planando em cima da fogueira, ele sobe
   const fx = await ev(() => TT.C.fires[0].x);
@@ -72,12 +85,17 @@ const { chromium } = require('playwright');
   const m = await ev(() => { const s = TT.MOVERS[0]; return { x: s.x, y: s.y, w: s.w }; });
   // a tábua anda enquanto ele cai: põe o Timtim em cima dela na posição atual e espera ele estar mesmo apoiado nela.
   // Começa com a tábua perto do meio do caminho (andando rápido): perto das pontas ela quase para e 0,5 s não basta para medir
-  await until(() => Math.abs(TT.MOVERS[0].x - TT.C.movers[0].x) < 45, 6000);
+  const noMeio = await until(() => Math.abs(TT.MOVERS[0].x - TT.C.movers[0].x) < 45, CINE);
   await ev(() => { const s = TT.MOVERS[0], p = __tintim.player; Object.assign(p, { x: s.x + s.w / 2 - p.w / 2, y: s.y - p.h - 1, vx: 0, vy: 0, inv: 9, hp: 3, onGround: false }); });
-  await until(() => __tintim.player.onGround && __tintim.player.on && !!__tintim.player.on.mover, 2000);
-  const a0 = await ev(() => ({ px: __tintim.player.x, sx: TT.MOVERS[0].x })); await pg.waitForTimeout(500);
-  const a1 = await ev(() => ({ px: __tintim.player.x, sx: TT.MOVERS[0].x, on: __tintim.player.onGround }));
-  check(Math.abs(a1.sx - a0.sx) > 10 && a1.on && Math.abs((a1.px - a0.px) - (a1.sx - a0.sx)) < 4, 'a tábua da quadrilha anda e leva o Timtim junto' + (process.env.DBG ? JSON.stringify([a0, a1]) : ''));
+  const apoiado = await until(() => __tintim.player.onGround && __tintim.player.on && !!__tintim.player.on.mover, 4000);
+  // A tábua anda em tempo DE JOGO e o relógio do jogo é mais lento que o real numa máquina sem
+  // placa de vídeo (ver a nota do CINE acima). Esperar 500 ms de parede media só ~290 ms de jogo,
+  // e perto das pontas a tábua quase para: andava menos que o mínimo e o teste falhava por corrida.
+  // Agora a espera é a própria condição — a tábua ter andado 25 px — e não um tempo fixo.
+  await ev(() => { window.__sx0 = TT.MOVERS[0].x; window.__px0 = __tintim.player.x; });
+  const andou = await until(() => Math.abs(TT.MOVERS[0].x - window.__sx0) > 25, CINE);
+  const a1 = await ev(() => ({ px: __tintim.player.x, sx: TT.MOVERS[0].x, on: __tintim.player.onGround, px0: window.__px0, sx0: window.__sx0 }));
+  check(noMeio && apoiado && andou && a1.on && Math.abs((a1.px - a1.px0) - (a1.sx - a1.sx0)) < 4, 'a tábua da quadrilha anda e leva o Timtim junto' + (process.env.DBG ? JSON.stringify([{ noMeio, apoiado, andou }, a1]) : ''));
 
   // faro: perto da terceira fogueira revela o caminho de cheiro até a sanfoninha
   const t = await ev(() => TT.C.trails[0].at);
@@ -137,7 +155,7 @@ const { chromium } = require('playwright');
   await put(ax + 200, 452 - 50, { onGround: true, inv: 99 });
   check(await until(() => __tintim.S.arena && __tintim.S.cine && __tintim.S.cine.type === 'fox', 3000), 'chegar no fim do Arraial apresenta o lobo-guará');
   check(await ev(() => __tintim.S.runners.filter(r => r.kind === 'flee').length === 3 && __tintim.S.runners.every(r => r.kind !== 'flee' || r.vx < 0)), 'na apresentação, as galinhas caçadas fogem para a esquerda');
-  check(await until(() => !__tintim.S.cine, 6000), 'depois da apresentação, a luta começa');
+  check(await until(() => !__tintim.S.cine, CINE), 'depois da apresentação, a luta começa');
   check(await ev(() => { const f = __tintim.S.fox, p = __tintim.player; return (f.x + f.w / 2) - (p.x + p.w / 2) > 280; }), 'na apresentação o lobo-guará se afasta: a luta não começa com o Timtim colado nele');
   await pg.waitForTimeout(400);
   check(await ev(() => { const m = __tintim.R.dbg.fox(), o = m.material.map.offset; return m.visible && Number.isFinite(o.x) && Number.isFinite(o.y) && Number.isFinite(m.userData.ph); }), 'depois da apresentação o lobo-guará continua desenhado (quadro da animação válido)');

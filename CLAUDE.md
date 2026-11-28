@@ -76,6 +76,14 @@ Um dono por arquivo, escolhidos pelo churn real da produção. **Nunca dois agen
 | `qa-tester` | `game/tests/`, achados, evidência |
 | `ux-designer` | matriz de dispositivos, fluxo de telas, onboarding |
 
+Para a camada Three.js, o `technical-artist` tem três skills de apoio instaladas em
+`.claude/skills/threejs-*` (o framework não traz nenhum especialista web): `threejs-debug-profiler`
+(tela preta, NaN no bloom, resize, toque, orçamento de draw calls), `threejs-aaa-graphics-builder`
+(materiais, luz, shaders de superfície) e `threejs-aaa-vfx-builder` (partículas por `DepthTexture`,
+trilhas, passes de impacto). Elas não são comando de barra: nomeie a skill no pedido. **O kit de
+VFX delas é TypeScript com módulos ES — é referência, não código para copiar.** Ver
+`.claude/skills/THREEJS-PACK.md`.
+
 `art-director`, `level-designer` e `ux-designer` **não têm Bash** — eles leem, julgam e escrevem,
 mas não rodam o jogo nem tiram print. Quem produz a evidência para eles é o `qa-tester`.
 

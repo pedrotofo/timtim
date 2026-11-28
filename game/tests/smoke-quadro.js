@@ -2,6 +2,12 @@
 // toldos do café que quicam, estrelas que piscam, corvos no trigal e a luta com o Corvo-Borrão (tubos de tinta, bicadas, pincel). Mesmo esquema do smoke-arraial.js: espera por condições.
 // Uso: (servidor local na porta 8765 servindo a pasta game/) ; node game/tests/smoke-quadro.js [url]
 const { chromium } = require('playwright');
+// Espera de fim de cinematica. As cinematicas duram 3,2 a 3,6 segundos DE JOGO, e o relogio do
+// jogo anda mais devagar que o tempo real numa maquina lenta: main.js limita cada quadro a
+// dt = min(0.033, raw) e a 10 passos de 1/240 s, de proposito, para a fisica nao explodir num
+// engasgo. Com WebGL por software (sem placa de video), medimos 0,58x o tempo real: 3,2 s de jogo
+// levaram 5,5 s reais, e o orcamento de 6000 ms falhava por pouco. 20000 ms cobre ate 0,18x.
+const CINE = 20000; // ms reais para uma cinematica de ate 3,6 s de jogo terminar
 (async () => {
   const url = (process.argv[2] || 'http://localhost:8765/') + '?fase=3&q=0';
   const b = await chromium.launch({ args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist', '--autoplay-policy=no-user-gesture-required'] });
@@ -22,7 +28,7 @@ const { chromium } = require('playwright');
   await pg.waitForTimeout(900); await pg.keyboard.press('Space');
   check(await until(() => __tintim.state === 'play' && __tintim.S.cine && __tintim.S.cine.type === 'arraial', 5000), 'depois do card, a fase começa com o cartão dela');
   check(await ev(() => document.body.innerText.includes('QUADRO ENCANTADO')), 'o cartão anuncia "O Quadro Encantado"');
-  check(await until(() => !__tintim.S.cine, 6000), 'depois do cartão, o controle é liberado (o card já contou a história; o Van Gogh não repete)');
+  check(await until(() => !__tintim.S.cine, CINE), 'depois do cartão, o controle é liberado (o card já contou a história; o Van Gogh não repete)');
   check(await ev(() => { const m = __tintim.R.dbg.vg(); return m.visible && m.userData.name === 'vangogh-triste'; }), 'o Van Gogh aparece triste no começo');
   check(await ev(() => !document.getElementById('say').classList.contains('on')), 'sem balão de fala do Van Gogh no começo');
   check(await ev(() => !__tintim.S.thief && !__tintim.S.arena && __tintim.S.enemies.length > 0), 'sem Furtão nem chefão no começo, e há corvos no caminho');
@@ -82,7 +88,7 @@ const { chromium } = require('playwright');
   await put(ax + 200, 452 - 50, { onGround: true, inv: 99 });
   check(await until(() => __tintim.S.arena && __tintim.S.cine && __tintim.S.cine.type === 'fox', 3000), 'chegar no morro apresenta o Corvo-Borrão');
   check(await ev(() => document.body.innerText.includes('CORVO-BORRÃO')), 'o cartão do chefão diz "O CORVO-BORRÃO"');
-  check(await until(() => !__tintim.S.cine, 6000), 'depois da apresentação, a luta começa');
+  check(await until(() => !__tintim.S.cine, CINE), 'depois da apresentação, a luta começa');
   await pg.waitForTimeout(400);
   check(await ev(() => { const m = __tintim.R.dbg.fox(), o = m.material.map.offset; return m.visible && Number.isFinite(o.x) && Number.isFinite(o.y); }), 'o Corvo-Borrão continua desenhado depois da apresentação');
   check(await ev(() => document.querySelector('.bossRow b').textContent === 'Corvo-Borrão'), 'a barra de vida mostra "Corvo-Borrão"');

@@ -6,16 +6,20 @@
 1. **É o Timtim.** Mancha preta, bandana de festa junina, lacinho. O varal de luzinhas do parque repete as cores da bandana.
 2. **Fluidez antes de tudo.** Pulo variável, pulo duplo com pirueta, um instante de flutuação no topo do pulo, tolerância na borda (coyote time, 0,1s), pulo antecipado (buffer, 0,12s), câmera que olha à frente e acompanha a altura.
 3. **Impacto.** Cada pisão congela o jogo por um instante (hitstop), treme a câmera e solta faíscas de luz. O golpe final é em câmera lenta.
-4. **Piada interna.** Os chefões são "os pugs da vizinha", com cena de apresentação própria. Os dois amigos chihuahuas esperam no caminho e dão biscoito.
+4. **Piada interna.** Os chefões são cães e bichos da vizinhança, com cena de apresentação própria: o **Furtão** (cão marrom) na fase 1, o **lobo-guará** na fase 2, o **Corvo-Borrão** na fase 3. A **Zara** (chihuahua preta e branca) e o **Elvis** (chihuahua branco) esperam no caminho e dão biscoito. *(Corrigido em 28/11/2026: a linha dizia "os pugs da vizinha", da ideia original; não há pug no jogo, e "sprites dos pugs reais" segue fora do escopo, no fim deste documento.)*
 
 ## Direção de arte: cada fase tem uma cor e um sentimento
+
+> Desde 28/11/2026 existe `design/art/art-bible.md`, que **manda** onde os dois documentos falarem
+> da mesma coisa. Ele fecha as superfícies de marca (capa, logo, cards, tipografia), a linguagem de
+> forma por arquétipo e o sistema de cor; aqui fica o detalhe de cada fase.
 Regra (Pedro, 24/11/2026): cada fase tem **uma cor predominante e um sentimento próprio**, para ficar claro que mudou de fase. A paleta é da fase inteira, não muda ao longo do caminho (`dayLight` em `render3d.js`).
 
 | Fase | Cor | Sentimento | O que compõe |
 |---|---|---|---|
 | 1 · O Parque | **azul** | noite soturna, misteriosa, "cara de pântano"; homenagem à linguagem visual de *Ori and the Will of the Wisps* | floresta noturna pintada com raios de luz, névoa em camadas e uma figueira anciã brilhando em ciano ao longe (`bg/floresta-azul.jpg`), o Timtim com luz própria fria e contorno ciano, silhuetas escuras de raízes, samambaias e galhos com borda ciano no primeiro plano (`props/frente-*.png`), flores de luz magenta como acento quente, figueiras com lanternas, varais de luzinhas, lajes de pedra com musgo luminoso e raízes, sebe escura com florzinhas acesas, plantas de pântano ao luar (samambaia, taboa, cogumelos com brilho ciano), esporos azuis e violeta |
 | 2 · O Arraial | **laranja** | festa quente, aconchegante, iluminada por fogueiras; a mesma linguagem visual de Ori da fase 1, em dourado | um arraial escondido numa clareira da mata ao entardecer, com névoa dourada contra a luz, raios de sol, fumaça das fogueiras e casinhas sobre palafitas (`bg/arraial-mata.jpg`), lanternas de cabaça penduradas balançando, silhuetas com borda dourada no primeiro plano (`props/frente-arraial-*.png`, `props/galhos-arraial.png`), contorno dourado no Timtim, troncos gigantes da mata espaçados no meio do cenário (`props/troncos.png`), plataformas que são deques de madeira sobre palafitas (troncos com casca e amarração de corda), tábuas da quadrilha que são peneiras de palha trançada com fitas, tochas de bambu no lugar dos postes e no checkpoint, barracas, bandeirinhas, fogueiras, mastro de São João, tábuas penduradas, terra batida |
-| 3 · O Quintal da Vizinha | (a definir) | | |
+| 3 · O Quadro Encantado | **o quadro de Van Gogh** | entrar numa pintura: pincelada que ondula, céu em espiral, girassóis | o mundo do quadro depois que o Corvo-Borrão rouba o pincel do Van Gogh. Paleta em `VGP` (`render3d.js`): fundo `#0c1430`, névoa `#7088c8`, facho `#f6e08a`, ambiente `#fff2d8`. A sombra é quase neutra (`shade (.96, .97, 1.04)`), então aqui a hierarquia vem de **valor e direção de pincelada**, não de temperatura — e o piso tem de ficar mais reto que em qualquer outra fase (ver `design/art/art-bible.md`, Seção 3) |
 | 4 · Dia de Chuva | (a definir) | | |
 | 5 · O Covil do Furtão | (a definir) | | |
 
